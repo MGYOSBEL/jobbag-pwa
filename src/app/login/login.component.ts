@@ -7,6 +7,9 @@ import {
 } from '@angular/forms';
 import { AuthenticationService } from '../services/authentication.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+import { first } from 'rxjs/operators';
+import { LoggingService } from '../logging.service';
 
 
 @Component({
@@ -21,10 +24,15 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   returnUrl: string;
 
+
+
+
   constructor(private formBuilder: FormBuilder,
               private route: ActivatedRoute,
               private router: Router,
-              private authenticationService: AuthenticationService) {
+              private authenticationService: AuthenticationService,
+              private logging: LoggingService) {
+
     this.loginForm = this.formBuilder.group({
       email: [' ', Validators.required],
       password: [' ', Validators.required]
@@ -34,12 +42,17 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log('login()');
-    this.authenticationService.login();
-    // this.email.setValue('');
-    // this.password.setValue('');
+    this.logging.log('submitting the form');
+    this.authenticationService.login(this.email.value, this.password.value)
+        .subscribe( data =>  {
+          this.logging.log(data);
+          this.email.setValue('');
+          this.password.setValue('');
 
-    this.router.navigate([this.returnUrl]);
+          this.router.navigate([this.returnUrl]);
+        });
+
+
   }
 
   ngOnInit() {
