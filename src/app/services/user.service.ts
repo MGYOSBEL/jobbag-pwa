@@ -9,9 +9,13 @@ import { LoggingService } from '../logging.service';
 })
 export class UserService {
 
+  loggedUser: User;
+
   constructor(private http: HttpClient, private logging: LoggingService) { }
 
-  getUser(): Observable<User> {
-    return this.http.get<User>('http://localhost/api/user/get/test@gmail.com');
+  getUser(): Observable<User>  {
+    const user_id = JSON.parse(localStorage.getItem('bearerToken')).user_id;
+    return this.http.get<User>('http://localhost/api/user/get/' + user_id);
+
   }
 }

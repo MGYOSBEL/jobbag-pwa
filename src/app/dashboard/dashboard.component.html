@@ -1,1 +1,23 @@
-<h3>{{$loggedUser | async | json }}</h3>
+<!-- <h3>{{$loggedUser | async | json }}</h3> -->
+<div >
+  <h1>Welcome {{loggedUser.username}}</h1>
+  <h2>Your profile:</h2>
+  <h3>email: {{loggedUser.email}}</h3>
+  <h3>Canonical email: {{loggedUser.email_canonical}}</h3>
+  <h3>Canonical Name: {{loggedUser.username_canonical}}</h3>
+  <h3>Status:
+    <span *ngIf="loggedUser.enabled">Enabled</span>
+    <span *ngIf="!loggedUser.enabled">Disabled</span>
+  </h3>
+  <h2>Your groups:</h2>
+  <ul>
+    <li *ngFor="let group of loggedUser.groups">{{group}}</li>
+  </ul>
+
+  <h2>Your Roles:</h2>
+  <ul>
+    <li *ngFor="let role of loggedUser.roles">{{role}}</li>
+  </ul>
+
+  <button (click)="logOut()"> Log Out </button>
+</div>

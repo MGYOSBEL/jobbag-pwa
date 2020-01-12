@@ -10,6 +10,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { LoggingService } from '../logging.service';
+import { SocialUser } from 'angularx-social-login';
 
 
 @Component({
@@ -43,16 +44,35 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     this.logging.log('submitting the form');
-    this.authenticationService.login(this.email.value, this.password.value)
+    this.authenticationService.signInWithJobbag(this.email.value, this.password.value)
         .subscribe( data =>  {
-          this.logging.log(data);
-          this.email.setValue('');
-          this.password.setValue('');
-
-          this.router.navigate([this.returnUrl]);
+          this.loginCallback(data);
+        }, (error) => {
+          // this.router.navigate(['']);
+          this.logging.log('error on the post request of the login method: ' + error);
         });
+  }
 
+  facebookLogin() {
+    this.authenticationService.signInWithFB();
+  }
 
+  googleLogin() {
+    this.authenticationService.signInWithGoogle()
+    .then(
+      data => {
+        this.loginCallback(data);
+      }
+    );
+
+  }
+
+  loginCallback( data: any ) {
+    this.logging.log('object on the post callback: ' + data);
+    this.email.setValue('');
+    this.password.setValue('');
+
+    this.router.navigate([this.returnUrl]);
   }
 
   ngOnInit() {
