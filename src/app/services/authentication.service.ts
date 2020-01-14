@@ -57,13 +57,14 @@ export class AuthenticationService {
   signInWithJobbag(username: string, password: string) {
     this.logging.log('starting signInWithJobbag routine... (AuthenticationService)');
     const tokenRequestJSON = this.parseTokenRequest(username, password, 'JOBBAG');
-    this.logging.log('exiting signInWithJobbag routine. Returning the post observable... (AuthenticationService)');
+    this.logging.log('exiting signInWithJobbag routine. Returning the post Observable(not subscribed yet)... (AuthenticationService)');
     return this.http.post<any>('http://localhost/login', tokenRequestJSON, { headers: { 'Content-type': 'application/json' } })
       .pipe(map(token => {
         // store user details and jwt token in local storage to keep user logged in between page refreshes
         this.logging.log('Pipe routine of the login post request. saving the token... (AuthenticationService)');
         localStorage.setItem('bearerToken', JSON.stringify(token));
         this.bearerToken = token;
+        this.logging.log('Setting _isLoggedIn to true. User is logged from now on... (AuthenticationService)');
         this._isLoggedIn = true;
         return token;
       }));

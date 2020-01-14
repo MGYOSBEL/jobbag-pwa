@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    this.logging.log('submitting the form... (LoginComponent)');
+    this.logging.log('submitting the form...Subscribing to the post Observable returned from signInWithJobbag (LoginComponent)');
     this.authenticationService.signInWithJobbag(this.email.value, this.password.value)
         .subscribe( data =>  {
           if (this.authenticationService.isLoggedIn) {
