@@ -7,6 +7,7 @@ import { UserService } from './user.service';
 import { AuthService } from 'angularx-social-login';
 import { FacebookLoginProvider, GoogleLoginProvider } from 'angularx-social-login';
 import { SocialUser } from 'angularx-social-login';
+import { Observable, of, from } from 'rxjs';
 
 interface TokenRequest {
   client_id: string;
@@ -30,9 +31,9 @@ export class AuthenticationService {
   get isLoggedIn(): boolean {
     return this._isLoggedIn;
   }
-  set isLoggedIn(value: boolean) {
-    this._isLoggedIn = value;
-  }
+  // set isLoggedIn(value: boolean) {
+  //   this._isLoggedIn = value;
+  // }
 
   private tokenRequest: TokenRequest = {
     client_id: null,
@@ -49,20 +50,18 @@ export class AuthenticationService {
               private userService: UserService,
               private socialAuthService: AuthService,
               private logging: LoggingService) {
-      this.socialAuthService.authState.subscribe(
-        (user) => {
-        this.socialUser = user;
-        // this._isLoggedIn = (user != null);
-    });
+
   }
 
 
-  login(tokenRequestJSON: string) {
-
-    return this.http.post<any>('http://localhost/login', tokenRequestJSON, {headers: {'Content-type' : 'application/json'}})
+  signInWithJobbag(username: string, password: string) {
+    this.logging.log('starting signInWithJobbag routine... (AuthenticationService)');
+    const tokenRequestJSON = this.parseTokenRequest(username, password, 'JOBBAG');
+    this.logging.log('exiting signInWithJobbag routine. Returning the post observable... (AuthenticationService)');
+    return this.http.post<any>('http://localhost/login', tokenRequestJSON, { headers: { 'Content-type': 'application/json' } })
       .pipe(map(token => {
         // store user details and jwt token in local storage to keep user logged in between page refreshes
-        this.logging.log('saving the token');
+        this.logging.log('Pipe routine of the login post request. saving the token... (AuthenticationService)');
         localStorage.setItem('bearerToken', JSON.stringify(token));
         this.bearerToken = token;
         this._isLoggedIn = true;
@@ -71,24 +70,29 @@ export class AuthenticationService {
 
   }
 
-  signInWithJobbag(username: string, password: string) {
-    this.logging.log('starting login routine(authService)');
-    const tokenRequestJSON = this.parseTokenRequest(username, password, 'JOBBAG');
-    this.logging.log('filled token request: ' + tokenRequestJSON);
-    return this.login(tokenRequestJSON);
-  }
-
   signInWithGoogle() {
-    this.logging.log('Starting Login with GOOGLE routine...');
-    return this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID).then(
-      () => {
-        this.logging.log('SocialUser: ' + JSON.stringify(this.socialUser));
-        const tokenRequestJSON = this.parseTokenRequest(null, null, 'GOOGLE', this.socialUser.idToken, this.socialUser.authToken);
-        this.login(tokenRequestJSON).subscribe(
-          () => this.logging.log('Login with google subscribe routine...')
-        );
-      }
-    );
+    this.logging.log('starting signInWithGoogle routine...');
+    this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
+    this.socialAuthService.authState.subscribe(
+      (user) => {
+        this.logging.log('signInWithGoogle authState subscribe routine...');
+        this.socialUser = user;
+        // this._isLoggedIn = (user != null);
+        if (user != null) {
+          this.logging.log('_isLoggedIn:' + this._isLoggedIn);
+          const tokenRequestJSON = this.parseTokenRequest(null, null, 'GOOGLE', this.socialUser.idToken, this.socialUser.authToken);
+          this.http.post<any>('http://localhost/login', tokenRequestJSON, { headers: { 'Content-type': 'application/json' } })
+            .subscribe(token => {
+              // store user details and jwt token in local storage to keep user logged in between page refreshes
+              this.logging.log('saving the token for google');
+              localStorage.setItem('bearerToken', JSON.stringify(token));
+              this.bearerToken = token;
+              this._isLoggedIn = true;
+            });
+        }
+      });
+    this.logging.log('exiting signInWithGoogle routine...');
+    return this.socialAuthService.authState;
   }
 
   signInWithFB(): void {
@@ -98,9 +102,9 @@ export class AuthenticationService {
   signOut(): void {
     if (this.tokenRequest.identity_source === 'GOOGLE' || this.tokenRequest.identity_source === 'FACEBOOK') {
       this.socialAuthService.signOut();
-    } else {
-      localStorage.removeItem('bearerToken');
     }
+    this.socialUser = null;
+    localStorage.removeItem('bearerToken');
     this._isLoggedIn = false;
   }
 
@@ -117,7 +121,7 @@ export class AuthenticationService {
       id_token: null,
       token: null
     };
-    this.logging.log('null token request: ' + JSON.stringify(this.tokenRequest));
+    this.logging.log('null token request: ' + JSON.stringify(this.tokenRequest) + '... (AuthenticationService)');
     this.tokenRequest.client_id = environment.clientId;
     this.tokenRequest.client_secret = environment.clientSecret;
     this.tokenRequest.identity_source = identity_source;
@@ -126,13 +130,13 @@ export class AuthenticationService {
       this.tokenRequest.username = username;
       this.tokenRequest.password = password;
     } else
-    if (identity_source === 'FACEBOOK' || identity_source === 'GOOGLE') {
-      this.tokenRequest.id_token = id_token;
-      this.tokenRequest.token = token;
-    }
+      if (identity_source === 'FACEBOOK' || identity_source === 'GOOGLE') {
+        this.tokenRequest.id_token = id_token;
+        this.tokenRequest.token = token;
+      }
 
     const tokenRequestJSON = JSON.stringify(this.tokenRequest);
-
+    this.logging.log('Filled token request: ' + JSON.stringify(this.tokenRequest) + ' ... (AuthenticationService)');
     return tokenRequestJSON;
 
   }

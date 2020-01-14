@@ -23,9 +23,10 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.logging.log('initiating dashboard');
+    this.logging.log('initiating dashboard (DashboardComponent)');
     this.$loggedUser = this.userService.getUser();
     // this.$loggedUser.subscribe(
+    this.logging.log('Subscribing to get<User> observable and waiting for the response..... (DashboardComponent)');
     this.$loggedUser
       .subscribe(
         (data: User) => {
@@ -43,6 +44,7 @@ export class DashboardComponent implements OnInit {
           //   password: data['password']
           // };
           // this.logging.log(data);
+        this.logging.log('Printing loggedUser in the getUser callback routine... (DashboardComponent)');
         console.log(this.loggedUser);
         }
       );

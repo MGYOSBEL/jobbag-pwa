@@ -15,6 +15,7 @@ export class UserService {
 
   getUser(): Observable<User>  {
     const user_id = JSON.parse(localStorage.getItem('bearerToken')).user_id;
+    this.logging.log('User Service returning get<User> Observable. Not subscribed yet.');
     return this.http.get<User>('http://localhost/api/user/get/' + user_id);
 
   }
