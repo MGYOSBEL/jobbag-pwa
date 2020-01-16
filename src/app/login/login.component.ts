@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
     this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
   }
 
-  onSubmit() {
+  jobbagLogin() {
     this.logging.log('submitting the form...Subscribing to the post Observable returned from signInWithJobbag (LoginComponent)');
     this.authenticationService.signInWithJobbag(this.email.value, this.password.value)
         .subscribe( data =>  {
@@ -58,29 +58,32 @@ export class LoginComponent implements OnInit {
   }
 
   facebookLogin() {
-    this.authenticationService.signInWithFB();
+    this.authenticationService.signInWithFB().subscribe (
+      (user) => {
+        if (user != null ) {
+          this.logging.log('isLoggedIn subscription was true. Lets router navigate.... (LoginComponent)');
+          this.logging.log('The USER is: ' + JSON.stringify(user));
+          this.router.navigate([this.returnUrl]);
+        } else {
+          this.logging.log('isLoggedIn subscription was false.... (LoginComponent)');
+        }
+      }
+    );
   }
 
   googleLogin() {
     this.authenticationService.signInWithGoogle().subscribe (
       (user) => {
         if (user != null ) {
-          console.log('isLoggedIn subscription was true. Lets router navigate.... (LoginComponent)');
+          this.logging.log('isLoggedIn subscription was true. Lets router navigate.... (LoginComponent)');
+          this.logging.log('The USER is: ' + JSON.stringify(user));
           this.router.navigate([this.returnUrl]);
         } else {
-          console.log('isLoggedIn subscription was false.... (LoginComponent)');
+          this.logging.log('isLoggedIn subscription was false.... (LoginComponent)');
         }
       }
     );
     // this.router.navigate([this.returnUrl]);
-  }
-
-  loginCallback( data: any ) {
-    this.logging.log('object on the post callback: ' + data + ' ... (LoginComponent)');
-    this.email.setValue('');
-    this.password.setValue('');
-
-
   }
 
   ngOnInit() {
