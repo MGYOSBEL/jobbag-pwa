@@ -30,3 +30,6 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 ` openssl req -new -x509 -newkey rsa:2048 -sha256 -nodes -keyout localhost.key -days 3560 -out localhost.crt -config certificate.cnf `
 It uses the configuration file certificate.cnf
 
+## For running ng serve with ssl options run the following command:
+` ng serve -o --ssl --ssl-key localhost.key  --ssl-cert localhost.crt `
+
