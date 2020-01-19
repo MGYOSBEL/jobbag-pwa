@@ -31,6 +31,8 @@ export class AuthenticationService {
     grant_type: null
   };
 
+  loginPath = environment.apiLoginURL;
+
   // public methods
   get isLoggedIn(): boolean {
     return this._isLoggedIn;
@@ -54,7 +56,7 @@ export class AuthenticationService {
     this.logging.log('starting signInWithJobbag routine... (AuthenticationService)');
     const loginRequestJSON = this.parseLoginRequest(username, password, this.authProvider);
     this.logging.log('exiting signInWithJobbag routine. Returning the post Observable(not subscribed yet)... (AuthenticationService)');
-    return this.http.post<any>('http://localhost/login', loginRequestJSON, { headers: { 'Content-type': 'application/json' } })
+    return this.http.post<any>( this.loginPath, loginRequestJSON, { headers: { 'Content-type': 'application/json' } })
       .pipe(map(response => {
         // store user details and jwt token in local storage to keep user logged in between page refreshes
         // response = JSON.parse(response);
@@ -140,7 +142,7 @@ export class AuthenticationService {
     if (user != null) {
       this.logging.log('_isLoggedIn:' + this._isLoggedIn);
       const loginRequestJSON = this.parseLoginRequest(null, null, authProvider, this.socialUser.idToken, this.socialUser.authToken);
-      this.http.post<any>('http://localhost/login', loginRequestJSON, { headers: { 'Content-type': 'application/json' } })
+      this.http.post<any>(this.loginPath, loginRequestJSON, { headers: { 'Content-type': 'application/json' } })
         .subscribe(token => {
           // store user details and jwt token in local storage to keep user logged in between page refreshes
           this.logging.log('saving the token for google');
