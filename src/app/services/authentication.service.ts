@@ -54,15 +54,20 @@ export class AuthenticationService {
     this.logging.log('starting signInWithJobbag routine... (AuthenticationService)');
     const loginRequestJSON = this.parseLoginRequest(username, password, this.authProvider);
     this.logging.log('exiting signInWithJobbag routine. Returning the post Observable(not subscribed yet)... (AuthenticationService)');
-    return this.http.post<any>('http://localhost/login', loginRequestJSON, { headers: { 'Content-type': 'application/json' } })
-      .pipe(map(token => {
+    return this.http.post<any>('http://localhost/login', this.loginRequest, { headers: { 'Content-type': 'application/json' } })
+      .pipe(map(response => {
         // store user details and jwt token in local storage to keep user logged in between page refreshes
+        response = JSON.parse(response);
+        if (response.success === true) {
         this.logging.log('Pipe routine of the login post request. saving the token... (AuthenticationService)');
-        localStorage.setItem('bearerToken', JSON.stringify(token));
-        this.bearerToken = token;
+        this.logging.log('loginRequestJSON' + JSON.stringify(loginRequestJSON));
+        this.logging.log('bearerToken' + response.data);
+        localStorage.setItem('bearerToken', JSON.stringify(response.data));
+        this.bearerToken = response;
         this.logging.log('Setting _isLoggedIn to true. User is logged from now on... (AuthenticationService)');
         this._isLoggedIn = true;
-        return token;
+      } else { this.logging.log('Login unsuccessfull: ' + response.text); }
+        return this.bearerToken;
       }));
 
   }
@@ -125,7 +130,7 @@ export class AuthenticationService {
 
     const loginRequestJSON = JSON.stringify(this.loginRequest);
     this.logging.log('Filled token request: ' + JSON.stringify(this.loginRequest) + ' ... (AuthenticationService)');
-    return loginRequestJSON;
+    return this.loginRequest;
 
   }
 
@@ -139,7 +144,7 @@ export class AuthenticationService {
         .subscribe(token => {
           // store user details and jwt token in local storage to keep user logged in between page refreshes
           this.logging.log('saving the token for google');
-          localStorage.setItem('bearerToken', JSON.stringify(token));
+          localStorage.setItem('bearerToken', JSON.stringify(token[0]));
           this.bearerToken = token;
           this._isLoggedIn = true;
         });
