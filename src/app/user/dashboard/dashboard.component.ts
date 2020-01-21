@@ -3,8 +3,8 @@ import { User } from '../models/user.model';
 import { UserService } from '../services/user.service';
 import { Observable } from 'rxjs';
 import { logging } from 'protractor';
-import { LoggingService } from '../logging.service';
-import { AuthenticationService } from '@app/services/authentication.service';
+import { LoggingService } from '@app/logging.service';
+import { AuthenticationService } from '@app/auth/services/authentication.service';
 import { Router } from '@angular/router';
 
 @Component({

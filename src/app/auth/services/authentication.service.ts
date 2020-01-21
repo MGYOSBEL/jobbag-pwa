@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
 import { environment } from '@environments/environment';
 import { map } from 'rxjs/operators';
-import { LoggingService } from '../logging.service';
-import { UserService } from './user.service';
+import { LoggingService } from '@app/logging.service';
+import { UserService } from '@app/user/services/user.service';
 import { AuthService } from 'angularx-social-login';
 import { FacebookLoginProvider, GoogleLoginProvider } from 'angularx-social-login';
 import { SocialUser } from 'angularx-social-login';
@@ -35,7 +35,8 @@ export class AuthenticationService {
 
   // public methods
   get isLoggedIn(): boolean {
-    return this._isLoggedIn;
+    const bearer = localStorage.getItem('bearerToken');
+    return this._isLoggedIn && (bearer != null);
   }
 
   constructor(private http: HttpClient,
@@ -60,18 +61,22 @@ export class AuthenticationService {
       .pipe(map(response => {
         // store user details and jwt token in local storage to keep user logged in between page refreshes
         // response = JSON.parse(response);
-        if (response != null) {
-        this.logging.log('Pipe routine of the login post request. saving the token... (AuthenticationService)');
-        this.logging.log('loginRequestJSON' + loginRequestJSON);
-        this.logging.log('bearerToken' + JSON.stringify(response));
-        localStorage.setItem('bearerToken', JSON.stringify(response));
-        this.bearerToken = response;
-        this.logging.log('Setting _isLoggedIn to true. User is logged from now on... (AuthenticationService)');
-        this._isLoggedIn = true;
-      } else { this.logging.log('Login unsuccessfull: ' + response); }
+        this.setLogin(response);
         return response;
       }));
+  }
 
+  private socialLogin(user: SocialUser, authProvider: string) {
+    this.logging.log('signInWith' + authProvider + ' authState subscribe routine...');
+    this.socialUser = user;
+    if (user != null) {
+      this.logging.log('_isLoggedIn:' + this._isLoggedIn);
+      const loginRequestJSON = this.parseLoginRequest(null, null, authProvider, this.socialUser.idToken, this.socialUser.authToken);
+      this.http.post<any>(this.loginPath, loginRequestJSON, { headers: { 'Content-type': 'application/json' } })
+        .subscribe(response => {
+         this.setLogin(response);
+        });
+    }
   }
 
   signInWithGoogle() {
@@ -98,6 +103,18 @@ export class AuthenticationService {
     localStorage.removeItem('bearerToken');
     this._isLoggedIn = false;
     this.authProvider = null;
+  }
+
+  private setLogin(data: any) {
+    if (data != null) {
+      this.logging.log('saving the token for ' + this.authProvider);
+      localStorage.setItem('bearerToken', JSON.stringify(data));
+      this.bearerToken = data;
+      this._isLoggedIn = true;
+    } else {
+      this.logging.log('Error in the login endpoint ' + data);
+      this.signOut();
+    }
   }
 
 
@@ -136,21 +153,5 @@ export class AuthenticationService {
 
   }
 
-  private socialLogin(user: SocialUser, authProvider: string) {
-    this.logging.log('signInWith' + authProvider + ' authState subscribe routine...');
-    this.socialUser = user;
-    if (user != null) {
-      this.logging.log('_isLoggedIn:' + this._isLoggedIn);
-      const loginRequestJSON = this.parseLoginRequest(null, null, authProvider, this.socialUser.idToken, this.socialUser.authToken);
-      this.http.post<any>(this.loginPath, loginRequestJSON, { headers: { 'Content-type': 'application/json' } })
-        .subscribe(token => {
-          // store user details and jwt token in local storage to keep user logged in between page refreshes
-          this.logging.log('saving the token for google');
-          localStorage.setItem('bearerToken', JSON.stringify(token[0]));
-          this.bearerToken = token;
-          this._isLoggedIn = true;
-        });
-    }
-  }
 
 }

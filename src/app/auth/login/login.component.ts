@@ -9,9 +9,9 @@ import { AuthenticationService } from '../services/authentication.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { first } from 'rxjs/operators';
-import { LoggingService } from '../logging.service';
+import { LoggingService } from '@app/logging.service';
 import { SocialUser } from 'angularx-social-login';
-import { User } from '@app/models/user.model';
+import { User } from '@app/user/models/user.model';
 
 
 @Component({
