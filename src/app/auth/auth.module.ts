@@ -7,6 +7,8 @@ import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthComponent } from './auth/auth.component';
+import { AuthRoutingModule } from './auth-routing.module';
 
 
 const config = new AuthServiceConfig([
@@ -27,12 +29,14 @@ export function provideConfig() {
 @NgModule({
   declarations: [
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    AuthComponent
   ],
   imports: [
     CommonModule,
     SocialLoginModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AuthRoutingModule
   ],
   providers: [
     {
