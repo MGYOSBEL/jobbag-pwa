@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
 import { environment } from '@environments/environment';
 import { map } from 'rxjs/operators';
-import { LoggingService } from '@app/logging.service';
+import { LoggingService } from '@app/services/logging.service';
 import { UserService } from '@app/user/services/user.service';
 import { AuthService } from 'angularx-social-login';
 import { FacebookLoginProvider, GoogleLoginProvider } from 'angularx-social-login';
@@ -40,7 +40,6 @@ export class AuthenticationService {
   }
 
   constructor(private http: HttpClient,
-              private userService: UserService,
               private socialAuthService: AuthService,
               private logging: LoggingService) {
       this.socialAuthService.authState.subscribe(

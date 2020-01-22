@@ -1,19 +1,19 @@
 import { Injectable } from '@angular/core';
-import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, CanLoad, Route } from '@angular/router';
 import { Observable } from 'rxjs';
-import {AuthenticationService} from '../services/authentication.service';
-import { LoggingService } from '@app/logging.service';
+import { AuthenticationService } from '../services/authentication.service';
+import { LoggingService } from '@app/services/logging.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate {
+export class AuthGuard implements CanActivate, CanLoad {
 
   constructor(
     private router: Router,
     private logging: LoggingService,
     private authenticationService: AuthenticationService
-) { }
+  ) { }
 
   canActivate(
     next: ActivatedRouteSnapshot,
@@ -30,5 +30,19 @@ export class AuthGuard implements CanActivate {
     this.logging.log('Exiting the routing guard with false...');
     return false;
   }
+
+
+
+  canLoad(route: Route): boolean {
+    const url = `/${route.path}`;
+    if (this.authenticationService.isLoggedIn) {
+      return true;
+    }
+
+    // not logged in so redirect to login page with the return url
+    this.router.navigate(['/login'], { queryParams: { returnUrl: url } });
+    return false;
+  }
+
 
 }
