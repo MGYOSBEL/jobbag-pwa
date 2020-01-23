@@ -44,11 +44,9 @@ export class LoginComponent implements OnInit {
   }
 
   jobbagLogin() {
-    this.logging.log('submitting the form...Subscribing to the post Observable returned from signInWithJobbag (LoginComponent)');
     this.authenticationService.signInWithJobbag(this.email.value, this.password.value)
         .subscribe( data =>  {
           if (this.authenticationService.isLoggedIn) {
-            this.logging.log('Callback method for the login. isLoggedIn==true, so navigating to dashboard... (LoginComponent)');
             this.router.navigate([this.returnUrl]);
           }
         }, (error) => {
@@ -61,8 +59,6 @@ export class LoginComponent implements OnInit {
     this.authenticationService.signInWithFB().subscribe (
       (user) => {
         if (user != null ) {
-          this.logging.log('isLoggedIn subscription was true. Lets router navigate.... (LoginComponent)');
-          this.logging.log('The USER is: ' + JSON.stringify(user));
           this.router.navigate([this.returnUrl]);
         } else {
           this.logging.log('isLoggedIn subscription was false.... (LoginComponent)');
@@ -75,8 +71,6 @@ export class LoginComponent implements OnInit {
     this.authenticationService.signInWithGoogle().subscribe (
       (user) => {
         if (user != null ) {
-          this.logging.log('isLoggedIn subscription was true. Lets router navigate.... (LoginComponent)');
-          this.logging.log('The USER is: ' + JSON.stringify(user));
           this.router.navigate([this.returnUrl]);
         } else {
           this.logging.log('isLoggedIn subscription was false.... (LoginComponent)');

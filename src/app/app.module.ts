@@ -8,6 +8,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SocialLoginModule } from 'angularx-social-login';
 import { AuthServiceConfig } from 'angularx-social-login';
 import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-login';
+import { NotFoundComponent } from './errors/not-found/not-found.component';
+import { InternalServerErrorComponent } from './errors/internal-server-error/internal-server-error.component';
 
 const config = new AuthServiceConfig([
   {
@@ -27,7 +29,9 @@ export function provideConfig() {
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    NotFoundComponent,
+    InternalServerErrorComponent
   ],
   imports: [
     BrowserModule,

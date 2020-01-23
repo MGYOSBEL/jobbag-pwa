@@ -18,16 +18,11 @@ export class AuthGuard implements CanActivate, CanLoad {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): boolean {
-    this.logging.log('Entering in the routing guard...');
-    this.logging.log('isLoggedIn is ' + (this.authenticationService.isLoggedIn ? 'true' : 'false'));
     if (this.authenticationService.isLoggedIn) {
-      this.logging.log('Exiting the routing guard with true...');
       return true;
     }
-
     // not logged in so redirect to login page with the return url
     this.router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
-    this.logging.log('Exiting the routing guard with false...');
     return false;
   }
 
@@ -38,7 +33,6 @@ export class AuthGuard implements CanActivate, CanLoad {
     if (this.authenticationService.isLoggedIn) {
       return true;
     }
-
     // not logged in so redirect to login page with the return url
     this.router.navigate(['/login'], { queryParams: { returnUrl: url } });
     return false;

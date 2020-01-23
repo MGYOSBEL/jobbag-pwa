@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { AuthGuard } from './auth/helpers/auth.guard';
+import { NotFoundComponent } from './errors/not-found/not-found.component';
 
 
 
@@ -20,7 +21,7 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: '**', component: HomeComponent
+    path: '**', component: NotFoundComponent
     }
 ];
 
