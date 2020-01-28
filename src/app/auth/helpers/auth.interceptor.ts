@@ -10,11 +10,17 @@ export class AuthInterceptor implements HttpInterceptor {
   constructor(private authenticationService: AuthenticationService, private logging: LoggingService) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    if (req.url.includes(environment.apiBaseURL)) {
-      const bearerToken = JSON.parse(localStorage.getItem('bearerToken'));
-      req = req.clone({ setHeaders: { Authorization: `Bearer ${bearerToken.access_token}` } });
+      this.logging.log('req.url:' + req.url);
+      this.logging.log('apiBaseURL:' + environment.apiBaseURL);
+
+      if (req.url.includes(environment.apiBaseURL)) {
+      const OAuth2Response = localStorage.getItem('bearerToken');
+      const bearerToken = JSON.parse(JSON.parse(OAuth2Response).content).access_token;
+      req = req.clone({ setHeaders: { Authorization: `Bearer ${bearerToken}` } });
+      this.logging.log('OAuth2 Response: ' + OAuth2Response);
+      this.logging.log('bearerToken ' + JSON.stringify(bearerToken));
     }
-    return next.handle(req);
+      return next.handle(req);
   }
 }
 

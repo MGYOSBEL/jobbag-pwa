@@ -54,9 +54,11 @@ export class AuthenticationService {
     const loginRequestJSON = this.parseLoginRequest(username, password, this.authProvider);
     return this.http.post<any>( this.loginPath, loginRequestJSON, { headers: { 'Content-type': 'application/json' } })
       .pipe(map(response => {
+        if (response.status_code === 200) {
+          this.setLogin(response);
+        }
         // store user details and jwt token in local storage to keep user logged in between page refreshes
         // response = JSON.parse(response);
-        this.setLogin(response);
         return response;
       }));
   }

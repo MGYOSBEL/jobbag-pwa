@@ -10,6 +10,7 @@ import { AuthServiceConfig } from 'angularx-social-login';
 import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-login';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { InternalServerErrorComponent } from './errors/internal-server-error/internal-server-error.component';
+import { AuthInterceptor } from './auth/helpers/auth.interceptor';
 
 const config = new AuthServiceConfig([
   {
@@ -44,6 +45,11 @@ export function provideConfig() {
     {
       provide: AuthServiceConfig,
       useFactory: provideConfig
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
     }
   ],
   bootstrap: [AppComponent]

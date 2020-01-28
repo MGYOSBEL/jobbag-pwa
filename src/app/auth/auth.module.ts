@@ -20,11 +20,7 @@ import { AuthRoutingModule } from './auth-routing.module';
     AuthRoutingModule
   ],
   providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
-      multi: true
-    }
+
   ]
 })
 export class AuthModule { }
