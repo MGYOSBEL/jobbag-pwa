@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { AuthGuard } from './auth/helpers/auth.guard';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
+import { InternalServerErrorComponent } from './errors/internal-server-error/internal-server-error.component';
 
 
 
@@ -19,6 +20,9 @@ const routes: Routes = [
     path: '',
     redirectTo: 'home',
     pathMatch: 'full'
+  },
+  {
+    path: 'error', component: InternalServerErrorComponent
   },
   {
     path: '**', component: NotFoundComponent

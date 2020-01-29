@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Resolve, ActivatedRouteSnapshot } from '@angular/router';
+import { Resolve, ActivatedRouteSnapshot, ActivatedRoute } from '@angular/router';
 import { Observable, of, EMPTY } from 'rxjs';
 import { User } from '../models/user.model';
 import { UserService } from './user.service';
@@ -13,25 +13,28 @@ import { AuthenticationService } from '@app/auth/services/authentication.service
 export class DashboardResolverService implements Resolve<User> {
 
   constructor(private userService: UserService,
-              private authenticationService: AuthenticationService) {
+              private authenticationService: AuthenticationService,
+              private route: ActivatedRoute) {
 
   }
   resolve(route: ActivatedRouteSnapshot): Observable<User> {
     if (this.authenticationService.isLoggedIn) {
-    return this.userService.getUser('3').pipe(
-      mergeMap(user => {
-        if (user) {
-          return of (user);
-        } else {
-          return EMPTY;
-        }
-      })
-    );
+      const userId = route.paramMap.get('id');
+      console.log('DASHBOARD RESOLVER - user_id: ' + userId);
+      return this.userService.getUser(userId).pipe(
+        mergeMap(user => {
+          if (user) {
+            return of(user);
+          } else {
+            return EMPTY;
+          }
+        })
+      );
     } else {
       return EMPTY;
     }
 
-    }
-    return ;
+  }
+  return;
 
 }

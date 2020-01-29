@@ -11,7 +11,7 @@ const userRoutes: Routes = [
     canActivate: [AuthGuard],
     children: [
       {
-        path: '',
+        path: ':id',
         component: DashboardComponent,
         resolve: { user: DashboardResolverService }
       }

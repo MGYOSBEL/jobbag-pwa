@@ -47,10 +47,11 @@ export class LoginComponent implements OnInit {
     this.authenticationService.signInWithJobbag(this.email.value, this.password.value)
         .subscribe( data =>  {
           if (this.authenticationService.isLoggedIn) {
-            this.router.navigate([this.returnUrl]);
+            const user_id = JSON.parse(JSON.parse(localStorage.getItem('bearerToken')).content).user_id;
+            this.router.navigate([this.returnUrl, user_id ]);
           }
         }, (error) => {
-          // this.router.navigate(['']);
+          this.router.navigate(['/error']);
           this.logging.log('error on the post request of the login method: ' + error + ' ... (LoginComponent)');
         });
   }
