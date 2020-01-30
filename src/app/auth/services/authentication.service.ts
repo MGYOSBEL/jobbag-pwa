@@ -45,7 +45,7 @@ export class AuthenticationService {
               private logging: LoggingService) {
     this.socialAuthService.authState.subscribe(
       (user) => {
-        this.logging.log('SocialUser: ' + user);
+        this.logging.log('SocialUser: ' + JSON.stringify(user));
         this.socialLogin(user, this.authProvider);
       }
     );
@@ -82,13 +82,13 @@ export class AuthenticationService {
     }
   }
 
-  signInWithGoogle() {
+  signInWithGoogle(): Observable<any> {
     this.authProvider = 'GOOGLE';
     this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
     return this.socialLogin(this.socialUser, this.authProvider);
   }
 
-  signInWithFB() {
+  signInWithFB(): Observable<any> {
     this.authProvider = 'FACEBOOK';
     this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
     return this.socialLogin(this.socialUser, this.authProvider);

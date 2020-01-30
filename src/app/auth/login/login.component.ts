@@ -74,8 +74,9 @@ export class LoginComponent implements OnInit {
   googleLogin() {
     this.authenticationService.signInWithGoogle()
     .subscribe(
-      (user) => {
-        if (user != null ) {
+      (response) => {
+        this.logging.log('googleLogin - entering signInWithGoogle subscribe callback');
+        if (response.status === 200 ) {
           const user_id = JSON.parse(JSON.parse(localStorage.getItem('bearerToken')).content).user_id;
           console.log('googleLogin - user_id: ' + user_id);
           console.log('googleLogin - returnUrl: ' + this.returnUrl);
@@ -85,7 +86,7 @@ export class LoginComponent implements OnInit {
         }
       }
     );
-    // this.router.navigate([this.returnUrl]);
+
 
   }
 
