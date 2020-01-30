@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
       password: ['', Validators.required]
     });
 
-    this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
+    this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/user';
   }
 
   jobbagLogin() {
@@ -57,10 +57,13 @@ export class LoginComponent implements OnInit {
   }
 
   facebookLogin() {
-    this.authenticationService.signInWithFB().subscribe (
+    this.authenticationService.signInWithFB().subscribe(
       (user) => {
         if (user != null ) {
-          this.router.navigate([this.returnUrl]);
+          const user_id = JSON.parse(JSON.parse(localStorage.getItem('bearerToken')).content).user_id;
+          console.log('facebookLogin - user_id: ' + user_id);
+          console.log('facebookLogin - returnUrl: ' + this.returnUrl);
+          this.router.navigate([this.returnUrl, user_id]);
         } else {
           this.logging.log('isLoggedIn subscription was false.... (LoginComponent)');
         }
@@ -69,16 +72,21 @@ export class LoginComponent implements OnInit {
   }
 
   googleLogin() {
-    this.authenticationService.signInWithGoogle().subscribe (
+    this.authenticationService.signInWithGoogle()
+    .subscribe(
       (user) => {
         if (user != null ) {
-          this.router.navigate([this.returnUrl]);
+          const user_id = JSON.parse(JSON.parse(localStorage.getItem('bearerToken')).content).user_id;
+          console.log('googleLogin - user_id: ' + user_id);
+          console.log('googleLogin - returnUrl: ' + this.returnUrl);
+          this.router.navigate([this.returnUrl, user_id]);
         } else {
           this.logging.log('isLoggedIn subscription was false.... (LoginComponent)');
         }
       }
     );
     // this.router.navigate([this.returnUrl]);
+
   }
 
   ngOnInit() {

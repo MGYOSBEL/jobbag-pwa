@@ -7,6 +7,7 @@ import { AuthService } from 'angularx-social-login';
 import { FacebookLoginProvider, GoogleLoginProvider } from 'angularx-social-login';
 import { SocialUser } from 'angularx-social-login';
 import {LoginRequest} from '../models/auth.model';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,7 @@ import {LoginRequest} from '../models/auth.model';
 export class AuthenticationService {
   // public members
   bearerToken;
+  userData$: Observable<any>;
   // private members
   private socialUser: SocialUser;
   private _isLoggedIn = false;
@@ -29,6 +31,7 @@ export class AuthenticationService {
     grant_type: null
   };
 
+
   private loginPath = environment.apiLoginURL;
 
   // public methods
@@ -40,12 +43,12 @@ export class AuthenticationService {
   constructor(private http: HttpClient,
               private socialAuthService: AuthService,
               private logging: LoggingService) {
-      this.socialAuthService.authState.subscribe(
-        (user) => {
-          this.socialLogin(user, this.authProvider );
-        }
-      );
-
+    this.socialAuthService.authState.subscribe(
+      (user) => {
+        this.logging.log('SocialUser: ' + user);
+        this.socialLogin(user, this.authProvider);
+      }
+    );
   }
 
 
@@ -65,25 +68,30 @@ export class AuthenticationService {
 
   private socialLogin(user: SocialUser, authProvider: string) {
     this.socialUser = user;
+    this.logging.log('Entering socialLogin...');
     if (user != null) {
+      this.logging.log('user isnt null...');
       const loginRequestJSON = this.parseLoginRequest(null, null, authProvider, this.socialUser.idToken, this.socialUser.authToken);
-      this.http.post<any>(this.loginPath, loginRequestJSON, { headers: { 'Content-type': 'application/json' } })
-        .subscribe(response => {
-         this.setLogin(response);
-        });
+      return this.http.post<any>(this.loginPath, loginRequestJSON, { headers: { 'Content-type': 'application/json' } })
+        .pipe(map(response => {
+          if (response.status_code === 200) {
+            this.setLogin(response);
+          }
+          return response;
+        }));
     }
   }
 
   signInWithGoogle() {
     this.authProvider = 'GOOGLE';
     this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
-    return this.socialAuthService.authState;
+    return this.socialLogin(this.socialUser, this.authProvider);
   }
 
   signInWithFB() {
     this.authProvider = 'FACEBOOK';
     this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
-    return this.socialAuthService.authState;
+    return this.socialLogin(this.socialUser, this.authProvider);
   }
 
   signOut(): void {
