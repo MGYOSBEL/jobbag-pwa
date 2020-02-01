@@ -1,0 +1,23 @@
+.navbar {
+  background-color: #2688c6;
+  color: antiquewhite;
+}
+
+.input-group-prepend,
+.input-group-text {
+  background-color: white;
+  color: #999999;
+}
+
+img.rounded-circle {
+  width: 100%;
+}
+
+
+.fa-bars {
+  font-size: 2rem;
+}
+
+a, a:hover {
+  color: white;
+}

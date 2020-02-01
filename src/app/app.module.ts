@@ -12,6 +12,9 @@ import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { InternalServerErrorComponent } from './errors/internal-server-error/internal-server-error.component';
 import { AuthInterceptor } from './auth/helpers/auth.interceptor';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { FiltersComponent } from './components/filters/filters.component';
 
 const config = new AuthServiceConfig([
   {
