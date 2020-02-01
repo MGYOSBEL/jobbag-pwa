@@ -13,11 +13,15 @@ export class UserService {
   loggedUser: User;
   apiPath = environment.apiBaseURL;
 
-  constructor(private http: HttpClient, private logging: LoggingService) { }
+  constructor(private http: HttpClient,
+              private logging: LoggingService) { }
 
-  getUser(userId: string): Observable<User>  {
+  getUser(userId: string): Observable<User> {
     // const user_id = JSON.parse(localStorage.getItem('bearerToken')).user_id;
-    return this.http.get<User>( this.apiPath + '/user/get/' + userId);
+    return this.http.get<User>(this.apiPath + '/user/get/' + userId);
 
   }
+
+
+
 }

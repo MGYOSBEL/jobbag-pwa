@@ -12,6 +12,9 @@ import { first } from 'rxjs/operators';
 import { LoggingService } from '@app/services/logging.service';
 import { SocialUser } from 'angularx-social-login';
 import { User } from '@app/user/models/user.model';
+import { ErrorService } from '@app/errors/error.service';
+
+
 
 
 @Component({
@@ -33,6 +36,7 @@ export class LoginComponent implements OnInit {
               private route: ActivatedRoute,
               private router: Router,
               private authenticationService: AuthenticationService,
+              private errorService: ErrorService,
               private logging: LoggingService) {
 
     this.loginForm = this.formBuilder.group({
@@ -40,7 +44,7 @@ export class LoginComponent implements OnInit {
       password: ['', Validators.required]
     });
 
-    this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
+    this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/user';
   }
 
   jobbagLogin() {
@@ -51,37 +55,50 @@ export class LoginComponent implements OnInit {
             this.router.navigate([this.returnUrl, user_id ]);
           }
         }, (error) => {
+          this.errorService.errorMessage = error;
           this.router.navigate(['/error']);
           this.logging.log('error on the post request of the login method: ' + error + ' ... (LoginComponent)');
         });
   }
 
   facebookLogin() {
-    this.authenticationService.signInWithFB().subscribe (
-      (user) => {
-        if (user != null ) {
-          this.router.navigate([this.returnUrl]);
-        } else {
-          this.logging.log('isLoggedIn subscription was false.... (LoginComponent)');
-        }
-      }
-    );
+    this.authenticationService.authProvider = 'FACEBOOK';
+    this.authenticationService.signInWithFB();
   }
 
   googleLogin() {
-    this.authenticationService.signInWithGoogle().subscribe (
-      (user) => {
-        if (user != null ) {
-          this.router.navigate([this.returnUrl]);
-        } else {
-          this.logging.log('isLoggedIn subscription was false.... (LoginComponent)');
-        }
-      }
-    );
-    // this.router.navigate([this.returnUrl]);
+    this.authenticationService.authProvider = 'GOOGLE';
+    this.authenticationService.signInWithGoogle();
   }
 
   ngOnInit() {
+    this.authenticationService.socialAuthService.authState.subscribe(
+      (user) => {
+        if (user != null) {
+          this.logging.log('SocialUser: ' + JSON.stringify(user));
+          this.logging.log('AuthProvider: ' + JSON.stringify(this.authenticationService.authProvider));
+          this.authenticationService.socialUser = user;
+          this.authenticationService.socialLogin(user, this.authenticationService.authProvider).subscribe(
+            (data) => {
+              this.logging.log('googleLogin - entering signInWithGoogle subscribe callback');
+              if (data) {
+                const user_id = JSON.parse(JSON.parse(localStorage.getItem('bearerToken')).content).user_id;
+                console.log('googleLogin - user_id: ' + user_id);
+                console.log('googleLogin - returnUrl: ' + this.returnUrl);
+                this.router.navigate([this.returnUrl, user_id]);
+              } else {
+                this.logging.log('isLoggedIn subscription was false.... (LoginComponent)');
+              }
+            }
+            // }, (error) => {
+            //   this.errorService.errorMessage = error;
+            //   this.router.navigate(['/error']);
+            //   this.logging.log('error on the post request of the login method: ' + JSON.stringify(error) + ' ... (LoginComponent)');
+            // }
+          );
+        }
+      }
+    );
 
   }
 

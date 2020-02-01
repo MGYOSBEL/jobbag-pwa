@@ -1,1 +1,9 @@
-<p>internal-server-error!</p>
+<h1>{{errorMessage.statusText}}</h1>
+<small>{{errorMessage.status}} {{errorMessage.statusText}}</small>
+<!-- Error Message: {{errorMessage.message}} -->
+
+<h2>Details:</h2>
+{{errorMessage.message}}
+
+<h3>Error: </h3>
+<div [innerHTML]="errorMessage.error"></div>

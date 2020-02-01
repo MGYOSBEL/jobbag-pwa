@@ -1,23 +1,25 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@environments/environment';
-import { map } from 'rxjs/operators';
+import { map, mergeMap } from 'rxjs/operators';
 import { LoggingService } from '@app/services/logging.service';
 import { AuthService } from 'angularx-social-login';
 import { FacebookLoginProvider, GoogleLoginProvider } from 'angularx-social-login';
 import { SocialUser } from 'angularx-social-login';
-import {LoginRequest} from '../models/auth.model';
+import {LoginRequest, OAuth2Response} from '../models/auth.model';
+import { Observable, of, pipe } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
   // public members
-  bearerToken;
+  bearerToken: OAuth2Response;
+  userData$: Observable<any>;
   // private members
-  private socialUser: SocialUser;
+  socialUser: SocialUser;
   private _isLoggedIn = false;
-  private authProvider;
+  public authProvider;
   private loginRequest: LoginRequest = {
     client_id: null,
     client_secret: null,
@@ -29,6 +31,7 @@ export class AuthenticationService {
     grant_type: null
   };
 
+
   private loginPath = environment.apiLoginURL;
 
   // public methods
@@ -38,18 +41,13 @@ export class AuthenticationService {
   }
 
   constructor(private http: HttpClient,
-              private socialAuthService: AuthService,
+              public socialAuthService: AuthService,
               private logging: LoggingService) {
-      this.socialAuthService.authState.subscribe(
-        (user) => {
-          this.socialLogin(user, this.authProvider );
-        }
-      );
-
+                this.authProvider = 'JOBBAG';
   }
 
 
-  signInWithJobbag(username: string, password: string) {
+  signInWithJobbag(username: string, password: string): Observable<any> {
     this.authProvider = 'JOBBAG';
     const loginRequestJSON = this.parseLoginRequest(username, password, this.authProvider);
     return this.http.post<any>( this.loginPath, loginRequestJSON, { headers: { 'Content-type': 'application/json' } })
@@ -63,27 +61,30 @@ export class AuthenticationService {
       }));
   }
 
-  private socialLogin(user: SocialUser, authProvider: string) {
-    this.socialUser = user;
-    if (user != null) {
-      const loginRequestJSON = this.parseLoginRequest(null, null, authProvider, this.socialUser.idToken, this.socialUser.authToken);
-      this.http.post<any>(this.loginPath, loginRequestJSON, { headers: { 'Content-type': 'application/json' } })
-        .subscribe(response => {
-         this.setLogin(response);
-        });
-    }
+  socialLogin(user: SocialUser, authProvider: string): Observable<any> {
+    this.logging.log('Entering socialLogin...');
+    // if (user != null) {
+    this.logging.log('user isnt null...' + user);
+    const loginRequestJSON = this.parseLoginRequest(null, null, authProvider, this.socialUser.idToken, this.socialUser.authToken);
+    return this.http.post<any>(this.loginPath, loginRequestJSON, { headers: { 'Content-type': 'application/json' } })
+      .pipe(
+        map(response => {
+          if (response.status_code === 200) {
+            this.setLogin(response);
+          }
+          return response;
+        }));
+    // }
   }
 
   signInWithGoogle() {
-    this.authProvider = 'GOOGLE';
     this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
-    return this.socialAuthService.authState;
+
   }
 
   signInWithFB() {
-    this.authProvider = 'FACEBOOK';
     this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
-    return this.socialAuthService.authState;
+    // return this.socialLogin(this.socialUser, this.authProvider);
   }
 
   signOut(): void {

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '@app/user/services/user.service';
 
 @Component({
   selector: 'app-home',
@@ -8,8 +9,10 @@ import { Component, OnInit } from '@angular/core';
 export class HomeComponent implements OnInit {
 
   constructor() { }
+  userId: string;
 
   ngOnInit() {
+    this.userId = JSON.parse(JSON.parse(localStorage.getItem('bearerToken')).content).user_id;
   }
 
 }

@@ -30,6 +30,7 @@ export class AuthGuard implements CanActivate, CanLoad {
 
   canLoad(route: Route): boolean {
     const url = `/${route.path}`;
+    this.logging.log('canLoad - url: ' + url);
     if (this.authenticationService.isLoggedIn) {
       return true;
     }

@@ -8,3 +8,13 @@ export interface LoginRequest {
   token: string;
   grant_type: string;
 }
+
+
+export interface OAuth2Response {
+  access_token: string;
+  expires_in: number;
+  token_type: string;
+  scope: string;
+  refresh_token: string;
+  user_id: string;
+}

@@ -11,6 +11,7 @@ import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-logi
 import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { InternalServerErrorComponent } from './errors/internal-server-error/internal-server-error.component';
 import { AuthInterceptor } from './auth/helpers/auth.interceptor';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 const config = new AuthServiceConfig([
   {
@@ -38,6 +39,7 @@ export function provideConfig() {
     BrowserModule,
     ReactiveFormsModule,
     HttpClientModule,
+    FontAwesomeModule,
     SocialLoginModule,
     AppRoutingModule
   ],
