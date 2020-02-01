@@ -1,26 +1,43 @@
 <!-- <h3>{{$loggedUser | async | json }}</h3> -->
 <app-navbar></app-navbar>
-<div >
-  <h1>Welcome {{loggedUser.username}}</h1>
-  <h2>Your profile:</h2>
-  <h3>email: {{loggedUser.email}}</h3>
-  <h3>id: {{loggedUser.id}}</h3>
-  <h3>Canonical email: {{loggedUser.email_canonical}}</h3>
-  <h3>Canonical Name: {{loggedUser.username_canonical}}</h3>
-  <h3>Status:
-    <span *ngIf="loggedUser.enabled">Enabled</span>
-    <span *ngIf="!loggedUser.enabled">Disabled</span>
-  </h3>
-  <h2>Your groups:</h2>
-  <ul>
-    <li *ngFor="let group of loggedUser.groups">{{group}}</li>
-  </ul>
+<nav class="mt-2">
+  <div class="nav nav-tabs row my-0 px-0 mx-2" id="nav-tab" role="tablist">
+    <a class="nav-item nav-link active col border-0 rounded-0 ml-0 mr-2" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
+      aria-controls="nav-home" aria-selected="true">User Data</a>
+    <a class="nav-item nav-link col border-0 mx-2 rounded-0" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab"
+      aria-controls="nav-profile" aria-selected="false">Profile</a>
+    <a class="nav-item nav-link col border-0 mr-0 ml-2 rounded-0" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab"
+      aria-controls="nav-contact" aria-selected="false">Contact</a>
+  </div>
 
-  <h2>Your Roles:</h2>
-  <ul>
-    <li *ngFor="let role of loggedUser.roles">{{role}}</li>
-  </ul>
+</nav>
+<div class="tab-content" id="nav-tabContent">
+  <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+    <div>
+      <h1>Welcome {{loggedUser.username}}</h1>
+      <h2>Your profile:</h2>
+      <h3>email: {{loggedUser.email}}</h3>
+      <h3>id: {{loggedUser.id}}</h3>
+      <h3>Canonical email: {{loggedUser.email_canonical}}</h3>
+      <h3>Canonical Name: {{loggedUser.username_canonical}}</h3>
+      <h3>Status:
+        <span *ngIf="loggedUser.enabled">Enabled</span>
+        <span *ngIf="!loggedUser.enabled">Disabled</span>
+      </h3>
+      <h2>Your groups:</h2>
+      <ul>
+        <li *ngFor="let group of loggedUser.groups">{{group}}</li>
+      </ul>
 
-  <button (click)="logOut()"> Log Out </button>
-  <a routerLink="/" routerLinkActive="active">Home</a>
+      <h2>Your Roles:</h2>
+      <ul>
+        <li *ngFor="let role of loggedUser.roles">{{role}}</li>
+      </ul>
+
+      <button (click)="logOut()"> Log Out </button>
+      <a routerLink="/" routerLinkActive="active">Home</a>
+    </div>
+  </div>
+  <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">...</div>
+  <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">...</div>
 </div>

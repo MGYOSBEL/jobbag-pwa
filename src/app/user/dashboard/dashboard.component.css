@@ -1,0 +1,18 @@
+.nav-item.active{
+  background-color: #2688c6;
+  color: white;
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-width: 0;
+}
+
+.nav{
+  border-bottom-width: 10px;
+  border-bottom-color: #2688c6;
+}
+
+.nav-item{
+  background-color: #999999;
+  color: white;
+  margin-bottom: 10px;
+}
