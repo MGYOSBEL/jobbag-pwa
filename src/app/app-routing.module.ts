@@ -10,7 +10,7 @@ import {UserModule} from './user/user.module';
 
 const routes: Routes = [
   {
-    path: 'login', loadChildren: () => import('./auth/auth.module').then(mod => mod.AuthModule)
+    path: 'auth', loadChildren: () => import('./auth/auth.module').then(mod => mod.AuthModule)
   },
   {
     path: 'user', loadChildren: () => import('./user/user.module').then(mod => mod.UserModule),
