@@ -10,7 +10,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { LoggingService } from '@app/services/logging.service';
-import { SocialUser } from 'angularx-social-login';
+import { SocialUser, AuthService, GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-login';
 import { User } from '@app/user/models/user.model';
 import { ErrorService } from '@app/errors/error.service';
 
@@ -29,6 +29,8 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   returnUrl: string;
 
+  socialUser: SocialUser;
+
 
 
 
@@ -37,6 +39,7 @@ export class LoginComponent implements OnInit {
               private router: Router,
               private authenticationService: AuthenticationService,
               private errorService: ErrorService,
+              private socialAuthService: AuthService,
               private logging: LoggingService) {
 
     this.loginForm = this.formBuilder.group({
@@ -63,21 +66,21 @@ export class LoginComponent implements OnInit {
 
   facebookLogin() {
     this.authenticationService.authProvider = 'FACEBOOK';
-    this.authenticationService.signInWithFB();
+    this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
   }
 
   googleLogin() {
     this.authenticationService.authProvider = 'GOOGLE';
-    this.authenticationService.signInWithGoogle();
+    this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
   }
 
   ngOnInit() {
-    this.authenticationService.socialAuthService.authState.subscribe(
+    this.socialAuthService.authState.subscribe(
       (user) => {
         if (user != null) {
           this.logging.log('SocialUser: ' + JSON.stringify(user));
           this.logging.log('AuthProvider: ' + JSON.stringify(this.authenticationService.authProvider));
-          this.authenticationService.socialUser = user;
+          this.socialUser = user;
           this.authenticationService.socialLogin(user, this.authenticationService.authProvider).subscribe(
             (data) => {
               this.logging.log('googleLogin - entering signInWithGoogle subscribe callback');

@@ -17,7 +17,6 @@ export class AuthenticationService {
   bearerToken: OAuth2Response;
   userData$: Observable<any>;
   // private members
-  socialUser: SocialUser;
   private _isLoggedIn = false;
   public authProvider;
   private loginRequest: LoginRequest = {
@@ -41,7 +40,7 @@ export class AuthenticationService {
   }
 
   constructor(private http: HttpClient,
-              public socialAuthService: AuthService,
+              // public socialAuthService: AuthService,
               private logging: LoggingService) {
                 this.authProvider = 'JOBBAG';
   }
@@ -65,7 +64,7 @@ export class AuthenticationService {
     this.logging.log('Entering socialLogin...');
     // if (user != null) {
     this.logging.log('user isnt null...' + user);
-    const loginRequestJSON = this.parseLoginRequest(null, null, authProvider, this.socialUser.idToken, this.socialUser.authToken);
+    const loginRequestJSON = this.parseLoginRequest(null, null, authProvider, user.idToken, user.authToken);
     return this.http.post<any>(this.loginPath, loginRequestJSON, { headers: { 'Content-type': 'application/json' } })
       .pipe(
         map(response => {
@@ -77,21 +76,7 @@ export class AuthenticationService {
     // }
   }
 
-  signInWithGoogle() {
-    this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
-
-  }
-
-  signInWithFB() {
-    this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
-    // return this.socialLogin(this.socialUser, this.authProvider);
-  }
-
   signOut(): void {
-    if (this.authProvider === 'GOOGLE' || this.authProvider === 'FACEBOOK') {
-      this.socialAuthService.signOut();
-    }
-    this.socialUser = null;
     localStorage.removeItem('bearerToken');
     this._isLoggedIn = false;
     this.authProvider = null;
