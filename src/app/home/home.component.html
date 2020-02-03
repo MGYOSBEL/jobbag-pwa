@@ -1,6 +1,32 @@
-<h1>JOBBAG HOME PAGE!</h1>
-<nav>
-  <a class="nav-item" routerLink='/auth/login' routerLinkActive="active">Login</a>
-  <a class="nav-item" routerLink='/auth/register' routerLinkActive="active">Register</a>
-  <a class="nav-item" routerLink='/user/{{userId}}' routerLinkActive="active">Dashboard</a>
+<nav class="navbar row container-fluid justify-content-around">
+  <div class="col-2 navbar-brand">
+    <img class="img img-fluid" src="../../assets/logo/SVG/color.svg">
+  </div>
+  <div class="col-8 ">
+    <div class="row justify-content-end">
+      <button class="btn btn-link mx-2" routerLink='/auth/login' routerLinkActive="active">
+        <i class="far fa-user"></i>
+        Login
+      </button>
+      <button class="btn btn-link mx-2" routerLink='/auth/register' routerLinkActive="active">
+        <i class="fas fa-user-plus"></i>
+        Register
+      </button>
+      <button class="btn btn-link mx-2" routerLink='/user/{{userId}}' routerLinkActive="active">Dashboard</button>
+    </div>
+  </div>
 </nav>
+
+
+<div class="container-fluid " id="home-content">
+  <div class="col align-items-center pt-5" >
+    <div class="row mx-5 px-7 justify-content-around pt-5" >
+      <button class="btn btn-lg col-2 mt-5 rounded-0" style="border-color: #932877;" (click)="hire()">
+        I Want to Hire
+      </button>
+      <button class="btn btn-lg col-2 mt-5 rounded-0" style="border-color: #B3BE35;" (click)="work()">
+        I Want to Work
+      </button>
+    </div>
+  </div>
+</div>

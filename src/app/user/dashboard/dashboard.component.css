@@ -1,5 +1,5 @@
 .nav-item.active{
-  background-color: #2688c6;
+  background-color: #2787C4;
   color: white;
   margin-bottom: 0;
   padding-bottom: 0;
@@ -8,7 +8,7 @@
 
 .nav{
   border-bottom-width: 10px;
-  border-bottom-color: #2688c6;
+  border-bottom-color: #2787C4;
 }
 
 .nav-item{

@@ -9,6 +9,14 @@ export interface LoginRequest {
   grant_type: string;
 }
 
+export interface RegisterRequest {
+  client_id: string;
+  client_secret: string;
+  username: string;
+  password: string;
+  email: string;
+}
+
 
 export interface OAuth2Response {
   access_token: string;

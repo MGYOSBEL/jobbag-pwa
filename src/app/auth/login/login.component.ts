@@ -30,6 +30,7 @@ export class LoginComponent implements OnInit {
   returnUrl: string;
 
   socialUser: SocialUser;
+  loading = false;
 
 
 
@@ -46,11 +47,13 @@ export class LoginComponent implements OnInit {
       email: ['', Validators.required],
       password: ['', Validators.required]
     });
+    this.loading = false;
 
     this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/user';
   }
 
   jobbagLogin() {
+    this.loading = true;
     this.authenticationService.signInWithJobbag(this.email.value, this.password.value)
         .subscribe( data =>  {
           if (this.authenticationService.isLoggedIn) {
@@ -65,11 +68,13 @@ export class LoginComponent implements OnInit {
   }
 
   facebookLogin() {
+    this.loading = true;
     this.authenticationService.authProvider = 'FACEBOOK';
     this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
   }
 
   googleLogin() {
+    this.loading = true;
     this.authenticationService.authProvider = 'GOOGLE';
     this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
   }

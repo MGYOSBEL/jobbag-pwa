@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '@app/user/services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -8,11 +9,22 @@ import { UserService } from '@app/user/services/user.service';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
   userId: string;
 
   ngOnInit() {
     this.userId = JSON.parse(JSON.parse(localStorage.getItem('bearerToken')).content).user_id;
+  }
+
+  work() {
+    localStorage.setItem('registrationRole', 'SERVICE_PROVIDER');
+    this.router.navigate(['/auth/register'], { queryParams: { role: 'SERVICE_PROVIDER' } });
+  }
+
+  hire() {
+    localStorage.setItem('registrationRole', 'CLIENT');
+    this.router.navigate(['/auth/register'], { queryParams: { role: 'CLIENT' } });
+
   }
 
 }
