@@ -64,11 +64,12 @@ export class RegisterComponent implements OnInit {
               console.log('role: ' + role);
               if (this.authenticationService.isLoggedIn) {
                 const user_id = JSON.parse(JSON.parse(localStorage.getItem('bearerToken')).content).user_id;
+                const profileExtrasUrl = '/user/' + user_id + '/profile-extras';
                 if (role) {
                   console.log('navegando a profile extras...');
-                  this.router.navigate(['/user/' + user_id + '/profile-extras'], { queryParams: { role } });
+                  this.router.navigate([profileExtrasUrl], { queryParams: { role } });
                 } else {
-                  this.router.navigate(['/user/3/select-role']);
+                  this.router.navigate(['/user/3/select-role'], { queryParams: { returnUrl: profileExtrasUrl } });
                 }
               }
             });

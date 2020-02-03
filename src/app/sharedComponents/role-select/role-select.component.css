@@ -1,0 +1,10 @@
+#home-content {
+  background-color: #2787C4;
+  min-height: 400px;
+  max-height: 800px;
+}
+
+.btn-lg {
+  color: white;
+  border-width: 3px;
+}

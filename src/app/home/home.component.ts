@@ -16,15 +16,6 @@ export class HomeComponent implements OnInit {
     this.userId = JSON.parse(JSON.parse(localStorage.getItem('bearerToken')).content).user_id;
   }
 
-  work() {
-    localStorage.setItem('registrationRole', 'SERVICE_PROVIDER');
-    this.router.navigate(['/auth/register'], { queryParams: { role: 'SERVICE_PROVIDER' } });
-  }
 
-  hire() {
-    localStorage.setItem('registrationRole', 'CLIENT');
-    this.router.navigate(['/auth/register'], { queryParams: { role: 'CLIENT' } });
-
-  }
 
 }

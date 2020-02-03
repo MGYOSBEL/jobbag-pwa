@@ -5,7 +5,7 @@ import { DashboardResolverService } from './services/dashboard-resolver.service'
 import { AuthGuard } from '@app/auth/helpers/auth.guard';
 import { ProfileExtrasComponent } from './profile-extras/profile-extras.component';
 import { ProfessionsEditComponent } from './professions-edit/professions-edit.component';
-import { RoleSelectComponent } from './role-select/role-select.component';
+import { RoleSelectComponent } from '../sharedComponents/role-select/role-select.component';
 
 
 const userRoutes: Routes = [
