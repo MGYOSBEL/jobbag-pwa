@@ -1,0 +1,39 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="container-fluid">
+            <div class="row justify-itmes-around">
+                <div class="col-3" *ngFor="let project of projects">
+                    <div class="card">
+                        <div class="card-header">
+                            {{project.name}}
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <p class="card-text" style="font-size: smaller;">{{project.description}}</p>
+                                </div>
+                                <div class="col-md-3">
+                                    <br>
+                                    <i class="fas fa-camera"></i>
+                                </div>
+                                </div>
+                            </div>
+                        <div class="card-footer">
+                            <hr class="divline">
+                            <div class="row">                                
+                                <div class="col-md-9">
+                                    <p class="card-text" style="font-size: smaller;">{{project.user}}</p>
+                                </div>
+                                <div class="col-md-3">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>               
+            </div>
+        </div>
+    </div>
+</div>

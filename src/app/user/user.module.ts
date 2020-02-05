@@ -7,6 +7,7 @@ import { ProfileExtrasComponent } from './profile-extras/profile-extras.componen
 import { ProfessionsEditComponent } from './professions-edit/professions-edit.component';
 import { BirefcaseEditComponent } from './birefcase-edit/birefcase-edit.component';
 import { SharedComponentsModule } from '@app/sharedComponents/shared-components.module';
+import { ProjectsComponent } from './projects/projects.component';
 
 
 
@@ -15,7 +16,8 @@ import { SharedComponentsModule } from '@app/sharedComponents/shared-components.
      DashboardComponent,
      ProfileExtrasComponent,
      ProfessionsEditComponent,
-     BirefcaseEditComponent
+     BirefcaseEditComponent,
+     ProjectsComponent
     ],
   imports: [
     CommonModule,

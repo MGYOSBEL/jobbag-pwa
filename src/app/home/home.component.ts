@@ -13,7 +13,7 @@ export class HomeComponent implements OnInit {
   userId: string;
 
   ngOnInit() {
-    this.userId = JSON.parse(JSON.parse(localStorage.getItem('bearerToken')).content).user_id;
+    // this.userId = JSON.parse(JSON.parse(localStorage.getItem('bearerToken')).content).user_id;
   }
 
 
