@@ -54,25 +54,27 @@ export class RegisterComponent implements OnInit {
     this.http.post<any>('http://localhost/user', this.registerRequest, { headers: { 'Content-type': 'application/json' } })
       .subscribe(
         (data) => {
-          const content = data.content.values;
-          const username = JSON.stringify(content);
-          console.log(JSON.stringify('content: ' + content));
-          console.log(JSON.stringify('username: ' + username));
-          this.authenticationService.signInWithJobbag('test_user', 'test').subscribe(
-            data => {
-              const role = this.route.snapshot.queryParams.role;
-              console.log('role: ' + role);
-              if (this.authenticationService.isLoggedIn) {
-                const user_id = JSON.parse(JSON.parse(localStorage.getItem('bearerToken')).content).user_id;
-                const profileExtrasUrl = '/user/' + user_id + '/profile-extras';
-                if (role) {
-                  console.log('navegando a profile extras...');
-                  this.router.navigate([profileExtrasUrl], { queryParams: { role } });
-                } else {
-                  this.router.navigate(['/user/3/select-role'], { queryParams: { returnUrl: profileExtrasUrl } });
+          if (data.status_code === 200) {
+            const content = JSON.parse(JSON.parse(data.content));
+            const username = content.username;
+            console.log('content: ' + content);
+            console.log(JSON.stringify('username: ' + username));
+            this.authenticationService.signInWithJobbag(this.name.value, this.password.value).subscribe(
+              data => {
+                const role = this.route.snapshot.queryParams.role;
+                console.log('role: ' + role);
+                if (this.authenticationService.isLoggedIn) {
+                  const user_id = JSON.parse(JSON.parse(localStorage.getItem('bearerToken')).content).user_id;
+                  const profileExtrasUrl = '/user/' + user_id + '/profile-extras';
+                  if (role) {
+                    console.log('navegando a profile extras...');
+                    this.router.navigate([profileExtrasUrl], { queryParams: { role } });
+                  } else {
+                    this.router.navigate(['/user/3/select-role'], { queryParams: { returnUrl: profileExtrasUrl } });
+                  }
                 }
-              }
-            });
+              });
+          }
 
         });
 

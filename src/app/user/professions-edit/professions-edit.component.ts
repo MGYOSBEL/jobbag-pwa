@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { UserService } from '../services/user.service';
+import { Profession } from '../models/user.model';
 
 @Component({
   selector: 'app-professions-edit',
@@ -7,9 +11,50 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfessionsEditComponent implements OnInit {
 
-  constructor() { }
+  professionsEditForm: FormGroup;
+  // profession = new FormControl('');
+  professions: Profession[];
+  selectedProfession: Profession;
+
+
+  constructor(private formBuilder: FormBuilder,
+              private userService: UserService,
+              private route: ActivatedRoute,
+              private router: Router) {
+    this. professionsEditForm = this.formBuilder.group({
+      profession: ['']
+    });
+  }
 
   ngOnInit() {
+    // this.route.queryParamMap.pipe(
+    //   switchMap((params: ParamMap) =>
+    //     this.role = (params.get('role'))));
+    this.userService.getAllProfessions().subscribe(
+      data => {
+        this.professions = data;
+      });
+  }
+
+  save() {
+   // http://localhost/api/profession/all/es
+   console.log('PROFESSION: ' + this.professionsEditForm.value);
+   console.log('PROFESSION: ' + JSON.stringify(this.professionsEditForm.get('profession').value));
+
+  }
+
+  skip() {
+    this.router.navigate(['../', 'edit-professions'], {relativeTo: this.route});
+  }
+
+  selectProfession(e) {
+    this.profession.setValue(e.target.value, {
+       onlySelf: true
+    });
+  }
+
+  get profession() {
+    return this.professionsEditForm.get('profession');
   }
 
 }

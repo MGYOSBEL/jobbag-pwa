@@ -32,10 +32,7 @@ export function provideConfig() {
 
 @NgModule({
   declarations: [
-    AppComponent,
-    HomeComponent,
-    NotFoundComponent,
-    InternalServerErrorComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,

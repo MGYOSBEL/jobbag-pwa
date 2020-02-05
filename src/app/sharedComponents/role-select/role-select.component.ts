@@ -11,7 +11,7 @@ export class RoleSelectComponent implements OnInit {
   returnUrl: string;
   constructor(private router: Router,
               private route: ActivatedRoute) {
-      this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/register';
+      this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/auth/register';
   }
 
   ngOnInit() {

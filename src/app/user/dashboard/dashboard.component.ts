@@ -18,11 +18,6 @@ export class DashboardComponent implements OnInit {
   $loggedUser: Observable<User>;
   loggedUser: User;
 
-  navItemStyles = [
-    'background-color: #999999;color: white;',
-    'background-color: #2688c6; color: white;'
-  ];
-
   constructor(private route: ActivatedRoute,
               private authenticationService: AuthenticationService,
               private socialAuthService: AuthService,
