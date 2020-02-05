@@ -7,6 +7,7 @@ import { ProfileExtrasComponent } from './profile-extras/profile-extras.componen
 import { ProfessionsEditComponent } from './professions-edit/professions-edit.component';
 import { BirefcaseEditComponent } from './birefcase-edit/birefcase-edit.component';
 import { SharedComponentsModule } from '@app/sharedComponents/shared-components.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -20,6 +21,7 @@ import { SharedComponentsModule } from '@app/sharedComponents/shared-components.
   imports: [
     CommonModule,
     SharedComponentsModule,
+    ReactiveFormsModule,
     UserRoutingModule
   ]
 })

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '@app/user/services/user.service';
+import { AuthenticationService } from '@app/auth/services/authentication.service';
 
 @Component({
   selector: 'app-navbar',
@@ -7,7 +9,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor() { }
+  profileExtrasUrl: string;
+
+  constructor(private userService: UserService,
+              private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
   }

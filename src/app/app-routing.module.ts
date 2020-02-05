@@ -18,12 +18,12 @@ const routes: Routes = [
   },
   { path: 'home', component: HomeComponent },
   {
+    path: 'error', component: InternalServerErrorComponent
+  },
+  {
     path: '',
     redirectTo: 'home',
     pathMatch: 'full'
-  },
-  {
-    path: 'error', component: InternalServerErrorComponent
   },
   {
     path: '**', component: NotFoundComponent
