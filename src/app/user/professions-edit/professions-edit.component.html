@@ -6,7 +6,7 @@
         <div class="row form-group mb-1">
           <fieldset class="col-12 mx-0 px-0">
               <select id="professionSelect" class="form-control input-lg" formControlName="profession" [formControl]="profession" (change)="selectProfession($event)"required>
-                <option selected>Select Profession...</option>
+                <option value="" [selected]="isSelected" disabled>Select Profesion</option>
                 <option *ngFor="let profession of professions" [id]="profession.id" [value]="profession.id" >
                   {{profession.descriptionEn}}
                 </option>

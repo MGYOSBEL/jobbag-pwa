@@ -6,9 +6,9 @@
         <div class="row form-group mb-1">
           <fieldset class="col-12 mx-0 px-0">
             <div *ngIf="this.role === 'SERVICE_PROVIDER'" class="my-2">
-              <select id="scholarship" class="form-control input-lg" name="scolarship" placeholder="SCOLARSHIP" [formControl]="scholarship" required>
-                <option disabled>Select Scholarship...</option>
-                <option *ngFor="let scholarship of scholarships" [id]="scholarship.id" [value]="scholarship.shortDescription" >
+              <select id="scholarship" class="form-control input-lg" name="scolarship" [formControl]="scholarship" required>
+                <option value="" [selected]="isSelected" disabled>Select Scholarship</option>
+                <option *ngFor="let scholarship of scholarships" [id]="scholarship.id" [value]="scholarship.shortDescription">
                   {{scholarship.shortDescription}}
                 </option>
               </select>
