@@ -34,10 +34,10 @@ export class BriefcaseEditComponent implements OnInit {
               }
 
   ngOnInit() {
-    this.briefcases = this.userService.getBriefcase();
     this.userService.getAllProfessions().subscribe(
       data => {
         this.professions = data;
+        console.log('PROFESSIONS: ' + JSON.stringify(data));
       });
   }
 
@@ -49,6 +49,19 @@ export class BriefcaseEditComponent implements OnInit {
 
   get profession() {
     return this.briefcaseEditForm.get('profession');
+  }
+
+  saveBriefCase() {
+    console.log('PROFESSION: ' + JSON.stringify(this.briefcaseEditForm.get('profession').value));
+    this.briefcases.push(
+      {description: this.description.value,
+        endDate: this.endDate.value,
+        startDate: this.startDate.value,
+        idProfession: this.briefcaseEditForm.get('profession').value,
+        id: null
+      }
+    );
+
   }
 
   save() {}

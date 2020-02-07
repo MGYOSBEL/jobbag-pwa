@@ -115,7 +115,7 @@
           <div class="form-group" formControlName="profession" [formControl]="profession" (change)="selectProfession($event)" required>
             <select class="custom-select" required>
               <option value="">Select a profession...</option>
-              <option *ngFor="let prof of professions" [id]="prof.id" [value]="prof.id">
+              <option *ngFor="let prof of professions" [value]="prof.id">
                 {{prof.descriptionEn}}
               </option>
             </select>
@@ -125,7 +125,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-primary" (click)="saveBriefCase()">Save changes</button>
       </div>
     </div>
   </div>
