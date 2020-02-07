@@ -15,6 +15,8 @@ export interface RegisterRequest {
   username: string;
   password: string;
   email: string;
+  provider: string;
+  social_id: string;
 }
 
 
