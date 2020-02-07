@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { User, Scholarship, UserProfile } from '../models/user.model';
+import { User, Scholarship, UserProfile, Briefcase } from '../models/user.model';
 import { LoggingService } from '@app/services/logging.service';
 import { environment } from '@environments/environment';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -13,13 +13,30 @@ export class UserService {
 
   loggedUser: User;
   apiPath = environment.apiBaseURL;
+  private userProfileRequest = {
+    client_id: environment.clientId,
+    client_secret: environment.clientSecret,
+    phone_number: '',
+    comment: '',
+    summary: '',
+    user_id: '',
+    scholarship_id: '',
+    user_profile_type: '',
+    user_profile_briefcase: null
+  };
 
   constructor(private http: HttpClient,
               private logging: LoggingService) { }
 
   getUser(userId: string): Observable<User> {
     // const user_id = JSON.parse(localStorage.getItem('bearerToken')).user_id;
-    return this.http.get<User>(this.apiPath + '/user/get/' + userId);
+    return this.http.get<any>(this.apiPath + '/user/get/' + userId).pipe(
+      tap((response) => {
+        if (response.status_code === 200) {
+          this.loggedUser = JSON.parse(JSON.parse(response.content));
+        }
+      })
+    );
   }
 
   getAllScolarships() {
@@ -34,10 +51,32 @@ export class UserService {
     );
   }
 
-  createUserProfile(data: any) {
-    return this.http.post<any>(this.apiPath + '/user_profile', data).pipe(
-      map(response => JSON.parse(JSON.parse(response.content)))
+  createUserProfile() {
+    return this.http.post<any>(this.apiPath + '/user_profile', this.userProfileRequest).pipe(
+      map(response => JSON.parse(JSON.parse(response.content))),
+      tap(response => {
+        this.loggedUser = response;
+        localStorage.setItem('userProfile', response);
+      })
     );
+  }
+
+  setUserProfileData(data) {
+    this.userProfileRequest.phone_number = data.phone_number;
+    this.userProfileRequest.comment = data.comment;
+    this.userProfileRequest.summary = data.summary;
+    this.userProfileRequest.user_id = data.user_id;
+    this.userProfileRequest.scholarship_id = data.scholarship_id;
+    this.userProfileRequest.user_profile_type = data.user_profile_type;
+
+  }
+
+  getBriefcase(): Briefcase[] {
+    for (const iterator of this.loggedUser.user_profiles) {
+      if (iterator.userProfileType.type === 'SERVICE_PROVIDER') {
+        return iterator.briefcases;
+      }
+    }
   }
 
 

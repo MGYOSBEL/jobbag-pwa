@@ -5,7 +5,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { NavbarComponent } from '@app/sharedComponents/navbar/navbar.component';
 import { ProfileExtrasComponent } from './profile-extras/profile-extras.component';
 import { ProfessionsEditComponent } from './professions-edit/professions-edit.component';
-import { BirefcaseEditComponent } from './birefcase-edit/birefcase-edit.component';
+import { BriefcaseEditComponent } from './briefcase-edit/briefcase-edit.component';
 import { SharedComponentsModule } from '@app/sharedComponents/shared-components.module';
 import { ProjectsComponent } from './projects/projects.component';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -17,7 +17,7 @@ import { ReactiveFormsModule } from '@angular/forms';
      DashboardComponent,
      ProfileExtrasComponent,
      ProfessionsEditComponent,
-     BirefcaseEditComponent,
+     BriefcaseEditComponent,
      ProjectsComponent
     ],
   imports: [

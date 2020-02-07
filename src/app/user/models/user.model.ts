@@ -19,8 +19,9 @@ valoration: string;
 phone_number: string;
 comment: string;
 summary: string;
-id_scholarship_fk: Scholarship;
-id_user_profile_type_fk: Role;
+scholarship: Scholarship;
+userProfileType: Role;
+briefcases: Briefcase[];
 }
 
 export interface Scholarship {
@@ -43,6 +44,14 @@ export interface Profession {
 export interface Role {
   id: number;
   type: string;
+}
+
+export interface Briefcase {
+  id: number;
+  description: string;
+  startDate: Date;
+  endDate: Date;
+  idProfession: number;
 }
 
 

@@ -1,0 +1,85 @@
+<app-navbar></app-navbar>
+<div style="background-color: #f1f1f1;" class="m-0 p-0">
+  <header class="container-fluid mb-5">
+    <div class="display-3 text-center ">
+      Show your work...
+    </div>
+  </header>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="container-fluid">
+        <div class="row justify-itmes-around">
+          <div class="col-3" *ngFor="let briefcase of briefcases">
+            <div class="card">
+              <div class="card-header">
+                Briefcase #{{briefcase.id}}
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-9">
+                    <p class="card-text" style="font-size: smaller;">{{briefcase.description}}</p>
+                  </div>
+                  <div class="col-md-3">
+                    <br>
+                    <i class="fas fa-camera"></i>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer">
+                <hr class="divline">
+                <div class="row">
+                  <div class="col-md-9">
+                    <p class="card-text" style="font-size: smaller;">{{briefcase.startDate}} - {{briefcase.endDate}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-3">
+            <div class="card text-center">
+              <div class="card-header">
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">Add new briefcase</h5>
+                <button type="button" class="btn btn-link" data-toggle="modal" data-target="#exampleModalCenter">
+                  <p class="card-text"><i class="fas fa-plus" alt="Add Briefcase"></i></p>
+                </button>
+              </div>
+              <div class="card-footer text-muted">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-1 justify-content-around mt-5">
+    <button class="btn btn-primary text-center btn-lg" style="background-color: #2787C4;" (click)="save()">Save</button>
+    <button class="btn btn-light text-center btn-lg" style="color: #2787C4;" (click)="skip()">Skip</button>
+
+  </div>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade " id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>

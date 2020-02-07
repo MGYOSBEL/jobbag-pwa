@@ -38,7 +38,6 @@ export class ProfessionsEditComponent implements OnInit {
 
   save() {
    // http://localhost/api/profession/all/es
-   console.log('PROFESSION: ' + this.professionsEditForm.value);
    console.log('PROFESSION: ' + JSON.stringify(this.professionsEditForm.get('profession').value));
 
   }

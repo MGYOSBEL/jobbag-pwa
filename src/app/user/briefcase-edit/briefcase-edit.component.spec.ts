@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BirefcaseEditComponent } from './birefcase-edit.component';
+import { BriefcaseEditComponent } from './briefcase-edit.component';
 
 describe('BirefcaseEditComponent', () => {
-  let component: BirefcaseEditComponent;
-  let fixture: ComponentFixture<BirefcaseEditComponent>;
+  let component: BriefcaseEditComponent;
+  let fixture: ComponentFixture<BriefcaseEditComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BirefcaseEditComponent ]
+      declarations: [ BriefcaseEditComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BirefcaseEditComponent);
+    fixture = TestBed.createComponent(BriefcaseEditComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

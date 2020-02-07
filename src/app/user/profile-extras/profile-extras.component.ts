@@ -15,7 +15,7 @@ import { relative } from 'path';
 })
 export class ProfileExtrasComponent implements OnInit {
 
-  scholarship = new FormControl('');
+  // scholarship = new FormControl('');
   phoneNumber = new FormControl('');
   comments = new FormControl('');
   summary = new FormControl('');
@@ -56,31 +56,47 @@ export class ProfileExtrasComponent implements OnInit {
   }
 
   save() {
+
     const OAuth2Response = localStorage.getItem('bearerToken');
     const user_id = JSON.parse(JSON.parse(OAuth2Response).content).user_id;
 
     const userProfileRequest = {
-      "client_id": environment.clientId,
-      "client_secret": environment.clientSecret,
       "phone_number": this.phoneNumber.value,
       "comment": this.comments.value,
       "summary": this.summary.value,
       "user_id": user_id,
-      "scholarship_id": 1,
+      "scholarship_id": this.profileExtrasForm.get('scholarship').value,
       "user_profile_type": this.role
     };
-    console.log('createUserProfile REQUEST: ' + userProfileRequest);
-    console.log('createUserProfile scholarship select: ' + this.scholarship.get('id'));
-    this.userService.createUserProfile(userProfileRequest).subscribe(
-      response => {
-        console.log('createUserProfile RESPONSE: ' + JSON.stringify(response));
-        this.router.navigate(['../', 'edit-professions'], {relativeTo: this.route});
-      }
-    );
+    console.log(this.profileExtrasForm.get('scholarship').value);
+    this.userService.setUserProfileData(userProfileRequest);
+
+    if (this.role === 'SERVICE_PROVIDER') {
+      this.router.navigate(['../', 'briefcase'], { relativeTo: this.route });
+    } else {
+      this.userService.createUserProfile()
+        .subscribe(
+          response => {
+            console.log('createUserProfile RESPONSE: ' + JSON.stringify(response));
+            // Navigate to Dashboard
+            this.router.navigate(['../'], { relativeTo: this.route });
+          }
+        );
+    }
   }
 
   skip() {
-    this.router.navigate(['../', 'edit-professions'], {relativeTo: this.route});
+    this.router.navigate(['../'], { relativeTo: this.route });
+  }
+
+  selectScholarship(e) {
+    this.scholarship.setValue(e.target.value, {
+      onlySelf: true
+   });
+  }
+
+  get scholarship() {
+    return this.profileExtrasForm.get('scholarship');
   }
 
 }
