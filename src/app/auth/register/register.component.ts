@@ -6,6 +6,8 @@ import { environment } from '@environments/environment';
 import { RegisterRequest } from '../models/auth.model';
 import { QueryValueType } from '@angular/compiler/src/core';
 import { AuthenticationService } from '../services/authentication.service';
+import { AuthService, SocialUser, FacebookLoginProvider, GoogleLoginProvider } from 'angularx-social-login';
+import { LoggingService } from '@app/services/logging.service';
 
 @Component({
   selector: 'app-register',
@@ -24,12 +26,16 @@ export class RegisterComponent implements OnInit {
   registerRequest: RegisterRequest;
 
   loading = false;
+  socialUser: SocialUser;
+  hiddenPasswords = false;
 
   constructor(private formBuilder: FormBuilder,
-    private route: ActivatedRoute,
-    private router: Router,
-    private http: HttpClient,
-    private authenticationService: AuthenticationService) {
+              private route: ActivatedRoute,
+              private router: Router,
+              private http: HttpClient,
+              private logging: LoggingService,
+              private socialAuthService: AuthService,
+              private authenticationService: AuthenticationService) {
 
     this.registerForm = this.formBuilder.group({
       email: ['', Validators.required],
@@ -42,6 +48,22 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.socialAuthService.authState.subscribe(
+      (user) => {
+        if (user != null && this.loading === true) {
+          this.loading = false;
+          this.hiddenPasswords = true;
+          this.socialUser = user;
+          localStorage.clear();
+          localStorage.setItem('socialUser', JSON.stringify(user));
+          this.email.setValue(user.email);
+          this.name.setValue(user.name);
+          this.password.setValue(user.name);
+          this.confirmPassword.setValue(user.name);
+        }
+      }
+    );
+
   }
 
   register() {
@@ -53,7 +75,7 @@ export class RegisterComponent implements OnInit {
       password: this.password.value,
       email: this.email.value
     };
-    console.log(this.registerRequest);    
+    console.log(this.registerRequest);
     this.http.post<any>('http://localhost/user', this.registerRequest, { headers: { 'Content-type': 'application/json' } })
       .subscribe(
         (data) => {
@@ -84,11 +106,15 @@ export class RegisterComponent implements OnInit {
   }
 
   facebookLogin() {
-
+    this.loading = true;
+    this.authenticationService.authProvider = 'FACEBOOK';
+    this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
   }
 
   googleLogin() {
-
+    this.loading = true;
+    this.authenticationService.authProvider = 'GOOGLE';
+    this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
   }
 
   // passwordMatchValidator: ValidatorFn = (control: FormGroup): ValidationErrors | null => {

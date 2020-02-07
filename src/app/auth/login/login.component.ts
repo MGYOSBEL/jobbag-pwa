@@ -82,17 +82,12 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.socialAuthService.authState.subscribe(
       (user) => {
-        if (user != null) {
-          this.logging.log('SocialUser: ' + JSON.stringify(user));
-          this.logging.log('AuthProvider: ' + JSON.stringify(this.authenticationService.authProvider));
+        if (user != null && this.loading === true) {
           this.socialUser = user;
           this.authenticationService.socialLogin(user, this.authenticationService.authProvider).subscribe(
             (data) => {
-              this.logging.log('googleLogin - entering signInWithGoogle subscribe callback');
               if (data) {
                 const user_id = JSON.parse(JSON.parse(localStorage.getItem('bearerToken')).content).user_id;
-                console.log('googleLogin - user_id: ' + user_id);
-                console.log('googleLogin - returnUrl: ' + this.returnUrl);
                 this.router.navigate([this.returnUrl, user_id]);
               } else {
                 this.logging.log('isLoggedIn subscription was false.... (LoginComponent)');
