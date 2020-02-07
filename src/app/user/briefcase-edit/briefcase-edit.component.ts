@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Briefcase, Profession } from '../models/user.model';
 import { UserService } from '../services/user.service';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-birefcase-edit',
@@ -22,7 +23,9 @@ export class BriefcaseEditComponent implements OnInit {
   endDate = new FormControl('');
 
   constructor(private userService: UserService,
-              private formBuilder: FormBuilder) {
+              private formBuilder: FormBuilder,
+              private router: Router,
+              private route: ActivatedRoute) {
     this.briefcaseEditForm = this.formBuilder.group({
       title: [''],
       comments: [''],
@@ -58,13 +61,24 @@ export class BriefcaseEditComponent implements OnInit {
       description: this.description.value,
         endDate: this.endDate.value,
         startDate: this.startDate.value,
+        comments: this.comments.value,
         idProfession: this.briefcaseEditForm.get('profession').value,
         id: null
       };
 
   }
 
-  save() {}
+  save() {
+    this.userService.setUserProfileBriefcase(this.briefcases);
+    this.userService.createUserProfile()
+    .subscribe(
+      response => {
+        console.log('createUserProfile RESPONSE: ' + JSON.stringify(response));
+        // Navigate to Dashboard
+        this.router.navigate(['../'], { relativeTo: this.route });
+      }
+    );
+  }
 
   skip() {}
 

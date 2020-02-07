@@ -22,7 +22,7 @@ export class UserService {
     user_id: '',
     scholarship_id: '',
     user_profile_type: '',
-    user_profile_briefcase: null
+    user_profile_briefcase: []
   };
 
   constructor(private http: HttpClient,
@@ -68,7 +68,19 @@ export class UserService {
     this.userProfileRequest.user_id = data.user_id;
     this.userProfileRequest.scholarship_id = data.scholarship_id;
     this.userProfileRequest.user_profile_type = data.user_profile_type;
+  }
 
+  setUserProfileBriefcase(data) {
+    for (const iterator of data) {
+      this.userProfileRequest.user_profile_briefcase[this.userProfileRequest.user_profile_briefcase.length] = {
+        comments: iterator.comments,
+        description: iterator.description,
+        start_date: iterator.startDate,
+        end_date: iterator.endDate,
+        id_profession: iterator.idProfession
+      };
+    }
+    console.log('setUserProfileBriefcase: ' + JSON.stringify(this.userProfileRequest));
   }
 
   getBriefcase(): Briefcase[] {

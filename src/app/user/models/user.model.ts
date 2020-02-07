@@ -51,6 +51,7 @@ export interface Briefcase {
   description: string;
   startDate: Date;
   endDate: Date;
+  comments: string;
   idProfession: number;
 }
 
