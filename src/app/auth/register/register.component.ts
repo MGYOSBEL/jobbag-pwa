@@ -23,6 +23,8 @@ export class RegisterComponent implements OnInit {
 
   registerRequest: RegisterRequest;
 
+  loading = false;
+
   constructor(private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
@@ -43,6 +45,7 @@ export class RegisterComponent implements OnInit {
   }
 
   register() {
+    this.loading = true;
     this.registerRequest = {
       client_id: environment.clientId,
       client_secret: environment.clientSecret,
@@ -50,7 +53,7 @@ export class RegisterComponent implements OnInit {
       password: this.password.value,
       email: this.email.value
     };
-    console.log(this.registerRequest);
+    console.log(this.registerRequest);    
     this.http.post<any>('http://localhost/user', this.registerRequest, { headers: { 'Content-type': 'application/json' } })
       .subscribe(
         (data) => {
