@@ -8,7 +8,7 @@
             <div *ngIf="this.role === 'SERVICE_PROVIDER'" class="my-2">
               <select id="scholarship" class="form-control input-lg" name="scolarship" formControlName="scholarship" [formControl]="scholarship" (change)="selectScholarship($event)" required>
                 <option disabled selected>Select Scholarship...</option>
-                <option *ngFor="let scholarship of scholarships" [id]="scholarship.id" [value]="scholarship.id" >
+                <option *ngFor="let scholarship of scholarships" [id]="scholarship.id" [value]="scholarship.id" [formControl]="briefcaseEditForm">
                   {{scholarship.shortDescription}}
                 </option>
               </select>
