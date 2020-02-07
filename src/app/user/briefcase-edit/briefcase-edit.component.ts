@@ -31,6 +31,7 @@ export class BriefcaseEditComponent implements OnInit {
       endDate: [''],
       profession: ['']
     });
+    this.briefcases = [];
               }
 
   ngOnInit() {
@@ -53,14 +54,13 @@ export class BriefcaseEditComponent implements OnInit {
 
   saveBriefCase() {
     console.log('PROFESSION: ' + JSON.stringify(this.briefcaseEditForm.get('profession').value));
-    this.briefcases.push(
-      {description: this.description.value,
+    this.briefcases[this.briefcases.length] = {
+      description: this.description.value,
         endDate: this.endDate.value,
         startDate: this.startDate.value,
         idProfession: this.briefcaseEditForm.get('profession').value,
         id: null
-      }
-    );
+      };
 
   }
 
