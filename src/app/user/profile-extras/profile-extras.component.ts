@@ -58,7 +58,7 @@ export class ProfileExtrasComponent implements OnInit {
   save() {
 
     const OAuth2Response = localStorage.getItem('bearerToken');
-    const user_id = JSON.parse(JSON.parse(OAuth2Response).content).user_id;
+    const user_id = JSON.parse(OAuth2Response).user_id;
 
     const userProfileRequest = {
       "phone_number": this.phoneNumber.value,

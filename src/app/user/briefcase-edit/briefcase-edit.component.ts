@@ -65,6 +65,13 @@ export class BriefcaseEditComponent implements OnInit {
         idProfession: this.briefcaseEditForm.get('profession').value,
         id: null
       };
+      console.log('resetting the form.....');
+    this.briefcaseEditForm.reset({ title: [''],
+    comments: [''],
+    description: [''],
+    startDate: [''],
+    endDate: [''],
+    profession: ['']});
 
   }
 

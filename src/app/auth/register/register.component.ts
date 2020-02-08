@@ -100,7 +100,7 @@ export class RegisterComponent implements OnInit {
                   const role = this.route.snapshot.queryParams.role;
                   console.log('role: ' + role);
                   if (this.authenticationService.isLoggedIn) {
-                    const user_id = JSON.parse(JSON.parse(localStorage.getItem('bearerToken')).content).user_id;
+                    const user_id = JSON.parse(localStorage.getItem('bearerToken')).user_id;
                     const profileExtrasUrl = '/user/' + user_id + '/profile-extras';
                     if (role) {
                       console.log('navegando a profile extras...');
@@ -119,7 +119,7 @@ export class RegisterComponent implements OnInit {
                     const role = this.route.snapshot.queryParams.role;
                     console.log('role: ' + role);
                     if (this.authenticationService.isLoggedIn) {
-                      const user_id = JSON.parse(JSON.parse(localStorage.getItem('bearerToken')).content).user_id;
+                      const user_id = JSON.parse(localStorage.getItem('bearerToken')).user_id;
                       const profileExtrasUrl = '/user/' + user_id + '/profile-extras';
                       if (role) {
                         console.log('navegando a profile extras...');
