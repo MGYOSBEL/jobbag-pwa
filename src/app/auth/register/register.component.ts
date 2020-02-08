@@ -106,7 +106,7 @@ export class RegisterComponent implements OnInit {
                       console.log('navegando a profile extras...');
                       this.router.navigate([profileExtrasUrl], { queryParams: { role } });
                     } else {
-                      this.router.navigate(['/user/3/select-role'], { queryParams: { returnUrl: profileExtrasUrl } });
+                      this.router.navigate(['user', user_id, 'select-role'], { queryParams: { returnUrl: profileExtrasUrl } });
                     }
                   }
                 });
@@ -125,7 +125,7 @@ export class RegisterComponent implements OnInit {
                         console.log('navegando a profile extras...');
                         this.router.navigate([profileExtrasUrl], { queryParams: { role } });
                       } else {
-                        this.router.navigate(['/user/3/select-role'], { queryParams: { returnUrl: profileExtrasUrl } });
+                        this.router.navigate(['user', user_id, 'select-role'], { queryParams: { returnUrl: profileExtrasUrl } });
                       }
                     }
                   } else {

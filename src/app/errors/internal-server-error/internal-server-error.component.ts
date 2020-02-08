@@ -8,7 +8,7 @@ import { ErrorService } from '../error.service';
 })
 export class InternalServerErrorComponent implements OnInit {
 
-  errorMessage: JSON;
+  errorMessage: any;
 
   constructor(private errorService: ErrorService) { }
 

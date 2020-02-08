@@ -31,7 +31,10 @@ export class LoginComponent implements OnInit {
 
   socialUser: SocialUser;
   loading = false;
-
+  loginErr: {
+    err: boolean;
+    message?: string;
+  };
 
 
 
@@ -48,7 +51,7 @@ export class LoginComponent implements OnInit {
       password: ['', Validators.required]
     });
     this.loading = false;
-
+    this.loginErr = {err: false};
     this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/user';
   }
 
@@ -57,7 +60,7 @@ export class LoginComponent implements OnInit {
     this.authenticationService.signInWithJobbag(this.email.value, this.password.value)
         .subscribe( data =>  {
           if (this.authenticationService.isLoggedIn) {
-            const user_id = JSON.parse(JSON.parse(localStorage.getItem('bearerToken')).content).user_id;
+            const user_id = JSON.parse(localStorage.getItem('bearerToken')).user_id;
             this.router.navigate([this.returnUrl, user_id ]);
           }
         }, (error) => {
@@ -84,13 +87,19 @@ export class LoginComponent implements OnInit {
       (user) => {
         if (user != null && this.loading === true) {
           this.socialUser = user;
+          localStorage.clear();
+          localStorage.setItem('socialUser', JSON.stringify(user));
           this.authenticationService.socialLogin(user, this.authenticationService.authProvider).subscribe(
             (data) => {
-              if (data) {
-                const user_id = JSON.parse(JSON.parse(localStorage.getItem('bearerToken')).content).user_id;
-                this.router.navigate([this.returnUrl, user_id]);
+              console.log(data);
+              if ( data.status_code ) {
+                this.logging.log('isLoggedIn subscription was false.... (LoginComponent)' + data);
+                this.loading = false;
+                this.loginErr = {err: true, message: data.text};
+                this.router.navigate(['./'], {relativeTo: this.route});
               } else {
-                this.logging.log('isLoggedIn subscription was false.... (LoginComponent)');
+                const user_id = JSON.parse(localStorage.getItem('bearerToken')).user_id;
+                this.router.navigate([this.returnUrl, user_id]);
               }
             }
             // }, (error) => {

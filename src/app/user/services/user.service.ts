@@ -32,9 +32,8 @@ export class UserService {
     // const user_id = JSON.parse(localStorage.getItem('bearerToken')).user_id;
     return this.http.get<any>(this.apiPath + '/user/get/' + userId).pipe(
       tap((response) => {
-        if (response.status_code === 200) {
-          this.loggedUser = JSON.parse(JSON.parse(response.content));
-        }
+          this.loggedUser = response;
+          localStorage.setItem('loggedUser', JSON.stringify(response));
       })
     );
   }

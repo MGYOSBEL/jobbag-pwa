@@ -36,7 +36,7 @@ export class AuthenticationService {
   // public methods
   get isLoggedIn(): boolean {
     const bearer = localStorage.getItem('bearerToken');
-    return (this._isLoggedIn && (bearer != null));
+    return (this._isLoggedIn || (bearer != null));
   }
 
   constructor(private http: HttpClient,
@@ -52,32 +52,36 @@ export class AuthenticationService {
     return this.http.post<any>( this.loginPath, loginRequestJSON, { headers: { 'Content-type': 'application/json' } })
       .pipe(map(response => {
         if (response.status_code === 200) {
-          this.setLogin(response);
+          const bearer = JSON.parse(response.content);
+          this.setLogin(bearer);
+          return bearer;
         }
-        // store user details and jwt token in local storage to keep user logged in between page refreshes
-        // response = JSON.parse(response);
-        return response;
       }));
   }
 
   socialLogin(user: SocialUser, authProvider: string): Observable<any> {
-    this.logging.log('Entering socialLogin...');
-    // if (user != null) {
-    this.logging.log('user isnt null...' + user);
     const loginRequestJSON = this.parseLoginRequest(null, null, authProvider, user.idToken, user.authToken);
     return this.http.post<any>(this.loginPath, loginRequestJSON, { headers: { 'Content-type': 'application/json' } })
       .pipe(
         map(response => {
           if (response.status_code === 200) {
-            this.setLogin(response);
+            const bearer = JSON.parse(response.content);
+            this.setLogin(bearer);
+            return bearer;
+          } else {
+            const error = {
+              status_code: response.status_code,
+              status_text: response.status_text,
+              text: JSON.parse(response.content).text
+            };
+            return error;
           }
-          return response;
         }));
     // }
   }
 
   signOut(): void {
-    localStorage.removeItem('bearerToken');
+    localStorage.clear();
     this._isLoggedIn = false;
     this.authProvider = null;
   }
