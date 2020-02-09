@@ -9,6 +9,7 @@ import { AuthenticationService } from '../services/authentication.service';
 import { AuthService, SocialUser, FacebookLoginProvider, GoogleLoginProvider } from 'angularx-social-login';
 import { LoggingService } from '@app/services/logging.service';
 import { ErrorService } from '@app/errors/error.service';
+import {passwordMissmatchValidator} from '@app/sharedComponents/customValidators';
 
 @Component({
   selector: 'app-register',
@@ -17,10 +18,6 @@ import { ErrorService } from '@app/errors/error.service';
 })
 export class RegisterComponent implements OnInit {
 
-  email = new FormControl('');
-  name = new FormControl('');
-  password = new FormControl('');
-  confirmPassword = new FormControl('');
   registerForm: FormGroup;
   returnUrl: string;
 
@@ -34,6 +31,8 @@ export class RegisterComponent implements OnInit {
     message?: string;
   };
 
+  pass1: string; pass2: string;
+
   constructor(private formBuilder: FormBuilder,
               private route: ActivatedRoute,
               private router: Router,
@@ -44,10 +43,10 @@ export class RegisterComponent implements OnInit {
               private authenticationService: AuthenticationService) {
 
     this.registerForm = this.formBuilder.group({
-      email: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
       name: ['', Validators.required],
-      password: ['', Validators.required],
-      confirmPassword: ['', Validators.required]
+      password: ['', [Validators.required, Validators.minLength(5)]],
+      confirmPassword: ['', [Validators.required]]
     });
     this.registerErr = {err: false};
 
@@ -55,7 +54,15 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.socialAuthService.authState.subscribe(
+this.registerForm.valueChanges.subscribe(
+  value => {
+    if (value.confirmPassword !== value.password) {
+      this.registerForm.setErrors({passwordsMissmatch: true});
+    }
+  }
+);
+
+this.socialAuthService.authState.subscribe(
       (user) => {
         if (user != null && this.loading === true) {
           this.loading = false;
@@ -63,16 +70,18 @@ export class RegisterComponent implements OnInit {
           this.socialUser = user;
           localStorage.clear();
           localStorage.setItem('socialUser', JSON.stringify(user));
-          this.email.setValue(user.email);
-          this.name.setValue(user.name);
-          this.password.setValue(user.name);
-          this.confirmPassword.setValue(user.name);
+          this.registerForm.patchValue({
+            name: user.name,
+            password: user.name,
+            confirmPassword: user.name,
+            email: user.email
+          });
           this.registerRequest = {
             client_id: environment.clientId,
             client_secret: environment.clientSecret,
-            username: this.name.value,
-            password: this.password.value,
-            email: this.email.value,
+            username: this.registerForm.value.name,
+            password: this.registerForm.value.password,
+            email: this.registerForm.value.email,
             provider: this.authenticationService.authProvider,
             social_id: user.id
           };
@@ -94,7 +103,7 @@ export class RegisterComponent implements OnInit {
             const username = content.username;
             this.logging.log('REGISTER RESPONSE: ' + JSON.stringify(content));
             if (this.registerRequest.provider === 'JOBBAG') {
-              this.authenticationService.signInWithJobbag(this.name.value, this.password.value)
+              this.authenticationService.signInWithJobbag(this.registerForm.value.name, this.registerForm.value.password)
               .subscribe(
                 data => {
                   const role = this.route.snapshot.queryParams.role;
@@ -169,9 +178,9 @@ export class RegisterComponent implements OnInit {
     this.registerRequest = {
       client_id: environment.clientId,
       client_secret: environment.clientSecret,
-      username: this.name.value,
-      password: this.password.value,
-      email: this.email.value,
+      username: this.registerForm.value.name,
+      password: this.registerForm.value.password,
+      email: this.registerForm.value.email,
       provider: this.authenticationService.authProvider,
       social_id: null
     };
@@ -179,11 +188,5 @@ export class RegisterComponent implements OnInit {
     this.register();
   }
 
-  // passwordMatchValidator: ValidatorFn = (control: FormGroup): ValidationErrors | null => {
-  //   const password = control.get('password');
-  //   const confirmPassword = control.get('confirmPassword');
-
-  //   return password && confirmPassword && password.value === confirmPassword.value ? null : { 'passwordMissMatch': true } ;
-  // }
 
 }

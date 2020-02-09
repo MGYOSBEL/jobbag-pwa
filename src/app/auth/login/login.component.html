@@ -12,17 +12,17 @@
         <div class="row form-group mb-1">
           <fieldset class="col-12 mx-0 px-0">
             <div class="my-2">
-              <input class="form-control input-lg" name="email" placeholder="email@gmail.com" [formControl]="email"
-                required>
+              <input class="form-control input-lg" name="email" placeholder="email@gmail.com" formControlName="email"
+                >
             </div>
             <div class="my-2 ">
-              <input class="form-control input-lg" name="password" [formControl]="password" type="password"
-                placeholder="********" required>
+              <input class="form-control input-lg" name="password" formControlName="password" type="password"
+                placeholder="********" >
             </div>
           </fieldset>
         </div>
         <div class="row mt-1">
-          <button class="btn btn-primary btn-block text-center btn-lg" [disabled]="email.invalid || password.invalid"
+          <button class="btn btn-primary btn-block text-center btn-lg" [disabled]="loginForm.invalid"
             style="background-color: #2787C4;">Login</button>
         </div>
 

@@ -54,7 +54,8 @@ export class UserService {
     return this.http.post<any>(this.apiPath + '/user_profile', this.userProfileRequest).pipe(
       map(response => JSON.parse(JSON.parse(response.content))),
       tap(response => {
-        this.loggedUser = response;
+        // this.loggedUser = response;
+        console.log('createUserProfile RESPONSE:' , response);
         localStorage.setItem('userProfile', response);
       })
     );

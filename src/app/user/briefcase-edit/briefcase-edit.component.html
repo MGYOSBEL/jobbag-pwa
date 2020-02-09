@@ -30,7 +30,7 @@
                 <hr class="divline">
                 <div class="row">
                   <div class="col-md-9">
-                    <p class="card-text" style="font-size: smaller;">{{briefcase.startDate}} - {{briefcase.endDate}}</p>
+                    <p class="card-text" style="font-size: smaller;">Since {{briefcase.startDate}} to {{briefcase.endDate}}</p>
                   </div>
                 </div>
               </div>
@@ -112,8 +112,8 @@
             </div>
           </div>
 
-          <div class="form-group" formControlName="profession" (change)="selectProfession($event)" required>
-            <select class="custom-select" required>
+          <div class="form-group" >
+            <select class="custom-select" formControlName="profession"  required>
               <option value="">Select a profession...</option>
               <option *ngFor="let prof of professions" [value]="prof.id">
                 {{prof.descriptionEn}}

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Briefcase, Profession } from '../models/user.model';
 import { UserService } from '../services/user.service';
-import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl, ValidatorFn, AbstractControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { filter, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-birefcase-edit',
@@ -16,16 +17,13 @@ export class BriefcaseEditComponent implements OnInit {
 
 
   briefcaseEditForm: FormGroup;
-  title = new FormControl('');
-  comments = new FormControl('');
-  description = new FormControl('');
-  startDate = new FormControl('');
-  endDate = new FormControl('');
+
 
   constructor(private userService: UserService,
               private formBuilder: FormBuilder,
               private router: Router,
               private route: ActivatedRoute) {
+
     this.briefcaseEditForm = this.formBuilder.group({
       title: [''],
       comments: [''],
@@ -35,7 +33,8 @@ export class BriefcaseEditComponent implements OnInit {
       profession: ['']
     });
     this.briefcases = [];
-              }
+
+  }
 
   ngOnInit() {
     this.userService.getAllProfessions().subscribe(
@@ -45,48 +44,37 @@ export class BriefcaseEditComponent implements OnInit {
       });
   }
 
-  selectProfession(e) {
-    this.profession.setValue(e.target.value, {
-       onlySelf: true
-    });
-  }
 
-  get profession() {
-    return this.briefcaseEditForm.get('profession');
-  }
 
   saveBriefCase() {
-    console.log('PROFESSION: ' + JSON.stringify(this.briefcaseEditForm.get('profession').value));
+    console.log('PROFESSION: ' + JSON.stringify(this.briefcaseEditForm.value));
     this.briefcases[this.briefcases.length] = {
-      description: this.description.value,
-        endDate: this.endDate.value,
-        startDate: this.startDate.value,
-        comments: this.comments.value,
-        idProfession: this.briefcaseEditForm.get('profession').value,
-        id: null
-      };
-      console.log('resetting the form.....');
-    this.briefcaseEditForm.reset({ title: [''],
-    comments: [''],
-    description: [''],
-    startDate: [''],
-    endDate: [''],
-    profession: ['']});
+      description: this.briefcaseEditForm.value.description,
+      endDate: this.briefcaseEditForm.value.endDate,
+      startDate: this.briefcaseEditForm.value.startDate,
+      comments: this.briefcaseEditForm.value.comments,
+      idProfession: this.briefcaseEditForm.value.profession,
+      id: null
+    };
+    // console.log('resetting the form.....');
+    this.briefcaseEditForm.reset();
 
   }
 
   save() {
     this.userService.setUserProfileBriefcase(this.briefcases);
     this.userService.createUserProfile()
-    .subscribe(
-      response => {
-        console.log('createUserProfile RESPONSE: ' + JSON.stringify(response));
-        // Navigate to Dashboard
-        this.router.navigate(['../'], { relativeTo: this.route });
-      }
-    );
+      .subscribe(
+        response => {
+          // console.log('createUserProfile RESPONSE: ' + JSON.stringify(response));
+          // Navigate to Dashboard
+          this.router.navigate(['../'], { relativeTo: this.route });
+        }
+      );
   }
 
-  skip() {}
+  skip() { }
+
+
 
 }

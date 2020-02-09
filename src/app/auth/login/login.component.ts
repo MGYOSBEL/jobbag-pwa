@@ -24,8 +24,6 @@ import { ErrorService } from '@app/errors/error.service';
 })
 export class LoginComponent implements OnInit {
 
-  email = new FormControl('');
-  password = new FormControl('');
   loginForm: FormGroup;
   returnUrl: string;
 
@@ -57,7 +55,7 @@ export class LoginComponent implements OnInit {
 
   jobbagLogin() {
     this.loading = true;
-    this.authenticationService.signInWithJobbag(this.email.value, this.password.value)
+    this.authenticationService.signInWithJobbag(this.loginForm.value.email, this.loginForm.value.password)
         .subscribe( data =>  {
           if (this.authenticationService.isLoggedIn) {
             const user_id = JSON.parse(localStorage.getItem('bearerToken')).user_id;
