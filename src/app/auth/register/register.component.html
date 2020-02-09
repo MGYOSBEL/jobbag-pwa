@@ -10,41 +10,35 @@
       <form [formGroup]="registerForm" (ngSubmit)="jobbagRegister()">
         <div class="row form-group mb-1">
           <fieldset class="col-12 mx-0 px-0">
+
             <div class="my-2">
-              <div *ngIf="registerForm.value.name.invalid && (registerForm.value.name.dirty || registerForm.value.name.touched)"
-                class="alert alert-danger">
-                <div *ngIf="registerForm.value.name.errors.required">
-                  Name is required
-                </div>
-              </div>
-              <input class="form-control input-lg" name="name" placeholder="username" formControlName="name">
+              <input
+                [ngClass]="registerForm.get('name').invalid && (registerForm.get('name').dirty || registerForm.get('name').touched) ? 'is-invalid' : '' "
+                class="form-control input-lg" name="name" placeholder="username" formControlName="name">
             </div>
+
             <div class="my-2">
-              <div *ngIf="registerForm.value.email.invalid"
-              class="alert alert-danger">
-              <div *ngIf="registerForm.value.email.errors.required">
-                Email is required
-              </div>
-              <div *ngIf="registerForm.value.email.errors.email">
-                Please enter a valid email.
-              </div>
+              <input
+                [ngClass]="registerForm.get('email').invalid && (registerForm.get('email').dirty || registerForm.get('email').touched) ? 'is-invalid' : '' "
+                class="form-control input-lg" name="email" placeholder="email@gmail.com" formControlName="email">
             </div>
-              <input class="form-control input-lg" name="email" placeholder="email@gmail.com" formControlName="email">
-            </div>
+
             <div class="my-2 " [hidden]="hiddenPasswords">
-              <input class="form-control input-lg" name="password" formControlName="password" type="password"
+              <input
+                [ngClass]="registerForm.get('password').invalid && (registerForm.get('password').dirty || registerForm.get('password').touched) ? 'is-invalid' : '' "
+                class="form-control input-lg" name="password" formControlName="password" type="password"
                 placeholder="********(password)">
             </div>
+
             <div class="my-2" [hidden]="hiddenPasswords">
-              <input class="form-control input-lg" name="confirmPassword" formControlName="confirmPassword"
-                type="password" placeholder="********(confirm password)">
+              <input
+                [ngClass]="(registerForm.hasError('passwordsMissmatch') || registerForm.get('confirmPassword').invalid) && (registerForm.get('confirmPassword').dirty || registerForm.get('confirmPassword').touched) ? 'is-invalid' : '' "
+                class="form-control input-lg" name="confirmPassword" formControlName="confirmPassword" type="password"
+                placeholder="********(confirm password)">
             </div>
           </fieldset>
         </div>
-        <div>
-          STATUS = {{registerForm.status}}
-          errors = {{registerForm.getError() | json}}
-        </div>
+
         <div class="row mt-1">
           <button class="btn btn-primary btn-block text-center btn-lg" style="background-color: #2787C4;"
             [disabled]="loading || registerForm.invalid">Register</button>
