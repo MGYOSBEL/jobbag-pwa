@@ -16,9 +16,6 @@ import { relative } from 'path';
 export class ProfileExtrasComponent implements OnInit {
 
   // scholarship = new FormControl('');
-  phoneNumber = new FormControl('');
-  comments = new FormControl('');
-  summary = new FormControl('');
   profileExtrasForm: FormGroup;
 
   scholarships: Scholarship[];
@@ -61,14 +58,13 @@ export class ProfileExtrasComponent implements OnInit {
     const user_id = JSON.parse(OAuth2Response).user_id;
 
     const userProfileRequest = {
-      "phone_number": this.phoneNumber.value,
-      "comment": this.comments.value,
-      "summary": this.summary.value,
+      "phone_number": this.profileExtrasForm.value.phoneNumber,
+      "comment": this.profileExtrasForm.value.comments,
+      "summary": this.profileExtrasForm.value.summary,
       "user_id": user_id,
-      "scholarship_id": this.profileExtrasForm.get('scholarship').value,
+      "scholarship_id": this.profileExtrasForm.value.scholarship,
       "user_profile_type": this.role
     };
-    console.log(this.profileExtrasForm.get('scholarship').value);
     this.userService.setUserProfileData(userProfileRequest);
 
     if (this.role === 'SERVICE_PROVIDER') {
@@ -89,14 +85,6 @@ export class ProfileExtrasComponent implements OnInit {
     this.router.navigate(['../'], { relativeTo: this.route });
   }
 
-  selectScholarship(e) {
-    this.scholarship.setValue(e.target.value, {
-      onlySelf: true
-   });
-  }
 
-  get scholarship() {
-    return this.profileExtrasForm.get('scholarship');
-  }
 
 }

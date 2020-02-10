@@ -2,33 +2,41 @@
 <div class="container align-items-center">
   <div class="row justify-content-center mx-0 my-5">
     <div class="col-4">
-      <form [formGroup]="profileExtrasForm" >
+      <form [formGroup]="profileExtrasForm">
         <div class="row form-group mb-1">
           <fieldset class="col-12 mx-0 px-0">
             <div *ngIf="this.role === 'SERVICE_PROVIDER'" class="my-2">
-              <select id="scholarship" class="form-control input-lg" name="scolarship" formControlName="scholarship" [formControl]="scholarship" (change)="selectScholarship($event)" required>
+              <select id="scholarship"
+                [ngClass]="profileExtrasForm.get('scholarship').invalid && (profileExtrasForm.get('scholarship').dirty || profileExtrasForm.get('scholarship').touched) ? 'is-invalid' : '' "
+                class="form-control input-lg" name="scolarship" formControlName="scholarship" required>
                 <option disabled selected value="">Select Scholarship...</option>
                 <option *ngFor="let scholarship of scholarships" [value]="scholarship.id">
-                  {{scholarship.shortDescription}}
+                  {{scholarship.descriptionEn}}
                 </option>
               </select>
+              <div class="invalid-feedback">
+                You must select a scholarship!
+              </div>
+
             </div>
             <div class="my-2">
-              <input class="form-control input-lg" name="phoneNumber" placeholder="(+53) 55 55 5555" [formControl]="phoneNumber" >
+              <input class="form-control input-lg" name="phoneNumber" placeholder="(+53) 55 55 5555"
+              formControlName="phoneNumber">
             </div>
             <div class="my-2 ">
-              <input class="form-control input-lg" name="comments" [formControl]="comments" placeholder="Some comments....." type="text">
+              <input class="form-control input-lg" name="comments" formControlName="comments"
+                placeholder="Some comments....." type="text">
             </div>
             <div class="my-2 ">
-              <input class="form-control input-lg" name="summary" [formControl]="summary" placeholder="Summary" type="text">
+              <input class="form-control input-lg" name="summary" formControlName="summary" placeholder="Summary"
+                type="text">
             </div>
           </fieldset>
         </div>
         <div class="row mt-1 justify-content-lg-between">
-          <button class="btn btn-primary text-center btn-lg"
-            style = "background-color: #2787C4;" (click)="save()">Next</button>
-          <button class="btn btn-light text-center btn-lg"
-            style = "color: #2787C4;" (click)="skip()">Skip</button>
+          <button class="btn btn-primary text-center btn-lg" style="background-color: #2787C4;"
+            (click)="save()">Next</button>
+          <button class="btn btn-light text-center btn-lg" style="color: #2787C4;" (click)="skip()">Skip</button>
 
         </div>
 
@@ -36,4 +44,4 @@
       </form>
     </div>
   </div>
-  </div>
+</div>
