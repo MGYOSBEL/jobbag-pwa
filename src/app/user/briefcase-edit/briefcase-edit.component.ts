@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Briefcase, Profession } from '../models/user.model';
 import { UserService } from '../services/user.service';
-import { FormGroup, FormBuilder, FormControl, ValidatorFn, AbstractControl } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl, ValidatorFn, AbstractControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { filter, map } from 'rxjs/operators';
 
@@ -25,12 +25,12 @@ export class BriefcaseEditComponent implements OnInit {
               private route: ActivatedRoute) {
 
     this.briefcaseEditForm = this.formBuilder.group({
-      title: [''],
+      title: ['', Validators.required],
       comments: [''],
-      description: [''],
-      startDate: [''],
-      endDate: [''],
-      profession: ['']
+      description: ['', Validators.required],
+      startDate: ['', Validators.required],
+      endDate: ['', Validators.required],
+      profession: ['', Validators.required]
     });
     this.briefcases = [];
 

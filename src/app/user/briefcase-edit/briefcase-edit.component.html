@@ -30,7 +30,8 @@
                 <hr class="divline">
                 <div class="row">
                   <div class="col-md-9">
-                    <p class="card-text" style="font-size: smaller;">Since {{briefcase.startDate}} to {{briefcase.endDate}}</p>
+                    <p class="card-text" style="font-size: smaller;">Since {{briefcase.startDate}} to
+                      {{briefcase.endDate}}</p>
                   </div>
                 </div>
               </div>
@@ -64,20 +65,23 @@
 
 
 <!-- Modal -->
-<div class="modal fade " id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade " id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
   <div class="modal-dialog modal-xlmodal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalCenterTitle">Please add a Briefcase</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <form class="was-validated" [formGroup]="briefcaseEditForm">
+        <form [formGroup]="briefcaseEditForm">
           <div class="mb-3">
             <label for="validationTextarea">Title</label>
-            <input class="form-control is-invalid" formControlName="title" id="validationTextarea" placeholder="Title" required>
+            <input
+              [ngClass]="briefcaseEditForm.get('title').invalid && (briefcaseEditForm.get('title').dirty || briefcaseEditForm.get('title').touched) ? 'is-invalid' : '' "
+              class="form-control" formControlName="title" id="validationTextarea" placeholder="Title" required>
             <div class="invalid-feedback">
               Please enter a title.
             </div>
@@ -85,7 +89,10 @@
 
           <div class="mb-3">
             <label for="validationTextarea">Description</label>
-            <input class="form-control is-invalid" formControlName="description" id="validationTextarea" placeholder="Short Description" required>
+            <input
+              [ngClass]="briefcaseEditForm.get('description').invalid && (briefcaseEditForm.get('description').dirty || briefcaseEditForm.get('description').touched) ? 'is-invalid' : '' "
+              class="form-control" formControlName="description" id="validationTextarea" placeholder="Short Description"
+              required>
             <div class="invalid-feedback">
               Please enter a description.
             </div>
@@ -93,12 +100,16 @@
 
           <div class="mb-3">
             <label for="validationTextarea">Comments</label>
-            <textarea class="form-control is-invalid" formControlName="comments" id="validationTextarea" placeholder="Enter some comments" ></textarea>
+            <textarea class="form-control" formControlName="comments" id="validationTextarea"
+              placeholder="Enter some comments"></textarea>
           </div>
 
           <div class="mb-3">
             <label for="validationTextarea">Start Date</label>
-            <input class="form-control is-invalid"formControlName="startDate" id="validationTextarea" placeholder="Start Date" required>
+            <input
+              [ngClass]="briefcaseEditForm.get('startDate').invalid && (briefcaseEditForm.get('startDate').dirty || briefcaseEditForm.get('startDate').touched) ? 'is-invalid' : '' "
+              class="form-control" formControlName="startDate" id="validationTextarea" placeholder="Start Date"
+              required>
             <div class="invalid-feedback">
               Please enter a date.
             </div>
@@ -106,15 +117,19 @@
 
           <div class="mb-3">
             <label for="validationTextarea">End Date</label>
-            <input class="form-control is-invalid" formControlName="endDate" id="validationTextarea" placeholder="End Date" required>
+            <input
+              [ngClass]="briefcaseEditForm.get('endDate').invalid && (briefcaseEditForm.get('endDate').dirty || briefcaseEditForm.get('endDate').touched) ? 'is-invalid' : '' "
+              class="form-control" formControlName="endDate" id="validationTextarea" placeholder="End Date" required>
             <div class="invalid-feedback">
               Please enter a date.
             </div>
           </div>
 
-          <div class="form-group" >
-            <select class="custom-select" formControlName="profession"  required>
-              <option value="">Select a profession...</option>
+          <div class="form-group">
+            <select
+              [ngClass]="briefcaseEditForm.get('profession').invalid && (briefcaseEditForm.get('profession').dirty || briefcaseEditForm.get('profession').touched) ? 'is-invalid' : '' "
+              class="custom-select" formControlName="profession" required>
+              <option value="" disabled>Select a profession...</option>
               <option *ngFor="let prof of professions" [value]="prof.id">
                 {{prof.descriptionEn}}
               </option>
@@ -125,7 +140,8 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="saveBriefCase()">Save changes</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="saveBriefCase()">Save
+          changes</button>
       </div>
     </div>
   </div>
