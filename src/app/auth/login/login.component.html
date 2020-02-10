@@ -12,12 +12,24 @@
         <div class="row form-group mb-1">
           <fieldset class="col-12 mx-0 px-0">
             <div class="my-2">
-              <input class="form-control input-lg" name="email" placeholder="email@gmail.com" formControlName="email"
-                >
+              <input
+                [ngClass]="loginForm.get('email').invalid && (loginForm.get('email').dirty || loginForm.get('email').touched) ? 'is-invalid' : '' "
+                class="form-control input-lg" name="email" placeholder="username" formControlName="email">
+                <div class="invalid-feedback">Please enter a username</div>
             </div>
             <div class="my-2 ">
-              <input class="form-control input-lg" name="password" formControlName="password" type="password"
-                placeholder="********" >
+              <input
+                [ngClass]="loginForm.get('password').invalid && (loginForm.get('password').dirty || loginForm.get('password').touched) ? 'is-invalid' : '' "
+                class="form-control input-lg" name="password" formControlName="password" type="password"
+                placeholder="********">
+                <div class="invalid-feedback">
+                  <p *ngIf="loginForm.get('password').hasError('required')">
+                    You must enter a password!
+                  </p>
+                  <p *ngIf="loginForm.get('password').hasError('minlength')">
+                    You password should have at least 5 characters!
+                  </p>
+                </div>
             </div>
           </fieldset>
         </div>
