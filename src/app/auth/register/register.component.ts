@@ -31,7 +31,7 @@ export class RegisterComponent implements OnInit {
     message?: string;
   };
 
-  pass1: string; pass2: string;
+  // pass1: string; pass2: string;
 
   constructor(private formBuilder: FormBuilder,
               private route: ActivatedRoute,

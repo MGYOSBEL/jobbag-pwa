@@ -15,19 +15,40 @@
               <input
                 [ngClass]="registerForm.get('name').invalid && (registerForm.get('name').dirty || registerForm.get('name').touched) ? 'is-invalid' : '' "
                 class="form-control input-lg" name="name" placeholder="username" formControlName="name">
+                <div class="invalid-feedback">
+                  You must enter a username!
+                </div>
+
             </div>
 
             <div class="my-2">
               <input
                 [ngClass]="registerForm.get('email').invalid && (registerForm.get('email').dirty || registerForm.get('email').touched) ? 'is-invalid' : '' "
                 class="form-control input-lg" name="email" placeholder="email@gmail.com" formControlName="email">
+                <div class="invalid-feedback">
+                  <p *ngIf="registerForm.get('email').hasError('required')">
+                    You must enter an email!
+                  </p>
+                  <p *ngIf="registerForm.get('email').hasError('email')">
+                    You must enter a valid email!
+                  </p>
+                </div>
             </div>
+
 
             <div class="my-2 " [hidden]="hiddenPasswords">
               <input
                 [ngClass]="registerForm.get('password').invalid && (registerForm.get('password').dirty || registerForm.get('password').touched) ? 'is-invalid' : '' "
                 class="form-control input-lg" name="password" formControlName="password" type="password"
                 placeholder="********(password)">
+                <div class="invalid-feedback">
+                  <p *ngIf="registerForm.get('password').hasError('required')">
+                    You must enter a password!
+                  </p>
+                  <p *ngIf="registerForm.get('password').hasError('minlength')">
+                    You password must have at least 5 characters!
+                  </p>
+                </div>
             </div>
 
             <div class="my-2" [hidden]="hiddenPasswords">
@@ -35,6 +56,15 @@
                 [ngClass]="(registerForm.hasError('passwordsMissmatch') || registerForm.get('confirmPassword').invalid) && (registerForm.get('confirmPassword').dirty || registerForm.get('confirmPassword').touched) ? 'is-invalid' : '' "
                 class="form-control input-lg" name="confirmPassword" formControlName="confirmPassword" type="password"
                 placeholder="********(confirm password)">
+                <div class="invalid-feedback">
+                  <p *ngIf="registerForm.get('confirmPassword').hasError('required')">
+                    You must confirm your password!
+                  </p>
+                  <p *ngIf="!registerForm.get('confirmPassword').hasError('required') && registerForm.hasError('passwordsMissmatch')">
+                    Your passwords must be equals!
+                  </p>
+                </div>
+
             </div>
           </fieldset>
         </div>
