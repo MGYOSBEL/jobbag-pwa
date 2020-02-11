@@ -151,6 +151,7 @@ this.socialAuthService.authState.subscribe(
               err: true,
               message: content.text
             };
+            console.log(this.registerErr.message);
             this.loading = false;
             this.hiddenPasswords = false;
             this.router.navigate(['./'], {relativeTo: this.route});
