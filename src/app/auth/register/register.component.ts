@@ -20,7 +20,7 @@ export class RegisterComponent implements OnInit {
 
   registerForm: FormGroup;
   returnUrl: string;
-
+  private registerPath = environment.serverBaseURL + '/user';
   registerRequest: RegisterRequest;
 
   loading = false;
@@ -95,7 +95,7 @@ this.socialAuthService.authState.subscribe(
   register() {
     this.loading = true;
     console.log('REGISTER REQUEST: ' + JSON.stringify(this.registerRequest));
-    this.http.post<any>('http://localhost/user', this.registerRequest, { headers: { 'Content-type': 'application/json' } })
+    this.http.post<any>(this.registerPath, this.registerRequest, { headers: { 'Content-type': 'application/json' } })
       .subscribe(
         (data) => {
           if (data.status_code === 200) {

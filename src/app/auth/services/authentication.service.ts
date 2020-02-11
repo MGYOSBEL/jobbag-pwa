@@ -31,7 +31,7 @@ export class AuthenticationService {
   };
 
 
-  private loginPath = environment.apiLoginURL;
+  private loginPath = environment.serverBaseURL + '/login';
 
   // public methods
   get isLoggedIn(): boolean {

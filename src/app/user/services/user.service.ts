@@ -26,14 +26,14 @@ export class UserService {
   };
 
   constructor(private http: HttpClient,
-              private logging: LoggingService) { }
+    private logging: LoggingService) { }
 
   getUser(userId: string): Observable<User> {
     // const user_id = JSON.parse(localStorage.getItem('bearerToken')).user_id;
     return this.http.get<any>(this.apiPath + '/user/get/' + userId).pipe(
       tap((response) => {
-          this.loggedUser = response;
-          localStorage.setItem('loggedUser', JSON.stringify(response));
+        this.loggedUser = response;
+        localStorage.setItem('loggedUser', JSON.stringify(response));
       })
     );
   }
@@ -55,8 +55,9 @@ export class UserService {
       map(response => JSON.parse(JSON.parse(response.content))),
       tap(response => {
         // this.loggedUser = response;
-        console.log('createUserProfile RESPONSE:' , response);
+        console.log('createUserProfile RESPONSE:', response);
         localStorage.setItem('userProfile', response);
+        localStorage.removeItem('userProfileRequest');
       })
     );
   }
@@ -68,9 +69,14 @@ export class UserService {
     this.userProfileRequest.user_id = data.user_id;
     this.userProfileRequest.scholarship_id = data.scholarship_id;
     this.userProfileRequest.user_profile_type = data.user_profile_type;
+    localStorage.setItem('userProfileRequest', JSON.stringify(this.userProfileRequest));
   }
 
   setUserProfileBriefcase(data) {
+    this.userProfileRequest = JSON.parse(localStorage.getItem('userProfileRequest'));
+
+    this.logging.log('BEFORE BRIEFCASE SAVED: userProfileRequest: ' + JSON.stringify(this.userProfileRequest));
+
     for (const iterator of data) {
       this.userProfileRequest.user_profile_briefcase[this.userProfileRequest.user_profile_briefcase.length] = {
         comments: iterator.comments,
@@ -80,7 +86,9 @@ export class UserService {
         id_profession: iterator.idProfession
       };
     }
-    console.log('setUserProfileBriefcase: ' + JSON.stringify(this.userProfileRequest));
+    this.logging.log('AFTER BRIEFCASE SAVED: userProfileRequest: ' + JSON.stringify(this.userProfileRequest));
+    localStorage.setItem('userProfileRequest', JSON.stringify(this.userProfileRequest));
+
   }
 
   getBriefcase(): Briefcase[] {
