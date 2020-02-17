@@ -1,0 +1,177 @@
+<app-navbar></app-navbar>
+
+<div style="background-color: #f1f1f1;" class="m-0 p-0">
+
+  <div class="container-fluid">
+    <div class="row">
+      <h4 class="container-fluid mb-3">
+        <div class="display-3 text-center">      
+           <div class="head-title-tags">
+            <div class="put-left">
+             SHOW US YOUR PREVIOUSLY WORKS
+           </div>   
+          </div>   
+        </div>
+      </h4>
+      <div class="container-fluid">
+        <div class="row justify-itmes-around">
+          <div class="col-3" *ngFor="let briefcase of briefcases">
+            <div class="card">
+              <div class="card-header">
+                Briefcase #{{briefcase.id}}
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-9">
+                    <p class="card-text" style="font-size: smaller;">{{briefcase.description}}</p>
+                  </div>
+                  <div class="col-md-3">
+                    <br>
+                    <i class="fas fa-camera" data-toggle="modal" data-target="#exampleModalCenter1"></i>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer">
+                <hr class="divline">
+                <div class="row">
+                  <div class="col-md-9">
+                    <p class="card-text" style="font-size: smaller;">{{briefcase.startDate}} - {{briefcase.endDate}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-3">
+            <div class="card text-center">
+              <div class="card-header">
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">Add new briefcase</h5>
+                <button type="button" class="btn btn-link" data-toggle="modal" data-target="#exampleModalCenter">
+                  <p class="card-text"><i class="fas fa-plus" alt="Add Briefcase"></i></p>
+                </button>
+              </div>
+              <div class="card-footer text-muted">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-1 justify-content-around mt-5">
+    <button class="btn-save btn-success text-center btn-lg" (click)="save()">Save</button>
+    <button class="btn-skip btn-light text-center btn-lg" (click)="skip()">Skip</button>
+
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade " id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-xlmodal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Add Briefcase</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="was-validated" [formGroup]="briefcaseEditForm">
+          <div class="mb-3">
+            <input class="form-control is-invalid" [formControl]="title" id="validationTextarea" placeholder="Title" required>
+            <div class="invalid-feedback">
+              Please enter a title.
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <input class="form-control is-invalid" [formControl]="description" id="validationTextarea" placeholder="Short Description" required>
+            <div class="invalid-feedback">
+              Please enter a description.
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <textarea class="form-control is-invalid" [formControl]="comments" id="validationTextarea" placeholder="Enter some comments" ></textarea>
+          </div>
+
+          <div class="mb-3">
+            <input class="form-control is-invalid" [formControl]="startDate" id="validationTextarea" placeholder="Start Date" required>
+            <div class="invalid-feedback">
+              Please enter a date.
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <input class="form-control is-invalid" [formControl]="endDate" id="validationTextarea" placeholder="End Date" required>
+            <div class="invalid-feedback">
+              Please enter a date.
+            </div>
+          </div>
+
+          <div class="form-group" formControlName="profession" (change)="selectProfession($event)" required>
+            <select class="custom-select" required>
+              <option value="">Select a profession...</option>
+              <option *ngFor="let prof of professions" [value]="prof.id">
+                {{prof.descriptionEn}}
+              </option>
+            </select>
+            <div class="invalid-feedback">Please enter a profession</div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="saveBriefCase()" data-dismiss="modal">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade " id="exampleModalCenter1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-xlmodal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Pictures</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">        
+        <div id="demo" class="carousel slide" data-ride="carousel">
+
+          <!-- Indicators -->
+          <ul class="carousel-indicators">
+            <li data-target="#demo" data-slide-to="0" class="active"></li>
+            <li data-target="#demo" data-slide-to="1"></li>
+            <li data-target="#demo" data-slide-to="2"></li>
+          </ul>
+        
+          <!-- The slideshow -->
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img src="https://www.w3schools.com/bootstrap/chicago.jpg" alt="Los Angeles" width="100%">
+            </div>
+            <div class="carousel-item">
+              <img src="https://www.w3schools.com/bootstrap/chicago.jpg" alt="Chicago" width="100%">
+            </div>
+            <div class="carousel-item">
+              <img src="https://www.w3schools.com/bootstrap/chicago.jpg" alt="New York" width="100%">
+            </div>
+          </div>
+        
+          <!-- Left and right controls -->
+          <a class="carousel-control-prev" href="#demo" data-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+          </a>
+          <a class="carousel-control-next" href="#demo" data-slide="next">
+            <span class="carousel-control-next-icon"></span>
+          </a>
+        
+        </div>  
+      </div>
+    </div>
+  </div>
+</div>
