@@ -26,7 +26,7 @@ export class UserService {
   };
 
   constructor(private http: HttpClient,
-    private logging: LoggingService) { }
+              private logging: LoggingService) { }
 
   getUser(userId: string): Observable<User> {
     // const user_id = JSON.parse(localStorage.getItem('bearerToken')).user_id;
@@ -37,6 +37,35 @@ export class UserService {
       })
     );
   }
+
+  editUser(data: any) {
+    console.log('data request: ' ,  data);
+    return this.http.put<any>(this.apiPath + '/user', data).pipe(
+      map(response => {
+        const content = JSON.parse(response.content);
+        console.log(content);
+        if (response.status_code === 200) {
+          return content;
+        } else {
+          return {
+            error: true,
+            statusCode: response.status_code,
+            text: response.content.text
+          };
+        }
+      }, err => {
+        console.log('SERVER ERROR!!!!!');
+        console.log(err);
+      }),
+      tap(response => {
+        console.log('data response ' , response);
+        if (!response.error) {
+          localStorage.setItem('loggedUser', (response));
+        }
+      })
+    );
+  }
+
 
   getAllScolarships() {
     return this.http.get<any>(this.apiPath + '/scholarship/all').pipe(
@@ -97,6 +126,11 @@ export class UserService {
         return iterator.briefcases;
       }
     }
+  }
+
+
+  getRoles() {
+    return this.loggedUser.roles;
   }
 
 

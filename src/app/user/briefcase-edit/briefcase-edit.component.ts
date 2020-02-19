@@ -53,7 +53,7 @@ export class BriefcaseEditComponent implements OnInit {
       endDate: this.briefcaseEditForm.value.endDate,
       startDate: this.briefcaseEditForm.value.startDate,
       comments: this.briefcaseEditForm.value.comments,
-      idProfession: this.briefcaseEditForm.value.profession,
+      idProfession: parseInt(this.briefcaseEditForm.value.profession, 10),
       id: null
     };
     // console.log('resetting the form.....');

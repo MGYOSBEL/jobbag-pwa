@@ -98,6 +98,7 @@ this.socialAuthService.authState.subscribe(
     this.http.post<any>(this.registerPath, this.registerRequest, { headers: { 'Content-type': 'application/json' } })
       .subscribe(
         (data) => {
+          console.log('REGISTER RAW RESPONSE:' + JSON.stringify(data));
           if (data.status_code === 200) {
             const content = JSON.parse(JSON.parse(data.content));
             const username = content.username;
@@ -109,7 +110,7 @@ this.socialAuthService.authState.subscribe(
                   const role = this.route.snapshot.queryParams.role;
                   console.log('role: ' + role);
                   if (this.authenticationService.isLoggedIn) {
-                    const user_id = JSON.parse(localStorage.getItem('bearerToken')).user_id;
+                    const user_id = this.authenticationService.getLoggedUserId();
                     const profileExtrasUrl = '/user/' + user_id + '/profile-extras';
                     if (role) {
                       console.log('navegando a profile extras...');
@@ -128,7 +129,7 @@ this.socialAuthService.authState.subscribe(
                     const role = this.route.snapshot.queryParams.role;
                     console.log('role: ' + role);
                     if (this.authenticationService.isLoggedIn) {
-                      const user_id = JSON.parse(localStorage.getItem('bearerToken')).user_id;
+                      const user_id = this.authenticationService.getLoggedUserId();
                       const profileExtrasUrl = '/user/' + user_id + '/profile-extras';
                       if (role) {
                         console.log('navegando a profile extras...');

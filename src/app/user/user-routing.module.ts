@@ -7,6 +7,7 @@ import { ProfileExtrasComponent } from './profile-extras/profile-extras.componen
 import { ProfessionsEditComponent } from './professions-edit/professions-edit.component';
 import { RoleSelectComponent } from '../sharedComponents/role-select/role-select.component';
 import { BriefcaseEditComponent } from './briefcase-edit/briefcase-edit.component';
+import { EditUserComponent } from './edit-user/edit-user.component';
 
 
 const userRoutes: Routes = [
@@ -23,6 +24,9 @@ const userRoutes: Routes = [
           },
           {
             path: 'edit-professions', component: ProfessionsEditComponent
+          },
+          {
+            path: 'edit-user', component: EditUserComponent
           },
           {
             path: 'briefcase', component: BriefcaseEditComponent
