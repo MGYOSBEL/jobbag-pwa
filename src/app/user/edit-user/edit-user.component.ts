@@ -67,7 +67,7 @@ export class EditUserComponent implements OnInit {
       }
     };
     this.loading = true;
-    this.userService.editUser(requestBody).subscribe(
+    this.userService.edit(requestBody).subscribe(
       response => {
         this.loading = false;
         if (!response.error) {

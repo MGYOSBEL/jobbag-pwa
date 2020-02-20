@@ -145,7 +145,7 @@ export class AuthenticationService {
   getLoggedUserId() {
     if (this.isLoggedIn) {
       const oauth2Response = localStorage.getItem('bearerToken');
-      return JSON.parse(oauth2Response).id;
+      return  JSON.parse(oauth2Response).user_id;
     } else {
       return null;
     }

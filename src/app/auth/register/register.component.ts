@@ -111,6 +111,8 @@ this.socialAuthService.authState.subscribe(
                   console.log('role: ' + role);
                   if (this.authenticationService.isLoggedIn) {
                     const user_id = this.authenticationService.getLoggedUserId();
+                    console.log('user_id: ' + user_id);
+
                     const profileExtrasUrl = '/user/' + user_id + '/profile-extras';
                     if (role) {
                       console.log('navegando a profile extras...');
@@ -130,6 +132,7 @@ this.socialAuthService.authState.subscribe(
                     console.log('role: ' + role);
                     if (this.authenticationService.isLoggedIn) {
                       const user_id = this.authenticationService.getLoggedUserId();
+                      console.log('user_id: ' + user_id);
                       const profileExtrasUrl = '/user/' + user_id + '/profile-extras';
                       if (role) {
                         console.log('navegando a profile extras...');

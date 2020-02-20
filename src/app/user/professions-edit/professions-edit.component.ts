@@ -3,6 +3,7 @@ import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { Profession } from '../models/user.model';
+import { ProfessionService } from '../services/profession.service';
 
 @Component({
   selector: 'app-professions-edit',
@@ -19,6 +20,7 @@ export class ProfessionsEditComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private userService: UserService,
+              private professionService: ProfessionService,
               private route: ActivatedRoute,
               private router: Router) {
     this. professionsEditForm = this.formBuilder.group({
@@ -30,7 +32,7 @@ export class ProfessionsEditComponent implements OnInit {
     // this.route.queryParamMap.pipe(
     //   switchMap((params: ParamMap) =>
     //     this.role = (params.get('role'))));
-    this.userService.getAllProfessions().subscribe(
+    this.professionService.getAll().subscribe(
       data => {
         this.professions = data;
       });

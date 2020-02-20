@@ -20,7 +20,7 @@ export class DashboardResolverService implements Resolve<User> {
   resolve(route: ActivatedRouteSnapshot): Observable<User> {
     if (this.authenticationService.isLoggedIn) {
       const userId = route.paramMap.get('id');
-      return this.userService.getUser(userId).pipe(
+      return this.userService.get(userId).pipe(
         mergeMap(user => {
           if (user) {
             return of(user);

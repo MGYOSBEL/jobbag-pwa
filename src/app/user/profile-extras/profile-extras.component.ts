@@ -7,6 +7,8 @@ import { UserService } from '../services/user.service';
 import { switchMap } from 'rxjs/operators';
 import { Scholarship } from '../models/user.model';
 import { relative } from 'path';
+import { ScholarshipService } from '../services/scholarship.service';
+import { UserProfileService } from '../services/user-profile.service';
 
 @Component({
   selector: 'app-profile-extras',
@@ -24,8 +26,9 @@ export class ProfileExtrasComponent implements OnInit {
 
 
   constructor( private route: ActivatedRoute,
+               private scholarshipService: ScholarshipService,
+               private userProfileService: UserProfileService,
                private formBuilder: FormBuilder,
-               private userService: UserService,
                private router: Router
                ) {
 
@@ -46,7 +49,7 @@ export class ProfileExtrasComponent implements OnInit {
     // this.route.queryParamMap.pipe(
     //   switchMap((params: ParamMap) =>
     //     this.role = (params.get('role'))));
-    this.userService.getAllScolarships().subscribe(
+    this.scholarshipService.getAll().subscribe(
       data => {
         this.scholarships = data;
       });
@@ -65,12 +68,12 @@ export class ProfileExtrasComponent implements OnInit {
       "scholarship_id": this.profileExtrasForm.value.scholarship,
       "user_profile_type": this.role
     };
-    this.userService.setUserProfileData(userProfileRequest);
+    this.userProfileService.cacheUserProfileData(userProfileRequest);
 
     if (this.role === 'SERVICE_PROVIDER') {
       this.router.navigate(['../', 'briefcase'], { relativeTo: this.route });
     } else {
-      this.userService.createUserProfile()
+      this.userProfileService.create()
         .subscribe(
           response => {
             console.log('createUserProfile RESPONSE: ' + JSON.stringify(response));
