@@ -55,6 +55,9 @@ export class AuthenticationService {
           const bearer = JSON.parse(response.content);
           this.setLogin(bearer);
           return bearer;
+        } else {
+          const content = (JSON.parse(response.content));
+          return content;
         }
       }));
   }
@@ -128,6 +131,24 @@ export class AuthenticationService {
     const loginRequestJSON = JSON.stringify(this.loginRequest);
     return loginRequestJSON;
 
+  }
+
+  getToken() {
+    if (this.isLoggedIn) {
+      const oauth2Response = localStorage.getItem('bearerToken');
+      return JSON.parse(oauth2Response).access_token;
+    } else {
+      return null;
+    }
+  }
+
+  getLoggedUserId() {
+    if (this.isLoggedIn) {
+      const oauth2Response = localStorage.getItem('bearerToken');
+      return  JSON.parse(oauth2Response).user_id;
+    } else {
+      return null;
+    }
   }
 
 

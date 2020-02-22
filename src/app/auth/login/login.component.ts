@@ -58,8 +58,11 @@ export class LoginComponent implements OnInit {
     this.authenticationService.signInWithJobbag(this.loginForm.value.email, this.loginForm.value.password)
         .subscribe( data =>  {
           if (this.authenticationService.isLoggedIn) {
-            const user_id = JSON.parse(localStorage.getItem('bearerToken')).user_id;
+            const user_id = this.authenticationService.getLoggedUserId();
             this.router.navigate([this.returnUrl, user_id ]);
+          } else {
+            this.loginErr = {err: true, message: data.text};
+            this.loading = false;
           }
         }, (error) => {
           this.errorService.errorMessage = error;
@@ -96,7 +99,7 @@ export class LoginComponent implements OnInit {
                 this.loginErr = {err: true, message: data.text};
                 this.router.navigate(['./'], {relativeTo: this.route});
               } else {
-                const user_id = JSON.parse(localStorage.getItem('bearerToken')).user_id;
+                const user_id = this.authenticationService.getLoggedUserId();
                 this.router.navigate([this.returnUrl, user_id]);
               }
             }

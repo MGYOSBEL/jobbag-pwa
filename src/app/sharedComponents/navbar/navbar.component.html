@@ -21,15 +21,22 @@
         <div class="col-6">
           <div class="row justify-content-end">{{loggedUser.username}}</div>
           <div class="row justify-content-end">
-            <a [routerLink]="['profile-extras']" routerLinkActive="active">
+            <a class="dropdown-toggle" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <i class="fas fa-edit" alt="Edit"></i>
             </a>
+            <div class="dropdown-menu ">
+              <a class="dropdown-item text-dark" >Edit Provider Profile</a>
+              <a class="dropdown-item text-dark" >Create a Customer Profile</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item text-dark" [routerLink]="['edit-user']" routerLinkActive="active">Edit Your Personal Data</a>
+              <a class="dropdown-item text-dark" (click)="signout()">Sign Out</a>
+            </div>
           </div>
         </div>
         <div class="col-6">
           <a routerLink="" routerLinkActive="active">
             <img class="rounded-circle"
-              [src]="socialUser.photoUrl">
+              [src]="(socialUser) ? 'socialUser.photoUrl' : '../../../assets/img/defaultProfile.png' ">
           </a>
         </div>
       </div>

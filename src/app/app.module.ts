@@ -3,17 +3,13 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SocialLoginModule } from 'angularx-social-login';
 import { AuthServiceConfig } from 'angularx-social-login';
 import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-login';
-import { NotFoundComponent } from './errors/not-found/not-found.component';
-import { InternalServerErrorComponent } from './errors/internal-server-error/internal-server-error.component';
 import { AuthInterceptor } from './auth/helpers/auth.interceptor';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SharedComponentsModule } from './sharedComponents/shared-components.module';
-import { RoleSelectComponent } from './sharedComponents/role-select/role-select.component';
 
 const config = new AuthServiceConfig([
   {
