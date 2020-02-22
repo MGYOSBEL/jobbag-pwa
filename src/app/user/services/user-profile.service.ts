@@ -45,7 +45,12 @@ export class UserProfileService {
     );
   }
 
-  edit() {}
+  edit() {
+    return this.http.put<any>(this.apiPath + '/user_profile', this.userProfileRequest)
+    .pipe(
+      map(response => JSON.parse(response.content))
+    );
+  }
 
   delete() {}
 
