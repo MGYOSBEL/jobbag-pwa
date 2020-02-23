@@ -34,9 +34,9 @@
           </fieldset>
         </div>
         <div class="row mt-1 justify-content-lg-between">
-          <button class="btn btn-primary text-center btn-lg" style="background-color: #2787C4;"
+          <button *ngIf="function==='CREATE'" class="btn btn-primary text-center btn-lg" style="background-color: #2787C4;"
             (click)="save()">Next</button>
-          <button class="btn btn-light text-center btn-lg" style="color: #2787C4;" (click)="skip()">Skip</button>
+          <button *ngIf="function==='CREATE'" class="btn btn-light text-center btn-lg" style="color: #2787C4;" (click)="skip()">Skip</button>
 
         </div>
 
