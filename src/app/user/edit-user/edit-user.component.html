@@ -77,7 +77,7 @@
                     </p>
                   </div>
                 </div>
-    
+                
                 <div >
                   <div class="my-4">
                     <input *ngIf="showPassword"
@@ -112,9 +112,9 @@
                 </div>
                 <div class="row mt-1 justify-content-center">
                   <button *ngIf="!showPassword"class="btn btn-primary text-center btn-lg" style="background-color: #B3BE35;"
-                    (click)=togglePasswords()>I want to change my password</button>
+                    (click)=togglePasswords()>Show my password</button>
                   <button *ngIf="showPassword" class="btn btn-primary  text-center btn-lg" style="background-color: #932877;"
-                    (click)=togglePasswords()>I prefer not to change my password</button>
+                    (click)=togglePasswords()>Hide my password</button>
                 </div>
     
               </fieldset>
