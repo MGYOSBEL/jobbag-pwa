@@ -108,21 +108,31 @@
                 <div class="col-md-6">
                   <div class="mb-3">
                     <label for="validationTextarea">Start Date</label>
-                    <input
-                      [ngClass]="briefcaseEditForm.get('startDate').invalid && (briefcaseEditForm.get('startDate').dirty || briefcaseEditForm.get('startDate').touched) ? 'is-invalid' : '' "
-                      class="form-control" formControlName="startDate" id="validationTextarea" placeholder="Start Date"
-                      required>
+                    <div class="input-group">
+                      <input [ngClass]="briefcaseEditForm.get('startDate').invalid && (briefcaseEditForm.get('startDate').dirty || briefcaseEditForm.get('startDate').touched) ? 'is-invalid' : '' "
+                      class="form-control" formControlName="startDate" id="validationTextarea"
+                      placeholder="yyyy-mm-dd" ngbDatepicker #startDatePicker="ngbDatepicker" required>
+                      <div class="input-group-append">
+                        <button class="btn btn-outline-secondary calendar" (click)="startDatePicker.toggle()" type="button"></button>
+                      </div>
+                    </div>
                     <div class="invalid-feedback">
                       Please enter a date.
                     </div>
                   </div>
                 </div>
+
                 <div class="col-md-6">
                   <div class="mb-3">
                     <label for="validationTextarea">End Date</label>
-                    <input
-                      [ngClass]="briefcaseEditForm.get('endDate').invalid && (briefcaseEditForm.get('endDate').dirty || briefcaseEditForm.get('endDate').touched) ? 'is-invalid' : '' "
-                      class="form-control" formControlName="endDate" id="validationTextarea" placeholder="End Date" required>
+                    <div class="input-group">
+                      <input [ngClass]="briefcaseEditForm.get('endDate').invalid && (briefcaseEditForm.get('endDate').dirty || briefcaseEditForm.get('endDate').touched) ? 'is-invalid' : '' "
+                      class="form-control" formControlName="endDate" id="validationTextarea"
+                      placeholder="yyyy-mm-dd" ngbDatepicker #endDatePicker="ngbDatepicker" required>
+                      <div class="input-group-append">
+                        <button class="btn btn-outline-secondary calendar" (click)="endDatePicker.toggle()" type="button"></button>
+                      </div>
+                    </div>
                     <div class="invalid-feedback">
                       Please enter a date.
                     </div>

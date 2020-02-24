@@ -10,6 +10,7 @@ import { SharedComponentsModule } from '@app/sharedComponents/shared-components.
 import { ProjectsComponent } from './projects/projects.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { EditUserComponent } from './edit-user/edit-user.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -26,6 +27,7 @@ import { EditUserComponent } from './edit-user/edit-user.component';
     CommonModule,
     SharedComponentsModule,
     ReactiveFormsModule,
+    NgbModule,
     UserRoutingModule
   ]
 })
