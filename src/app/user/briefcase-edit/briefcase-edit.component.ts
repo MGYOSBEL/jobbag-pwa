@@ -20,6 +20,8 @@ export class BriefcaseEditComponent implements OnInit {
 
   briefcaseEditForm: FormGroup;
 
+  function: string;
+
 
   constructor(private userService: UserService,
               private professionService: ProfessionService,

@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { User } from '../models/user.model';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { UserService } from '../services/user.service';
 import { environment } from '@environments/environment';
 import { Router, ActivatedRoute } from '@angular/router';
+import { ProfileExtrasComponent } from '../profile-extras/profile-extras.component';
+import { BriefcaseEditComponent } from '../briefcase-edit/briefcase-edit.component';
 
 @Component({
   selector: 'app-edit-user',
@@ -11,6 +13,13 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./edit-user.component.css']
 })
 export class EditUserComponent implements OnInit {
+
+  @ViewChild(ProfileExtrasComponent, {static: false})
+  private profileExtrasComponent: ProfileExtrasComponent;
+
+  @ViewChild(BriefcaseEditComponent, {static: false})
+  private briefcaseEditComponent: BriefcaseEditComponent;
+
 
   loggedUser: User;
   editUserForm: FormGroup;
