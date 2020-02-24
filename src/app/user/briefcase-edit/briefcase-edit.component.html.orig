@@ -55,8 +55,14 @@
     </div>
   </div>
   <div class="row mt-1 justify-content-around mt-5">
+<<<<<<< HEAD
+    <button class="btn btn-primary text-center btn-lg" style="background-color: #2787C4;" (click)="save()">Save</button>
+    <button class="btn btn-light text-center btn-lg" style="color: #2787C4;" (click)="skip()">Skip</button>
+
+=======
     <button *ngIf="function==='CREATE'" class="btn btn-primary text-center btn-lg" style="background-color: #2787C4;" (click)="save()">Save</button>
     <button *ngIf="function==='CREATE'" class="btn btn-light text-center btn-lg" style="color: #2787C4;" (click)="skip()">Skip</button>
+>>>>>>> f3ad6c39da21d34eaacda0475bf8fc3977c8dcc0
   </div>
 </div>
 
@@ -86,7 +92,7 @@
                   Please enter a title.
                 </div>
               </div>
-
+    
               <div class="mb-3">
                 <label for="validationTextarea">Description</label>
                 <input
@@ -97,13 +103,13 @@
                   Please enter a description.
                 </div>
               </div>
-
+    
               <div class="mb-3">
                 <label for="validationTextarea">Comments</label>
                 <textarea class="form-control" formControlName="comments" id="validationTextarea"
                   placeholder="Enter some comments"></textarea>
               </div>
-
+              
               <div class="row">
                 <div class="col-md-6">
                   <div class="mb-3">
@@ -144,7 +150,7 @@
             </form>
           </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4">  
           <div class="text-center">
             <figure class="figure">
               <img src='../../../assets/img/defaultProfile.png' class="figure-img img-thumbnail"
@@ -152,10 +158,10 @@
             </figure>
             <h6>Upload Pictures</h6>
             <input type="file" class="form-control">
-          </div>
+          </div>       
         </div>
       </div>
-
+      
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="saveBriefCase()">Save

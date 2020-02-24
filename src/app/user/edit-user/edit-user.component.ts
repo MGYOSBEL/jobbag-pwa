@@ -33,7 +33,8 @@ export class EditUserComponent implements OnInit {
     message?: string
   };
   loading = false;
-
+  marked = false;
+  theCheckbox = false;
   constructor(private formBuilder: FormBuilder,
               private userService: UserService,
               private router: Router,
@@ -106,5 +107,9 @@ export class EditUserComponent implements OnInit {
     this.editUserForm.controls['confirmPassword'].updateValueAndValidity();
     this.editUserForm.controls['password'].updateValueAndValidity();
     this.editUserForm.updateValueAndValidity();
+  }
+
+  toggleVisibility(e){
+    this.marked= e.target.checked;
   }
 }

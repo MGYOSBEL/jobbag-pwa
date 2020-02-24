@@ -17,7 +17,6 @@ export class BriefcaseEditComponent implements OnInit {
   briefcases: Briefcase[];
   professions: Profession[];
 
-
   briefcaseEditForm: FormGroup;
 
   function: string;

@@ -77,8 +77,11 @@
                     </p>
                   </div>
                 </div>
+<<<<<<< HEAD
 
-
+=======
+                
+>>>>>>> f3ad6c39da21d34eaacda0475bf8fc3977c8dcc0
                 <div >
                   <div class="my-4">
                     <input *ngIf="showPassword"
