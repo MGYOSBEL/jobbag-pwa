@@ -113,7 +113,9 @@
                       class="form-control" formControlName="startDate" id="validationTextarea"
                       placeholder="yyyy-mm-dd" ngbDatepicker #startDatePicker="ngbDatepicker" required>
                       <div class="input-group-append">
-                        <button class="btn btn-outline-secondary calendar" (click)="startDatePicker.toggle()" type="button"></button>
+                        <button class="btn btn-outline-secondary calendar" (click)="startDatePicker.toggle()" type="button">
+                          <i class="far fa-calendar-alt fa-lg"></i>
+                        </button>
                       </div>
                     </div>
                     <div class="invalid-feedback">
@@ -130,7 +132,9 @@
                       class="form-control" formControlName="endDate" id="validationTextarea"
                       placeholder="yyyy-mm-dd" ngbDatepicker #endDatePicker="ngbDatepicker" required>
                       <div class="input-group-append">
-                        <button class="btn btn-outline-secondary calendar" (click)="endDatePicker.toggle()" type="button"></button>
+                        <button class="btn btn-outline-secondary calendar" (click)="endDatePicker.toggle()" type="button">
+                          <i class="far fa-calendar-alt fa-lg"></i>
+                        </button>
                       </div>
                     </div>
                     <div class="invalid-feedback">

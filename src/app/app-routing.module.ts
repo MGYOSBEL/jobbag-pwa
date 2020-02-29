@@ -5,6 +5,7 @@ import { AuthGuard } from './auth/helpers/auth.guard';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { InternalServerErrorComponent } from './errors/internal-server-error/internal-server-error.component';
 import {UserModule} from './user/user.module';
+import { TestComponent } from './test/test.component';
 
 
 
@@ -20,6 +21,8 @@ const routes: Routes = [
   {
     path: 'error', component: InternalServerErrorComponent
   },
+  { path: 'test', component: TestComponent },
+
   {
     path: '',
     redirectTo: 'home',

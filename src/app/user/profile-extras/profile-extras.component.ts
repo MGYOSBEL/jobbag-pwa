@@ -69,12 +69,12 @@ export class ProfileExtrasComponent implements OnInit {
     };
 
     if (this.function === 'CREATE') {
-      this.userProfileService.cacheUserProfileData(userProfileRequest);
+      // this.userProfileService.cacheUserProfileData(userProfileRequest);
 
       if (this.role === 'SERVICE_PROVIDER') {
         this.router.navigate(['../', 'briefcase'], { relativeTo: this.route });
       } else {
-        this.userProfileService.create()
+        this.userProfileService.create(userProfileRequest)
           .subscribe(
             response => {
               console.log('createUserProfile RESPONSE: ' + JSON.stringify(response));
@@ -84,7 +84,7 @@ export class ProfileExtrasComponent implements OnInit {
           );
       }
     } else { // function === 'EDIT'
-      this.userProfileService.edit()
+      this.userProfileService.edit(userProfileRequest)
         .subscribe(
           response => {
             console.log('createUserProfile RESPONSE: ' + JSON.stringify(response));

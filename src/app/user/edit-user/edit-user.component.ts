@@ -65,7 +65,7 @@ export class EditUserComponent implements OnInit {
     );
   }
 
-  saveUser() {
+  editUser() {
     const requestBody = {
       client_id: environment.clientId,
       client_secret: environment.clientSecret,
@@ -83,7 +83,7 @@ export class EditUserComponent implements OnInit {
         if (!response.error) {
           this.editOK = {
             ok: true,
-            message: 'Your user was successfuly edited.'
+            message: 'Your user info was successfuly edited.'
           };
           this.router.navigate(['./'], {relativeTo: this.route});
         } else {
@@ -109,7 +109,7 @@ export class EditUserComponent implements OnInit {
     this.editUserForm.updateValueAndValidity();
   }
 
-  toggleVisibility(e){
-    this.marked= e.target.checked;
+  toggleVisibility(e) {
+    this.marked = e.target.checked;
   }
 }

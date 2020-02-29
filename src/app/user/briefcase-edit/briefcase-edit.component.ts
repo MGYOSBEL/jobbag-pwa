@@ -75,7 +75,7 @@ export class BriefcaseEditComponent implements OnInit {
   }
 
   save() {
-    this.userProfileService.create()
+    this.userProfileService.create({})
       .subscribe(
         response => {
           this.router.navigate(['../'], { relativeTo: this.route });

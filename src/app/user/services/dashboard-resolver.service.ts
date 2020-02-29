@@ -4,8 +4,10 @@ import { Observable, of, EMPTY } from 'rxjs';
 import { User } from '../models/user.model';
 import { UserService } from './user.service';
 import { UserModule } from '../user.module';
-import { mergeMap } from 'rxjs/operators';
+import { mergeMap, tap } from 'rxjs/operators';
 import { AuthenticationService } from '@app/auth/services/authentication.service';
+import { ScholarshipService } from './scholarship.service';
+import { ProfessionService } from './profession.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +15,8 @@ import { AuthenticationService } from '@app/auth/services/authentication.service
 export class DashboardResolverService implements Resolve<User> {
 
   constructor(private userService: UserService,
+              private scholarshipService: ScholarshipService,
+              private professionService: ProfessionService,
               private authenticationService: AuthenticationService,
               private route: ActivatedRoute) {
 
@@ -27,6 +31,10 @@ export class DashboardResolverService implements Resolve<User> {
           } else {
             return EMPTY;
           }
+        }),
+        tap(() => {
+          this.scholarshipService.getAll(true).subscribe();
+          this.professionService.getAll(true).subscribe();
         })
       );
     } else {
