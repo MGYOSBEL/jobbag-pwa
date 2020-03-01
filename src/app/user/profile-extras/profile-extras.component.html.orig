@@ -36,11 +36,16 @@
         <div class="row mt-1 justify-content-lg-between">
           <button *ngIf="function==='CREATE'" class="btn btn-primary text-center btn-lg" style="background-color: #2787C4;"
             (click)="save()">Next</button>
+<<<<<<< HEAD
           <button *ngIf="function==='CREATE'" class="btn btn-light text-center btn-lg" style="color: #2787C4;" (click)="skip()">Skip</button>
 
         </div>
 
 
+=======
+          <button class="btn btn-light text-center btn-lg" style="color: #2787C4;" data-toggle="modal" data-target="#msgModal">Skip</button>
+        </div>      
+>>>>>>> 4071355c340943055a6b01f4840fae6dc7fbdfdc
       </form>
     </div>
   </div>

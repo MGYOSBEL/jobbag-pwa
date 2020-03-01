@@ -1,0 +1,145 @@
+import { Component, OnInit } from '@angular/core';
+import {
+  FormControl,
+  FormGroup,
+  FormBuilder,
+  Validators
+} from '@angular/forms';
+import { AuthenticationService } from '../services/authentication.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Observable, of } from 'rxjs';
+import { first } from 'rxjs/operators';
+import { LoggingService } from '@app/services/logging.service';
+import { SocialUser, AuthService, GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-login';
+import { User } from '@app/user/models/user.model';
+import { ErrorService } from '@app/errors/error.service';
+
+@Component({
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
+})
+export class LoginComponent implements OnInit {
+
+  loginForm: FormGroup;
+  email = new FormControl('');
+  password = new FormControl('');
+  returnUrl: string;
+
+  socialUser: SocialUser;
+  loading = false;
+<<<<<<< HEAD
+  loginErr: {
+    err: boolean;
+    message?: string;
+  };
+
+
+=======
+>>>>>>> login-formValidation
+
+  constructor(private formBuilder: FormBuilder,
+              private route: ActivatedRoute,
+              private router: Router,
+              private authenticationService: AuthenticationService,
+              private errorService: ErrorService,
+              private socialAuthService: AuthService,
+              private logging: LoggingService) { 
+    this.loginForm = this.formBuilder.group({
+      'email': ['', Validators.minLength(4)],
+      'password': ['', Validators.minLength(4)]
+    });
+    this.loading = false;
+<<<<<<< HEAD
+    this.loginErr = {err: false};
+=======
+>>>>>>> login-formValidation
+    this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/user';
+  }
+
+  jobbagLogin() {
+<<<<<<< HEAD
+    this.loading = true;
+    this.authenticationService.signInWithJobbag(this.email.value, this.password.value)
+        .subscribe( data =>  {
+          if (this.authenticationService.isLoggedIn) {
+            const user_id = JSON.parse(localStorage.getItem('bearerToken')).user_id;
+            this.router.navigate([this.returnUrl, user_id ]);
+          }
+        }, (error) => {
+          this.errorService.errorMessage = error;
+          this.router.navigate(['/error']);
+          this.logging.log('error on the post request of the login method: ' + error + ' ... (LoginComponent)');
+=======
+    if(this.loginForm.valid){
+      this.loading = true;
+       this.authenticationService.signInWithJobbag(this.email.value, this.password.value)
+          .subscribe( data =>  {
+            if (this.authenticationService.isLoggedIn) {
+              const user_id = JSON.parse(JSON.parse(localStorage.getItem('bearerToken')).content).user_id;
+              this.router.navigate([this.returnUrl, user_id ]);
+            }
+         }, (error) => {
+            this.errorService.errorMessage = error;
+            this.router.navigate(['/error']);
+           this.logging.log('error on the post request of the login method: ' + error + ' ... (LoginComponent)');
+>>>>>>> login-formValidation
+        });
+        console.log('Valido');
+      }
+      else
+      {
+        console.log('Invalido');
+        console.log(this.email.value);
+        console.log(this.password.value);
+      }
+  }
+
+  facebookLogin() {
+    this.loading = true;
+    this.authenticationService.authProvider = 'FACEBOOK';
+    this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
+  }
+
+  googleLogin() {
+    this.loading = true;
+    this.authenticationService.authProvider = 'GOOGLE';
+    this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
+  }
+
+  ngOnInit() {
+    this.socialAuthService.authState.subscribe(
+      (user) => {
+        if (user != null && this.loading === true) {
+          this.socialUser = user;
+          localStorage.clear();
+          localStorage.setItem('socialUser', JSON.stringify(user));
+          this.authenticationService.socialLogin(user, this.authenticationService.authProvider).subscribe(
+            (data) => {
+              console.log(data);
+              if ( data.status_code ) {
+                this.logging.log('isLoggedIn subscription was false.... (LoginComponent)' + data);
+                this.loading = false;
+                this.loginErr = {err: true, message: data.text};
+                this.router.navigate(['./'], {relativeTo: this.route});
+              } else {
+                const user_id = JSON.parse(localStorage.getItem('bearerToken')).user_id;
+                this.router.navigate([this.returnUrl, user_id]);
+              }
+            }
+            // }, (error) => {
+            //   this.errorService.errorMessage = error;
+            //   this.router.navigate(['/error']);
+            //   this.logging.log('error on the post request of the login method: ' + JSON.stringify(error) + ' ... (LoginComponent)');
+            // }
+          );
+        }
+      }
+    );    
+
+  }
+
+  getemail(){this.loginForm.get('email');}
+  getpassword(){this.loginForm.get('password');}
+
+}

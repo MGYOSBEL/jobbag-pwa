@@ -83,7 +83,9 @@ export class BriefcaseEditComponent implements OnInit {
       );
   }
 
-  skip() { }
+  skip() {
+    this.router.navigate(['../'], { relativeTo: this.route });
+  }
 
 
 
