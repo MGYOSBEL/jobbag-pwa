@@ -50,6 +50,10 @@ export class BriefcaseEditComponent implements OnInit {
       data => {
         this.professions = data;
       });
+    this.briefcaseService.getAll().subscribe(
+      briefcases => this.briefcases = briefcases
+    );
+
   }
 
 
@@ -57,15 +61,21 @@ export class BriefcaseEditComponent implements OnInit {
   saveBriefCase() {
     const bc = {
       description: this.briefcaseEditForm.value.description,
-      endDate: this.briefcaseEditForm.value.endDate,
-      startDate: this.briefcaseEditForm.value.startDate,
+      end_date:   this.briefcaseEditForm.value.endDate.year.toString() + '-'
+                + this.briefcaseEditForm.value.endDate.month.toString() + '-'
+                + this.briefcaseEditForm.value.endDate.day.toString(),
+      start_date: this.briefcaseEditForm.value.startDate.year.toString() + '-'
+                + this.briefcaseEditForm.value.startDate.month.toString() + '-'
+                + this.briefcaseEditForm.value.startDate.day.toString(),
       comments: this.briefcaseEditForm.value.comments,
-      idProfession: this.briefcaseEditForm.value.profession,
+      id_profession: this.briefcaseEditForm.value.profession,
       id: null
     };
     this.briefcaseService.create(this.userProfileService.serviceProvider.id, bc).subscribe(
       response => {
-        console.log(response);
+        this.briefcaseService.getAll().subscribe(
+          briefcases => this.briefcases = briefcases
+        );
       }, err => {
         this.errorService.errorMessage = err;
         this.router.navigate(['/error']);
