@@ -1,0 +1,28 @@
+.joinus-img{
+    text-align: center;
+     display: block;
+     margin-left: auto;
+     margin-right: auto;
+     width: 80%;
+}
+
+.row{
+    padding-top: 2rem;
+    padding-left: 6rem;
+    padding-bottom: 1rem;
+}
+
+.tittle-section, .text-content{
+    color: white;
+    text-align: left;
+}
+
+.tittle-section{
+    font-size: 2rem;
+} 
+
+.btn-lg {
+    color: white;
+    border-width: 3px;
+    margin-top: 1rem !important;
+  }

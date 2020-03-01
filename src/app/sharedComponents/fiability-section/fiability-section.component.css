@@ -1,0 +1,41 @@
+.section-label{
+    text-align: center;
+    color: #2f057e;
+    font-size: 2rem;
+    padding-left: 1rem;
+    padding-top: 2rem;
+
+}
+
+.fa-users{
+    color:#2787c4;
+}
+
+.tittle{
+    font-size: 1rem;
+    color: #2f057e;;
+}
+
+.col-xl-6{
+    margin-top: 3rem;
+    max-width: 47%;
+}
+
+.col-sm-7{
+    padding-left: 0!important;
+    padding-right: 0!important;
+    max-width: 65%;
+}
+
+.row{
+    padding-left: 3rem;
+    padding-right: 2rem;
+}
+
+.fiability-label{
+    font-size: 0.9rem;
+}
+
+.jobbag-img{
+    width:108%;
+  }
