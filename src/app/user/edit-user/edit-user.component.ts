@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { User } from '../models/user.model';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { UserService } from '../services/user.service';
 import { environment } from '@environments/environment';
 import { Router, ActivatedRoute } from '@angular/router';
+import { ProfileExtrasComponent } from '../profile-extras/profile-extras.component';
+import { BriefcaseEditComponent } from '../briefcase-edit/briefcase-edit.component';
 
 @Component({
   selector: 'app-edit-user',
@@ -11,6 +13,13 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./edit-user.component.css']
 })
 export class EditUserComponent implements OnInit {
+
+  @ViewChild(ProfileExtrasComponent, {static: false})
+  private profileExtrasComponent: ProfileExtrasComponent;
+
+  @ViewChild(BriefcaseEditComponent, {static: false})
+  private briefcaseEditComponent: BriefcaseEditComponent;
+
 
   loggedUser: User;
   editUserForm: FormGroup;
@@ -24,7 +33,8 @@ export class EditUserComponent implements OnInit {
     message?: string
   };
   loading = false;
-
+  marked = false;
+  theCheckbox = false;
   constructor(private formBuilder: FormBuilder,
               private userService: UserService,
               private router: Router,
@@ -55,7 +65,7 @@ export class EditUserComponent implements OnInit {
     );
   }
 
-  saveUser() {
+  editUser() {
     const requestBody = {
       client_id: environment.clientId,
       client_secret: environment.clientSecret,
@@ -73,7 +83,7 @@ export class EditUserComponent implements OnInit {
         if (!response.error) {
           this.editOK = {
             ok: true,
-            message: 'Your user was successfuly edited.'
+            message: 'Your user info was successfuly edited.'
           };
           this.router.navigate(['./'], {relativeTo: this.route});
         } else {
@@ -97,5 +107,9 @@ export class EditUserComponent implements OnInit {
     this.editUserForm.controls['confirmPassword'].updateValueAndValidity();
     this.editUserForm.controls['password'].updateValueAndValidity();
     this.editUserForm.updateValueAndValidity();
+  }
+
+  toggleVisibility(e) {
+    this.marked = e.target.checked;
   }
 }

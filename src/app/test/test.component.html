@@ -1,0 +1,94 @@
+<div class="container align-items-center">
+  <div class="row justify-content-center mx-0 my-5">
+    <div class="col-4">
+      <form [formGroup]="testForm">
+        <div class="row form-group mb-1">
+          <fieldset class="col-12 mx-0 px-0">
+            <div class="my-2 ">
+              <input class="form-control input-lg" name="id" formControlName="id"
+                placeholder="id....." type="text">
+              <input class="form-control input-lg" name="phone_number" formControlName="phone_number"
+                placeholder="phone_number ...." type="text">
+              <input class="form-control input-lg" name="comment" formControlName="comment"
+                placeholder="comment....." type="text">
+              <input class="form-control input-lg" name="summary" formControlName="summary"
+                placeholder="summary....." type="text">
+              <input class="form-control input-lg" name="user_id" formControlName="user_id"
+                placeholder="user_id....." type="text">
+              <input class="form-control input-lg" name="scholarship_id" formControlName="scholarship_id"
+                placeholder="scholarship_id....." type="text">
+              <input class="form-control input-lg" name="user_profile_type" formControlName="user_profile_type"
+                placeholder="user_profile_type....." type="text">
+            </div>
+          </fieldset>
+        </div>
+        <div class="row mt-1 justify-content-lg-between">
+          <button class="btn btn-primary text-center btn-lg" style="background-color: #2787C4;"
+            (click)="create()">Create</button>
+          <button class="btn btn-primary text-center btn-lg" style="background-color: #2787C4;"
+            (click)="edit()">Edit</button>
+          <button class="btn btn-primary text-center btn-lg" style="background-color: #2787C4;"
+            (click)="delete()">Delete</button>
+          <button class="btn btn-primary text-center btn-lg" style="background-color: #2787C4;"
+            (click)="array()">Array</button>
+
+        </div>
+
+
+      </form>
+      <div>
+        BRIEFCASE: {{(briefcase$ | async) | json}}
+      </div>
+      <form [formGroup]="briefcaseForm">
+        <div class="row form-group mb-1">
+          <fieldset class="col-12 mx-0 px-0">
+            <div class="my-2 ">
+              <input class="form-control input-lg" name="bc_id" formControlName="bc_id"
+                placeholder="id....." type="text">
+              <input class="form-control input-lg" name="bc_comment" formControlName="bc_comment"
+                placeholder="comment....." type="text">
+              <input class="form-control input-lg" name="bc_description" formControlName="bc_description"
+                placeholder="bc_description....." type="text">
+              <input class="form-control input-lg" name="bc_id_profession" formControlName="bc_id_profession"
+                placeholder="bc_id_profession....." type="text">
+              <input class="form-control input-lg" name="bc_start_date" formControlName="bc_start_date"
+                placeholder="bc_start_date....." type="text">
+              <input class="form-control input-lg" name="bc_end_date" formControlName="bc_end_date"
+                placeholder="bc_end_date....." type="text">
+            </div>
+          </fieldset>
+        </div>
+        <div class="row mt-1 justify-content-lg-between">
+          <button class="btn btn-primary text-center btn-lg" style="background-color: #2787C4;"
+            (click)="bc_create()">Create</button>
+          <button class="btn btn-primary text-center btn-lg" style="background-color: #2787C4;"
+            (click)="bc_edit()">Edit</button>
+          <button class="btn btn-primary text-center btn-lg" style="background-color: #2787C4;"
+            (click)="bc_delete()">Delete</button>
+
+        </div>
+
+
+      </form>
+
+    </div>
+  </div>
+</div>
+<div *ngIf="errors.length">
+  <div *ngFor="let err of errors">
+    Error: {{err}}
+  </div>
+</div>
+
+<div >
+  Professions: {{professions | json}}
+</div>
+<div >
+  Scholarships: {{scholarships | json}}
+</div>
+<div >
+  User Profile: {{userProfile | json}}
+</div>
+
+
+

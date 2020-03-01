@@ -116,9 +116,15 @@ this.socialAuthService.authState.subscribe(
                     const profileExtrasUrl = '/user/' + user_id + '/profile-extras';
                     if (role) {
                       console.log('navegando a profile extras...');
-                      this.router.navigate([profileExtrasUrl], { queryParams: { role } });
+                      this.router.navigate([profileExtrasUrl], { queryParams: { role, function: 'CREATE' } });
                     } else {
-                      this.router.navigate(['user', user_id, 'select-role'], { queryParams: { returnUrl: profileExtrasUrl } });
+                      this.router.navigate(['user', user_id, 'select-role'],
+                        {
+                          queryParams: {
+                            returnUrl: profileExtrasUrl,
+                            function: 'CREATE'
+                          }
+                        });
                     }
                   }
                 });

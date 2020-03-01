@@ -10,6 +10,8 @@ import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-logi
 import { AuthInterceptor } from './auth/helpers/auth.interceptor';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SharedComponentsModule } from './sharedComponents/shared-components.module';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { TestComponent } from './test/test.component';
 
 const config = new AuthServiceConfig([
   {
@@ -28,7 +30,8 @@ export function provideConfig() {
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    TestComponent
   ],
   imports: [
     BrowserModule,
@@ -37,6 +40,7 @@ export function provideConfig() {
     FontAwesomeModule,
     SocialLoginModule,
     SharedComponentsModule,
+    NgbModule,
     AppRoutingModule
   ],
   providers: [

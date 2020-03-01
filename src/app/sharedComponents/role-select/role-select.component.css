@@ -1,10 +1,48 @@
 #home-content {
-  background-color: #2787C4;
+  background-color:#ffffff ;
   min-height: 400px;
   max-height: 800px;
 }
 
+/* .row{
+  padding-top: 2rem;
+} */
+
+.col-md-6{
+  padding-right: 0!important;
+}
+
+.jobbag-img{
+  width: 85%;
+  position: relative;
+  float: right;
+}
+
+.col-sm-6{
+padding-left: 20rem;
+padding-top: 6rem !important;
+}
 .btn-lg {
-  color: white;
+  color: #000000;
+  margin-top: 0.2rem;
   border-width: 3px;
+  font-size: 1.5rem;
+}
+
+.whattodo-text, .motivational-text{
+  color: #000000;
+  font-family: 'Segoe UI';
+}
+
+.welcome-text{  
+  font-size: 1.1rem;
+}
+
+.whattodo-text{
+  font-size: 2rem;
+}
+
+.motivational-text{
+  margin-top: 2rem;
+  font-size: 1.5rem;
 }

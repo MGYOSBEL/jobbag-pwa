@@ -17,8 +17,9 @@ export class BriefcaseEditComponent implements OnInit {
   briefcases: Briefcase[];
   professions: Profession[];
 
-
   briefcaseEditForm: FormGroup;
+
+  function: string;
 
 
   constructor(private userService: UserService,
@@ -74,7 +75,7 @@ export class BriefcaseEditComponent implements OnInit {
   }
 
   save() {
-    this.userProfileService.create()
+    this.userProfileService.create({})
       .subscribe(
         response => {
           this.router.navigate(['../'], { relativeTo: this.route });

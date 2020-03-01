@@ -3,6 +3,14 @@
   color: antiquewhite;
 }
 
+.btn-link {
+  color: antiquewhite;
+
+}
+/* .fas.far {
+  color: antiquewhite;
+} */
+
 .input-group-prepend,
 .input-group-text {
   background-color: white;
