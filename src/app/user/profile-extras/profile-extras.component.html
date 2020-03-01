@@ -35,10 +35,10 @@
         </div>
         <div class="row mt-1 justify-content-lg-between">
           <button *ngIf="function==='CREATE'" class="btn btn-primary text-center btn-lg" style="background-color: #2787C4;"
-            (click)="save()">Next</button>
+            (click)="create()">Next</button>
           <button *ngIf="function==='CREATE'" class="btn btn-light text-center btn-lg" style="color: #2787C4;" (click)="skip()">Skip</button>
-          <button *ngIf="function==='EDIT'" class="btn btn-primary text-center btn-lg" style="background-color: #2787C4;"
-          (click)="save()">Save</button>
+          <button *ngIf="function!=='EDIT'" class="btn btn-primary text-center btn-lg" style="background-color: #2787C4;"
+          (click)="edit()">Save</button>
         </div>
 
 

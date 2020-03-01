@@ -31,14 +31,14 @@ export class ProfileExtrasComponent implements OnInit {
 
 
 
-  constructor( private route: ActivatedRoute,
-               private scholarshipService: ScholarshipService,
-               private userProfileService: UserProfileService,
-               private authenticationService: AuthenticationService,
-               private errorService: ErrorService,
-               private formBuilder: FormBuilder,
-               private router: Router
-               ) {
+  constructor(private route: ActivatedRoute,
+              private scholarshipService: ScholarshipService,
+              private userProfileService: UserProfileService,
+              private authenticationService: AuthenticationService,
+              private errorService: ErrorService,
+              private formBuilder: FormBuilder,
+              private router: Router
+  ) {
 
     this.role = this.route.snapshot.queryParams.role;
     this.function = this.route.snapshot.queryParams.function || 'EDIT';
@@ -51,7 +51,7 @@ export class ProfileExtrasComponent implements OnInit {
   }
 
   ngOnInit() {
-    const profile = this.isServiceProvider ? this.userProfileService.serviceProvider : this.userProfileService.client ;
+    const profile = this.isServiceProvider ? this.userProfileService.serviceProvider : this.userProfileService.client;
     console.log('profile', profile);
     console.log('scholarships', this.scholarships);
     if (this.function === 'CREATE') {
@@ -74,7 +74,7 @@ export class ProfileExtrasComponent implements OnInit {
 
   }
 
-  save() {
+  create() {
 
     const user_id = this.authenticationService.getLoggedUserId();
 
@@ -89,36 +89,50 @@ export class ProfileExtrasComponent implements OnInit {
       user_profile_type: this.role
     };
 
-    if (this.function === 'CREATE') {
-      // this.userProfileService.cacheUserProfileData(userProfileRequest);
-
-
-        this.userProfileService.create(userProfileRequest)
-          .subscribe(
-            response => {
-              console.log('createUserProfile RESPONSE: ' + JSON.stringify(response));
-              if (this.role === 'SERVICE_PROVIDER') {
-                this.router.navigate(['../', 'briefcase'], { relativeTo: this.route,
-                                                             queryParams: { function: 'CREATE' } });
-              } else {
-              // Navigate to Dashboard
-              this.router.navigate(['../'], { relativeTo: this.route });
-              }
-            }, (err) => {
-              this.errorService.errorMessage = err;
-              this.router.navigate(['/error']);
-            }
-          );
-
-    } else { // function === 'EDIT'
-      this.userProfileService.edit(userProfileRequest)
-        .subscribe(
-          response => {
-            console.log('createUserProfile RESPONSE: ' + JSON.stringify(response));
+    this.userProfileService.create(userProfileRequest)
+      .subscribe(
+        response => {
+          console.log('createUserProfile RESPONSE: ' + JSON.stringify(response));
+          if (this.role === 'SERVICE_PROVIDER') {
+            this.router.navigate(['../', 'briefcase'], {
+              relativeTo: this.route,
+              queryParams: { function: 'CREATE' }
+            });
+          } else {
             // Navigate to Dashboard
+            this.router.navigate(['../'], { relativeTo: this.route });
           }
-        );
-    }
+        }, (err) => {
+          this.errorService.errorMessage = err;
+          this.router.navigate(['/error']);
+        }
+      );
+
+  }
+
+  edit() {
+
+    const user_id = this.authenticationService.getLoggedUserId();
+
+    const userProfileRequest = {
+      client_id: environment.clientId,
+      client_secret: environment.clientSecret,
+      phone_number: this.profileExtrasForm.value.phoneNumber,
+      comment: this.profileExtrasForm.value.comments,
+      summary: this.profileExtrasForm.value.summary,
+      user_id: user_id,
+      scholarship_id: this.profileExtrasForm.value.scholarship,
+      user_profile_type: this.role
+    };
+
+    this.userProfileService.edit(userProfileRequest)
+      .subscribe(
+        response => {
+          console.log('editUserProfile RESPONSE: ' + JSON.stringify(response));
+          // Navigate to Dashboard
+        }
+      );
+
   }
 
   skip() {

@@ -29,6 +29,8 @@ export class NavbarComponent implements OnInit {
                 this.navEnd = router.events.pipe(
                   filter(evt => evt instanceof NavigationEnd)
                 ) as Observable<NavigationEnd>;
+                this.loggedUser = this.userService.get(this.userId);
+
                }
 
   ngOnInit() {
