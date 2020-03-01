@@ -23,7 +23,7 @@ export class ProfileExtrasComponent implements OnInit {
   // scholarship = new FormControl('');
   profileExtrasForm: FormGroup;
 
-  scholarships: Scholarship[];
+  scholarships: Array<any>;
   isServiceProvider: boolean;
   role: string;
   function: string;
@@ -43,20 +43,35 @@ export class ProfileExtrasComponent implements OnInit {
     this.role = this.route.snapshot.queryParams.role;
     this.function = this.route.snapshot.queryParams.function;
     this.isServiceProvider = (this.role === 'SERVICE_PROVIDER');
+    this.scholarshipService.getAll(false).subscribe(
+      data => {
+        this.scholarships = data;
+      });
 
   }
 
   ngOnInit() {
-    this.profileExtrasForm = this.formBuilder.group({
-      scholarship: [this.function === 'CREATE' ? '' : this.userProfileService.currentUserProfile.scholarship, Validators.required],
-      phoneNumber: [this.function === 'CREATE' ? '' : this.userProfileService.currentUserProfile.phone_number],
-      comments: [this.function === 'CREATE' ? '' : this.userProfileService.currentUserProfile.comment],
-      summary: [this.function === 'CREATE' ? '' : this.userProfileService.currentUserProfile.summary]
-    });
-    this.scholarshipService.getAll().subscribe(
-      data => {
-        this.scholarships = data;
+    const profile = this.isServiceProvider ? this.userProfileService.serviceProvider : this.userProfileService.client ;
+    console.log('profile', profile);
+    console.log('scholarships', this.scholarships);
+    if (this.function === 'CREATE') {
+      this.profileExtrasForm = this.formBuilder.group(
+        {
+          scholarship: ['', Validators.required],
+          phoneNumber: [''],
+          comments: [''],
+          summary: ['']
+        });
+    } else {
+      this.profileExtrasForm = this.formBuilder.group({
+        scholarship: [profile.scholarship, Validators.required],
+        phoneNumber: [profile.phone_number],
+        comments: [profile.comment],
+        summary: [profile.summary]
       });
+    }
+
+
   }
 
   save() {
@@ -83,7 +98,8 @@ export class ProfileExtrasComponent implements OnInit {
             response => {
               console.log('createUserProfile RESPONSE: ' + JSON.stringify(response));
               if (this.role === 'SERVICE_PROVIDER') {
-                this.router.navigate(['../', 'briefcase'], { relativeTo: this.route });
+                this.router.navigate(['../', 'briefcase'], { relativeTo: this.route,
+                                                             queryParams: { function: 'CREATE' } });
               } else {
               // Navigate to Dashboard
               this.router.navigate(['../'], { relativeTo: this.route });

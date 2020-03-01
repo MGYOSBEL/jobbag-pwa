@@ -33,6 +33,7 @@ export class BriefcaseEditComponent implements OnInit {
               private router: Router,
               private route: ActivatedRoute) {
 
+    this.function = this.route.snapshot.queryParams.function;
     this.briefcaseEditForm = this.formBuilder.group({
       title: ['', Validators.required],
       comments: [''],
