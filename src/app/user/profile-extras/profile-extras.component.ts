@@ -41,7 +41,7 @@ export class ProfileExtrasComponent implements OnInit {
                ) {
 
     this.role = this.route.snapshot.queryParams.role;
-    this.function = this.route.snapshot.queryParams.function;
+    this.function = this.route.snapshot.queryParams.function || 'EDIT';
     this.isServiceProvider = (this.role === 'SERVICE_PROVIDER');
     this.scholarshipService.getAll(false).subscribe(
       data => {
@@ -116,7 +116,6 @@ export class ProfileExtrasComponent implements OnInit {
           response => {
             console.log('createUserProfile RESPONSE: ' + JSON.stringify(response));
             // Navigate to Dashboard
-            this.router.navigate(['../'], { relativeTo: this.route });
           }
         );
     }
