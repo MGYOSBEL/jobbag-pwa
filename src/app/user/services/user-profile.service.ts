@@ -98,16 +98,18 @@ export class UserProfileService {
         }
       }
     }
+    console.log(data);
     return this.http.post<any>(this.apiPath + '/user_profile', data).pipe(
       catchError(err => { // Captura si hubo algun error en la llamada y lo relanza
         throw new Error(err.error.status + ': ' + err.error.detail);  // Relanzo el error con el status y el detail
       }),
       map(response => {
+        console.log(response);
         if (response.status_code === 200) { // Si el status del response es OK retorno contento como dato del observable
           return JSON.parse(JSON.parse(response.content));
         } else {
           throw new Error( // Si no es OK el status del response, lanzo un error con el status y el text
-            response.status_code + ': ' + response.text
+            response.status_code + ': ' + (JSON.parse(response.content)).text
           );
         }
       }),

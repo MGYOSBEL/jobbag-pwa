@@ -4,11 +4,14 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '@environments/environment';
 import { UserService } from '../services/user.service';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, catchError } from 'rxjs/operators';
 import { Scholarship } from '../models/user.model';
 import { relative } from 'path';
 import { ScholarshipService } from '../services/scholarship.service';
 import { UserProfileService } from '../services/user-profile.service';
+import { AuthenticationService } from '@app/auth/services/authentication.service';
+import { of } from 'rxjs';
+import { ErrorService } from '@app/errors/error.service';
 
 @Component({
   selector: 'app-profile-extras',
@@ -31,6 +34,8 @@ export class ProfileExtrasComponent implements OnInit {
   constructor( private route: ActivatedRoute,
                private scholarshipService: ScholarshipService,
                private userProfileService: UserProfileService,
+               private authenticationService: AuthenticationService,
+               private errorService: ErrorService,
                private formBuilder: FormBuilder,
                private router: Router
                ) {
@@ -56,10 +61,11 @@ export class ProfileExtrasComponent implements OnInit {
 
   save() {
 
-    const OAuth2Response = localStorage.getItem('bearerToken');
-    const user_id = JSON.parse(OAuth2Response).user_id;
+    const user_id = this.authenticationService.getLoggedUserId();
 
     const userProfileRequest = {
+      client_id: environment.clientId,
+      client_secret: environment.clientSecret,
       phone_number: this.profileExtrasForm.value.phoneNumber,
       comment: this.profileExtrasForm.value.comments,
       summary: this.profileExtrasForm.value.summary,
@@ -71,18 +77,23 @@ export class ProfileExtrasComponent implements OnInit {
     if (this.function === 'CREATE') {
       // this.userProfileService.cacheUserProfileData(userProfileRequest);
 
-      if (this.role === 'SERVICE_PROVIDER') {
-        this.router.navigate(['../', 'briefcase'], { relativeTo: this.route });
-      } else {
+
         this.userProfileService.create(userProfileRequest)
           .subscribe(
             response => {
               console.log('createUserProfile RESPONSE: ' + JSON.stringify(response));
+              if (this.role === 'SERVICE_PROVIDER') {
+                this.router.navigate(['../', 'briefcase'], { relativeTo: this.route });
+              } else {
               // Navigate to Dashboard
               this.router.navigate(['../'], { relativeTo: this.route });
+              }
+            }, (err) => {
+              this.errorService.errorMessage = err;
+              this.router.navigate(['/error']);
             }
           );
-      }
+
     } else { // function === 'EDIT'
       this.userProfileService.edit(userProfileRequest)
         .subscribe(

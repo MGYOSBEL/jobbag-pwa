@@ -6,6 +6,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { filter, map } from 'rxjs/operators';
 import { ProfessionService } from '../services/profession.service';
 import { UserProfileService } from '../services/user-profile.service';
+import { BriefcaseService } from '../services/briefcase.service';
+import { ErrorService } from '@app/errors/error.service';
 
 @Component({
   selector: 'app-birefcase-edit',
@@ -24,7 +26,9 @@ export class BriefcaseEditComponent implements OnInit {
 
   constructor(private userService: UserService,
               private professionService: ProfessionService,
+              private briefcaseService: BriefcaseService,
               private userProfileService: UserProfileService,
+              private errorService: ErrorService,
               private formBuilder: FormBuilder,
               private router: Router,
               private route: ActivatedRoute) {
@@ -59,31 +63,21 @@ export class BriefcaseEditComponent implements OnInit {
       idProfession: this.briefcaseEditForm.value.profession,
       id: null
     };
-    this.userProfileService.cacheBriefcase(
-      {
-        comments: bc.comments,
-        description: bc.description,
-        start_date: bc.startDate,
-        end_date: bc.endDate,
-        id_profession: bc.idProfession
+    this.briefcaseService.create(this.userProfileService.serviceProvider.id, bc).subscribe(
+      response => {
+        console.log(response);
+      }, err => {
+        this.errorService.errorMessage = err;
+        this.router.navigate(['/error']);
       }
-
     );
-    this.briefcases.push(bc);
+
     this.briefcaseEditForm.reset();
 
   }
 
-  save() {
-    this.userProfileService.create({})
-      .subscribe(
-        response => {
-          this.router.navigate(['../'], { relativeTo: this.route });
-        }
-      );
-  }
 
-  skip() {
+  exit() {
     this.router.navigate(['../'], { relativeTo: this.route });
   }
 
