@@ -1,0 +1,30 @@
+.fa-users, .fa-folder-open,.fa-briefcase ,.fa-award{
+    color: white;
+}
+
+.col-sm-3{
+    margin-top: 2rem;
+}
+
+.col-sm-7{
+    padding-left: 2rem;
+}
+
+.statistics-label, .counter{
+    color: white;
+    text-align: left;
+    margin-left: 1rem;
+}
+
+.statistics-label{
+    margin-top: -1.5rem;
+}
+
+.counter{
+    font-size: 2rem;
+}   
+
+.row{
+    padding-left: 3rem;
+    padding-right: 3rem;
+}

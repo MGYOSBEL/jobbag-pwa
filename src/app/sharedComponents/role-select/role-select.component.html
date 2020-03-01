@@ -1,12 +1,21 @@
-<div class="container-fluid " id="home-content">
-  <div class="col align-items-center pt-5" >
-    <div class="row mx-5 px-7 justify-content-around pt-5" >
-      <button class="btn btn-lg col-2 mt-5 rounded-0" style="border-color: #932877;" (click)="hire()">
-        I Need a Service
-      </button>
-      <button class="btn btn-lg col-2 mt-5 rounded-0" style="border-color: #B3BE35;" (click)="work()">
-        I Want to Work
-      </button>
+<div class="container-fluid " id="home-content">    
+    <div class="row" >
+      <div class="col-sm-6 pt-5 justify-content">
+        <p class="whattodo-text">
+          Que deseas hacer hoy?
+        </p>
+        <button type="button" class="btn btn-lg rounded-0" style="border-color: #2787C4;" (click)="hire()">
+          I Need a Service
+        </button>
+        <br>
+        <button class="btn btn-lg rounded-0" style="border-color: #2787C4;" (click)="work()">
+          I Want to Work
+        </button>
+      <p class="motivational-text">
+        Encuentra trabajos, clientes y oportunidades
+      </p>
+      </div>
+      <div class="col-md-6">
+          <img src="../../../assets/img/roles.jpg" class="jobbag-img" alt="Responsive image">
     </div>
-  </div>
 </div>
