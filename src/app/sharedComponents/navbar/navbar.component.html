@@ -3,7 +3,7 @@
     <div class="col col-3 navbar-brand mx-0 my-2">
       <img class="img img-fluid col-12" src="../../../assets/logo/SVG/blanca.svg">
     </div>
-    <div *ngIf="(isLoggedIn)" class="col col-6 mx-0">
+    <div *ngIf="(isLoggedIn$ | async)" class="col col-6 mx-0">
       <div class="offset-1">
         <div class="input-group form-sm form-1 pl-0 rounded-0">
           <div class="input-group-prepend rounded-0">
@@ -16,7 +16,7 @@
       </div>
 
     </div>
-    <div *ngIf="(isLoggedIn)" class="col col-2 mx-0">
+    <div *ngIf="(isLoggedIn$ | async)" class="col col-2 mx-0">
       <div class="row container">
         <div class="col-6">
           <div class="row justify-content-end">Username</div>
@@ -42,12 +42,12 @@
         </div>
       </div>
     </div>
-    <div *ngIf="(isLoggedIn)" class="col col-1 mx-0">
+    <div *ngIf="(isLoggedIn$ | async)" class="col col-1 mx-0">
       <a routerLink="" routerLinkActive="active">
         <i class="fas fa-bars" alt="Menu"></i>
       </a>
     </div>
-    <div *ngIf="!(isLoggedIn)" class="col-8 " >
+    <div *ngIf="!(isLoggedIn$ | async)" class="col-8 " >
       <div class="row justify-content-end">
         <button class="btn btn-link mx-2" routerLink='/auth/login' routerLinkActive="active">
           <i class="far fa-user"></i>
