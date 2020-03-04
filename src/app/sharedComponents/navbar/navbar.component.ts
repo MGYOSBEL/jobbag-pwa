@@ -29,17 +29,21 @@ export class NavbarComponent implements OnInit {
                 this.navEnd = router.events.pipe(
                   filter(evt => evt instanceof NavigationEnd)
                 ) as Observable<NavigationEnd>;
+                this.userId = this.authenticationService.getLoggedUserId();
+                this.loggedUser = this.userService.get(this.userId);
+
                }
 
   ngOnInit() {
     if (this.authenticationService.isLoggedIn) {
-      this.loggedUser = JSON.parse(localStorage.getItem('loggedUser'));
       this.socialUser = JSON.parse(localStorage.getItem('socialUser'));
       console.log('NAVBAR: ', this.loggedUser);
-      this.userId = this.authenticationService.getLoggedUserId();
-
       this.navEnd.subscribe(
-        evt => this.isLoggedIn = this.authenticationService.isLoggedIn
+        evt => {
+          this.isLoggedIn = this.authenticationService.isLoggedIn;
+          this.userId = this.authenticationService.getLoggedUserId();
+          this.loggedUser = this.userService.get(this.userId);
+        },
       );
 
     }
@@ -50,6 +54,7 @@ export class NavbarComponent implements OnInit {
       this.socialAuthService.signOut();
     }
     this.authenticationService.signOut();
+    this.isLoggedIn = false;
     this.router.navigate(['']);
   }
 

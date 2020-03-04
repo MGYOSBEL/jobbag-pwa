@@ -112,4 +112,8 @@ export class EditUserComponent implements OnInit {
   toggleVisibility(e) {
     this.marked = e.target.checked;
   }
+
+  exit() {
+    this.router.navigate(['../'], { relativeTo: this.route });
+  }
 }

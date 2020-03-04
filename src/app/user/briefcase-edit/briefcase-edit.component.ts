@@ -6,6 +6,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { filter, map } from 'rxjs/operators';
 import { ProfessionService } from '../services/profession.service';
 import { UserProfileService } from '../services/user-profile.service';
+import { BriefcaseService } from '../services/briefcase.service';
+import { ErrorService } from '@app/errors/error.service';
 
 @Component({
   selector: 'app-birefcase-edit',
@@ -24,11 +26,14 @@ export class BriefcaseEditComponent implements OnInit {
 
   constructor(private userService: UserService,
               private professionService: ProfessionService,
+              private briefcaseService: BriefcaseService,
               private userProfileService: UserProfileService,
+              private errorService: ErrorService,
               private formBuilder: FormBuilder,
               private router: Router,
               private route: ActivatedRoute) {
 
+    this.function = this.route.snapshot.queryParams.function;
     this.briefcaseEditForm = this.formBuilder.group({
       title: ['', Validators.required],
       comments: [''],
@@ -46,6 +51,10 @@ export class BriefcaseEditComponent implements OnInit {
       data => {
         this.professions = data;
       });
+    this.briefcaseService.getAll().subscribe(
+      briefcases => this.briefcases = briefcases
+    );
+
   }
 
 
@@ -53,37 +62,33 @@ export class BriefcaseEditComponent implements OnInit {
   saveBriefCase() {
     const bc = {
       description: this.briefcaseEditForm.value.description,
-      endDate: this.briefcaseEditForm.value.endDate,
-      startDate: this.briefcaseEditForm.value.startDate,
+      end_date:   this.briefcaseEditForm.value.endDate.year.toString() + '-'
+                + this.briefcaseEditForm.value.endDate.month.toString() + '-'
+                + this.briefcaseEditForm.value.endDate.day.toString(),
+      start_date: this.briefcaseEditForm.value.startDate.year.toString() + '-'
+                + this.briefcaseEditForm.value.startDate.month.toString() + '-'
+                + this.briefcaseEditForm.value.startDate.day.toString(),
       comments: this.briefcaseEditForm.value.comments,
-      idProfession: this.briefcaseEditForm.value.profession,
+      id_profession: this.briefcaseEditForm.value.profession,
       id: null
     };
-    this.userProfileService.cacheBriefcase(
-      {
-        comments: bc.comments,
-        description: bc.description,
-        start_date: bc.startDate,
-        end_date: bc.endDate,
-        id_profession: bc.idProfession
+    this.briefcaseService.create(this.userProfileService.serviceProvider.id, bc).subscribe(
+      response => {
+        this.briefcaseService.getAll().subscribe(
+          briefcases => this.briefcases = briefcases
+        );
+      }, err => {
+        this.errorService.errorMessage = err;
+        this.router.navigate(['/error']);
       }
-
     );
-    this.briefcases.push(bc);
+
     this.briefcaseEditForm.reset();
 
   }
 
-  save() {
-    this.userProfileService.create({})
-      .subscribe(
-        response => {
-          this.router.navigate(['../'], { relativeTo: this.route });
-        }
-      );
-  }
 
-  skip() {
+  exit() {
     this.router.navigate(['../'], { relativeTo: this.route });
   }
 

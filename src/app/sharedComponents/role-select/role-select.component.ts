@@ -19,12 +19,12 @@ export class RoleSelectComponent implements OnInit {
 
   work() {
     localStorage.setItem('registrationRole', 'SERVICE_PROVIDER');
-    this.router.navigate([this.returnUrl], { queryParams: { role: 'SERVICE_PROVIDER' } });
+    this.router.navigate([this.returnUrl], { queryParams: { role: 'SERVICE_PROVIDER', function: 'CREATE' } });
   }
 
   hire() {
     localStorage.setItem('registrationRole', 'CLIENT');
-    this.router.navigate([this.returnUrl], { queryParams: { role: 'CLIENT' } });
+    this.router.navigate([this.returnUrl], { queryParams: { role: 'CLIENT', function: 'CREATE' } });
 
   }
 

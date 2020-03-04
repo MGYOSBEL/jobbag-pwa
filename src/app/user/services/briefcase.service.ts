@@ -51,7 +51,10 @@ export class BriefcaseService {
 
   }
 
-  getAll() {}
+  getAll(): Observable<any> {
+    const briefcases: Array<any> = JSON.parse(localStorage.getItem('briefcases')) || []; // Leo el array de userProfiles del storage
+    return of (briefcases);
+  }
 
   create(userProfileId: string, briefcase: any): Observable<any> {
     const data = {
