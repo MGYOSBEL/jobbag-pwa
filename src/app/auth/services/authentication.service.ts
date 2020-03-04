@@ -7,7 +7,7 @@ import { AuthService } from 'angularx-social-login';
 import { FacebookLoginProvider, GoogleLoginProvider } from 'angularx-social-login';
 import { SocialUser } from 'angularx-social-login';
 import {LoginRequest, OAuth2Response} from '../models/auth.model';
-import { Observable, of, pipe } from 'rxjs';
+import { Observable, of, pipe, BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +19,7 @@ export class AuthenticationService {
   // private members
   private _isLoggedIn = false;
   public authProvider;
+  public isLoggedIn$: BehaviorSubject<boolean>;
   private loginRequest: LoginRequest = {
     client_id: null,
     client_secret: null,
@@ -43,6 +44,7 @@ export class AuthenticationService {
               // public socialAuthService: AuthService,
               private logging: LoggingService) {
                 this.authProvider = 'JOBBAG';
+                this.isLoggedIn$ = new BehaviorSubject(false);
   }
 
 
@@ -87,6 +89,7 @@ export class AuthenticationService {
   signOut(): void {
     localStorage.clear();
     this._isLoggedIn = false;
+    this.isLoggedIn$.next(false);
     this.authProvider = null;
   }
 
@@ -95,6 +98,7 @@ export class AuthenticationService {
       localStorage.setItem('bearerToken', JSON.stringify(data));
       this.bearerToken = data;
       this._isLoggedIn = true;
+      this.isLoggedIn$.next(true);
     } else {
       this.signOut();
     }

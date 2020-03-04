@@ -17,6 +17,7 @@ export class NavbarComponent implements OnInit {
   loggedUser;
   socialUser;
   isLoggedIn: boolean;
+  isLoggedIn$: Observable<boolean>;
   userId;
 
   navEnd: Observable<NavigationEnd>;
@@ -26,13 +27,13 @@ export class NavbarComponent implements OnInit {
               private socialAuthService: AuthService,
               private router: Router
               ) {
-                this.navEnd = router.events.pipe(
-                  filter(evt => evt instanceof NavigationEnd)
-                ) as Observable<NavigationEnd>;
-                this.userId = this.authenticationService.getLoggedUserId();
-                this.loggedUser = this.userService.get(this.userId);
-
-               }
+    this.navEnd = router.events.pipe(
+      filter(evt => evt instanceof NavigationEnd)
+    ) as Observable<NavigationEnd>;
+    this.userId = this.authenticationService.getLoggedUserId();
+    this.loggedUser = this.userService.get(this.userId);
+    this.isLoggedIn$ = this.authenticationService.isLoggedIn$.asObservable();
+  }
 
   ngOnInit() {
     if (this.authenticationService.isLoggedIn) {
