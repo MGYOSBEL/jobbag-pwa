@@ -11,6 +11,7 @@ import { ProjectsComponent } from './projects/projects.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { EditUserComponent } from './edit-user/edit-user.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CreateProfileComponent } from './create-profile/create-profile.component';
 
 
 
@@ -21,7 +22,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
      ProfessionsEditComponent,
      BriefcaseEditComponent,
      ProjectsComponent,
-     EditUserComponent
+     EditUserComponent,
+     CreateProfileComponent
     ],
   imports: [
     CommonModule,
