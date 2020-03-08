@@ -1,0 +1,50 @@
+.container-fluid{
+    padding-left: 3rem;
+    padding-bottom: 3rem;
+}
+
+.tittle-section{
+    padding-top: 1rem;
+    padding-left: 3rem;
+    font-size: 2rem;
+    color:#2787c4;
+}
+
+.tittle2-section{
+    font-size: 1.5rem;
+}
+
+.col-md-6{
+    padding-left: 6rem;
+}
+
+.section-label{
+    text-align: center;
+    color: #2f057e;
+    font-size: 2rem;
+    padding-left: 1rem;
+    padding-top: 2rem;
+}
+
+.btn-lg{
+    float:right;
+    border: 3px solid #2787c4;  
+    margin-top: 1rem;  
+}
+
+.tittle{
+    font-size: 1rem;
+    color: #2f057e;;
+}
+
+.fa-twitter-square, .fa-linkedin{
+    margin-left: 1rem;
+}
+
+.icons-section{
+    margin-bottom: 2rem;
+}
+
+.icons-text{
+    padding-bottom: 2rem;
+}
