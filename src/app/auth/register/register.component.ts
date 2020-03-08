@@ -113,15 +113,15 @@ this.socialAuthService.authState.subscribe(
                     const user_id = this.authenticationService.getLoggedUserId();
                     console.log('user_id: ' + user_id);
 
-                    const profileExtrasUrl = '/user/' + user_id + '/profile-extras';
+                    const createProfileURL = '/user/' + user_id + '/create-profile';
                     if (role) {
                       console.log('navegando a profile extras...');
-                      this.router.navigate([profileExtrasUrl], { queryParams: { role, function: 'CREATE' } });
+                      this.router.navigate([createProfileURL], { queryParams: { role, function: 'CREATE' } });
                     } else {
                       this.router.navigate(['user', user_id, 'select-role'],
                         {
                           queryParams: {
-                            returnUrl: profileExtrasUrl,
+                            returnUrl: createProfileURL,
                             function: 'CREATE'
                           }
                         });
@@ -139,12 +139,12 @@ this.socialAuthService.authState.subscribe(
                     if (this.authenticationService.isLoggedIn) {
                       const user_id = this.authenticationService.getLoggedUserId();
                       console.log('user_id: ' + user_id);
-                      const profileExtrasUrl = '/user/' + user_id + '/profile-extras';
+                      const createProfileURL = '/user/' + user_id + '/create-profile';
                       if (role) {
                         console.log('navegando a profile extras...');
-                        this.router.navigate([profileExtrasUrl], { queryParams: { role } });
+                        this.router.navigate([createProfileURL], { queryParams: { role } });
                       } else {
-                        this.router.navigate(['user', user_id, 'select-role'], { queryParams: { returnUrl: profileExtrasUrl } });
+                        this.router.navigate(['user', user_id, 'select-role'], { queryParams: { returnUrl: createProfileURL } });
                       }
                     }
                   } else {

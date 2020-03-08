@@ -9,6 +9,7 @@ import { AuthenticationService } from '../services/authentication.service';
 import { AuthService, SocialUser, FacebookLoginProvider, GoogleLoginProvider } from 'angularx-social-login';
 import { LoggingService } from '@app/services/logging.service';
 import { ErrorService } from '@app/errors/error.service';
+import {passwordMissmatchValidator} from '@app/sharedComponents/customValidators';
 
 @Component({
   selector: 'app-register',
@@ -17,25 +18,20 @@ import { ErrorService } from '@app/errors/error.service';
 })
 export class RegisterComponent implements OnInit {
 
-  email = new FormControl('');
-  name = new FormControl('');
-  password = new FormControl('');
-  confirmPassword = new FormControl('');
   registerForm: FormGroup;
   returnUrl: string;
-
+  private registerPath = environment.serverBaseURL + '/user';
   registerRequest: RegisterRequest;
 
   loading = false;
-<<<<<<< HEAD
   socialUser: SocialUser;
   hiddenPasswords = false;
   registerErr: {
     err: boolean;
     message?: string;
   };
-=======
->>>>>>> login-formValidation
+
+  // pass1: string; pass2: string;
 
   constructor(private formBuilder: FormBuilder,
               private route: ActivatedRoute,
@@ -47,10 +43,10 @@ export class RegisterComponent implements OnInit {
               private authenticationService: AuthenticationService) {
 
     this.registerForm = this.formBuilder.group({
-      email: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
       name: ['', Validators.required],
-      password: ['', Validators.required],
-      confirmPassword: ['', Validators.required]
+      password: ['', [Validators.required, Validators.minLength(5)]],
+      confirmPassword: ['', [Validators.required]]
     });
     this.registerErr = {err: false};
 
@@ -58,7 +54,15 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.socialAuthService.authState.subscribe(
+this.registerForm.valueChanges.subscribe(
+  value => {
+    if (value.confirmPassword !== value.password) {
+      this.registerForm.setErrors({passwordsMissmatch: true});
+    }
+  }
+);
+
+this.socialAuthService.authState.subscribe(
       (user) => {
         if (user != null && this.loading === true) {
           this.loading = false;
@@ -66,16 +70,18 @@ export class RegisterComponent implements OnInit {
           this.socialUser = user;
           localStorage.clear();
           localStorage.setItem('socialUser', JSON.stringify(user));
-          this.email.setValue(user.email);
-          this.name.setValue(user.name);
-          this.password.setValue(user.name);
-          this.confirmPassword.setValue(user.name);
+          this.registerForm.patchValue({
+            name: user.name,
+            password: user.name,
+            confirmPassword: user.name,
+            email: user.email
+          });
           this.registerRequest = {
             client_id: environment.clientId,
             client_secret: environment.clientSecret,
-            username: this.name.value,
-            password: this.password.value,
-            email: this.email.value,
+            username: this.registerForm.value.name,
+            password: this.registerForm.value.password,
+            email: this.registerForm.value.email,
             provider: this.authenticationService.authProvider,
             social_id: user.id
           };
@@ -88,39 +94,38 @@ export class RegisterComponent implements OnInit {
 
   register() {
     this.loading = true;
-<<<<<<< HEAD
     console.log('REGISTER REQUEST: ' + JSON.stringify(this.registerRequest));
-=======
-    this.registerRequest = {
-      client_id: environment.clientId,
-      client_secret: environment.clientSecret,
-      username: this.name.value,
-      password: this.password.value,
-      email: this.email.value
-    };
-    console.log(this.registerRequest);    
->>>>>>> login-formValidation
-    this.http.post<any>('http://localhost/user', this.registerRequest, { headers: { 'Content-type': 'application/json' } })
+    this.http.post<any>(this.registerPath, this.registerRequest, { headers: { 'Content-type': 'application/json' } })
       .subscribe(
         (data) => {
+          console.log('REGISTER RAW RESPONSE:' + JSON.stringify(data));
           if (data.status_code === 200) {
             const content = JSON.parse(JSON.parse(data.content));
             const username = content.username;
+<<<<<<< HEAD
             this.logging.log('REGISTER RESPONSE: ' + JSON.stringify(content));
             if (this.registerRequest.provider === 'JOBBAG') {
-              this.authenticationService.signInWithJobbag(this.name.value, this.password.value)
+              this.authenticationService.signInWithJobbag(this.registerForm.value.name, this.registerForm.value.password)
               .subscribe(
                 data => {
                   const role = this.route.snapshot.queryParams.role;
                   console.log('role: ' + role);
                   if (this.authenticationService.isLoggedIn) {
-                    const user_id = JSON.parse(localStorage.getItem('bearerToken')).user_id;
+                    const user_id = this.authenticationService.getLoggedUserId();
+                    console.log('user_id: ' + user_id);
+
                     const profileExtrasUrl = '/user/' + user_id + '/profile-extras';
                     if (role) {
                       console.log('navegando a profile extras...');
-                      this.router.navigate([profileExtrasUrl], { queryParams: { role } });
+                      this.router.navigate([profileExtrasUrl], { queryParams: { role, function: 'CREATE' } });
                     } else {
-                      this.router.navigate(['user', user_id, 'select-role'], { queryParams: { returnUrl: profileExtrasUrl } });
+                      this.router.navigate(['user', user_id, 'select-role'],
+                        {
+                          queryParams: {
+                            returnUrl: profileExtrasUrl,
+                            function: 'CREATE'
+                          }
+                        });
                     }
                   }
                 });
@@ -133,7 +138,8 @@ export class RegisterComponent implements OnInit {
                     const role = this.route.snapshot.queryParams.role;
                     console.log('role: ' + role);
                     if (this.authenticationService.isLoggedIn) {
-                      const user_id = JSON.parse(localStorage.getItem('bearerToken')).user_id;
+                      const user_id = this.authenticationService.getLoggedUserId();
+                      console.log('user_id: ' + user_id);
                       const profileExtrasUrl = '/user/' + user_id + '/profile-extras';
                       if (role) {
                         console.log('navegando a profile extras...');
@@ -144,6 +150,22 @@ export class RegisterComponent implements OnInit {
                     }
                   } else {
                     this.logging.log('isLoggedIn subscription was false.... (LoginComponent)');
+=======
+            console.log('content: ' + content);
+            console.log(JSON.stringify('username: ' + username));
+            this.authenticationService.signInWithJobbag(this.name.value, this.password.value).subscribe(
+              data => {
+                const role = this.route.snapshot.queryParams.role;
+                console.log('role: ' + role);
+                if (this.authenticationService.isLoggedIn) {
+                  const user_id = JSON.parse(JSON.parse(localStorage.getItem('bearerToken')).content).user_id;
+                  const createProfileURL = '/user/' + user_id + '/create-profile';
+                  if (role) {
+                    console.log('navegando a profile extras...');
+                    this.router.navigate([createProfileURL], { queryParams: { role } });
+                  } else {
+                    this.router.navigate(['/user/3/select-role'], { queryParams: { returnUrl: createProfileURL } });
+>>>>>>> user-devCreateUserProfile
                   }
                 }
               );
@@ -156,6 +178,7 @@ export class RegisterComponent implements OnInit {
               err: true,
               message: content.text
             };
+            console.log(this.registerErr.message);
             this.loading = false;
             this.hiddenPasswords = false;
             this.router.navigate(['./'], {relativeTo: this.route});
@@ -183,9 +206,9 @@ export class RegisterComponent implements OnInit {
     this.registerRequest = {
       client_id: environment.clientId,
       client_secret: environment.clientSecret,
-      username: this.name.value,
-      password: this.password.value,
-      email: this.email.value,
+      username: this.registerForm.value.name,
+      password: this.registerForm.value.password,
+      email: this.registerForm.value.email,
       provider: this.authenticationService.authProvider,
       social_id: null
     };
@@ -193,11 +216,5 @@ export class RegisterComponent implements OnInit {
     this.register();
   }
 
-  // passwordMatchValidator: ValidatorFn = (control: FormGroup): ValidationErrors | null => {
-  //   const password = control.get('password');
-  //   const confirmPassword = control.get('confirmPassword');
-
-  //   return password && confirmPassword && password.value === confirmPassword.value ? null : { 'passwordMissMatch': true } ;
-  // }
 
 }
