@@ -1,0 +1,40 @@
+.container-fluid{
+	background-color: #2787C4;
+	padding-left: 5rem;
+}
+
+.tittle-section{
+    color: white;
+    font-size: 2rem;
+}
+
+.row{
+    padding-top: 1.5rem;
+    padding-bottom: 1rem;
+    padding-left: 0rem;
+}
+
+.arrow_box {
+    position: relative;
+    font-size: 1.3rem;
+	background: #1877b2;
+}
+.arrow_box:after {
+	left: 100%;
+	top: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: rgba(136, 183, 213, 0);
+	border-left-color: #1877b2;
+	border-width: 1rem;
+	margin-top: -1rem;
+}
+
+.arrow-text{
+	font-family: 'Segoe UI';
+	color: white;
+}

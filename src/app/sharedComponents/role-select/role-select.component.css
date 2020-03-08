@@ -4,16 +4,21 @@
   max-height: 800px;
 }
 
-/* .row{
-  padding-top: 2rem;
-} */
+#btn-left{
+  border-color: #2787C4;
+  border-left: white;
+}
+
+.left-arrow{
+  transform: rotate(180deg);
+}
 
 .col-md-6{
   padding-right: 0!important;
 }
 
 .jobbag-img{
-  width: 85%;
+  width: 90%;
   position: relative;
   float: right;
 }
@@ -25,17 +30,13 @@ padding-top: 6rem !important;
 .btn-lg {
   color: #000000;
   margin-top: 0.2rem;
-  border-width: 3px;
-  font-size: 1.5rem;
+  border-width: 5px;
+  font-size: 2.25rem;
 }
 
 .whattodo-text, .motivational-text{
   color: #000000;
   font-family: 'Segoe UI';
-}
-
-.welcome-text{  
-  font-size: 1.1rem;
 }
 
 .whattodo-text{
@@ -45,4 +46,64 @@ padding-top: 6rem !important;
 .motivational-text{
   margin-top: 2rem;
   font-size: 1.5rem;
+}
+
+#btn-right{
+  position: relative;
+	background: #ffffff;
+	border: 5px solid #2787c4;
+}
+
+#btn-right:after, #btn-right:before {
+	left: 100%;
+	top: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
+
+#btn-right:after {
+	border-color: rgba(255, 255, 255, 0);
+	border-left-color: #ffffff;
+	border-width: 2.2rem;
+	margin-top: -2.2rem;
+}
+#btn-right:before {
+	border-color: rgba(39, 135, 196, 0);
+	border-left-color: #2787c4;
+	border-width: 2.6rem;
+	margin-top: -2.6rem;
+}
+
+#btn-left{
+  position: relative;
+	background: #ffffff;
+	border: 5px solid #2787c4;
+}
+
+#btn-left:after, #btn-left:before {
+	right: 100%;
+	top: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
+
+#btn-left:after {
+	border-color: rgba(255, 255, 255, 0);
+	border-right-color: #ffffff;
+	border-width: 1.5rem;
+	margin-top: -1.5rem;
+}
+#btn-left:before {
+  border-color: rgba(39, 135, 196, 0);
+	border-right-color: #2787c4;
+	border-width: 2rem;
+	margin-top: -2rem;
 }

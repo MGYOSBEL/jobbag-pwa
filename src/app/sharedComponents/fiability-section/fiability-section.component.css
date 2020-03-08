@@ -7,8 +7,24 @@
 
 }
 
-.fa-users{
+.fiability-img-user{
+    width: 20%;
     color:#2787c4;
+}
+
+.fiability-img-find{
+    width: 22%;
+    color: #2787c4;
+}
+
+.fiability-img-sms{
+    width: 22%;
+    color: #2787c4;
+}
+
+.fiability-img-global{
+    width: 15%;
+    color: #2787c4;
 }
 
 .tittle{
@@ -21,15 +37,19 @@
     max-width: 47%;
 }
 
+.col-xl-5{
+    padding-right: 0;
+}
+
 .col-sm-7{
     padding-left: 0!important;
     padding-right: 0!important;
-    max-width: 65%;
+    max-width: 90%;
 }
 
 .row{
     padding-left: 3rem;
-    padding-right: 2rem;
+    /* padding-right: 2rem; */
 }
 
 .fiability-label{
@@ -37,5 +57,7 @@
 }
 
 .jobbag-img{
-    width:108%;
+    width: 95%;
+    position: relative;
+    float: right;
   }

@@ -14,6 +14,7 @@ import { JoinusSectionComponent } from './joinus-section/joinus-section.componen
 import { StatisticsSectionComponent } from './statistics-section/statistics-section.component';
 import { HowtodoSectionComponent } from './howtodo-section/howtodo-section.component';
 import { ContactSectionComponent } from './contact-section/contact-section.component';
+import { RecommendedComponent } from './recommended/recommended.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { ContactSectionComponent } from './contact-section/contact-section.compo
     JoinusSectionComponent,
     StatisticsSectionComponent,
     HowtodoSectionComponent,
-    ContactSectionComponent
+    ContactSectionComponent,
+    RecommendedComponent
   ],
   imports: [
     CommonModule,
