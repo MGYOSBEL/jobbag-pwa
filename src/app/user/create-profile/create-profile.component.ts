@@ -3,6 +3,12 @@ import Stepper from 'bs-stepper';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
+import { UserProfileService } from '../services/user-profile.service';
+import { Router, ActivatedRouteSnapshot, ActivatedRoute } from '@angular/router';
+import { ErrorService } from '@app/errors/error.service';
+import { AuthenticationService } from '@app/auth/services/authentication.service';
+import { environment } from '@environments/environment';
+import { BriefcaseService } from '../services/briefcase.service';
 
 const states = ['Alabama', 'Alaska', 'American Samoa', 'Arizona', 'Arkansas', 'California', 'Colorado',
   'Connecticut', 'Delaware', 'District Of Columbia', 'Federated States Of Micronesia', 'Florida', 'Georgia',
@@ -24,8 +30,17 @@ export class CreateProfileComponent implements OnInit {
   model: any;
   previewUrl: any;
   profileForm: FormGroup;
+  role: string;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder,
+              private authenticationService: AuthenticationService,
+              private userProfileService: UserProfileService,
+              private briefcaseService: BriefcaseService,
+              private errorService: ErrorService,
+              private router: Router,
+              private route: ActivatedRoute
+              ) {
+
     this.profileForm = this.formBuilder.group({
       accountName: [''],
       companyName: [''],
@@ -45,14 +60,46 @@ export class CreateProfileComponent implements OnInit {
 
     });
     this.previewUrl = '../../assets/defaultProfile.png';
+    this.role = 'SERVICE_PROVIDER';
   }
 
   next() {
     this.stepper.next();
    }
 
-   onSubmit() {
-     console.log('stepper submitted');
+  previous() {
+    this.stepper.previous();
+   }
+
+   createUserProfile() {
+
+    const user_id = this.authenticationService.getLoggedUserId();
+
+    const userProfileRequest = {
+      client_id: environment.clientId,
+      client_secret: environment.clientSecret,
+      phone_number: 'phoneNumber for the user: ' + user_id,
+      comment: this.profileForm.value.comments,
+      summary: 'summary for the user: ' + user_id,
+      user_id: user_id,
+      scholarship_id: 1,
+      user_profile_type: this.role,
+      user_profile_briefcase: this.briefcaseService.briefcases
+    };
+    this.userProfileService.create(userProfileRequest)
+    .subscribe(
+      response => {
+        console.log('createUserProfile RESPONSE: ' + JSON.stringify(response));
+
+      }, (err) => {
+        this.errorService.errorMessage = err;
+        this.router.navigate(['/error']);
+      }
+    );
+   }
+
+   createBriefcase() {
+
    }
 
    preview(event) {

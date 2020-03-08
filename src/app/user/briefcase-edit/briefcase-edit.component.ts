@@ -16,7 +16,7 @@ import { ErrorService } from '@app/errors/error.service';
 })
 export class BriefcaseEditComponent implements OnInit {
 
-  briefcases: Briefcase[];
+  briefcases: any[];
   professions: Profession[];
 
   briefcaseEditForm: FormGroup;
@@ -72,16 +72,19 @@ export class BriefcaseEditComponent implements OnInit {
       id_profession: this.briefcaseEditForm.value.profession,
       id: null
     };
-    this.briefcaseService.create(this.userProfileService.serviceProvider.id, bc).subscribe(
-      response => {
-        this.briefcaseService.getAll().subscribe(
-          briefcases => this.briefcases = briefcases
-        );
-      }, err => {
-        this.errorService.errorMessage = err;
-        this.router.navigate(['/error']);
-      }
-    );
+    this.briefcaseService.briefcases.push(bc);
+    this.briefcases.push(bc);
+    console.log('BriefcaseEditComponent array: ', this.briefcases);
+    // this.briefcaseService.create(this.userProfileService.serviceProvider.id, bc).subscribe(
+    //   response => {
+    //     this.briefcaseService.getAll().subscribe(
+    //       briefcases => this.briefcases = briefcases
+    //     );
+    //   }, err => {
+    //     this.errorService.errorMessage = err;
+    //     this.router.navigate(['/error']);
+    //   }
+    // );
 
     this.briefcaseEditForm.reset();
 

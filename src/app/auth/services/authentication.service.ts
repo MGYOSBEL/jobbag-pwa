@@ -44,7 +44,7 @@ export class AuthenticationService {
               // public socialAuthService: AuthService,
               private logging: LoggingService) {
                 this.authProvider = 'JOBBAG';
-                this.isLoggedIn$ = new BehaviorSubject(false);
+                this.isLoggedIn$ = new BehaviorSubject(localStorage.getItem('bearerToken') !== null);
   }
 
 

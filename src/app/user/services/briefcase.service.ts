@@ -10,8 +10,12 @@ import { Observable, of } from 'rxjs';
 export class BriefcaseService {
 
   apiPath = environment.apiBaseURL;
+  briefcases: Array<any>;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    this.briefcases = [];
+
+  }
 
   get(id: string) {
     const briefcases: Array<any> = JSON.parse(localStorage.getItem('briefcases')) || []; // Leo el array de userProfiles del storage

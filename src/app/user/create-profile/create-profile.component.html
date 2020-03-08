@@ -72,7 +72,6 @@
             <input type="text" class="form-control" formControlName="companyName" id="exampleInputEmail1"
               placeholder="Family name (or Company. …If it is a company account..)" />
           </div>
-          <button (click)="next()" type="button" class="btn btn-primary">Next</button>
         </div>
         <div id="picture" class="content">
           <div class="form-group container row">
@@ -86,7 +85,6 @@
                 alt="Profile Picture">
             </figure>
           </div>
-          <button (click)="next()" type="button" class="btn btn-primary">Next</button>
         </div>
         <div id="countries" class="content">
           <div class="form-group">
@@ -94,14 +92,12 @@
             <input type="text"
             class="form-control" formControlName="countries" id="countriesInput" placeholder="Enter your countries..." [ngbTypeahead]="search" />
           </div>
-          <button (click)="next()" type="button" class="btn btn-primary">Next</button>
         </div>
         <div id="services" class="content">
           <div class="form-group">
             <label for="servicesInput">Services</label>
             <input type="text" class="form-control" formControlName="services" id="servicesInput" placeholder="Input your services, separated by a comma..." />
           </div>
-          <button (click)="next()" type="button" class="btn btn-primary">Next</button>
         </div>
         <div id="curriculum" class="content">
           <div class="form-group container row">
@@ -114,14 +110,9 @@
               <img [src]="previewUrl"  class="figure-img img-fluid h100" />
             </figure>
           </div>
-          <button (click)="next()" type="button" class="btn btn-primary">Next</button>
         </div>
         <div id="myWork" class="content">
-          <div class="form-group">
-            <label for="myWorkInput">Image Galery</label>
-            <textarea type="" class="form-control" formControlName="gallery" id="myWorkInput" placeholder="Some element for an image Gallery" ></textarea>
-          </div>
-          <button (click)="next()" type="button" class="btn btn-primary">Next</button>
+          <app-birefcase-edit></app-birefcase-edit>
         </div>
         <div id="comments" class="content">
           <div class="form-group">
@@ -129,13 +120,20 @@
             <textarea  class="form-control" id="commentsInput" formControlName="comments"
             placeholder="Enter some comments about your skills and previous jobs to enrich your profile..." ></textarea>
           </div>
-          <button (click)="next()" type="button" class="btn btn-primary">Next</button>
         </div>
         <div id="test-l-8" class="content text-center">
           {{profileForm.value | json}}
         </div>
       </form>
-      <button type="submit" class="btn btn-primary mt-5">Submit</button>
+      <div class="row justify-content-between">
+        <button (click)="previous()" type="button" class="btn btn-primary mt-5">Previous</button>
+
+        <button (click)="createUserProfile()" type="button" class="btn btn-primary mt-5">Submit</button>
+
+        <button (click)="next()" type="button" class="btn btn-primary mt-5">Next</button>
+      </div>
+
+
 
     </div>
   </div>
