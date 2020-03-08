@@ -9,6 +9,7 @@ import { BriefcaseEditComponent } from './briefcase-edit/briefcase-edit.componen
 import { SharedComponentsModule } from '@app/sharedComponents/shared-components.module';
 import { ProjectsComponent } from './projects/projects.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CreateProfileComponent } from './create-profile/create-profile.component';
 
 
 
@@ -18,7 +19,8 @@ import { ReactiveFormsModule } from '@angular/forms';
      ProfileExtrasComponent,
      ProfessionsEditComponent,
      BriefcaseEditComponent,
-     ProjectsComponent
+     ProjectsComponent,
+     CreateProfileComponent
     ],
   imports: [
     CommonModule,

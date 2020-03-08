@@ -1,0 +1,142 @@
+<div class="container">
+  <div id="stepper1" class="bs-stepper">
+    <div class="bs-stepper-header">
+      <div class="step" data-target="#profile">
+        <button class="step-trigger">
+          <span class="bs-stepper-circle">1</span>
+          <span class="bs-stepper-label">Profile</span>
+        </button>
+      </div>
+      <div class="line"></div>
+      <div class="step" data-target="#picture">
+        <button class="step-trigger">
+          <span class="bs-stepper-circle">2</span>
+          <span class="bs-stepper-label">Picture</span>
+        </button>
+      </div>
+      <div class="line"></div>
+      <div class="step" data-target="#countries">
+        <button class="step-trigger">
+          <span class="bs-stepper-circle">3</span>
+          <span class="bs-stepper-label">My Countries</span>
+        </button>
+      </div>
+      <div class="line"></div>
+      <div class="step" data-target="#services">
+        <button class="step-trigger">
+          <span class="bs-stepper-circle">4</span>
+          <span class="bs-stepper-label">My Services</span>
+        </button>
+      </div>
+      <div class="line"></div>
+      <div class="step" data-target="#curriculum">
+        <button class="step-trigger">
+          <span class="bs-stepper-circle">5</span>
+          <span class="bs-stepper-label">CV</span>
+        </button>
+      </div>
+      <div class="line"></div>
+      <div class="step" data-target="#myWork">
+        <button class="step-trigger">
+          <span class="bs-stepper-circle">6</span>
+          <span class="bs-stepper-label">My Work</span>
+        </button>
+      </div>
+      <div class="line"></div>
+      <div class="step" data-target="#comments">
+        <button class="step-trigger">
+          <span class="bs-stepper-circle">7</span>
+          <span class="bs-stepper-label">Comments</span>
+        </button>
+      </div>
+      <div class="line"></div>
+      <div class="step" data-target="#test-l-8">
+        <button class="step-trigger">
+          <span class="bs-stepper-circle">8</span>
+          <span class="bs-stepper-label">Validate</span>
+        </button>
+      </div>
+    </div>
+    <div class="row py-3" ></div>
+    <div class="bs-stepper-content">
+      <form [formGroup]="profileForm">
+        <div id="profile" class="content container fade">
+          <div class="form-group row">
+            <input type="checkbox" class="form-check-input">
+            <label for="accountName" class="form-check-label">Personal Account</label>
+            <input type="text" class="form-control" formControlName="accountName" id="accountName" placeholder="Name" />
+          </div>
+          <div class="form-group row">
+            <input type="checkbox" class="form-check-input">
+            <label for="exampleInputEmail1" class="form-check-label">Company Account</label>
+            <input type="text" class="form-control" formControlName="companyName" id="exampleInputEmail1"
+              placeholder="Family name (or Company. …If it is a company account..)" />
+          </div>
+          <button (click)="next()" type="button" class="btn btn-primary">Next</button>
+        </div>
+        <div id="picture" class="content">
+          <div class="form-group container row">
+            <div class="col align-items-center">
+              <label for="pictureInput">Upload cover picture or avatar</label>
+              <input type="file" class="form-control-file" formControlName="profilePicture" id="pictureInput" placeholder="Upload your avatar"
+              (change)="preview($event)" accept="image/*" />
+              </div>
+            <figure class="figure col">
+              <img [src]="previewUrl" class="figure-img img-thumbnail rounded-circle h-100" style="height: 100px;"
+                alt="Profile Picture">
+            </figure>
+          </div>
+          <button (click)="next()" type="button" class="btn btn-primary">Next</button>
+        </div>
+        <div id="countries" class="content">
+          <div class="form-group">
+            <label for="countriesInput">Countries</label>
+            <input type="text"
+            class="form-control" formControlName="countries" id="countriesInput" placeholder="Enter your countries..." [ngbTypeahead]="search" />
+          </div>
+          <button (click)="next()" type="button" class="btn btn-primary">Next</button>
+        </div>
+        <div id="services" class="content">
+          <div class="form-group">
+            <label for="servicesInput">Services</label>
+            <input type="text" class="form-control" formControlName="services" id="servicesInput" placeholder="Input your services, separated by a comma..." />
+          </div>
+          <button (click)="next()" type="button" class="btn btn-primary">Next</button>
+        </div>
+        <div id="curriculum" class="content">
+          <div class="form-group container row">
+            <div class="col">
+              <label for="curriculumInput">Curriculum Vitae</label>
+              <input type="file" accept="pdf/*" formControlName="curriculum" class="form-control-file" id="curriculumInput" placeholder="Upload your CV in pdf format."
+              (change)="preview($event)" />
+              </div>
+            <figure class="figure col mb-3" *ngIf="previewUrl && previewUrl !== ''">
+              <img [src]="previewUrl"  class="figure-img img-fluid h100" />
+            </figure>
+          </div>
+          <button (click)="next()" type="button" class="btn btn-primary">Next</button>
+        </div>
+        <div id="myWork" class="content">
+          <div class="form-group">
+            <label for="myWorkInput">Image Galery</label>
+            <textarea type="" class="form-control" formControlName="gallery" id="myWorkInput" placeholder="Some element for an image Gallery" ></textarea>
+          </div>
+          <button (click)="next()" type="button" class="btn btn-primary">Next</button>
+        </div>
+        <div id="comments" class="content">
+          <div class="form-group">
+            <label for="commentsInput">Comments</label>
+            <textarea  class="form-control" id="commentsInput" formControlName="comments"
+            placeholder="Enter some comments about your skills and previous jobs to enrich your profile..." ></textarea>
+          </div>
+          <button (click)="next()" type="button" class="btn btn-primary">Next</button>
+        </div>
+        <div id="test-l-8" class="content text-center">
+          {{profileForm.value | json}}
+        </div>
+      </form>
+      <button type="submit" class="btn btn-primary mt-5">Submit</button>
+
+    </div>
+  </div>
+</div>

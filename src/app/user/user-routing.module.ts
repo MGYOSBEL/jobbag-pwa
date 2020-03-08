@@ -7,6 +7,7 @@ import { ProfileExtrasComponent } from './profile-extras/profile-extras.componen
 import { ProfessionsEditComponent } from './professions-edit/professions-edit.component';
 import { RoleSelectComponent } from '../sharedComponents/role-select/role-select.component';
 import { BriefcaseEditComponent } from './briefcase-edit/briefcase-edit.component';
+import { CreateProfileComponent } from './create-profile/create-profile.component';
 
 
 const userRoutes: Routes = [
@@ -19,6 +20,10 @@ const userRoutes: Routes = [
         children: [
           {
             path: 'profile-extras', component: ProfileExtrasComponent,
+            resolve: {user: DashboardResolverService}
+          },
+          {
+            path: 'create-profile', component: CreateProfileComponent,
             resolve: {user: DashboardResolverService}
           },
           {
