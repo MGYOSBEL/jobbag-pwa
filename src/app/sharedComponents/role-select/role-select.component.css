@@ -25,7 +25,7 @@
 
 .col-sm-6{
 padding-left: 20rem;
-padding-top: 6rem !important;
+padding-top: 8rem !important;
 }
 .btn-lg {
   color: #000000;
@@ -98,12 +98,12 @@ padding-top: 6rem !important;
 #btn-left:after {
 	border-color: rgba(255, 255, 255, 0);
 	border-right-color: #ffffff;
-	border-width: 1.5rem;
-	margin-top: -1.5rem;
+	border-width: 2.2rem;
+	margin-top: -2.2rem;
 }
 #btn-left:before {
   border-color: rgba(39, 135, 196, 0);
 	border-right-color: #2787c4;
-	border-width: 2rem;
-	margin-top: -2rem;
+	border-width: 2.6rem;
+	margin-top: -2.6rem;
 }

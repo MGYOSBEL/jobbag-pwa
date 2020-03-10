@@ -57,6 +57,14 @@
                   "maximumError": "10kb"
                 }
               ]
+            },
+            "es":{
+              "aot": true,
+              "outputPath": "dist/under-c-es/",
+              "i18nFile": "i18n/messages.es.xlf",
+              "i18nFormat": "xlf",
+              "i18nLocale": "es",
+              "i18nMissingTranslation": "error"
             }
           }
         },
@@ -68,6 +76,9 @@
           "configurations": {
             "production": {
               "browserTarget": "JobbagPWA:build:production"
+            },
+            "es":{
+              "browserTarget": "JobbagPWA:build:es"
             }
           }
         },
