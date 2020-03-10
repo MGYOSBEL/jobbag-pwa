@@ -1,0 +1,545 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="footer element-text" datatype="html">
+        <source>
+            All rights reserved. © jobbag.com | Developed by The Usuals
+        </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/sharedComponents/footer/footer.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+        <note priority="1" from="description">footer element-text description</note>
+        <note priority="1" from="meaning">footer element-text</note>
+      </trans-unit>
+      <trans-unit id="role btn-right" datatype="html">
+        <source>
+         I need a Service
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/sharedComponents/role-select/role-select.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+        <note priority="1" from="description">role btn-right title</note>
+        <note priority="1" from="meaning">role btn-right</note>
+      </trans-unit>
+      <trans-unit id="role btn-left" datatype="html">
+        <source>
+        I want to work
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/sharedComponents/role-select/role-select.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+        <note priority="1" from="description">role btn-left title</note>
+        <note priority="1" from="meaning">role btn-left</note>
+      </trans-unit>
+      <trans-unit id="role motivational-text" datatype="html">
+        <source>
+        Hire professionals for the Service you need
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/sharedComponents/role-select/role-select.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+        <note priority="1" from="description">role motivational-text description</note>
+        <note priority="1" from="meaning">role motivational-text</note>
+      </trans-unit>
+      <trans-unit id="ngb.alert.close" datatype="html">
+        <source>Close</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/ng-bootstrap/alert/alert.d.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.carousel.previous" datatype="html">
+        <source>Previous</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/ng-bootstrap/carousel/carousel.d.ts</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.carousel.next" datatype="html">
+        <source>Next</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/ng-bootstrap/carousel/carousel.d.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.datepicker.previous-month" datatype="html">
+        <source>Previous month</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-navigation.d.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-navigation.d.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.datepicker.next-month" datatype="html">
+        <source>Next month</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-navigation.d.ts</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-navigation.d.ts</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.datepicker.select-month" datatype="html">
+        <source>Select month</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-navigation-select.d.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-navigation-select.d.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.datepicker.select-year" datatype="html">
+        <source>Select year</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-navigation-select.d.ts</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/ng-bootstrap/datepicker/datepicker-navigation-select.d.ts</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.pagination.first" datatype="html">
+        <source>««</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/ng-bootstrap/pagination/pagination.d.ts</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.pagination.previous" datatype="html">
+        <source>«</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/ng-bootstrap/pagination/pagination.d.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.pagination.next" datatype="html">
+        <source>»</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/ng-bootstrap/pagination/pagination.d.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.pagination.last" datatype="html">
+        <source>»»</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/ng-bootstrap/pagination/pagination.d.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.pagination.first-aria" datatype="html">
+        <source>First</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/ng-bootstrap/pagination/pagination.d.ts</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.pagination.previous-aria" datatype="html">
+        <source>Previous</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/ng-bootstrap/pagination/pagination.d.ts</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.pagination.next-aria" datatype="html">
+        <source>Next</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/ng-bootstrap/pagination/pagination.d.ts</context>
+          <context context-type="linenumber">44</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.pagination.last-aria" datatype="html">
+        <source>Last</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/ng-bootstrap/pagination/pagination.d.ts</context>
+          <context context-type="linenumber">53</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.progressbar.value" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="{{getPercentValue()}}"/>%</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/ng-bootstrap/progressbar/progressbar.d.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.increment-hours" datatype="html">
+        <source>Increment hours</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.HH" datatype="html">
+        <source>HH</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.hours" datatype="html">
+        <source>Hours</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.decrement-hours" datatype="html">
+        <source>Decrement hours</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.increment-minutes" datatype="html">
+        <source>Increment minutes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.MM" datatype="html">
+        <source>MM</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
+          <context context-type="linenumber">35</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.minutes" datatype="html">
+        <source>Minutes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
+          <context context-type="linenumber">37</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.decrement-minutes" datatype="html">
+        <source>Decrement minutes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
+          <context context-type="linenumber">45</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.increment-seconds" datatype="html">
+        <source>Increment seconds</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
+          <context context-type="linenumber">54</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.SS" datatype="html">
+        <source>SS</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
+          <context context-type="linenumber">57</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.seconds" datatype="html">
+        <source>Seconds</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
+          <context context-type="linenumber">59</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.decrement-seconds" datatype="html">
+        <source>Decrement seconds</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
+          <context context-type="linenumber">67</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.PM" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="{{ i18n.getAfternoonPeriod() }}"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
+          <context context-type="linenumber">75</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.timepicker.AM" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="{{ i18n.getMorningPeriod() }}"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/ng-bootstrap/timepicker/timepicker.d.ts</context>
+          <context context-type="linenumber">76</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ngb.toast.close-aria" datatype="html">
+        <source>Close</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">node_modules/@ng-bootstrap/ng-bootstrap/toast/toast.d.ts</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fiability section-header" datatype="html">
+        <source>
+                    Why to use Jobbag?
+                </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/sharedComponents/fiability-section/fiability-section.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+        <note priority="1" from="description">fiability section-header text</note>
+        <note priority="1" from="meaning">fiability section-header</note>
+      </trans-unit>
+      <trans-unit id="fiability element-title" datatype="html">
+        <source>
+                               Conected with professionals
+                            </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/sharedComponents/fiability-section/fiability-section.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+        <note priority="1" from="description">fiability element-title text</note>
+        <note priority="1" from="meaning">fiability element-title</note>
+      </trans-unit>
+      <trans-unit id="fiability element-title2" datatype="html">
+        <source>
+                               Easy to find solutions
+                            </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/sharedComponents/fiability-section/fiability-section.component.html</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+        <note priority="1" from="description">fiability element-title2 text</note>
+        <note priority="1" from="meaning">fiability element-title2</note>
+      </trans-unit>
+      <trans-unit id="fiability element-title3" datatype="html">
+        <source>
+                               Easy communication
+                            </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/sharedComponents/fiability-section/fiability-section.component.html</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+        <note priority="1" from="description">fiability element-title3 text</note>
+        <note priority="1" from="meaning">fiability element-title3</note>
+      </trans-unit>
+      <trans-unit id="fiability element-title4" datatype="html">
+        <source>
+                               Globaly Conected
+                            </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/sharedComponents/fiability-section/fiability-section.component.html</context>
+          <context context-type="linenumber">52</context>
+        </context-group>
+        <note priority="1" from="description">fiability element-title4 text</note>
+        <note priority="1" from="meaning">fiability element-title4</note>
+      </trans-unit>
+      <trans-unit id="joinus header" datatype="html">
+        <source>
+                Join us
+            </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/sharedComponents/joinus-section/joinus-section.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+        <note priority="1" from="description">joinus header tittle</note>
+        <note priority="1" from="meaning">joinus header</note>
+      </trans-unit>
+      <trans-unit id="joinus content" datatype="html">
+        <source>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/sharedComponents/joinus-section/joinus-section.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+        <note priority="1" from="description">joinus content text</note>
+        <note priority="1" from="meaning">joinus content</note>
+      </trans-unit>
+      <trans-unit id="joinus btn-joinus" datatype="html">
+        <source>
+                I want to join
+            </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/sharedComponents/joinus-section/joinus-section.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+        <note priority="1" from="description">joinus btn-joinus text</note>
+        <note priority="1" from="meaning">joinus btn-joinus</note>
+      </trans-unit>
+      <trans-unit id="statistic element-text" datatype="html">
+        <source>
+                              Users
+                          </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/sharedComponents/statistics-section/statistics-section.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+        <note priority="1" from="description">statistic element-text name</note>
+        <note priority="1" from="meaning">statistic element-text</note>
+      </trans-unit>
+      <trans-unit id="statistic element-text2" datatype="html">
+        <source>
+                            Works
+                        </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/sharedComponents/statistics-section/statistics-section.component.html</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+        <note priority="1" from="description">statistic element-text2 name</note>
+        <note priority="1" from="meaning">statistic element-text2</note>
+      </trans-unit>
+      <trans-unit id="statistic element-text3" datatype="html">
+        <source>
+                            Briefcases
+                        </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/sharedComponents/statistics-section/statistics-section.component.html</context>
+          <context context-type="linenumber">43</context>
+        </context-group>
+        <note priority="1" from="description">statistic element-text3 name</note>
+        <note priority="1" from="meaning">statistic element-text3</note>
+      </trans-unit>
+      <trans-unit id="statistic element-text4" datatype="html">
+        <source>
+                            Satisfied Clients
+                        </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/sharedComponents/statistics-section/statistics-section.component.html</context>
+          <context context-type="linenumber">58</context>
+        </context-group>
+        <note priority="1" from="description">statistic element-text4 name</note>
+        <note priority="1" from="meaning">statistic element-text4</note>
+      </trans-unit>
+      <trans-unit id="howtodo section-header" datatype="html">
+        <source>
+            Simple steps to get started
+        </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/sharedComponents/howtodo-section/howtodo-section.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+        <note priority="1" from="description">howtodo section-header text</note>
+        <note priority="1" from="meaning">howtodo section-header</note>
+      </trans-unit>
+      <trans-unit id="howtodo element-title2" datatype="html">
+        <source>
+                    Create a profile
+                </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/sharedComponents/howtodo-section/howtodo-section.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+        <note priority="1" from="description">howtodo element-title2 text</note>
+        <note priority="1" from="meaning">howtodo element-title2</note>
+      </trans-unit>
+      <trans-unit id="howtodo element-title3" datatype="html">
+        <source>
+                    Make a briefcase with your jobs
+                </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/sharedComponents/howtodo-section/howtodo-section.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+        <note priority="1" from="description">howtodo element-title3 text</note>
+        <note priority="1" from="meaning">howtodo element-title3</note>
+      </trans-unit>
+      <trans-unit id="howtodo element-title4" datatype="html">
+        <source>
+                    Search amoung hundreds of options
+                </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/sharedComponents/howtodo-section/howtodo-section.component.html</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+        <note priority="1" from="description">howtodo element-title4 text</note>
+        <note priority="1" from="meaning">howtodo element-title4</note>
+      </trans-unit>
+      <trans-unit id="contact header" datatype="html">
+        <source>
+            Contact us
+        </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/sharedComponents/contact-section/contact-section.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+        <note priority="1" from="description">contact header tittle</note>
+        <note priority="1" from="meaning">contact header</note>
+      </trans-unit>
+      <trans-unit id="contact text" datatype="html">
+        <source>
+                Leave your message
+            </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/sharedComponents/contact-section/contact-section.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+        <note priority="1" from="description">contact text message</note>
+        <note priority="1" from="meaning">contact text</note>
+      </trans-unit>
+      <trans-unit id="contact email" datatype="html">
+        <source>Email Address</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/sharedComponents/contact-section/contact-section.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+        <note priority="1" from="description">contact email name</note>
+        <note priority="1" from="meaning">contact email</note>
+      </trans-unit>
+      <trans-unit id="contact message" datatype="html">
+        <source>Message</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/sharedComponents/contact-section/contact-section.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+        <note priority="1" from="description">contact message text</note>
+        <note priority="1" from="meaning">contact message</note>
+      </trans-unit>
+      <trans-unit id="contact btn-send" datatype="html">
+        <source>Send</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/sharedComponents/contact-section/contact-section.component.html</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+        <note priority="1" from="description">contact btn-send text</note>
+        <note priority="1" from="meaning">contact btn-send</note>
+      </trans-unit>
+      <trans-unit id="contact information-header" datatype="html">
+        <source>
+                Contact Information
+            </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/sharedComponents/contact-section/contact-section.component.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+        <note priority="1" from="description">contact information-header tittle</note>
+        <note priority="1" from="meaning">contact information-header</note>
+      </trans-unit>
+      <trans-unit id="contact followus-header" datatype="html">
+        <source>
+                Follow us
+            </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/sharedComponents/contact-section/contact-section.component.html</context>
+          <context context-type="linenumber">52</context>
+        </context-group>
+        <note priority="1" from="description">contact followus-header tittle</note>
+        <note priority="1" from="meaning">contact followus-header</note>
+      </trans-unit>
+      <trans-unit id="recomended header" datatype="html">
+        <source>
+                Recommended aplications
+            </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/sharedComponents/recommended/recommended.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+        <note priority="1" from="description">recommended header text</note>
+        <note priority="1" from="meaning">recommended header</note>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
