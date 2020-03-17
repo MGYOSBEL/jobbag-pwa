@@ -34,40 +34,43 @@ export class UserProfileService {
 
   get(id: string) {
     const userProfiles: Array<any> = JSON.parse(localStorage.getItem('userProfiles')) || []; // Leo el array de userProfiles del storage
-    if (userProfiles) {
+    if (userProfiles.length) {
+      console.log('No lo pidio');
       for (const iterator of userProfiles) {
         if (iterator.id === id) { // Recorro el array y si esta el perfil que busco lo retorno como un observable
           return of(iterator);
         }
       }
-    }
-    return this.http.get<any>(this.apiPath + '/user_profile/' + id).pipe(
-      catchError(err => { // Captura si hubo algun error en la llamada y lo relanza
-        throw new Error(err.error.status + ': ' + err.error.detail);  // Relanzo el error con el status y el detail
-      }),
-      map(response => {
-        if (response.status_code === 200) { // Si el status del response es OK retorno contento como dato del observable
-          return JSON.parse(response.content);
-        } else {
-          throw new Error( // Si no es OK el status del response, lanzo un error con el status y el text
-            response.status_code + ': ' + response.text
-          );
-        }
-      }),
-      tap(content => { // Si se ejecuta el tap es porque no se lanzo antes ningun error, por lo tanto status===200(OK)
-        userProfiles.push({
-          id: content.id,
-          phone_number: content.phone_number,
-          comment: content.comment,
-          summary: content.summary,
-          user_id: content.user_id,
-          scholarship_id: content.scholarship_id,
-          user_profile_type: content.user_profile_type
-        });
-        localStorage.setItem('userProfiles', JSON.stringify(userProfiles));
-      })
-    );
+    } else {
+      console.log('Lo pidio');
 
+      return this.http.get<any>(this.apiPath + '/user_profile/' + id).pipe(
+        catchError(err => { // Captura si hubo algun error en la llamada y lo relanza
+          throw new Error(err.error.status + ': ' + err.error.detail);  // Relanzo el error con el status y el detail
+        }),
+        map(response => {
+          if (response.status_code === 200) { // Si el status del response es OK retorno contento como dato del observable
+            return JSON.parse(response.content);
+          } else {
+            throw new Error( // Si no es OK el status del response, lanzo un error con el status y el text
+              response.status_code + ': ' + response.text
+            );
+          }
+        }),
+        tap(content => { // Si se ejecuta el tap es porque no se lanzo antes ningun error, por lo tanto status===200(OK)
+          userProfiles.push({
+            id: content.id,
+            phone_number: content.phone_number,
+            comment: content.comment,
+            summary: content.summary,
+            user_id: content.user_id,
+            scholarship_id: content.scholarship_id,
+            user_profile_type: content.user_profile_type
+          });
+          localStorage.setItem('userProfiles', JSON.stringify(content));
+        })
+      );
+    }
   }
 
   public get serviceProvider() {
@@ -114,19 +117,25 @@ export class UserProfileService {
         }
       }),
       tap(content => { // Si se ejecuta el tap es porque no se lanzo antes ningun error, por lo tanto status===200(OK)
-        console.log('content.id', content.id);
+        console.log('content', content);
         const uP = { // Se agrega un nuevo userProfile al arreglo con data.
           id: content.id,
-          phone_number: data.phone_number,
+          valoration: content.valoration,
+          phone_number: content.phone_number,
           comment: data.comment,
           summary: data.summary,
           user_id: data.user_id,
+          user_profile_account: data.user_profile_account,
+          name: data.name,
           scholarship_id: data.scholarship_id,
           user_profile_type: data.user_profile_type
         };
-        userProfiles.push(uP);
+        userProfiles.push(content);
         console.log('userProfiles', userProfiles);
         localStorage.setItem('userProfiles', JSON.stringify(userProfiles)); // Se guarda el arreglo de userProfiles en el localStorage
+        if (data.user_profile_briefcase !== null) {
+          localStorage.setItem('briefcases', JSON.stringify(content.briefcases));
+        }
       })
     );
   }

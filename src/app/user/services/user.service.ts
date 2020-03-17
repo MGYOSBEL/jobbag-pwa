@@ -28,6 +28,7 @@ export class UserService {
     // const user_id = JSON.parse(localStorage.getItem('bearerToken')).user_id;
     return this.http.get<any>(this.apiPath + '/user/get/' + userId).pipe(
       catchError(err => { // Captura si hubo algun error en la llamada y lo relanza
+        console.log(err);
         throw new Error(err);  // Relanzo el error con el status y el detail
       }), // El metodo user/get/{id} retorna los datos directos, no en content. Por lo tanto no hago ningun map aca.
       tap((response) => {
@@ -51,7 +52,7 @@ export class UserService {
               user_profile_type: iterator.id_user_profile_type_fk.type
             });
           }
-          localStorage.setItem('userProfiles', JSON.stringify(profilesForStorage));
+          localStorage.setItem('userProfiles', JSON.stringify(response.user_profiles));
           console.log(userProfiles);
           const index = userProfiles.findIndex(elem => elem.user_profile_type === 'SERVICE_PROVIDER');
           console.log('index', index);
@@ -68,7 +69,7 @@ export class UserService {
                 id_profession: iterator.id_profession
               });
             }
-            localStorage.setItem('briefcases', JSON.stringify(briefcasesForStorage));
+            localStorage.setItem('briefcases', JSON.stringify(briefcases));
 
           }
         } else { // No hay ningun perfil creado, guardo los arrays vacios

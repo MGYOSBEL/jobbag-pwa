@@ -62,16 +62,18 @@
       <form [formGroup]="profileForm">
         <div id="profile" class="content container fade">
           <div class="form-group row">
-            <input type="checkbox" class="form-check-input">
+            <input type="radio" class="form-check-input" name="accountType" formControlName="accountType" value="PERSONAL" >
             <label for="accountName" class="form-check-label">Personal Account</label>
-            <input type="text" class="form-control" formControlName="accountName" id="accountName" placeholder="Name" />
+            <input  type="text" class="form-control" formControlName="accountName" id="accountName" placeholder="Name" >
           </div>
           <div class="form-group row">
-            <input type="checkbox" class="form-check-input">
+            <input type="radio" class="form-check-input" name="accountType" formControlName="accountType" value="COMPANY" >
             <label for="exampleInputEmail1" class="form-check-label">Company Account</label>
             <input type="text" class="form-control" formControlName="companyName" id="exampleInputEmail1"
-              placeholder="Family name (or Company. …If it is a company account..)" />
+              placeholder="Family name (or Company. …If it is a company account..)" >
           </div>
+          Account Type: {{profileForm.get('accountType').value}}
+          Name: {{name.value}}
         </div>
         <div id="picture" class="content">
           <div class="form-group container row">

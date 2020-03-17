@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import Stepper from 'bs-stepper';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, AbstractControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { UserProfileService } from '../services/user-profile.service';
@@ -31,6 +31,7 @@ export class CreateProfileComponent implements OnInit {
   previewUrl: any;
   profileForm: FormGroup;
   role: string;
+  name: AbstractControl;
 
   constructor(private formBuilder: FormBuilder,
               private authenticationService: AuthenticationService,
@@ -41,7 +42,9 @@ export class CreateProfileComponent implements OnInit {
               private route: ActivatedRoute
               ) {
 
+
     this.profileForm = this.formBuilder.group({
+      accountType: ['PERSONAL'],
       accountName: [''],
       companyName: [''],
       profilePicture: [''],
@@ -61,6 +64,22 @@ export class CreateProfileComponent implements OnInit {
     });
     this.previewUrl = '../../assets/defaultProfile.png';
     this.role = 'SERVICE_PROVIDER';
+
+    this.profileForm.get('accountType').valueChanges.subscribe(
+      value => {
+        if (value === 'PERSONAL') {
+          this.profileForm.get('accountName').enable();
+          this.profileForm.get('companyName').disable();
+          this.name = this.profileForm.get('accountName');
+        } else {
+          this.profileForm.get('accountName').disable();
+          this.profileForm.get('companyName').enable();
+          this.name = this.profileForm.get('companyName');
+
+        }
+      }
+    );
+    this.profileForm.get('accountType').setValue('PERSONAL');
   }
 
   next() {
@@ -83,14 +102,18 @@ export class CreateProfileComponent implements OnInit {
       summary: 'summary for the user: ' + user_id,
       user_id: user_id,
       scholarship_id: 1,
+      picture: '',
+      cv: '',
       user_profile_type: this.role,
+      user_profile_account: this.profileForm.value.accountType,
+      name: this.name.value,
       user_profile_briefcase: this.briefcaseService.briefcases
     };
     this.userProfileService.create(userProfileRequest)
     .subscribe(
       response => {
         console.log('createUserProfile RESPONSE: ' + JSON.stringify(response));
-
+        this.router.navigate(['../'], {relativeTo: this.route});
       }, (err) => {
         this.errorService.errorMessage = err;
         this.router.navigate(['/error']);
@@ -101,6 +124,9 @@ export class CreateProfileComponent implements OnInit {
    createBriefcase() {
 
    }
+
+
+
 
    preview(event) {
      const file = (event.target as HTMLInputElement).files[0];
