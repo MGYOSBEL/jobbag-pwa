@@ -12,6 +12,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { EditUserComponent } from './edit-user/edit-user.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CreateProfileComponent } from './create-profile/create-profile.component';
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
 
 
 
@@ -23,7 +24,8 @@ import { CreateProfileComponent } from './create-profile/create-profile.componen
      BriefcaseEditComponent,
      ProjectsComponent,
      EditUserComponent,
-     CreateProfileComponent
+     CreateProfileComponent,
+     EditProfileComponent
     ],
   imports: [
     CommonModule,
