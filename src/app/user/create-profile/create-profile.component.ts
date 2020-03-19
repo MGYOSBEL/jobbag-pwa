@@ -9,6 +9,7 @@ import { ErrorService } from '@app/errors/error.service';
 import { AuthenticationService } from '@app/auth/services/authentication.service';
 import { environment } from '@environments/environment';
 import { BriefcaseService } from '../services/briefcase.service';
+import { ActiveProfileService } from '../services/active-profile.service';
 
 const states = ['Alabama', 'Alaska', 'American Samoa', 'Arizona', 'Arkansas', 'California', 'Colorado',
   'Connecticut', 'Delaware', 'District Of Columbia', 'Federated States Of Micronesia', 'Florida', 'Georgia',
@@ -36,6 +37,7 @@ export class CreateProfileComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private authenticationService: AuthenticationService,
               private userProfileService: UserProfileService,
+              private activeProfileService: ActiveProfileService,
               private briefcaseService: BriefcaseService,
               private errorService: ErrorService,
               private router: Router,
@@ -109,10 +111,13 @@ export class CreateProfileComponent implements OnInit {
       name: this.name.value,
       user_profile_briefcase: this.briefcaseService.briefcases
     };
+    console.clear();
+    console.log(userProfileRequest);
     this.userProfileService.create(userProfileRequest)
     .subscribe(
       response => {
         console.log('createUserProfile RESPONSE: ' + JSON.stringify(response));
+        this.role === 'CLIENT' ? this.activeProfileService.activateClient() : this.activeProfileService.activateServiceProvider() ;
         this.router.navigate(['../'], {relativeTo: this.route});
       }, (err) => {
         this.errorService.errorMessage = err;

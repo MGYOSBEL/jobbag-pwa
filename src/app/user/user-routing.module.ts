@@ -9,6 +9,7 @@ import { RoleSelectComponent } from '../sharedComponents/role-select/role-select
 import { BriefcaseEditComponent } from './briefcase-edit/briefcase-edit.component';
 import { EditUserComponent } from './edit-user/edit-user.component';
 import { CreateProfileComponent } from './create-profile/create-profile.component';
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
 
 
 const userRoutes: Routes = [
@@ -31,7 +32,7 @@ const userRoutes: Routes = [
             path: 'edit-professions', component: ProfessionsEditComponent
           },
           {
-            path: 'edit-user', component: EditUserComponent
+            path: 'edit-user', component: EditProfileComponent
           },
           {
             path: 'briefcase', component: BriefcaseEditComponent

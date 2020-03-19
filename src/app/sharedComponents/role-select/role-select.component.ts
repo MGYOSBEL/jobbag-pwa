@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { ActiveProfileService } from '@app/user/services/active-profile.service';
 
 @Component({
   selector: 'app-role-select',
@@ -9,7 +10,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class RoleSelectComponent implements OnInit {
 
   returnUrl: string;
-  constructor(private router: Router,
+  constructor(private activeProfileService: ActiveProfileService,
+              private router: Router,
               private route: ActivatedRoute) {
       this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/auth/register';
   }

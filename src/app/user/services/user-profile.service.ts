@@ -13,19 +13,7 @@ export class UserProfileService {
 
   private apiPath = environment.apiBaseURL;
 
-  currentUserProfile: UserProfile;
 
-  private userProfileRequest = {
-    client_id: environment.clientId,
-    client_secret: environment.clientSecret,
-    phone_number: '',
-    comment: '',
-    summary: '',
-    user_id: '',
-    scholarship_id: '',
-    user_profile_type: '',
-    user_profile_briefcase: []
-  };
 
   constructor(private http: HttpClient
               ) { }
@@ -75,12 +63,12 @@ export class UserProfileService {
 
   public get serviceProvider() {
     const profiles: Array<any> = JSON.parse(localStorage.getItem('userProfiles'));
-    return profiles.find(elem => elem.user_profile_type === 'SERVICE_PROVIDER');
+    return profiles.find(elem => elem.id_user_profile_type_fk.type === 'SERVICE_PROVIDER');
   }
 
   public get client() {
-    const profiles: Array<any> = JSON.parse(localStorage.getItem('userProfiles'));
-    return profiles.find(elem => elem.profile_type === 'CLIENT');
+    const profiles: Array<UserProfile> = JSON.parse(localStorage.getItem('userProfiles'));
+    return profiles.find(elem => elem.id_user_profile_type_fk.type === 'CLIENT');
   }
 
 
@@ -207,7 +195,5 @@ export class UserProfileService {
   }
 
 
-  cacheBriefcase(bc: any) {
-    this.userProfileRequest.user_profile_briefcase.push(bc);
-  }
+
 }

@@ -5,6 +5,7 @@ import { AuthService } from 'angularx-social-login';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
+import { ActiveProfileService } from '@app/user/services/active-profile.service';
 
 @Component({
   selector: 'app-navbar',
@@ -24,6 +25,7 @@ export class NavbarComponent implements OnInit {
 
   constructor(private userService: UserService,
               private authenticationService: AuthenticationService,
+              public activeProfileService: ActiveProfileService,
               private socialAuthService: AuthService,
               private router: Router
               ) {
@@ -57,6 +59,14 @@ export class NavbarComponent implements OnInit {
     this.authenticationService.signOut();
     this.isLoggedIn = false;
     this.router.navigate(['']);
+  }
+
+  toServiceProvider() {
+    this.activeProfileService.activateServiceProvider();
+  }
+
+  toClient() {
+    this.activeProfileService.activateClient();
   }
 
 }

@@ -33,6 +33,8 @@
       <ul>
         <li *ngFor="let role of loggedUser.roles">{{role}}</li>
       </ul>
+      <h2>Your Active Profile:</h2>
+      {{activeProfile | json}}
 
       <button (click)="logOut()"> Log Out </button>
       <a routerLink="/" routerLinkActive="active">Home</a>

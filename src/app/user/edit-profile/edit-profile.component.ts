@@ -9,6 +9,8 @@ import { ErrorService } from '@app/errors/error.service';
 import { AuthenticationService } from '@app/auth/services/authentication.service';
 import { environment } from '@environments/environment';
 import { BriefcaseService } from '../services/briefcase.service';
+import { ActiveProfileService } from '../services/active-profile.service';
+import { UserProfile } from '../models/user.model';
 
 const states = ['Alabama', 'Alaska', 'American Samoa', 'Arizona', 'Arkansas', 'California', 'Colorado',
   'Connecticut', 'Delaware', 'District Of Columbia', 'Federated States Of Micronesia', 'Florida', 'Georgia',
@@ -29,21 +31,24 @@ export class EditProfileComponent implements OnInit {
   private stepper: Stepper;
   model: any;
   previewUrl: any;
-  profileForm: FormGroup;
+  profileForm = new FormGroup({});
+  activeProfile: UserProfile;
   role: string;
   name: AbstractControl;
+  errors: string[] = [];
+
 
   constructor(private formBuilder: FormBuilder,
               private authenticationService: AuthenticationService,
               private userProfileService: UserProfileService,
+              private activeProfileService: ActiveProfileService,
               private briefcaseService: BriefcaseService,
               private errorService: ErrorService,
               private router: Router,
               private route: ActivatedRoute
               ) {
-
     this.profileForm = this.formBuilder.group({
-      accountType: ['PERSONAL'],
+      accountType: [''],
       accountName: [''],
       companyName: [''],
       profilePicture: [''],
@@ -53,10 +58,21 @@ export class EditProfileComponent implements OnInit {
       comments: [''],
       gallery: ['']
     });
+
+
   }
 
 
   ngOnInit() {
+
+    this.activeProfileService.activeProfileType$.subscribe(
+      profile => {
+        console.log(profile);
+
+
+      }
+    );
+
     this.stepper = new Stepper(document.querySelector('#stepper1'), {
       linear: false,
       animation: true
@@ -83,6 +99,30 @@ export class EditProfileComponent implements OnInit {
   }
 
   editUserProfile() {
+    const user_id = this.authenticationService.getLoggedUserId();
+
+    const request = {
+      client_id: environment.clientId,
+      client_secret: environment.clientSecret,
+      phone_number: 'phoneNumber for the user: ' + user_id,
+      comment: this.profileForm.value.comments,
+      summary: 'summary for the user: ' + user_id,
+      user_id: user_id,
+      scholarship_id: 1,
+      picture: '',
+      cv: '',
+      user_profile_type: this.role,
+      user_profile_account: this.profileForm.value.accountType,
+      name: this.name.value,
+      user_profile_briefcase: this.briefcaseService.briefcases
+    };
+    this.userProfileService.edit(request).subscribe(
+     response => this.router.navigate(['../'], {relativeTo: this.route}),
+     err => this.errors.push(err)
+    );
+  }
+
+  edit() {
 
   }
 

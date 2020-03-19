@@ -20,15 +20,16 @@
       <div class="row container">
         <div class="col-6">
           <div class="row justify-content-end">Username</div>
+          <div class="row justify-content-end">{{activeProfileService.activeProfileType$ | async}}</div>
           <div class="row justify-content-end">
             <a class="dropdown-toggle" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <i class="fas fa-edit" alt="Edit"></i>
             </a>
             <div class="dropdown-menu ">
-              <a class="dropdown-item text-dark">Service Provider</a>
-              <a class="dropdown-item text-dark" >Customer </a>
+              <a class="dropdown-item text-dark" (click)="toServiceProvider()">Service Provider</a>
+              <a class="dropdown-item text-dark" (click)="toClient()">Customer </a>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item text-dark" [routerLink]="['user',userId,'edit-user']" [queryParams]="{function: 'EDIT'}" routerLinkActive="active">Edit Profile</a>
+              <a class="dropdown-item text-dark" [routerLink]="['user',userId,'edit-user']" routerLinkActive="active">Edit Profile</a>
               <a class="dropdown-item text-dark" (click)="signout()">Sign Out</a>
 
             </div>
