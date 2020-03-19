@@ -47,15 +47,20 @@ export class EditProfileComponent implements OnInit {
               private router: Router,
               private route: ActivatedRoute
               ) {
+    this.activeProfileService.activeProfileType$.subscribe(
+      profileType => {
+        this.activeProfile = profileType === 'CLIENT' ? this.userProfileService.client : this.userProfileService.serviceProvider;
+      }
+    );
     this.profileForm = this.formBuilder.group({
-      accountType: [''],
-      accountName: [''],
-      companyName: [''],
+      accountType: [this.activeProfile.id_user_profile_account_fk.type],
+      accountName: [this.activeProfile.id_user_profile_account_fk.type === 'PERSONAL' ? this.activeProfile.name : ''],
+      companyName: [this.activeProfile.id_user_profile_account_fk.type === 'COMPANY' ? this.activeProfile.name : ''],
       profilePicture: [''],
       countries: [''],
       services: [''],
       curriculum: [''],
-      comments: [''],
+      comments: [this.activeProfile.comment],
       gallery: ['']
     });
 
@@ -64,14 +69,6 @@ export class EditProfileComponent implements OnInit {
 
 
   ngOnInit() {
-
-    this.activeProfileService.activeProfileType$.subscribe(
-      profile => {
-        console.log(profile);
-
-
-      }
-    );
 
     this.stepper = new Stepper(document.querySelector('#stepper1'), {
       linear: false,

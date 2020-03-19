@@ -32,6 +32,7 @@ export class CreateProfileComponent implements OnInit {
   previewUrl: any;
   profileForm: FormGroup;
   role: string;
+  imageBase64: string;
   name: AbstractControl;
 
   constructor(private formBuilder: FormBuilder,
@@ -104,7 +105,7 @@ export class CreateProfileComponent implements OnInit {
       summary: 'summary for the user: ' + user_id,
       user_id: user_id,
       scholarship_id: 1,
-      picture: '',
+      picture: this.imageBase64,
       cv: '',
       user_profile_type: this.role,
       user_profile_account: this.profileForm.value.accountType,
@@ -133,14 +134,15 @@ export class CreateProfileComponent implements OnInit {
 
 
 
-   preview(event) {
-     const file = (event.target as HTMLInputElement).files[0];
-     let reader = new FileReader();
-     reader.readAsDataURL(file);
-     reader.onload = (_event) => {
-       this.previewUrl = reader.result;
-     };
-   }
+  uploadFile(event) {
+    const file = (event.target as HTMLInputElement).files[0];
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = (_event) => {
+      this.previewUrl = reader.result;
+      this.imageBase64 = this.previewUrl.toString().split(',')[1];
+    };
+  }
 
    search = (text$: Observable<string>) =>
      text$.pipe(

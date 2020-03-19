@@ -80,7 +80,7 @@
             <div class="col align-items-center">
               <label for="pictureInput">Upload cover picture or avatar</label>
               <input type="file" class="form-control-file" formControlName="profilePicture" id="pictureInput" placeholder="Upload your avatar"
-              (change)="preview($event)" accept="image/*" />
+              (change)="uploadFile($event)" accept="image/*" />
               </div>
             <figure class="figure col">
               <img [src]="previewUrl" class="figure-img img-thumbnail rounded-circle h-100" style="height: 100px;"
