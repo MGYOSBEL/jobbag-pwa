@@ -1,15 +1,15 @@
 .navbar {
   background-color: #ffffff;
-  color: antiquewhite;
+  color: #2985C4;
 }
 
 .btn-link {
   color: #2985C4;
 
 }
-/* .fas.far {
-  color: antiquewhite;
-} */
+.fas.far {
+  color: #2985C4;
+}
 
 .input-group-prepend,
 .input-group-text {

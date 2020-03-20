@@ -20,6 +20,7 @@ export class NavbarComponent implements OnInit {
   isLoggedIn: boolean;
   isLoggedIn$: Observable<boolean>;
   userId;
+  hiddenNavbar: boolean;
 
   navEnd: Observable<NavigationEnd>;
 
@@ -36,6 +37,7 @@ export class NavbarComponent implements OnInit {
     // this.userService.get(this.userId).subscribe(
     //   user => this.loggedUser = user
     // );
+    this.hiddenNavbar = false;
 
     this.isLoggedIn$ = this.authenticationService.isLoggedIn$.asObservable();
   }
@@ -46,6 +48,9 @@ export class NavbarComponent implements OnInit {
       console.log('NAVBAR: ', this.loggedUser);
       this.navEnd.subscribe(
         evt => {
+          this.hiddenNavbar = true;
+          console.log('this.hiddenNavbar', this.hiddenNavbar);
+          console.log('evt.url', evt.urlAfterRedirects);
           this.isLoggedIn = this.authenticationService.isLoggedIn;
           this.userId = this.authenticationService.getLoggedUserId();
           this.userService.get(this.userId).subscribe(
