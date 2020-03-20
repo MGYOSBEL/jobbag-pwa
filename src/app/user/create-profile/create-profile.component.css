@@ -1,3 +1,94 @@
 form {
-  height: 300px;
+  height: 7rem;
 }
+
+.row{  
+  text-align: center;
+  margin-top: 0.75rem;
+}
+
+.col-3{
+  padding-left: 1.5rem;
+  padding-top: 1.5rem;
+  padding-right: 1.5rem;
+  border-bottom-width: 1.5rem;
+  background-color:white;
+}
+
+.bs-stepper-circle{
+  font-size: 0.5rem;
+  color: #6c757d;
+  transition:0.3s;
+}
+
+.active .bs-stepper-circle{
+  background-color: #2985c4;
+  color: white;
+  font-size: 1.2rem;
+}
+
+.active .bs-stepper-label{
+  color:#6c757d;
+  font-size: 1rem;
+  font-weight: lighter;
+  visibility: visible;
+}
+
+.step-trigger{
+  padding: 0px !important;
+  font-size: 50%;
+}
+
+.bs-stepper-label{
+  visibility: hidden;
+}
+
+.bs-stepper-header{
+  align-content: space-around;
+  height: 4rem;
+  margin-top: 0.5rem;
+}
+
+.bs-stepper-content {
+  padding: 0 2rem 2rem;
+  margin-top: 4.5rem;
+}
+
+.form-check-label{
+  margin-bottom: 0.2rem;
+}
+
+.form-control{
+  border-radius: 0 !important;
+}
+
+.btn-previous, .btn-next{
+  background-image: url(../../../assets/icons/SVG/back.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 4.5rem;
+  height: 3.5rem;
+  background-size: 2.5rem;
+  background-color:#bebcbe;
+  border: 0rem;
+}
+
+.btn-send{
+  width: 8.5rem;
+  height: 3.5rem;
+  background-size: 3rem;
+  background-color:#2985c4;
+  color: white;
+  border: 0rem;
+
+}
+
+#main-container{
+  background-image: url(../../../assets/img/login-01.jpg);
+  background-size:80%;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+
