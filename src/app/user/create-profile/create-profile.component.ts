@@ -33,6 +33,8 @@ export class CreateProfileComponent implements OnInit {
   profileForm: FormGroup;
   role: string;
   imageBase64: string;
+  cvBase64: string;
+  cvUrl: any;
   name: AbstractControl;
 
   constructor(private formBuilder: FormBuilder,
@@ -106,7 +108,7 @@ export class CreateProfileComponent implements OnInit {
       user_id: user_id,
       scholarship_id: 1,
       picture: this.imageBase64,
-      cv: '',
+      cv: this.cvBase64,
       user_profile_type: this.role,
       user_profile_account: this.profileForm.value.accountType,
       name: this.name.value,
@@ -127,20 +129,23 @@ export class CreateProfileComponent implements OnInit {
     );
    }
 
-   createBriefcase() {
-
-   }
-
-
-
-
-  uploadFile(event) {
+  uploadPicture(event) {
     const file = (event.target as HTMLInputElement).files[0];
     let reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = (_event) => {
       this.previewUrl = reader.result;
       this.imageBase64 = this.previewUrl.toString().split(',')[1];
+    };
+  }
+
+  uploadCV(event) {
+    const file = (event.target as HTMLInputElement).files[0];
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = (_event) => {
+      this.cvUrl = reader.result;
+      this.cvBase64 = this.cvUrl.toString().split(',')[1];
     };
   }
 

@@ -80,7 +80,7 @@
             <div class="col align-items-center">
               <label for="pictureInput">Upload cover picture or avatar</label>
               <input type="file" class="form-control-file" formControlName="profilePicture" id="pictureInput" placeholder="Upload your avatar"
-              (change)="uploadFile($event)" accept="image/*" />
+              (change)="uploadPicture($event)" accept="image/*" />
               </div>
             <figure class="figure col">
               <img [src]="previewUrl" class="figure-img img-thumbnail rounded-circle h-100" style="height: 100px;"
@@ -106,10 +106,10 @@
             <div class="col">
               <label for="curriculumInput">Curriculum Vitae</label>
               <input type="file" accept="pdf/*" formControlName="curriculum" class="form-control-file" id="curriculumInput" placeholder="Upload your CV in pdf format."
-              (change)="preview($event)" />
+              (change)="uploadCV($event)" />
               </div>
             <figure class="figure col mb-3" *ngIf="previewUrl && previewUrl !== ''">
-              <img [src]="previewUrl"  class="figure-img img-fluid h100" />
+              <img [src]="cvUrl"  class="figure-img img-fluid h100" />
             </figure>
           </div>
         </div>
