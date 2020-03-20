@@ -7,53 +7,47 @@
 
 }
 
-.fiability-img-user{
-    width: 20%;
-    color:#2787c4;
+
+.svg-reazon-user{
+    width: 7rem;
 }
 
-.fiability-img-find{
-    width: 22%;
-    color: #2787c4;
+.svg-reazon-find{
+    width: 9rem;
+    fill: #952a79;
 }
 
-.fiability-img-sms{
-    width: 22%;
-    color: #2787c4;
+.svg-reazon-sms{
+    width: 8rem;
+    fill: #10467c;
 }
 
-.fiability-img-global{
-    width: 15%;
-    color: #2787c4;
+.svg-reazon-global{
+    width: 7rem;
+    fill: #2787c4;
 }
 
 .tittle{
-    font-size: 1rem;
-    color: #2f057e;;
-}
-
-.col-xl-6{
-    margin-top: 3rem;
-    max-width: 47%;
-}
-
-.col-xl-5{
-    padding-right: 0;
+    font-weight: bold;
+    font-size: 1.2rem;
 }
 
 .col-sm-7{
     padding-left: 0!important;
     padding-right: 0!important;
-    max-width: 90%;
+    max-width: 80%;
 }
 
 .row{
     padding-left: 3rem;
-    /* padding-right: 2rem; */
+    padding-top: 0.5rem;
+    padding-bottom: 1.5rem;
+    background-color: #f1f1f1;
 }
 
 .fiability-label{
     font-size: 0.9rem;
+    text-align: justify;
 }
 
 .jobbag-img{
@@ -61,3 +55,8 @@
     position: relative;
     float: right;
   }
+
+.svg{
+    fill:#2f057e;
+    width: 32%;
+}

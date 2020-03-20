@@ -1,5 +1,5 @@
 .container-fluid{
-	background-color: #2787C4;
+	background-color: #424242;
 	padding-left: 5rem;
 }
 
@@ -17,7 +17,7 @@
 .arrow_box {
     position: relative;
     font-size: 1.3rem;
-	background: #1877b2;
+	background: #605c61;
 }
 .arrow_box:after {
 	left: 100%;
@@ -29,12 +29,12 @@
 	position: absolute;
 	pointer-events: none;
 	border-color: rgba(136, 183, 213, 0);
-	border-left-color: #1877b2;
+	border-left-color: #605c61;
 	border-width: 1rem;
 	margin-top: -1rem;
 }
 
 .arrow-text{
 	font-family: 'Segoe UI';
-	color: white;
+	color: #2787c4;
 }
