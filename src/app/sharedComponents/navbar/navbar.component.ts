@@ -33,9 +33,9 @@ export class NavbarComponent implements OnInit {
       filter(evt => evt instanceof NavigationEnd)
     ) as Observable<NavigationEnd>;
     this.userId = this.authenticationService.getLoggedUserId();
-    this.userService.get(this.userId).subscribe(
-      user => this.loggedUser = user
-    );
+    // this.userService.get(this.userId).subscribe(
+    //   user => this.loggedUser = user
+    // );
 
     this.isLoggedIn$ = this.authenticationService.isLoggedIn$.asObservable();
   }
@@ -48,8 +48,10 @@ export class NavbarComponent implements OnInit {
         evt => {
           this.isLoggedIn = this.authenticationService.isLoggedIn;
           this.userId = this.authenticationService.getLoggedUserId();
-          // this.loggedUser = this.userService.get(this.userId);
-        },
+          this.userService.get(this.userId).subscribe(
+            user => this.loggedUser = user
+          );
+              },
       );
 
     }
