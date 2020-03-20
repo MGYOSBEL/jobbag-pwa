@@ -43,23 +43,24 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.authenticationService.isLoggedIn) {
-      this.socialUser = JSON.parse(localStorage.getItem('socialUser'));
-      console.log('NAVBAR: ', this.loggedUser);
-      this.navEnd.subscribe(
-        evt => {
-          this.hiddenNavbar = true;
-          console.log('this.hiddenNavbar', this.hiddenNavbar);
-          console.log('evt.url', evt.urlAfterRedirects);
-          this.isLoggedIn = this.authenticationService.isLoggedIn;
+    this.navEnd.subscribe(
+      evt => {
+        this.hiddenNavbar = this.router.url.includes('auth');
+        console.log(this.hiddenNavbar);
+        console.log('evt.url', this.router.url);
+        this.isLoggedIn = this.authenticationService.isLoggedIn;
+        if (this.authenticationService.isLoggedIn) {
+          this.socialUser = JSON.parse(localStorage.getItem('socialUser'));
+
           this.userId = this.authenticationService.getLoggedUserId();
           this.userService.get(this.userId).subscribe(
             user => this.loggedUser = user
           );
-              },
-      );
+        }
+      }
+    );
 
-    }
+
   }
 
   signout() {
