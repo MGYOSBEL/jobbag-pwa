@@ -20,6 +20,10 @@ margin-right: initial;
     margin-right: 1rem;
 }
 
+.col-md-3{
+    text-align: center;
+}
+
 .rounded-circle{
     text-align: center;
      display: block;
@@ -30,11 +34,14 @@ margin-right: initial;
 
 .action{
     margin-top: 1rem;
-    text-align: center;
     font-family: Segoe UI;
     font-size: 1.1rem;
     color: #2787c4;
     font-weight: bold;
-    padding-left: 0.5em;
-    padding-right: 0.7em;
+}
+
+.svg-step-create, .svg-step-briefcase, .svg-step-find{
+    width: 9rem;
+    fill: #2985c4;
+    text-align: center;
 }
