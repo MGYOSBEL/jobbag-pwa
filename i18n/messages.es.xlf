@@ -2,7 +2,39 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file source-language="en" datatype="plaintext" original="ng2.template">
     <body>
-
+<!-- NAVBAR TRANSLATE-SECTION -->
+<trans-unit id="nav link-login" datatype="html">
+        <source>
+          <x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i&gt;"/><x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/>
+          Login
+        </source>
+        <target>
+          <x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i&gt;"/><x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/>
+          Iniciar Sesión
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/sharedComponents/navbar/navbar.component.html</context>
+          <context context-type="linenumber">53</context>
+        </context-group>
+        <note priority="1" from="description">nav link-login title</note>
+        <note priority="1" from="meaning">nav link-login</note>
+      </trans-unit>
+      <trans-unit id="nav link-register" datatype="html">
+        <source>
+          <x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i&gt;"/><x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/>
+          Register
+        </source>
+        <target>
+        <x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i&gt;"/><x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/>
+          Registrarse
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/sharedComponents/navbar/navbar.component.html</context>
+          <context context-type="linenumber">57</context>
+        </context-group>
+        <note priority="1" from="description">nav link-register title</note>
+        <note priority="1" from="meaning">nav link-register</note>
+      </trans-unit>
 <!-- FOOTER TRANSLATE-SECTION -->
 
       <trans-unit id="footer element-text" datatype="html">

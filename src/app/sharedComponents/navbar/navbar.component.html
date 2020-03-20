@@ -50,11 +50,11 @@
     </div>
     <div *ngIf="!(isLoggedIn$ | async)" class="col-8 " >
       <div class="row justify-content-end">
-        <button class="btn btn-link mx-2" routerLink='/auth/login' routerLinkActive="active">
+        <button class="btn btn-link mx-2" routerLink='/auth/login' routerLinkActive="active" i18n="nav link-login|nav link-login title@@nav link-login">
           <i class="far fa-user"></i>
           Login
         </button>
-        <button class="btn btn-link mx-2" routerLink='/auth/register' routerLinkActive="active">
+        <button class="btn btn-link mx-2" routerLink='/auth/register' routerLinkActive="active" i18n="nav link-register|nav link-register title@@nav link-register">
           <i class="fas fa-user-plus"></i>
           Register
         </button>

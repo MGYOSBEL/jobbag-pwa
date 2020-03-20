@@ -13,24 +13,44 @@
         <note priority="1" from="description">footer element-text description</note>
         <note priority="1" from="meaning">footer element-text</note>
       </trans-unit>
-      <trans-unit id="role btn-right" datatype="html">
+      <trans-unit id="nav link-login" datatype="html">
         <source>
-         I need a Service
-      </source>
+          <x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i&gt;"/><x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/>
+          Login
+        </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/sharedComponents/navbar/navbar.component.html</context>
+          <context context-type="linenumber">53</context>
+        </context-group>
+        <note priority="1" from="description">nav link-login title</note>
+        <note priority="1" from="meaning">nav link-login</note>
+      </trans-unit>
+      <trans-unit id="nav link-register" datatype="html">
+        <source>
+          <x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i&gt;"/><x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/>
+          Register
+        </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/sharedComponents/navbar/navbar.component.html</context>
+          <context context-type="linenumber">57</context>
+        </context-group>
+        <note priority="1" from="description">nav link-register title</note>
+        <note priority="1" from="meaning">nav link-register</note>
+      </trans-unit>
+      <trans-unit id="role btn-right" datatype="html">
+        <source>I need a Service</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/sharedComponents/role-select/role-select.component.html</context>
-          <context context-type="linenumber">4</context>
+          <context context-type="linenumber">5</context>
         </context-group>
         <note priority="1" from="description">role btn-right title</note>
         <note priority="1" from="meaning">role btn-right</note>
       </trans-unit>
       <trans-unit id="role btn-left" datatype="html">
-        <source>
-        I want to work
-      </source>
+        <source>I want to work</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/sharedComponents/role-select/role-select.component.html</context>
-          <context context-type="linenumber">8</context>
+          <context context-type="linenumber">9</context>
         </context-group>
         <note priority="1" from="description">role btn-left title</note>
         <note priority="1" from="meaning">role btn-left</note>
@@ -296,7 +316,7 @@
                             </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/sharedComponents/fiability-section/fiability-section.component.html</context>
-          <context context-type="linenumber">14</context>
+          <context context-type="linenumber">18</context>
         </context-group>
         <note priority="1" from="description">fiability element-title text</note>
         <note priority="1" from="meaning">fiability element-title</note>
@@ -307,7 +327,7 @@
                             </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/sharedComponents/fiability-section/fiability-section.component.html</context>
-          <context context-type="linenumber">26</context>
+          <context context-type="linenumber">34</context>
         </context-group>
         <note priority="1" from="description">fiability element-title2 text</note>
         <note priority="1" from="meaning">fiability element-title2</note>
@@ -318,7 +338,7 @@
                             </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/sharedComponents/fiability-section/fiability-section.component.html</context>
-          <context context-type="linenumber">40</context>
+          <context context-type="linenumber">50</context>
         </context-group>
         <note priority="1" from="description">fiability element-title3 text</note>
         <note priority="1" from="meaning">fiability element-title3</note>
@@ -329,7 +349,7 @@
                             </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/sharedComponents/fiability-section/fiability-section.component.html</context>
-          <context context-type="linenumber">52</context>
+          <context context-type="linenumber">65</context>
         </context-group>
         <note priority="1" from="description">fiability element-title4 text</note>
         <note priority="1" from="meaning">fiability element-title4</note>
@@ -431,7 +451,7 @@
                 </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/sharedComponents/howtodo-section/howtodo-section.component.html</context>
-          <context context-type="linenumber">10</context>
+          <context context-type="linenumber">13</context>
         </context-group>
         <note priority="1" from="description">howtodo element-title2 text</note>
         <note priority="1" from="meaning">howtodo element-title2</note>
@@ -442,7 +462,7 @@
                 </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/sharedComponents/howtodo-section/howtodo-section.component.html</context>
-          <context context-type="linenumber">17</context>
+          <context context-type="linenumber">23</context>
         </context-group>
         <note priority="1" from="description">howtodo element-title3 text</note>
         <note priority="1" from="meaning">howtodo element-title3</note>
@@ -453,7 +473,7 @@
                 </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/sharedComponents/howtodo-section/howtodo-section.component.html</context>
-          <context context-type="linenumber">24</context>
+          <context context-type="linenumber">33</context>
         </context-group>
         <note priority="1" from="description">howtodo element-title4 text</note>
         <note priority="1" from="meaning">howtodo element-title4</note>
