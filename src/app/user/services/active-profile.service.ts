@@ -15,7 +15,7 @@ export class ActiveProfileService {
 
   constructor(private userProfileService: UserProfileService) {
 
-    this.activeProfileSubject = new BehaviorSubject<string>('CLIENT');
+    this.activeProfileSubject = new BehaviorSubject<string>('');
     this.activeProfileType$ = this.activeProfileSubject.asObservable();
 
 
