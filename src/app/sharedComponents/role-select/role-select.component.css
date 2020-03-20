@@ -1,16 +1,11 @@
 #home-content {
-  background-color:#ffffff ;
+  background-color:#2985C4 ;
   min-height: 400px;
   max-height: 800px;
 }
 
-#btn-left{
-  border-color: #2787C4;
-  border-left: white;
-}
-
-.left-arrow{
-  transform: rotate(180deg);
+.p{
+	font-family: Segoe UI;
 }
 
 .col-md-6{
@@ -24,18 +19,17 @@
 }
 
 .col-sm-6{
-padding-left: 20rem;
+padding-left: 18rem;
 padding-top: 8rem !important;
 }
+
 .btn-lg {
-  color: #000000;
-  margin-top: 0.2rem;
-  border-width: 5px;
-  font-size: 2.25rem;
+  margin-top: 0.5rem;
+  font-size: 4.00rem;
 }
 
 .whattodo-text, .motivational-text{
-  color: #000000;
+  color: #ffffff;
   font-family: 'Segoe UI';
 }
 
@@ -49,61 +43,21 @@ padding-top: 8rem !important;
 }
 
 #btn-right{
-  position: relative;
-	background: #ffffff;
-	border: 5px solid #2787c4;
-}
-
-#btn-right:after, #btn-right:before {
-	left: 100%;
-	top: 50%;
-	border: solid transparent;
-	content: " ";
-	height: 0;
-	width: 0;
-	position: absolute;
-	pointer-events: none;
-}
-
-#btn-right:after {
-	border-color: rgba(255, 255, 255, 0);
-	border-left-color: #ffffff;
-	border-width: 2.2rem;
-	margin-top: -2.2rem;
-}
-#btn-right:before {
-	border-color: rgba(39, 135, 196, 0);
-	border-left-color: #2787c4;
-	border-width: 2.6rem;
-	margin-top: -2.6rem;
+	width: 30rem;
+ 	position: relative;
+	background-image: url(../../../assets/img/arrow_box_right.png);
+	background-position:center; 
+	background-repeat: no-repeat;
+	background-size: contain;
+	text-align:right ;
 }
 
 #btn-left{
-  position: relative;
-	background: #ffffff;
-	border: 5px solid #2787c4;
-}
-
-#btn-left:after, #btn-left:before {
-	right: 100%;
-	top: 50%;
-	border: solid transparent;
-	content: " ";
-	height: 0;
-	width: 0;
-	position: absolute;
-	pointer-events: none;
-}
-
-#btn-left:after {
-	border-color: rgba(255, 255, 255, 0);
-	border-right-color: #ffffff;
-	border-width: 2.2rem;
-	margin-top: -2.2rem;
-}
-#btn-left:before {
-  border-color: rgba(39, 135, 196, 0);
-	border-right-color: #2787c4;
-	border-width: 2.6rem;
-	margin-top: -2.6rem;
+	width: 30rem;
+ 	position: relative;
+	background-image: url(../../../assets/img/arrow_box.png);
+	background-position:center; 
+	background-repeat: no-repeat;
+	background-size: contain;
+	text-align:left ;
 }
