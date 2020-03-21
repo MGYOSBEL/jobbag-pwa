@@ -64,7 +64,7 @@ export class ProfileExtrasComponent implements OnInit {
         });
     } else {
       this.profileExtrasForm = this.formBuilder.group({
-        scholarship: [profile.scholarship, Validators.required],
+        scholarship: [profile.id_scholarship_fk.description_en, Validators.required],
         phoneNumber: [profile.phone_number],
         comments: [profile.comment],
         summary: [profile.summary]

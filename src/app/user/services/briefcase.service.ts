@@ -60,7 +60,7 @@ export class BriefcaseService {
     return of (briefcases);
   }
 
-  create(userProfileId: string, briefcase: any): Observable<any> {
+  create(userProfileId: number, briefcase: any): Observable<any> {
     const data = {
       client_id: environment.clientId,
       client_secret: environment.clientSecret,
@@ -98,7 +98,7 @@ export class BriefcaseService {
     );
   }
 
-  edit(userProfileId: string, briefcase: any): Observable<any> {
+  edit(userProfileId: number, briefcase: any): Observable<any> {
     const data = {
       client_id: environment.clientId,
       client_secret: environment.clientSecret,

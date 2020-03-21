@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { User, Scholarship, UserProfile, Briefcase } from '../models/user.model';
+import { User, Scholarship, UserProfile, Briefcase, UserProfileBriefcase } from '../models/user.model';
 import { LoggingService } from '@app/services/logging.service';
 import { environment } from '@environments/environment';
 import { map, tap, catchError } from 'rxjs/operators';
@@ -30,7 +30,16 @@ export class UserService {
       catchError(err => { // Captura si hubo algun error en la llamada y lo relanza
         console.log(err);
         throw new Error(err);  // Relanzo el error con el status y el detail
-      }), // El metodo user/get/{id} retorna los datos directos, no en content. Por lo tanto no hago ningun map aca.
+      }),
+      map(response => {
+        if (response.status_code === 200) { // Si el status del response es OK retorno contento como dato del observable
+          console.log(JSON.parse(response.content));
+          return JSON.parse(response.content);
+        } else {
+          throw new Error( // Si no es OK el status del response, lanzo un error con el status y el text
+            response.status_code + ': ' + response.text
+          );
+        }      }),
       tap((response) => {
         this._loggedUser = response; // Salvo el user en el storage
         localStorage.setItem('loggedUser', JSON.stringify({
@@ -39,36 +48,14 @@ export class UserService {
           email: response.email
         }));
         if (response.user_profiles.length) {
-          const userProfiles: Array<any> = response.user_profiles; // Salvo los userProfiles en el Storage
-          let profilesForStorage: Array<any> = [];
-          for (const iterator of userProfiles) {
-            profilesForStorage.push({
-              id: iterator.id,
-              phone_number: iterator.phone_number,
-              comment: iterator.comment,
-              summary: iterator.summary,
-              user_id: iterator.user_id,
-              scholarship_id: iterator.scholarship_id,
-              user_profile_type: iterator.id_user_profile_type_fk.type
-            });
-          }
+          const userProfiles: Array<UserProfile> = response.user_profiles; // Salvo los userProfiles en el Storage
           localStorage.setItem('userProfiles', JSON.stringify(response.user_profiles));
           console.log(userProfiles);
-          const index = userProfiles.findIndex(elem => elem.user_profile_type === 'SERVICE_PROVIDER');
+          const index = userProfiles.findIndex(elem => elem.id_user_profile_type_fk.type === 'SERVICE_PROVIDER');
           console.log('index', index);
           if (index >= 0) {
-            const briefcases: Array<any> = userProfiles[index].user_profile_briefcases || []; // Salvo los briefcases en el Storage
-            let briefcasesForStorage: Array<any> = [];
-            for (const iterator of briefcases) {
-              briefcasesForStorage.push({
-                id: iterator.id,
-                comments: iterator.comments,
-                description: iterator.description,
-                start_date: iterator.start_date,
-                end_date: iterator.end_date,
-                id_profession: iterator.id_profession
-              });
-            }
+            // Salvo los briefcases en el Storage
+            const briefcases: Array<UserProfileBriefcase> = userProfiles[index].user_profile_briefcases || [];
             localStorage.setItem('briefcases', JSON.stringify(briefcases));
 
           }

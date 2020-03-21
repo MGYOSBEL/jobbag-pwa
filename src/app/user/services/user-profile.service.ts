@@ -47,28 +47,24 @@ export class UserProfileService {
         }),
         tap(content => { // Si se ejecuta el tap es porque no se lanzo antes ningun error, por lo tanto status===200(OK)
           userProfiles.push({
-            id: content.id,
-            phone_number: content.phone_number,
-            comment: content.comment,
-            summary: content.summary,
-            user_id: content.user_id,
-            scholarship_id: content.scholarship_id,
-            user_profile_type: content.user_profile_type
+            content
           });
-          localStorage.setItem('userProfiles', JSON.stringify(content));
+          localStorage.setItem('userProfiles', JSON.stringify(userProfiles));
         })
       );
     }
   }
 
   public get serviceProvider() {
-    const profiles: Array<any> = JSON.parse(localStorage.getItem('userProfiles'));
+    const profiles: Array<UserProfile> = JSON.parse(localStorage.getItem('userProfiles'));
     return profiles.find(elem => elem.id_user_profile_type_fk.type === 'SERVICE_PROVIDER');
+    // return profiles.find(elem => elem.userProfileType === 'SERVICE_PROVIDER');
   }
 
   public get client() {
     const profiles: Array<UserProfile> = JSON.parse(localStorage.getItem('userProfiles'));
     return profiles.find(elem => elem.id_user_profile_type_fk.type === 'CLIENT');
+    // return profiles.find(elem => elem.userProfileType === 'CLIENT');
   }
 
 
@@ -76,7 +72,7 @@ export class UserProfileService {
   getAll() {}
 
   create(data: any): Observable<any> {
-    let userProfiles: Array<any>;
+    let userProfiles: Array<UserProfile>;
     userProfiles = JSON.parse(localStorage.getItem('userProfiles')) || []; // Leo los profiles del localstorage.
     if (userProfiles) {
       if (userProfiles.length >= 2 ) { // Si hay 2 perfiles no se puede crear ningun otro. Se lanza un error.
@@ -84,7 +80,7 @@ export class UserProfileService {
         // Si solo hay un perfil, pero es del tipo del que se quiere crear
         // tampoco se puede crear. Se lanza un error
       } else if (userProfiles.length === 1) {
-        if (userProfiles[0].user_profile_type === data.user_profile_type) {
+        if (userProfiles[0].id_user_profile_type_fk.type === data.user_profile_type) {
           throw new Error('403: Forbidden. You already have a profile of that type.');
         }
       }
@@ -106,18 +102,6 @@ export class UserProfileService {
       }),
       tap(content => { // Si se ejecuta el tap es porque no se lanzo antes ningun error, por lo tanto status===200(OK)
         console.log('content', content);
-        const uP = { // Se agrega un nuevo userProfile al arreglo con data.
-          id: content.id,
-          valoration: content.valoration,
-          phone_number: content.phone_number,
-          comment: data.comment,
-          summary: data.summary,
-          user_id: data.user_id,
-          user_profile_account: data.user_profile_account,
-          name: data.name,
-          scholarship_id: data.scholarship_id,
-          user_profile_type: data.user_profile_type
-        };
         userProfiles.push(content);
         console.log('userProfiles', userProfiles);
         localStorage.setItem('userProfiles', JSON.stringify(userProfiles)); // Se guarda el arreglo de userProfiles en el localStorage
@@ -148,14 +132,7 @@ export class UserProfileService {
           let profiles = JSON.parse(localStorage.getItem('userProfiles')) || []; // Leo los profiles del localStorage
           profiles.forEach(pf => { // Con el foreach recorro los profiles para modificar el que corresponda con el id q estoy modificando
             if (pf.id === data.id) {
-              pf = { // Modifico campo por campo del profile con los datos del request
-                phone_number: data.phone_number,
-                comment: data.comment,
-                summary: data.summary,
-                user_id: data.user_id,
-                scholarship_id: data.scholarship_id,
-                user_profile_type: data.user_profile_type
-              };
+              pf = content; // Modifico campo por campo del profile con los datos del request
             }
           });
           // Una vez modificados los campos salvo el array completo de userProfiles

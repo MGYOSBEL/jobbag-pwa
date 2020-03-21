@@ -23,13 +23,13 @@ export class ActiveProfileService {
 
   activateClient() {
     this.activeProfile = this.userProfileService.client;
-    console.log(this.activeProfile);
+    console.log('ActiveProfile: ', this.activeProfile);
     this.activeProfileSubject.next('CLIENT');
   }
 
   activateServiceProvider() {
     this.activeProfile = this.userProfileService.client;
-    console.log(this.activeProfile);
+    console.log('ActiveProfile: ', this.activeProfile);
     this.activeProfileSubject.next('SERVICE PROVIDER');
   }
 
