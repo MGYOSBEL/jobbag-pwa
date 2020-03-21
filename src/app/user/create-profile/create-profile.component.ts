@@ -34,6 +34,7 @@ export class CreateProfileComponent implements OnInit {
   role: string;
   imageBase64: string;
   cvBase64: string;
+  imageLoaded: boolean;
   cvUrl: any;
   name: AbstractControl;
 
@@ -47,7 +48,7 @@ export class CreateProfileComponent implements OnInit {
               private route: ActivatedRoute
               ) {
 
-
+    this.imageLoaded = false;
     this.profileForm = this.formBuilder.group({
       accountType: ['PERSONAL'],
       accountName: [''],
@@ -67,7 +68,6 @@ export class CreateProfileComponent implements OnInit {
       animation: true
 
     });
-    this.previewUrl = '../../assets/defaultProfile.png';
     this.role = 'SERVICE_PROVIDER';
 
     this.profileForm.get('accountType').valueChanges.subscribe(
@@ -85,6 +85,7 @@ export class CreateProfileComponent implements OnInit {
       }
     );
     this.profileForm.get('accountType').setValue('PERSONAL');
+
   }
 
   next() {
@@ -137,6 +138,7 @@ export class CreateProfileComponent implements OnInit {
       this.previewUrl = reader.result;
       this.imageBase64 = this.previewUrl.toString().split(',')[1];
     };
+    this.imageLoaded = true;
   }
 
   uploadCV(event) {

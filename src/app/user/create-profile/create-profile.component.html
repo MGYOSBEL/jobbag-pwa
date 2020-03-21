@@ -56,8 +56,6 @@
           </div>
         </div>
 
-
-        <!-- <div class="row py-3" ></div> -->
         <div class="bs-stepper-content align-items-end">
           <div class="row">
             <form [formGroup]="profileForm">
@@ -79,17 +77,53 @@
               </div>
 
               <div id="picture" class="content">
-
                 <div class="form-group container row">
                   <div class="col align-items-center">
-                    <label for="pictureInput">Upload cover picture or avatar</label>
-                    <input type="file" class="form-control-file" formControlName="profilePicture" id="pictureInput"
-                      placeholder="Upload your avatar" (change)="uploadPicture($event)" accept="image/*" />
+                    <div class="preview">
+
+                      <label for="pictureInput">
+                        <input id="pictureInput" type="file" formControlName="profilePicture"
+                          (change)="uploadPicture($event)" accept="image/*" />
+                        <svg *ngIf="!imageLoaded" class="svg-add-user" xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 230.41 230.41">
+                          <defs>
+                            <style>
+                              .cls-1 {
+                                fill: #2985c4;
+                              }
+                            </style>
+                          </defs>
+                          <title>user-image</title>
+                          <g id="Layer_2" data-name="Layer 2">
+                            <g id="Layer_1-2" data-name="Layer 1">
+                              <path class="cls-1"
+                                d="M230.41,115.21A115.21,115.21,0,1,0,35.27,198a6.94,6.94,0,0,0,1.81,1.65,114.54,114.54,0,0,0,156.25,0,6.94,6.94,0,0,0,1.81-1.65A114.79,114.79,0,0,0,230.41,115.21ZM115.21,14.4a100.67,100.67,0,0,1,79,163.22c-6.25-20.14-24.08-35.91-48.28-43.16a52.55,52.55,0,1,0-61.47,0c-24.2,7.25-42,23-48.27,43.16a100.66,100.66,0,0,1,79-163.22ZM77.06,92a38.15,38.15,0,1,1,38.15,38.08A38.15,38.15,0,0,1,77.06,92ZM48.3,190.4c2.16-26.4,30.16-45.94,66.91-45.94S180,164,182.11,190.4a100.2,100.2,0,0,1-133.81,0Z" />
+                            </g>
+                          </g>
+                        </svg>
+                        <img *ngIf="imageLoaded" [src]="previewUrl" class="rounded-circle svg-add-user" alt="Profile Picture">
+                        <span class="add-badge">+</span>
+                      </label>
+
+                    </div>
+                    <!-- <img [src]="previewUrl" class="image-preview"  alt="Profile Picture"> -->
+
+                    <label style="color:#6c757d;">Upload a picture or select an Avatar</label>
+                    <div class="row">
+                      <div class="col-sm-3">
+                        <img src="../../../assets/img/defaultProfile.png" class="avatar-img" alt="Responsive image">
+                      </div>
+                      <div class="col-sm-3">
+                        <img src="../../../assets/img/defaultProfile.png" class="avatar-img" alt="Responsive image">
+                      </div>
+                      <div class="col-sm-3">
+                        <img src="../../../assets/img/defaultProfile.png" class="avatar-img" alt="Responsive image">
+                      </div>
+                      <div class="col-sm-3">
+                        <img src="../../../assets/img/defaultProfile.png" class="avatar-img" alt="Responsive image">
+                      </div>
+                    </div>
                   </div>
-                  <figure class="figure col">
-                    <img [src]="previewUrl" class="figure-img img-thumbnail rounded-circle h-100" style="height: 100px;"
-                      alt="Profile Picture">
-                  </figure>
                 </div>
               </div>
 
@@ -134,7 +168,7 @@
               </div>
             </form>
           </div>
-          <div class="row justify-content-between">
+          <div class="row justify-content-between" id="btn-row">
             <button type="button" class="btn-previous mt-5 rounded-0" (click)="previous()"></button>
 
             <button type="button" class="btn-send mt-5 rounded-0" (click)="createUserProfile()">Send</button>
