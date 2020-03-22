@@ -5,6 +5,7 @@
 .card, .card-header, .card-footer, .card-body{
   border:none !important;
   background-color: #ffffff;
+  width: max-content;
 }
 
 .card-header, .card-footer,.card-body{
@@ -65,4 +66,12 @@
 
 .figure-img{
   max-width: 93%;
+}
+
+#row-id{
+  width: 22rem;
+}
+
+.col{
+  padding-left: 0rem;
 }

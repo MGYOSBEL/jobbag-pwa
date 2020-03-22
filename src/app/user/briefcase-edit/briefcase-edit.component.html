@@ -1,31 +1,23 @@
-<!-- <app-navbar></app-navbar> -->
-<div  class="m-0 p-0">
-  <header class="container-fluid mb-5">
-    <div class="display-3">
-      Show Your Work
-    </div>
-  </header>
-
-  <div class="container-fluid">
-    <div class="row">
-      <div class="container-fluid">
-        <div class="row justify-itmes-around">
-          <div class="col-3" *ngFor="let briefcase of briefcases">
-            <div class="card">
-              <div class="card-header">
-                Briefcase #{{briefcase.id}}
-              </div>
-              <div class="card-body">
+<div class="container-fluid">
+  <div class="row">
+    <div class="container-fluid">
+      <div class="row justify-itmes-around">
+        <div class="col" *ngFor="let briefcase of briefcases">
+          <div class="card">
+            <div class="card-header">
+              {{briefcase.id}}
+            </div>
+            <!-- <div class="card-body">
                 <div class="row mx-0 px-0">
-                  <div class="col-9 mx-0 px-0">
-                    <p class="card-text" style="font-size: smaller;">{{briefcase.description}}</p>
-                  </div>
-                  <div class="col-3 mx-0 px-0">
-                    <i class="fas fa-camera mx-0 px-0"></i>
-                  </div>
-                </div>
-              </div>
-              <div class="card-footer">
+                  <div class="col-9 mx-0 px-0"> -->
+            <p class="card-text" style="font-weight: bold;">{{briefcase.description}}</p>
+            <!-- </div>
+                  <div class="col-3 mx-0 px-0"> -->
+            <i class="fas fa-camera mx-0 px-0"></i>
+            <!-- </div>
+                </div> -->
+          </div>
+          <!-- <div class="card-footer">
                 <hr class="divline">
                 <div class="row">
                   <div class="col-md-9">
@@ -33,10 +25,10 @@
                       {{briefcase.endDate}}</p>
                   </div>
                 </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-3">
+              </div> -->
+        </div>
+      </div>
+      <!-- <div class="col-3">
             <div class="card text-center">
               <div class="card-header">
               </div>
@@ -49,14 +41,9 @@
               <div class="card-footer text-muted">
               </div>
             </div>
-          </div>
-        </div>
-      </div>
+          </div> -->
     </div>
   </div>
-  <!-- <div class="row mt-1 justify-content-around mt-5">
-    <button *ngIf="function ==='CREATE'" class="btn btn-primary text-center btn-lg" style="background-color: #2787C4;" (click)="exit()">Go to Dashboard</button>
-  </div> -->
 </div>
 
 
@@ -90,8 +77,8 @@
                 <label for="validationTextarea">Description</label>
                 <input
                   [ngClass]="briefcaseEditForm.get('description').invalid && (briefcaseEditForm.get('description').dirty || briefcaseEditForm.get('description').touched) ? 'is-invalid' : '' "
-                  class="form-control" formControlName="description" id="validationTextarea" placeholder="Short Description"
-                  required>
+                  class="form-control" formControlName="description" id="validationTextarea"
+                  placeholder="Short Description" required>
                 <div class="invalid-feedback">
                   Please enter a description.
                 </div>
@@ -108,11 +95,13 @@
                   <div class="mb-3">
                     <label for="validationTextarea">Start Date</label>
                     <div class="input-group">
-                      <input [ngClass]="briefcaseEditForm.get('startDate').invalid && (briefcaseEditForm.get('startDate').dirty || briefcaseEditForm.get('startDate').touched) ? 'is-invalid' : '' "
-                      class="form-control" formControlName="startDate" id="validationTextarea"
-                      placeholder="yyyy-mm-dd" ngbDatepicker #startDatePicker="ngbDatepicker" required>
+                      <input
+                        [ngClass]="briefcaseEditForm.get('startDate').invalid && (briefcaseEditForm.get('startDate').dirty || briefcaseEditForm.get('startDate').touched) ? 'is-invalid' : '' "
+                        class="form-control" formControlName="startDate" id="validationTextarea"
+                        placeholder="yyyy-mm-dd" ngbDatepicker #startDatePicker="ngbDatepicker" required>
                       <div class="input-group-append">
-                        <button class="btn btn-outline-secondary calendar" (click)="startDatePicker.toggle()" type="button">
+                        <button class="btn btn-outline-secondary calendar" (click)="startDatePicker.toggle()"
+                          type="button">
                           <i class="far fa-calendar-alt fa-lg"></i>
                         </button>
                       </div>
@@ -127,11 +116,13 @@
                   <div class="mb-3">
                     <label for="validationTextarea">End Date</label>
                     <div class="input-group">
-                      <input [ngClass]="briefcaseEditForm.get('endDate').invalid && (briefcaseEditForm.get('endDate').dirty || briefcaseEditForm.get('endDate').touched) ? 'is-invalid' : '' "
-                      class="form-control" formControlName="endDate" id="validationTextarea"
-                      placeholder="yyyy-mm-dd" ngbDatepicker #endDatePicker="ngbDatepicker" required>
+                      <input
+                        [ngClass]="briefcaseEditForm.get('endDate').invalid && (briefcaseEditForm.get('endDate').dirty || briefcaseEditForm.get('endDate').touched) ? 'is-invalid' : '' "
+                        class="form-control" formControlName="endDate" id="validationTextarea" placeholder="yyyy-mm-dd"
+                        ngbDatepicker #endDatePicker="ngbDatepicker" required>
                       <div class="input-group-append">
-                        <button class="btn btn-outline-secondary calendar" (click)="endDatePicker.toggle()" type="button">
+                        <button class="btn btn-outline-secondary calendar" (click)="endDatePicker.toggle()"
+                          type="button">
                           <i class="far fa-calendar-alt fa-lg"></i>
                         </button>
                       </div>
@@ -160,8 +151,7 @@
         <div class="col-md-4">
           <div class="text-center">
             <figure class="figure">
-              <img src='../../../assets/img/defaultProfile.png' class="figure-img img-thumbnail"
-                alt="Upload Pictures">
+              <img src='../../../assets/img/defaultProfile.png' class="figure-img img-thumbnail" alt="Upload Pictures">
             </figure>
             <h6>Upload Pictures</h6>
             <input type="file" class="form-control">

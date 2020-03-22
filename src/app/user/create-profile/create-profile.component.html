@@ -101,13 +101,11 @@
                             </g>
                           </g>
                         </svg>
-                        <img *ngIf="imageLoaded" [src]="previewUrl" class="rounded-circle svg-add-user" alt="Profile Picture">
+                        <img *ngIf="imageLoaded" [src]="previewUrl" class="rounded-circle svg-add-user"
+                          alt="Profile Picture">
                         <span class="add-badge">+</span>
                       </label>
-
                     </div>
-                    <!-- <img [src]="previewUrl" class="image-preview"  alt="Profile Picture"> -->
-
                     <label style="color:#6c757d;">Upload a picture or select an Avatar</label>
                     <div class="row">
                       <div class="col-sm-3">
@@ -128,27 +126,39 @@
               </div>
 
               <div id="countries" class="content">
-                <div class="form-group">
-                  <label for="countriesInput">Countries</label>
-                  <input type="text" class="form-control" formControlName="countries" id="countriesInput"
-                    placeholder="Enter your countries..." [ngbTypeahead]="search" />
+                <div class="col" id="col-countries">
+                  <div class="form-group">
+                    <label for="checkInput" style="color: #6c757d;">Choose a country!</label>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                      <label class="form-check-label" for="inlineCheckbox1">Canada</label>
+                      <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                      <label class="form-check-label" for="inlineCheckbox1">Cuba</label>
+                      <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                      <label class="form-check-label" for="inlineCheckbox1">España</label>
+                    </div>
+                  </div>
                 </div>
               </div>
-
               <div id="services" class="content">
-                <div class="form-group">
-                  <label for="servicesInput">Services</label>
-                  <input type="text" class="form-control" formControlName="services" id="servicesInput"
-                    placeholder="Input your services, separated by a comma..." />
+                <div class="row">
+                  <div class="col" id="col-services">
+                    <div class="form-group">
+                      <label for="checkInput" style="color: #6c757d;">Select a Service!</label>
+                      <input type="text" class="form-control" formControlName="services" id="servicesInput"
+                        placeholder="Input your services, separated by a comma..." />
+                    </div>
+                  </div>
                 </div>
               </div>
-
               <div id="curriculum" class="content">
-                <div class="form-group container row">
-                  <div class="col">
-                    <label for="curriculumInput">Curriculum Vitae</label>
-                    <input type="file" accept="pdf/*" formControlName="curriculum" class="form-control-file"
-                      id="curriculumInput" placeholder="Upload your CV in pdf format." (change)="uploadCV($event)" />
+                <div class="row">
+                  <div class="col" id="col-cv">
+                    <div class="form-group">
+                      <label for="curriculumInput">Curriculum Vitae</label>
+                      <input type="file" accept="pdf/*" formControlName="curriculum" class="form-control-file"
+                        id="curriculumInput" placeholder="Upload your CV in pdf format." (change)="uploadCV($event)" />
+                    </div>
                   </div>
                   <figure class="figure col mb-3" *ngIf="previewUrl && previewUrl !== ''">
                     <img [src]="previewUrl" class="figure-img img-fluid h100" />
@@ -157,14 +167,55 @@
               </div>
 
               <div id="myWork" class="content">
+                <div class="row">
+                  <div class="col align-items-center" id="col-bc">
+                    <div class="preview-bc">
+
+                      <svg class="svg-add-brief" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 511.53 511.53">
+                        <title>Asset 20</title>
+                        <g id="Layer_2" data-name="Layer 2">
+                          <g id="Layer_1-2" data-name="Layer 1">
+                            <path
+                              d="M404.13,180.49v85.59L278.59,285.67c.83-5.72,1.11-10.85,2.41-15.7,1.44-5.43,3.83-10.61,5.76-15.92,1.46-4,.24-6.07-3.9-6.09q-27.17-.12-54.31,0c-4.19,0-5.43,2-4,6.05,1.91,5.31,4.31,10.49,5.77,15.91,1.3,4.86,1.6,10,2.45,15.76L107.22,266.08V180.49Z" />
+                            <path
+                              d="M118.3,370v-94.7l113.75,17.74c0,6,0,11.64,0,17.29,0,4.44,1.26,5.72,5.7,5.73q17.93.06,35.84,0c4.42,0,5.68-1.31,5.7-5.74,0-5.42,0-10.84.05-16.26a4.89,4.89,0,0,1,.37-1.08L393,275.32V370Z" />
+                            <path d="M118.17,390.32V378H392.93v12.36Z" />
+                            <path
+                              d="M320.31,172.63H303.36c-4.21-30.94-29.07-44.42-48.84-43.62-24.51,1-42.88,18-46.35,43.54h-17c1.52-20.05,10-36.38,26.25-48,22.14-15.81,45.9-17.42,69.78-4.32C307.5,131.4,318,149.34,320.31,172.63Z" />
+                            <path d="M271.71,308.52H239.77V277.78h31.94Z" />
+                            <path
+                              d="M255.76,511.53A255.77,255.77,0,0,1,74.91,74.91,255.77,255.77,0,0,1,436.62,436.62,254.09,254.09,0,0,1,255.76,511.53Zm0-476.53C134,35,35,134,35,255.77s99,220.76,220.76,220.76,220.77-99,220.77-220.76S377.5,35,255.76,35Z" />
+                          </g>
+                        </g>
+                      </svg>
+                      <button type="button" class="btn btn-link rounded-circle" style="background-color: #2985c4;"
+                        data-toggle="modal" data-target="#exampleModalCenter">
+                        <p class="card-text"><i class="fas fa-plus" alt="Add Briefcase"></i></p>
+                      </button>
+
+                      <div class="form-group">
+                        <label for="addBriefcase-btn" style="color: #6c757d;">Add a Briefcase!</label>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
                 <app-birefcase-edit></app-birefcase-edit>
               </div>
+
+
               <div id="comments" class="content">
-                <div class="form-group">
-                  <label for="commentsInput">Comments</label>
-                  <textarea class="form-control" id="commentsInput" formControlName="comments"
-                    placeholder="Enter some comments about your skills and previous jobs to enrich your profile..."></textarea>
+                <div class="row">
+                  <div class="col" id="col-comments">
+                    <div class="form-group">
+                      <label for="commentsInput">Resume</label>
+                      <textarea class="form-control" id="commentsInput" formControlName="comments"
+                        placeholder="Enter some comments about your skills and previous jobs to enrich your profile..."></textarea>
+                    </div>
+                  </div>
                 </div>
+
               </div>
             </form>
           </div>
