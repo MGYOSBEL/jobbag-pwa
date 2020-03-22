@@ -115,6 +115,7 @@ export class CreateProfileComponent implements OnInit {
       name: this.name.value,
       user_profile_briefcase: this.briefcaseService.briefcases
     };
+    console.log('userProfileRequest: ', userProfileRequest);
     this.userProfileService.create(userProfileRequest)
     .subscribe(
       response => {

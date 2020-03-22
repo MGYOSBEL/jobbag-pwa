@@ -34,8 +34,6 @@ export class UserService {
       }),
       map(response => {
         if (response.status_code === 200) { // Si el status del response es OK retorno contento como dato del observable
-          console.clear();
-          console.log((JSON.parse(response.content)));
           return JSON.parse(JSON.parse(response.content));
         } else {
           throw new Error( // Si no es OK el status del response, lanzo un error con el status y el text
@@ -43,7 +41,6 @@ export class UserService {
           );
         }      }),
       tap((response: User) => {
-        console.log('GET USER TAP RESPONSE: ', response);
         this._loggedUser = response; // Salvo el user en el storage
         localStorage.setItem('loggedUser', JSON.stringify({
           id: response.id,
