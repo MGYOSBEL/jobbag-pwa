@@ -162,3 +162,48 @@ form {
   padding-left: 0;
   padding-right: 0;
 }
+
+#col-services{
+  margin-top: 3rem;
+  margin-left: 3rem;
+}
+
+#col-countries{
+  margin-top: 4rem;
+  margin-left: 0;
+}
+
+
+#col-cv{
+  margin-left: 0rem;
+  margin-top: 6rem;
+}
+
+#myWork{
+  width: max-content;
+}
+
+.fa-plus{
+  color: white;
+}
+
+.svg-add-brief{
+  width: 6rem;
+  height: 6rem;
+  object-fit: cover;
+  cursor: pointer;
+  fill:#2985c4;
+}
+
+.preview-bc{
+  margin-left: 0rem;
+}
+
+#col-bc{
+  margin-left: 0rem;
+}
+
+#commentsInput{
+  width:16rem;
+    height: 13rem;
+}
