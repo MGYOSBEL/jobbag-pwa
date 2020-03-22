@@ -1,6 +1,10 @@
 .navbar {
   background-color: #ffffff;
   color: #2985C4;
+  border-bottom-color: #2985C4 !important;
+  border-bottom-width: 3px !important;
+  box-shadow: #2985C4 !important;
+  z-index: 1;
 }
 
 .btn-link {

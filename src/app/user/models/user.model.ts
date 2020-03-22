@@ -99,45 +99,27 @@
 
 export interface User {
   socialId:              null;
-  userProfiles:          UserProfile[];
+  profiles:          UserProfile[];
   id:                    number;
   username:              string;
-  usernameCanonical:     string;
-  salt:                  string;
   email:                 string;
-  emailCanonical:        string;
-  password:              string;
-  plainPassword:         null;
-  lastLogin:             null;
-  confirmationToken:     null;
-  roles:                 string[];
-  accountNonExpired:     boolean;
-  accountNonLocked:      boolean;
-  credentialsNonExpired: boolean;
-  enabled:               boolean;
-  superAdmin:            boolean;
-  passwordRequestedAt:   null;
-  groups:                any[];
-  groupNames:            any[];
-  __initializer__:       null;
-  __cloner__:            null;
-  __isInitialized__:     boolean;
+  provider:              string;
 }
 
 export interface UserProfile {
-  userProfileBriefcases:  UserProfileBriefcase[];
   id:                     number;
   valoration:             number;
   phoneNumber:            string;
   comment:                null;
   summary:                string;
+  scholarshipid:          number;
+  userId:                 number;
+  userProfileType:        string;
+  briefcases:  UserProfileBriefcase[];
   picture:                string;
-  curriculumn:            string;
+  cv:                     string;
+  userProfileAccount:     string;
   name:                   string;
-  idScholarshipFk:        IDScholarshipFk;
-  idUserFk:               number;
-  idUserProfileAccountFk: IDUserProfileFk;
-  idUserProfileTypeFk:    IDUserProfileFk;
 }
 
 export interface IDScholarshipFk {
@@ -208,6 +190,11 @@ export interface IDProfessionFk {
   descriptionEn:    string;
   descriptionFr:    null;
 }
+
+
+
+
+
 
 
 

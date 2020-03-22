@@ -56,30 +56,14 @@ export class UserProfileService {
 
   public get serviceProvider(): UserProfile {
     const profiles: Array<UserProfile> = JSON.parse(localStorage.getItem('userProfiles'));
-    let activeProfile: UserProfile;
-    try {
-      activeProfile = profiles.find(elem => elem.idUserProfileTypeFk.type === 'SERVICE_PROVIDER');
-      if (!activeProfile) {
-        activeProfile = profiles.find((elem: any) => elem.UserProfileType === 'SERVICE_PROVIDER');
-      }
-    } catch (error) {
-      console.log('Error trying to fetch the Profile');
-    }
+    const activeProfile: UserProfile = profiles.find(elem => elem.userProfileType === 'SERVICE_PROVIDER');
     return activeProfile;    // return profiles.find(elem => elem.userProfileType === 'SERVICE_PROVIDER');
   }
 
   public get client(): UserProfile {
     const profiles: Array<UserProfile> = JSON.parse(localStorage.getItem('userProfiles'));
-    let activeProfile: UserProfile;
-    try {
-      activeProfile = profiles.find(elem => elem.idUserProfileTypeFk.type === 'CLIENT');
-      if (!activeProfile) {
-        activeProfile = profiles.find((elem: any) => elem.UserProfileType === 'CLIENT');
-      }
-    } catch (error) {
-      console.log('Error trying to fetch the Profile');
-    }
-    return activeProfile;
+    const activeProfile: UserProfile = profiles.find(elem => elem.userProfileType === 'CLIENT');
+    return activeProfile;    // return profiles.find(elem => elem.userProfileType === 'SERVICE_PROVIDER');
     // return profiles.find(elem => elem.userProfileType === 'CLIENT');
   }
 
@@ -96,7 +80,7 @@ export class UserProfileService {
         // Si solo hay un perfil, pero es del tipo del que se quiere crear
         // tampoco se puede crear. Se lanza un error
       } else if (userProfiles.length === 1) {
-        if (userProfiles[0].idUserProfileTypeFk.type === data.user_profile_type) {
+        if (userProfiles[0].userProfileType === data.user_profile_type) {
           throw new Error('403: Forbidden. You already have a profile of that type.');
         }
       }
@@ -116,7 +100,7 @@ export class UserProfileService {
           );
         }
       }),
-      tap(content => { // Si se ejecuta el tap es porque no se lanzo antes ningun error, por lo tanto status===200(OK)
+      tap((content: UserProfile) => { // Si se ejecuta el tap es porque no se lanzo antes ningun error, por lo tanto status===200(OK)
         console.log('content', content);
         userProfiles.push(content);
         console.log('userProfiles', userProfiles);
@@ -144,7 +128,7 @@ export class UserProfileService {
             );
           }
         }),
-        tap(content => {
+        tap((content: UserProfile) => {
           let profiles = JSON.parse(localStorage.getItem('userProfiles')) || []; // Leo los profiles del localStorage
           profiles.forEach(pf => { // Con el foreach recorro los profiles para modificar el que corresponda con el id q estoy modificando
             if (pf.id === data.id) {

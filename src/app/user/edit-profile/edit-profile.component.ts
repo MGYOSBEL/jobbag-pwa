@@ -53,9 +53,9 @@ export class EditProfileComponent implements OnInit {
       }
     );
     this.profileForm = this.formBuilder.group({
-      accountType: [this.activeProfile.idUserProfileTypeFk.type],
-      accountName: [this.activeProfile.idUserProfileTypeFk.type === 'PERSONAL' ? this.activeProfile.name : ''],
-      companyName: [this.activeProfile.idUserProfileTypeFk.type === 'COMPANY' ? this.activeProfile.name : ''],
+      accountType: [this.activeProfile.userProfileType],
+      accountName: [this.activeProfile.userProfileType === 'PERSONAL' ? this.activeProfile.name : ''],
+      companyName: [this.activeProfile.userProfileType === 'COMPANY' ? this.activeProfile.name : ''],
       profilePicture: [''],
       countries: [''],
       services: [''],
@@ -75,7 +75,11 @@ export class EditProfileComponent implements OnInit {
       animation: true
 
     });
-    this.previewUrl = '../../assets/defaultProfile.png';
+    if (this.activeProfile.picture.length > 0) { // Si length > 0 tiene foto de perfil
+      this.previewUrl = environment.serverBaseURL + this.activeProfile.picture;
+    } else {
+      this.previewUrl = '../../assets/defaultProfile.png';
+    }
     this.role = 'SERVICE_PROVIDER';
 
     this.profileForm.get('accountType').valueChanges.subscribe(

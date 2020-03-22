@@ -34,13 +34,15 @@ export class UserService {
       }),
       map(response => {
         if (response.status_code === 200) { // Si el status del response es OK retorno contento como dato del observable
+          console.clear();
+          console.log((JSON.parse(response.content)));
           return JSON.parse(JSON.parse(response.content));
         } else {
           throw new Error( // Si no es OK el status del response, lanzo un error con el status y el text
             response.status_code + ': ' + response.content.text
           );
         }      }),
-      tap((response) => {
+      tap((response: User) => {
         console.log('GET USER TAP RESPONSE: ', response);
         this._loggedUser = response; // Salvo el user en el storage
         localStorage.setItem('loggedUser', JSON.stringify({
@@ -48,20 +50,15 @@ export class UserService {
           username: response.username,
           email: response.email
         }));
-        localStorage.setItem('loggedUser1', JSON.stringify({
-          id: response.id,
-          username: response.username,
-          email: response.email
-        }));
-        if (response.userProfiles.length) {
-          const userProfiles: Array<UserProfile> = response.userProfiles; // Salvo los userProfiles en el Storage
-          localStorage.setItem('userProfiles', JSON.stringify(response.userProfiles));
+        if (response.profiles.length) {
+          const userProfiles: Array<UserProfile> = response.profiles; // Salvo los userProfiles en el Storage
+          localStorage.setItem('userProfiles', JSON.stringify(response.profiles));
           console.log(userProfiles);
-          const index = userProfiles.findIndex(elem => elem.idUserProfileTypeFk.type === 'SERVICE_PROVIDER');
+          const index = userProfiles.findIndex(elem => elem.userProfileType === 'SERVICE_PROVIDER');
           console.log('index', index);
           if (index >= 0) {
             // Salvo los briefcases en el Storage
-            const briefcases: Array<UserProfileBriefcase> = userProfiles[index].userProfileBriefcases || [];
+            const briefcases: Array<UserProfileBriefcase> = userProfiles[index].briefcases || [];
             localStorage.setItem('briefcases', JSON.stringify(briefcases));
 
           }

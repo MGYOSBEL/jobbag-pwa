@@ -1,3 +1,7 @@
+app-role-select {
+  z-index: -1;
+}
+
 .navbar-brand.img {
   height: fit-content;
 }
