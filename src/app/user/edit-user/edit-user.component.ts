@@ -80,19 +80,20 @@ export class EditUserComponent implements OnInit {
     this.userService.edit(requestBody).subscribe(
       response => {
         this.loading = false;
-        if (!response.error) {
-          this.editOK = {
-            ok: true,
-            message: 'Your user info was successfuly edited.'
-          };
-          this.router.navigate(['./'], {relativeTo: this.route});
-        } else {
-          this.editError = {
-            err: true,
-            message: response.statusCode + response.text
-          };
-        }
+
+        this.editOK = {
+          ok: true,
+          message: 'Your user info was successfuly edited.'
+        };
+        this.router.navigate(['./'], { relativeTo: this.route });
+      },
+      err => {
+        this.editError = {
+          err: true,
+          message: err.statusCode + err.text
+        };
       }
+
     );
   }
 

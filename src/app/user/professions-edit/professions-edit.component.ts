@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../services/user.service';
-import { Profession } from '../models/user.model';
+import { IDProfessionFk } from '../models/user.model';
 import { ProfessionService } from '../services/profession.service';
 
 @Component({
@@ -14,8 +14,8 @@ export class ProfessionsEditComponent implements OnInit {
 
   professionsEditForm: FormGroup;
   // profession = new FormControl('');
-  professions: Profession[];
-  selectedProfession: Profession;
+  professions: IDProfessionFk[];
+  selectedProfession: IDProfessionFk;
 
 
   constructor(private formBuilder: FormBuilder,

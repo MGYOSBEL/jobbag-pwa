@@ -15,7 +15,7 @@ export class ActiveProfileService {
 
   constructor(private userProfileService: UserProfileService) {
 
-    this.activeProfileSubject = new BehaviorSubject<string>('');
+    this.activeProfileSubject = new BehaviorSubject<string>(localStorage.getItem('activeProfile') || '');
     this.activeProfileType$ = this.activeProfileSubject.asObservable();
 
 
@@ -25,12 +25,15 @@ export class ActiveProfileService {
     this.activeProfile = this.userProfileService.client;
     console.log('ActiveProfile: ', this.activeProfile);
     this.activeProfileSubject.next('CLIENT');
+    localStorage.setItem('activeProfile', 'CLIENT');
+
   }
 
   activateServiceProvider() {
     this.activeProfile = this.userProfileService.client;
     console.log('ActiveProfile: ', this.activeProfile);
     this.activeProfileSubject.next('SERVICE PROVIDER');
+    localStorage.setItem('activeProfile', 'SERVICE PROVIDER');
   }
 
   getProfile(): Observable<UserProfile> {

@@ -5,7 +5,6 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '@environments/environment';
 import { UserService } from '../services/user.service';
 import { switchMap, catchError } from 'rxjs/operators';
-import { Scholarship } from '../models/user.model';
 import { relative } from 'path';
 import { ScholarshipService } from '../services/scholarship.service';
 import { UserProfileService } from '../services/user-profile.service';
@@ -64,8 +63,8 @@ export class ProfileExtrasComponent implements OnInit {
         });
     } else {
       this.profileExtrasForm = this.formBuilder.group({
-        scholarship: [profile.id_scholarship_fk.description_en, Validators.required],
-        phoneNumber: [profile.phone_number],
+        scholarship: [profile.idScholarshipFk.descriptionEn, Validators.required],
+        phoneNumber: [profile.phoneNumber],
         comments: [profile.comment],
         summary: [profile.summary]
       });

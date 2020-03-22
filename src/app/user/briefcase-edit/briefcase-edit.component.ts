@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Briefcase, Profession } from '../models/user.model';
+import { UserProfileBriefcase, IDProfessionFk } from '../models/user.model';
 import { UserService } from '../services/user.service';
 import { FormGroup, FormBuilder, FormControl, ValidatorFn, AbstractControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -16,8 +16,8 @@ import { ErrorService } from '@app/errors/error.service';
 })
 export class BriefcaseEditComponent implements OnInit {
 
-  briefcases: any[];
-  professions: Profession[];
+  briefcases: UserProfileBriefcase[];
+  professions: IDProfessionFk[];
 
   briefcaseEditForm: FormGroup;
 
@@ -60,16 +60,17 @@ export class BriefcaseEditComponent implements OnInit {
 
 
   saveBriefCase() {
-    const bc = {
+    const bc: UserProfileBriefcase = {
       description: this.briefcaseEditForm.value.description,
-      end_date:   this.briefcaseEditForm.value.endDate.year.toString() + '-'
+      enddate:   this.briefcaseEditForm.value.endDate.year.toString() + '-'
                 + this.briefcaseEditForm.value.endDate.month.toString() + '-'
                 + this.briefcaseEditForm.value.endDate.day.toString(),
-      start_date: this.briefcaseEditForm.value.startDate.year.toString() + '-'
+      startdate: this.briefcaseEditForm.value.startDate.year.toString() + '-'
                 + this.briefcaseEditForm.value.startDate.month.toString() + '-'
                 + this.briefcaseEditForm.value.startDate.day.toString(),
       comments: this.briefcaseEditForm.value.comments,
-      id_profession: this.briefcaseEditForm.value.profession,
+      idProfessionFk: this.briefcaseEditForm.value.profession,
+      idUserProfileFk: null,
       id: null
     };
     this.briefcaseService.briefcases.push(bc);

@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { User, Scholarship, UserProfile, Briefcase, UserProfileBriefcase } from '../models/user.model';
+import { User, UserProfile, UserProfileBriefcase } from '../models/user.model';
 import { LoggingService } from '@app/services/logging.service';
 import { environment } from '@environments/environment';
 import { map, tap, catchError } from 'rxjs/operators';
+import { APIResponse } from '@app/models/app.model';
 
 @Injectable({
   providedIn: 'root'
@@ -26,36 +27,41 @@ export class UserService {
 
   get(userId: string): Observable<User> {
     // const user_id = JSON.parse(localStorage.getItem('bearerToken')).user_id;
-    return this.http.get<any>(this.apiPath + '/user/get/' + userId).pipe(
+    return this.http.get<APIResponse>(this.apiPath + '/user/get/' + userId).pipe(
       catchError(err => { // Captura si hubo algun error en la llamada y lo relanza
         console.log(err);
         throw new Error(err);  // Relanzo el error con el status y el detail
       }),
       map(response => {
         if (response.status_code === 200) { // Si el status del response es OK retorno contento como dato del observable
-          console.log(JSON.parse(response.content));
-          return JSON.parse(response.content);
+          return JSON.parse(JSON.parse(response.content));
         } else {
           throw new Error( // Si no es OK el status del response, lanzo un error con el status y el text
-            response.status_code + ': ' + response.text
+            response.status_code + ': ' + response.content.text
           );
         }      }),
       tap((response) => {
+        console.log('GET USER TAP RESPONSE: ', response);
         this._loggedUser = response; // Salvo el user en el storage
         localStorage.setItem('loggedUser', JSON.stringify({
           id: response.id,
           username: response.username,
           email: response.email
         }));
-        if (response.user_profiles.length) {
-          const userProfiles: Array<UserProfile> = response.user_profiles; // Salvo los userProfiles en el Storage
-          localStorage.setItem('userProfiles', JSON.stringify(response.user_profiles));
+        localStorage.setItem('loggedUser1', JSON.stringify({
+          id: response.id,
+          username: response.username,
+          email: response.email
+        }));
+        if (response.userProfiles.length) {
+          const userProfiles: Array<UserProfile> = response.userProfiles; // Salvo los userProfiles en el Storage
+          localStorage.setItem('userProfiles', JSON.stringify(response.userProfiles));
           console.log(userProfiles);
-          const index = userProfiles.findIndex(elem => elem.id_user_profile_type_fk.type === 'SERVICE_PROVIDER');
+          const index = userProfiles.findIndex(elem => elem.idUserProfileTypeFk.type === 'SERVICE_PROVIDER');
           console.log('index', index);
           if (index >= 0) {
             // Salvo los briefcases en el Storage
-            const briefcases: Array<UserProfileBriefcase> = userProfiles[index].user_profile_briefcases || [];
+            const briefcases: Array<UserProfileBriefcase> = userProfiles[index].userProfileBriefcases || [];
             localStorage.setItem('briefcases', JSON.stringify(briefcases));
 
           }
@@ -67,9 +73,9 @@ export class UserService {
     );
   }
 
-  edit(data: any) {
+  edit(data: any): Observable<User> {
     console.log('data request: ' ,  data);
-    return this.http.put<any>(this.apiPath + '/user', data).pipe(
+    return this.http.put<APIResponse>(this.apiPath + '/user', data).pipe(
       map(response => {
         const content = JSON.parse(response.content);
         console.log(content);

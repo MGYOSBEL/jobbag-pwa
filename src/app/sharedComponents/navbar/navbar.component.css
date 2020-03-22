@@ -31,3 +31,20 @@ a, a:hover {
 }
 
 
+.badge{
+  margin: -15px;
+  color: #2985C4;
+}
+
+.svg-add-user{
+   height: 60%;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.cls-1 {
+  fill: #2985C4;
+}
+
+

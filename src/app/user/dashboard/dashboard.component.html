@@ -18,8 +18,8 @@
       <h2>Your profile:</h2>
       <h3>email: {{loggedUser.email}}</h3>
       <h3>id: {{loggedUser.id}}</h3>
-      <h3>Canonical email: {{loggedUser.email_canonical}}</h3>
-      <h3>Canonical Name: {{loggedUser.username_canonical}}</h3>
+      <h3>Canonical email: {{loggedUser.emailCanonical}}</h3>
+      <h3>Canonical Name: {{loggedUser.usernameCanonical}}</h3>
       <h3>Status:
         <span *ngIf="loggedUser.enabled">Enabled</span>
         <span *ngIf="!loggedUser.enabled">Disabled</span>

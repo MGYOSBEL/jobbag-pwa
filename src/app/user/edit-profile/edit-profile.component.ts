@@ -53,9 +53,9 @@ export class EditProfileComponent implements OnInit {
       }
     );
     this.profileForm = this.formBuilder.group({
-      accountType: [this.activeProfile.id_user_profile_account_fk.type],
-      accountName: [this.activeProfile.id_user_profile_account_fk.type === 'PERSONAL' ? this.activeProfile.name : ''],
-      companyName: [this.activeProfile.id_user_profile_account_fk.type === 'COMPANY' ? this.activeProfile.name : ''],
+      accountType: [this.activeProfile.idUserProfileTypeFk.type],
+      accountName: [this.activeProfile.idUserProfileTypeFk.type === 'PERSONAL' ? this.activeProfile.name : ''],
+      companyName: [this.activeProfile.idUserProfileTypeFk.type === 'COMPANY' ? this.activeProfile.name : ''],
       profilePicture: [''],
       countries: [''],
       services: [''],
