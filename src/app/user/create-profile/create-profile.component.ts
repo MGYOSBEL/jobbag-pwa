@@ -113,9 +113,17 @@ export class CreateProfileComponent implements OnInit {
       user_profile_type: this.role,
       user_profile_account: this.profileForm.value.accountType,
       name: this.name.value,
-      user_profile_briefcase: this.briefcaseService.briefcases
+      user_profile_briefcase: this.briefcaseService.briefcases.map(briefcase => {
+        return {
+          description: briefcase.description,
+          end_date: briefcase.enddate,
+          start_date: briefcase.startdate,
+          comments: briefcase.comments,
+          id_profession: briefcase.idProfessionFk
+        };
+      })
     };
-    console.log('userProfileRequest: ', userProfileRequest);
+    console.log('userProfileRequest: ', JSON.stringify(userProfileRequest));
     this.userProfileService.create(userProfileRequest)
     .subscribe(
       response => {
