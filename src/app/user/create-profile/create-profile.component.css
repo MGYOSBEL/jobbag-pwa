@@ -2,7 +2,7 @@ form {
   height: 8rem;
 }
 
-.row{  
+.row{
   text-align: center;
 }
 
@@ -96,7 +96,9 @@ form {
   transform: rotate(180deg);
 }
 
-.btn-send{
+
+
+/* .btn-send{
   width: 8.5rem;
   height: 3.5rem;
   background-size: 3rem;
@@ -104,6 +106,15 @@ form {
   color: white;
   border: 0rem;
 }
+
+.btn-send :disabled {
+  width: 8.5rem;
+  height: 3.5rem;
+  background-size: 3rem;
+  background-color:#bebcbe;
+  color: white;
+  border: 0rem;
+} */
 
 .svg-add-user{
   width: 8rem;
@@ -152,7 +163,7 @@ form {
 }
 .avatar-img{
   height: 4rem;
-} 
+}
 
 .image-preview{
   border-radius: 50%;
