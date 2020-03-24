@@ -85,6 +85,7 @@ form {
   background-size: 2.5rem;
   background-color:#bebcbe;
   border: 0rem;
+  box-shadow: none;
 }
 
 .col{
@@ -103,6 +104,8 @@ form {
   background-color:#2985c4;
   color: white;
   border: 0rem;
+  padding-left: 0.2rem;
+  padding-right: 0.2rem;
 }
 
 .svg-add-user{
@@ -115,7 +118,7 @@ form {
 }
 
 #main-container{
-  background-image: url(../../../assets/img/login-01.jpg);
+  background-image: url(../../../assets/img/login-01-opacity.png);
   background-size:80%;
   background-position: center;
   background-repeat: no-repeat;
@@ -207,3 +210,34 @@ form {
   width:16rem;
     height: 13rem;
 }
+
+#col-8-cv{
+  padding-right: 0;
+}
+
+#col-4-cv{
+  padding-left: 0;
+}
+
+#curriculumLabel{
+  background-color: #f1f1f1;
+  color: #6c757d;
+  width: -moz-available;
+  padding: 0.75rem;
+  text-align: left;
+  margin-top: 0;
+}
+
+#curriculumInput{
+  opacity: 0;
+  z-index: -1;
+  cursor: pointer;
+}
+
+.fa-folder{
+  color:white;
+  background-color:#2985c4;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+

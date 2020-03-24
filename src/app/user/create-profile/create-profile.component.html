@@ -59,6 +59,7 @@
         <div class="bs-stepper-content align-items-end">
           <div class="row">
             <form [formGroup]="profileForm">
+
               <div id="profile" class="content container fade">
                 <div class="form-group row">
                   <input type="radio" class="form-check-input" name="accountType" formControlName="accountType"
@@ -155,14 +156,25 @@
                 <div class="row">
                   <div class="col" id="col-cv">
                     <div class="form-group">
-                      <label for="curriculumInput">Curriculum Vitae</label>
-                      <input type="file" accept="pdf/*" formControlName="curriculum" class="form-control-file"
-                        id="curriculumInput" placeholder="Upload your CV in pdf format." (change)="uploadCV($event)" />
+                      <label for="curriculumDescription">Curriculum Description</label>
+                      <div class="row">
+                        <div class="col-8" id="col-8-cv">
+                          <label for="curriculumLabel" id="curriculumLabel">
+                            Upload File
+                          </label>
+                        </div>                        
+                        <div class="col-4" id="col-4-cv">
+                        <label for="curriculumUpload" id="curriculumUpload">  
+                            <i class="far fa-folder fa-3x"></i>                       
+                            <input type="file" accept="pdf/*" formControlName="curriculum" class="form-control-file" id="curriculumInput"
+                              placeholder="Upload your CV in pdf format." (change)="uploadCV($event)" />     
+                                                                                
+                        </label>                     
+
+                      </div>  
+                      </div>
                     </div>
                   </div>
-                  <figure class="figure col mb-3" *ngIf="previewUrl && previewUrl !== ''">
-                    <img [src]="previewUrl" class="figure-img img-fluid h100" />
-                  </figure>
                 </div>
               </div>
 
@@ -220,11 +232,11 @@
             </form>
           </div>
           <div class="row justify-content-between" id="btn-row">
-            <button type="button" class="btn-previous mt-5 rounded-0" (click)="previous()"></button>
+            <button type="button" class="btn-previous mt-5 col-3 rounded-0" (click)="previous()"></button>
 
-            <button type="button" class="btn-send mt-5 rounded-0" (click)="createUserProfile()">Send</button>
+            <button type="button" class="btn-send mt-5 col-4 rounded-0" (click)="createUserProfile()">Send</button>
 
-            <button type="button" class="btn-next mt-5 rounded-0" (click)="next()"></button>
+            <button type="button" class="btn-next mt-5 col-3 rounded-0" (click)="next()"></button>
           </div>
         </div>
       </div>
