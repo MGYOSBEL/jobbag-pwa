@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import Stepper from 'bs-stepper';
-import { FormGroup, FormBuilder, AbstractControl } from '@angular/forms';
+import { FormGroup, FormBuilder, AbstractControl, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { UserProfileService } from '../services/user-profile.service';
@@ -50,9 +50,9 @@ export class CreateProfileComponent implements OnInit {
 
     this.imageLoaded = false;
     this.profileForm = this.formBuilder.group({
-      accountType: ['PERSONAL'],
-      accountName: [''],
-      companyName: [''],
+      accountType: ['PERSONAL', Validators.required],
+      accountName: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9 ]*')]],
+      companyName: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9 ]*')]],
       profilePicture: [''],
       countries: [''],
       services: [''],

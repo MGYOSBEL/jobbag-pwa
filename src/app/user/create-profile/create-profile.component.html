@@ -65,6 +65,7 @@
                     value="PERSONAL">
                   <label for="accountName" class="form-check-label">Personal Account</label>
                   <input type="text" class="form-control" formControlName="accountName" id="accountName"
+                  [ngClass]="profileForm.get('accountName').invalid && (profileForm.get('accountName').dirty || profileForm.get('accountName').touched) ? 'is-invalid' : '' "
                     placeholder="Name">
                 </div>
                 <div class="form-group row">
@@ -72,6 +73,7 @@
                     value="COMPANY">
                   <label for="exampleInputEmail1" class="form-check-label">Company Account</label>
                   <input type="text" class="form-control" formControlName="companyName" id="exampleInputEmail1"
+                  [ngClass]="profileForm.get('companyName').invalid && (profileForm.get('companyName').dirty || profileForm.get('companyName').touched) ? 'is-invalid' : '' "
                     placeholder="Company or Family Name">
                 </div>
               </div>
