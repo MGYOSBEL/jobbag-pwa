@@ -1,3 +1,30 @@
+.text-btn {
+font-size: 2.5rem !important;
+color: white;
+}
+.motivational-text{
+  margin-top: 2rem;
+  font-size: 1.5rem !important;
+}
+
+@media (max-width: 1080) {
+  .text-btn {
+    font-size: 1.75rem !important;
+  }
+  .motivational-text {
+    font-size: 1rem !important;
+  }
+}
+
+@media (max-width: 840px) {
+  .text-btn {
+    font-size: 1rem !important;
+  }
+  .motivational-text {
+    font-size: 0.5rem !important;
+  }
+}
+
 #home-content {
   background-color:#2985C4 ;
   /* min-height: 400px; */
@@ -38,10 +65,7 @@ padding-top: 8rem !important;
   font-size: 2rem;
 }
 
-.motivational-text{
-  margin-top: 2rem;
-  font-size: 1.5rem;
-}
+
 
 #btn-right{
 	background-image: url(../../../assets/img/arrow_box_right.png);
