@@ -53,9 +53,9 @@ export class EditProfileComponent implements OnInit {
       }
     );
     this.profileForm = this.formBuilder.group({
-      accountType: [this.activeProfile.userProfileType],
-      accountName: [this.activeProfile.userProfileType === 'PERSONAL' ? this.activeProfile.name : ''],
-      companyName: [this.activeProfile.userProfileType === 'COMPANY' ? this.activeProfile.name : ''],
+      accountType: [this.activeProfile.userProfileAccount],
+      accountName: [this.activeProfile.userProfileAccount === 'PERSONAL' ? this.activeProfile.name : ''],
+      companyName: [this.activeProfile.userProfileAccount === 'COMPANY' ? this.activeProfile.name : ''],
       profilePicture: [''],
       countries: [''],
       services: [''],
@@ -105,11 +105,12 @@ export class EditProfileComponent implements OnInit {
     const request = {
       client_id: environment.clientId,
       client_secret: environment.clientSecret,
+      id: this.activeProfile.id,
       phone_number: 'phoneNumber for the user: ' + user_id,
       comment: this.profileForm.value.comments,
       summary: 'summary for the user: ' + user_id,
       user_id: user_id,
-      scholarship_id: 1,
+      scholarship_id: this.activeProfile.scholarshipid,
       picture: '',
       cv: '',
       user_profile_type: this.role,
@@ -118,7 +119,10 @@ export class EditProfileComponent implements OnInit {
       user_profile_briefcase: this.briefcaseService.briefcases
     };
     this.userProfileService.edit(request).subscribe(
-     response => this.router.navigate(['../'], {relativeTo: this.route}),
+     response => {
+       console.log(response);
+       this.router.navigate(['../'], {relativeTo: this.route});
+     },
      err => this.errors.push(err)
     );
   }
