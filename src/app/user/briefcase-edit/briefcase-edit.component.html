@@ -1,52 +1,12 @@
 <div class="container-fluid">
-  <div class="row">
-    <div class="container-fluid">
-      <div class="row justify-itmes-around">
-        <div class="col" *ngFor="let briefcase of briefcases">
-          <div class="card">
-            <div class="card-header">
-              {{briefcase.id}}
-            </div>
-            <!-- <div class="card-body">
-                <div class="row mx-0 px-0">
-                  <div class="col-9 mx-0 px-0"> -->
-            <p class="card-text" style="font-weight: bold;">{{briefcase.description}}</p>
-            <!-- </div>
-                  <div class="col-3 mx-0 px-0"> -->
-            <i class="fas fa-camera mx-0 px-0"></i>
-            <!-- </div>
-                </div> -->
-          </div>
-          <!-- <div class="card-footer">
-                <hr class="divline">
-                <div class="row">
-                  <div class="col-md-9">
-                    <p class="card-text" style="font-size: smaller;">Since {{briefcase.startDate}} to
-                      {{briefcase.endDate}}</p>
-                  </div>
-                </div>
-              </div> -->
-        </div>
+  <div class="row justify-itmes-around">
+    <div class="col-3" *ngFor="let briefcase of briefcases">
+      <div class="mx-auto bg-dark text-white text-center">
+        <span>Name: <code>{{briefcase.description}}</code> Briefcase</span>
       </div>
-      <!-- <div class="col-3">
-            <div class="card text-center">
-              <div class="card-header">
-              </div>
-              <div class="card-body">
-                <h5 class="card-title">Add New Briefcase</h5>
-                <button type="button" class="btn btn-link" data-toggle="modal" data-target="#exampleModalCenter">
-                  <p class="card-text"><i class="fas fa-plus" alt="Add Briefcase"></i></p>
-                </button>
-              </div>
-              <div class="card-footer text-muted">
-              </div>
-            </div>
-          </div> -->
     </div>
   </div>
 </div>
-
-
 
 <!-- Modal -->
 <div class="modal fade " id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
