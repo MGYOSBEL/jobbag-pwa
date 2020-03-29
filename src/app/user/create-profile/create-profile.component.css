@@ -54,12 +54,19 @@
 }
 
 /*Section Stepper Content*/
-
 .bs-stepper-content {
   padding: 0 2rem 2rem;
 }
 
 /*Section Profile*/
+.form-group{
+  padding-left: 0px;
+  padding-right: 0px;
+}
+.form-control{
+  border-radius: 0 !important;
+}
+
 
 /*Section Picture*/
 .svg-add-user{
@@ -78,6 +85,7 @@
   background:#2985c4;
   border-radius: 25px 25px 25px 25px;
   color:white;
+  font-size: 1.3rem;
   padding: 3px 10px;
   font-weight: bolder;
   cursor: pointer;
@@ -95,6 +103,14 @@
 /*Section CurriculumVitae*/
 
 /*Section BriefCase*/
+#btn-modal-bc{
+  position: absolute;
+  bottom: 3rem;
+  left: 0rem;
+  padding: 4rem;
+  opacity: 0;
+}
+
 .svg-add-bc{
   width: 8rem;
   height: 8rem;
@@ -102,13 +118,12 @@
   cursor: pointer;
 }
 
+/*Section Resume*/
 
 
-
-
-
-.form-control{
-  border-radius: 0 !important;
+/*Section SteppersButtons*/
+#btn-row{
+  margin-top: 7rem;
 }
 
 .btn-previous, .btn-next{
@@ -123,39 +138,19 @@
   box-shadow: none;
 }
 
-.btn-bc{
-  background-image: url(../../../assets/icons/SVG/breif_add.svg);
-  background-repeat: no-repeat;
-  background-position: center;
-}
-
-
 .btn-previous{
   transform: rotate(180deg);
 }
 
 
 
-/* #main-container{
-  background-image: url(../../../assets/img/login-01-opacity.png);
-  background-size:80%;
-  background-position: center;
+
+
+/* .btn-bc{
+  background-image: url(../../../assets/icons/SVG/breif_add.svg);
   background-repeat: no-repeat;
-  padding-top: 4rem;
-  padding-bottom: 4rem;
+  background-position: center;
 } */
-
-#btn-row{
-  margin-top: 7rem;
-}
-
-
-
-.form-group{
-  /* width: 100%; */
-  padding-left: 0px;
-  padding-right: 0px;
-}
 
 #pictureInput{
   visibility: hidden;
