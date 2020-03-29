@@ -1,19 +1,31 @@
-form {
-  height: 8rem;
+/*Section Container*/
+#create-profile-container{
+  background-image: url(../../../assets/img/login-01-opacity.png);
+  background-size:80%;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
 }
 
-.row{
-  text-align: center;
-}
-
-.col-3{
-  height: 30rem;
+/*Section Stepper*/
+#stepper-section{
   padding-left: 1rem;
   padding-top: 1.5rem;
   padding-right: 1rem;
   border-bottom-width: 1.5rem;
   background-color:white;
   box-shadow: 10px 10px 12px 0.5rem rgba(0,0,0,0.5);
+}
+
+/*Section Header Stepper*/
+.step-trigger{
+  padding: 0px !important;
+  font-size: 50%;
+}
+
+.bs-stepper-label{
+  visibility: hidden;
 }
 
 .bs-stepper-circle{
@@ -41,36 +53,59 @@ form {
   visibility: visible;
 }
 
-.step-trigger{
-  padding: 0px !important;
-  font-size: 50%;
-}
-
-.bs-stepper-label{
-  visibility: hidden;
-}
-
-.bs-stepper-header{
-  align-content: space-around;
-  height: 4rem;
-  margin-top: 0.5rem;
-}
+/*Section Stepper Content*/
 
 .bs-stepper-content {
   padding: 0 2rem 2rem;
-  margin-top: 0.2rem;
 }
 
-.form-check-input{
-  margin-left: 0.5rem;
-  margin-top: 2.7rem;
+/*Section Profile*/
+
+/*Section Picture*/
+.svg-add-user{
+  width: 8rem;
+  width: 8rem;
+  height: 8rem;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
 }
 
-.form-check-label{
-  margin-bottom: 0.2rem;
-  margin-top: 2.3rem;
-  margin-left: 1.8rem;
+.add-badge{
+  position: absolute;
+  left: 12rem;
+  bottom: 6.3rem;
+  background:#2985c4;
+  border-radius: 25px 25px 25px 25px;
+  color:white;
+  padding: 3px 10px;
+  font-weight: bolder;
+  cursor: pointer;
 }
+
+.avatar-img{
+  height: 4rem;
+  cursor: pointer;
+}
+
+/*Section Country*/
+
+/*Section Service*/
+
+/*Section CurriculumVitae*/
+
+/*Section BriefCase*/
+.svg-add-bc{
+  width: 8rem;
+  height: 8rem;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+
+
+
+
 
 .form-control{
   border-radius: 0 !important;
@@ -88,10 +123,12 @@ form {
   box-shadow: none;
 }
 
-.col{
-  margin-left: 2rem;
-  margin-top: 1rem;
+.btn-bc{
+  background-image: url(../../../assets/icons/SVG/breif_add.svg);
+  background-repeat: no-repeat;
+  background-position: center;
 }
+
 
 .btn-previous{
   transform: rotate(180deg);
@@ -99,63 +136,23 @@ form {
 
 
 
-/* .btn-send{
-  width: 8.5rem;
-  height: 3.5rem;
-  background-size: 3rem;
-  background-color:#2985c4;
-  color: white;
-  border: 0rem;
-  padding-left: 0.2rem;
-  padding-right: 0.2rem;
-}
-
-.btn-send :disabled {
-  width: 8.5rem;
-  height: 3.5rem;
-  background-size: 3rem;
-  background-color:#bebcbe;
-  color: white;
-  border: 0rem;
-} */
-
-.svg-add-user{
-  width: 8rem;
-  width: 8rem;
-  height: 8rem;
-  border-radius: 50%;
-  object-fit: cover;
-  cursor: pointer;
-}
-
-#main-container{
+/* #main-container{
   background-image: url(../../../assets/img/login-01-opacity.png);
   background-size:80%;
   background-position: center;
   background-repeat: no-repeat;
   padding-top: 4rem;
   padding-bottom: 4rem;
-}
+} */
 
 #btn-row{
   margin-top: 7rem;
 }
 
-.add-badge{
-  position: absolute;
-  left: 11rem;
-  bottom: 7rem;
-  background:#2985c4;
-  text-align: center;
-  border-radius: 25px 25px 25px 25px;
-  color:white;
-  padding: 3px 10px;
-  font-size: 1.2rem;
-  font-weight: bolder;
-}
+
 
 .form-group{
-  width: auto;
+  /* width: 100%; */
   padding-left: 0px;
   padding-right: 0px;
 }
@@ -164,9 +161,7 @@ form {
   visibility: hidden;
   width: 0;
 }
-.avatar-img{
-  height: 4rem;
-}
+
 
 .image-preview{
   border-radius: 50%;
@@ -197,17 +192,13 @@ form {
   width: max-content;
 }
 
-.fa-plus{
-  color: white;
-}
-
 .svg-add-brief{
   width: 6rem;
   height: 6rem;
   object-fit: cover;
   cursor: pointer;
   fill:#2985c4;
-}
+} */
 
 .preview-bc{
   margin-left: 0rem;
@@ -218,8 +209,8 @@ form {
 }
 
 #commentsInput{
-  width:16rem;
-    height: 13rem;
+  width:100%;
+  height: auto;
 }
 
 #col-8-cv{
@@ -251,4 +242,38 @@ form {
   padding-top: 1rem;
   padding-bottom: 1rem;
 }
+
+/* .fa-plus{
+  color: white;
+}
+
+/* .btn-send{
+  width: 8.5rem;
+  height: 3.5rem;
+  background-size: 3rem;
+  background-color:#2985c4;
+  color: white;
+  border: 0rem;
+  padding-left: 0.2rem;
+  padding-right: 0.2rem;
+}
+
+.btn-send :disabled {
+  width: 8.5rem;
+  height: 3.5rem;
+  background-size: 3rem;
+  background-color:#bebcbe;
+  color: white;
+  border: 0rem;
+} */
+
+/* .bs-stepper-header{
+  align-content: space-around;
+  height: 4rem;
+  margin-top: 0.5rem;
+}
+
+.row{
+  text-align: center;
+} */
 
