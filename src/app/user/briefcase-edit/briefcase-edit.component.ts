@@ -10,7 +10,7 @@ import { BriefcaseService } from '../services/briefcase.service';
 import { ErrorService } from '@app/errors/error.service';
 
 @Component({
-  selector: 'app-birefcase-edit',
+  selector: 'app-briefcase-edit',
   templateUrl: './briefcase-edit.component.html',
   styleUrls: ['./briefcase-edit.component.css']
 })
