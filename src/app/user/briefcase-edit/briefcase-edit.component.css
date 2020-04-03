@@ -1,5 +1,36 @@
-.container-fluid{
-  /* margin-bottom: 2rem; */
+
+/*Briefcase Section*/  
+.svg-add-bc{
+  width: 8rem;
+  height: 6rem;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.text-center{
+  margin-top: 2rem;
+}
+
+#btn-modal-bc{
+  position: absolute;
+  bottom: 0rem;
+  left: 0rem;
+  padding: 4rem;
+  opacity: 0;
+}
+
+#bc-row{
+  width: auto;
+  height:9rem;
+}
+
+#bc-col{
+  margin-top: 0;
+}
+
+/*Modal Section*/ 
+.col{
+  padding-left: 0rem;
 }
 
 #briefcases-row{
@@ -26,10 +57,6 @@
   margin-left: 2rem;
 }
 
-.text-center{
-  margin-top: 2rem;
-}
-
 .figure-img{
   max-width: 93%;
 }
@@ -38,6 +65,3 @@
   width: 22rem;
 }
 
-.col{
-  padding-left: 0rem;
-}
