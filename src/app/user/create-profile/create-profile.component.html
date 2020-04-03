@@ -48,7 +48,7 @@
         </div>
         <div class="bs-stepper-content">
           <div class="row">
-            <form [formGroup]="profileForm" style="height: 8rem;">
+            <form [formGroup]="profileForm" style="width: -moz-available; height: 8rem;">
               <div id="profile" class="content container fade">
                 <div class="form-group row py-5 mx-auto">
                   <input type="radio" class="form-check-input" name="accountType" formControlName="accountType"
@@ -169,55 +169,9 @@
                     </div>
                   </div>
                 </div>
-              </div>
-              <div id="myWork" class="content container fade">
-                <div class="row">
-                  <div class="col-12">
-                    <div class="form-group">
-                      <button type="button" class="btn btn-link" id="btn-modal-bc" data-toggle="modal"
-                        data-target="#exampleModalCenter">
-                        <p class="card-text"><i class="fas fa-plus" alt="Add Briefcase"></i></p>
-                      </button>
-                      <svg class="svg-add-bc" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 92.36 88.73">
-                        <defs>
-                          <style>
-                            .cls-1 {
-                              fill: #2982c1;
-                            }
-
-                            .cls-2 {
-                              fill: #fff;
-                            }
-                          </style>
-                        </defs>
-                        <title>Recurso 1</title>
-                        <g id="Capa_2" data-name="Capa 2">
-                          <g id="Capa_1-2" data-name="Capa 1">
-                            <circle class="cls-1" cx="80.43" cy="71.74" r="11.93" />
-                            <g id="Layer_2" data-name="Layer 2">
-                              <g id="Layer_1-2" data-name="Layer 1-2">
-                                <path class="cls-1"
-                                  d="M70.21,31.22V46.09L48.4,49.49a22.57,22.57,0,0,1,.42-2.72c.25-1,.66-1.85,1-2.77.25-.69,0-1-.68-1.06H39.71c-.73,0-1,.35-.7,1.05.33.93.75,1.83,1,2.77a24.31,24.31,0,0,1,.43,2.74L18.63,46.09V31.22Z" />
-                                <path class="cls-1"
-                                  d="M20.55,64.14V47.69l19.76,3.08v3c0,.77.22,1,1,1h6.23c.77,0,1-.22,1-1,0-1,0-1.89,0-2.83a.7.7,0,0,1,.06-.19L68.28,47.7V64.14Z" />
-                                <path class="cls-1" d="M20.53,67.67V65.53H68.26v2.15Z" />
-                                <path class="cls-1"
-                                  d="M55.65,29.86H52.7a8.3,8.3,0,0,0-16.54,0H33.21a10.8,10.8,0,0,1,4.56-8.34,10.74,10.74,0,0,1,12.12-.75A11,11,0,0,1,55.65,29.86Z" />
-                                <path class="cls-1" d="M47.2,53.46H41.65V48.12H47.2Z" />
-                                <path class="cls-1"
-                                  d="M44.43,88.73a44.3,44.3,0,1,1,31.42-13A44.43,44.43,0,0,1,44.43,88.73Zm0-82.79A38.36,38.36,0,1,0,82.79,44.3,38.39,38.39,0,0,0,44.43,5.94Z" />
-                              </g>
-                            </g>
-                            <polygon class="cls-2"
-                              points="83.94 71.24 80.93 71.24 80.93 68.23 79.94 68.23 79.94 71.24 76.93 71.24 76.93 72.23 79.94 72.23 79.94 75.25 80.93 75.25 80.93 72.23 83.94 72.23 83.94 71.24" />
-                          </g>
-                        </g>
-                      </svg>
-                      <h6 class="text-center" style="color:#6c757d;">Add a Briefcase</h6>
-                      <app-briefcase-edit></app-briefcase-edit>
-                    </div>
-                  </div>
-                </div>
+              </div>        
+              <div id="myWork" class="content container fade">            
+                <app-briefcase-edit></app-briefcase-edit>
               </div>
               <div id="comments" class="content container fade">
                 <div class="form-group row text-center" id="form-group-comments">
