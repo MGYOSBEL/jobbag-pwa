@@ -6,6 +6,7 @@ import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { ActiveProfileService } from '@app/user/services/active-profile.service';
+import { environment } from '@environments/environment';
 
 @Component({
   selector: 'app-navbar',
@@ -21,6 +22,7 @@ export class NavbarComponent implements OnInit {
   isLoggedIn$: Observable<boolean>;
   userId;
   hiddenNavbar: boolean;
+  userImageUrl: string;
 
   navEnd: Observable<NavigationEnd>;
 
@@ -46,12 +48,10 @@ export class NavbarComponent implements OnInit {
     this.navEnd.subscribe(
       evt => {
         this.hiddenNavbar = this.router.url.includes('auth');
-        console.log(this.hiddenNavbar);
-        console.log('evt.url', this.router.url);
         this.isLoggedIn = this.authenticationService.isLoggedIn;
         if (this.authenticationService.isLoggedIn) {
           this.socialUser = JSON.parse(localStorage.getItem('socialUser'));
-
+          this.userImageUrl = environment.serverBaseURL + '/' + this.activeProfileService.activeProfile.picture;
           this.userId = this.authenticationService.getLoggedUserId();
           this.userService.get(this.userId).subscribe(
             user => this.loggedUser = user

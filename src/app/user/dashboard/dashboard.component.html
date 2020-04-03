@@ -36,6 +36,8 @@
       <h2>Your Active Profile:</h2>
       {{activeProfile | json}}
 
+      {{activeProfile.picture.length}}
+
       <button (click)="logOut()"> Log Out </button>
       <a routerLink="/" routerLinkActive="active">Home</a>
     </div>

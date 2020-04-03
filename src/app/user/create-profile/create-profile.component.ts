@@ -148,6 +148,29 @@ export class CreateProfileComponent implements OnInit {
     this.imageLoaded = true;
   }
 
+  uploadAvatar(event) {
+    console.clear();
+    const file = event.target as HTMLImageElement;
+    const dx = file.width;
+    const dy = file.height;
+
+
+    const canvas = document.createElement("canvas");
+    const context = canvas.getContext('2d',);
+    const base_image = new Image();
+    base_image.src = file.src;
+    base_image.onload = () => {
+      canvas.width = 475; // Este es el tamano de los iconos en el filesystem
+      canvas.height = 514;
+
+      context.drawImage(base_image, 0 , 0);
+      let dataUrl = canvas.toDataURL('image/png');
+      this.previewUrl = file.src;
+      this.imageBase64 = dataUrl.toString().split(',')[1];
+    };
+    this.imageLoaded = true;
+  }
+
   uploadCV(event) {
     const file = (event.target as HTMLInputElement).files[0];
     let reader = new FileReader();
@@ -156,6 +179,8 @@ export class CreateProfileComponent implements OnInit {
       this.cvUrl = reader.result;
       this.cvBase64 = this.cvUrl.toString().split(',')[1];
     };
+    this.imageLoaded = true;
+
   }
 
    search = (text$: Observable<string>) =>
