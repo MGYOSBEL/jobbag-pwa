@@ -48,6 +48,9 @@ export class CreateProfileComponent implements OnInit {
               private route: ActivatedRoute
               ) {
 
+    this.role = this.route.snapshot.queryParams.role;
+
+
     this.imageLoaded = false;
     this.profileForm = this.formBuilder.group({
       accountType: ['PERSONAL', Validators.required],
@@ -63,12 +66,15 @@ export class CreateProfileComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.stepper = new Stepper(document.querySelector('#stepper1'), {
+
+    this.stepper = new Stepper(document.querySelector('.bs-stepper'), {
       linear: false,
       animation: true
-
     });
-    this.role = 'SERVICE_PROVIDER';
+
+    console.log((this.stepper));
+
+
 
     this.profileForm.get('accountType').valueChanges.subscribe(
       value => {
