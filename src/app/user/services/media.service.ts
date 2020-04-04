@@ -44,7 +44,7 @@ export class MediaService {
         client_id: environment.clientId,
         client_secret: environment.clientSecret,
         user_profile_id: userProfileId,
-        picture: cv
+        cv
       };
       return this.http.put<APIResponse>(`${environment.apiBaseURL}/media/userProfileCV`, request).pipe(
         catchError(err => {
@@ -94,7 +94,7 @@ export class MediaService {
         client_id: environment.clientId,
         client_secret: environment.clientSecret,
         user_profile_id: userProfileId,
-        picture: cv
+        cv
       };
       return this.http.request<APIResponse>('DELETE', `${environment.apiBaseURL}/media/userProfileCV`, { body: request}).pipe(
         catchError(err => {

@@ -11,6 +11,7 @@ import { environment } from '@environments/environment';
 import { BriefcaseService } from '../services/briefcase.service';
 import { ActiveProfileService } from '../services/active-profile.service';
 import { UserProfile } from '../models/user.model';
+import { MediaService } from '../services/media.service';
 
 const states = ['Alabama', 'Alaska', 'American Samoa', 'Arizona', 'Arkansas', 'California', 'Colorado',
   'Connecticut', 'Delaware', 'District Of Columbia', 'Federated States Of Micronesia', 'Florida', 'Georgia',
@@ -44,6 +45,7 @@ export class EditProfileComponent implements OnInit {
               private activeProfileService: ActiveProfileService,
               private briefcaseService: BriefcaseService,
               private errorService: ErrorService,
+              private mediaService: MediaService,
               private router: Router,
               private route: ActivatedRoute
               ) {

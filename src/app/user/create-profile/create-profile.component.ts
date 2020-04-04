@@ -68,7 +68,7 @@ export class CreateProfileComponent implements OnInit {
       animation: true
 
     });
-    this.role = 'SERVICE_PROVIDER';
+    this.role = 'SERVICE_PROVIDER'; // Aca debe ir el param role del activatedRouteSnapshot
 
     this.profileForm.get('accountType').valueChanges.subscribe(
       value => {

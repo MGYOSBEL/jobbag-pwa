@@ -20,7 +20,7 @@ export class UserService {
               private logging: LoggingService) { }
 
 
-  public get loggedUser() {
+  public get loggedUser(): User {
     return JSON.parse(localStorage.getItem('loggedUser'));
   }
 
@@ -101,9 +101,9 @@ export class UserService {
   }
 
 
-  getRoles() {
-    return this.loggedUser.roles;
-  }
+  // getRoles() {
+  //   return this.loggedUser.roles;
+  // }
 
 
 

@@ -15,9 +15,19 @@ export class ActiveProfileService {
 
   constructor(private userProfileService: UserProfileService) {
 
-    this.activeProfileSubject = new BehaviorSubject<string>(localStorage.getItem('activeProfile') || '');
-    this.activeProfileType$ = this.activeProfileSubject.asObservable();
 
+    const cachedProfileType = localStorage.getItem('activeProfile');
+    this.activeProfileSubject = new BehaviorSubject<string>(cachedProfileType || '');
+    this.activeProfileType$ = this.activeProfileSubject.asObservable();
+    if (cachedProfileType === 'CLIENT') {
+      console.clear();
+      console.log('CLIENT activated');
+      this.activateClient();
+    } else if (cachedProfileType === 'SERVICE PROVIDER') {
+      console.clear();
+      console.log('PROVIDER activated');
+      this.activateServiceProvider();
+    }
 
   }
 
@@ -30,7 +40,7 @@ export class ActiveProfileService {
   }
 
   activateServiceProvider() {
-    this.activeProfile = this.userProfileService.client;
+    this.activeProfile = this.userProfileService.serviceProvider;
     console.log('ActiveProfile: ', this.activeProfile);
     this.activeProfileSubject.next('SERVICE PROVIDER');
     localStorage.setItem('activeProfile', 'SERVICE PROVIDER');

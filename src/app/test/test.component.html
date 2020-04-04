@@ -1,102 +1,103 @@
-<div class="container align-items-center">
-  <div class="row justify-content-center mx-0 my-5">
-    <div class="col-4">
-      <form [formGroup]="testForm">
-        <div class="row form-group mb-1">
-          <fieldset class="col-12 mx-0 px-0">
-            <div class="my-2 ">
-              <input class="form-control input-lg" name="id" formControlName="id"
-                placeholder="id....." type="text">
-              <input class="form-control input-lg" name="phone_number" formControlName="phone_number"
-                placeholder="phone_number ...." type="text">
-              <input class="form-control input-lg" name="comment" formControlName="comment"
-                placeholder="comment....." type="text">
-              <input class="form-control input-lg" name="summary" formControlName="summary"
-                placeholder="summary....." type="text">
-              <input class="form-control input-lg" name="user_id" formControlName="user_id"
-                placeholder="user_id....." type="text">
-              <input class="form-control input-lg" name="scholarship_id" formControlName="scholarship_id"
-                placeholder="scholarship_id....." type="text">
-              <input class="form-control input-lg" name="user_profile_type" formControlName="user_profile_type"
-                placeholder="user_profile_type....." type="text">
-            </div>
-          </fieldset>
-        </div>
-        <div class="row mt-1 justify-content-lg-between">
-          <button class="btn btn-primary text-center btn-lg" style="background-color: #2787C4;"
-            (click)="create()">
-            Create</button>
-          <button class="btn btn-primary text-center btn-lg" style="background-color: #2787C4;"
-            (click)="edit()">Edit</button>
-          <button class="btn btn-primary text-center btn-lg" style="background-color: #2787C4;"
-            (click)="delete()">Delete</button>
-          <button class="btn btn-primary text-center btn-lg" style="background-color: #2787C4;"
-            (click)="array()">Array</button>
+<form [formGroup]="editProfileForm">
 
-        </div>
+  <div class="form-group">
+    <label class="form-text" for="username">
+      Username:
+    </label>
+    <input type="text" class="form-control" id="username" formControlName="username">
+  </div>
 
+  <div class="form-group">
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" id="passwordCheck" (click)="toggleChangePassword($event)"
+        formControlName="">
+      <label class="form-check-label" for="passwordCheck">
+        I want to Change my Password
+      </label>
+    </div>
+    <fieldset [disabled]="!changePassword">
+      <input type="password" class="form-control" id="password" formControlName="password">
+      <input type="password" class="form-control" id="passwordConfirm" formControlName="passwordConfirm">
+    </fieldset>
+  </div>
 
-      </form>
-      <div>
-        <div style="font-size: 24px;">
-          <span class="icon-social-google"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span></span>
-          <span class="icon-social-facebook"><span class="path1"></span><span class="path2"></span></span>
-          <span class="icon-reazon-user"></span>
-          <span class="icon-social-twitter"><span class="path1"></span><span class="path2"></span></span>
-          <span class="icon-step_create"></span>
-          </div>
-        BRIEFCASE: {{(briefcase$ | async) | json}}
-      </div>
-      <form [formGroup]="briefcaseForm">
-        <div class="row form-group mb-1">
-          <fieldset class="col-12 mx-0 px-0">
-            <div class="my-2 ">
-              <input class="form-control input-lg" name="bc_id" formControlName="bc_id"
-                placeholder="id....." type="text">
-              <input class="form-control input-lg" name="bc_comment" formControlName="bc_comment"
-                placeholder="comment....." type="text">
-              <input class="form-control input-lg" name="bc_description" formControlName="bc_description"
-                placeholder="bc_description....." type="text">
-              <input class="form-control input-lg" name="bc_id_profession" formControlName="bc_id_profession"
-                placeholder="bc_id_profession....." type="text">
-              <input class="form-control input-lg" name="bc_start_date" formControlName="bc_start_date"
-                placeholder="bc_start_date....." type="text">
-              <input class="form-control input-lg" name="bc_end_date" formControlName="bc_end_date"
-                placeholder="bc_end_date....." type="text">
-            </div>
-          </fieldset>
-        </div>
-        <div class="row mt-1 justify-content-lg-between">
-          <button class="btn btn-primary text-center btn-lg" style="background-color: #2787C4;"
-            (click)="bc_create()">Create</button>
-          <button class="btn btn-primary text-center btn-lg" style="background-color: #2787C4;"
-            (click)="bc_edit()">Edit</button>
-          <button class="btn btn-primary text-center btn-lg" style="background-color: #2787C4;"
-            (click)="bc_delete()">Delete</button>
+  <div class="form-group">
+    <label class="form-text" for="email">
+      email:
+    </label>
+    <input type="email" class="form-control" id="email" formControlName="email">
+  </div>
 
-        </div>
-
-
-      </form>
-
+  <div id="profile" class="content container fade">
+    <div class="form-group row py-5 mx-auto">
+      <input type="radio" class="form-check-input" name="accountType" formControlName="accountType"
+        value="PERSONAL">
+      <label for="accountName" class="form-check-label">Personal Account</label>
+      <input type="text" class="form-control" formControlName="accountName" id="accountName"
+        [ngClass]="editProfileForm.get('accountName').invalid && (editProfileForm.get('accountName').dirty || editProfileForm.get('accountName').touched) ? 'is-invalid' : '' "
+        placeholder="Name">
+    </div>
+    <div class="form-group row mx-auto">
+      <input type="radio" class="form-check-input" name="accountType" formControlName="accountType"
+        value="COMPANY">
+      <label for="exampleInputEmail1" class="form-check-label">Company Account</label>
+      <input type="text" class="form-control" formControlName="companyName" id="exampleInputEmail1"
+        [ngClass]="editProfileForm.get('companyName').invalid && (editProfileForm.get('companyName').dirty || editProfileForm.get('companyName').touched) ? 'is-invalid' : '' "
+        placeholder="Company or Family Name">
     </div>
   </div>
-</div>
-<div *ngIf="errors.length">
-  <div *ngFor="let err of errors">
-    Error: {{err}}
+
+
+  <div class="form-group">
+    <label for="pictureInput" class="">
+      <input class="" id="pictureInput" type="file" formControlName="profilePicture"
+        (change)="uploadPicture($event)" accept="image/*" />
+      <svg *ngIf="!activeProfile.picture" class="svg-add-user mx-auto d-block" xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 230.41 230.41">
+        <defs>
+          <style>
+            .cls-1 {
+              fill: #2985c4;
+            }
+          </style>
+        </defs>
+        <title>user-image</title>
+        <g id="Layer_2" data-name="Layer 2">
+          <g id="Layer_1-2" data-name="Layer 1">
+            <path class="cls-1"
+              d="M230.41,115.21A115.21,115.21,0,1,0,35.27,198a6.94,6.94,0,0,0,1.81,1.65,114.54,114.54,0,0,0,156.25,0,6.94,6.94,0,0,0,1.81-1.65A114.79,114.79,0,0,0,230.41,115.21ZM115.21,14.4a100.67,100.67,0,0,1,79,163.22c-6.25-20.14-24.08-35.91-48.28-43.16a52.55,52.55,0,1,0-61.47,0c-24.2,7.25-42,23-48.27,43.16a100.66,100.66,0,0,1,79-163.22ZM77.06,92a38.15,38.15,0,1,1,38.15,38.08A38.15,38.15,0,0,1,77.06,92ZM48.3,190.4c2.16-26.4,30.16-45.94,66.91-45.94S180,164,182.11,190.4a100.2,100.2,0,0,1-133.81,0Z" />
+          </g>
+        </g>
+      </svg>
+      <img *ngIf="activeProfile.picture" [src]="previewUrl" class="rounded-circle svg-add-user mx-auto d-block"
+        alt="Profile Picture">
+      <span class="add-badge">+</span>
+    </label>
+    <h6 class="text-center" style="color: #6c757d;">Upload a picture or select an Avatar</h6>
+    <div class="row">
+      <div class="col-3 mx-auto">
+        <img src="../../../assets/img/worker.png" class="avatar-img" alt="Responsive image"
+          (click)="uploadAvatar($event)">
+      </div>
+      <div class="col-3 mx-auto">
+        <img src="../../../assets/img/officer.png" class="avatar-img" alt="Responsive image"
+          (click)="uploadAvatar($event)">
+      </div>
+      <div class="col-3 mx-auto">
+        <img src="../../../assets/img/worker-2.png" class="avatar-img" alt="Responsive image"
+          (click)="uploadAvatar($event)">
+      </div>
+      <div class="col-3 mx-auto">
+        <img src="../../../assets/img/lawyer.png" class="avatar-img" alt="Responsive image"
+          (click)="uploadAvatar($event)">
+      </div>
+    </div>
   </div>
-</div>
-
-<div >
-  Professions: {{professions | json}}
-</div>
-<div >
-  Scholarships: {{scholarships | json}}
-</div>
-<div >
-  User Profile: {{userProfile | json}}
-</div>
 
 
+</form>
+
+
+previewUrl: {{previewUrl}}
+activeProfile: {{activeProfile | json}}
 
