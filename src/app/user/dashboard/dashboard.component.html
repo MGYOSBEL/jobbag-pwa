@@ -13,30 +13,8 @@
 </nav>
 <div class="tab-content" id="nav-tabContent">
   <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-    <div>
-      <h1>Welcome {{loggedUser.username}}</h1>
-      <h2>Your profile:</h2>
-      <h3>email: {{loggedUser.email}}</h3>
-      <h3>id: {{loggedUser.id}}</h3>
-      <h3>Canonical email: {{loggedUser.emailCanonical}}</h3>
-      <h3>Canonical Name: {{loggedUser.usernameCanonical}}</h3>
-      <h3>Status:
-        <span *ngIf="loggedUser.enabled">Enabled</span>
-        <span *ngIf="!loggedUser.enabled">Disabled</span>
-      </h3>
-      <h2>Your groups:</h2>
-      <ul>
-        <li *ngFor="let group of loggedUser.groups">{{group}}</li>
-      </ul>
-
-      <h2>Your Roles:</h2>
-      <ul>
-        <li *ngFor="let role of loggedUser.roles">{{role}}</li>
-      </ul>
-      <h2>Your Active Profile:</h2>
-      {{activeProfile | json}}
-
-      {{activeProfile.picture.length}}
+    <div class="container-fluid align-items-center">
+      <h1 class="display-1 text-center">Welcome {{loggedUser.username}}</h1>
 
       <button (click)="logOut()"> Log Out </button>
       <a routerLink="/" routerLinkActive="active">Home</a>

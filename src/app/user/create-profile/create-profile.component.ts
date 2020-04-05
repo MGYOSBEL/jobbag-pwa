@@ -10,6 +10,8 @@ import { AuthenticationService } from '@app/auth/services/authentication.service
 import { environment } from '@environments/environment';
 import { BriefcaseService } from '../services/briefcase.service';
 import { ActiveProfileService } from '../services/active-profile.service';
+import { Country } from '../models/country.model';
+import { CountryService } from '../services/country.service';
 
 const states = ['Alabama', 'Alaska', 'American Samoa', 'Arizona', 'Arkansas', 'California', 'Colorado',
   'Connecticut', 'Delaware', 'District Of Columbia', 'Federated States Of Micronesia', 'Florida', 'Georgia',
@@ -37,6 +39,8 @@ export class CreateProfileComponent implements OnInit {
   imageLoaded: boolean;
   cvUrl: any;
   name: AbstractControl;
+  countries$: Observable<Country>;
+
 
   constructor(private formBuilder: FormBuilder,
               private authenticationService: AuthenticationService,
@@ -44,6 +48,7 @@ export class CreateProfileComponent implements OnInit {
               private activeProfileService: ActiveProfileService,
               private briefcaseService: BriefcaseService,
               private errorService: ErrorService,
+              private countryService: CountryService,
               private router: Router,
               private route: ActivatedRoute
               ) {
@@ -63,6 +68,8 @@ export class CreateProfileComponent implements OnInit {
    }
 
   ngOnInit() {
+    this.countries$ = this.countryService.get();
+
     this.stepper = new Stepper(document.querySelector('#stepper1'), {
       linear: false,
       animation: true
