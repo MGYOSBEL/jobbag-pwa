@@ -58,6 +58,7 @@ export class TestComponent implements OnInit {
       companyName: [this.activeProfile.userProfileAccount === 'COMPANY'
         ? this.activeProfile.name : '', [Validators.required, Validators.pattern('[a-zA-Z0-9 ]*')]],
       profilePicture: [''],
+      curriculum: [''],
       comments: [this.activeProfile.comment]
 
     });

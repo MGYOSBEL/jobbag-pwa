@@ -1,129 +1,184 @@
 <form [formGroup]="editProfileForm">
 
-  <div class="form-group">
-    <label class="form-text" for="username">
-      Username:
-    </label>
-    <input type="text" class="form-control" id="username" formControlName="username">
-  </div>
+  <ngb-accordion [closeOthers]="true" activeIds="profile">
+    <ngb-panel id="user-data" title="User">
+      <ng-template ngbPanelContent>
+        <div class="form-group">
+          <label class="form-text" for="username">
+            Username:
+          </label>
+          <input type="text" class="form-control" id="username" formControlName="username">
+        </div>
 
-  <div class="form-group">
-    <div class="form-check">
-      <input class="form-check-input" type="checkbox" id="passwordCheck" (click)="toggleChangePassword($event)"
-        formControlName="">
-      <label class="form-check-label" for="passwordCheck">
-        I want to Change my Password
-      </label>
-    </div>
-    <fieldset [disabled]="!changePassword">
-      <input type="password" class="form-control" id="password" formControlName="password">
-      <input type="password" class="form-control" id="passwordConfirm" formControlName="passwordConfirm">
-    </fieldset>
-  </div>
+        <div class="form-group">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="passwordCheck" (click)="toggleChangePassword($event)">
+            <label class="form-check-label" for="passwordCheck">
+              I want to Change my Password
+            </label>
+          </div>
+          <fieldset [disabled]="!changePassword">
+            <input type="password" class="form-control" id="password" formControlName="password">
+            <input type="password" class="form-control" id="passwordConfirm" formControlName="passwordConfirm">
+          </fieldset>
+        </div>
 
-  <div class="form-group">
-    <label class="form-text" for="email">
-      email:
-    </label>
-    <input type="email" class="form-control" id="email" formControlName="email">
-  </div>
+        <div class="form-group">
+          <label class="form-text" for="email">
+            email:
+          </label>
+          <input type="email" class="form-control" id="email" formControlName="email">
+        </div>
+      </ng-template>
+    </ngb-panel>
 
-    <div class="form-group ">
-      <input type="radio" class="form-check-input" name="accountType" formControlName="accountType" value="PERSONAL">
-      <label for="accountName" class="form-check-label">Personal Account</label>
-      <input type="text" class="form-control" formControlName="accountName" id="accountName"
-        [ngClass]="editProfileForm.get('accountName').invalid && (editProfileForm.get('accountName').dirty || editProfileForm.get('accountName').touched) ? 'is-invalid' : '' "
-        placeholder="Name">
-    </div>
-    <div class="form-group ">
-      <input type="radio" class="form-check-input" name="accountType" formControlName="accountType" value="COMPANY">
-      <label for="exampleInputEmail1" class="form-check-label">Company Account</label>
-      <input type="text" class="form-control" formControlName="companyName" id="exampleInputEmail1"
-        [ngClass]="editProfileForm.get('companyName').invalid && (editProfileForm.get('companyName').dirty || editProfileForm.get('companyName').touched) ? 'is-invalid' : '' "
-        placeholder="Company or Family Name">
-    </div>
+    <ngb-panel id="profile" title="Profile">
+      <!-- <ng-template ngbPanelTitle>
+      <span>&#9733; <b>Fancy</b> title &#9733;</span>
+    </ng-template> -->
+      <ng-template ngbPanelContent>
+        <div class="form-group ">
+          <input type="radio" class="form-check-input" name="accountType" formControlName="accountType"
+            value="PERSONAL">
+          <label for="accountName" class="form-check-label">Personal Account</label>
+          <input type="text" class="form-control" formControlName="accountName" id="accountName"
+            [ngClass]="editProfileForm.get('accountName').invalid && (editProfileForm.get('accountName').dirty || editProfileForm.get('accountName').touched) ? 'is-invalid' : '' "
+            placeholder="Name">
+        </div>
+        <div class="form-group ">
+          <input type="radio" class="form-check-input" name="accountType" formControlName="accountType" value="COMPANY">
+          <label for="exampleInputEmail1" class="form-check-label">Company Account</label>
+          <input type="text" class="form-control" formControlName="companyName" id="exampleInputEmail1"
+            [ngClass]="editProfileForm.get('companyName').invalid && (editProfileForm.get('companyName').dirty || editProfileForm.get('companyName').touched) ? 'is-invalid' : '' "
+            placeholder="Company or Family Name">
+        </div>
+      </ng-template>
+    </ngb-panel>
 
+    <ngb-panel id="picture" title="Picture">
+      <ng-template ngbPanelContent>
+        <div class="form-group">
+          <label for="pictureInput" class="">
+            <input class="" id="pictureInput" type="file" formControlName="profilePicture" (change)="uploadPicture($event)"
+              accept="image/*" />
+            <svg *ngIf="!activeProfile.picture" class="svg-add-user mx-auto d-block" xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 230.41 230.41">
+              <defs>
+                <style>
+                  .cls-1 {
+                    fill: #2985c4;
+                  }
+                </style>
+              </defs>
+              <title>user-image</title>
+              <g id="Layer_2" data-name="Layer 2">
+                <g id="Layer_1-2" data-name="Layer 1">
+                  <path class="cls-1"
+                    d="M230.41,115.21A115.21,115.21,0,1,0,35.27,198a6.94,6.94,0,0,0,1.81,1.65,114.54,114.54,0,0,0,156.25,0,6.94,6.94,0,0,0,1.81-1.65A114.79,114.79,0,0,0,230.41,115.21ZM115.21,14.4a100.67,100.67,0,0,1,79,163.22c-6.25-20.14-24.08-35.91-48.28-43.16a52.55,52.55,0,1,0-61.47,0c-24.2,7.25-42,23-48.27,43.16a100.66,100.66,0,0,1,79-163.22ZM77.06,92a38.15,38.15,0,1,1,38.15,38.08A38.15,38.15,0,0,1,77.06,92ZM48.3,190.4c2.16-26.4,30.16-45.94,66.91-45.94S180,164,182.11,190.4a100.2,100.2,0,0,1-133.81,0Z" />
+                </g>
+              </g>
+            </svg>
+            <img *ngIf="activeProfile.picture" [src]="previewUrl" class="rounded-circle svg-add-user mx-auto d-block"
+              alt="Profile Picture">
+            <span class="add-badge">+</span>
+          </label>
+          <h6 class="text-center" style="color: #6c757d;">Upload a picture or select an Avatar</h6>
+          <div class="row">
+            <div class="col-3 mx-auto">
+              <img src="../../../assets/img/worker.png" class="avatar-img" alt="Responsive image"
+                (click)="uploadAvatar($event)">
+            </div>
+            <div class="col-3 mx-auto">
+              <img src="../../../assets/img/officer.png" class="avatar-img" alt="Responsive image"
+                (click)="uploadAvatar($event)">
+            </div>
+            <div class="col-3 mx-auto">
+              <img src="../../../assets/img/worker-2.png" class="avatar-img" alt="Responsive image"
+                (click)="uploadAvatar($event)">
+            </div>
+            <div class="col-3 mx-auto">
+              <img src="../../../assets/img/lawyer.png" class="avatar-img" alt="Responsive image"
+                (click)="uploadAvatar($event)">
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </ngb-panel>
 
-  <div class="form-group">
-    <label for="pictureInput" class="">
-      <input class="" id="pictureInput" type="file" formControlName=" " (change)="uploadPicture($event)"
-        accept="image/*" />
-      <svg *ngIf="!activeProfile.picture" class="svg-add-user mx-auto d-block" xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 230.41 230.41">
-        <defs>
-          <style>
-            .cls-1 {
-              fill: #2985c4;
-            }
-          </style>
-        </defs>
-        <title>user-image</title>
-        <g id="Layer_2" data-name="Layer 2">
-          <g id="Layer_1-2" data-name="Layer 1">
-            <path class="cls-1"
-              d="M230.41,115.21A115.21,115.21,0,1,0,35.27,198a6.94,6.94,0,0,0,1.81,1.65,114.54,114.54,0,0,0,156.25,0,6.94,6.94,0,0,0,1.81-1.65A114.79,114.79,0,0,0,230.41,115.21ZM115.21,14.4a100.67,100.67,0,0,1,79,163.22c-6.25-20.14-24.08-35.91-48.28-43.16a52.55,52.55,0,1,0-61.47,0c-24.2,7.25-42,23-48.27,43.16a100.66,100.66,0,0,1,79-163.22ZM77.06,92a38.15,38.15,0,1,1,38.15,38.08A38.15,38.15,0,0,1,77.06,92ZM48.3,190.4c2.16-26.4,30.16-45.94,66.91-45.94S180,164,182.11,190.4a100.2,100.2,0,0,1-133.81,0Z" />
-          </g>
-        </g>
-      </svg>
-      <img *ngIf="activeProfile.picture" [src]="previewUrl" class="rounded-circle svg-add-user mx-auto d-block"
-        alt="Profile Picture">
-      <span class="add-badge">+</span>
-    </label>
-    <h6 class="text-center" style="color: #6c757d;">Upload a picture or select an Avatar</h6>
-    <div class="row">
-      <div class="col-3 mx-auto">
-        <img src="../../../assets/img/worker.png" class="avatar-img" alt="Responsive image"
-          (click)="uploadAvatar($event)">
-      </div>
-      <div class="col-3 mx-auto">
-        <img src="../../../assets/img/officer.png" class="avatar-img" alt="Responsive image"
-          (click)="uploadAvatar($event)">
-      </div>
-      <div class="col-3 mx-auto">
-        <img src="../../../assets/img/worker-2.png" class="avatar-img" alt="Responsive image"
-          (click)="uploadAvatar($event)">
-      </div>
-      <div class="col-3 mx-auto">
-        <img src="../../../assets/img/lawyer.png" class="avatar-img" alt="Responsive image"
-          (click)="uploadAvatar($event)">
-      </div>
-    </div>
-  </div>
+    <ngb-panel id="countries" title="Countries">
+      <ng-template ngbPanelContent>
+        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon
+        officia
+        aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon
+        tempor,
+        sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh
+        helvetica,
+        craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo.
+        Leggings
+        occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them
+        accusamus
+        labore sustainable VHS.
+      </ng-template>
+    </ngb-panel>
 
+    <ngb-panel id="services" title="My Services">
+      <ng-template ngbPanelContent>
+        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon
+        officia
+        aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon
+        tempor,
+        sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh
+        helvetica,
+        craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo.
+        Leggings
+        occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them
+        accusamus
+        labore sustainable VHS.
+      </ng-template>
+    </ngb-panel>
 
-  <div class="form-group row py-5 mx-auto">
-    <label for="curriculumDescription" style="color: #6c757d;">Curriculum Description!</label>
-    <div class="row">
-      <div class="col-9 pr-0">
-        <label for="curriculumLabel" id="curriculumLabel">
-          Upload File
-        </label>
-      </div>
-      <div class="col-3 pl-0">
-        <label for="curriculumUpload" id="curriculumUpload">
-          <i class="far fa-folder fa-3x"></i>
-          <input type="file" accept="pdf/*" formControlName="curriculum" class="form-control-file" id="curriculumInput"
-            placeholder="Upload your CV in pdf format." (change)="uploadCV($event)" />
-        </label>
-      </div>
-    </div>
-  </div>
+    <ngb-panel id="curriculum" title="Curriculum Vitae">
+      <ng-template ngbPanelContent>
+        <div class="form-group row py-5 mx-auto">
+          <label for="curriculumDescription" style="color: #6c757d;">Curriculum Description!</label>
+          <div class="row">
+            <div class="col-9 pr-0">
+              <label for="curriculumLabel" id="curriculumLabel">
+                Upload File
+              </label>
+            </div>
+            <div class="col-3 pl-0">
+              <label for="curriculumUpload" id="curriculumUpload">
+                <i class="far fa-folder fa-3x"></i>
+                <input type="file" accept="pdf/*" formControlName="curriculum" class="form-control-file"
+                  id="curriculumInput" placeholder="Upload your CV in pdf format." (change)="uploadCV($event)" />
+              </label>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </ngb-panel>
 
-  <div id="myWork" >
-    <!-- <app-briefcase-edit></app-briefcase-edit> -->
-    BRIEFCASES
-  </div>
+    <ngb-panel id="my-work" title="My Work">
+      <ng-template ngbPanelContent>
+        <div id="myWork">
+          <!-- <app-briefcase-edit></app-briefcase-edit> -->
+          BRIEFCASES
+        </div>
+      </ng-template>
+    </ngb-panel>
 
+    <ngb-panel id="comments" title="Extra Comments">
+      <ng-template ngbPanelContent>
+        <div class="form-group row py-5 mx-auto">
+          <label for="commentsInput" style="color: #6c757d;">Resume!</label>
+          <textarea class="form-control" id="commentsInputText" formControlName="comments"
+            placeholder="Enter some comments about your skills and previous jobs to enrich your profile..."></textarea>
+        </div>
+      </ng-template>
+    </ngb-panel>
 
-
-      <div class="form-group row py-5 mx-auto">
-        <label for="commentsInput" style="color: #6c757d;">Resume!</label>
-        <textarea class="form-control" id="commentsInputText" formControlName="comments"
-          placeholder="Enter some comments about your skills and previous jobs to enrich your profile..."></textarea>
-      </div>
-
-
-
+  </ngb-accordion>
 
 </form>
 
