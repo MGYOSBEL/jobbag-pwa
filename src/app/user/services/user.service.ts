@@ -68,13 +68,18 @@ export class UserService {
   }
 
   edit(data: any): Observable<User> {
-    console.log('data request: ' ,  data);
-    return this.http.put<APIResponse>(this.apiPath + '/user', data).pipe(
+    const req = {
+      client_id: environment.clientId,
+      client_secret: environment.clientSecret,
+      user: data
+    };
+    console.log('data request: ' ,  req);
+    return this.http.put<APIResponse>(this.apiPath + '/user', req).pipe(
       map(response => {
         const content = JSON.parse(response.content);
         console.log(content);
         if (response.status_code === 200) {
-          localStorage.setItem('User', JSON.stringify(data.user));
+          localStorage.setItem('User', JSON.stringify(req.user));
           return content;
         } else {
           return {

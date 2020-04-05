@@ -28,30 +28,26 @@
     <input type="email" class="form-control" id="email" formControlName="email">
   </div>
 
-  <div id="profile" class="content container fade">
-    <div class="form-group row py-5 mx-auto">
-      <input type="radio" class="form-check-input" name="accountType" formControlName="accountType"
-        value="PERSONAL">
+    <div class="form-group ">
+      <input type="radio" class="form-check-input" name="accountType" formControlName="accountType" value="PERSONAL">
       <label for="accountName" class="form-check-label">Personal Account</label>
       <input type="text" class="form-control" formControlName="accountName" id="accountName"
         [ngClass]="editProfileForm.get('accountName').invalid && (editProfileForm.get('accountName').dirty || editProfileForm.get('accountName').touched) ? 'is-invalid' : '' "
         placeholder="Name">
     </div>
-    <div class="form-group row mx-auto">
-      <input type="radio" class="form-check-input" name="accountType" formControlName="accountType"
-        value="COMPANY">
+    <div class="form-group ">
+      <input type="radio" class="form-check-input" name="accountType" formControlName="accountType" value="COMPANY">
       <label for="exampleInputEmail1" class="form-check-label">Company Account</label>
       <input type="text" class="form-control" formControlName="companyName" id="exampleInputEmail1"
         [ngClass]="editProfileForm.get('companyName').invalid && (editProfileForm.get('companyName').dirty || editProfileForm.get('companyName').touched) ? 'is-invalid' : '' "
         placeholder="Company or Family Name">
     </div>
-  </div>
 
 
   <div class="form-group">
     <label for="pictureInput" class="">
-      <input class="" id="pictureInput" type="file" formControlName="profilePicture"
-        (change)="uploadPicture($event)" accept="image/*" />
+      <input class="" id="pictureInput" type="file" formControlName=" " (change)="uploadPicture($event)"
+        accept="image/*" />
       <svg *ngIf="!activeProfile.picture" class="svg-add-user mx-auto d-block" xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 230.41 230.41">
         <defs>
@@ -95,9 +91,40 @@
   </div>
 
 
+  <div class="form-group row py-5 mx-auto">
+    <label for="curriculumDescription" style="color: #6c757d;">Curriculum Description!</label>
+    <div class="row">
+      <div class="col-9 pr-0">
+        <label for="curriculumLabel" id="curriculumLabel">
+          Upload File
+        </label>
+      </div>
+      <div class="col-3 pl-0">
+        <label for="curriculumUpload" id="curriculumUpload">
+          <i class="far fa-folder fa-3x"></i>
+          <input type="file" accept="pdf/*" formControlName="curriculum" class="form-control-file" id="curriculumInput"
+            placeholder="Upload your CV in pdf format." (change)="uploadCV($event)" />
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <div id="myWork" >
+    <!-- <app-briefcase-edit></app-briefcase-edit> -->
+    BRIEFCASES
+  </div>
+
+
+
+      <div class="form-group row py-5 mx-auto">
+        <label for="commentsInput" style="color: #6c757d;">Resume!</label>
+        <textarea class="form-control" id="commentsInputText" formControlName="comments"
+          placeholder="Enter some comments about your skills and previous jobs to enrich your profile..."></textarea>
+      </div>
+
+
+
+
 </form>
 
-
-previewUrl: {{previewUrl}}
-activeProfile: {{activeProfile | json}}
-
+<button type="button" (click)="saveProfile()">Save</button>
