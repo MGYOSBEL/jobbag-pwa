@@ -1,4 +1,4 @@
-<div class="container bg-faded py-5" id="create-profile-container">
+<div  class="container bg-faded py-5" id="create-profile-container">
   <div class="row justify-content-center">
     <div class="col-4" id="stepper-section">
       <div id="stepper1" class="bs-stepper">
@@ -15,31 +15,31 @@
               <span class="bs-stepper-label">Picture</span>
             </button>
           </div>
-          <div *ngIf="role==='SERVICE_PROVIDER'" class="step" data-target="#countries">
+          <div [hidden]="role==='CLIENT'" class="step" data-target="#countries">
             <button class="step-trigger">
               <span class="bs-stepper-circle">3</span>
               <span class="bs-stepper-label">Countries</span>
             </button>
           </div>
-          <div *ngIf="role==='SERVICE_PROVIDER'" class="step" data-target="#services">
+          <div [hidden]="role==='CLIENT'" class="step" data-target="#services">
             <button class="step-trigger">
               <span class="bs-stepper-circle">4</span>
               <span class="bs-stepper-label">Services</span>
             </button>
           </div>
-          <div *ngIf="role==='SERVICE_PROVIDER'" class="step" data-target="#curriculum">
+          <div [hidden]="role==='CLIENT'" class="step" data-target="#curriculum">
             <button class="step-trigger">
               <span class="bs-stepper-circle">5</span>
               <span class="bs-stepper-label">CV</span>
             </button>
           </div>
-          <div *ngIf="role==='SERVICE_PROVIDER'" class="step" data-target="#myWork">
+          <div [hidden]="role==='CLIENT'" class="step" data-target="#myWork">
             <button class="step-trigger">
               <span class="bs-stepper-circle">6</span>
               <span class="bs-stepper-label">My Work</span>
             </button>
           </div>
-          <div *ngIf="role==='SERVICE_PROVIDER'" class="step" data-target="#comments">
+          <div [hidden]="role==='CLIENT'" class="step" data-target="#comments">
             <button class="step-trigger">
               <span class="bs-stepper-circle">7</span>
               <span class="bs-stepper-label">Comments</span>
@@ -112,7 +112,7 @@
                   </div>
                 </div>
               </div>
-              <div *ngIf="role==='SERVICE_PROVIDER'" id="countries" class="content container fade">
+              <div id="countries" class="content container fade">
                 <div class="row justify-content-center">
                   <div class="col-12 py-5">
                     <label for="checkInput" style="color: #6c757d;">Choose a country!</label>
@@ -135,7 +135,7 @@
                   </div>
                 </div>
               </div>
-              <div *ngIf="role==='SERVICE_PROVIDER'" id="services" class="content container fade">
+              <div id="services" class="content container fade">
                 <div class="row justify-content-center">
                   <div class="col-12">
                     <div class="form-group row py-5 mx-auto">
@@ -146,7 +146,7 @@
                   </div>
                 </div>
               </div>
-              <div *ngIf="role==='SERVICE_PROVIDER'" id="curriculum" class="content">
+              <div id="curriculum" class="content">
                 <div class="row justify-content-center">
                   <div class="col-12">
                     <div class="form-group row py-5 mx-auto">
@@ -170,10 +170,10 @@
                   </div>
                 </div>
               </div>        
-              <div *ngIf="role==='SERVICE_PROVIDER'" id="myWork" class="content container fade">            
+              <div id="myWork" class="content container fade">            
                 <app-briefcase-edit></app-briefcase-edit>
               </div>
-              <div *ngIf="role==='SERVICE_PROVIDER'" id="comments" class="content container fade">
+              <div id="comments" class="content container fade">
                 <div class="form-group row text-center" id="form-group-comments">
                   <div class="form-group row py-5 mx-auto">
                     <label for="commentsInput" style="color: #6c757d;">Resume!</label>
