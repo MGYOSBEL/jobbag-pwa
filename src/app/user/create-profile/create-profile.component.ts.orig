@@ -72,26 +72,16 @@ export class CreateProfileComponent implements OnInit {
    }
 
   ngOnInit() {
-<<<<<<< HEAD
 
     this.stepper = new Stepper(document.querySelector('.bs-stepper'), {
-=======
-    this.countries$ = this.countryService.get();
-
-    this.stepper = new Stepper(document.querySelector('#stepper1'), {
->>>>>>> user-devEditProfileComponent
       linear: false,
       animation: true
     });
-<<<<<<< HEAD
 
     console.log((this.stepper));
 
 
     this.role = this.route.snapshot.queryParams.role;
-=======
-    this.role = 'SERVICE_PROVIDER'; // Aca debe ir el param role del activatedRouteSnapshot
->>>>>>> user-devEditProfileComponent
 
     this.profileForm.get('accountType').valueChanges.subscribe(
       value => {
