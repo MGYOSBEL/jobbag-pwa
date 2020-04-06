@@ -71,11 +71,14 @@ export class CreateProfileComponent implements OnInit {
       linear: false,
       animation: true
     });
+<<<<<<< HEAD
 
     console.log((this.stepper));
 
 
+=======
     this.role = this.route.snapshot.queryParams.role;
+>>>>>>> c01b402df6ffd7aa31e9a1f777e8b4ab8bdd9bdb
 
     this.profileForm.get('accountType').valueChanges.subscribe(
       value => {
