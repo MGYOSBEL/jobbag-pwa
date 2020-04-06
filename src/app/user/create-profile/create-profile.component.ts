@@ -10,7 +10,7 @@ import { AuthenticationService } from '@app/auth/services/authentication.service
 import { environment } from '@environments/environment';
 import { BriefcaseService } from '../services/briefcase.service';
 import { ActiveProfileService } from '../services/active-profile.service';
-import { Country } from '../models/country.model';
+import { Country, DivisionValue, DivisionElement } from '../models/country.model';
 import { CountryService } from '../services/country.service';
 
 const states = ['Alabama', 'Alaska', 'American Samoa', 'Arizona', 'Arkansas', 'California', 'Colorado',
@@ -40,6 +40,7 @@ export class CreateProfileComponent implements OnInit {
   cvUrl: any;
   name: AbstractControl;
   countries$: Observable<Country>;
+  divisions: string[];
 
 
   constructor(private formBuilder: FormBuilder,
@@ -188,6 +189,11 @@ export class CreateProfileComponent implements OnInit {
     };
     this.imageLoaded = true;
 
+  }
+
+  selectDivision(division: DivisionElement) {
+    // this.divisions = (division.divisions as Array<any>).map(elem => elem.nameEs);
+    console.log(division);
   }
 
    search = (text$: Observable<string>) =>
