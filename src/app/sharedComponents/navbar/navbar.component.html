@@ -54,24 +54,11 @@
             </div>
 
             </div>
-          <!-- <div class="row justify-content-end">
-            <a class="dropdown-toggle" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <span class="fas fa-edit" alt="Edit"></span>
-            </a>
-            <div class="dropdown-menu ">
-              <a class="dropdown-item text-dark" (click)="toServiceProvider()">Service Provider</a>
-              <a class="dropdown-item text-dark" (click)="toClient()">Customer </a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item text-dark" [routerLink]="['user',userId,'edit-user']" routerLinkActive="active">Edit Profile</a>
-              <a class="dropdown-item text-dark" (click)="signout()">Sign Out</a>
 
-            </div>
-          </div> -->
         </div>
-        <div class="col-6">
-          {{activeProfileService.activeProfile.picture}}
+        <div class="col-6" >
           <div *ngIf="activeProfileService.activeProfile.picture.length !== 0" class="svg-add-user">
-            <img src="http://jobbag.api/uploads/pictures/Elves-5e844b3c5d52a.png">
+            <img [src]="userImageUrl" class="img img-fluid col-12" >
           </div>
           <div *ngIf="activeProfileService.activeProfile.picture.length === 0">
             <svg class="svg-add-user" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230.41 230.41">

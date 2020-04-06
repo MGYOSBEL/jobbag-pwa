@@ -1,1 +1,29 @@
-@import '../../assets/icons/iconfont/style.css';
+/* @import '../../assets/icons/iconfont/style.css'; */
+
+
+.svg-add-user{
+  width: 8rem;
+  width: 8rem;
+  height: 8rem;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.add-badge{
+  position: absolute;
+  left: 12rem;
+  bottom: 6.3rem;
+  background:#2985c4;
+  border-radius: 25px 25px 25px 25px;
+  color:white;
+  font-size: 1.3rem;
+  padding: 3px 10px;
+  font-weight: bolder;
+  cursor: pointer;
+}
+
+.avatar-img{
+  height: 4rem;
+  cursor: pointer;
+}

@@ -10,6 +10,8 @@ import { AuthenticationService } from '@app/auth/services/authentication.service
 import { environment } from '@environments/environment';
 import { BriefcaseService } from '../services/briefcase.service';
 import { ActiveProfileService } from '../services/active-profile.service';
+import { Country, DivisionValue, DivisionElement } from '../models/country.model';
+import { CountryService } from '../services/country.service';
 
 const states = ['Alabama', 'Alaska', 'American Samoa', 'Arizona', 'Arkansas', 'California', 'Colorado',
   'Connecticut', 'Delaware', 'District Of Columbia', 'Federated States Of Micronesia', 'Florida', 'Georgia',
@@ -37,6 +39,9 @@ export class CreateProfileComponent implements OnInit {
   imageLoaded: boolean;
   cvUrl: any;
   name: AbstractControl;
+  countries$: Observable<Country>;
+  divisions: string[];
+
 
   constructor(private formBuilder: FormBuilder,
               private authenticationService: AuthenticationService,
@@ -44,6 +49,7 @@ export class CreateProfileComponent implements OnInit {
               private activeProfileService: ActiveProfileService,
               private briefcaseService: BriefcaseService,
               private errorService: ErrorService,
+              private countryService: CountryService,
               private router: Router,
               private route: ActivatedRoute
               ) {
@@ -66,16 +72,13 @@ export class CreateProfileComponent implements OnInit {
    }
 
   ngOnInit() {
+    this.countries$ = this.countryService.get();
 
-    this.stepper = new Stepper(document.querySelector('.bs-stepper'), {
+    this.stepper = new Stepper(document.querySelector('#stepper1'), {
       linear: false,
       animation: true
     });
-
-    console.log((this.stepper));
-
-
-    this.role = this.route.snapshot.queryParams.role;
+    this.role = 'SERVICE_PROVIDER'; // Aca debe ir el param role del activatedRouteSnapshot
 
     this.profileForm.get('accountType').valueChanges.subscribe(
       value => {
@@ -188,6 +191,11 @@ export class CreateProfileComponent implements OnInit {
     };
     this.imageLoaded = true;
 
+  }
+
+  selectDivision(division: DivisionElement) {
+    // this.divisions = (division.divisions as Array<any>).map(elem => elem.nameEs);
+    console.log(division);
   }
 
    search = (text$: Observable<string>) =>
