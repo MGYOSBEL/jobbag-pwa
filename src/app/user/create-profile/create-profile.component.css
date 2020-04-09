@@ -71,8 +71,12 @@
   border-radius: 0 !important;
 }
 
-
 /*Section Picture*/
+#pictureInput{
+  visibility: hidden;
+  width: 0;
+}
+
 .svg-add-user{
   width: 8rem;
   width: 8rem;
@@ -141,25 +145,35 @@
 }
 
 .btn-previous, .btn-next{
-  background-image: url(../../../assets/icons/SVG/back.svg);
-  background-repeat: no-repeat;
-  background-position: center;
   width: 4.5rem;
   height: 3.5rem;
-  background-size: 2.5rem;
-  background-color:#bebcbe;
-  border: 0rem;
+  background-size: 2.5rem;  
   box-shadow: none;
 }
 
-.btn-previous{
+.svg-arrow-left{
   transform: rotate(180deg);
 }
 
-#pictureInput{
-  visibility: hidden;
-  width: 0;
+.svg-arrow-left:disabled, .svg-arrow-right:disabled{
+  fill:#9B9B9B;
+  width: 70%;
 }
+
+.svg-arrow-left, .svg-arrow-right{
+  fill:#2888C7;
+  width: 70%;
+}
+
+.svg-arrow-left:hover, .svg-arrow-right:hover{
+  fill:#2880A9;
+  width: 70%;
+}
+
+
+
+
+
 
 
 

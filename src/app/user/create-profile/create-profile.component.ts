@@ -41,7 +41,7 @@ export class CreateProfileComponent implements OnInit {
   name: AbstractControl;
   countries$: Observable<Country>;
   divisions: string[];
-
+  activeStep:number;
 
   constructor(private formBuilder: FormBuilder,
               private authenticationService: AuthenticationService,
@@ -54,8 +54,7 @@ export class CreateProfileComponent implements OnInit {
               private route: ActivatedRoute
               ) {
 
-    this.role = this.route.snapshot.queryParams.role;
-
+    this.role = this.route.snapshot.queryParams.role;        
 
     this.imageLoaded = false;
     this.profileForm = this.formBuilder.group({
@@ -79,6 +78,11 @@ export class CreateProfileComponent implements OnInit {
       animation: true
     });
     
+    document.getElementById('stepper1').addEventListener('shown.bs-stepper', (e: any) => {
+      console.log(e.detail);
+      this.activeStep = e.detail.indexStep;
+    });
+
     this.role = this.route.snapshot.queryParams.role; // Aca debe ir el param role del activatedRouteSnapshot
 
     this.profileForm.get('accountType').valueChanges.subscribe(

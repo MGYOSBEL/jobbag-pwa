@@ -1,4 +1,4 @@
-<div  class="container bg-faded py-5" id="create-profile-container">
+<div class="container bg-faded py-5" id="create-profile-container">
   <div class="row justify-content-center">
     <div class="col-4" id="stepper-section">
       <div id="stepper1" class="bs-stepper">
@@ -82,7 +82,7 @@
                             }
                           </style>
                         </defs>
-                        <title>user-image</title>
+                        <title>Profile Picture</title>
                         <g id="Layer_2" data-name="Layer 2">
                           <g id="Layer_1-2" data-name="Layer 1">
                             <path class="cls-1"
@@ -98,37 +98,38 @@
                     <div class="row">
                       <div class="col-3 mx-auto">
                         <img src="../../../assets/img/worker.png" class="avatar-img" alt="Responsive image"
-                          (click)="uploadAvatar($event)">
+                          title="workman" (click)="uploadAvatar($event)">
                       </div>
                       <div class="col-3 mx-auto">
                         <img src="../../../assets/img/officer.png" class="avatar-img" alt="Responsive image"
-                          (click)="uploadAvatar($event)">
+                          title="office worker" (click)="uploadAvatar($event)">
                       </div>
                       <div class="col-3 mx-auto">
                         <img src="../../../assets/img/worker-2.png" class="avatar-img" alt="Responsive image"
-                          (click)="uploadAvatar($event)">
+                          title="hard-worker" (click)="uploadAvatar($event)">
                       </div>
                       <div class="col-3 mx-auto">
                         <img src="../../../assets/img/lawyer.png" class="avatar-img" alt="Responsive image"
-                          (click)="uploadAvatar($event)">
+                          title="employee" (click)="uploadAvatar($event)">
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div id="countries" class="content container fade">
+              <div [hidden]="role==='CLIENT'" id="countries" class="content container fade">
                 <div class="row justify-content-center">
                   <div class="col-12 py-5">
                     <div class="row justify-content-center">
                       <div class="col " *ngFor="let country of (countries$ | async)">
                         <div class="dropdown">
-                          <button class="btn btn-primary mt-5 rounded-0 border-0 text-light " type="button" id="countryDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <button class="btn btn-primary mt-5 rounded-0 border-0 text-light " type="button"
+                            id="countryDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             {{country.nameEn}}
                           </button>
                           <div class="dropdown-menu" aria-labelledby="countryDropdown">
                             <button *ngFor="let division of country.divisions" class="dropdown-item" type="button"
-                            (click)="selectDivision(division)">
-                            {{division.nameEs}}</button>
+                              (click)="selectDivision(division)">
+                              {{division.nameEs}}</button>
                           </div>
                         </div>
                       </div>
@@ -139,7 +140,7 @@
                   </div>
                 </div>
               </div>
-              <div id="services" class="content container fade">
+              <div [hidden]="role==='CLIENT'" id="services" class="content container fade">
                 <div class="row justify-content-center">
                   <div class="col-12">
                     <div class="form-group row py-5 mx-auto">
@@ -150,7 +151,7 @@
                   </div>
                 </div>
               </div>
-              <div id="curriculum" class="content">
+              <div [hidden]="role==='CLIENT'" id="curriculum" class="content">
                 <div class="row justify-content-center">
                   <div class="col-12">
                     <div class="form-group row py-5 mx-auto">
@@ -174,10 +175,10 @@
                   </div>
                 </div>
               </div>
-              <div id="myWork" class="content container fade">
+              <div [hidden]="role==='CLIENT'" id="myWork" class="content container fade">
                 <app-briefcase-edit></app-briefcase-edit>
               </div>
-              <div id="comments" class="content container fade">
+              <div [hidden]="role==='CLIENT'" id="comments" class="content container fade">
                 <div class="form-group row text-center" id="form-group-comments">
                   <div class="form-group row py-5 mx-auto">
                     <label for="commentsInput" style="color: #6c757d;">Resume!</label>
@@ -189,11 +190,49 @@
             </form>
           </div>
           <div class="row justify-content-between" id="btn-row">
-            <button type="button" class="col-3 btn btn-previous mt-5 rounded-0" (click)="previous()"></button>
-            <button type="button" class=" col-4 btn btn-primary mt-5 rounded-0 border-0 text-light"
-              style="background-color: #2985c4 ;" (click)="createUserProfile()"
-              [disabled]="profileForm.invalid">Send</button>
-            <button type="button" class="col-3 btn btn-next mt-5 rounded-0" (click)="next()"></button>
+            <button [disabled]="activeStep === 0" type="button" class="col-3 btn btn-previous mt-5 rounded-0"
+              style="background-color: #BFBDBE;" data-toggle="tooltip" data-placement="top" title="Forward"
+              (click)="previous()">
+              <svg class="svg-arrow-left" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20.01 16.15">
+                <defs>
+                  <style>
+                    .cls-1 {
+                      fill: #2888C7;
+                    }
+                  </style>
+                </defs>
+                <title>Forward</title>
+                <g id="Capa_2" data-name="Capa 2">
+                  <g id="Isolation_Mode" data-name="Isolation Mode">
+                    <path
+                      d="M1,9.07H16.59l-5.36,5.37a1,1,0,0,0,0,1.42,1,1,0,0,0,1.41,0l7.07-7.08h0l.13-.15a.3.3,0,0,0,0-.08.41.41,0,0,0,.05-.09.45.45,0,0,0,0-.11l0-.08a1.23,1.23,0,0,0,0-.2h0a1.23,1.23,0,0,0,0-.19l0-.09,0-.1a.93.93,0,0,0-.05-.1l0-.07a.64.64,0,0,0-.13-.15L12.64.29a1,1,0,0,0-1.41,0,1,1,0,0,0,0,1.42l5.36,5.36H1a1,1,0,0,0,0,2Z" />
+                  </g>
+                </g>
+              </svg>
+            </button>
+            <button type="button" class=" col-4 btn btn-send mt-5 rounded-0 border-0 text-light" data-toggle="tooltip"
+              data-placement="top" title="Send" style="background-color: #2688C6; font-size: 1.25rem;"
+              (click)="createUserProfile()" [disabled]="profileForm.invalid">SEND</button>
+            <button [disabled]="activeStep === 6" [disabled]="(role === 'CLIENT')&&(activeStep === 1)" type=" button" class="col-3 btn btn-next mt-5 rounded-0"
+              style="background-color: #BFBDBE" data-toggle="tooltip" data-placement="top" title="Next"
+              (click)="next()">
+              <svg class="svg-arrow-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20.01 16.15">
+                <defs>
+                  <style>
+                    .cls-1 {
+                      fill: #2888C7;
+                    }
+                  </style>
+                </defs>
+                <title>Next</title>
+                <g id="Capa_2" data-name="Capa 2">
+                  <g id="Isolation_Mode" data-name="Isolation Mode">
+                    <path
+                      d="M1,9.07H16.59l-5.36,5.37a1,1,0,0,0,0,1.42,1,1,0,0,0,1.41,0l7.07-7.08h0l.13-.15a.3.3,0,0,0,0-.08.41.41,0,0,0,.05-.09.45.45,0,0,0,0-.11l0-.08a1.23,1.23,0,0,0,0-.2h0a1.23,1.23,0,0,0,0-.19l0-.09,0-.1a.93.93,0,0,0-.05-.1l0-.07a.64.64,0,0,0-.13-.15L12.64.29a1,1,0,0,0-1.41,0,1,1,0,0,0,0,1.42l5.36,5.36H1a1,1,0,0,0,0,2Z" />
+                  </g>
+                </g>
+              </svg>
+            </button>
           </div>
         </div>
       </div>
