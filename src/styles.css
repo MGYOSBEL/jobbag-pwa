@@ -44,3 +44,22 @@
   box-shadow: 0 10px 10px -10px rgba(0, 0, 0, 0.5);
   transform: scale(0.9);  
 }
+
+.btn-edit:hover:enabled{
+  background-color: #2688C6;
+  color:#D6D6D6;
+  box-shadow: 0 10px 10px -10px rgba(0, 0, 0, 0.5);
+  transform: scale(1.1);  
+}
+
+.btn-edit:hover:disabled{
+  background-color: #94C4E3;
+  cursor: not-allowed; 
+}
+
+.btn-edit:active:enabled{
+  background-color: #2688C6;
+  color:#D6D6D6;
+  box-shadow: 0 10px 10px -10px rgba(0, 0, 0, 0.5);
+  transform: scale(0.9);  
+}

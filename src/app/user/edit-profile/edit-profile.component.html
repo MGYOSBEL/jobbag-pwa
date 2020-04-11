@@ -1,184 +1,550 @@
-<form [formGroup]="editProfileForm">
-
-  <ngb-accordion [closeOthers]="true" activeIds="profile">
-    <ngb-panel id="user-data" title="User">
-      <ng-template ngbPanelContent>
-        <div class="form-group">
-          <label class="form-text" for="username">
-            Username:
-          </label>
-          <input type="text" class="form-control" id="username" formControlName="username">
-        </div>
-
-        <div class="form-group">
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" id="passwordCheck" (click)="toggleChangePassword($event)">
-            <label class="form-check-label" for="passwordCheck">
-              I want to Change my Password
-            </label>
-          </div>
-          <fieldset [disabled]="!changePassword">
-            <input type="password" class="form-control" id="password" formControlName="password">
-            <input type="password" class="form-control" id="passwordConfirm" formControlName="passwordConfirm">
-          </fieldset>
-        </div>
-
-        <div class="form-group">
-          <label class="form-text" for="email">
-            email:
-          </label>
-          <input type="email" class="form-control" id="email" formControlName="email">
-        </div>
-      </ng-template>
-    </ngb-panel>
-
-    <ngb-panel id="profile" title="Profile">
-      <!-- <ng-template ngbPanelTitle>
-      <span>&#9733; <b>Fancy</b> title &#9733;</span>
-    </ng-template> -->
-      <ng-template ngbPanelContent>
-        <div class="form-group ">
-          <input type="radio" class="form-check-input" name="accountType" formControlName="accountType"
-            value="PERSONAL">
-          <label for="accountName" class="form-check-label">Personal Account</label>
-          <input type="text" class="form-control" formControlName="accountName" id="accountName"
-            [ngClass]="editProfileForm.get('accountName').invalid && (editProfileForm.get('accountName').dirty || editProfileForm.get('accountName').touched) ? 'is-invalid' : '' "
-            placeholder="Name">
-        </div>
-        <div class="form-group ">
-          <input type="radio" class="form-check-input" name="accountType" formControlName="accountType" value="COMPANY">
-          <label for="exampleInputEmail1" class="form-check-label">Company Account</label>
-          <input type="text" class="form-control" formControlName="companyName" id="exampleInputEmail1"
-            [ngClass]="editProfileForm.get('companyName').invalid && (editProfileForm.get('companyName').dirty || editProfileForm.get('companyName').touched) ? 'is-invalid' : '' "
-            placeholder="Company or Family Name">
-        </div>
-      </ng-template>
-    </ngb-panel>
-
-    <ngb-panel id="picture" title="Picture">
-      <ng-template ngbPanelContent>
-        <div class="form-group">
-          <label for="pictureInput" class="">
-            <input class="" id="pictureInput" type="file" formControlName="profilePicture" (change)="uploadPicture($event)"
-              accept="image/*" />
-            <svg *ngIf="!activeProfile.picture" class="svg-add-user mx-auto d-block" xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 230.41 230.41">
-              <defs>
-                <style>
-                  .cls-1 {
-                    fill: #2985c4;
-                  }
-                </style>
-              </defs>
-              <title>user-image</title>
-              <g id="Layer_2" data-name="Layer 2">
-                <g id="Layer_1-2" data-name="Layer 1">
-                  <path class="cls-1"
-                    d="M230.41,115.21A115.21,115.21,0,1,0,35.27,198a6.94,6.94,0,0,0,1.81,1.65,114.54,114.54,0,0,0,156.25,0,6.94,6.94,0,0,0,1.81-1.65A114.79,114.79,0,0,0,230.41,115.21ZM115.21,14.4a100.67,100.67,0,0,1,79,163.22c-6.25-20.14-24.08-35.91-48.28-43.16a52.55,52.55,0,1,0-61.47,0c-24.2,7.25-42,23-48.27,43.16a100.66,100.66,0,0,1,79-163.22ZM77.06,92a38.15,38.15,0,1,1,38.15,38.08A38.15,38.15,0,0,1,77.06,92ZM48.3,190.4c2.16-26.4,30.16-45.94,66.91-45.94S180,164,182.11,190.4a100.2,100.2,0,0,1-133.81,0Z" />
-                </g>
-              </g>
-            </svg>
-            <img *ngIf="activeProfile.picture" [src]="previewUrl" class="rounded-circle svg-add-user mx-auto d-block"
-              alt="Profile Picture">
-            <span class="add-badge">+</span>
-          </label>
-          <h6 class="text-center" style="color: #6c757d;">Upload a picture or select an Avatar</h6>
-          <div class="row">
-            <div class="col-3 mx-auto">
-              <img src="../../../assets/img/worker.png" class="avatar-img" alt="Responsive image"
-                (click)="uploadAvatar($event)">
-            </div>
-            <div class="col-3 mx-auto">
-              <img src="../../../assets/img/officer.png" class="avatar-img" alt="Responsive image"
-                (click)="uploadAvatar($event)">
-            </div>
-            <div class="col-3 mx-auto">
-              <img src="../../../assets/img/worker-2.png" class="avatar-img" alt="Responsive image"
-                (click)="uploadAvatar($event)">
-            </div>
-            <div class="col-3 mx-auto">
-              <img src="../../../assets/img/lawyer.png" class="avatar-img" alt="Responsive image"
-                (click)="uploadAvatar($event)">
+<div class="container bg-faded py-4">
+  <div class="row justify-content-center">
+    <div class="col-8 container-col">
+      <form [formGroup]="editProfileForm">
+        <div class="accordion" id="accordionExample">
+          <div class="card tittle-profile-card" style="border-radius: 0;">
+            <div class="card-header" id="headingMain">
+              <div class="row">
+                <div class="col-10">
+                  <label style="color: white;">
+                    Nombre de Usuario
+                  </label>
+                </div>
+                <div class="col-2 btn-collapse-col">
+                  <button type="button" class="close" aria-label="Close" style="color: white;">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </ng-template>
-    </ngb-panel>
-
-    <ngb-panel id="countries" title="Countries">
-      <ng-template ngbPanelContent>
-        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon
-        officia
-        aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon
-        tempor,
-        sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh
-        helvetica,
-        craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo.
-        Leggings
-        occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them
-        accusamus
-        labore sustainable VHS.
-      </ng-template>
-    </ngb-panel>
-
-    <ngb-panel id="services" title="My Services">
-      <ng-template ngbPanelContent>
-        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon
-        officia
-        aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon
-        tempor,
-        sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh
-        helvetica,
-        craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo.
-        Leggings
-        occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them
-        accusamus
-        labore sustainable VHS.
-      </ng-template>
-    </ngb-panel>
-
-    <ngb-panel id="curriculum" title="Curriculum Vitae">
-      <ng-template ngbPanelContent>
-        <div class="form-group row py-5 mx-auto">
-          <label for="curriculumDescription" style="color: #6c757d;">Curriculum Description!</label>
-          <div class="row">
-            <div class="col-9 pr-0">
-              <label for="curriculumLabel" id="curriculumLabel">
-                Upload File
-              </label>
+          <div class="container-editProfileForm">
+            <div class="container-col-bar">
+              <div class="card">
+                <div class="card-header" id="headingOne">
+                  <div class="row">
+                    <div class="col-10">
+                      <label>
+                        User
+                      </label>
+                    </div>
+                    <div class="col-2 btn-collapse-col">
+                      <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne"
+                        aria-expanded="true" aria-controls="collapseOne">
+                        <i class="fa fa-angle-down" style="font-size:1.5rem;color:#2888C7"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                  <div class="card-body">
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-6">
+                          <label class="form-text" for="username">
+                            Username:
+                          </label>
+                          <input type="text" class="form-control rounded-0" id="username" formControlName="username">
+                        </div>
+                        <div class="col-6">
+                          <div class="form-group">
+                            <label class="form-text" for="email">
+                              Email:
+                            </label>
+                            <input type="email" class="form-control rounded-0"  id="email" formControlName="email">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-12">
+                          <div class="form-group">
+                            <div class="form-check">
+                              <input class="form-check-input" type="checkbox" id="passwordCheck" (click)="toggleChangePassword($event)">
+                              <label class="form-check-label" for="passwordCheck">
+                                I want to Change my Password
+                              </label>
+                            </div>
+                            <fieldset [disabled]="!changePassword">
+                              <br>
+                              <input type="password" class="form-control rounded-0" id="password" formControlName="password">
+                              <br>
+                              <input type="password" class="form-control rounded-0" id="passwordConfirm" formControlName="passwordConfirm">
+                            </fieldset>
+                          </div>
+                        </div>                        
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-header" id="headingTwo">
+                  <div class="row">
+                    <div class="col-10">
+                      <label>
+                        Profile
+                      </label>
+                    </div>
+                    <div class="col-2 btn-collapse-col">
+                      <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseTwo"
+                        aria-expanded="true" aria-controls="collapseTwo">
+                        <i class="fa fa-angle-down" style="font-size:1.5rem;color:#2888C7"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                  <div class="card-body">
+                    <div class="form-group ">
+                      <div class="row">
+                        <div class="col-12">
+                          <input type="radio" class="form-check-input" name="accountType" formControlName="accountType"
+                            value="PERSONAL">
+                          <label for="accountName" class="form-check-label">Personal Account</label>
+                          <input type="text" class="form-control rounded-0" formControlName="accountName" id="accountName"
+                            [ngClass]="editProfileForm.get('accountName').invalid && (editProfileForm.get('accountName').dirty || editProfileForm.get('accountName').touched) ? 'is-invalid' : '' "
+                            placeholder="Name">
+                          <div class="form-group ">
+                            <br>
+                            <input type="radio" class="form-check-input" name="accountType" formControlName="accountType"
+                              value="COMPANY">
+                            <label for="exampleInputEmail1" class="form-check-label">Company Account</label>
+                            <input type="text" class="form-control rounded-0" formControlName="companyName" id="exampleInputEmail1"
+                              [ngClass]="editProfileForm.get('companyName').invalid && (editProfileForm.get('companyName').dirty || editProfileForm.get('companyName').touched) ? 'is-invalid' : '' "
+                              placeholder="Company or Family Name">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-header" id="headingThree">
+                  <div class="row">
+                    <div class="col-10">
+                      <label>
+                        Picture
+                      </label>
+                    </div>
+                    <div class="col-2 btn-collapse-col">
+                      <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseThree"
+                        aria-expanded="true" aria-controls="collapseThree">
+                        <i class="fa fa-angle-down" style="font-size:1.5rem;color:#2888C7"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                  <div class="card-body">          
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-12" style="text-align: center;">
+                          <label for="pictureInput" class="">
+                            <input class="" id="pictureInput" type="file" formControlName="profilePicture"
+                              (change)="uploadPicture($event)" accept="image/*" />
+                            <svg *ngIf="!activeProfile.picture" class="svg-add-user mx-auto d-block"
+                              xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230.41 230.41">
+                              <defs>
+                                <style>
+                                  .cls-1 {
+                                    fill: #2985c4;
+                                  }
+                                </style>
+                              </defs>
+                              <title>user-image</title>
+                              <g id="Layer_2" data-name="Layer 2">
+                                <g id="Layer_1-2" data-name="Layer 1">
+                                  <path class="cls-1"
+                                    d="M230.41,115.21A115.21,115.21,0,1,0,35.27,198a6.94,6.94,0,0,0,1.81,1.65,114.54,114.54,0,0,0,156.25,0,6.94,6.94,0,0,0,1.81-1.65A114.79,114.79,0,0,0,230.41,115.21ZM115.21,14.4a100.67,100.67,0,0,1,79,163.22c-6.25-20.14-24.08-35.91-48.28-43.16a52.55,52.55,0,1,0-61.47,0c-24.2,7.25-42,23-48.27,43.16a100.66,100.66,0,0,1,79-163.22ZM77.06,92a38.15,38.15,0,1,1,38.15,38.08A38.15,38.15,0,0,1,77.06,92ZM48.3,190.4c2.16-26.4,30.16-45.94,66.91-45.94S180,164,182.11,190.4a100.2,100.2,0,0,1-133.81,0Z" />
+                                </g>
+                              </g>
+                            </svg>
+                            <img *ngIf="activeProfile.picture" [src]="previewUrl" class="rounded-circle svg-add-user mx-auto d-block"
+                              alt="Profile Picture">
+                            <span class="add-badge">+</span>
+                          </label>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-12" style="text-align: center;">
+                          <h6 class="text-center" style="color: #6c757d;">Upload a picture or select an Avatar</h6>
+                        </div>                        
+                      </div>
+                      <div class="row">
+                        <div class="col-3 mx-auto">
+                          <img src="../../../assets/img/worker.png" class="avatar-img" alt="Responsive image"
+                            (click)="uploadAvatar($event)">
+                        </div>
+                        <div class="col-3 mx-auto">
+                          <img src="../../../assets/img/officer.png" class="avatar-img" alt="Responsive image"
+                            (click)="uploadAvatar($event)">
+                        </div>
+                        <div class="col-3 mx-auto">
+                          <img src="../../../assets/img/worker-2.png" class="avatar-img" alt="Responsive image"
+                            (click)="uploadAvatar($event)">
+                        </div>
+                        <div class="col-3 mx-auto">
+                          <img src="../../../assets/img/lawyer.png" class="avatar-img" alt="Responsive image"
+                            (click)="uploadAvatar($event)">
+                        </div>
+                      </div>                    
+                    </div>
+          
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-header" id="headingFour">
+                  <div class="row">
+                    <div class="col-10">
+                      <label>
+                        Countries
+                      </label>
+                    </div>
+                    <div class="col-2 btn-collapse-col">
+                      <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseFour"
+                        aria-expanded="true" aria-controls="collapseFour">
+                        <i class="fa fa-angle-down" style="font-size:1.5rem;color:#2888C7"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
+                  <div class="row">
+                    <div class="col-12">
+                      Countries
+                    </div>
+                  </div> 
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-header" id="headingFive">
+                  <div class="row">
+                    <div class="col-10">
+                      <label>
+                        My Services
+                      </label>
+                    </div>
+                    <div class="col-2 btn-collapse-col">
+                      <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseFive"
+                        aria-expanded="true" aria-controls="collapseFive">
+                        <i class="fa fa-angle-down" style="font-size:1.5rem;color:#2888C7"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordionExample">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-12">
+                        My Services
+                      </div>
+                    </div>         
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-header" id="headingSix">
+                  <div class="row">
+                    <div class="col-10">
+                      <label>
+                        Curriculum Vitae
+                      </label>
+                    </div>
+                    <div class="col-2 btn-collapse-col">
+                      <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseSix"
+                        aria-expanded="true" aria-controls="collapseSix">
+                        <i class="fa fa-angle-down" style="font-size:1.5rem;color:#2888C7"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordionExample">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-12">
+                        Curriculum Vitae
+                      </div>
+                    </div>      
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-header" id="headingSeven">
+                  <div class="row">
+                    <div class="col-10">
+                      <label>
+                        My Work
+                      </label>
+                    </div>
+                    <div class="col-2 btn-collapse-col">
+                      <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseSeven"
+                        aria-expanded="true" aria-controls="collapseSeven">
+                        <i class="fa fa-angle-down" style="font-size:1.5rem;color:#2888C7"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-parent="#accordionExample">
+                  <div class="card-body">
+          
+                    <app-briefcase-edit></app-briefcase-edit>
+          
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-header" id="headingEight">
+                  <div class="row">
+                    <div class="col-10">
+                      <label>
+                        Comments
+                      </label>
+                    </div>
+                    <div class="col-2 btn-collapse-col">
+                      <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseEight"
+                        aria-expanded="true" aria-controls="collapseEight">
+                        <i class="fa fa-angle-down" style="font-size:1.5rem;color:#2888C7"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div id="collapseEight" class="collapse" aria-labelledby="headingEight" data-parent="#accordionExample">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="form-group mx-auto">
+                          <textarea class="form-control" id="commentsInputText" formControlName="comments"
+                            placeholder="Enter some comments about your skills and previous jobs to enrich your profile..."></textarea>
+                        </div>
+                      </div>
+                    </div>                    
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="col-3 pl-0">
-              <label for="curriculumUpload" id="curriculumUpload">
-                <i class="far fa-folder fa-3x"></i>
-                <input type="file" accept="pdf/*" formControlName="curriculum" class="form-control-file"
-                  id="curriculumInput" placeholder="Upload your CV in pdf format." (change)="uploadCV($event)" />
-              </label>
+          </div>
+          <div class="card text-right">
+            <div class="card-footer accordion-footer rounded-0">
+              <button type="button" class="col-2 btn btn-edit rounded-0" style="background-color: #2888C7;"
+                data-toggle="tooltip" data-placement="top" title="Edit" (click)="saveProfile()">
+                <svg xmlns="http://www.w3.org/2000/svg" style="width: 1.5rem;" viewBox="0 0 283.11 280.36">
+                  <defs>
+                    <style>
+                      .cls-1 {
+                        fill: #FFFFFF;
+                      }
+                    </style>
+                  </defs>
+                  <title>user-edit</title>
+                  <g id="Layer_2" data-name="Layer 2">
+                    <g id="Layer_1-2" data-name="Layer 1">
+                      <rect class="cls-1" x="110.66" y="66.99" width="143.81" height="68.78"
+                        transform="translate(-18.22 158.77) rotate(-45)" />
+                      <path class="cls-1"
+                        d="M275.65,22.05,260.05,6.46a22,22,0,0,0-31.18,0L217.93,17.39,266.56,66,277.5,55.08C286.11,46.48,284.26,30.66,275.65,22.05Z" />
+                      <polygon class="cls-1" points="100.04 137.99 100.04 186.57 145.34 186.57 100.04 137.99" />
+                      <path class="cls-1"
+                        d="M181.32,249.1H31.26V99h78.5L141,67.78H21.88C11.52,67.78,0,73.05,0,83.41V258.47c0,10.36,11.52,21.89,21.88,21.89H197c10.35,0,15.63-11.53,15.63-21.89V146.53L181.32,177.8Z" />
+                    </g>
+                  </g>
+                </svg>
+                <label style="color: white; font-size: 1rem;">EDIT</label>
+              </button>
             </div>
           </div>
         </div>
-      </ng-template>
-    </ngb-panel>
+      </form>
+    </div>
+  </div>
+</div>
 
-    <ngb-panel id="my-work" title="My Work">
-      <ng-template ngbPanelContent>
-        <div id="myWork">
-          <app-briefcase-edit></app-briefcase-edit>
-        </div>
-      </ng-template>
-    </ngb-panel>
+<!-- <form [formGroup]="editProfileForm">
 
-    <ngb-panel id="comments" title="Extra Comments">
-      <ng-template ngbPanelContent>
-        <div class="form-group row py-5 mx-auto">
-          <label for="commentsInput" style="color: #6c757d;">Resume!</label>
-          <textarea class="form-control" id="commentsInputText" formControlName="comments"
-            placeholder="Enter some comments about your skills and previous jobs to enrich your profile..."></textarea>
-        </div>
-      </ng-template>
-    </ngb-panel>
+        <ngb-accordion [closeOthers]="true" activeIds="profile">
+          <ngb-panel id="user-data" title="User">
+            <i class="fa fa-angle-down" style="font-size:48px;color:2888C7"></i>
+            <ng-template ngbPanelContent>
+              <div class="form-group">
+                <label class="form-text" for="username">
+                  Username:
+                </label>
+                <input type="text" class="form-control" id="username" formControlName="username">
+              </div>
 
-  </ngb-accordion>
+              <div class="form-group">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="passwordCheck"
+                    (click)="toggleChangePassword($event)">
+                  <label class="form-check-label" for="passwordCheck">
+                    I want to Change my Password
+                  </label>
+                </div>
+                <fieldset [disabled]="!changePassword">
+                  <input type="password" class="form-control" id="password" formControlName="password">
+                  <input type="password" class="form-control" id="passwordConfirm" formControlName="passwordConfirm">
+                </fieldset>
+              </div>
 
-</form>
+              <div class="form-group">
+                <label class="form-text" for="email">
+                  email:
+                </label>
+                <input type="email" class="form-control" id="email" formControlName="email">
+              </div>
+            </ng-template>
+          </ngb-panel>
 
-<button type="button" (click)="saveProfile()">Save</button>
+          <ngb-panel id="profile" title="Profile">
+            
+            <ng-template ngbPanelContent>
+              <div class="form-group ">
+                <input type="radio" class="form-check-input" name="accountType" formControlName="accountType"
+                  value="PERSONAL">
+                <label for="accountName" class="form-check-label">Personal Account</label>
+                <input type="text" class="form-control" formControlName="accountName" id="accountName"
+                  [ngClass]="editProfileForm.get('accountName').invalid && (editProfileForm.get('accountName').dirty || editProfileForm.get('accountName').touched) ? 'is-invalid' : '' "
+                  placeholder="Name">
+              </div>
+              <div class="form-group ">
+                <input type="radio" class="form-check-input" name="accountType" formControlName="accountType"
+                  value="COMPANY">
+                <label for="exampleInputEmail1" class="form-check-label">Company Account</label>
+                <input type="text" class="form-control" formControlName="companyName" id="exampleInputEmail1"
+                  [ngClass]="editProfileForm.get('companyName').invalid && (editProfileForm.get('companyName').dirty || editProfileForm.get('companyName').touched) ? 'is-invalid' : '' "
+                  placeholder="Company or Family Name">
+              </div>
+            </ng-template>
+          </ngb-panel>
+
+          <ngb-panel id="picture" title="Picture">
+            <ng-template ngbPanelContent>
+              <div class="form-group">
+                <label for="pictureInput" class="">
+                  <input class="" id="pictureInput" type="file" formControlName="profilePicture"
+                    (change)="uploadPicture($event)" accept="image/*" />
+                  <svg *ngIf="!activeProfile.picture" class="svg-add-user mx-auto d-block"
+                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230.41 230.41">
+                    <defs>
+                      <style>
+                        .cls-1 {
+                          fill: #2985c4;
+                        }
+                      </style>
+                    </defs>
+                    <title>user-image</title>
+                    <g id="Layer_2" data-name="Layer 2">
+                      <g id="Layer_1-2" data-name="Layer 1">
+                        <path class="cls-1"
+                          d="M230.41,115.21A115.21,115.21,0,1,0,35.27,198a6.94,6.94,0,0,0,1.81,1.65,114.54,114.54,0,0,0,156.25,0,6.94,6.94,0,0,0,1.81-1.65A114.79,114.79,0,0,0,230.41,115.21ZM115.21,14.4a100.67,100.67,0,0,1,79,163.22c-6.25-20.14-24.08-35.91-48.28-43.16a52.55,52.55,0,1,0-61.47,0c-24.2,7.25-42,23-48.27,43.16a100.66,100.66,0,0,1,79-163.22ZM77.06,92a38.15,38.15,0,1,1,38.15,38.08A38.15,38.15,0,0,1,77.06,92ZM48.3,190.4c2.16-26.4,30.16-45.94,66.91-45.94S180,164,182.11,190.4a100.2,100.2,0,0,1-133.81,0Z" />
+                      </g>
+                    </g>
+                  </svg>
+                  <img *ngIf="activeProfile.picture" [src]="previewUrl"
+                    class="rounded-circle svg-add-user mx-auto d-block" alt="Profile Picture">
+                  <span class="add-badge">+</span>
+                </label>
+                <h6 class="text-center" style="color: #6c757d;">Upload a picture or select an Avatar</h6>
+                <div class="row">
+                  <div class="col-3 mx-auto">
+                    <img src="../../../assets/img/worker.png" class="avatar-img" alt="Responsive image"
+                      (click)="uploadAvatar($event)">
+                  </div>
+                  <div class="col-3 mx-auto">
+                    <img src="../../../assets/img/officer.png" class="avatar-img" alt="Responsive image"
+                      (click)="uploadAvatar($event)">
+                  </div>
+                  <div class="col-3 mx-auto">
+                    <img src="../../../assets/img/worker-2.png" class="avatar-img" alt="Responsive image"
+                      (click)="uploadAvatar($event)">
+                  </div>
+                  <div class="col-3 mx-auto">
+                    <img src="../../../assets/img/lawyer.png" class="avatar-img" alt="Responsive image"
+                      (click)="uploadAvatar($event)">
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+          </ngb-panel>
+
+          <ngb-panel id="countries" title="Countries">
+            <ng-template ngbPanelContent>
+              Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf
+              moon
+              officia
+              aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf
+              moon
+              tempor,
+              sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh
+              helvetica,
+              craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo.
+              Leggings
+              occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them
+              accusamus
+              labore sustainable VHS.
+            </ng-template>
+          </ngb-panel>
+
+          <ngb-panel id="services" title="My Services">
+            <ng-template ngbPanelContent>
+              Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf
+              moon
+              officia
+              aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf
+              moon
+              tempor,
+              sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh
+              helvetica,
+              craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo.
+              Leggings
+              occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them
+              accusamus
+              labore sustainable VHS.
+            </ng-template>
+          </ngb-panel>
+
+          <ngb-panel id="curriculum" title="Curriculum Vitae">
+            <ng-template ngbPanelContent>
+              <div class="form-group row py-5 mx-auto">
+                <label for="curriculumDescription" style="color: #6c757d;">Curriculum Description!</label>
+                <div class="row">
+                  <div class="col-9 pr-0">
+                    <label for="curriculumLabel" id="curriculumLabel">
+                      Upload File
+                    </label>
+                  </div>
+                  <div class="col-3 pl-0">
+                    <label for="curriculumUpload" id="curriculumUpload">
+                      <i class="far fa-folder fa-3x"></i>
+                      <input type="file" accept="pdf/*" formControlName="curriculum" class="form-control-file"
+                        id="curriculumInput" placeholder="Upload your CV in pdf format." (change)="uploadCV($event)" />
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+          </ngb-panel>
+
+          <ngb-panel id="my-work" title="My Work">
+            <ng-template ngbPanelContent>
+              <div id="myWork">
+                <app-briefcase-edit></app-briefcase-edit>
+              </div>
+            </ng-template>
+          </ngb-panel>
+
+          <ngb-panel id="comments" title="Extra Comments">
+            <ng-template ngbPanelContent>
+              <div class="form-group row py-5 mx-auto">
+                <label for="commentsInput" style="color: #6c757d;">Resume!</label>
+                <textarea class="form-control" id="commentsInputText" formControlName="comments"
+                  placeholder="Enter some comments about your skills and previous jobs to enrich your profile..."></textarea>
+              </div>
+            </ng-template>
+          </ngb-panel>
+
+        </ngb-accordion>
+
+</form> -->

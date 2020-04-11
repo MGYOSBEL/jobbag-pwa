@@ -1,0 +1,83 @@
+.container-col{
+    padding-left: 0;
+    padding-right: 0;
+    box-shadow: 10px 10px 12px 0.5rem rgba(0,0,0,0.5);
+}
+
+.container-col-bar {
+    height: 26.5rem;
+    overflow:auto;
+    padding-right: 2rem;    
+}
+
+.btn-collapse-col{
+    text-align: right;
+}
+
+.tittle-profile-card{
+    background-color: #2888C7;
+}
+
+.accordion-footer{
+    background-color: white;
+}
+
+#headingOne, #headingTwo, #headingThree, #headingFour,
+#headingFive, #headingSix, #headingSeven, #headingEight{
+    border-radius: 0;
+    background-color: white;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+    border-bottom-width: 2px !important;
+    border-bottom-style: solid;
+}
+
+.card{
+    border-color:transparent;
+}
+
+.container-col-bar {
+    scrollbar-color: #2888C7 #BEBCBE;
+    scrollbar-width: thin;   
+}
+
+.container-editProfileForm{
+    padding: 1rem 2rem 1rem 2rem;
+}
+
+.card-body{
+    padding-bottom: 0 !important;
+}
+
+/*Section Picture*/
+#pictureInput{
+    visibility: hidden;
+    width: 0;
+  }
+  
+  .svg-add-user{
+    width: 8rem;
+    width: 8rem;
+    height: 8rem;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+  }
+  
+  .add-badge{
+    position: absolute;
+    left: 22rem;
+    bottom: 0.5rem;
+    background:#2985c4;
+    border-radius: 25px 25px 25px 25px;
+    color:white;
+    font-size: 1.3rem;
+    padding: 3px 10px;
+    font-weight: bolder;
+    cursor: pointer;
+  }
+  
+  .avatar-img{
+    height: 8rem;
+    cursor: pointer;
+  }
