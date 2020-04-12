@@ -2,9 +2,15 @@
 /*Briefcase Section*/  
 .svg-add-bc{
   width: 8rem;
-  height: 6rem;
+  height: 5rem;
   object-fit: cover;
   cursor: pointer;
+}
+
+.bc-card-col{
+  background-color: #2982c1;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .text-center{

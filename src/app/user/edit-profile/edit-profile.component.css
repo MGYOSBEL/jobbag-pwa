@@ -1,3 +1,10 @@
+.container-ep-component{
+  background-image: url(../../../assets/img/login-01-opacity60.png);
+  background-size:125%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
 .container-col{
     padding-left: 0;
     padding-right: 0;
@@ -41,8 +48,9 @@
     scrollbar-width: thin;   
 }
 
-.container-editProfileForm{
+.container-ep-form{
     padding: 1rem 2rem 1rem 2rem;
+    background-color: white;
 }
 
 .card-body{
