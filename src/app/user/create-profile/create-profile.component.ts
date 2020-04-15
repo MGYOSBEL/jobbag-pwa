@@ -134,7 +134,7 @@ export class CreateProfileComponent implements OnInit {
           end_date: briefcase.enddate,
           start_date: briefcase.startdate,
           comments: briefcase.comments,
-          id_profession: briefcase.idProfessionFk
+          // id_profession: briefcase.idProfessionFk    Remover profesion
         };
       })
     };
@@ -143,7 +143,7 @@ export class CreateProfileComponent implements OnInit {
     .subscribe(
       response => {
         console.log('createUserProfile RESPONSE: ' + JSON.stringify(response));
-        this.role === 'CLIENT' ? this.activeProfileService.activateClient() : this.activeProfileService.activateServiceProvider() ;
+        // this.role === 'CLIENT' ? this.activeProfileService.activateClient() : this.activeProfileService.activateServiceProvider() ;
         this.router.navigate(['../'], {relativeTo: this.route});
       }, (err) => {
         this.errorService.errorMessage = err;

@@ -1,5 +1,5 @@
 .container-ep-component{
-  background-image: url(../../../assets/img/login-01-opacity60.png);
+  background-image: url(../../../assets/img/login-01-opacity50.png);
   background-size:125%;
   background-position: center;
   background-repeat: no-repeat;
@@ -43,10 +43,25 @@
     border-color:transparent;
 }
 
+
+/*Firefox*/
 .container-col-bar {
     scrollbar-color: #2888C7 #BEBCBE;
     scrollbar-width: thin;   
 }
+/*Chrome*/
+.container-col-bar::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+.container-col-bar::-webkit-scrollbar-track {
+    background-color:#BEBCBE;
+    border-radius: 0;
+  }
+.container-col-bar::-webkit-scrollbar-thumb {
+    background-color: #2888C7;
+    border-radius: 0;
+  }
 
 .container-ep-form{
     padding: 1rem 2rem 1rem 2rem;

@@ -17,14 +17,6 @@
   margin-top: 2rem;
 }
 
-#btn-modal-bc{
-  position: absolute;
-  bottom: 0rem;
-  left: 0rem;
-  padding: 4rem;
-  opacity: 0;
-}
-
 #bc-row{
   width: auto;
   height:9rem;
@@ -42,6 +34,8 @@
 #briefcases-row{
   width: fit-content;
 }
+
+
 
 .display-3{
   margin-left: 1rem;
@@ -70,4 +64,3 @@
 #row-id{
   width: 22rem;
 }
-

@@ -145,7 +145,7 @@ export interface UserProfileBriefcase {
   description:     string;
   startdate:       string;
   enddate:         string;
-  idProfessionFk:  IDProfessionFk;
+  // idProfessionFk:  IDProfessionFk;  Remove profesion
   idUserProfileFk: number;
 }
 

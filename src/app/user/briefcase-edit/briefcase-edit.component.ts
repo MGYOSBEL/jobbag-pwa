@@ -15,17 +15,16 @@ import { ErrorService } from '@app/errors/error.service';
   styleUrls: ['./briefcase-edit.component.css']
 })
 export class BriefcaseEditComponent implements OnInit {
-
   briefcases: UserProfileBriefcase[];
-  professions: IDProfessionFk[];
-
+  // professions: IDProfessionFk[];  
   briefcaseEditForm: FormGroup;
-
   function: string;
-
+  previewUrl: any;
+  imageBase64: string;
+  imageLoaded: boolean;
 
   constructor(private userService: UserService,
-              private professionService: ProfessionService,
+              // private professionService: ProfessionService,
               private briefcaseService: BriefcaseService,
               private userProfileService: UserProfileService,
               private errorService: ErrorService,
@@ -40,24 +39,21 @@ export class BriefcaseEditComponent implements OnInit {
       description: ['', Validators.required],
       startDate: ['', Validators.required],
       endDate: ['', Validators.required],
-      profession: ['', Validators.required]
+      // profession: ['', Validators.required]  Remover profesion
     });
     this.briefcases = [];
-
   }
 
   ngOnInit() {
-    this.professionService.getAll().subscribe(
-      data => {
-        this.professions = data;
-      });
+    // this.professionService.getAll().subscribe(     Remover Profesion
+    //   data => {
+    //     this.professions = data;
+    //   });
     this.briefcaseService.getAll().subscribe(
       briefcases => this.briefcases = briefcases
     );
 
   }
-
-
 
   saveBriefCase() {
     const bc: UserProfileBriefcase = {
@@ -69,7 +65,7 @@ export class BriefcaseEditComponent implements OnInit {
                 + this.briefcaseEditForm.value.startDate.month.toString() + '-'
                 + this.briefcaseEditForm.value.startDate.day.toString(),
       comments: this.briefcaseEditForm.value.comments,
-      idProfessionFk: this.briefcaseEditForm.value.profession,
+      // idProfessionFk: this.briefcaseEditForm.value.profession,
       idUserProfileFk: null,
       id: null
     };
@@ -94,6 +90,17 @@ export class BriefcaseEditComponent implements OnInit {
 
   exit() {
     this.router.navigate(['../'], { relativeTo: this.route });
+  }
+
+  uploadPicture(event) {
+    const file = (event.target as HTMLInputElement).files[0];
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = (_event) => {
+      this.previewUrl = reader.result;
+      this.imageBase64 = this.previewUrl.toString().split(',')[1];
+    };
+    this.imageLoaded = true;
   }
 
 

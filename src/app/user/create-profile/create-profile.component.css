@@ -1,11 +1,12 @@
 /*Section Container*/
 #create-profile-container{
-  background-image: url(../../../assets/img/login-01-opacity60.png);
-  background-size:90%;
+  background-image: url(../../../assets/img/login-01-opacity50.png);
+  background-size:105%;
   background-position: center;
   background-repeat: no-repeat;
   padding-top: 4rem;
   padding-bottom: 4rem;
+  z-index: -2;
 }
 
 #form-group-container{

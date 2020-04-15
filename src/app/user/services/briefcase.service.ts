@@ -122,7 +122,7 @@ export class BriefcaseService {
           description: briefcase.description,
           startdate: briefcase.start_date,
           enddate: briefcase.end_date,
-          idProfessionFk: briefcase.id_profession,
+          // idProfessionFk: briefcase.id_profession, //   Remove profesion
           idUserProfileFk: briefcase[index].idUserProfileFk
         };
         // Una vez modificados los campos salvo el array completo de userProfiles
