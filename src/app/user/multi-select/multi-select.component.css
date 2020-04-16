@@ -24,10 +24,10 @@
   border-radius: 0.25rem;
 }
 
-.card-body {
+/* .card-body {
   flex: 1 1 auto;
   padding: 1.25rem;
-}
+} */
 
 .ng-select.custom {
   border:0px;

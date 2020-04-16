@@ -1,65 +1,70 @@
 /* You can add global styles to this file, and also import other style files */
 /* @import '../node_modules/bootstrap/dist/css/bootstrap-reboot.min.css'; */
-@import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
-@import '../node_modules/bs-stepper/dist/css/bs-stepper.min.css';
+@import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+@import "../node_modules/bs-stepper/dist/css/bs-stepper.min.css";
+@import "../node_modules/@ng-select/ng-select/themes/material.theme.css";
+
 
 .img {
   max-width: 100%;
 }
 
-.btn-previous:hover:enabled, .btn-next:hover:enabled{
-  background-color: #BFBDBE;
-  fill: #2880A9;
+.btn-previous:hover:enabled,
+.btn-next:hover:enabled {
+  background-color: #bfbdbe;
+  fill: #2880a9;
   box-shadow: 0 10px 10px -10px rgba(0, 0, 0, 0.5);
-  transform: scale(1.1);  
+  transform: scale(1.1);
 }
 
-.btn-previous:hover:disabled, .btn-next:hover:disabled{
-  background-color: #DFDFDF;  
-  fill: #9B9B9B;
+.btn-previous:hover:disabled,
+.btn-next:hover:disabled {
+  background-color: #dfdfdf;
+  fill: #9b9b9b;
 }
 
-.btn-previous:active:enabled, .btn-next:active:enabled{
-  background-color: #BFBDBE;
-  fill: #2880A9;
+.btn-previous:active:enabled,
+.btn-next:active:enabled {
+  background-color: #bfbdbe;
+  fill: #2880a9;
   box-shadow: 0 10px 10px -10px rgba(0, 0, 0, 0.5);
-  transform: scale(0.9);  
+  transform: scale(0.9);
 }
 
-.btn-send:hover:enabled{
-  background-color: #2688C6;
-  color:#D6D6D6;
+.btn-send:hover:enabled {
+  background-color: #2688c6;
+  color: #d6d6d6;
   box-shadow: 0 10px 10px -10px rgba(0, 0, 0, 0.5);
-  transform: scale(1.1);  
+  transform: scale(1.1);
 }
 
-.btn-send:hover:disabled{
-  background-color: #94C4E3;
-  cursor: not-allowed; 
+.btn-send:hover:disabled {
+  background-color: #94c4e3;
+  cursor: not-allowed;
 }
 
-.btn-send:active:enabled{
-  background-color: #2688C6;
-  color:#D6D6D6;
+.btn-send:active:enabled {
+  background-color: #2688c6;
+  color: #d6d6d6;
   box-shadow: 0 10px 10px -10px rgba(0, 0, 0, 0.5);
-  transform: scale(0.9);  
+  transform: scale(0.9);
 }
 
-.btn-edit:hover:enabled{
-  background-color: #2688C6;
-  color:#D6D6D6;
+.btn-edit:hover:enabled {
+  background-color: #2688c6;
+  color: #d6d6d6;
   box-shadow: 0 10px 10px -10px rgba(0, 0, 0, 0.5);
-  transform: scale(1.1);  
+  transform: scale(1.1);
 }
 
-.btn-edit:hover:disabled{
-  background-color: #94C4E3;
-  cursor: not-allowed; 
+.btn-edit:hover:disabled {
+  background-color: #94c4e3;
+  cursor: not-allowed;
 }
 
-.btn-edit:active:enabled{
-  background-color: #2688C6;
-  color:#D6D6D6;
+.btn-edit:active:enabled {
+  background-color: #2688c6;
+  color: #d6d6d6;
   box-shadow: 0 10px 10px -10px rgba(0, 0, 0, 0.5);
-  transform: scale(0.9);  
+  transform: scale(0.9);
 }

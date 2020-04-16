@@ -12,6 +12,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SharedComponentsModule } from './sharedComponents/shared-components.module';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { TestComponent } from './test/test.component';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { FormsModule } from '@angular/forms';
 
 const config = new AuthServiceConfig([
   {
@@ -36,6 +38,8 @@ export function provideConfig() {
   imports: [
     BrowserModule,
     ReactiveFormsModule,
+    FormsModule,
+    NgSelectModule,
     HttpClientModule,
     FontAwesomeModule,
     SocialLoginModule,

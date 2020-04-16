@@ -13,6 +13,10 @@ import { EditUserComponent } from './edit-user/edit-user.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CreateProfileComponent } from './create-profile/create-profile.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
+import { MultiSelectComponent } from './multi-select/multi-select.component';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { FormsModule } from '@angular/forms';
+
 
 
 
@@ -25,12 +29,15 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
      ProjectsComponent,
      EditUserComponent,
      CreateProfileComponent,
-     EditProfileComponent
+     EditProfileComponent,
+     MultiSelectComponent
     ],
   imports: [
     CommonModule,
     SharedComponentsModule,
     ReactiveFormsModule,
+    FormsModule,
+    NgSelectModule,
     NgbModule,
     UserRoutingModule
   ]

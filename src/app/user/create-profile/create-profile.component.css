@@ -105,6 +105,10 @@
 }
 
 /*Section Country*/
+#countries {
+  height: 200px;
+  overflow: hidden;
+}
 
 /*Section Service*/
 
@@ -147,7 +151,7 @@
 .btn-previous, .btn-next{
   width: 4.5rem;
   height: 3.5rem;
-  background-size: 2.5rem;  
+  background-size: 2.5rem;
   box-shadow: none;
 }
 
