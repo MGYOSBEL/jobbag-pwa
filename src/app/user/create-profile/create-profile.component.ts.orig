@@ -41,7 +41,8 @@ export class CreateProfileComponent implements OnInit {
   name: AbstractControl;
   countries$: Observable<Country>;
   divisions: string[];
-
+  activeStep: number;
+  countryDivisions: number[] = [];
 
   constructor(private formBuilder: FormBuilder,
               private authenticationService: AuthenticationService,
@@ -55,7 +56,6 @@ export class CreateProfileComponent implements OnInit {
               ) {
 
     this.role = this.route.snapshot.queryParams.role;
-
 
     this.imageLoaded = false;
     this.profileForm = this.formBuilder.group({
@@ -72,16 +72,19 @@ export class CreateProfileComponent implements OnInit {
    }
 
   ngOnInit() {
+    this.countries$ = this.countryService.get();
 
-    this.stepper = new Stepper(document.querySelector('.bs-stepper'), {
+    this.stepper = new Stepper(document.querySelector('#stepper1'), {
       linear: false,
       animation: true
     });
 
-    console.log((this.stepper));
+    document.getElementById('stepper1').addEventListener('shown.bs-stepper', (e: any) => {
+      console.log(e.detail);
+      this.activeStep = e.detail.indexStep;
+    });
 
-
-    this.role = this.route.snapshot.queryParams.role;
+    this.role = this.route.snapshot.queryParams.role; // Aca debe ir el param role del activatedRouteSnapshot
 
     this.profileForm.get('accountType').valueChanges.subscribe(
       value => {
@@ -126,13 +129,14 @@ export class CreateProfileComponent implements OnInit {
       user_profile_type: this.role,
       user_profile_account: this.profileForm.value.accountType,
       name: this.name.value,
+      divisions: this.countryDivisions,
       user_profile_briefcase: this.briefcaseService.briefcases.map(briefcase => {
         return {
           description: briefcase.description,
           end_date: briefcase.enddate,
           start_date: briefcase.startdate,
           comments: briefcase.comments,
-          id_profession: briefcase.idProfessionFk
+          // id_profession: briefcase.idProfessionFk    Remover profesion
         };
       })
     };
@@ -141,13 +145,22 @@ export class CreateProfileComponent implements OnInit {
     .subscribe(
       response => {
         console.log('createUserProfile RESPONSE: ' + JSON.stringify(response));
-        this.role === 'CLIENT' ? this.activeProfileService.activateClient() : this.activeProfileService.activateServiceProvider() ;
+<<<<<<< HEAD
+        // this.role === 'CLIENT' ? this.activeProfileService.activateClient() : this.activeProfileService.activateServiceProvider() ;
+=======
+        this.role === 'CLIENT' ? this.activeProfileService.activateClient() : this.activeProfileService.activateServiceProvider();
+>>>>>>> user-devAddCountries
         this.router.navigate(['../'], {relativeTo: this.route});
       }, (err) => {
         this.errorService.errorMessage = err;
         this.router.navigate(['/error']);
       }
     );
+   }
+
+   onDivisionsSelect(event) {
+    this.countryDivisions = event;
+    console.log('event: ', event);
    }
 
   uploadPicture(event) {
@@ -201,12 +214,12 @@ export class CreateProfileComponent implements OnInit {
     console.log(division);
   }
 
-   search = (text$: Observable<string>) =>
-     text$.pipe(
-       debounceTime(200),
-       distinctUntilChanged(),
-       map(term => term.length < 2 ? []
-         : states.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
-     )
+  //  search = (text$: Observable<string>) =>
+  //    text$.pipe(
+  //      debounceTime(200),
+  //      distinctUntilChanged(),
+  //      map(term => term.length < 2 ? []
+  //        : states.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
+  //    )
 
 }

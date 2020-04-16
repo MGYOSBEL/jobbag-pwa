@@ -41,7 +41,8 @@ export class CreateProfileComponent implements OnInit {
   name: AbstractControl;
   countries$: Observable<Country>;
   divisions: string[];
-  activeStep:number;
+  activeStep: number;
+  countryDivisions: number[] = [];
 
   constructor(private formBuilder: FormBuilder,
               private authenticationService: AuthenticationService,
@@ -54,7 +55,7 @@ export class CreateProfileComponent implements OnInit {
               private route: ActivatedRoute
               ) {
 
-    this.role = this.route.snapshot.queryParams.role;        
+    this.role = this.route.snapshot.queryParams.role;
 
     this.imageLoaded = false;
     this.profileForm = this.formBuilder.group({
@@ -77,7 +78,7 @@ export class CreateProfileComponent implements OnInit {
       linear: false,
       animation: true
     });
-    
+
     document.getElementById('stepper1').addEventListener('shown.bs-stepper', (e: any) => {
       console.log(e.detail);
       this.activeStep = e.detail.indexStep;
@@ -128,6 +129,7 @@ export class CreateProfileComponent implements OnInit {
       user_profile_type: this.role,
       user_profile_account: this.profileForm.value.accountType,
       name: this.name.value,
+      divisions: this.countryDivisions,
       user_profile_briefcase: this.briefcaseService.briefcases.map(briefcase => {
         return {
           description: briefcase.description,
@@ -150,6 +152,11 @@ export class CreateProfileComponent implements OnInit {
         this.router.navigate(['/error']);
       }
     );
+   }
+
+   onDivisionsSelect(event) {
+    this.countryDivisions = event;
+    console.log('event: ', event);
    }
 
   uploadPicture(event) {
@@ -203,12 +210,12 @@ export class CreateProfileComponent implements OnInit {
     console.log(division);
   }
 
-   search = (text$: Observable<string>) =>
-     text$.pipe(
-       debounceTime(200),
-       distinctUntilChanged(),
-       map(term => term.length < 2 ? []
-         : states.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
-     )
+  //  search = (text$: Observable<string>) =>
+  //    text$.pipe(
+  //      debounceTime(200),
+  //      distinctUntilChanged(),
+  //      map(term => term.length < 2 ? []
+  //        : states.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
+  //    )
 
 }
