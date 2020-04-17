@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProfessionService } from '@app/user/services/profession.service';
 import { ScholarshipService } from '@app/user/services/scholarship.service';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
-import { UserProfile } from '@app/user/models/user.model';
+import { UserProfile, User } from '@app/user/models/user.model';
 import { UserProfileService } from '@app/user/services/user-profile.service';
 import { environment } from '@environments/environment';
 import { findIndex } from 'rxjs/operators';
@@ -30,6 +30,8 @@ export class EditProfileComponent implements OnInit {
   cvUrl: string;
   cvBase64: string;
   profileName: AbstractControl;
+  role: string;
+  loggedUser: User;
 
 
   constructor(
@@ -42,6 +44,14 @@ export class EditProfileComponent implements OnInit {
 
     this.changePassword = false;
     this.imageLoaded = false;
+
+
+    this.userService.loggedUser$.subscribe( user => {
+      this.role = this.userService.role;
+      this.loggedUser = user;
+      this.activeProfile = this.loggedUser.profiles.find(profile => profile.userProfileType === this.role);
+      });
+
 
     // this.previewUrl = `${environment.serverBaseURL}/${this.activeProfileService.activeProfile.picture}`;
 

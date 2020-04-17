@@ -6,6 +6,7 @@ import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { environment } from '@environments/environment';
+import { UserProfile, User } from '@app/user/models/user.model';
 
 @Component({
   selector: 'app-navbar',
@@ -15,45 +16,62 @@ import { environment } from '@environments/environment';
 export class NavbarComponent implements OnInit {
 
   profileExtrasUrl: string;
-  loggedUser;
+  loggedUser: User;
   socialUser;
+  role: string;
   isLoggedIn: boolean;
   isLoggedIn$: Observable<boolean>;
   userId;
   hiddenNavbar: boolean;
   userImageUrl: string;
+  activeProfile: UserProfile;
+  defaultPicture: boolean;
+  hasProfiles: boolean[] = [false, false]; // en la posicion 0 es si hay cliente y en la 1 si hay service provider
 
   navEnd: Observable<NavigationEnd>;
 
   constructor(private userService: UserService,
               private authenticationService: AuthenticationService,
               private socialAuthService: AuthService,
+              private route: ActivatedRoute,
               private router: Router
               ) {
     this.navEnd = router.events.pipe(
       filter(evt => evt instanceof NavigationEnd)
     ) as Observable<NavigationEnd>;
-    this.userId = this.authenticationService.getLoggedUserId();
-    // this.userService.get(this.userId).subscribe(
-    //   user => this.loggedUser = user
-    // );
+
     this.hiddenNavbar = false;
+    this.defaultPicture = true;
 
     this.isLoggedIn$ = this.authenticationService.isLoggedIn$.asObservable();
   }
 
   ngOnInit() {
+    this.userService.loggedUser$.subscribe(
+      user => {
+        this.loggedUser = user;
+        this.hasProfiles = [
+          !!this.loggedUser.profiles.find(profile => profile.userProfileType === 'CLIENT'),
+          !!this.loggedUser.profiles.find(profile => profile.userProfileType === 'SERVICE_PROVIDER'),
+        ];
+        console.log(this.hasProfiles);
+      }
+    );
+
     this.navEnd.subscribe(
       evt => {
+        this.role = this.userService.role;
         this.hiddenNavbar = this.router.url.includes('auth');
         this.isLoggedIn = this.authenticationService.isLoggedIn;
         if (this.authenticationService.isLoggedIn) {
           this.socialUser = JSON.parse(localStorage.getItem('socialUser'));
-          // this.userImageUrl = environment.serverBaseURL + '/' + this.activeProfileService.activeProfile.picture;
           this.userId = this.authenticationService.getLoggedUserId();
-          this.userService.get(this.userId).subscribe(
-            user => this.loggedUser = user
-          );
+          this.activeProfile = this.loggedUser.profiles.find(profile => profile.userProfileType === this.role);
+          this.defaultPicture = this.activeProfile.picture.length === 0;
+          this.userImageUrl = environment.serverBaseURL + '/' + this.activeProfile.picture;
+          console.log('defaultPicture: ', this.defaultPicture, 'userImageUrl: ', this.userImageUrl);
+
+
         }
       }
     );
@@ -76,6 +94,14 @@ export class NavbarComponent implements OnInit {
 
   toClient() {
     // this.activeProfileService.activateClient();
+  }
+
+  createProvider() {
+
+  }
+
+  createClient() {
+
   }
 
 }

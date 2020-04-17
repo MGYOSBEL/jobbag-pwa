@@ -7,6 +7,7 @@ import { of, Observable, throwError } from 'rxjs';
 import { APIResponse } from '@app/models/app.model';
 import { UserModule } from '../user.module';
 import { UserCacheService } from './user-cache.service';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,8 @@ export class UserProfileService {
 
   constructor(
     private http: HttpClient,
-    private userCacheService: UserCacheService
+    private userCacheService: UserCacheService,
+    private userService: UserService
   ) { }
 
 
@@ -105,6 +107,7 @@ export class UserProfileService {
         userProfiles.push(content);
         console.log('userProfiles', userProfiles);
         this.userCacheService.setProfiles(userProfiles); // Se guarda el arreglo de userProfiles en el localStorage
+        this.userService.refreshUser();
       })
     );
   }
@@ -131,6 +134,8 @@ export class UserProfileService {
           profiles[index] = content;
           // Una vez modificados los campos salvo el array completo de userProfiles
           this.userCacheService.setProfiles(profiles);
+          this.userService.refreshUser();
+
         }
         ));
   }
@@ -162,6 +167,7 @@ export class UserProfileService {
 
         console.log('profiles after delete', userProfiles);
         this.userCacheService.setProfiles(userProfiles);
+        this.userService.refreshUser();
       })
     );
   }

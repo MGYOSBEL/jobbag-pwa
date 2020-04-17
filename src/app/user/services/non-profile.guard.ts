@@ -13,9 +13,11 @@ export class NonProfileGuard implements CanActivate {
   loggedUser: User;
 
   constructor(
-    private userCacheService: UserCacheService,
+    private userService: UserService,
     private router: Router) {
-      this.loggedUser = this.userCacheService.getUser();
+      this.userService.loggedUser$.subscribe(
+        user => this.loggedUser = user
+      );
   }
 
 
@@ -23,13 +25,15 @@ export class NonProfileGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): boolean {
-    if (this.loggedUser.profiles.length) {
+    if (!!this.loggedUser && this.loggedUser.profiles.length > 0) {
       return true;
     }
     // not logged in so redirect to login page with the return url
     const role = route.params.role;
+    const id = route.params.id;
     console.log('NonProfileGuard role: ', role);
-    this.router.navigate([`/user/${this.loggedUser.id}/${role}/create-profile`]);
+    console.log('NonProfileGuard id: ', id);
+    this.router.navigate([`/user/${id}/${role}/create-profile`]);
     return false;  }
 }
 

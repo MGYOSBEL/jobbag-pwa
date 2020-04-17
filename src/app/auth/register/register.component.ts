@@ -10,6 +10,7 @@ import { AuthService, SocialUser, FacebookLoginProvider, GoogleLoginProvider } f
 import { LoggingService } from '@app/services/logging.service';
 import { ErrorService } from '@app/errors/error.service';
 import {passwordMissmatchValidator} from '@app/sharedComponents/customValidators';
+import { UserService } from '@app/user/services/user.service';
 
 @Component({
   selector: 'app-register',
@@ -35,6 +36,7 @@ export class RegisterComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private route: ActivatedRoute,
+              private userService: UserService,
               private router: Router,
               private http: HttpClient,
               private logging: LoggingService,
@@ -107,7 +109,7 @@ this.socialAuthService.authState.subscribe(
               this.authenticationService.signInWithJobbag(this.registerForm.value.name, this.registerForm.value.password)
               .subscribe(
                 data => {
-                  const role = this.route.snapshot.params.role;
+                  const role = this.userService.role;
                   console.log('role: ' + role);
                   if (this.authenticationService.isLoggedIn) {
                     const user_id = this.authenticationService.getLoggedUserId();
@@ -129,7 +131,7 @@ this.socialAuthService.authState.subscribe(
                 (response) => {
                   this.logging.log('SOCIAL LOGIN RESPONSE: ' + response);
                   if (response) {
-                    const role = this.route.snapshot.queryParams.role;
+                    const role = this.userService.role;
                     console.log('role: ' + role);
                     if (this.authenticationService.isLoggedIn) {
                       const user_id = this.authenticationService.getLoggedUserId();

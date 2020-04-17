@@ -32,14 +32,15 @@ export class UserService {
       this.userSubject.next(this.userCacheService.getUser());
 
       this.authService.isLoggedIn$.subscribe(loggedIn => {
-        if (loggedIn) {
-          this.get(this.authService.getLoggedUserId());
-        } else {
+        if (!loggedIn) {
           this.userSubject.next(null);
+          console.log('null user emitted');
         }
       });
+    }
 
-
+    refreshUser() {
+      this.userSubject.next(this.userCacheService.getUser());
     }
 
 
@@ -76,6 +77,7 @@ export class UserService {
       }),
       tap((response: User) => {
         this.userSubject.next(response); // Salvo el user en el storage
+        console.log('emitted user: ', response);
         this.userCacheService.setUser(response);
       })
     );

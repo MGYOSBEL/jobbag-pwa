@@ -6,6 +6,7 @@ import { Observable, of, throwError } from 'rxjs';
 import { UserProfileBriefcase } from '../models/user.model';
 import { APIResponse } from '@app/models/app.model';
 import { UserCacheService } from './user-cache.service';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,7 @@ export class BriefcaseService {
 
   constructor(
     private http: HttpClient,
+    private userService: UserService,
     private userCacheService: UserCacheService) {
     this.briefcases = [];
 
@@ -86,6 +88,8 @@ export class BriefcaseService {
         let briefcases: UserProfileBriefcase[] = this.userCacheService.getBriefcases();
         briefcases.push(content);
         this.userCacheService.setBriefcases(briefcases);
+        this.userService.refreshUser();
+
       })
     );
   }
@@ -123,6 +127,8 @@ export class BriefcaseService {
         briefcases[index] = content;
         // Una vez modificados los campos salvo el array completo de userProfiles
         this.userCacheService.setBriefcases(briefcases);
+        this.userService.refreshUser();
+
       }
       ));
   }
@@ -155,7 +161,7 @@ export class BriefcaseService {
         let briefcases: UserProfileBriefcase[] = this.userCacheService.getBriefcases() || [];
         briefcases.splice(briefcases.findIndex(elem => elem.id === id), 1); // Cuando encuentro el id, elimino el elemento
         this.userCacheService.setBriefcases(briefcases);
-
+        this.userService.refreshUser();
       })
     );
   }

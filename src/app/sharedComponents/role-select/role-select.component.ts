@@ -22,13 +22,20 @@ export class RoleSelectComponent implements OnInit {
 
   work() {
     this.userService.role = 'SERVICE_PROVIDER';
-    this.router.navigate([`${this.router.url}/SERVICE_PROVIDER`]);
+    if (this.router.url.includes('user')) {
+      this.router.navigate([`${this.router.url}/SERVICE_PROVIDER`]);
+    } else {
+      this.router.navigate(['/auth/register']);
+    }
   }
 
   hire() {
     this.userService.role = 'CLIENT';
-    this.router.navigate([`${this.router.url}/CLIENT`]);
-
+    if (this.router.url.includes('user')) {
+      this.router.navigate([`${this.router.url}/CLIENT`]);
+    } else {
+      this.router.navigate(['/auth/register']);
+    }
   }
 
 }

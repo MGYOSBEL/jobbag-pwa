@@ -33,7 +33,7 @@ export class UserCacheService {
 
   setProfiles(userProfiles: UserProfile[]) {
     let user: User = JSON.parse(localStorage.getItem(USER));
-    user.profiles = user.profiles.map(profile => userProfiles.find(elem => elem.id === profile.id));
+    user.profiles = userProfiles;
     localStorage.setItem(USER, JSON.stringify(user));
   }
 
