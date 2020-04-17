@@ -22,6 +22,7 @@ export class BriefcaseEditComponent implements OnInit {
   previewUrl: any;
   imageBase64: string;
   imageLoaded: boolean;
+  pictures: string[]; // adding pictures array to briefcase
 
   constructor(private userService: UserService,
               // private professionService: ProfessionService,
@@ -40,8 +41,10 @@ export class BriefcaseEditComponent implements OnInit {
       startDate: ['', Validators.required],
       endDate: ['', Validators.required],
       // profession: ['', Validators.required]  Remover profesion
+      pictures: [''],     // adding pictures array to briefcase inside the folr
     });
     this.briefcases = [];
+    this.pictures = []; // adding pictures array to briefcase
   }
 
   ngOnInit() {
@@ -67,7 +70,8 @@ export class BriefcaseEditComponent implements OnInit {
       comments: this.briefcaseEditForm.value.comments,
       // idProfessionFk: this.briefcaseEditForm.value.profession,
       idUserProfileFk: null,
-      id: null
+      id: null,
+      pictures: this.pictures,      // adding pictures array to briefcase
     };
     this.briefcaseService.briefcases.push(bc);
     this.briefcases.push(bc);
@@ -84,6 +88,7 @@ export class BriefcaseEditComponent implements OnInit {
     // );
 
     this.briefcaseEditForm.reset();
+    this.imageLoaded = false;
 
   }
 
@@ -100,6 +105,9 @@ export class BriefcaseEditComponent implements OnInit {
       this.previewUrl = reader.result;
       this.imageBase64 = this.previewUrl.toString().split(',')[1];
     };
+
+    this.pictures[0] = this.imageBase64;      // adding pictures array to briefcase (pictures[0]) just one image 
+    
     this.imageLoaded = true;
   }
 
