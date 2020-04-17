@@ -9,7 +9,6 @@ import { findIndex } from 'rxjs/operators';
 import { BriefcaseService } from '@app/user/services/briefcase.service';
 import { UserService } from '@app/user/services/user.service';
 import { Observable, forkJoin, EMPTY, combineLatest, of } from 'rxjs';
-import { ActiveProfileService } from '@app/user/services/active-profile.service';
 import { MediaService } from '@app/user/services/media.service';
 import { Router } from '@angular/router';
 
@@ -34,7 +33,6 @@ export class EditProfileComponent implements OnInit {
 
 
   constructor(
-    private activeProfileService: ActiveProfileService,
     private userService: UserService,
     private userProfileService: UserProfileService,
     private mediaService: MediaService,
@@ -42,11 +40,10 @@ export class EditProfileComponent implements OnInit {
     private router: Router
   ) {
 
-    this.activeProfile = this.activeProfileService.activeProfile;
     this.changePassword = false;
     this.imageLoaded = false;
 
-    this.previewUrl = `${environment.serverBaseURL}/${this.activeProfileService.activeProfile.picture}`;
+    // this.previewUrl = `${environment.serverBaseURL}/${this.activeProfileService.activeProfile.picture}`;
 
     this.editProfileForm = this.formBuilder.group({
       username: [this.userService.loggedUser.username, Validators.required],
@@ -165,9 +162,9 @@ export class EditProfileComponent implements OnInit {
     console.log(profileEditRequest);
     const profileEdit$ = this.userProfileService.edit(profileEditRequest);
 
-    const imageEdit$ = this.mediaService.editProfilePicture(this.activeProfileService.activeProfile.id, this.imageBase64);
+    const imageEdit$ = this.mediaService.editProfilePicture(1, this.imageBase64); // CAMBIAR EL id
 
-    const cvEdit$ = this.mediaService.editProfileCV(this.activeProfileService.activeProfile.id, this.cvBase64);
+    const cvEdit$ = this.mediaService.editProfileCV(1, this.cvBase64); // CAMBIAR EL id
 
     const editProfileCall$ = combineLatest(
       [

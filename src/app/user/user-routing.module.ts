@@ -3,11 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DashboardResolverService } from './services/dashboard-resolver.service';
 import { AuthGuard } from '@app/auth/helpers/auth.guard';
-import { ProfileExtrasComponent } from './profile-extras/profile-extras.component';
-import { ProfessionsEditComponent } from './professions-edit/professions-edit.component';
 import { RoleSelectComponent } from '../sharedComponents/role-select/role-select.component';
 import { BriefcaseEditComponent } from './briefcase-edit/briefcase-edit.component';
-import { EditUserComponent } from './edit-user/edit-user.component';
 import { CreateProfileComponent } from './create-profile/create-profile.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 
@@ -21,21 +18,11 @@ const userRoutes: Routes = [
         path: ':id',
         children: [
           {
-            path: 'profile-extras', component: ProfileExtrasComponent,
-            resolve: {user: DashboardResolverService}
-          },
-          {
             path: 'create-profile', component: CreateProfileComponent,
             resolve: {user: DashboardResolverService}
           },
           {
-            path: 'edit-professions', component: ProfessionsEditComponent
-          },
-          {
-            path: 'edit-user', component: EditProfileComponent
-          },
-          {
-            path: 'briefcase', component: BriefcaseEditComponent
+            path: 'edit', component: EditProfileComponent
           },
           {
             path: 'select-role', component: RoleSelectComponent

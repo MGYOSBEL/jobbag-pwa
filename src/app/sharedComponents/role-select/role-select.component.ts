@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ActiveProfileService } from '@app/user/services/active-profile.service';
+import { UserService } from '@app/user/services/user.service';
 
 @Component({
   selector: 'app-role-select',
@@ -10,22 +10,23 @@ import { ActiveProfileService } from '@app/user/services/active-profile.service'
 export class RoleSelectComponent implements OnInit {
 
   returnUrl: string;
-  constructor(private activeProfileService: ActiveProfileService,
-              private router: Router,
-              private route: ActivatedRoute) {
-      this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/auth/register';
+  constructor(
+    private userService: UserService,
+    private router: Router,
+    private route: ActivatedRoute) {
+    this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/auth/register';
   }
 
   ngOnInit() {
   }
 
   work() {
-    localStorage.setItem('registrationRole', 'SERVICE_PROVIDER');
+    this.userService.role = 'SERVICE_PROVIDER';
     this.router.navigate([this.returnUrl], { queryParams: { role: 'SERVICE_PROVIDER', function: 'CREATE' } });
   }
 
   hire() {
-    localStorage.setItem('registrationRole', 'CLIENT');
+    this.userService.role = 'CLIENT';
     this.router.navigate([this.returnUrl], { queryParams: { role: 'CLIENT', function: 'CREATE' } });
 
   }

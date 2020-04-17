@@ -9,7 +9,6 @@ import { ErrorService } from '@app/errors/error.service';
 import { AuthenticationService } from '@app/auth/services/authentication.service';
 import { environment } from '@environments/environment';
 import { BriefcaseService } from '../services/briefcase.service';
-import { ActiveProfileService } from '../services/active-profile.service';
 import { Country, DivisionValue, DivisionElement } from '../models/country.model';
 import { CountryService } from '../services/country.service';
 
@@ -47,7 +46,6 @@ export class CreateProfileComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private authenticationService: AuthenticationService,
               private userProfileService: UserProfileService,
-              private activeProfileService: ActiveProfileService,
               private briefcaseService: BriefcaseService,
               private errorService: ErrorService,
               private countryService: CountryService,

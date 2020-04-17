@@ -8,7 +8,6 @@ import { mergeMap, tap } from 'rxjs/operators';
 import { AuthenticationService } from '@app/auth/services/authentication.service';
 import { ScholarshipService } from './scholarship.service';
 import { ProfessionService } from './profession.service';
-import { ActiveProfileService } from './active-profile.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +18,6 @@ export class DashboardResolverService implements Resolve<User> {
               private scholarshipService: ScholarshipService,
               private professionService: ProfessionService,
               private authenticationService: AuthenticationService,
-              private activeProfileService: ActiveProfileService,
               private route: ActivatedRoute) {
 
   }
@@ -37,7 +35,6 @@ export class DashboardResolverService implements Resolve<User> {
         tap(() => {
           this.scholarshipService.getAll(true).subscribe();
           this.professionService.getAll(true).subscribe();
-          this.activeProfileService.activateServiceProvider();
         })
       );
     } else {

@@ -5,7 +5,6 @@ import { AuthService } from 'angularx-social-login';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import { ActiveProfileService } from '@app/user/services/active-profile.service';
 import { environment } from '@environments/environment';
 
 @Component({
@@ -28,7 +27,6 @@ export class NavbarComponent implements OnInit {
 
   constructor(private userService: UserService,
               private authenticationService: AuthenticationService,
-              public activeProfileService: ActiveProfileService,
               private socialAuthService: AuthService,
               private router: Router
               ) {
@@ -51,7 +49,7 @@ export class NavbarComponent implements OnInit {
         this.isLoggedIn = this.authenticationService.isLoggedIn;
         if (this.authenticationService.isLoggedIn) {
           this.socialUser = JSON.parse(localStorage.getItem('socialUser'));
-          this.userImageUrl = environment.serverBaseURL + '/' + this.activeProfileService.activeProfile.picture;
+          // this.userImageUrl = environment.serverBaseURL + '/' + this.activeProfileService.activeProfile.picture;
           this.userId = this.authenticationService.getLoggedUserId();
           this.userService.get(this.userId).subscribe(
             user => this.loggedUser = user
@@ -73,11 +71,11 @@ export class NavbarComponent implements OnInit {
   }
 
   toServiceProvider() {
-    this.activeProfileService.activateServiceProvider();
+    // this.activeProfileService.activateServiceProvider();
   }
 
   toClient() {
-    this.activeProfileService.activateClient();
+    // this.activeProfileService.activateClient();
   }
 
 }

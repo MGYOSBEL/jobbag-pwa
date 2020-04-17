@@ -7,7 +7,6 @@ import { LoggingService } from '@app/services/logging.service';
 import { AuthenticationService } from '@app/auth/services/authentication.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from 'angularx-social-login';
-import { ActiveProfileService } from '../services/active-profile.service';
 import { UserProfileService } from '../services/user-profile.service';
 
 @Component({
@@ -21,25 +20,20 @@ export class DashboardComponent implements OnInit {
   loggedUser: User;
   activeProfile: UserProfile;
 
-  constructor(private route: ActivatedRoute,
-              public activeProfileService: ActiveProfileService,
-              private userProfileService: UserProfileService,
-              private authenticationService: AuthenticationService,
-              private socialAuthService: AuthService,
-              private router: Router,
-              private logging: LoggingService) {
+  constructor(
+    private route: ActivatedRoute,
+    private userProfileService: UserProfileService,
+    private authenticationService: AuthenticationService,
+    private socialAuthService: AuthService,
+    private router: Router,
+    private logging: LoggingService) {
   }
 
   ngOnInit() {
     this.route.data
-    .subscribe((data: {user: User}) => {
-      this.loggedUser = data.user;
-    });
-    this.activeProfileService.activeProfileType$.subscribe(
-      profileType => {
-        this.activeProfile = profileType === 'CLIENT' ? this.userProfileService.client : this.userProfileService.serviceProvider;
-      }
-    );
+      .subscribe((data: { user: User }) => {
+        this.loggedUser = data.user;
+      });
 
   }
 

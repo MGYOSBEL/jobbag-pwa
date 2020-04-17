@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 import { APIResponse } from '@app/models/app.model';
 import { environment } from '@environments/environment';
 import { catchError, map, tap } from 'rxjs/operators';
-import { ActiveProfileService } from './active-profile.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +12,6 @@ export class MediaService {
 
   constructor(
     private http: HttpClient,
-    private activeProfile: ActiveProfileService
   ) { }
 
     editProfilePicture(userProfileId: number, picture: string): Observable<boolean> {
@@ -38,7 +36,7 @@ export class MediaService {
           }
         }),
         tap(url => {
-          this.activeProfile.activeProfile.picture = url; // Esto no la agrega al profile del localStorage
+          // this.activeProfile.activeProfile.picture = url; // Esto no la agrega al profile del localStorage
         })
       );
     }
@@ -66,7 +64,7 @@ export class MediaService {
           }
         }),
         tap(url => {
-          this.activeProfile.activeProfile.picture = url; // Esto no la agrega al profile del localStorage
+          // this.activeProfile.activeProfile.picture = url; // Esto no la agrega al profile del localStorage
         })
       );
     }
