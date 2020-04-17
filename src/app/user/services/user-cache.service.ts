@@ -5,6 +5,7 @@ import { User, UserProfile, UserProfileBriefcase } from '../models/user.model';
 const USER = 'loggedUser';
 const PROFILES = 'userProfiles';
 const BRIEFCASES = 'briefcases';
+const ROLE = 'activeRole';
 
 
 @Injectable({
@@ -13,6 +14,14 @@ const BRIEFCASES = 'briefcases';
 export class UserCacheService {
 
   constructor() { }
+
+  getRole() {
+    return localStorage.getItem(ROLE);
+  }
+
+  setRole(role: string) {
+    localStorage.setItem(ROLE, role);
+  }
 
   setUser(user: User) {
     localStorage.setItem(USER, JSON.stringify(user));

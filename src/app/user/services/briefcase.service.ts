@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '@environments/environment';
 import { map, tap, catchError } from 'rxjs/operators';
-import { Observable, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { UserProfileBriefcase } from '../models/user.model';
 import { APIResponse } from '@app/models/app.model';
+import { UserCacheService } from './user-cache.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,9 @@ export class BriefcaseService {
   apiPath = environment.apiBaseURL;
   briefcases: Array<UserProfileBriefcase>;
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private userCacheService: UserCacheService) {
     this.briefcases = [];
 
   }
@@ -52,8 +55,8 @@ export class BriefcaseService {
 
   getAll(): Observable<UserProfileBriefcase[]> {
     // Leo el array de userProfiles del storage
-    const briefcases: Array<UserProfileBriefcase> = JSON.parse(localStorage.getItem('briefcases')) || [];
-    return of (briefcases);
+    const briefcases: UserProfileBriefcase[] = this.userCacheService.getBriefcases();
+    return of(briefcases);
   }
 
   create(userProfileId: number, briefcase: any): Observable<UserProfileBriefcase> {
@@ -65,24 +68,24 @@ export class BriefcaseService {
     };
     console.log('briefcase request: ', data);
     return this.http.post<APIResponse>(this.apiPath + '/briefcase', data).pipe(
-      catchError(err => {
-        throw new Error (err.error.status + ': ' + err.error.detail);
-      }),
       map(response => {
         console.log('bc_create response: ', response);
         if (response.status_code === 200) { // Si el status del response es OK retorno contento como dato del observable
           return JSON.parse(JSON.parse(response.content));
         } else {
-          throw new Error( // Si no es OK el status del response, lanzo un error con el status y el text
+          return throwError( // Si no es OK el status del response, lanzo un error con el status y el text
             response.status_code + ': ' + response.content.text
           );
         }
       }),
+      catchError(err => {
+        return throwError(err.error.status + ': ' + err.error.detail);
+      }),
       tap((content: UserProfileBriefcase) => { // Salvo el contenido del nuevo briefcase en el localStorage
         console.log('content: ', content);
-        let briefcases: Array<UserProfileBriefcase> = JSON.parse(localStorage.getItem('briefcases')) || [];
+        let briefcases: UserProfileBriefcase[] = this.userCacheService.getBriefcases();
         briefcases.push(content);
-        localStorage.setItem('briefcases', JSON.stringify(briefcases));
+        this.userCacheService.setBriefcases(briefcases);
       })
     );
   }
@@ -96,71 +99,64 @@ export class BriefcaseService {
     };
     console.log(data);
     return this.http.put<APIResponse>(this.apiPath + '/briefcase', data).pipe(
-      catchError(err => {
-        throw new Error (err.error.status + ': ' + err.error.detail);
-      }),
       map(response => {
         const content = JSON.parse(response.content); // Seleccionar la parte del response q es el contenido
         console.log('content: ', content);
         if (response.status_code === 200) {
           return content; // Retorno el content del response como cuerpo del observable
         } else { // Si no fue OK el status del response lanzo un error con el status code y el text del response.
-          throw new Error(
+          return throwError(
             response.status_code + ': ' + response.content.text
           );
         }
       }),
-      tap ((content: UserProfileBriefcase) => {
+      catchError(err => {
+        return throwError(err.error.status + ': ' + err.error.detail);
+      }),
+
+      tap((content: UserProfileBriefcase) => {
         // Leo los profiles del localStorage
-        let briefcases: Array<UserProfileBriefcase> = JSON.parse(localStorage.getItem('briefcases')) || [];
+        let briefcases: UserProfileBriefcase[] = this.userCacheService.getBriefcases();
         const index = briefcases.findIndex(elem => elem.id === briefcase.id);
         console.log('index', index);
         console.log('briefcases', briefcases);
-        briefcases[index] = { // Modifico campo por campo del profile con los datos del request
-          comments: briefcase.comments,
-          id: briefcase.id,
-          description: briefcase.description,
-          startdate: briefcase.start_date,
-          enddate: briefcase.end_date,
-          // idProfessionFk: briefcase.id_profession, //   Remove profesion
-          idUserProfileFk: briefcase[index].idUserProfileFk
-        };
+        briefcases[index] = content;
         // Una vez modificados los campos salvo el array completo de userProfiles
-        localStorage.setItem('briefcases', JSON.stringify(briefcases));
+        this.userCacheService.setBriefcases(briefcases);
       }
       ));
-}
+  }
 
-delete(id: number): Observable<any> {
-  const req = {
-    briefcase: {
-      id
-    },
-    client_secret: environment.clientSecret,
-    client_id: environment.clientId
-  };
-  console.log(req);
-  return this.http.request<APIResponse>('DELETE', this.apiPath + '/briefcase', { body: req }).pipe(
-    catchError(err => { // Captura si hubo algun error en la llamada y lo relanza
-      throw new Error(err.error.status + ': ' + err.error.detail);  // Relanzo el error con el status y el detail
-    }),
-    map(response => {
-      console.log(response);
-      if (response.status_code === 200) { // Si el status del response es OK retorno contento como dato del observable
-        return JSON.parse(response.content);
-      } else {
-        throw new Error( // Si no es OK el status del response, lanzo un error con el status y el text
-          response.status_code + ': ' + response.content.text
-        );
-      }
-    }),
-    tap(content => { // Si se ejecuta el tap es porque no se lanzo antes ningun error, por lo tanto status===200(OK)
-      // Leo el array del storage para actualizarlo
-      let briefcases : Array<UserProfileBriefcase> = JSON.parse(localStorage.getItem('briefcases')) || [];
-      briefcases.splice(briefcases.findIndex(elem => elem.id === id), 1); // Cuando encuentro el id, elimino el elemento
-      localStorage.setItem('briefcases', JSON.stringify(briefcases));
+  delete(id: number): Observable<any> {
+    const req = {
+      briefcase: {
+        id
+      },
+      client_secret: environment.clientSecret,
+      client_id: environment.clientId
+    };
+    console.log(req);
+    return this.http.request<APIResponse>('DELETE', this.apiPath + '/briefcase', { body: req }).pipe(
+      map(response => {
+        console.log(response);
+        if (response.status_code === 200) { // Si el status del response es OK retorno contento como dato del observable
+          return JSON.parse(response.content);
+        } else {
+          return throwError( // Si no es OK el status del response, lanzo un error con el status y el text
+            response.status_code + ': ' + response.content.text
+          );
+        }
+      }),
+      catchError(err => { // Captura si hubo algun error en la llamada y lo relanza
+        return throwError(err.error.status + ': ' + err.error.detail);  // Relanzo el error con el status y el detail
+      }),
+      tap(content => { // Si se ejecuta el tap es porque no se lanzo antes ningun error, por lo tanto status===200(OK)
+        // Leo el array del storage para actualizarlo
+        let briefcases: UserProfileBriefcase[] = this.userCacheService.getBriefcases() || [];
+        briefcases.splice(briefcases.findIndex(elem => elem.id === id), 1); // Cuando encuentro el id, elimino el elemento
+        this.userCacheService.setBriefcases(briefcases);
 
-    })
-  );
-}
+      })
+    );
+  }
 }

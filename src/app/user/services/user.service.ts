@@ -23,7 +23,7 @@ export class UserService {
     private http: HttpClient,
     private userCacheService: UserCacheService,
     private logging: LoggingService) {
-      this.userRole = 'CLIENT';
+      this.userRole = this.userCacheService.getRole() || 'CLIENT';
     }
 
 
@@ -38,6 +38,7 @@ export class UserService {
 
   public set role(role: string) {
     this.userRole = role;
+    this.userCacheService.setRole(role);
   }
 
 
