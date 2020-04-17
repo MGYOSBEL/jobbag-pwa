@@ -147,6 +147,7 @@ export interface UserProfileBriefcase {
   enddate:         string;
   // idProfessionFk:  IDProfessionFk;  Remove profesion
   idUserProfileFk: number;
+  pictures:        string[];      //addinng pictures array to the briefcase            
 }
 
 export interface EnddateClass {
