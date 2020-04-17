@@ -7,6 +7,7 @@ import { RoleSelectComponent } from '../sharedComponents/role-select/role-select
 import { BriefcaseEditComponent } from './briefcase-edit/briefcase-edit.component';
 import { CreateProfileComponent } from './create-profile/create-profile.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
+import { NonProfileGuard } from './services/non-profile.guard';
 
 
 const userRoutes: Routes = [
@@ -15,24 +16,26 @@ const userRoutes: Routes = [
     canActivate: [AuthGuard],
     children: [
       {
-        path: ':id',
+        path: ':id/:role',
         children: [
           {
             path: 'create-profile', component: CreateProfileComponent,
-            resolve: {user: DashboardResolverService}
+            resolve: { user: DashboardResolverService }
           },
           {
             path: 'edit', component: EditProfileComponent
           },
           {
-            path: 'select-role', component: RoleSelectComponent
-          },
-          {
             path: '',
+            pathMatch: 'full',
             component: DashboardComponent,
-            resolve: { user: DashboardResolverService }
+            resolve: { user: DashboardResolverService },
+            canActivate: [NonProfileGuard]
           }
         ]
+      },
+      {
+        path: ':id', component: RoleSelectComponent
       }
     ]
   }

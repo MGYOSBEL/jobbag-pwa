@@ -14,7 +14,7 @@ export class RoleSelectComponent implements OnInit {
     private userService: UserService,
     private router: Router,
     private route: ActivatedRoute) {
-    this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/auth/register';
+    // this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/auth/register';
   }
 
   ngOnInit() {
@@ -22,12 +22,12 @@ export class RoleSelectComponent implements OnInit {
 
   work() {
     this.userService.role = 'SERVICE_PROVIDER';
-    this.router.navigate([this.returnUrl], { queryParams: { role: 'SERVICE_PROVIDER', function: 'CREATE' } });
+    this.router.navigate([`${this.router.url}/SERVICE_PROVIDER`]);
   }
 
   hire() {
     this.userService.role = 'CLIENT';
-    this.router.navigate([this.returnUrl], { queryParams: { role: 'CLIENT', function: 'CREATE' } });
+    this.router.navigate([`${this.router.url}/CLIENT`]);
 
   }
 

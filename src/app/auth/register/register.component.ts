@@ -107,24 +107,19 @@ this.socialAuthService.authState.subscribe(
               this.authenticationService.signInWithJobbag(this.registerForm.value.name, this.registerForm.value.password)
               .subscribe(
                 data => {
-                  const role = this.route.snapshot.queryParams.role;
+                  const role = this.route.snapshot.params.role;
                   console.log('role: ' + role);
                   if (this.authenticationService.isLoggedIn) {
                     const user_id = this.authenticationService.getLoggedUserId();
                     console.log('user_id: ' + user_id);
 
-                    const createProfileURL = '/user/' + user_id + '/create-profile';
                     if (role) {
+                      const createProfileURL = `/user/${user_id}/${role}/create-profile`;
+
                       console.log('navegando a profile extras...');
                       this.router.navigate([createProfileURL], { queryParams: { role, function: 'CREATE' } });
                     } else {
-                      this.router.navigate(['user', user_id, 'select-role'],
-                        {
-                          queryParams: {
-                            returnUrl: createProfileURL,
-                            function: 'CREATE'
-                          }
-                        });
+                      this.router.navigate(['user', user_id]); // role-select url
                     }
                   }
                 });
@@ -139,12 +134,12 @@ this.socialAuthService.authState.subscribe(
                     if (this.authenticationService.isLoggedIn) {
                       const user_id = this.authenticationService.getLoggedUserId();
                       console.log('user_id: ' + user_id);
-                      const createProfileURL = '/user/' + user_id + '/create-profile';
                       if (role) {
+                        const createProfileURL = `/user/${user_id}/${role}/create-profile`;
                         console.log('navegando a profile extras...');
                         this.router.navigate([createProfileURL], { queryParams: { role } });
                       } else {
-                        this.router.navigate(['user', user_id, 'select-role'], { queryParams: { returnUrl: createProfileURL } });
+                        this.router.navigate(['user', user_id]);  // role-select URL
                       }
                     }
                   } else {
