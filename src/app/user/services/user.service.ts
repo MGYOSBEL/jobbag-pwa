@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
+import { Observable, throwError, BehaviorSubject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { User, UserProfile, UserProfileBriefcase } from '../models/user.model';
 import { LoggingService } from '@app/services/logging.service';
@@ -7,13 +7,17 @@ import { environment } from '@environments/environment';
 import { map, tap, catchError } from 'rxjs/operators';
 import { APIResponse } from '@app/models/app.model';
 import { UserCacheService } from './user-cache.service';
+import { AuthenticationService } from '@app/auth/services/authentication.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  private _loggedUser: User;
+  private userSubject = new BehaviorSubject<User>(null);
+
+  loggedUser$ = this.userSubject.asObservable();
+
   apiPath = environment.apiBaseURL;
 
   private userRole: string; // Es para saber si el usuario esta autenticado como CLIENT o SERVICE_PROVIDER
@@ -22,8 +26,20 @@ export class UserService {
   constructor(
     private http: HttpClient,
     private userCacheService: UserCacheService,
+    private authService: AuthenticationService,
     private logging: LoggingService) {
       this.userRole = this.userCacheService.getRole() || 'CLIENT';
+      this.userSubject.next(this.userCacheService.getUser());
+
+      this.authService.isLoggedIn$.subscribe(loggedIn => {
+        if (loggedIn) {
+          this.get(this.authService.getLoggedUserId());
+        } else {
+          this.userSubject.next(null);
+        }
+      });
+
+
     }
 
 
@@ -59,7 +75,7 @@ export class UserService {
         return throwError(err);  // Relanzo el error con el status y el detail
       }),
       tap((response: User) => {
-        this._loggedUser = response; // Salvo el user en el storage
+        this.userSubject.next(response); // Salvo el user en el storage
         this.userCacheService.setUser(response);
       })
     );
@@ -89,6 +105,7 @@ export class UserService {
         return throwError(err);  // Relanzo el error con el status y el detail
       }),
       tap((response: User) => {
+        this.userSubject.next(response); // Salvo el user en el storage
         this.userCacheService.setUser(response);
       })
     );
