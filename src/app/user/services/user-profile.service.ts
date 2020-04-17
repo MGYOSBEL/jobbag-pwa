@@ -3,8 +3,10 @@ import { HttpClient } from '@angular/common/http';
 import { map, tap, catchError } from 'rxjs/operators';
 import { environment } from '@environments/environment';
 import { UserProfile } from '../models/user.model';
-import { of, Observable } from 'rxjs';
+import { of, Observable, throwError } from 'rxjs';
 import { APIResponse } from '@app/models/app.model';
+import { UserModule } from '../user.module';
+import { UserCacheService } from './user-cache.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +17,10 @@ export class UserProfileService {
 
 
 
-  constructor(private http: HttpClient
-              ) { }
+  constructor(
+    private http: HttpClient,
+    private userCacheService: UserCacheService
+  ) { }
 
 
 
@@ -54,60 +58,53 @@ export class UserProfileService {
     }
   }
 
-  public get serviceProvider(): UserProfile {
-    const profiles: Array<UserProfile> = JSON.parse(localStorage.getItem('userProfiles'));
-    const activeProfile: UserProfile = profiles.find(elem => elem.userProfileType === 'SERVICE_PROVIDER');
-    return activeProfile;    // return profiles.find(elem => elem.userProfileType === 'SERVICE_PROVIDER');
-  }
+  // public get serviceProvider(): UserProfile {
+  //   const profiles: Array<UserProfile> = JSON.parse(localStorage.getItem('userProfiles'));
+  //   const activeProfile: UserProfile = profiles.find(elem => elem.userProfileType === 'SERVICE_PROVIDER');
+  //   return activeProfile;    // return profiles.find(elem => elem.userProfileType === 'SERVICE_PROVIDER');
+  // }
 
-  public get client(): UserProfile {
-    const profiles: Array<UserProfile> = JSON.parse(localStorage.getItem('userProfiles'));
-    const activeProfile: UserProfile = profiles.find(elem => elem.userProfileType === 'CLIENT');
-    return activeProfile;    // return profiles.find(elem => elem.userProfileType === 'SERVICE_PROVIDER');
-    // return profiles.find(elem => elem.userProfileType === 'CLIENT');
-  }
+  // public get client(): UserProfile {
+  //   const profiles: Array<UserProfile> = JSON.parse(localStorage.getItem('userProfiles'));
+  //   const activeProfile: UserProfile = profiles.find(elem => elem.userProfileType === 'CLIENT');
+  //   return activeProfile;    // return profiles.find(elem => elem.userProfileType === 'SERVICE_PROVIDER');
+  //   // return profiles.find(elem => elem.userProfileType === 'CLIENT');
+  // }
 
 
 
-  getAll() {}
+  getAll() { }
 
   create(data: any): Observable<UserProfile> {
     let userProfiles: Array<UserProfile>;
-    userProfiles = JSON.parse(localStorage.getItem('userProfiles')) || []; // Leo los profiles del localstorage.
+    userProfiles = this.userCacheService.getProfiles(); // Leo los profiles del localstorage.
     if (userProfiles) {
-      if (userProfiles.length >= 2 ) { // Si hay 2 perfiles no se puede crear ningun otro. Se lanza un error.
-        throw of (new Error('403: Forbidden. You can not have more than two profiles.'));
+      if (!!userProfiles.find(profile => profile.userProfileType === data.user_profile_type)) {
+        return throwError('403: Forbidden. You can not have more than two profiles.');
         // Si solo hay un perfil, pero es del tipo del que se quiere crear
         // tampoco se puede crear. Se lanza un error
-      } else if (userProfiles.length === 1) {
-        if (userProfiles[0].userProfileType === data.user_profile_type) {
-          throw new Error('403: Forbidden. You already have a profile of that type.');
-        }
       }
     }
     console.log(data);
     return this.http.post<APIResponse>(this.apiPath + '/user_profile', data).pipe(
-      catchError(err => { // Captura si hubo algun error en la llamada y lo relanza
-        throw new Error(err.error.status + ': ' + err.error.detail);  // Relanzo el error con el status y el detail
-      }),
       map(response => {
         console.log(response);
         if (response.status_code === 200) { // Si el status del response es OK retorno contento como dato del observable
           return JSON.parse(JSON.parse(response.content));
         } else {
-          throw new Error( // Si no es OK el status del response, lanzo un error con el status y el text
+          return throwError( // Si no es OK el status del response, lanzo un error con el status y el text
             response.status_code + ': ' + (JSON.parse(response.content)).text
           );
         }
+      }),
+      catchError(err => { // Captura si hubo algun error en la llamada y lo relanza
+        return throwError(err.error.status + ': ' + err.error.detail);  // Relanzo el error con el status y el detail
       }),
       tap((content: UserProfile) => { // Si se ejecuta el tap es porque no se lanzo antes ningun error, por lo tanto status===200(OK)
         console.log('content', content);
         userProfiles.push(content);
         console.log('userProfiles', userProfiles);
-        localStorage.setItem('userProfiles', JSON.stringify(userProfiles)); // Se guarda el arreglo de userProfiles en el localStorage
-        if (data.user_profile_briefcase !== null) {
-          localStorage.setItem('briefcases', JSON.stringify(content.briefcases));
-        }
+        this.userCacheService.setProfiles(userProfiles); // Se guarda el arreglo de userProfiles en el localStorage
       })
     );
   }
@@ -115,28 +112,25 @@ export class UserProfileService {
   edit(data: any): Observable<UserProfile> {
     return this.http.put<APIResponse>(this.apiPath + '/user_profile', data)
       .pipe(
-        catchError(err => { // Captura si hubo algun error en la llamada y lo relanza
-          throw  new Error(err.error.status + ': ' + err.error.detail);  // Relanzo el error con el status y el detail
-        }),
         map(response => {
           const content = JSON.parse(response.content); // Seleccionar la parte del response q es el contenido
           if (response.status_code === 200) {
             return content; // Retorno el content del response como cuerpo del observable
           } else { // Si no fue OK el status del response lanzo un error con el status code y el text del response.
-            throw new Error(
+            return throwError(
               response.status_code + ': ' + response.content.text
             );
           }
         }),
+        catchError(err => { // Captura si hubo algun error en la llamada y lo relanza
+          return throwError(err.error.status + ': ' + err.error.detail);  // Relanzo el error con el status y el detail
+        }),
         tap((content: UserProfile) => {
-          let profiles = JSON.parse(localStorage.getItem('userProfiles')) || []; // Leo los profiles del localStorage
-          profiles.forEach(pf => { // Con el foreach recorro los profiles para modificar el que corresponda con el id q estoy modificando
-            if (pf.id === data.id) {
-              pf = content; // Modifico campo por campo del profile con los datos del request
-            }
-          });
+          let profiles = this.userCacheService.getProfiles(); // Leo los profiles del localStorage
+          const index = profiles.findIndex(profile => profile.id === content.id);
+          profiles[index] = content;
           // Una vez modificados los campos salvo el array completo de userProfiles
-          localStorage.setItem('userProfiles', JSON.stringify(profiles));
+          this.userCacheService.setProfiles(profiles);
         }
         ));
   }
@@ -148,26 +142,26 @@ export class UserProfileService {
       client_id: environment.clientId
     };
     return this.http.request<APIResponse>('DELETE', this.apiPath + '/user_profile', { body: req }).pipe(
-      catchError(err => { // Captura si hubo algun error en la llamada y lo relanza
-        throw new Error(err.error.status + ': ' + err.error.detail);  // Relanzo el error con el status y el detail
-      }),
       map(response => {
         if (response.status_code === 200) { // Si el status del response es OK retorno contento como dato del observable
           return JSON.parse(response.content);
         } else {
-          throw new Error( // Si no es OK el status del response, lanzo un error con el status y el text
+          return throwError( // Si no es OK el status del response, lanzo un error con el status y el text
             response.status_code + ': ' + response.content.text
           );
         }
       }),
+      catchError(err => { // Captura si hubo algun error en la llamada y lo relanza
+        return throwError(err.error.status + ': ' + err.error.detail);  // Relanzo el error con el status y el detail
+      }),
       tap(content => { // Si se ejecuta el tap es porque no se lanzo antes ningun error, por lo tanto status===200(OK)
         // Leo el array del storage para actualizarlo
-        let userProfiles: Array<UserProfile> = JSON.parse(localStorage.getItem('userProfiles')) || [];
+        let userProfiles: UserProfile[] = this.userCacheService.getProfiles();
 
         userProfiles.splice(userProfiles.findIndex(elem => elem.id === id), 1); // Cuando encuentro el id, elimino el elemento
 
         console.log('profiles after delete', userProfiles);
-        localStorage.setItem('userProfiles', JSON.stringify(userProfiles));
+        this.userCacheService.setProfiles(userProfiles);
       })
     );
   }
