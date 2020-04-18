@@ -61,11 +61,11 @@ export class CreateProfileComponent implements OnInit {
       accountName: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9 ]*')]],
       companyName: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9 ]*')]],
       profilePicture: [''],
-      countries: [''],
+      // countries: [''],
       services: [''],
       curriculum: [''],
       comments: [''],
-      gallery: ['']
+      // gallery: ['']
     });
    }
 

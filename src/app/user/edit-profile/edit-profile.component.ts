@@ -44,16 +44,18 @@ export class EditProfileComponent implements OnInit {
 
     this.changePassword = false;
     this.imageLoaded = false;
+    this.userService.role$.subscribe(role => {
+      this.role = role;
+      this.activeProfile = this.loggedUser.profiles.find(profile => profile.userProfileType === this.role);
+    });
 
-
-    this.userService.loggedUser$.subscribe( user => {
-      this.role = this.userService.role;
+    this.userService.loggedUser$.subscribe(user => {
       this.loggedUser = user;
       this.activeProfile = this.loggedUser.profiles.find(profile => profile.userProfileType === this.role);
-      });
+    });
 
 
-    // this.previewUrl = `${environment.serverBaseURL}/${this.activeProfileService.activeProfile.picture}`;
+    this.previewUrl = `${environment.serverBaseURL}/${this.activeProfile.picture}`;
 
     this.editProfileForm = this.formBuilder.group({
       username: [this.userService.loggedUser.username, Validators.required],
@@ -172,9 +174,9 @@ export class EditProfileComponent implements OnInit {
     console.log(profileEditRequest);
     const profileEdit$ = this.userProfileService.edit(profileEditRequest);
 
-    const imageEdit$ = this.mediaService.editProfilePicture(1, this.imageBase64); // CAMBIAR EL id
+    const imageEdit$ = this.mediaService.editProfilePicture(this.activeProfile.id, this.imageBase64);
 
-    const cvEdit$ = this.mediaService.editProfileCV(1, this.cvBase64); // CAMBIAR EL id
+    const cvEdit$ = this.mediaService.editProfileCV(this.activeProfile.id, this.cvBase64);
 
     const editProfileCall$ = combineLatest(
       [
