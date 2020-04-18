@@ -21,6 +21,7 @@ export class RegisterComponent implements OnInit {
 
   registerForm: FormGroup;
   returnUrl: string;
+  role: string;
   private registerPath = environment.serverBaseURL + '/user';
   registerRequest: RegisterRequest;
 
@@ -62,6 +63,10 @@ this.registerForm.valueChanges.subscribe(
       this.registerForm.setErrors({passwordsMissmatch: true});
     }
   }
+);
+
+this.userService.role$.subscribe(
+  role => this.role = role
 );
 
 this.socialAuthService.authState.subscribe(
@@ -109,17 +114,17 @@ this.socialAuthService.authState.subscribe(
               this.authenticationService.signInWithJobbag(this.registerForm.value.name, this.registerForm.value.password)
               .subscribe(
                 data => {
-                  const role = this.userService.role;
-                  console.log('role: ' + role);
+                  // const role = this.userService.role;
+                  console.log('role: ' + this.role);
                   if (this.authenticationService.isLoggedIn) {
                     const user_id = this.authenticationService.getLoggedUserId();
                     console.log('user_id: ' + user_id);
 
-                    if (role) {
-                      const createProfileURL = `/user/${user_id}/${role}/create-profile`;
+                    if (this.role) {
+                      const createProfileURL = `/user/${user_id}/${this.role}/create-profile`;
 
                       console.log('navegando a profile extras...');
-                      this.router.navigate([createProfileURL], { queryParams: { role, function: 'CREATE' } });
+                      this.router.navigate([createProfileURL], { queryParams: { } });
                     } else {
                       this.router.navigate(['user', user_id]); // role-select url
                     }
@@ -131,15 +136,15 @@ this.socialAuthService.authState.subscribe(
                 (response) => {
                   this.logging.log('SOCIAL LOGIN RESPONSE: ' + response);
                   if (response) {
-                    const role = this.userService.role;
-                    console.log('role: ' + role);
+                    // const role = this.userService.role;
+                    console.log('role: ' + this.role);
                     if (this.authenticationService.isLoggedIn) {
                       const user_id = this.authenticationService.getLoggedUserId();
                       console.log('user_id: ' + user_id);
-                      if (role) {
-                        const createProfileURL = `/user/${user_id}/${role}/create-profile`;
+                      if (this.role) {
+                        const createProfileURL = `/user/${user_id}/${this.role}/create-profile`;
                         console.log('navegando a profile extras...');
-                        this.router.navigate([createProfileURL], { queryParams: { role } });
+                        this.router.navigate([createProfileURL]);
                       } else {
                         this.router.navigate(['user', user_id]);  // role-select URL
                       }

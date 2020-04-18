@@ -39,6 +39,7 @@ export class UserService {
       this.authService.isLoggedIn$.subscribe(loggedIn => {
         if (!loggedIn) {
           this.userSubject.next(null);
+          this.roleSubject.next(null);
           console.log('null user emitted');
         } else {
           // this.userSubject.next(null);

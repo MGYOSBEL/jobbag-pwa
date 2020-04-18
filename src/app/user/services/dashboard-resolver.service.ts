@@ -14,11 +14,12 @@ import { ProfessionService } from './profession.service';
 })
 export class DashboardResolverService implements Resolve<User> {
 
-  constructor(private userService: UserService,
-              private scholarshipService: ScholarshipService,
-              private professionService: ProfessionService,
-              private authenticationService: AuthenticationService,
-              private route: ActivatedRoute) {
+  constructor(
+    private userService: UserService,
+    private scholarshipService: ScholarshipService,
+    private professionService: ProfessionService,
+    private authenticationService: AuthenticationService,
+    private route: ActivatedRoute) {
 
   }
   resolve(route: ActivatedRouteSnapshot): Observable<User> {
@@ -28,10 +29,12 @@ export class DashboardResolverService implements Resolve<User> {
       return this.userService.get(userId).pipe(
         mergeMap(user => {
           if (user) {
-            if (user.profiles.find(profile => profile.userProfileType === 'CLIENT')) {
-              this.userService.role = 'CLIENT';
-            } else if (user.profiles.find(profile => profile.userProfileType === 'SERVICE_PROVIDER')) {
-              this.userService.role = 'SERVICE_PROVIDER';
+            if (this.userService.role !== null) {
+              if (user.profiles.find(profile => profile.userProfileType === 'CLIENT')) {
+                this.userService.role = 'CLIENT';
+              } else if (user.profiles.find(profile => profile.userProfileType === 'SERVICE_PROVIDER')) {
+                this.userService.role = 'SERVICE_PROVIDER';
+              }
             }
             return of(user);
           } else {
