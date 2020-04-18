@@ -16,7 +16,7 @@ import { ErrorService } from '@app/errors/error.service';
 })
 export class BriefcaseEditComponent implements OnInit {
   briefcases: UserProfileBriefcase[];
-  // professions: IDProfessionFk[];  
+  // professions: IDProfessionFk[];
   briefcaseEditForm: FormGroup;
   function: string;
   previewUrl: any;
@@ -104,11 +104,11 @@ export class BriefcaseEditComponent implements OnInit {
     reader.onload = (_event) => {
       this.previewUrl = reader.result;
       this.imageBase64 = this.previewUrl.toString().split(',')[1];
+      this.pictures[0] = this.imageBase64;      // adding pictures array to briefcase (pictures[0]) just one image
+      this.imageLoaded = true;
     };
 
-    this.pictures[0] = this.imageBase64;      // adding pictures array to briefcase (pictures[0]) just one image 
-    
-    this.imageLoaded = true;
+
   }
 
 

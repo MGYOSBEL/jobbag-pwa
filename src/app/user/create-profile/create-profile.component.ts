@@ -134,11 +134,13 @@ export class CreateProfileComponent implements OnInit {
           end_date: briefcase.enddate,
           start_date: briefcase.startdate,
           comments: briefcase.comments,
+          pictures: briefcase.pictures
           // id_profession: briefcase.idProfessionFk    Remover profesion
         };
       })
     };
-    console.log('userProfileRequest: ', JSON.stringify(userProfileRequest));
+    // console.log('briefcsesService briefcases array: ', JSON.stringify(this.briefcaseService.briefcases));
+    // console.log('userProfileRequest: ', JSON.stringify(userProfileRequest));
     this.userProfileService.create(userProfileRequest)
     .subscribe(
       response => {
