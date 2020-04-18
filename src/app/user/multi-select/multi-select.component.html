@@ -1,7 +1,7 @@
 <!-- {{countries$ | async | json}} -->
 
 
-<div class="row container-fluid justify-content-around " >
+<div class="row container-fluid justify-content-around ">
   <button type="button" class=" col-3 btn btn-primary mt-5 rounded-0 border-0 text-light mx-2 px-0" data-toggle="modal"
     data-target="#selectModal" style="background-color: #2985c4 ;" (click)="onCountrySelect(country)"
     *ngFor="let country of (countries$ | async)">
@@ -21,16 +21,16 @@
       </div>
 
       <div class="modal-body">
-        <div class="select-container row container-fluid justify-content-lg-center m-0 p-0" >
+        <div class="select-container row container-fluid justify-content-lg-center m-0 p-0">
           <div class="card col-12 h-100 px-0 mx-0" id="container">
             <div class="card-header">
-              <button class="btn btn-secondary rounded-0" data-dismiss="modal" (click)="saveDivisions()">Accept these regions</button>
+              <button class="btn btn-secondary rounded-0" data-dismiss="modal" (click)="saveDivisions()">Accept these
+                regions</button>
             </div>
             <div class="card-body w-100">
               <ng-select [multiple]="true" [items]="countryDivisions" groupBy="divisions" [selectableGroup]="true"
-                [selectableGroupAsModel]="false" [(ngModel)]="selectedDivisions"
-                placeholder="Select your regions" [closeOnSelect]="false" bindLabel="nameEs" bindValue="id"
-               >
+                [selectableGroupAsModel]="false" [(ngModel)]="selectedDivisions" placeholder="Select your regions"
+                [closeOnSelect]="false" bindLabel="nameEs" bindValue="id">
                 <ng-template ng-optgroup-tmp let-item="item" let-item$="item$" let-index="index">
                   <input id="item-{{index}}" type="checkbox" [ngModel]="item$.selected" />
                   {{item.nameEs | uppercase}}
@@ -47,11 +47,12 @@
 
       </div>
     </div>
+  </div>
+</div>
 
 
 
 
 
 
-
-    <!-- {{countries$ | async | json}} -->
+<!-- {{countries$ | async | json}} -->

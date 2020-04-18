@@ -13,6 +13,7 @@ import { LoggingService } from '@app/services/logging.service';
 import { SocialUser, AuthService, GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-login';
 import { User } from '@app/user/models/user.model';
 import { ErrorService } from '@app/errors/error.service';
+import { UserService } from '@app/user/services/user.service';
 
 
 
@@ -40,6 +41,7 @@ export class LoginComponent implements OnInit {
               private route: ActivatedRoute,
               private router: Router,
               private authenticationService: AuthenticationService,
+              private userService: UserService,
               private errorService: ErrorService,
               private socialAuthService: AuthService,
               private logging: LoggingService) {
@@ -59,7 +61,8 @@ export class LoginComponent implements OnInit {
         .subscribe( data =>  {
           if (this.authenticationService.isLoggedIn) {
             const user_id = this.authenticationService.getLoggedUserId();
-            this.router.navigate([this.returnUrl, user_id ]);
+            // this.userService.role = 'CLIENT';
+            this.router.navigate([this.returnUrl, user_id, 'CLIENT' ]);
           } else {
             this.loginErr = {err: true, message: data.text};
             this.loading = false;
@@ -100,7 +103,8 @@ export class LoginComponent implements OnInit {
                 this.router.navigate(['./'], {relativeTo: this.route});
               } else {
                 const user_id = this.authenticationService.getLoggedUserId();
-                this.router.navigate([this.returnUrl, user_id]);
+                // this.userService.role = 'CLIENT';
+                this.router.navigate([this.returnUrl, user_id, 'CLIENT']);
               }
             }
             // }, (error) => {

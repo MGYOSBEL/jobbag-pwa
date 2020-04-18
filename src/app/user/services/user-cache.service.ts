@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { User, UserProfile, UserProfileBriefcase } from '../models/user.model';
+import { BehaviorSubject } from 'rxjs';
 
 // localStorage Keys:
 const USER = 'loggedUser';
@@ -13,7 +14,13 @@ const ROLE = 'activeRole';
 })
 export class UserCacheService {
 
-  constructor() { }
+  private subject = new BehaviorSubject<User>(null);
+
+  user$ = this.subject.asObservable();
+
+  constructor() {
+    this.subject.next(JSON.parse(localStorage.getItem(USER)));
+  }
 
   getRole() {
     return localStorage.getItem(ROLE);
@@ -25,6 +32,7 @@ export class UserCacheService {
 
   setUser(user: User) {
     localStorage.setItem(USER, JSON.stringify(user));
+    this.subject.next(user);
   }
 
   getUser(): User {
@@ -35,6 +43,7 @@ export class UserCacheService {
     let user: User = JSON.parse(localStorage.getItem(USER));
     user.profiles = userProfiles;
     localStorage.setItem(USER, JSON.stringify(user));
+    this.subject.next(user);
   }
 
   getProfiles(): UserProfile[] {
@@ -57,7 +66,7 @@ export class UserCacheService {
     user.profiles[index].briefcases = briefcases;
 
     localStorage.setItem(USER, JSON.stringify(user));
-
+    this.subject.next(user);
 
   }
 }

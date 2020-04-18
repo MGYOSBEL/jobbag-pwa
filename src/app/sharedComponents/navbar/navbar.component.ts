@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '@app/user/services/user.service';
 import { AuthenticationService } from '@app/auth/services/authentication.service';
 import { AuthService } from 'angularx-social-login';
-import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
+import { Router, ActivatedRoute, NavigationEnd, NavigationStart } from '@angular/router';
 import { Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { environment } from '@environments/environment';
@@ -31,11 +31,11 @@ export class NavbarComponent implements OnInit {
   navEnd: Observable<NavigationEnd>;
 
   constructor(private userService: UserService,
-              private authenticationService: AuthenticationService,
-              private socialAuthService: AuthService,
-              private route: ActivatedRoute,
-              private router: Router
-              ) {
+    private authenticationService: AuthenticationService,
+    private socialAuthService: AuthService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {
     this.navEnd = router.events.pipe(
       filter(evt => evt instanceof NavigationEnd)
     ) as Observable<NavigationEnd>;
@@ -49,27 +49,31 @@ export class NavbarComponent implements OnInit {
   ngOnInit() {
     this.userService.loggedUser$.subscribe(
       user => {
-        this.loggedUser = user;
-        this.hasProfiles = [
-          !!this.loggedUser.profiles.find(profile => profile.userProfileType === 'CLIENT'),
-          !!this.loggedUser.profiles.find(profile => profile.userProfileType === 'SERVICE_PROVIDER'),
-        ];
-        console.log(this.hasProfiles);
+        if (user) {
+          this.loggedUser = user;
+          this.hasProfiles = [
+            !!this.loggedUser.profiles.find(profile => profile.userProfileType === 'CLIENT'),
+            !!this.loggedUser.profiles.find(profile => profile.userProfileType === 'SERVICE_PROVIDER'),
+          ];
+          console.log(this.hasProfiles);
+        }
       }
     );
 
     this.navEnd.subscribe(
       evt => {
         this.role = this.userService.role;
-        this.hiddenNavbar = this.router.url.includes('auth');
+        this.hiddenNavbar = this.router.url.includes('auth') || this.router.url.includes('create-profile') ;
         this.isLoggedIn = this.authenticationService.isLoggedIn;
         if (this.authenticationService.isLoggedIn) {
           this.socialUser = JSON.parse(localStorage.getItem('socialUser'));
           this.userId = this.authenticationService.getLoggedUserId();
           this.activeProfile = this.loggedUser.profiles.find(profile => profile.userProfileType === this.role);
-          this.defaultPicture = this.activeProfile.picture.length === 0;
-          this.userImageUrl = environment.serverBaseURL + '/' + this.activeProfile.picture;
-          console.log('defaultPicture: ', this.defaultPicture, 'userImageUrl: ', this.userImageUrl);
+          if (this.activeProfile) {
+            this.defaultPicture = this.activeProfile.picture.length === 0;
+            this.userImageUrl = environment.serverBaseURL + '/' + this.activeProfile.picture;
+            console.log('defaultPicture: ', this.defaultPicture, 'userImageUrl: ', this.userImageUrl);
+            }
 
 
         }
@@ -89,19 +93,23 @@ export class NavbarComponent implements OnInit {
   }
 
   toServiceProvider() {
-    // this.activeProfileService.activateServiceProvider();
+    this.userService.role = 'SERVICE_PROVIDER';
+    this.router.navigateByUrl(`/user/${this.loggedUser.id}/SERVICE_PROVIDER`);
   }
 
   toClient() {
-    // this.activeProfileService.activateClient();
+    this.userService.role = 'CLIENT';
+    this.router.navigateByUrl(`/user/${this.loggedUser.id}/CLIENT`);
   }
 
   createProvider() {
-
+    this.userService.role = 'SERVICE_PROVIDER';
+    this.router.navigateByUrl(`/user/${this.loggedUser.id}/SERVICE_PROVIDER/create-profile`);
   }
 
   createClient() {
-
+    this.userService.role = 'CLIENT';
+    this.router.navigateByUrl(`/user/${this.loggedUser.id}/CLIENT/create-profile`);
   }
 
 }

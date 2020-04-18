@@ -171,7 +171,6 @@ export class CreateProfileComponent implements OnInit {
   }
 
   uploadAvatar(event) {
-    console.clear();
     const file = event.target as HTMLImageElement;
     const dx = file.width;
     const dy = file.height;

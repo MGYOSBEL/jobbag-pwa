@@ -22,11 +22,17 @@ export class DashboardResolverService implements Resolve<User> {
 
   }
   resolve(route: ActivatedRouteSnapshot): Observable<User> {
+
     if (this.authenticationService.isLoggedIn) {
-      const userId = route.paramMap.get('id');
+      const userId = this.authenticationService.getLoggedUserId();
       return this.userService.get(userId).pipe(
         mergeMap(user => {
           if (user) {
+            if (user.profiles.find(profile => profile.userProfileType === 'CLIENT')) {
+              this.userService.role = 'CLIENT';
+            } else if (user.profiles.find(profile => profile.userProfileType === 'SERVICE_PROVIDER')) {
+              this.userService.role = 'SERVICE_PROVIDER';
+            }
             return of(user);
           } else {
             return EMPTY;

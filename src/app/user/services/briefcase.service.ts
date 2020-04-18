@@ -88,7 +88,6 @@ export class BriefcaseService {
         let briefcases: UserProfileBriefcase[] = this.userCacheService.getBriefcases();
         briefcases.push(content);
         this.userCacheService.setBriefcases(briefcases);
-        this.userService.refreshUser();
 
       })
     );
@@ -127,7 +126,6 @@ export class BriefcaseService {
         briefcases[index] = content;
         // Una vez modificados los campos salvo el array completo de userProfiles
         this.userCacheService.setBriefcases(briefcases);
-        this.userService.refreshUser();
 
       }
       ));
@@ -161,7 +159,6 @@ export class BriefcaseService {
         let briefcases: UserProfileBriefcase[] = this.userCacheService.getBriefcases() || [];
         briefcases.splice(briefcases.findIndex(elem => elem.id === id), 1); // Cuando encuentro el id, elimino el elemento
         this.userCacheService.setBriefcases(briefcases);
-        this.userService.refreshUser();
       })
     );
   }

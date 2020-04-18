@@ -18,6 +18,10 @@ export class UserService {
 
   loggedUser$ = this.userSubject.asObservable();
 
+  private roleSubject = new BehaviorSubject<string>(null);
+
+  role$ = this.roleSubject.asObservable();
+
   apiPath = environment.apiBaseURL;
 
   private userRole: string; // Es para saber si el usuario esta autenticado como CLIENT o SERVICE_PROVIDER
@@ -30,18 +34,22 @@ export class UserService {
     private logging: LoggingService) {
       this.userRole = this.userCacheService.getRole() || 'CLIENT';
       this.userSubject.next(this.userCacheService.getUser());
+      this.roleSubject.next(this.userRole);
 
       this.authService.isLoggedIn$.subscribe(loggedIn => {
         if (!loggedIn) {
           this.userSubject.next(null);
           console.log('null user emitted');
+        } else {
+          // this.userSubject.next(null);
+          // console.log('new user emitted: ', this.userSubject.value);
         }
       });
+
+      this.userCacheService.user$.subscribe(user => this.userSubject.next(user));
     }
 
-    refreshUser() {
-      this.userSubject.next(this.userCacheService.getUser());
-    }
+
 
 
   public get loggedUser(): User {
@@ -56,6 +64,8 @@ export class UserService {
   public set role(role: string) {
     this.userRole = role;
     this.userCacheService.setRole(role);
+    this.roleSubject.next(role);
+
   }
 
 
@@ -76,7 +86,7 @@ export class UserService {
         return throwError(err);  // Relanzo el error con el status y el detail
       }),
       tap((response: User) => {
-        this.userSubject.next(response); // Salvo el user en el storage
+        this.userSubject.next(response); // Emito el user y lo salvo en el storage
         console.log('emitted user: ', response);
         this.userCacheService.setUser(response);
       })

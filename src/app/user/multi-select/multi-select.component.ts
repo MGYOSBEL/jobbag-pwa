@@ -21,6 +21,9 @@ export class MultiSelectComponent implements OnInit {
   @Input()
   selectedDivisions: number[]; // All divisions selected, from all countries
 
+  @Input()
+  dualScreen: boolean;
+
   @Output()
   selected = new EventEmitter<number[]>();
 

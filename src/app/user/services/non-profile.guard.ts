@@ -16,7 +16,12 @@ export class NonProfileGuard implements CanActivate {
     private userService: UserService,
     private router: Router) {
       this.userService.loggedUser$.subscribe(
-        user => this.loggedUser = user
+        user => {
+          this.loggedUser = user;
+          if (user) {
+
+          }
+        }
       );
   }
 
@@ -25,6 +30,11 @@ export class NonProfileGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): boolean {
+    console.log('NonProfileGuard >>>>>>>>>');
+    console.log('ROUTE: ', route);
+    console.log('loggedUser: ', this.loggedUser);
+    console.log('loggedUser.profiles.length: ', this.loggedUser.profiles.length);
+    console.log('NonProfileGuard <<<<<<<<<');
     if (!!this.loggedUser && this.loggedUser.profiles.length > 0) {
       return true;
     }

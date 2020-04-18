@@ -14,13 +14,13 @@ const userRoutes: Routes = [
   {
     path: '',
     canActivate: [AuthGuard],
+    resolve: { user: DashboardResolverService},
     children: [
       {
         path: ':id/:role',
         children: [
           {
             path: 'create-profile', component: CreateProfileComponent,
-            resolve: { user: DashboardResolverService }
           },
           {
             path: 'edit', component: EditProfileComponent
@@ -29,8 +29,7 @@ const userRoutes: Routes = [
             path: '',
             pathMatch: 'full',
             component: DashboardComponent,
-            resolve: { user: DashboardResolverService },
-            canActivate: [NonProfileGuard]
+            // canActivate: [NonProfileGuard]
           }
         ]
       },

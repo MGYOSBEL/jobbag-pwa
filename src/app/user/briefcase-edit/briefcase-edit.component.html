@@ -135,21 +135,21 @@
         <div class="col-md-4">
           <div class="modal-body text-center mt-0">
 
-            <h4 class="text-center" style="color:#bebcbe ;">Work Samples</h4> 
+            <h4 class="text-center" style="color:#bebcbe ;">Work Samples</h4>
 
             <!-- <div class="container text-center"> -->
-              
+
               <label for="pictureInput" class="pictureInputLabel mx-auto d-block">
                 <img *ngIf="!imageLoaded" src="../../../assets/img/default-image.png" class="defaultImage" alt="default-image"
-                  title="Default Image" style="max-width: 100%; height: auto;cursor: pointer;">                
+                  title="Default Image" style="max-width: 100%; height: auto;cursor: pointer;">
                 <img *ngIf="imageLoaded" [src]="previewUrl" class="" alt="Profile Picture" style="max-width: 100%; height: auto;">
-                <input class="mx-auto d-block" id="pictureInput" type="file" formControlName="profilePicture"
+                <input class="mx-auto d-block" id="pictureInput" type="file"
                   (change)="uploadPicture($event)" accept="image/*">
-              </label>                            
-                          
+              </label>
+
             <!-- </div> -->
 
-            <h5 class="text-center" style="color:#bebcbe ;">Click to add an image!</h5>  
+            <h5 class="text-center" style="color:#bebcbe ;">Click to add an image!</h5>
 
           </div>
         </div>
