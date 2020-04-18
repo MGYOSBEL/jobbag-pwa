@@ -140,23 +140,24 @@
               <div [hidden]="role==='CLIENT'" id="curriculum" class="content">
                 <div class="row justify-content-center">
                   <div class="col-12">
-                    <div class="form-group row py-5 mx-auto">
+                    <div class="form-group row pt-5 mx-auto">
                       <label for="curriculumDescription" style="color: #6c757d;">Curriculum Description!</label>
-                      <div class="row">
-                        <div class="col-9 pr-0">
-                          <label for="curriculumLabel" id="curriculumLabel">
-                            Upload File
-                          </label>
+                    </div>
+                  </div>
+                  <div class="row justify-content-center">
+                    <div class="col-9 pr-0">
+                      <label for="curriculumLabel" id="curriculumLabel">
+                        Upload File
+                      </label>
+                    </div>
+                    <div class="col-3 pl-0">
+                      <label for="curriculumUpload" id="curriculumUpload">
+                        <div class="upload-btn-wrapper">
+                          <button class="btn-uploadcv"><i class="far fa-folder fa-3x"></i></button>
+                          <input type="file" name="myfile" accept="pdf/*" formControlName="curriculum" class="form-control-file"
+                            (change)="uploadCV($event)" />
                         </div>
-                        <div class="col-3 pl-0">
-                          <label for="curriculumUpload" id="curriculumUpload">
-                            <i class="far fa-folder fa-3x"></i>
-                            <input type="file" accept="pdf/*" formControlName="curriculum" class="form-control-file"
-                              id="curriculumInput" placeholder="Upload your CV in pdf format."
-                              (change)="uploadCV($event)" />
-                          </label>
-                        </div>
-                      </div>
+                      </label>
                     </div>
                   </div>
                 </div>

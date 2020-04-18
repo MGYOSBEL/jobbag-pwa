@@ -139,6 +139,18 @@
 
             <!-- <div class="container text-center"> -->
 
+              <div class="image-upload">
+                <label for="file-input">
+                  <img *ngIf="imageLoaded" [src]="previewUrl" class="" alt="Profile Picture" style="max-width: 100%; height: auto;">
+                  <img *ngIf="!imageLoaded" src="../../../assets/img/default-image.png" class="defaultImage" alt="default-image"
+                  title="Default Image" style="max-width: 100%; height: auto;cursor: pointer;">
+                </label>
+
+                <input id="file-input" type="file" formControlName="profilePicture"
+                (change)="uploadPicture($event)" accept="image/*">
+              </div>
+
+<!--
               <label for="pictureInput" class="pictureInputLabel mx-auto d-block">
                 <img *ngIf="!imageLoaded" src="../../../assets/img/default-image.png" class="defaultImage" alt="default-image"
                   title="Default Image" style="max-width: 100%; height: auto;cursor: pointer;">
@@ -146,6 +158,8 @@
                 <input class="mx-auto d-block" id="pictureInput" type="file"
                   (change)="uploadPicture($event)" accept="image/*">
               </label>
+
+              </label>                             -->
 
             <!-- </div> -->
 

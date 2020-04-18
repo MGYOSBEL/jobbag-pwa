@@ -64,3 +64,7 @@
 #row-id{
   width: 22rem;
 }
+
+.image-upload input[type=file] {
+  display: none;
+}

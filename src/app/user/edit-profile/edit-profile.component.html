@@ -265,7 +265,34 @@
                   <div class="card-body">
                     <div class="row">
                       <div class="col-12">
-                        Curriculum Vitae
+                        
+                        <div class="row justify-content-center">
+                          <div class="col-12">
+                            <div class="form-group row pt-5 mx-auto">
+                              <label for="curriculumDescription" style="color: #6c757d;">Curriculum Description!</label>
+                            </div>
+                          </div>
+                          <div class="row justify-content-center">
+                            <div class="col-9 pr-0">
+                              <label for="curriculumLabel" id="curriculumLabel">
+                                Upload File
+                              </label>
+                            </div>
+                            <div class="col-3 pl-0">
+                              <label for="curriculumUpload" id="curriculumUpload">
+                                <div class="upload-btn-wrapper">
+                                  <button class="btn-uploadcv"><i class="far fa-folder fa-3x"></i></button>
+                                  <input type="file" name="myfile" accept="pdf/*" formControlName="curriculum" class="form-control-file"
+                                    (change)="uploadCV($event)" />
+                                </div>
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                        
+
+
+
                       </div>
                     </div>
                   </div>
@@ -316,7 +343,7 @@
                     <div class="row">
                       <div class="col-12">
                         <div class="form-group mx-auto">
-                          <textarea class="form-control" id="commentsInputText" formControlName="comments"
+                          <textarea class="form-control" id="commentsInputText" style="height: 10rem;" formControlName="comments"
                             placeholder="Enter some comments about your skills and previous jobs to enrich your profile..."></textarea>
                         </div>
                       </div>
