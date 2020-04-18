@@ -117,6 +117,7 @@ export class UserProfileService {
         map(response => {
           const content = JSON.parse(response.content); // Seleccionar la parte del response q es el contenido
           if (response.status_code === 200) {
+            console.log('edit response: ', content);
             return content; // Retorno el content del response como cuerpo del observable
           } else { // Si no fue OK el status del response lanzo un error con el status code y el text del response.
             return throwError(

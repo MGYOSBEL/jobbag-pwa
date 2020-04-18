@@ -103,8 +103,8 @@ export class UserService {
     console.log('data request: ', req);
     return this.http.put<APIResponse>(this.apiPath + '/user', req).pipe(
       map(response => {
-        const content = JSON.parse(response.content);
-        console.log(content);
+        const content = (JSON.parse(response.content));
+        console.log('edited User: ', content);
         if (response.status_code === 200) {
           return content;
         } else {
@@ -118,8 +118,18 @@ export class UserService {
         return throwError(err);  // Relanzo el error con el status y el detail
       }),
       tap((response: User) => {
-        this.userSubject.next(response); // Salvo el user en el storage
-        this.userCacheService.setUser(response);
+        console.log('response', response);
+        const user = this.userCacheService.getUser();
+        const user1 = {
+                ...user,
+                id: response.id,
+                email: response.email,
+                username: response.username,
+
+              };
+        console.log(user1);
+        this.userSubject.next(user1); // Salvo el user en el storage
+        this.userCacheService.setUser(user1);
       })
     );
   }

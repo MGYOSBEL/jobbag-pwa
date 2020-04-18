@@ -103,8 +103,9 @@ export class EditProfileComponent implements OnInit {
     reader.onload = (_event) => {
       this.previewUrl = reader.result as string;
       this.imageBase64 = this.previewUrl.toString().split(',')[1];
+      this.imageLoaded = true;
+
     };
-    this.imageLoaded = true;
   }
 
   uploadAvatar(event) {
@@ -126,8 +127,9 @@ export class EditProfileComponent implements OnInit {
       let dataUrl = canvas.toDataURL('image/png');
       this.previewUrl = file.src;
       this.imageBase64 = dataUrl.toString().split(',')[1];
+      this.imageLoaded = true;
+
     };
-    this.imageLoaded = true;
   }
 
   uploadCV(event) {
@@ -137,9 +139,10 @@ export class EditProfileComponent implements OnInit {
     reader.onload = (_event) => {
       this.cvUrl = reader.result as string;
       this.cvBase64 = this.cvUrl.toString().split(',')[1];
+      this.cvLoaded = true;
+      console.log(this.cvUrl);
+
     };
-    this.cvLoaded = true;
-    console.log(this.cvUrl);
 
   }
 
@@ -151,7 +154,7 @@ export class EditProfileComponent implements OnInit {
       email: this.editProfileForm.value.email,
       password: this.changePassword ? this.editProfileForm.value.password : null
     };
-    console.log(userEditRequest);
+    console.log('userEditRequest: ', userEditRequest);
 
     const userEdit$ = this.userService.edit(userEditRequest);
 
@@ -166,12 +169,13 @@ export class EditProfileComponent implements OnInit {
       scholarship_id: this.activeProfile.scholarshipid,
       picture: '',
       cv: '',
-      user_profile_type: 'SERVICE_PROVIDER',
+      user_profile_type: this.role,
       user_profile_account: this.editProfileForm.value.accountType,
       name: this.profileName.value,
-      user_profile_briefcase: this.activeProfile.briefcases
+      user_profile_briefcase: this.activeProfile.briefcases,
+      divisions: ''
     };
-    console.log(profileEditRequest);
+    console.log('profileEditRequest: ', profileEditRequest);
     const profileEdit$ = this.userProfileService.edit(profileEditRequest);
 
     const imageEdit$ = this.mediaService.editProfilePicture(this.activeProfile.id, this.imageBase64);
