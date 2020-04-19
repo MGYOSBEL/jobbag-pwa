@@ -1,75 +1,111 @@
+/*Component editProfileContainer*/
 .container-ep-component{
-  background-image: url(../../../assets/img/login-01-opacity50.png);
+  background-image: url(../../../assets/img/img-blur10-opacity50.png);
   background-size:125%;
   background-position: center;
   background-repeat: no-repeat;
 }
 
+/*Container Column*/
 .container-col{
-    padding-left: 0;
-    padding-right: 0;
-    box-shadow: 10px 10px 12px 0.5rem rgba(0,0,0,0.5);
+  padding-left: 0;
+  padding-right: 0;
+  box-shadow: 10px 10px 12px 0.5rem rgba(0,0,0,0.5);
 }
 
+/*Container columnBar*/
 .container-col-bar {
-    height: 26.5rem;
-    overflow:auto;
-    padding-right: 2rem;    
+  height: 26.5rem;
+  overflow:auto;
+  padding-right: 1rem;    
 }
 
-.btn-collapse-col{
-    text-align: right;
+/*Firefox columnBarStyle*/
+.container-col-bar {
+  scrollbar-color: #2888C7 #BEBCBE;
+  scrollbar-width: thin;   
+}
+/*Chrome columnBarStyle*/
+.container-col-bar::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.container-col-bar::-webkit-scrollbar-track {
+  background-color:#BEBCBE;
+  border-radius: 0;
+}
+.container-col-bar::-webkit-scrollbar-thumb {
+  background-color: #2888C7;
+  border-radius: 0;
+}
+
+/*editProfileFormContainer*/
+.container-ep-form{
+  padding: 1rem 2rem 1rem 2rem;
+  background-color: white;
+}
+
+/*Tittle profileCardSection*/
+#section-card{
+  border:0;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom-width: 0.5px !important;
+  border-bottom-style: solid !important ;
+  border-bottom-color: #e9ecef;
 }
 
 .tittle-profile-card{
-    background-color: #2888C7;
+  background-color: #2888C7;
 }
 
-.accordion-footer{
-    background-color: white;
+.btn-collapse-col{
+  text-align: right;
 }
 
+/*Body headingCards*/
 #headingOne, #headingTwo, #headingThree, #headingFour,
 #headingFive, #headingSix, #headingSeven, #headingEight{
     border-radius: 0;
     background-color: white;
     margin-bottom: 0px;
     padding-bottom: 0px;
-    border-bottom-width: 2px !important;
-    border-bottom-style: solid;
+    border-bottom: 0;
+    cursor: pointer;
 }
 
-.card{
-    border-color:transparent;
+#headingOne:hover, #headingTwo:hover, #headingThree:hover, #headingFour:hover,
+#headingFive:hover, #headingSix:hover, #headingSeven:hover, #headingEight:hover{
+  background-color: #e9ecef !important;  
 }
 
-
-/*Firefox*/
-.container-col-bar {
-    scrollbar-color: #2888C7 #BEBCBE;
-    scrollbar-width: thin;   
-}
-/*Chrome*/
-.container-col-bar::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-  }
-.container-col-bar::-webkit-scrollbar-track {
-    background-color:#BEBCBE;
-    border-radius: 0;
-  }
-.container-col-bar::-webkit-scrollbar-thumb {
-    background-color: #2888C7;
-    border-radius: 0;
-  }
-
-.container-ep-form{
-    padding: 1rem 2rem 1rem 2rem;
-    background-color: white;
+/*Body headingButtonCard*/
+.btn-link{
+  color: black;
+  padding:0;
+  border-top-width: 0;
 }
 
+.btn-link:hover{
+  color: black;
+  padding:0;
+  text-decoration: none;  
+}
+
+.btn-link:focus{
+  color: black;
+  padding:0;
+  text-decoration: none;
+}
+
+/*Body Card*/
 .card-body{
-    padding-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+/*Footer Card*/
+.accordion-footer{
+    background-color: white;
 }
 
 /*Section Picture*/
@@ -137,7 +173,7 @@
   background-color: #f1f1f1;
   color: #6c757d;
   width: 15rem;
-  padding: 0.75rem;
+  padding: 0.81rem;
   text-align: left;
   margin-top: 0;
 }

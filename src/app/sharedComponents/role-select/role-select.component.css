@@ -1,6 +1,7 @@
 .text-btn {
-font-size: 2.5rem !important;
-color: white;
+  font-size: 2.0rem !important;
+  color: white;
+  margin-bottom: 0.5rem;
 }
 .motivational-text{
   margin-top: 2rem;
