@@ -10,7 +10,7 @@ import { BriefcaseService } from '@app/user/services/briefcase.service';
 import { UserService } from '@app/user/services/user.service';
 import { Observable, forkJoin, EMPTY, combineLatest, of } from 'rxjs';
 import { MediaService } from '@app/user/services/media.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -39,7 +39,8 @@ export class EditProfileComponent implements OnInit {
     private userProfileService: UserProfileService,
     private mediaService: MediaService,
     private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {
 
     this.changePassword = false;
@@ -199,6 +200,16 @@ export class EditProfileComponent implements OnInit {
       () =>  this.router.navigateByUrl(`/user/${this.userService.loggedUser.id}/${this.activeProfile.userProfileType}`)
 
     );
+  }
+
+
+  onCollapse(event) {
+    console.log(event);
+  }
+
+  onClose() {
+    this.router.navigate(['../'], {relativeTo: this.route});
+
   }
 
 }

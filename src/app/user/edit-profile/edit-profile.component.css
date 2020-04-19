@@ -17,13 +17,13 @@
 .container-col-bar {
   height: 26.5rem;
   overflow:auto;
-  padding-right: 1rem;    
+  padding-right: 1rem;
 }
 
 /*Firefox columnBarStyle*/
 .container-col-bar {
   scrollbar-color: #2888C7 #BEBCBE;
-  scrollbar-width: thin;   
+  scrollbar-width: thin;
 }
 /*Chrome columnBarStyle*/
 .container-col-bar::-webkit-scrollbar {
@@ -76,7 +76,7 @@
 
 #headingOne:hover, #headingTwo:hover, #headingThree:hover, #headingFour:hover,
 #headingFive:hover, #headingSix:hover, #headingSeven:hover, #headingEight:hover{
-  background-color: #e9ecef !important;  
+  background-color: #e9ecef !important;
 }
 
 /*Body headingButtonCard*/
@@ -89,13 +89,18 @@
 .btn-link:hover{
   color: black;
   padding:0;
-  text-decoration: none;  
+  text-decoration: none;
 }
 
 .btn-link:focus{
   color: black;
   padding:0;
   text-decoration: none;
+}
+
+.header-blue {
+  background-color: #2888C7;
+  color: white;
 }
 
 /*Body Card*/
@@ -113,7 +118,7 @@
     visibility: hidden;
     width: 0;
   }
-  
+
   .svg-add-user{
     width: 8rem;
     width: 8rem;
@@ -122,7 +127,7 @@
     object-fit: cover;
     cursor: pointer;
   }
-  
+
   .add-badge{
     position: absolute;
     left: 22rem;
@@ -135,17 +140,17 @@
     font-weight: bolder;
     cursor: pointer;
   }
-  
+
   .avatar-img{
     height: 8rem;
     cursor: pointer;
   }
 
   /*Section CurriculumVitae*/
-.upload-btn-wrapper {  
+.upload-btn-wrapper {
   position: relative;
   overflow: hidden;
-  display: inline-block;  
+  display: inline-block;
 }
 
 .btn-uploadcv {

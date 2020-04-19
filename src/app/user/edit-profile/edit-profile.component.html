@@ -12,7 +12,7 @@
                   </label>
                 </div>
                 <div class="col-2 btn-collapse-col">
-                  <button type="button" class="close" aria-label="Close" style="color: white;">
+                  <button type="button" class="close" aria-label="Close" style="color: white;" data-toggle="modal" data-target="#closeModal">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
@@ -22,11 +22,11 @@
           <div class="container container-ep-form">
             <div class="container container-col-bar">
               <div class="card" id="section-card">
-                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne">
+                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" >
                   <div class="card-header" id="headingOne">
                     <div class="row">
                       <div class="col-9">
-                        <p class="text-left">General Information</p>                        
+                        <p class="text-left">General Information</p>
                       </div>
                       <div class="col-3 text-right">
                         <i class="fa fa-angle-down" style="font-size:1.5rem;color:#2888C7"></i>
@@ -34,7 +34,7 @@
                     </div>
                   </div>
                 </button>
-                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample" >
                   <div class="card-body">
                     <div class="form-group">
                       <div class="row">
@@ -93,13 +93,13 @@
                     </div>
                   </div>
                 </div>
-              </div>              
+              </div>
               <div class="card" id="section-card">
                 <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseThree">
                   <div class="card-header" id="headingThree">
                     <div class="row">
                       <div class="col-9">
-                        <p class="text-left">Picture</p>                        
+                        <p class="text-left">Picture</p>
                       </div>
                       <div class="col-3 text-right">
                         <i class="fa fa-angle-down" style="font-size:1.5rem;color:#2888C7"></i>
@@ -171,7 +171,7 @@
                   <div class="card-header" id="headingFour">
                     <div class="row">
                       <div class="col-9">
-                        <p class="text-left">Countries</p>                        
+                        <p class="text-left">Countries</p>
                       </div>
                       <div class="col-3 text-right">
                         <i class="fa fa-angle-down" style="font-size:1.5rem;color:#2888C7"></i>
@@ -192,7 +192,7 @@
                   <div class="card-header" id="headingFive">
                     <div class="row">
                       <div class="col-9">
-                        <p class="text-left">Services</p>                        
+                        <p class="text-left">Services</p>
                       </div>
                       <div class="col-3 text-right">
                         <i class="fa fa-angle-down" style="font-size:1.5rem;color:#2888C7"></i>
@@ -215,7 +215,7 @@
                   <div class="card-header" id="headingSix">
                     <div class="row">
                       <div class="col-9">
-                        <p class="text-left">Curriculum Vitae</p>                        
+                        <p class="text-left">Curriculum Vitae</p>
                       </div>
                       <div class="col-3 text-right">
                         <i class="fa fa-angle-down" style="font-size:1.5rem;color:#2888C7"></i>
@@ -265,7 +265,7 @@
                   <div class="card-header" id="headingSeven">
                     <div class="row">
                       <div class="col-9">
-                        <p class="text-left">Briefcases</p>                        
+                        <p class="text-left">Briefcases</p>
                       </div>
                       <div class="col-3 text-right">
                         <i class="fa fa-angle-down" style="font-size:1.5rem;color:#2888C7"></i>
@@ -286,7 +286,7 @@
                   <div class="card-header" id="headingEight">
                     <div class="row">
                       <div class="col-9">
-                        <p class="text-left">Resume</p>                        
+                        <p class="text-left">Resume</p>
                       </div>
                       <div class="col-3 text-right">
                         <i class="fa fa-angle-down" style="font-size:1.5rem;color:#2888C7"></i>
@@ -340,6 +340,29 @@
           </div>
         </div>
       </form>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div class="modal fade rounded-0" id="closeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered rounded-0" role="document">
+    <div class="modal-content rounded-0 border-0">
+      <div class="modal-header rounded-0" style="background-color: #2888C7; color: white;">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Close</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body rounded-0">
+        If you close, you can lose any change you have made to your profile.
+      </div>
+      <div class="modal-footer rounded-0">
+        <button type="button" class="btn btn-secondary btn-edit rounded-0" data-dismiss="modal">Continue editing</button>
+        <button type="button" class="btn btn-primary btn-edit rounded-0" data-dismiss="modal" style="background-color: #2888C7;" (click)="onClose()">Exit</button>
+      </div>
     </div>
   </div>
 </div>
