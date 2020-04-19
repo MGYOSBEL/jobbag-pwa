@@ -8,7 +8,7 @@
               <div class="row">
                 <div class="col-10">
                   <label style="color: white;">
-                    Nombre de Usuario
+                    Edit Profile
                   </label>
                 </div>
                 <div class="col-2 btn-collapse-col">
@@ -21,22 +21,19 @@
           </div>
           <div class="container container-ep-form">
             <div class="container container-col-bar">
-              <div class="card">
-                <div class="card-header" id="headingOne">
-                  <div class="row">
-                    <div class="col-10">
-                      <label>
-                        User
-                      </label>
-                    </div>
-                    <div class="col-2 btn-collapse-col">
-                      <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne"
-                        aria-expanded="true" aria-controls="collapseOne">
+              <div class="card" id="section-card">
+                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne">
+                  <div class="card-header" id="headingOne">
+                    <div class="row">
+                      <div class="col-9">
+                        <p class="text-left">General Information</p>                        
+                      </div>
+                      <div class="col-3 text-right">
                         <i class="fa fa-angle-down" style="font-size:1.5rem;color:#2888C7"></i>
-                      </button>
+                      </div>
                     </div>
                   </div>
-                </div>
+                </button>
                 <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
                   <div class="card-body">
                     <div class="form-group">
@@ -53,6 +50,25 @@
                               Email:
                             </label>
                             <input type="email" class="form-control rounded-0"  id="email" formControlName="email">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="row">
+                          <div class="col-12">
+                            <input type="radio" class="form-check-input" name="accountType" formControlName="accountType" value="PERSONAL">
+                            <label for="accountName" class="form-check-label">Personal Account</label>
+                            <input type="text" class="form-control rounded-0" formControlName="accountName" id="accountName"
+                              [ngClass]="editProfileForm.get('accountName').invalid && (editProfileForm.get('accountName').dirty || editProfileForm.get('accountName').touched) ? 'is-invalid' : '' "
+                              placeholder="Name">
+                            <div class="form-group ">
+                              <br>
+                              <input type="radio" class="form-check-input" name="accountType" formControlName="accountType" value="COMPANY">
+                              <label for="exampleInputEmail1" class="form-check-label">Company Account</label>
+                              <input type="text" class="form-control rounded-0" formControlName="companyName" id="exampleInputEmail1"
+                                [ngClass]="editProfileForm.get('companyName').invalid && (editProfileForm.get('companyName').dirty || editProfileForm.get('companyName').touched) ? 'is-invalid' : '' "
+                                placeholder="Company or Family Name">
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -77,65 +93,20 @@
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="card">
-                <div class="card-header" id="headingTwo">
-                  <div class="row">
-                    <div class="col-10">
-                      <label>
-                        Profile
-                      </label>
-                    </div>
-                    <div class="col-2 btn-collapse-col">
-                      <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseTwo"
-                        aria-expanded="true" aria-controls="collapseTwo">
+              </div>              
+              <div class="card" id="section-card">
+                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseThree">
+                  <div class="card-header" id="headingThree">
+                    <div class="row">
+                      <div class="col-9">
+                        <p class="text-left">Picture</p>                        
+                      </div>
+                      <div class="col-3 text-right">
                         <i class="fa fa-angle-down" style="font-size:1.5rem;color:#2888C7"></i>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-                  <div class="card-body">
-                    <div class="form-group ">
-                      <div class="row">
-                        <div class="col-12">
-                          <input type="radio" class="form-check-input" name="accountType" formControlName="accountType"
-                            value="PERSONAL">
-                          <label for="accountName" class="form-check-label">Personal Account</label>
-                          <input type="text" class="form-control rounded-0" formControlName="accountName" id="accountName"
-                            [ngClass]="editProfileForm.get('accountName').invalid && (editProfileForm.get('accountName').dirty || editProfileForm.get('accountName').touched) ? 'is-invalid' : '' "
-                            placeholder="Name">
-                          <div class="form-group ">
-                            <br>
-                            <input type="radio" class="form-check-input" name="accountType" formControlName="accountType"
-                              value="COMPANY">
-                            <label for="exampleInputEmail1" class="form-check-label">Company Account</label>
-                            <input type="text" class="form-control rounded-0" formControlName="companyName" id="exampleInputEmail1"
-                              [ngClass]="editProfileForm.get('companyName').invalid && (editProfileForm.get('companyName').dirty || editProfileForm.get('companyName').touched) ? 'is-invalid' : '' "
-                              placeholder="Company or Family Name">
-                          </div>
-                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </div>
-              <div class="card">
-                <div class="card-header" id="headingThree">
-                  <div class="row">
-                    <div class="col-10">
-                      <label>
-                        Picture
-                      </label>
-                    </div>
-                    <div class="col-2 btn-collapse-col">
-                      <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseThree"
-                        aria-expanded="true" aria-controls="collapseThree">
-                        <i class="fa fa-angle-down" style="font-size:1.5rem;color:#2888C7"></i>
-                      </button>
-                    </div>
-                  </div>
-                </div>
+                </button>
                 <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
                   <div class="card-body">
                     <div class="form-group">
@@ -195,22 +166,19 @@
                   </div>
                 </div>
               </div>
-              <div class="card">
-                <div class="card-header" id="headingFour">
-                  <div class="row">
-                    <div class="col-10">
-                      <label>
-                        Countries
-                      </label>
-                    </div>
-                    <div class="col-2 btn-collapse-col">
-                      <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseFour"
-                        aria-expanded="true" aria-controls="collapseFour">
+              <div class="card" id="section-card">
+                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseFour">
+                  <div class="card-header" id="headingFour">
+                    <div class="row">
+                      <div class="col-9">
+                        <p class="text-left">Countries</p>                        
+                      </div>
+                      <div class="col-3 text-right">
                         <i class="fa fa-angle-down" style="font-size:1.5rem;color:#2888C7"></i>
-                      </button>
+                      </div>
                     </div>
                   </div>
-                </div>
+                </button>
                 <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
                   <div class="row">
                     <div class="col-12">
@@ -219,22 +187,19 @@
                   </div>
                 </div>
               </div>
-              <div class="card">
-                <div class="card-header" id="headingFive">
-                  <div class="row">
-                    <div class="col-10">
-                      <label>
-                        My Services
-                      </label>
-                    </div>
-                    <div class="col-2 btn-collapse-col">
-                      <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseFive"
-                        aria-expanded="true" aria-controls="collapseFive">
+              <div class="card" id="section-card">
+                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseFive">
+                  <div class="card-header" id="headingFive">
+                    <div class="row">
+                      <div class="col-9">
+                        <p class="text-left">Services</p>                        
+                      </div>
+                      <div class="col-3 text-right">
                         <i class="fa fa-angle-down" style="font-size:1.5rem;color:#2888C7"></i>
-                      </button>
+                      </div>
                     </div>
                   </div>
-                </div>
+                </button>
                 <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordionExample">
                   <div class="card-body">
                     <div class="row">
@@ -245,22 +210,19 @@
                   </div>
                 </div>
               </div>
-              <div class="card">
-                <div class="card-header" id="headingSix">
-                  <div class="row">
-                    <div class="col-10">
-                      <label>
-                        Curriculum Vitae
-                      </label>
-                    </div>
-                    <div class="col-2 btn-collapse-col">
-                      <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseSix"
-                        aria-expanded="true" aria-controls="collapseSix">
+              <div class="card" id="section-card">
+                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseSix">
+                  <div class="card-header" id="headingSix">
+                    <div class="row">
+                      <div class="col-9">
+                        <p class="text-left">Curriculum Vitae</p>                        
+                      </div>
+                      <div class="col-3 text-right">
                         <i class="fa fa-angle-down" style="font-size:1.5rem;color:#2888C7"></i>
-                      </button>
+                      </div>
                     </div>
                   </div>
-                </div>
+                </button>
                 <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordionExample">
                   <div class="card-body">
                     <div class="row">
@@ -298,22 +260,19 @@
                   </div>
                 </div>
               </div>
-              <div class="card">
-                <div class="card-header" id="headingSeven">
-                  <div class="row">
-                    <div class="col-10">
-                      <label>
-                        My Work
-                      </label>
-                    </div>
-                    <div class="col-2 btn-collapse-col">
-                      <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseSeven"
-                        aria-expanded="true" aria-controls="collapseSeven">
+              <div class="card" id="section-card">
+                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseSeven">
+                  <div class="card-header" id="headingSeven">
+                    <div class="row">
+                      <div class="col-9">
+                        <p class="text-left">Briefcases</p>                        
+                      </div>
+                      <div class="col-3 text-right">
                         <i class="fa fa-angle-down" style="font-size:1.5rem;color:#2888C7"></i>
-                      </button>
+                      </div>
                     </div>
                   </div>
-                </div>
+                </button>
                 <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-parent="#accordionExample">
                   <div class="card-body">
 
@@ -322,22 +281,19 @@
                   </div>
                 </div>
               </div>
-              <div class="card">
-                <div class="card-header" id="headingEight">
-                  <div class="row">
-                    <div class="col-10">
-                      <label>
-                        Comments
-                      </label>
-                    </div>
-                    <div class="col-2 btn-collapse-col">
-                      <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseEight"
-                        aria-expanded="true" aria-controls="collapseEight">
+              <div class="card" id="section-card">
+                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseEight">
+                  <div class="card-header" id="headingEight">
+                    <div class="row">
+                      <div class="col-9">
+                        <p class="text-left">Resume</p>                        
+                      </div>
+                      <div class="col-3 text-right">
                         <i class="fa fa-angle-down" style="font-size:1.5rem;color:#2888C7"></i>
-                      </button>
+                      </div>
                     </div>
                   </div>
-                </div>
+                </button>
                 <div id="collapseEight" class="collapse" aria-labelledby="headingEight" data-parent="#accordionExample">
                   <div class="card-body">
                     <div class="row">
