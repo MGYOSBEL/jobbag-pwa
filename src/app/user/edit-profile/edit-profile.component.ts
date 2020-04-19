@@ -173,7 +173,7 @@ export class EditProfileComponent implements OnInit {
       user_profile_account: this.editProfileForm.value.accountType,
       name: this.profileName.value,
       user_profile_briefcase: this.activeProfile.briefcases,
-      divisions: ''
+      divisions: null
     };
     console.log('profileEditRequest: ', profileEditRequest);
     const profileEdit$ = this.userProfileService.edit(profileEditRequest);
@@ -194,10 +194,10 @@ export class EditProfileComponent implements OnInit {
     editProfileCall$.subscribe(
       res => {
         console.log('COMBINED RESPONSE: ', res);
-        this.router.navigate([`user/${this.userService.loggedUser.id}`]);
       },
-      err => console.log(err),
-      () => console.log('COMPLETED')
+      (err: []) => console.log(err),
+      () =>  this.router.navigateByUrl(`/user/${this.userService.loggedUser.id}/${this.activeProfile.userProfileType}`)
+
     );
   }
 

@@ -5,10 +5,27 @@ import { RegisterComponent } from './register/register.component';
 
 
 const authRoutes: Routes = [
-  {path: '', children: [
-    {path: 'login', component: LoginComponent},
-    {path: 'register', component: RegisterComponent}
-  ]}
+  {
+    path: '', children: [
+      {
+        path: 'login',
+        component: LoginComponent
+      },
+      {
+        path: 'register',
+        children: [
+          {
+            path: ':role',
+            component: RegisterComponent
+          },
+          {
+            path: '',
+            component: RegisterComponent
+          }
+        ],
+      }
+    ]
+  }
 ];
 
 @NgModule({
