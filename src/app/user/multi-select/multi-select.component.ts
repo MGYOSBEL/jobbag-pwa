@@ -39,7 +39,7 @@ export class MultiSelectComponent implements OnInit {
 
   ngOnInit() {
     this.countries$ = this.countryService.get();
-
+    console.log('ms: selectedDivisions', this.selectedDivisions);
   }
 
 //   selectAll() {

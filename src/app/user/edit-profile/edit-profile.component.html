@@ -12,7 +12,8 @@
                   </label>
                 </div>
                 <div class="col-2 btn-collapse-col">
-                  <button type="button" class="close" aria-label="Close" style="color: white;" data-toggle="modal" data-target="#closeModal">
+                  <button type="button" class="close" aria-label="Close" style="color: white;" data-toggle="modal"
+                    data-target="#closeModal">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
@@ -22,7 +23,7 @@
           <div class="container container-ep-form">
             <div class="container container-col-bar">
               <div class="card" id="section-card">
-                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" >
+                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne">
                   <div class="card-header" id="headingOne">
                     <div class="row">
                       <div class="col-9">
@@ -34,7 +35,8 @@
                     </div>
                   </div>
                 </button>
-                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample" >
+                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
+                  data-parent="#accordionExample">
                   <div class="card-body">
                     <div class="form-group">
                       <div class="row">
@@ -49,23 +51,27 @@
                             <label class="form-text" for="email">
                               Email:
                             </label>
-                            <input type="email" class="form-control rounded-0"  id="email" formControlName="email">
+                            <input type="email" class="form-control rounded-0" id="email" formControlName="email">
                           </div>
                         </div>
                       </div>
                       <div class="form-group">
                         <div class="row">
                           <div class="col-12">
-                            <input type="radio" class="form-check-input" name="accountType" formControlName="accountType" value="PERSONAL">
+                            <input type="radio" class="form-check-input" name="accountType"
+                              formControlName="accountType" value="PERSONAL">
                             <label for="accountName" class="form-check-label">Personal Account</label>
-                            <input type="text" class="form-control rounded-0" formControlName="accountName" id="accountName"
+                            <input type="text" class="form-control rounded-0" formControlName="accountName"
+                              id="accountName"
                               [ngClass]="editProfileForm.get('accountName').invalid && (editProfileForm.get('accountName').dirty || editProfileForm.get('accountName').touched) ? 'is-invalid' : '' "
                               placeholder="Name">
                             <div class="form-group ">
                               <br>
-                              <input type="radio" class="form-check-input" name="accountType" formControlName="accountType" value="COMPANY">
+                              <input type="radio" class="form-check-input" name="accountType"
+                                formControlName="accountType" value="COMPANY">
                               <label for="exampleInputEmail1" class="form-check-label">Company Account</label>
-                              <input type="text" class="form-control rounded-0" formControlName="companyName" id="exampleInputEmail1"
+                              <input type="text" class="form-control rounded-0" formControlName="companyName"
+                                id="exampleInputEmail1"
                                 [ngClass]="editProfileForm.get('companyName').invalid && (editProfileForm.get('companyName').dirty || editProfileForm.get('companyName').touched) ? 'is-invalid' : '' "
                                 placeholder="Company or Family Name">
                             </div>
@@ -76,16 +82,19 @@
                         <div class="col-12">
                           <div class="form-group">
                             <div class="form-check">
-                              <input class="form-check-input" type="checkbox" id="passwordCheck" (click)="toggleChangePassword($event)">
+                              <input class="form-check-input" type="checkbox" id="passwordCheck"
+                                (click)="toggleChangePassword($event)">
                               <label class="form-check-label" for="passwordCheck">
                                 I want to Change my Password
                               </label>
                             </div>
                             <fieldset [disabled]="!changePassword">
                               <br>
-                              <input type="password" class="form-control rounded-0" id="password" formControlName="password">
+                              <input type="password" class="form-control rounded-0" id="password"
+                                formControlName="password">
                               <br>
-                              <input type="password" class="form-control rounded-0" id="passwordConfirm" formControlName="passwordConfirm">
+                              <input type="password" class="form-control rounded-0" id="passwordConfirm"
+                                formControlName="passwordConfirm">
                             </fieldset>
                           </div>
                         </div>
@@ -132,8 +141,8 @@
                                 </g>
                               </g>
                             </svg>
-                            <img *ngIf="activeProfile.picture" [src]="previewUrl" class="rounded-circle svg-add-user mx-auto d-block"
-                              alt="Profile Picture">
+                            <img *ngIf="activeProfile.picture" [src]="previewUrl"
+                              class="rounded-circle svg-add-user mx-auto d-block" alt="Profile Picture">
                             <span class="add-badge">+</span>
                           </label>
                         </div>
@@ -182,7 +191,9 @@
                 <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
                   <div class="row">
                     <div class="col-12">
-                      <app-multi-select [popup]="true"></app-multi-select>
+                      <app-multi-select [popup]="true" [selectedDivisions]="activeProfile.divisions"
+                        (selected)="onDivisionsSelect($event)">
+                      </app-multi-select>
                     </div>
                   </div>
                 </div>
@@ -205,6 +216,22 @@
                     <div class="row">
                       <div class="col-12">
                         My Services
+                        <ng-select [multiple]="true"
+                        [items]="countryDivisions"
+                        groupBy="divisions"
+                        [selectableGroup]="true"
+                        [selectableGroupAsModel]="false"
+
+                        placeholder="Select your services"
+                        [closeOnSelect]="false" bindLabel="nameEs" bindValue="id">
+                  <ng-template ng-optgroup-tmp let-item="item" let-item$="item$" let-index="index">
+                    <input id="item-{{index}}" type="checkbox" [ngModel]="item$.selected" />
+                    {{item.nameEs | uppercase}}
+                  </ng-template>
+                  <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+                    <input id="item-{{index}}" type="checkbox" [ngModel]="item$.selected" /> {{item.nameEs}}
+                  </ng-template>
+                </ng-select>
                       </div>
                     </div>
                   </div>
@@ -244,8 +271,8 @@
                               <label for="curriculumUpload" id="curriculumUpload">
                                 <div class="upload-btn-wrapper">
                                   <button class="btn-uploadcv"><i class="far fa-folder fa-3x"></i></button>
-                                  <input type="file" name="myfile" accept="pdf/*" formControlName="curriculum" class="form-control-file"
-                                    (change)="uploadCV($event)" />
+                                  <input type="file" name="myfile" accept="pdf/*" formControlName="curriculum"
+                                    class="form-control-file" (change)="uploadCV($event)" />
                                 </div>
                               </label>
                             </div>
@@ -299,7 +326,8 @@
                     <div class="row">
                       <div class="col-12">
                         <div class="form-group mx-auto">
-                          <textarea class="form-control" id="commentsInputText" style="height: 10rem;" formControlName="comments"
+                          <textarea class="form-control" id="commentsInputText" style="height: 10rem;"
+                            formControlName="comments"
                             placeholder="Enter some comments about your skills and previous jobs to enrich your profile..."></textarea>
                         </div>
                       </div>
@@ -347,7 +375,8 @@
 
 
 
-<div class="modal fade rounded-0" id="closeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade rounded-0" id="closeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered rounded-0" role="document">
     <div class="modal-content rounded-0 border-0">
       <div class="modal-header rounded-0" style="background-color: #2888C7; color: white;">
@@ -360,8 +389,10 @@
         If you close, you can lose any change you have made to your profile.
       </div>
       <div class="modal-footer rounded-0">
-        <button type="button" class="btn btn-secondary btn-edit rounded-0" data-dismiss="modal">Continue editing</button>
-        <button type="button" class="btn btn-primary btn-edit rounded-0" data-dismiss="modal" style="background-color: #2888C7;" (click)="onClose()">Exit</button>
+        <button type="button" class="btn btn-secondary btn-edit rounded-0" data-dismiss="modal">Continue
+          editing</button>
+        <button type="button" class="btn btn-primary btn-edit rounded-0" data-dismiss="modal"
+          style="background-color: #2888C7;" (click)="onClose()">Exit</button>
       </div>
     </div>
   </div>

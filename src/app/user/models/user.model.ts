@@ -1,3 +1,5 @@
+import { DivisionElement } from './country.model';
+
 // export interface User {
 //   id: number;
 //   username: string;
@@ -120,6 +122,7 @@ export interface UserProfile {
   cv:                     string;
   userProfileAccount:     string;
   name:                   string;
+  divisions:              number[];
 }
 
 export interface IDScholarshipFk {

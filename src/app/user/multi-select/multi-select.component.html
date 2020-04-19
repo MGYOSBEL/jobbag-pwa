@@ -9,23 +9,23 @@
     </button>
   </div>
 
-  <div class="modal fade " id="selectModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-    aria-hidden="true">
-    <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
+  <div class="modal fade rounded-0" id="selectModal" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered rounded-0" role="document">
+      <div class="modal-content rounded-0 border-0">
+        <div class="modal-header rounded-0" style="background-color: #2888C7; color: white;">
           <h5 class="modal-title" id="exampleModalCenterTitle">{{selectedCountry?.nameEs}}</h5>
           <button type="button" class="close" (click)="closeModal()" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
 
-        <div class="modal-body">
+        <div class="modal-body rounded-0">
           <div class="select-container row container-fluid justify-content-lg-center m-0 p-0">
             <div class="card col-12 h-100 px-0 mx-0" id="container">
               <div class="card-header">
-                <button class="btn btn-secondary rounded-0" data-dismiss="modal" (click)="saveDivisions()">Accept these
-                  regions</button>
+                <button class="btn btn-primary btn-edit rounded-0" data-dismiss="modal"
+                  style="background-color: #2888C7;" (click)="saveDivisions()">Accept these regions</button>
               </div>
               <div class="card-body w-100">
                 <ng-select [multiple]="true" [items]="countryDivisions" groupBy="divisions" [selectableGroup]="true"

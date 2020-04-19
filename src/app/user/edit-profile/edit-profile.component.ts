@@ -32,6 +32,7 @@ export class EditProfileComponent implements OnInit {
   profileName: AbstractControl;
   role: string;
   loggedUser: User;
+  countryDivisions: number[];
 
 
   constructor(
@@ -47,12 +48,14 @@ export class EditProfileComponent implements OnInit {
     this.imageLoaded = false;
     this.userService.role$.subscribe(role => {
       this.role = role;
+      console.log(this.role);
       this.activeProfile = this.loggedUser.profiles.find(profile => profile.userProfileType === this.role);
     });
 
     this.userService.loggedUser$.subscribe(user => {
       this.loggedUser = user;
       this.activeProfile = this.loggedUser.profiles.find(profile => profile.userProfileType === this.role);
+      console.log('editProfile: ', this.activeProfile);
     });
 
 
@@ -73,6 +76,7 @@ export class EditProfileComponent implements OnInit {
       comments: [this.activeProfile.comment]
 
     });
+
   }
 
   ngOnInit() {
@@ -91,6 +95,9 @@ export class EditProfileComponent implements OnInit {
       }
     );
     this.editProfileForm.get('accountType').setValue('PERSONAL');
+
+
+    console.log('activeProfile: ', this.activeProfile.divisions);
   }
 
   toggleChangePassword(event) {
@@ -174,7 +181,7 @@ export class EditProfileComponent implements OnInit {
       user_profile_account: this.editProfileForm.value.accountType,
       name: this.profileName.value,
       user_profile_briefcase: this.activeProfile.briefcases,
-      divisions: null
+      divisions: this.activeProfile.divisions
     };
     console.log('profileEditRequest: ', profileEditRequest);
     const profileEdit$ = this.userProfileService.edit(profileEditRequest);
@@ -211,5 +218,12 @@ export class EditProfileComponent implements OnInit {
     this.router.navigate(['../'], {relativeTo: this.route});
 
   }
+
+  onDivisionsSelect(event) {
+    this.activeProfile.divisions = event;
+    console.log('event: ', event);
+    console.log('activeProfile: ', this.activeProfile);
+
+   }
 
 }

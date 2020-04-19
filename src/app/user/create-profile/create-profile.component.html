@@ -131,8 +131,23 @@
                   <div class="col-12">
                     <div class="form-group row py-5 mx-auto">
                       <label for="checkInput" style="color: #6c757d;">Select a Service!</label>
-                      <input type="text" class="form-control" formControlName="services" id="servicesInput"
-                        placeholder="Input services, separated by a comma..." />
+                      <ng-select [multiple]="true"
+                        formControlName="services"
+                        [items]="countryDivisions"
+                        groupBy="divisions"
+                        [selectableGroup]="true"
+                        [selectableGroupAsModel]="false"
+
+                        placeholder="Select your services"
+                        [closeOnSelect]="false" bindLabel="nameEs" bindValue="id">
+                  <ng-template ng-optgroup-tmp let-item="item" let-item$="item$" let-index="index">
+                    <input id="item-{{index}}" type="checkbox" [ngModel]="item$.selected" />
+                    {{item.nameEs | uppercase}}
+                  </ng-template>
+                  <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+                    <input id="item-{{index}}" type="checkbox" [ngModel]="item$.selected" /> {{item.nameEs}}
+                  </ng-template>
+                </ng-select>
                     </div>
                   </div>
                 </div>
