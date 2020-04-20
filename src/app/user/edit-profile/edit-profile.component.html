@@ -23,18 +23,18 @@
           <div class="container container-ep-form">
             <div class="container container-col-bar">
               <div class="card" id="section-card">
-                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne">
-                  <div class="card-header" id="headingOne">
-                    <div class="row">
-                      <div class="col-9">
-                        <p class="text-left">General Information</p>
-                      </div>
-                      <div class="col-3 text-right">
-                        <i class="fa fa-angle-down" style="font-size:1.5rem;color:#2888C7"></i>
-                      </div>
+                <div class="card-header card-header-collapse" id="headingOne" data-toggle="collapse" data-target="#collapseOne" 
+                     aria-expanded="false" aria-controls="collapseOne">
+                  <div class="row">
+                    <div class="col-9">
+                      <p class="text-left">General Information</p>
+                    </div>
+                    <div class="col-3 text-right">
+                      <i class="fa fa-angle-down" aria-hidden="true" ></i>
+                      <!-- <i class="fa fa-angle-up" aria-hidden="true"></i>                       -->
                     </div>
                   </div>
-                </button>
+                </div>
                 <div id="collapseOne" class="collapse" aria-labelledby="headingOne"
                   data-parent="#accordionExample">
                   <div class="card-body">
@@ -78,45 +78,23 @@
                           </div>
                         </div>
                       </div>
-                      <div class="row">
-                        <div class="col-12">
-                          <div class="form-group">
-                            <div class="form-check">
-                              <input class="form-check-input" type="checkbox" id="passwordCheck"
-                                (click)="toggleChangePassword($event)">
-                              <label class="form-check-label" for="passwordCheck">
-                                I want to Change my Password
-                              </label>
-                            </div>
-                            <fieldset [disabled]="!changePassword">
-                              <br>
-                              <input type="password" class="form-control rounded-0" id="password"
-                                formControlName="password">
-                              <br>
-                              <input type="password" class="form-control rounded-0" id="passwordConfirm"
-                                formControlName="passwordConfirm">
-                            </fieldset>
-                          </div>
-                        </div>
-                      </div>
                     </div>
                   </div>
                 </div>
               </div>
               <div class="card" id="section-card">
-                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseThree">
-                  <div class="card-header" id="headingThree">
+                <div class="card-header card-header-collapse" id="headingTwo" data-toggle="collapse" data-target="#collapseTwo" 
+                     aria-expanded="false" aria-controls="collapseTwo">
                     <div class="row">
                       <div class="col-9">
-                        <p class="text-left">Picture</p>
+                        <p class="text-left">Picture</p>                        
                       </div>
                       <div class="col-3 text-right">
                         <i class="fa fa-angle-down" style="font-size:1.5rem;color:#2888C7"></i>
                       </div>
                     </div>
                   </div>
-                </button>
-                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                <div id="collapseTwo" class="collapse" aria-labelledby="collapseTwo" data-parent="#accordionExample">
                   <div class="card-body">
                     <div class="form-group">
                       <div class="row">
@@ -176,8 +154,8 @@
                 </div>
               </div>
               <div class="card" id="section-card">
-                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseFour">
-                  <div class="card-header" id="headingFour">
+                  <div class="card-header card-header-collapse" id="headingThree" data-toggle="collapse" data-target="#collapseThree" 
+                       aria-expanded="false" aria-controls="collapseThree">
                     <div class="row">
                       <div class="col-9">
                         <p class="text-left">Countries</p>
@@ -187,8 +165,7 @@
                       </div>
                     </div>
                   </div>
-                </button>
-                <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
+                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
                   <div class="row">
                     <div class="col-12">
                       <app-multi-select [popup]="true" [selectedDivisions]="activeProfile.divisions"
@@ -199,8 +176,8 @@
                 </div>
               </div>
               <div class="card" id="section-card">
-                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseFive">
-                  <div class="card-header" id="headingFive">
+                  <div class="card-header card-header-collapse" id="headingFour" data-toggle="collapse" data-target="#collapseFour" 
+                  aria-expanded="false" aria-controls="collapseFour">
                     <div class="row">
                       <div class="col-9">
                         <p class="text-left">Services</p>
@@ -210,8 +187,7 @@
                       </div>
                     </div>
                   </div>
-                </button>
-                <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordionExample">
+                <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
                   <div class="card-body">
                     <div class="row">
                       <div class="col-12">
@@ -238,8 +214,8 @@
                 </div>
               </div>
               <div class="card" id="section-card">
-                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseSix">
-                  <div class="card-header" id="headingSix">
+                  <div class="card-header card-header-collapse" id="headingFive" data-toggle="collapse" data-target="#collapseFive" 
+                       aria-expanded="false" aria-controls="collapseFive">
                     <div class="row">
                       <div class="col-9">
                         <p class="text-left">Curriculum Vitae</p>
@@ -249,8 +225,7 @@
                       </div>
                     </div>
                   </div>
-                </button>
-                <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordionExample">
+                <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordionExample">
                   <div class="card-body">
                     <div class="row">
                       <div class="col-12">
@@ -288,8 +263,8 @@
                 </div>
               </div>
               <div class="card" id="section-card">
-                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseSeven">
-                  <div class="card-header" id="headingSeven">
+                  <div class="card-header card-header-collapse" id="headingSix" data-toggle="collapse" data-target="#collapseSix" 
+                       aria-expanded="false" aria-controls="collapseSix">
                     <div class="row">
                       <div class="col-9">
                         <p class="text-left">Briefcases</p>
@@ -299,8 +274,7 @@
                       </div>
                     </div>
                   </div>
-                </button>
-                <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-parent="#accordionExample">
+                <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordionExample">
                   <div class="card-body">
 
                     <app-briefcase-edit></app-briefcase-edit>
@@ -309,8 +283,8 @@
                 </div>
               </div>
               <div class="card" id="section-card">
-                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseEight">
-                  <div class="card-header" id="headingEight">
+                  <div class="card-header card-header-collapse" id="headingSeven" data-toggle="collapse" data-target="#collapseSeven" 
+                  aria-expanded="false" aria-controls="collapseSeven">
                     <div class="row">
                       <div class="col-9">
                         <p class="text-left">Resume</p>
@@ -320,8 +294,7 @@
                       </div>
                     </div>
                   </div>
-                </button>
-                <div id="collapseEight" class="collapse" aria-labelledby="headingEight" data-parent="#accordionExample">
+                <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-parent="#accordionExample">
                   <div class="card-body">
                     <div class="row">
                       <div class="col-12">

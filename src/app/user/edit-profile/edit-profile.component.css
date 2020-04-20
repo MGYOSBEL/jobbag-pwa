@@ -64,43 +64,38 @@
 }
 
 /*Body headingCards*/
-#headingOne, #headingTwo, #headingThree, #headingFour,
-#headingFive, #headingSix, #headingSeven, #headingEight{
+.fa-angle-down{
+  font-size:1.5rem;
+  color:#2888C7;
+}
+
+/* .fa-angle-up{
+  font-size:1.5rem;
+  color:white;
+} */
+
+.card-header-collapse[aria-expanded="true"]{
+  background-color: #2888C7;
+  color:white;
+}
+
+.card-header-collapse[aria-expanded="false"]{
+  background:white;
+  color:black;
+}
+
+.card-header-collapse[aria-expanded="false"]:hover{
+  background-color: #e9ecef !important;
+  color:black;  
+}
+
+.card-header-collapse{
     border-radius: 0;
     background-color: white;
     margin-bottom: 0px;
     padding-bottom: 0px;
     border-bottom: 0;
     cursor: pointer;
-}
-
-#headingOne:hover, #headingTwo:hover, #headingThree:hover, #headingFour:hover,
-#headingFive:hover, #headingSix:hover, #headingSeven:hover, #headingEight:hover{
-  background-color: #e9ecef !important;
-}
-
-/*Body headingButtonCard*/
-.btn-link{
-  color: black;
-  padding:0;
-  border-top-width: 0;
-}
-
-.btn-link:hover{
-  color: black;
-  padding:0;
-  text-decoration: none;
-}
-
-.btn-link:focus{
-  color: black;
-  padding:0;
-  text-decoration: none;
-}
-
-.header-blue {
-  background-color: #2888C7;
-  color: white;
 }
 
 /*Body Card*/
