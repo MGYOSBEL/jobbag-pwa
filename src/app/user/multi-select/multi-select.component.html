@@ -28,8 +28,8 @@
                   style="background-color: #2888C7;" (click)="saveDivisions()">Accept these regions</button>
               </div>
               <div class="card-body w-100">
-                <ng-select [multiple]="true" [items]="countryDivisions" groupBy="divisions" [selectableGroup]="true"
-                  [selectableGroupAsModel]="false" [(ngModel)]="selectedDivisions" placeholder="Select your regions"
+                <ng-select [multiple]="true" [items]="countryDivisions"
+                  [(ngModel)]="selectedDivisions" placeholder="Select your regions"
                   [closeOnSelect]="false" bindLabel="nameEs" bindValue="id">
                   <ng-template ng-optgroup-tmp let-item="item" let-item$="item$" let-index="index">
                     <input id="item-{{index}}" type="checkbox" [ngModel]="item$.selected" />
@@ -64,9 +64,16 @@
           regions</button>
       </div>
       <div class="card-body w-100">
-        <ng-select [multiple]="true" [items]="countryDivisions" groupBy="divisions" [selectableGroup]="true"
-          [selectableGroupAsModel]="false" [(ngModel)]="selectedDivisions" placeholder="Select your regions"
-          [closeOnSelect]="false" bindLabel="nameEs" bindValue="id">
+        <ng-select [multiple]="true"
+        [items]="countryDivisions"
+        groupBy="divisions"
+        [selectableGroup]="true"
+        [selectableGroupAsModel]="true"
+        [(ngModel)]="selectedDivisions"
+        placeholder="Select your regions"
+        [closeOnSelect]="false"
+        bindLabel="nameEs"
+        bindValue="id">
           <ng-template ng-optgroup-tmp let-item="item" let-item$="item$" let-index="index">
             <input id="item-{{index}}" type="checkbox" [ngModel]="item$.selected" />
             {{item.nameEs | uppercase}}
