@@ -23,20 +23,19 @@
           <div class="container container-ep-form">
             <div class="container container-col-bar">
               <div class="card" id="section-card">
-                <div class="card-header card-header-collapse" id="headingOne" data-toggle="collapse" data-target="#collapseOne" 
-                     aria-expanded="false" aria-controls="collapseOne">
+                <div class="card-header card-header-collapse" id="headingOne" data-toggle="collapse"
+                  data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
                   <div class="row">
                     <div class="col-9">
                       <p class="text-left">General Information</p>
                     </div>
                     <div class="col-3 text-right">
-                      <i class="fa fa-angle-down" aria-hidden="true" ></i>
+                      <i class="fa fa-angle-down" aria-hidden="true"></i>
                       <!-- <i class="fa fa-angle-up" aria-hidden="true"></i>                       -->
                     </div>
                   </div>
                 </div>
-                <div id="collapseOne" class="collapse" aria-labelledby="headingOne"
-                  data-parent="#accordionExample">
+                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
                   <div class="card-body">
                     <div class="form-group">
                       <div class="row">
@@ -83,17 +82,17 @@
                 </div>
               </div>
               <div class="card" id="section-card">
-                <div class="card-header card-header-collapse" id="headingTwo" data-toggle="collapse" data-target="#collapseTwo" 
-                     aria-expanded="false" aria-controls="collapseTwo">
-                    <div class="row">
-                      <div class="col-9">
-                        <p class="text-left">Picture</p>                        
-                      </div>
-                      <div class="col-3 text-right">
-                        <i class="fa fa-angle-down" style="font-size:1.5rem;color:#2888C7"></i>
-                      </div>
+                <div class="card-header card-header-collapse" id="headingTwo" data-toggle="collapse"
+                  data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                  <div class="row">
+                    <div class="col-9">
+                      <p class="text-left">Picture</p>
+                    </div>
+                    <div class="col-3 text-right">
+                      <i class="fa fa-angle-down" style="font-size:1.5rem;color:#2888C7"></i>
                     </div>
                   </div>
+                </div>
                 <div id="collapseTwo" class="collapse" aria-labelledby="collapseTwo" data-parent="#accordionExample">
                   <div class="card-body">
                     <div class="form-group">
@@ -102,26 +101,14 @@
                           <label for="pictureInput" class="">
                             <input class="" id="pictureInput" type="file" formControlName="profilePicture"
                               (change)="uploadPicture($event)" accept="image/*" />
-                            <svg *ngIf="!activeProfile.picture" class="svg-add-user mx-auto d-block"
-                              xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230.41 230.41">
-                              <defs>
-                                <style>
-                                  .cls-1 {
-                                    fill: #2985c4;
-                                  }
-                                </style>
-                              </defs>
-                              <title>user-image</title>
-                              <g id="Layer_2" data-name="Layer 2">
-                                <g id="Layer_1-2" data-name="Layer 1">
-                                  <path class="cls-1"
-                                    d="M230.41,115.21A115.21,115.21,0,1,0,35.27,198a6.94,6.94,0,0,0,1.81,1.65,114.54,114.54,0,0,0,156.25,0,6.94,6.94,0,0,0,1.81-1.65A114.79,114.79,0,0,0,230.41,115.21ZM115.21,14.4a100.67,100.67,0,0,1,79,163.22c-6.25-20.14-24.08-35.91-48.28-43.16a52.55,52.55,0,1,0-61.47,0c-24.2,7.25-42,23-48.27,43.16a100.66,100.66,0,0,1,79-163.22ZM77.06,92a38.15,38.15,0,1,1,38.15,38.08A38.15,38.15,0,0,1,77.06,92ZM48.3,190.4c2.16-26.4,30.16-45.94,66.91-45.94S180,164,182.11,190.4a100.2,100.2,0,0,1-133.81,0Z" />
-                                </g>
-                              </g>
-                            </svg>
-                            <img *ngIf="activeProfile.picture" [src]="previewUrl"
-                              class="rounded-circle svg-add-user mx-auto d-block" alt="Profile Picture">
-                            <span class="add-badge">+</span>
+                            <div class="m-0 p-0" *ngIf="defaultPicture; else profileHasPicture">
+                              <span style="font-size: 120px; color: #2888C7" class="icon-user-image"></span>
+                              <span class="add-badge">+</span>
+                            </div>
+                            <ng-template #profileHasPicture>
+                              <img [src]="previewUrl" class="rounded-circle svg-add-user mx-auto d-block" alt="Profile Picture">
+                              <span class="add-badge">+</span>
+                            </ng-template>
                           </label>
                         </div>
                       </div>
@@ -154,17 +141,17 @@
                 </div>
               </div>
               <div class="card" id="section-card">
-                  <div class="card-header card-header-collapse" id="headingThree" data-toggle="collapse" data-target="#collapseThree" 
-                       aria-expanded="false" aria-controls="collapseThree">
-                    <div class="row">
-                      <div class="col-9">
-                        <p class="text-left">Countries</p>
-                      </div>
-                      <div class="col-3 text-right">
-                        <i class="fa fa-angle-down" style="font-size:1.5rem;color:#2888C7"></i>
-                      </div>
+                <div class="card-header card-header-collapse" id="headingThree" data-toggle="collapse"
+                  data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                  <div class="row">
+                    <div class="col-9">
+                      <p class="text-left">Countries</p>
+                    </div>
+                    <div class="col-3 text-right">
+                      <i class="fa fa-angle-down" style="font-size:1.5rem;color:#2888C7"></i>
                     </div>
                   </div>
+                </div>
                 <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
                   <div class="row">
                     <div class="col-12">
@@ -176,55 +163,50 @@
                 </div>
               </div>
               <div class="card" id="section-card">
-                  <div class="card-header card-header-collapse" id="headingFour" data-toggle="collapse" data-target="#collapseFour" 
-                  aria-expanded="false" aria-controls="collapseFour">
-                    <div class="row">
-                      <div class="col-9">
-                        <p class="text-left">Services</p>
-                      </div>
-                      <div class="col-3 text-right">
-                        <i class="fa fa-angle-down" style="font-size:1.5rem;color:#2888C7"></i>
-                      </div>
+                <div class="card-header card-header-collapse" id="headingFour" data-toggle="collapse"
+                  data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                  <div class="row">
+                    <div class="col-9">
+                      <p class="text-left">Services</p>
+                    </div>
+                    <div class="col-3 text-right">
+                      <i class="fa fa-angle-down" style="font-size:1.5rem;color:#2888C7"></i>
                     </div>
                   </div>
+                </div>
                 <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
                   <div class="card-body">
                     <div class="row">
                       <div class="col-12">
                         My Services
-                        <ng-select [multiple]="true"
-                        [items]="countryDivisions"
-                        groupBy="divisions"
-                        [selectableGroup]="true"
-                        [selectableGroupAsModel]="false"
-
-                        placeholder="Select your services"
-                        [closeOnSelect]="false" bindLabel="nameEs" bindValue="id">
-                  <ng-template ng-optgroup-tmp let-item="item" let-item$="item$" let-index="index">
-                    <input id="item-{{index}}" type="checkbox" [ngModel]="item$.selected" />
-                    {{item.nameEs | uppercase}}
-                  </ng-template>
-                  <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
-                    <input id="item-{{index}}" type="checkbox" [ngModel]="item$.selected" /> {{item.nameEs}}
-                  </ng-template>
-                </ng-select>
+                        <ng-select [multiple]="true" [items]="countryDivisions" groupBy="divisions"
+                          [selectableGroup]="true" [selectableGroupAsModel]="false" placeholder="Select your services"
+                          [closeOnSelect]="false" bindLabel="nameEs" bindValue="id">
+                          <ng-template ng-optgroup-tmp let-item="item" let-item$="item$" let-index="index">
+                            <input id="item-{{index}}" type="checkbox" [ngModel]="item$.selected" />
+                            {{item.nameEs | uppercase}}
+                          </ng-template>
+                          <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+                            <input id="item-{{index}}" type="checkbox" [ngModel]="item$.selected" /> {{item.nameEs}}
+                          </ng-template>
+                        </ng-select>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
               <div class="card" id="section-card">
-                  <div class="card-header card-header-collapse" id="headingFive" data-toggle="collapse" data-target="#collapseFive" 
-                       aria-expanded="false" aria-controls="collapseFive">
-                    <div class="row">
-                      <div class="col-9">
-                        <p class="text-left">Curriculum Vitae</p>
-                      </div>
-                      <div class="col-3 text-right">
-                        <i class="fa fa-angle-down" style="font-size:1.5rem;color:#2888C7"></i>
-                      </div>
+                <div class="card-header card-header-collapse" id="headingFive" data-toggle="collapse"
+                  data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                  <div class="row">
+                    <div class="col-9">
+                      <p class="text-left">Curriculum Vitae</p>
+                    </div>
+                    <div class="col-3 text-right">
+                      <i class="fa fa-angle-down" style="font-size:1.5rem;color:#2888C7"></i>
                     </div>
                   </div>
+                </div>
                 <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordionExample">
                   <div class="card-body">
                     <div class="row">
@@ -263,17 +245,17 @@
                 </div>
               </div>
               <div class="card" id="section-card">
-                  <div class="card-header card-header-collapse" id="headingSix" data-toggle="collapse" data-target="#collapseSix" 
-                       aria-expanded="false" aria-controls="collapseSix">
-                    <div class="row">
-                      <div class="col-9">
-                        <p class="text-left">Briefcases</p>
-                      </div>
-                      <div class="col-3 text-right">
-                        <i class="fa fa-angle-down" style="font-size:1.5rem;color:#2888C7"></i>
-                      </div>
+                <div class="card-header card-header-collapse" id="headingSix" data-toggle="collapse"
+                  data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                  <div class="row">
+                    <div class="col-9">
+                      <p class="text-left">Briefcases</p>
+                    </div>
+                    <div class="col-3 text-right">
+                      <i class="fa fa-angle-down" style="font-size:1.5rem;color:#2888C7"></i>
                     </div>
                   </div>
+                </div>
                 <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordionExample">
                   <div class="card-body">
 
@@ -283,17 +265,17 @@
                 </div>
               </div>
               <div class="card" id="section-card">
-                  <div class="card-header card-header-collapse" id="headingSeven" data-toggle="collapse" data-target="#collapseSeven" 
-                  aria-expanded="false" aria-controls="collapseSeven">
-                    <div class="row">
-                      <div class="col-9">
-                        <p class="text-left">Resume</p>
-                      </div>
-                      <div class="col-3 text-right">
-                        <i class="fa fa-angle-down" style="font-size:1.5rem;color:#2888C7"></i>
-                      </div>
+                <div class="card-header card-header-collapse" id="headingSeven" data-toggle="collapse"
+                  data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                  <div class="row">
+                    <div class="col-9">
+                      <p class="text-left">Resume</p>
+                    </div>
+                    <div class="col-3 text-right">
+                      <i class="fa fa-angle-down" style="font-size:1.5rem;color:#2888C7"></i>
                     </div>
                   </div>
+                </div>
                 <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-parent="#accordionExample">
                   <div class="card-body">
                     <div class="row">

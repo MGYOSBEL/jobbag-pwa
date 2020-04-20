@@ -33,7 +33,7 @@ export class EditProfileComponent implements OnInit {
   role: string;
   loggedUser: User;
   countryDivisions: number[];
-
+  defaultPicture: boolean;
 
   constructor(
     private userService: UserService,
@@ -49,17 +49,16 @@ export class EditProfileComponent implements OnInit {
     this.userService.role$.subscribe(role => {
       this.role = role;
       console.log(this.role);
-      this.activeProfile = this.loggedUser.profiles.find(profile => profile.userProfileType === this.role);
+      this.updateActiveProfile();
     });
 
     this.userService.loggedUser$.subscribe(user => {
       this.loggedUser = user;
-      this.activeProfile = this.loggedUser.profiles.find(profile => profile.userProfileType === this.role);
+      this.updateActiveProfile();
       console.log('editProfile: ', this.activeProfile);
     });
 
 
-    this.previewUrl = `${environment.serverBaseURL}/${this.activeProfile.picture}`;
 
     this.editProfileForm = this.formBuilder.group({
       username: [this.userService.loggedUser.username, Validators.required],
@@ -76,6 +75,16 @@ export class EditProfileComponent implements OnInit {
       comments: [this.activeProfile.comment]
 
     });
+
+  }
+
+  private updateActiveProfile() {
+    this.activeProfile = this.loggedUser.profiles.find(profile => profile.userProfileType === this.role);
+    this.defaultPicture = !this.activeProfile.picture.includes('uploads');
+    this.previewUrl = `${environment.serverBaseURL}/${this.activeProfile.picture}`;
+
+    console.log('EDIT PROFILE: ', this.defaultPicture, this.previewUrl);
+
 
   }
 
@@ -112,7 +121,7 @@ export class EditProfileComponent implements OnInit {
       this.previewUrl = reader.result as string;
       this.imageBase64 = this.previewUrl.toString().split(',')[1];
       this.imageLoaded = true;
-
+      this.defaultPicture = false;
     };
   }
 
@@ -136,6 +145,7 @@ export class EditProfileComponent implements OnInit {
       this.previewUrl = file.src;
       this.imageBase64 = dataUrl.toString().split(',')[1];
       this.imageLoaded = true;
+      this.defaultPicture = false;
 
     };
   }
