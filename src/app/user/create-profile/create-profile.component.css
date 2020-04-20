@@ -142,10 +142,21 @@
 }
 
 #curriculumLabel{
+  text-align: center !important;
   background-color: #f1f1f1;
   color: #6c757d;
   width: 15rem;
-  padding: 0.75rem;
+  padding: 0.25rem;
+  text-align: left;
+  margin-top: 0;
+}
+
+#curriculumLabelSuccess{
+  text-align: center !important;
+  background-color: #00bfa5;
+  color: white;
+  width: 15rem;
+  padding: 0.25rem;
   text-align: left;
   margin-top: 0;
 }

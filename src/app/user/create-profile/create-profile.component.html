@@ -153,28 +153,59 @@
                 </div>
               </div>
               <div [hidden]="role==='CLIENT'" id="curriculum" class="content">
-                <div class="row justify-content-center">
+                <div class="row justify-content-center" style="margin-top: 1.5rem;">
                   <div class="col-12">
-                    <div class="form-group row pt-5 mx-auto">
-                      <label for="curriculumDescription" style="color: #6c757d;">Curriculum Description!</label>
-                    </div>
+                    <p style="color:#bebcbe;font-size:0.85rem">Upload your Updated CV, only in PDF format!</p>
                   </div>
-                  <div class="row justify-content-center">
-                    <div class="col-9 pr-0">
-                      <label for="curriculumLabel" id="curriculumLabel">
-                        Upload File
-                      </label>
-                    </div>
-                    <div class="col-3 pl-0">
-                      <label for="curriculumUpload" id="curriculumUpload">
-                        <div class="upload-btn-wrapper">
-                          <button class="btn-uploadcv"><i class="far fa-folder fa-3x"></i></button>
-                          <input type="file" name="myfile" accept="pdf/*" formControlName="curriculum" class="form-control-file"
-                            (change)="uploadCV($event)" />
+                  <div class="col-9 pr-0">
+                    <label *ngIf="!uploadedCV" for="curriculumLabel" id="curriculumLabel">
+                      <p *ngIf="!uploadedCV">Upload File</p>
+                    </label>
+                    <label *ngIf="uploadedCV" for="curriculumLabel" id="curriculumLabelSuccess">
+                      <p *ngIf="uploadedCV">File Upload Succes</p>
+                    </label>
+                  </div>
+                  <div class="col-3 pl-0">
+                    <label for="curriculumUpload" id="curriculumUpload">
+                      <div class="upload-btn-wrapper">
+                        <button class="btn-uploadcv"><i class="far fa-folder fa-3x"></i></button>
+                        <input type="file" name="myfile" accept="pdf/*" formControlName="curriculum" class="form-control-file"
+                          (change)="uploadCV($event)" />
+                      </div>
+                    </label>
+                  </div>
+
+                    <div *ngIf="uploadedCV" class="card col-6 my-0" style="border:transparent">
+                      <div class="row" style="background-color: #2982c1;margin-left: 0;margin-right: 0;">
+                        <div class="col-12 text-center my-0" style="background-color: #2982c1;">
+                          <i class="far fa-folder-open fa-3x my-2" style="color: #fff;"></i>
+                          <hr style="border: 0.5px solid white;margin-bottom: 0; margin-top: 0;">
                         </div>
-                      </label>
+                      </div>
+                      <div class="row" style="background-color: #2982c1;margin-left: 0;margin-right: 0; padding-bottom: 0.2rem;">
+                        <div class="col-6 text-center mt-0" style="padding:0">
+                          <a href="#">
+                          <i class="fas fa-eye" style="color: #fff;"></i>
+                          </a>
+                        </div>
+                        <div class="col-6 text-center mt-0" style="padding:0">
+                          <a href="#">
+                          <i class="fas fa-download" style="color: #fff;"></i>
+                          </a>
+                        </div>
+                      </div>
+                      <div class="card-footer" style="padding:0; background-color: white;">
+                        <div class="row" style="margin: 0;">
+                          <div class="col-12 text-left" style="padding:0">
+                            <small class="text-muted" style="font-weight: bold;font-size: 0.8rem;">Curriculum</small>
+                          </div>
+                          <div class="col-12 text-left" style="padding:0;">                            
+                            <small class="text-muted" style="font-size: 0.8rem;">{{currentDate | date:'yyyy-MM-dd'}}</small>
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                  </div>
+
                 </div>
               </div>
               <div [hidden]="role==='CLIENT'" id="myWork" class="content container fade">

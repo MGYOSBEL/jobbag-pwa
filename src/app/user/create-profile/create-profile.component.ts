@@ -11,6 +11,7 @@ import { environment } from '@environments/environment';
 import { BriefcaseService } from '../services/briefcase.service';
 import { Country, DivisionValue, DivisionElement } from '../models/country.model';
 import { CountryService } from '../services/country.service';
+import { DatePipe } from '@angular/common';
 
 const states = ['Alabama', 'Alaska', 'American Samoa', 'Arizona', 'Arkansas', 'California', 'Colorado',
   'Connecticut', 'Delaware', 'District Of Columbia', 'Federated States Of Micronesia', 'Florida', 'Georgia',
@@ -24,10 +25,11 @@ const states = ['Alabama', 'Alaska', 'American Samoa', 'Arizona', 'Arkansas', 'C
 @Component({
   selector: 'app-create-profile',
   templateUrl: './create-profile.component.html',
-  styleUrls: ['./create-profile.component.css']
+  styleUrls: ['./create-profile.component.css'],
+  providers: [DatePipe]
 })
 export class CreateProfileComponent implements OnInit {
-
+  uploadedCV: boolean;
   private stepper: Stepper;
   model: any;
   previewUrl: any;
@@ -42,7 +44,8 @@ export class CreateProfileComponent implements OnInit {
   divisions: string[];
   activeStep: number;
   countryDivisions: number[] = [];
-
+  myDate = new Date();
+  currentDate: string;
   constructor(private formBuilder: FormBuilder,
               private authenticationService: AuthenticationService,
               private userProfileService: UserProfileService,
@@ -50,9 +53,10 @@ export class CreateProfileComponent implements OnInit {
               private errorService: ErrorService,
               private countryService: CountryService,
               private router: Router,
-              private route: ActivatedRoute
+              private route: ActivatedRoute,
+              private datePipe: DatePipe
               ) {
-
+    this.currentDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
     this.role = this.route.snapshot.params.role;
 
     this.imageLoaded = false;
@@ -199,9 +203,8 @@ export class CreateProfileComponent implements OnInit {
     reader.onload = (_event) => {
       this.cvUrl = reader.result;
       this.cvBase64 = this.cvUrl.toString().split(',')[1];
-    };
-    this.imageLoaded = true;
-
+      this.uploadedCV = true;
+    }; 
   }
 
   selectDivision(division: DivisionElement) {
@@ -215,6 +218,5 @@ export class CreateProfileComponent implements OnInit {
   //      distinctUntilChanged(),
   //      map(term => term.length < 2 ? []
   //        : states.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
-  //    )
-
+  //    ) 
 }
