@@ -64,7 +64,7 @@ export class NavbarComponent implements OnInit {
       evt => {
         this.role = this.userService.role;
         this.hiddenNavbar = this.router.url.includes('auth') || this.router.url.includes('create-profile')
-                            || !this.route.snapshot.params.role;
+                            || !this.role;
         this.isLoggedIn = this.authenticationService.isLoggedIn;
         if (this.authenticationService.isLoggedIn) {
           this.socialUser = JSON.parse(localStorage.getItem('socialUser'));

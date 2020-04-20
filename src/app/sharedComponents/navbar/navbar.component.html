@@ -87,7 +87,7 @@
         </div>
         <div class="col-6">
           <div *ngIf="!defaultPicture; else defaultSVG" class="svg-add-user">
-            <img [src]="userImageUrl" class="img img-fluid col-12">
+            <img [src]="userImageUrl" class="img img-fluid col-12 rounded-circle">
           </div>
           <ng-template #defaultSVG>
 
