@@ -30,7 +30,8 @@ export class NavbarComponent implements OnInit {
 
   navEnd: Observable<NavigationEnd>;
 
-  constructor(private userService: UserService,
+  constructor(
+    private userService: UserService,
     private authenticationService: AuthenticationService,
     private socialAuthService: AuthService,
     private route: ActivatedRoute,
@@ -71,7 +72,7 @@ export class NavbarComponent implements OnInit {
           this.userId = this.authenticationService.getLoggedUserId();
           this.activeProfile = this.loggedUser.profiles.find(profile => profile.userProfileType === this.role);
           if (this.activeProfile) {
-            this.defaultPicture = this.activeProfile.picture.length === 0;
+            this.defaultPicture = !this.activeProfile.picture.includes('uploads');
             this.userImageUrl = environment.serverBaseURL + '/' + this.activeProfile.picture;
             console.log('defaultPicture: ', this.defaultPicture, 'userImageUrl: ', this.userImageUrl);
             }

@@ -3,6 +3,7 @@
 @import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 @import "../node_modules/bs-stepper/dist/css/bs-stepper.min.css";
 @import "../node_modules/@ng-select/ng-select/themes/material.theme.css";
+@import "./assets/icons/iconfont/style.css";
 
 
 .img {

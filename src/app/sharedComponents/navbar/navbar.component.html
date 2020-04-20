@@ -19,9 +19,9 @@
     <div *ngIf="(isLoggedIn$ | async)" class="col col-2 mx-0">
       <div class="row container">
         <div class="col-6">
-          <div class="row justify-content-end font-weight-bold">{{loggedUser?.username}}</div>
-          <div class="row justify-content-end">
-            <button class="btn btn-sm btn-link dropdown-toggle" id="dropdownMenuLink" data-toggle="dropdown"
+          <div class="row justify-content-end font-weight-bold my-0">{{loggedUser?.username}}</div>
+          <div class="row justify-content-end my-0">
+            <button class="btn btn-sm btn-link dropdown-toggle my-0 py-0" id="dropdownMenuLink" data-toggle="dropdown"
               aria-haspopup="true" aria-expanded="false">
               <small class="justify-content-end text-right text-lowercase font-italic">
                 {{role}}
@@ -90,14 +90,18 @@
             <img [src]="userImageUrl" class="img img-fluid col-12 rounded-circle">
           </div>
           <ng-template #defaultSVG>
-
-            <svg class="svg-add-user" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230.41 230.41">
+            <div class="glyph fs1" style="font-size: 32px ;">
+              <div class="clearfix bshadow0 pbs">
+                  <span class="icon-user-image"></span>
+              </div>
+            </div>
+            <!-- <svg class="svg-add-user" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230.41 230.41">
               <defs>
-                <!-- <style>
+                <style>
                       .cls-1 {
                         fill: #2985c4;
                       }
-                    </style> -->
+                    </style>
               </defs>
               <title>user-image</title>
               <g id="Layer_2" data-name="Layer 2">
@@ -106,7 +110,7 @@
                     d="M230.41,115.21A115.21,115.21,0,1,0,35.27,198a6.94,6.94,0,0,0,1.81,1.65,114.54,114.54,0,0,0,156.25,0,6.94,6.94,0,0,0,1.81-1.65A114.79,114.79,0,0,0,230.41,115.21ZM115.21,14.4a100.67,100.67,0,0,1,79,163.22c-6.25-20.14-24.08-35.91-48.28-43.16a52.55,52.55,0,1,0-61.47,0c-24.2,7.25-42,23-48.27,43.16a100.66,100.66,0,0,1,79-163.22ZM77.06,92a38.15,38.15,0,1,1,38.15,38.08A38.15,38.15,0,0,1,77.06,92ZM48.3,190.4c2.16-26.4,30.16-45.94,66.91-45.94S180,164,182.11,190.4a100.2,100.2,0,0,1-133.81,0Z" />
                 </g>
               </g>
-            </svg>
+            </svg> -->
           </ng-template>
 
         </div>
