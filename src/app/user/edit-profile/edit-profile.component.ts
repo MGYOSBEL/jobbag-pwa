@@ -194,10 +194,13 @@ export class EditProfileComponent implements OnInit {
       user_profile_type: this.role,
       user_profile_account: this.editProfileForm.value.accountType,
       name: this.profileName.value,
-      user_profile_briefcase: this.activeProfile.briefcases,
+      // user_profile_briefcase: this.activeProfile.briefcases,
       divisions: this.activeProfile.divisions
     };
     console.log('profileEditRequest: ', profileEditRequest);
+
+
+
     const profileEdit$ = this.userProfileService.edit(profileEditRequest);
 
     const imageEdit$ = this.mediaService.editProfilePicture(this.activeProfile.id, this.imageBase64);

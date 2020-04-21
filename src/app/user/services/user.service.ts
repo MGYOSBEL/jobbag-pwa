@@ -103,7 +103,7 @@ export class UserService {
     console.log('data request: ', req);
     return this.http.put<APIResponse>(this.apiPath + '/user', req).pipe(
       map(response => {
-        const content = (JSON.parse(response.content));
+        const content = JSON.parse(JSON.parse(response.content));
         console.log('edited User: ', content);
         if (response.status_code === 200) {
           return content;
@@ -119,7 +119,7 @@ export class UserService {
       }),
       tap((response: User) => {
         console.log('response', response);
-        const user = this.userCacheService.getUser();
+        let user = this.userCacheService.getUser();
 
         user.id = response.id;
         user.email = response.email;
