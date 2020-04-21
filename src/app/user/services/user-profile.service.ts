@@ -112,9 +112,11 @@ export class UserProfileService {
   }
 
   edit(data: any): Observable<UserProfile> {
+    console.log('editProfileMethod Data: ', JSON.stringify(data));
     return this.http.put<APIResponse>(this.apiPath + '/user_profile', data)
       .pipe(
         map(response => {
+          console.log('editCompleteResponse: ', response);
           const content = JSON.parse(response.content); // Seleccionar la parte del response q es el contenido
           if (response.status_code === 200) {
             console.log('edit response: ', content);

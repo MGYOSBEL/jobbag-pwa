@@ -35,7 +35,9 @@ export class DashboardComponent implements OnInit {
 
       this.userService.role$.subscribe(role => {
         this.role = role;
-        this.activeProfile = this.loggedUser.profiles.find(profile => profile.userProfileType === this.role);
+        if (!! this.loggedUser) {
+          this.activeProfile = this.loggedUser.profiles.find(profile => profile.userProfileType === this.role);
+        }
       });
   }
 
@@ -55,7 +57,9 @@ export class DashboardComponent implements OnInit {
     );
     this.loggedUser$.subscribe(user => {
       this.loggedUser = user;
-      this.activeProfile = this.loggedUser.profiles.find(profile => profile.userProfileType === this.role);
+      if (!! this.loggedUser) {
+        this.activeProfile = this.loggedUser.profiles.find(profile => profile.userProfileType === this.role);
+      }
     });
   }
 

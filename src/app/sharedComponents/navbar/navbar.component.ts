@@ -51,35 +51,37 @@ export class NavbarComponent implements OnInit {
     this.userService.loggedUser$.subscribe(
       user => {
         if (user) {
-          this.loggedUser = user;
-          this.hasProfiles = [
-            !!this.loggedUser.profiles.find(profile => profile.userProfileType === 'CLIENT'),
-            !!this.loggedUser.profiles.find(profile => profile.userProfileType === 'SERVICE_PROVIDER'),
-          ];
-          console.log(this.hasProfiles);
+          this.onUserEvent(user, this.role);
+        }
+      }
+    );
+
+    this.userService.role$.subscribe(
+      role => {
+        if (role) {
+          this.onUserEvent(this.loggedUser, role);
         }
       }
     );
 
     this.navEnd.subscribe(
       evt => {
-        this.role = this.userService.role;
         this.hiddenNavbar = this.router.url.includes('auth') || this.router.url.includes('create-profile')
-                            || !this.role;
-        this.isLoggedIn = this.authenticationService.isLoggedIn;
-        if (this.authenticationService.isLoggedIn) {
-          this.socialUser = JSON.parse(localStorage.getItem('socialUser'));
-          this.userId = this.authenticationService.getLoggedUserId();
-          this.activeProfile = this.loggedUser.profiles.find(profile => profile.userProfileType === this.role);
-          if (this.activeProfile) {
-            this.defaultPicture = !this.activeProfile.picture.includes('uploads');
-            this.userImageUrl = environment.serverBaseURL + '/' + this.activeProfile.picture;
-            console.log('defaultPicture: ', this.defaultPicture, 'userImageUrl: ', this.userImageUrl);
-            }
+          || (this.router.url.includes('user') && !this.role);
 
-
-        }
+        console.log('NAVBAR LOG >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+        console.log('loggedUser', this.loggedUser);
+        console.log('role', this.role);
+        console.log('hiddenNavbar', this.hiddenNavbar);
+        console.log('hasProfiles', this.hasProfiles);
+        console.log('isloggedin', this.isLoggedIn);
+        console.log('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< NAVBAR LOG');
       }
+    );
+
+    this.isLoggedIn$ = this.authenticationService.isLoggedIn$;
+    this.isLoggedIn$.subscribe(
+      loggedIn => this.isLoggedIn = loggedIn
     );
 
 
@@ -112,6 +114,40 @@ export class NavbarComponent implements OnInit {
   createClient() {
     this.userService.role = 'CLIENT';
     this.router.navigateByUrl(`/user/${this.loggedUser.id}/CLIENT/create-profile`);
+  }
+
+  // Function that reacts to any change in loggedUser
+  onUserEvent(user?: User, role?: string) {
+
+    if (user) {
+      this.loggedUser = user;
+      this.hasProfiles = [
+        !!(user.profiles.find(profile => profile.userProfileType === 'CLIENT')),
+        !!(user.profiles.find(profile => profile.userProfileType === 'SERVICE_PROVIDER')),
+      ];
+      console.log(this.hasProfiles);
+    }
+    if (role) {
+      this.role = role;
+    }
+
+    if (this.isLoggedIn) {
+      this.socialUser = JSON.parse(localStorage.getItem('socialUser'));
+      this.userId = this.authenticationService.getLoggedUserId();
+      this.activeProfile = this.loggedUser.profiles.find(profile => profile.userProfileType === this.role);
+      if (this.activeProfile) {
+        this.defaultPicture = !this.activeProfile.picture.includes('uploads');
+        this.userImageUrl = environment.serverBaseURL + '/' + this.activeProfile.picture;
+        console.log('defaultPicture: ', this.defaultPicture, 'userImageUrl: ', this.userImageUrl);
+      }
+
+
+    }
+  }
+
+  // Function to reacts to any change on navigation state
+  onNavigationEvent() {
+
   }
 
 }

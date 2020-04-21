@@ -57,13 +57,18 @@ export class UserCacheService {
   getBriefcases(): UserProfileBriefcase[] {
     const user: User = JSON.parse(localStorage.getItem(USER));
     const userProfile =  user.profiles.find(profile => profile.userProfileType === 'SERVICE_PROVIDER');
-    return userProfile.briefcases || [];
+    if (!! userProfile) {
+      return userProfile.briefcases;
+    }
+    return [];
   }
 
   setBriefcases(briefcases: UserProfileBriefcase[]) {
     let user: User = JSON.parse(localStorage.getItem(USER));
     const index =  user.profiles.findIndex(profile => profile.userProfileType === 'SERVICE_PROVIDER');
-    user.profiles[index].briefcases = briefcases;
+    if (!! index) {
+      user.profiles[index].briefcases = briefcases;
+    }
 
     localStorage.setItem(USER, JSON.stringify(user));
     this.subject.next(user);

@@ -79,11 +79,15 @@ export class EditProfileComponent implements OnInit {
   }
 
   private updateActiveProfile() {
-    this.activeProfile = this.loggedUser.profiles.find(profile => profile.userProfileType === this.role);
-    this.defaultPicture = !this.activeProfile.picture.includes('uploads');
-    this.previewUrl = `${environment.serverBaseURL}/${this.activeProfile.picture}`;
+    if (!! this.loggedUser) {
+      this.activeProfile = this.loggedUser.profiles.find(profile => profile.userProfileType === this.role);
+      if (!! this.activeProfile) {
+        this.defaultPicture = !this.activeProfile.picture.includes('uploads');
+        this.previewUrl = `${environment.serverBaseURL}/${this.activeProfile.picture}`;
+        }
 
-    console.log('EDIT PROFILE: ', this.defaultPicture, this.previewUrl);
+      console.log('EDIT PROFILE: ', this.defaultPicture, this.previewUrl);
+      }
 
 
   }

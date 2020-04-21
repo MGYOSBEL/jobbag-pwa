@@ -32,23 +32,23 @@ export class UserService {
     private userCacheService: UserCacheService,
     private authService: AuthenticationService,
     private logging: LoggingService) {
-      this.userRole = this.userCacheService.getRole() || 'CLIENT';
-      this.userSubject.next(this.userCacheService.getUser());
-      this.roleSubject.next(this.userRole);
+    this.userRole = this.userCacheService.getRole() || 'CLIENT';
+    this.userSubject.next(this.userCacheService.getUser());
+    this.roleSubject.next(this.userRole);
 
-      this.authService.isLoggedIn$.subscribe(loggedIn => {
-        if (!loggedIn) {
-          this.userSubject.next(null);
-          this.roleSubject.next(null);
-          console.log('null user emitted');
-        } else {
-          // this.userSubject.next(null);
-          // console.log('new user emitted: ', this.userSubject.value);
-        }
-      });
+    this.authService.isLoggedIn$.subscribe(loggedIn => {
+      if (!loggedIn) {
+        this.userSubject.next(null);
+        this.roleSubject.next(null);
+        console.log('null user emitted');
+      } else {
+        // this.userSubject.next(null);
+        // console.log('new user emitted: ', this.userSubject.value);
+      }
+    });
 
-      this.userCacheService.user$.subscribe(user => this.userSubject.next(user));
-    }
+    this.userCacheService.user$.subscribe(user => this.userSubject.next(user));
+  }
 
 
 
@@ -120,16 +120,15 @@ export class UserService {
       tap((response: User) => {
         console.log('response', response);
         const user = this.userCacheService.getUser();
-        const user1 = {
-                ...user,
-                id: response.id,
-                email: response.email,
-                username: response.username,
 
-              };
-        console.log(user1);
-        this.userSubject.next(user1); // Salvo el user en el storage
-        this.userCacheService.setUser(user1);
+        user.id = response.id;
+        user.email = response.email;
+        user.username = response.username;
+
+
+        console.log(user);
+        this.userSubject.next(user); // Salvo el user en el storage
+        this.userCacheService.setUser(user);
       })
     );
   }
