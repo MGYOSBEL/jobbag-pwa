@@ -2,7 +2,7 @@
 
 <div *ngIf="popup; else singleScreen">
   <div class="row container-fluid justify-content-around mx-0">
-    <button type="button" class=" col-3 btn btn-primary mt-5 rounded-0 border-0 text-light mx-2 px-0"
+    <button type="button" class=" col-3 btn btn-primary rounded-0 border-0 text-light mx-2 px-0"
       data-toggle="modal" data-target="#selectModal" style="background-color: #2985c4 ;"
       (click)="onCountrySelect(country)" *ngFor="let country of (countries$ | async)">
       {{country.nameEn}}
@@ -11,7 +11,7 @@
 
   <div class="modal fade rounded-0" id="selectModal" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-xl modal-dialog-centered rounded-0" role="document">
+    <div class="modal-dialog modal modal-dialog-centered rounded-0" role="document">
       <div class="modal-content rounded-0 border-0">
         <div class="modal-header rounded-0" style="background-color: #2888C7; color: white;">
           <h5 class="modal-title" id="exampleModalCenterTitle">{{selectedCountry?.nameEs}}</h5>

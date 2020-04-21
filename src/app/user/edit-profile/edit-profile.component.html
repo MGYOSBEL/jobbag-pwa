@@ -21,7 +21,7 @@
             </div>
           </div>
           <div class="container container-ep-form">
-            <div class="container container-col-bar">
+            <div class="container scroll-host">
               <div class="card" id="section-card">
                 <div class="card-header card-header-collapse" id="headingOne" data-toggle="collapse"
                   data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
@@ -154,13 +154,15 @@
                   </div>
                 </div>
                 <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-                  <div class="row">
-                    <div class="col-12">
-                      <app-multi-select [popup]="true" [selectedDivisions]="activeProfile.divisions"
-                        (selected)="onDivisionsSelect($event)">
-                      </app-multi-select>
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-12 py-5">
+                        <app-multi-select [popup]="true" [selectedDivisions]="activeProfile.divisions"
+                          (selected)="onDivisionsSelect($event)">
+                        </app-multi-select>
+                      </div>
                     </div>
-                  </div>
+                  </div>                  
                 </div>
                 </div>
                 <div class="card" id="section-card">
@@ -178,7 +180,7 @@
                 <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
                   <div class="card-body">
                     <div class="row">
-                      <div class="col-12">
+                      <div class="col-12 py-5">
                         My Services
                         <ng-select [multiple]="true" [items]="countryDivisions" groupBy="divisions"
                           [selectableGroup]="true" [selectableGroupAsModel]="false" placeholder="Select your services"
@@ -209,9 +211,9 @@
                   </div>
                 </div>
                 <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordionExample">
-                  <div class="card-body">
+                  <div class="card-body pt-0">
                     <div class="row">
-                      <div class="col-12">
+                      <div class="col-12 py-3">
                         <div class="row justify-content-center" style="margin-top: 1.5rem;">
                           <div class="col-12">
                             <p style="color:#bebcbe;font-size:0.85rem">Upload your Updated CV, only in PDF format!</p>
@@ -286,10 +288,12 @@
                   </div>
                 </div>
                 <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordionExample">
-                  <div class="card-body">
-
-                    <app-briefcase-edit></app-briefcase-edit>
-
+                  <div class="card-body pt-0">
+                    <div class="row">
+                      <div class="col-12 py-5">
+                        <app-briefcase-edit></app-briefcase-edit>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 </div>
@@ -306,9 +310,9 @@
                   </div>
                 </div>
                 <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-parent="#accordionExample">
-                  <div class="card-body">
+                  <div class="card-body pt-0">
                     <div class="row">
-                      <div class="col-12">
+                      <div class="col-12 py-5">
                         <div class="form-group mx-auto">
                           <textarea class="form-control" id="commentsInputText" style="height: 10rem;"
                             formControlName="comments"
@@ -357,14 +361,13 @@
   </div>
 </div>
 
-/*Modal*/
-
 <div class="modal fade rounded-0" id="closeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
   aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered rounded-0" role="document">
     <div class="modal-content rounded-0 border-0">
       <div class="modal-header rounded-0" style="background-color: #2888C7; color: white;">
-        <h5 class="modal-title" id="exampleModalCenterTitle">Close Confirmation</h5>
+        <!-- <h5 class="modal-title" id="exampleModalCenterTitle">Close Confirmation</h5> -->
+        <label>Close Confirmation</label>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>

@@ -14,27 +14,23 @@
 }
 
 /*Container columnBar*/
-.container-col-bar {
+.scroll-host {
   height: 26.5rem;
   overflow:auto;
   padding-right: 1rem;
 }
 
-/*Firefox columnBarStyle*/
-.container-col-bar {
-  scrollbar-color: #2888C7 #BEBCBE;
-  scrollbar-width: thin;
-}
-/*Chrome columnBarStyle*/
-.container-col-bar::-webkit-scrollbar {
+/* Chrome columnBarStyle */
+.scroll-host::-webkit-scrollbar{
   width: 8px;
   height: 8px;
 }
-.container-col-bar::-webkit-scrollbar-track {
+
+.scroll-host::-webkit-scrollbar-track{
   background-color:#BEBCBE;
   border-radius: 0;
 }
-.container-col-bar::-webkit-scrollbar-thumb {
+.scroll-host::-webkit-scrollbar-thumb{
   background-color: #2888C7;
   border-radius: 0;
 }
