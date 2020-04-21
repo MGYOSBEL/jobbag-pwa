@@ -33,16 +33,16 @@
               <span class="bs-stepper-label">CV</span>
             </button>
           </div>
-          <div [hidden]="role==='CLIENT'" class="step" data-target="#myWork">
+          <div [hidden]="role==='CLIENT'" class="step" data-target="#briefcases">
             <button class="step-trigger">
               <span class="bs-stepper-circle">6</span>
-              <span class="bs-stepper-label">My Work</span>
+              <span class="bs-stepper-label">Briefcases</span>
             </button>
           </div>
-          <div [hidden]="role==='CLIENT'" class="step" data-target="#comments">
+          <div [hidden]="role==='CLIENT'" class="step" data-target="#resume">
             <button class="step-trigger">
               <span class="bs-stepper-circle">7</span>
-              <span class="bs-stepper-label">Comments</span>
+              <span class="bs-stepper-label">Resume</span>
             </button>
           </div>
         </div>
@@ -53,7 +53,7 @@
                 <div class="form-group row py-5 mx-auto">
                   <input type="radio" class="form-check-input" name="accountType" formControlName="accountType"
                     value="PERSONAL">
-                  <label for="accountName" class="form-check-label">Personal Account</label>
+                  <label for="accountName" class="form-check-label stepper-text">Personal Account</label>
                   <input type="text" class="form-control" formControlName="accountName" id="accountName"
                     [ngClass]="profileForm.get('accountName').invalid && (profileForm.get('accountName').dirty || profileForm.get('accountName').touched) ? 'is-invalid' : '' "
                     placeholder="Name">
@@ -61,7 +61,7 @@
                 <div class="form-group row mx-auto">
                   <input type="radio" class="form-check-input" name="accountType" formControlName="accountType"
                     value="COMPANY">
-                  <label for="exampleInputEmail1" class="form-check-label">Company Account</label>
+                  <label for="exampleInputEmail1" class="form-check-label stepper-text">Company Account</label>
                   <input type="text" class="form-control" formControlName="companyName" id="exampleInputEmail1"
                     [ngClass]="profileForm.get('companyName').invalid && (profileForm.get('companyName').dirty || profileForm.get('companyName').touched) ? 'is-invalid' : '' "
                     placeholder="Company or Family Name">
@@ -69,7 +69,7 @@
               </div>
               <div id="picture" class="content container fade">
                 <div class="row">
-                  <div class="col-12">
+                  <div class="col-12 px-0">
                     <label for="pictureInput" class="mx-auto d-block">
                       <input class="mx-auto d-block" id="pictureInput" type="file" formControlName="profilePicture"
                         (change)="uploadPicture($event)" accept="image/*" />
@@ -94,7 +94,7 @@
                         alt="Profile Picture">
                       <span class="add-badge">+</span>
                     </label>
-                    <h6 class="text-center" style="color: #6c757d;">Upload a picture or select an Avatar</h6>
+                    <h6 class="text-center stepper-text">Upload a picture or select an Avatar</h6>
                     <div class="row">
                       <div class="col-3 mx-auto">
                         <img src="../../../assets/img/worker.png" class="avatar-img" alt="Responsive image"
@@ -117,7 +117,7 @@
                 </div>
               </div>
               <div [hidden]="role==='CLIENT'" id="countries" class="content container fade m-0 p-0">
-                <div class="row justify-content-center m-0 p-0">
+                <div class="row m-0 p-0">
                   <div class="col-12 py-5 px-0 mx-0 h-100">
                     <app-multi-select [selectedDivisions]="countryDivisions" (selected)="onDivisionsSelect($event)"></app-multi-select>
                     <div class="row justify-content-center">
@@ -130,7 +130,7 @@
                 <div class="row justify-content-center">
                   <div class="col-12">
                     <div class="form-group row py-5 mx-auto">
-                      <label for="checkInput" style="color: #6c757d;">Select a Service!</label>
+                      <label for="checkInput" class="stepper-text">Select a Service!</label>
                       <ng-select [multiple]="true"
                         formControlName="services"
                         [items]="countryDivisions"
@@ -208,17 +208,15 @@
 
                 </div>
               </div>
-              <div [hidden]="role==='CLIENT'" id="myWork" class="content container fade">
+              <div [hidden]="role==='CLIENT'" id="briefcases" class="content container fade">
                 <app-briefcase-edit></app-briefcase-edit>
               </div>
-              <div [hidden]="role==='CLIENT'" id="comments" class="content container fade">
-                <div class="form-group row text-center" id="form-group-comments">
-                  <div class="form-group row py-5 mx-auto">
-                    <label for="commentsInput" style="color: #6c757d;">Resume!</label>
-                    <textarea class="form-control" id="commentsInputText" formControlName="comments"
+              <div [hidden]="role==='CLIENT'" id="resume" class="content container fade">
+                <div class="form-group row py-2 text-center" id="form-group-comments">
+                    <label for="commentsInput" class="stepper-text">Resume</label>
+                    <textarea class="form-control" id="commentsInputText" style="height: 12rem;" formControlName="comments"
                       placeholder="Enter some comments about your skills and previous jobs to enrich your profile..."></textarea>
                   </div>
-                </div>
               </div>
             </form>
           </div>
