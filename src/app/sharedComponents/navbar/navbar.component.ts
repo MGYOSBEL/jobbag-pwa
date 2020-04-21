@@ -30,7 +30,8 @@ export class NavbarComponent implements OnInit {
 
   navEnd: Observable<NavigationEnd>;
 
-  constructor(private userService: UserService,
+  constructor(
+    private userService: UserService,
     private authenticationService: AuthenticationService,
     private socialAuthService: AuthService,
     private route: ActivatedRoute,
@@ -64,14 +65,14 @@ export class NavbarComponent implements OnInit {
       evt => {
         this.role = this.userService.role;
         this.hiddenNavbar = this.router.url.includes('auth') || this.router.url.includes('create-profile')
-                            || !this.route.snapshot.params.role;
+                            || !this.role;
         this.isLoggedIn = this.authenticationService.isLoggedIn;
         if (this.authenticationService.isLoggedIn) {
           this.socialUser = JSON.parse(localStorage.getItem('socialUser'));
           this.userId = this.authenticationService.getLoggedUserId();
           this.activeProfile = this.loggedUser.profiles.find(profile => profile.userProfileType === this.role);
           if (this.activeProfile) {
-            this.defaultPicture = this.activeProfile.picture.length === 0;
+            this.defaultPicture = !this.activeProfile.picture.includes('uploads');
             this.userImageUrl = environment.serverBaseURL + '/' + this.activeProfile.picture;
             console.log('defaultPicture: ', this.defaultPicture, 'userImageUrl: ', this.userImageUrl);
             }
