@@ -11,12 +11,14 @@ import { UserService } from '@app/user/services/user.service';
 import { Observable, forkJoin, EMPTY, combineLatest, of } from 'rxjs';
 import { MediaService } from '@app/user/services/media.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { DatePipe } from '@angular/common';
 
 
 @Component({
   selector: 'app-edit-profile',
   templateUrl: './edit-profile.component.html',
-  styleUrls: ['./edit-profile.component.css']
+  styleUrls: ['./edit-profile.component.css'],
+  providers: [DatePipe]
 })
 export class EditProfileComponent implements OnInit {
 
@@ -34,6 +36,8 @@ export class EditProfileComponent implements OnInit {
   loggedUser: User;
   countryDivisions: number[];
   defaultPicture: boolean;
+  myDate = new Date();
+  currentDate: string;
 
   constructor(
     private userService: UserService,
@@ -41,9 +45,10 @@ export class EditProfileComponent implements OnInit {
     private mediaService: MediaService,
     private formBuilder: FormBuilder,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private datePipe: DatePipe
   ) {
-
+    this.currentDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
     this.changePassword = false;
     this.imageLoaded = false;
     this.userService.role$.subscribe(role => {
