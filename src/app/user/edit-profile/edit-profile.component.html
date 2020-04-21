@@ -140,7 +140,8 @@
                   </div>
                 </div>
               </div>
-              <div class="card" id="section-card">
+              <ng-template [ngIf]="role === 'SERVICE_PROVIDER'">
+                <div class="card" id="section-card">
                 <div class="card-header card-header-collapse" id="headingThree" data-toggle="collapse"
                   data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                   <div class="row">
@@ -161,8 +162,8 @@
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="card" id="section-card">
+                </div>
+                <div class="card" id="section-card">
                 <div class="card-header card-header-collapse" id="headingFour" data-toggle="collapse"
                   data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
                   <div class="row">
@@ -194,8 +195,8 @@
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="card" id="section-card">
+                </div>
+                <div class="card" id="section-card">
                 <div class="card-header card-header-collapse" id="headingFive" data-toggle="collapse"
                   data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
                   <div class="row">
@@ -212,7 +213,7 @@
                     <div class="row">
                       <div class="col-12">
 
-                        <div class="row justify-content-center">
+                        <!-- <div class="row justify-content-center">
                           <div class="col-12">
                             <div class="form-group row pt-5 mx-auto">
                               <label for="curriculumDescription" style="color: #6c757d;">Curriculum Description!</label>
@@ -234,8 +235,61 @@
                               </label>
                             </div>
                           </div>
-                        </div>
+                        </div> -->
 
+                        <div class="row justify-content-center" style="margin-top: 1.5rem;">
+                          <div class="col-12">
+                            <p style="color:#bebcbe;font-size:0.85rem">Upload your Updated CV, only in PDF format!</p>
+                          </div>
+                          <div class="col-9 pr-0">
+                            <label *ngIf="!cvLoaded" for="curriculumLabel" id="curriculumLabel">
+                              <p *ngIf="!cvLoaded">Upload File</p>
+                            </label>
+                            <label *ngIf="cvLoaded" for="curriculumLabel" id="curriculumLabelSuccess">
+                              <p *ngIf="cvLoaded">File Upload Succes</p>
+                            </label>
+                          </div>
+                          <div class="col-3 pl-0">
+                            <label for="curriculumUpload" id="curriculumUpload">
+                              <div class="upload-btn-wrapper">
+                                <button class="btn-uploadcv"><i class="far fa-folder fa-3x"></i></button>
+                                <input type="file" name="myfile" accept="pdf/*" formControlName="curriculum" class="form-control-file"
+                                  (change)="uploadCV($event)" />
+                              </div>
+                            </label>
+                          </div>        
+                            <div *ngIf="cvLoaded" class="card col-6 my-0" style="border:transparent">
+                              <div class="row" style="background-color: #2982c1;margin-left: 0;margin-right: 0;">
+                                <div class="col-12 text-center my-0" style="background-color: #2982c1;">
+                                  <i class="far fa-folder-open fa-3x my-2" style="color: #fff;"></i>
+                                  <hr style="border: 0.5px solid white;margin-bottom: 0; margin-top: 0;">
+                                </div>
+                              </div>
+                              <div class="row" style="background-color: #2982c1;margin-left: 0;margin-right: 0; padding-bottom: 0.2rem;">
+                                <div class="col-6 text-center mt-0" style="padding:0">
+                                  <a href="#">
+                                  <i class="fas fa-eye" style="color: #fff;"></i>
+                                  </a>
+                                </div>
+                                <div class="col-6 text-center mt-0" style="padding:0">
+                                  <a href="#">
+                                  <i class="fas fa-download" style="color: #fff;"></i>
+                                  </a>
+                                </div>
+                              </div>
+                              <div class="card-footer" style="padding:0; background-color: white;">
+                                <div class="row" style="margin: 0;">
+                                  <div class="col-12 text-left" style="padding:0">
+                                    <small class="text-muted" style="font-weight: bold;font-size: 0.8rem;">Curriculum</small>
+                                  </div>
+                                  <div class="col-12 text-left" style="padding:0;">                            
+                                    <small class="text-muted" style="font-size: 0.8rem;">{{currentDate | date:'yyyy-MM-dd'}}</small>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+        
+                        </div>
 
 
 
@@ -243,8 +297,8 @@
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="card" id="section-card">
+                </div>
+                <div class="card" id="section-card">
                 <div class="card-header card-header-collapse" id="headingSix" data-toggle="collapse"
                   data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
                   <div class="row">
@@ -263,8 +317,8 @@
 
                   </div>
                 </div>
-              </div>
-              <div class="card" id="section-card">
+                </div>
+                <div class="card" id="section-card">
                 <div class="card-header card-header-collapse" id="headingSeven" data-toggle="collapse"
                   data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
                   <div class="row">
@@ -289,7 +343,8 @@
                     </div>
                   </div>
                 </div>
-              </div>
+                </div>
+              </ng-template>
             </div>
           </div>
           <div class="card text-right">
