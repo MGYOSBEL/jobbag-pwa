@@ -212,31 +212,6 @@
                   <div class="card-body">
                     <div class="row">
                       <div class="col-12">
-
-                        <!-- <div class="row justify-content-center">
-                          <div class="col-12">
-                            <div class="form-group row pt-5 mx-auto">
-                              <label for="curriculumDescription" style="color: #6c757d;">Curriculum Description!</label>
-                            </div>
-                          </div>
-                          <div class="row justify-content-center">
-                            <div class="col-9 pr-0">
-                              <label for="curriculumLabel" id="curriculumLabel">
-                                Upload File
-                              </label>
-                            </div>
-                            <div class="col-3 pl-0">
-                              <label for="curriculumUpload" id="curriculumUpload">
-                                <div class="upload-btn-wrapper">
-                                  <button class="btn-uploadcv"><i class="far fa-folder fa-3x"></i></button>
-                                  <input type="file" name="myfile" accept="pdf/*" formControlName="curriculum"
-                                    class="form-control-file" (change)="uploadCV($event)" />
-                                </div>
-                              </label>
-                            </div>
-                          </div>
-                        </div> -->
-
                         <div class="row justify-content-center" style="margin-top: 1.5rem;">
                           <div class="col-12">
                             <p style="color:#bebcbe;font-size:0.85rem">Upload your Updated CV, only in PDF format!</p>
@@ -382,27 +357,25 @@
   </div>
 </div>
 
-
-
+/*Modal*/
 
 <div class="modal fade rounded-0" id="closeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
   aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered rounded-0" role="document">
     <div class="modal-content rounded-0 border-0">
       <div class="modal-header rounded-0" style="background-color: #2888C7; color: white;">
-        <h5 class="modal-title" id="exampleModalCenterTitle">Close</h5>
+        <h5 class="modal-title" id="exampleModalCenterTitle">Close Confirmation</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body rounded-0">
-        If you close, you can lose any change you have made to your profile.
+        Are you sure you want to cancel your profile edition?
       </div>
       <div class="modal-footer rounded-0">
-        <button type="button" class="btn btn-secondary btn-edit rounded-0" data-dismiss="modal">Continue
-          editing</button>
-        <button type="button" class="btn btn-primary btn-edit rounded-0" data-dismiss="modal"
-          style="background-color: #2888C7;" (click)="onClose()">Exit</button>
+        <button type="button" class="btn btn-previous rounded-0" data-dismiss="modal" style="background-color: #BFBDBE;">Continue Edition</button>
+        <button type="button" class="btn btn-send rounded-0" data-dismiss="modal "
+          style="background-color: #2888C7;color: white;" (click)="onClose()">Exit Edition</button>
       </div>
     </div>
   </div>
