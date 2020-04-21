@@ -1,7 +1,7 @@
 <!-- {{countries$ | async | json}} -->
 
 <div *ngIf="popup; else singleScreen">
-  <div class="row container-fluid justify-content-around ">
+  <div class="row container-fluid justify-content-around mx-0">
     <button type="button" class=" col-3 btn btn-primary mt-5 rounded-0 border-0 text-light mx-2 px-0"
       data-toggle="modal" data-target="#selectModal" style="background-color: #2985c4 ;"
       (click)="onCountrySelect(country)" *ngFor="let country of (countries$ | async)">

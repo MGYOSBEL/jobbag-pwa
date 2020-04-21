@@ -1,40 +1,42 @@
 <div class="row justify-content-center">
   <div class="col-md-8 text-center mt-0">
     <button type="button" class="btn btn-link" id="btn-modal-bc" data-toggle="modal" data-target="#exampleModalCenter">
-      <img src="../../../assets/img/breif_add.png" class="" alt="Profile Picture" />
+      <img src="../../../assets/img/breif_add.png" class="" alt="Profile Picture" style="width: 85%;"/>
     </button>
-    <h5 class="text-center mt-0" style="color:#bebcbe ;">Add a Briefcase!</h5>
+    <h6 class="stepper-text" style="color: #6c757d;font-weight: bold;">Add a Briefcase!</h6>
   </div>
 </div>
 
 <div class="row">
-  <div class="col-5 mx-auto  mt-0 text-center bc-card-col" *ngFor="let briefcase of briefcases">
+  <div class="col-3 mx-auto mt-3 text-center bc-card-col" *ngFor="let briefcase of briefcases">
     <div class="card my-0" style="border:transparent">
       <div class="row" style="background-color: #2982c1;margin-left: 0;margin-right: 0;">
         <div class="col-12 text-center my-0" style="background-color: #2982c1;">
-          <i class="fas fa-briefcase fa-3x my-2" style="color: #fff;"></i>
+          <i class="fas fa-briefcase my-2" style="color: #fff;font-size: 1.5rem;"></i>
           <hr style="border: 0.5px solid white;margin-bottom: 0; margin-top: 0;">
         </div>
       </div>
       <div class="row" style="background-color: #2982c1;margin-left: 0;margin-right: 0; padding-bottom: 0.2rem;">
         <div class="col-6 text-center mt-0" style="padding:0">
           <a href="#">
-          <i class="fas fa-eye" style="color: #fff;"></i>
+          <i class="fas fa-eye" style="color: #fff;font-size: 0.75rem;"></i>
           </a>
         </div>
         <div class="col-6 text-center mt-0" style="padding:0">
           <a href="#">
-          <i class="fas fa-download" style="color: #fff;"></i>
+          <i class="fas fa-download" style="color: #fff;font-size: 0.75rem;"></i>
           </a>
         </div>
       </div>
       <div class="card-footer" style="padding:0; background-color: white;">
-        <div class="row" style="margin: 0;">
-          <div class="col-6" style="padding:0">
-            <small class="text-muted" style="font-weight: bold;font-size: 0.8rem;">Mis Trabajos</small>
+        <div class="row" style="margin: 0; border: 0;">
+          <div class="col-12 m-0 p-0 text-left">
+            <style>.ellipsis { text-overflow: ellipsis; }</style>
+            <p class="overflow ellipsis my-0 py-0" 
+               style="font-weight: bold;font-size: 0.75rem;color:#6c757d">{{briefcase.description}}</p>
           </div>
-          <div class="col-6" style="padding:0;">
-            <small class="text-muted" style="font-size: 0.8rem;">May-2020</small>
+          <div class="col-12 m-0 p-0 text-left">            
+            <small class="text-muted" style="font-size: 0.75rem;">{{briefcase.enddate}}</small>
           </div>
         </div>
       </div>
@@ -43,142 +45,111 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade " id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
   aria-hidden="true">
-  <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+  <div class="modal-dialog modal modal-dialog-centered rounded-0" role="document">
     <div class="modal-content">
-      <div class="modal-header"
-        style="background-color:#2985c4;color:white;padding-top: 0.5rem; padding-bottom: 0.5rem;">
-        <h5 class="modal-title" id="exampleModalCenterTitle" style="font-weight: lighter;">Add a Briefcase</h5>
+      <div class="modal-header py-1" style="background-color:#2985c4;color:white;">
+        <p class="modal-title" id="exampleModalCenterTitle">Add a Briefcase</p>
         <button type="button" class="close" style="color:white;" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="row" style="background-color:#f7f8f9; margin: 0rem;">
-        <div class="col-md-8">
-          <div class="modal-body"
-            style="box-shadow: 10px 10px 12px 0.2rem rgba(0,0,0,0.2); background-color: white; padding: 2rem;">
+        <div class="col-md-12">
+          <div class="modal-body mt-0 p-1" style=" background-color: white; padding: 2rem;">
             <form [formGroup]="briefcaseEditForm">
               <div class="mb-3">
-                <label for="validationTextarea">Title</label>
-                <input
-                  [ngClass]="briefcaseEditForm.get('title').invalid && (briefcaseEditForm.get('title').dirty || briefcaseEditForm.get('title').touched) ? 'is-invalid' : '' "
-                  class="form-control" formControlName="title" id="validationTextarea" placeholder="Title" required>
-                <div class="invalid-feedback">
-                  Please enter a title.
+                <div class="modal-body text-center mt-0 p-0">
+                  <h4 class="text-center mt-1" style="color:#bebcbe ;">Work Samples</h4>
+                  <div class="image-upload">
+                    <label for="file-input">
+                      <img *ngIf="imageLoaded" [src]="previewUrl" class="" alt="Profile Picture"
+                        style="max-width: 50%; height: auto;">
+                      <img *ngIf="!imageLoaded" src="../../../assets/img/default-image.png" class="defaultImage"
+                        alt="default-image" title="Default Image" style="max-width: 50%; height: auto;cursor: pointer;">
+                    </label>
+                    <input id="file-input" type="file" (change)="uploadPicture($event)" accept="image/*">
+                  </div>
+                  <h5 class="text-center mt-0 p-0" style="color:#bebcbe ;">Click to add an image!</h5>
                 </div>
-              </div>
-
-              <div class="mb-3">
-                <label for="validationTextarea">Description</label>
-                <input
-                  [ngClass]="briefcaseEditForm.get('description').invalid && (briefcaseEditForm.get('description').dirty || briefcaseEditForm.get('description').touched) ? 'is-invalid' : '' "
-                  class="form-control" formControlName="description" id="validationTextarea"
-                  placeholder="Short Description" required>
-                <div class="invalid-feedback">
-                  Please enter a description.
-                </div>
-              </div>
-
-              <div class="mb-3">
-                <label for="validationTextarea">Comments</label>
-                <textarea class="form-control" formControlName="comments" id="validationTextarea"
-                  placeholder="Enter some comments"></textarea>
-              </div>
-
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="mb-3">
-                    <label for="validationTextarea">Start Date</label>
-                    <div class="input-group">
-                      <input
-                        [ngClass]="briefcaseEditForm.get('startDate').invalid && (briefcaseEditForm.get('startDate').dirty || briefcaseEditForm.get('startDate').touched) ? 'is-invalid' : '' "
-                        class="form-control" formControlName="startDate" id="validationTextarea"
-                        placeholder="yyyy-mm-dd" ngbDatepicker #startDatePicker="ngbDatepicker" required>
-                      <div class="input-group-append">
-                        <button class="btn btn-outline-secondary calendar" (click)="startDatePicker.toggle()"
-                          type="button">
-                          <i class="far fa-calendar-alt fa-lg"></i>
-                        </button>
+                <div class="col-12">
+                  <div class="mb-3 my-0 py-0">
+                    <label for="validationTextarea">Description</label>
+                    <input
+                      [ngClass]="briefcaseEditForm.get('description').invalid && (briefcaseEditForm.get('description').dirty || briefcaseEditForm.get('description').touched) ? 'is-invalid' : '' "
+                      class="form-control rounded-0" formControlName="description" id="validationTextarea"
+                      placeholder="Short Description" required>
+                    <div class="invalid-feedback">
+                      Please enter a description.
+                    </div>
+                  </div>
+                  <div class="mb-3 my-0 py-0">
+                    <label for="validationTextarea">Comments</label>
+                    <textarea class="form-control rounded-0" formControlName="comments" id="validationTextarea"
+                      placeholder="Enter some comments"></textarea>
+                  </div>
+                  <div class="row my-0 py-0">
+                    <div class="col-md-6">
+                      <div class="mb-3">
+                        <label for="validationTextarea">Start Date</label>
+                        <div class="input-group">
+                          <input
+                            [ngClass]="briefcaseEditForm.get('startDate').invalid && (briefcaseEditForm.get('startDate').dirty || briefcaseEditForm.get('startDate').touched) ? 'is-invalid' : '' "
+                            class="form-control rounded-0" formControlName="startDate" id="validationTextarea"
+                            placeholder="yyyy-mm-dd" ngbDatepicker #startDatePicker="ngbDatepicker" required>
+                          <div class="input-group-append">
+                            <button class="btn btn-outline-secondary calendar rounded-0" (click)="startDatePicker.toggle()"
+                              type="button">
+                              <i class="far fa-calendar-alt fa-lg"></i>
+                            </button>
+                          </div>
+                        </div>
+                        <div class="invalid-feedback">
+                          Please enter a date.
+                        </div>
                       </div>
                     </div>
-                    <div class="invalid-feedback">
-                      Please enter a date.
+                    <div class="col-md-6">
+                      <div class="mb-3">
+                        <label for="validationTextarea">End Date</label>
+                        <div class="input-group">
+                          <input
+                            [ngClass]="briefcaseEditForm.get('endDate').invalid && (briefcaseEditForm.get('endDate').dirty || briefcaseEditForm.get('endDate').touched) ? 'is-invalid' : '' "
+                            class="form-control rounded-0" formControlName="endDate" id="validationTextarea"
+                            placeholder="yyyy-mm-dd" ngbDatepicker #endDatePicker="ngbDatepicker" required>
+                          <div class="input-group-append">
+                            <button class="btn btn-outline-secondary calendar rounded-0" (click)="endDatePicker.toggle()"
+                              type="button">
+                              <i class="far fa-calendar-alt fa-lg"></i>
+                            </button>
+                          </div>
+                        </div>
+                        <div class="invalid-feedback">
+                          Please enter a date.
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
-
-                <div class="col-md-6">
-                  <div class="mb-3">
-                    <label for="validationTextarea">End Date</label>
-                    <div class="input-group">
-                      <input
-                        [ngClass]="briefcaseEditForm.get('endDate').invalid && (briefcaseEditForm.get('endDate').dirty || briefcaseEditForm.get('endDate').touched) ? 'is-invalid' : '' "
-                        class="form-control" formControlName="endDate" id="validationTextarea" placeholder="yyyy-mm-dd"
-                        ngbDatepicker #endDatePicker="ngbDatepicker" required>
-                      <div class="input-group-append">
-                        <button class="btn btn-outline-secondary calendar" (click)="endDatePicker.toggle()"
-                          type="button">
-                          <i class="far fa-calendar-alt fa-lg"></i>
-                        </button>
-                      </div>
-                    </div>
-                    <div class="invalid-feedback">
-                      Please enter a date.
-                    </div>
-                  </div>
+                <div class="col-12 my-0 py-0 text-right">
+                  <button type="button" class="col-2 btn btn-previous rounded-0"
+                    style="background-color: #BFBDBE; color: #2688C6;" data-toggle="tooltip" data-dismiss="modal"
+                    title="Close">CLOSE</button>
+                  <button type="button" class="col-2 btn btn-edit rounded-0"
+                    style="color: white; background-color: #2688C6;" data-dismiss="modal" title="Save"
+                    (click)="saveBriefCase()">SAVE</button>
                 </div>
               </div>
             </form>
           </div>
         </div>
-        <div class="col-md-4">
-          <div class="modal-body text-center mt-0">
-
-            <h4 class="text-center" style="color:#bebcbe ;">Work Samples</h4>
-
-            <!-- <div class="container text-center"> -->
-
-              <div class="image-upload">
-                <label for="file-input">
-                  <img *ngIf="imageLoaded" [src]="previewUrl" class="" alt="Profile Picture" style="max-width: 100%; height: auto;">
-                  <img *ngIf="!imageLoaded" src="../../../assets/img/default-image.png" class="defaultImage" alt="default-image"
-                  title="Default Image" style="max-width: 100%; height: auto;cursor: pointer;">
-                </label>
-
-                <input id="file-input" type="file"
-                (change)="uploadPicture($event)" accept="image/*">
-              </div>
-
-<!--
-              <label for="pictureInput" class="pictureInputLabel mx-auto d-block">
-                <img *ngIf="!imageLoaded" src="../../../assets/img/default-image.png" class="defaultImage" alt="default-image"
-                  title="Default Image" style="max-width: 100%; height: auto;cursor: pointer;">
-                <img *ngIf="imageLoaded" [src]="previewUrl" class="" alt="Profile Picture" style="max-width: 100%; height: auto;">
-                <input class="mx-auto d-block" id="pictureInput" type="file"
-                  (change)="uploadPicture($event)" accept="image/*">
-              </label>
-
-              </label>                             -->
-
-            <!-- </div> -->
-
-            <h5 class="text-center" style="color:#bebcbe ;">Click to add an image!</h5>
-
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="col-1 btn btn-previous rounded-0"
-          style="background-color: #BFBDBE; color: #2688C6;" data-toggle="tooltip" data-dismiss="modal"
-          title="Close">CLOSE</button>
-        <button type="button" class="col-1 btn btn-edit rounded-0" style="color: white; background-color: #2688C6;"
-          data-dismiss="modal" title="Save" (click)="saveBriefCase()">SAVE</button>
       </div>
     </div>
   </div>
 </div>
 
+<!-- closeMessagge Modal -->
 <div class="modal" id="msgModal">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -200,3 +171,107 @@
     </div>
   </div>
 </div>
+
+<!-- <div class="modal fade" id="bcViewModalCenter" tabindex="-1" role="dialog" aria-labelledby="bcViewModalCenter"
+  aria-hidden="true">
+  <div class="modal-dialog modal modal-dialog-centered rounded-0" role="document">
+    <div class="modal-content">
+      <div class="modal-header py-1" style="background-color:#2985c4;color:white;">
+        <p class="modal-title" id="exampleModalCenterTitle">Add a Briefcase</p>
+        <button type="button" class="close" style="color:white;" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="row" style="background-color:#f7f8f9; margin: 0rem;">
+        <div class="col-md-12">
+          <div class="modal-body mt-0 p-1" style=" background-color: white; padding: 2rem;">
+            <form [formGroup]="briefcaseEditForm">
+              <div class="mb-3">
+                <div class="modal-body text-center mt-0 p-0">
+                  <h4 class="text-center mt-1" style="color:#bebcbe ;">Work Samples</h4>
+                  <div class="image-upload">
+                    <label for="file-input">
+                      <img *ngIf="imageLoaded" [src]="previewUrl" class="" alt="Profile Picture"
+                        style="max-width: 50%; height: auto;">
+                      <img *ngIf="!imageLoaded" src="../../../assets/img/default-image.png" class="defaultImage"
+                        alt="default-image" title="Default Image" style="max-width: 50%; height: auto;cursor: pointer;">
+                    </label>
+                    <input id="file-input" type="file" (change)="uploadPicture($event)" accept="image/*">
+                  </div>
+                  <h5 class="text-center mt-0 p-0" style="color:#bebcbe ;">Click to add an image!</h5>
+                </div>
+                <div class="col-12">
+                  <div class="mb-3 my-0 py-0">
+                    <label for="validationTextarea">Description</label>
+                    <input
+                      [ngClass]="briefcaseEditForm.get('description').invalid && (briefcaseEditForm.get('description').dirty || briefcaseEditForm.get('description').touched) ? 'is-invalid' : '' "
+                      class="form-control rounded-0" formControlName="description" id="validationTextarea"
+                      placeholder="Short Description" required>
+                    <div class="invalid-feedback">
+                      Please enter a description.
+                    </div>
+                  </div>
+                  <div class="mb-3 my-0 py-0">
+                    <label for="validationTextarea">Comments</label>
+                    <textarea class="form-control rounded-0" formControlName="comments" id="validationTextarea"
+                      placeholder="Enter some comments"></textarea>
+                  </div>
+                  <div class="row my-0 py-0">
+                    <div class="col-md-6">
+                      <div class="mb-3">
+                        <label for="validationTextarea">Start Date</label>
+                        <div class="input-group">
+                          <input
+                            [ngClass]="briefcaseEditForm.get('startDate').invalid && (briefcaseEditForm.get('startDate').dirty || briefcaseEditForm.get('startDate').touched) ? 'is-invalid' : '' "
+                            class="form-control rounded-0" formControlName="startDate" id="validationTextarea"
+                            placeholder="yyyy-mm-dd" ngbDatepicker #startDatePicker="ngbDatepicker" required>
+                          <div class="input-group-append">
+                            <button class="btn btn-outline-secondary calendar rounded-0" (click)="startDatePicker.toggle()"
+                              type="button">
+                              <i class="far fa-calendar-alt fa-lg"></i>
+                            </button>
+                          </div>
+                        </div>
+                        <div class="invalid-feedback">
+                          Please enter a date.
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="mb-3">
+                        <label for="validationTextarea">End Date</label>
+                        <div class="input-group">
+                          <input
+                            [ngClass]="briefcaseEditForm.get('endDate').invalid && (briefcaseEditForm.get('endDate').dirty || briefcaseEditForm.get('endDate').touched) ? 'is-invalid' : '' "
+                            class="form-control rounded-0" formControlName="endDate" id="validationTextarea"
+                            placeholder="yyyy-mm-dd" ngbDatepicker #endDatePicker="ngbDatepicker" required>
+                          <div class="input-group-append">
+                            <button class="btn btn-outline-secondary calendar rounded-0" (click)="endDatePicker.toggle()"
+                              type="button">
+                              <i class="far fa-calendar-alt fa-lg"></i>
+                            </button>
+                          </div>
+                        </div>
+                        <div class="invalid-feedback">
+                          Please enter a date.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 my-0 py-0 text-right">
+                  <button type="button" class="col-2 btn btn-previous rounded-0"
+                    style="background-color: #BFBDBE; color: #2688C6;" data-toggle="tooltip" data-dismiss="modal"
+                    title="Close">CLOSE</button>
+                  <button type="button" class="col-2 btn btn-edit rounded-0"
+                    style="color: white; background-color: #2688C6;" data-dismiss="modal" title="Save"
+                    (click)="saveBriefCase()">SAVE</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->

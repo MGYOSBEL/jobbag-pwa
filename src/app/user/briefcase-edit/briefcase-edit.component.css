@@ -68,3 +68,9 @@
 .image-upload input[type=file] {
   display: none;
 }
+
+.overflow {
+  width: 4.5rem;
+  white-space: nowrap;
+  overflow: hidden;
+}
