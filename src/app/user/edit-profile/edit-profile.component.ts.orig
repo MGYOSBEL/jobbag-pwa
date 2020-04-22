@@ -11,9 +11,12 @@ import { UserService } from '@app/user/services/user.service';
 import { Observable, forkJoin, EMPTY, combineLatest, of } from 'rxjs';
 import { MediaService } from '@app/user/services/media.service';
 import { Router, ActivatedRoute } from '@angular/router';
+<<<<<<< HEAD
 import { CountryService } from '../services/country.service';
 import { Country } from '../models/country.model';
+=======
 import { DatePipe } from '@angular/common';
+>>>>>>> 847029544de04ba93a40d8472c6185768faf43ef
 
 
 @Component({
@@ -47,9 +50,13 @@ export class EditProfileComponent implements OnInit {
     private mediaService: MediaService,
     private formBuilder: FormBuilder,
     private router: Router,
+<<<<<<< HEAD
     private briefcaseService: BriefcaseService,
+    private route: ActivatedRoute
+=======
     private route: ActivatedRoute,
     private datePipe: DatePipe
+>>>>>>> 847029544de04ba93a40d8472c6185768faf43ef
   ) {
     this.currentDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
     this.changePassword = false;

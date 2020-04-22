@@ -154,6 +154,13 @@
                   </div>
                 </div>
                 <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+<<<<<<< HEAD
+                  <div class="row" >
+                    <div class="col-12">
+                      <app-multi-select [popup]="true" [selectedDivisions]="activeProfile.divisions"
+                        (selected)="onDivisionsSelect($event)">
+                      </app-multi-select>
+=======
                   <div class="card-body">
                     <div class="row">
                       <div class="col-12 py-5">
@@ -161,8 +168,9 @@
                           (selected)="onDivisionsSelect($event)">
                         </app-multi-select>
                       </div>
+>>>>>>> 847029544de04ba93a40d8472c6185768faf43ef
                     </div>
-                  </div>
+                  </div>                  
                 </div>
                 </div>
                 <div class="card" id="section-card">
@@ -234,7 +242,7 @@
                                   (change)="uploadCV($event)" />
                               </div>
                             </label>
-                          </div>
+                          </div>        
                             <div *ngIf="cvLoaded" class="card col-6 my-0" style="border:transparent">
                               <div class="row" style="background-color: #2982c1;margin-left: 0;margin-right: 0;">
                                 <div class="col-12 text-center my-0" style="background-color: #2982c1;">
@@ -259,13 +267,13 @@
                                   <div class="col-12 text-left" style="padding:0">
                                     <small class="text-muted" style="font-weight: bold;font-size: 0.8rem;">Curriculum</small>
                                   </div>
-                                  <div class="col-12 text-left" style="padding:0;">
+                                  <div class="col-12 text-left" style="padding:0;">                            
                                     <small class="text-muted" style="font-size: 0.8rem;">{{currentDate | date:'yyyy-MM-dd'}}</small>
                                   </div>
                                 </div>
                               </div>
                             </div>
-
+        
                         </div>
 
 

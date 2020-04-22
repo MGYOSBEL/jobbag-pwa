@@ -69,3 +69,25 @@
   box-shadow: 0 10px 10px -10px rgba(0, 0, 0, 0.5);
   transform: scale(0.9);
 }
+
+
+/* Firefox columnBarStyle */
+.scroll-host, .fontawesome-i2svg-active, .modal, body{
+  scrollbar-color: #2888C7 #BEBCBE;
+  scrollbar-width: thin;
+}
+
+.modal::-webkit-scrollbar, body::-webkit-scrollbar, .scroll-host::-webkit-scrollbar{
+  width: 8px;
+  height: 8px;
+} 
+.modal::-webkit-scrollbar-track, body::-webkit-scrollbar-track, .scroll-host::-webkit-scrollbar-track{
+  background-color:#BEBCBE;
+  border-radius: 0;
+}
+
+.modal::-webkit-scrollbar-thumb, body::-webkit-scrollbar-thumb, .scroll-host::-webkit-scrollbar-thumb{
+  background-color: #2888C7;
+  border-radius: 0;
+
+}
