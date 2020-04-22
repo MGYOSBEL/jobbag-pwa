@@ -94,8 +94,8 @@ export class CreateProfileComponent implements OnInit {
           this.profileForm.get('accountName').enable();
           this.profileForm.get('companyName').disable();
           this.name = this.profileForm.get('accountName');
-        } else {
-          this.profileForm.get('accountName').disable();
+        } else if (value === '') {
+          //this.profileForm.get('accountName').disable();
           this.profileForm.get('companyName').enable();
           this.name = this.profileForm.get('companyName');
 

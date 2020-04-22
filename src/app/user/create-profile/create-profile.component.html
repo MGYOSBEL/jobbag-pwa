@@ -50,22 +50,30 @@
           <div class="row">
             <form [formGroup]="profileForm" style="width: 100%; height: 8rem;">
               <div id="profile" class="content container fade">
-                <div class="form-group row py-5 mx-auto">
-                  <input type="radio" class="form-check-input" name="accountType" formControlName="accountType"
-                    value="PERSONAL">
-                  <label for="accountName" class="form-check-label stepper-text">Personal Account</label>
+
+
+                <div class="form-group row mx-auto" style="margin-top: 3rem;">
+                  <label class="stepper-text">User Name</label> 
                   <input type="text" class="form-control" formControlName="accountName" id="accountName"
                     [ngClass]="profileForm.get('accountName').invalid && (profileForm.get('accountName').dirty || profileForm.get('accountName').touched) ? 'is-invalid' : '' "
                     placeholder="Name">
                 </div>
-                <div class="form-group row mx-auto">
-                  <input type="radio" class="form-check-input" name="accountType" formControlName="accountType"
-                    value="COMPANY">
-                  <label for="exampleInputEmail1" class="form-check-label stepper-text">Company Account</label>
-                  <input type="text" class="form-control" formControlName="companyName" id="exampleInputEmail1"
-                    [ngClass]="profileForm.get('companyName').invalid && (profileForm.get('companyName').dirty || profileForm.get('companyName').touched) ? 'is-invalid' : '' "
-                    placeholder="Company or Family Name">
+                <div class="row container-radio-btn px-3">
+                  <label class="stepper-text">Select your Account Type</label> 
+                  <div class="col-6 text-center">
+                    <div class="form-group row mx-auto" style="scroll-padding-left: 1rem;">
+                      <input type="radio" class="form-check-input" name="accountType" formControlName="accountType" value="PERSONAL">
+                      <label for="accountName" class="form-check-label">Personal</label>
+                    </div>
+                  </div>
+                  <div class="col-6 text-center">
+                    <div class="form-group row mx-auto">
+                      <input type="radio" class="form-check-input" name="accountType" formControlName="accountType" value="COMPANY">
+                      <label for="exampleInputEmail1" class="form-check-label">Company</label>
+                    </div>
+                  </div>             
                 </div>
+
               </div>
               <div id="picture" class="content container fade">
                 <div class="row">
