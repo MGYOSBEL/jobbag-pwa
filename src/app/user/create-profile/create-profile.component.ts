@@ -47,15 +47,15 @@ export class CreateProfileComponent implements OnInit {
   myDate = new Date();
   currentDate: string;
   constructor(private formBuilder: FormBuilder,
-              private authenticationService: AuthenticationService,
-              private userProfileService: UserProfileService,
-              private briefcaseService: BriefcaseService,
-              private errorService: ErrorService,
-              private countryService: CountryService,
-              private router: Router,
-              private route: ActivatedRoute,
-              private datePipe: DatePipe
-              ) {
+    private authenticationService: AuthenticationService,
+    private userProfileService: UserProfileService,
+    private briefcaseService: BriefcaseService,
+    private errorService: ErrorService,
+    private countryService: CountryService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private datePipe: DatePipe
+  ) {
     this.currentDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
     this.role = this.route.snapshot.params.role;
 
@@ -71,7 +71,7 @@ export class CreateProfileComponent implements OnInit {
       comments: [''],
       // gallery: ['']
     });
-   }
+  }
 
   ngOnInit() {
     this.countries$ = this.countryService.get();
@@ -108,13 +108,13 @@ export class CreateProfileComponent implements OnInit {
 
   next() {
     this.stepper.next();
-   }
+  }
 
   previous() {
     this.stepper.previous();
-   }
+  }
 
-   createUserProfile() {
+  createUserProfile() {
 
     const user_id = this.authenticationService.getLoggedUserId();
 
@@ -132,36 +132,34 @@ export class CreateProfileComponent implements OnInit {
       user_profile_account: this.profileForm.value.accountType,
       name: this.name.value,
       divisions: this.countryDivisions,
-      user_profile_briefcase: this.briefcaseService.briefcases.map(briefcase => {
+      user_profile_briefcase: this.briefcaseService.briefcases.map(item => {
         return {
-          description: briefcase.description,
-          end_date: briefcase.enddate,
-          start_date: briefcase.startdate,
-          comments: briefcase.comments,
-          pictures: briefcase.pictures
-          // id_profession: briefcase.idProfessionFk    Remover profesion
+          comments: item.comments,
+          description: item.description,
+          end_date: item.enddate,
+          pictures: item.pictures,
+          start_date: item.startdate
         };
       })
     };
-    // console.log('briefcsesService briefcases array: ', JSON.stringify(this.briefcaseService.briefcases));
-    // console.log('userProfileRequest: ', JSON.stringify(userProfileRequest));
-    this.userProfileService.create(userProfileRequest)
-    .subscribe(
-      response => {
-        console.log('createUserProfile RESPONSE: ' + JSON.stringify(response));
-        // this.role === 'CLIENT' ? this.activeProfileService.activateClient() : this.activeProfileService.activateServiceProvider() ;
-        this.router.navigate(['../'], {relativeTo: this.route});
-      }, (err) => {
-        this.errorService.errorMessage = err;
-        this.router.navigate(['/error']);
-      }
-    );
-   }
 
-   onDivisionsSelect(event) {
+    this.userProfileService.create(userProfileRequest)
+      .subscribe(
+        response => {
+          console.log('createUserProfile RESPONSE: ' + JSON.stringify(response));
+          // this.role === 'CLIENT' ? this.activeProfileService.activateClient() : this.activeProfileService.activateServiceProvider() ;
+          this.router.navigate(['../'], { relativeTo: this.route });
+        }, (err) => {
+          this.errorService.errorMessage = err;
+          this.router.navigate(['/error']);
+        }
+      );
+  }
+
+  onDivisionsSelect(event) {
     this.countryDivisions = event;
     console.log('event: ', event);
-   }
+  }
 
   uploadPicture(event) {
     const file = (event.target as HTMLInputElement).files[0];
@@ -180,15 +178,15 @@ export class CreateProfileComponent implements OnInit {
     const dy = file.height;
 
 
-    const canvas = document.createElement("canvas");
-    const context = canvas.getContext('2d',);
+    const canvas = document.createElement('canvas');
+    const context = canvas.getContext('2d');
     const base_image = new Image();
     base_image.src = file.src;
     base_image.onload = () => {
       canvas.width = 475; // Este es el tamano de los iconos en el filesystem
       canvas.height = 514;
 
-      context.drawImage(base_image, 0 , 0);
+      context.drawImage(base_image, 0, 0);
       let dataUrl = canvas.toDataURL('image/png');
       this.previewUrl = file.src;
       this.imageBase64 = dataUrl.toString().split(',')[1];
@@ -204,7 +202,7 @@ export class CreateProfileComponent implements OnInit {
       this.cvUrl = reader.result;
       this.cvBase64 = this.cvUrl.toString().split(',')[1];
       this.uploadedCV = true;
-    }; 
+    };
   }
 
   selectDivision(division: DivisionElement) {
@@ -218,5 +216,5 @@ export class CreateProfileComponent implements OnInit {
   //      distinctUntilChanged(),
   //      map(term => term.length < 2 ? []
   //        : states.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
-  //    ) 
+  //    )
 }

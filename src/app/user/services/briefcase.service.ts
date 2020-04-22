@@ -2,11 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '@environments/environment';
 import { map, tap, catchError } from 'rxjs/operators';
-import { Observable, of, throwError } from 'rxjs';
+import { Observable, of, throwError, BehaviorSubject } from 'rxjs';
 import { UserProfileBriefcase } from '../models/user.model';
 import { APIResponse } from '@app/models/app.model';
 import { UserCacheService } from './user-cache.service';
 import { UserService } from './user.service';
+import { LoggingService } from '@app/services/logging.service';
+import { AuthenticationService } from '@app/auth/services/authentication.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,16 +16,120 @@ import { UserService } from './user.service';
 export class BriefcaseService {
 
   apiPath = environment.apiBaseURL;
-  briefcases: Array<UserProfileBriefcase>;
+
+  private subject = new BehaviorSubject<UserProfileBriefcase[]>([]);
+
+  briefcases$ = this.subject.asObservable();
+
+  // Briefcases storaged in the service
+  briefcases: UserProfileBriefcase[] = [];
+
+  idCounter: number;
+
+  // ChangeLog of the briefcases
+  addBriefcases: UserProfileBriefcase[] = [];
+  deleteBriefcases: UserProfileBriefcase[] = [];
+  editBriefcases: UserProfileBriefcase[] = [];
 
   constructor(
     private http: HttpClient,
     private userService: UserService,
+    private authenticationService: AuthenticationService,
     private userCacheService: UserCacheService) {
-    this.briefcases = [];
+
+    this.briefcases = this.userCacheService.getBriefcases();
+    this.subject.next(this.briefcases);
+    this.idCounter = this.briefcases.length;
+
+    this.authenticationService.isLoggedIn$.subscribe(
+      loggedIn => {
+        if (!loggedIn) {
+          this.briefcases = [];
+          this.subject.next([]);
+          this.addBriefcases = [];
+          this.deleteBriefcases = [];
+          this.editBriefcases = [];
+        }
+      }
+    );
 
   }
 
+  // COMPONENTS PURPOSE INTERFACE
+  addLocal(briefcase: UserProfileBriefcase): boolean {
+    briefcase.id = 0 - (++this.idCounter);
+    this.briefcases.push(briefcase);
+    // Saved to the changeLog
+    this.addBriefcases.push(briefcase);
+    this.subject.next(this.briefcases);
+    return true;
+  }
+
+  deleteLocal(briefcase: UserProfileBriefcase): boolean {
+    // delete it from the storage array
+    const index = this.briefcases.findIndex(item => item.id === briefcase.id);
+    if (index !== -1) {
+      this.briefcases.splice(index, 1);
+      this.subject.next(this.briefcases);
+    } else { return false; }
+
+    // add it to the change log
+    this.deleteBriefcases.push(briefcase);
+
+    // delete it from previous change logs
+    const indexAdd = this.addBriefcases.findIndex(item => item.id === briefcase.id);
+    if (indexAdd !== -1) {
+      this.addBriefcases.splice(indexAdd, 1);
+    }
+    const indexEdit = this.editBriefcases.findIndex(item => item.id === briefcase.id);
+    if (indexEdit !== -1) {
+      this.editBriefcases.splice(indexEdit, 1);
+    }
+    return true;
+
+  }
+
+  editLocal(briefcase: UserProfileBriefcase): boolean {
+    const index = this.briefcases.findIndex(item => item.id === briefcase.id);
+    console.log(index);
+    if (index !== -1) {
+      this.briefcases[index] = briefcase;
+      console.log(this.briefcases[index]);
+
+      this.subject.next(this.briefcases);
+      console.log('subject', this.subject.value);
+    } else { return false; }
+
+    // Update change Log
+    const indexEdit = this.editBriefcases.findIndex(item => item.id === briefcase.id);
+    if (indexEdit !== -1) { // Si esta lo modifico
+      this.editBriefcases[indexEdit] = briefcase;
+    } else { // Si no esta lo agrego
+      this.editBriefcases.push(briefcase);
+    }
+
+    const indexAdd = this.addBriefcases.findIndex(item => item.id === briefcase.id);
+    if (indexAdd !== -1) {
+      this.addBriefcases.splice(indexAdd, 1);
+    }
+
+    return true;
+
+  }
+
+  getlocals(): UserProfileBriefcase[] {
+    return this.briefcases;
+  }
+
+  getChangeLog() {
+    return {
+      added: this.addBriefcases,
+      edited: this.editBriefcases,
+      deleted: this.deleteBriefcases
+    };
+  }
+
+  // API PURPOSE INTERFACE
   get(id: number) {
     const briefcases: Array<UserProfileBriefcase> = JSON.parse(localStorage.getItem('briefcases')) || []; // Leo el array de userProfiles del storage
     if (briefcases) {
@@ -88,6 +194,7 @@ export class BriefcaseService {
         let briefcases: UserProfileBriefcase[] = this.userCacheService.getBriefcases();
         briefcases.push(content);
         this.userCacheService.setBriefcases(briefcases);
+        this.subject.next(this.briefcases);
 
       })
     );
@@ -126,6 +233,7 @@ export class BriefcaseService {
         briefcases[index] = content;
         // Una vez modificados los campos salvo el array completo de userProfiles
         this.userCacheService.setBriefcases(briefcases);
+        this.subject.next(this.briefcases);
 
       }
       ));
@@ -159,6 +267,8 @@ export class BriefcaseService {
         let briefcases: UserProfileBriefcase[] = this.userCacheService.getBriefcases() || [];
         briefcases.splice(briefcases.findIndex(elem => elem.id === id), 1); // Cuando encuentro el id, elimino el elemento
         this.userCacheService.setBriefcases(briefcases);
+        this.subject.next(this.briefcases);
+
       })
     );
   }

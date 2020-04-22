@@ -11,6 +11,8 @@ import { UserService } from '@app/user/services/user.service';
 import { Observable, forkJoin, EMPTY, combineLatest, of } from 'rxjs';
 import { MediaService } from '@app/user/services/media.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { CountryService } from '../services/country.service';
+import { Country } from '../models/country.model';
 
 
 @Component({
@@ -41,6 +43,7 @@ export class EditProfileComponent implements OnInit {
     private mediaService: MediaService,
     private formBuilder: FormBuilder,
     private router: Router,
+    private briefcaseService: BriefcaseService,
     private route: ActivatedRoute
   ) {
 
@@ -51,6 +54,8 @@ export class EditProfileComponent implements OnInit {
       console.log(this.role);
       this.updateActiveProfile();
     });
+
+
 
     this.userService.loggedUser$.subscribe(user => {
       this.loggedUser = user;
@@ -76,12 +81,14 @@ export class EditProfileComponent implements OnInit {
 
     });
 
+
   }
 
   private updateActiveProfile() {
     if (!! this.loggedUser) {
       this.activeProfile = this.loggedUser.profiles.find(profile => profile.userProfileType === this.role);
       if (!! this.activeProfile) {
+        // this.briefcaseService.briefcases = this.activeProfile.briefcases;
         this.defaultPicture = !this.activeProfile.picture.includes('uploads');
         this.previewUrl = `${environment.serverBaseURL}/${this.activeProfile.picture}`;
         }
@@ -194,10 +201,14 @@ export class EditProfileComponent implements OnInit {
       user_profile_type: this.role,
       user_profile_account: this.editProfileForm.value.accountType,
       name: this.profileName.value,
-      // user_profile_briefcase: this.activeProfile.briefcases,
+      add_briefcase: this.briefcaseService.addBriefcases,
+      edit_briefcase: this.briefcaseService.editBriefcases,
+      delete_briefcase: this.briefcaseService.deleteBriefcases,
       divisions: this.activeProfile.divisions
     };
     console.log('profileEditRequest: ', profileEditRequest);
+
+
 
 
 
