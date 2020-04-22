@@ -108,21 +108,24 @@ export class BriefcaseEditComponent implements OnInit {
     this.router.navigate(['../'], { relativeTo: this.route });
   }
 
-  uploadPicture(event) {
-    const file = (event.target as HTMLInputElement).files[0];
+  uploadPicture($event) {
+    const file = ($event.target as HTMLInputElement).files[0];
+    console.log('uploading - file', file);
     let reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = (_event) => {
       this.previewUrl = reader.result;
-      console.log(this.previewUrl.toString().split(',')[0]);
 
       this.imageBase64 = this.previewUrl.toString().split(',')[1];
+      console.log(this.imageBase64);
       this.pictures[0] = this.imageBase64;      // adding pictures array to briefcase (pictures[0]) just one image
       this.imageLoaded = true;
+      console.log('image loaded...');
     };
   }
 
   private dataToForm(briefcase: UserProfileBriefcase) {
+    console.log('data to form: ', briefcase);
     const start = briefcase.startdate.split('-');
     const end = briefcase.enddate.split('-');
     this.briefcaseEditForm.patchValue({
@@ -131,9 +134,11 @@ export class BriefcaseEditComponent implements OnInit {
       startDate: { year: parseInt(start[0], 10), month: parseInt(start[1], 10), day: parseInt(start[2], 10) },
       endDate: { year: parseInt(end[0], 10), month: parseInt(end[1], 10), day: parseInt(end[2], 10) },
     });
-    // briefcase.pictures[0]
     this.previewUrl = this.parsePictureUrl(briefcase.pictures[0]);
     this.imageLoaded = this.previewUrl != null;
+    console.log('image previewURL >>>>', this.previewUrl);
+    console.log('image loaded >>>>', this.imageLoaded);
+
   }
 
   private formToData(): UserProfileBriefcase {
@@ -166,6 +171,7 @@ export class BriefcaseEditComponent implements OnInit {
 
   private parsePictureUrl(picture: string): string {
     if (picture != null) {
+      console.log(picture);
       const remoteImage = picture.includes('uploads');
       // No contiene 'uploads' pero no esta vacio, debe ser un base64
       const localImage = !remoteImage && picture != null;
