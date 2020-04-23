@@ -14,6 +14,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { TestComponent } from './test/test.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule } from '@angular/forms';
+import { LoadingComponent } from './sharedComponents/loading/loading.component';
+import { LoadingService } from './services/loading.service';
 
 const config = new AuthServiceConfig([
   {
@@ -47,7 +49,11 @@ export function provideConfig() {
     NgbModule,
     AppRoutingModule
   ],
+  exports: [
+    LoadingComponent
+  ],
   providers: [
+    LoadingService,
     {
       provide: AuthServiceConfig,
       useFactory: provideConfig

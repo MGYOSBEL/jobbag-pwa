@@ -6,6 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthRoutingModule } from './auth-routing.module';
 import { RegisterComponent } from './register/register.component';
+import { SharedComponentsModule } from '@app/sharedComponents/shared-components.module';
 
 
 
@@ -17,7 +18,8 @@ import { RegisterComponent } from './register/register.component';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    AuthRoutingModule
+    AuthRoutingModule,
+    SharedComponentsModule
   ],
   providers: [
 

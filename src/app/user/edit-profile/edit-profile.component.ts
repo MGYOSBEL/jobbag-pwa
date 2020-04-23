@@ -14,6 +14,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { CountryService } from '../services/country.service';
 import { Country } from '../models/country.model';
 import { DatePipe } from '@angular/common';
+import { LoadingService } from '@app/services/loading.service';
 
 
 @Component({
@@ -43,6 +44,7 @@ export class EditProfileComponent implements OnInit {
 
   constructor(
     private userService: UserService,
+    private loadingService: LoadingService,
     private userProfileService: UserProfileService,
     private mediaService: MediaService,
     private formBuilder: FormBuilder,
@@ -182,6 +184,9 @@ export class EditProfileComponent implements OnInit {
 
   saveProfile() {
 
+    this.loadingService.loadingOff();
+
+
     const userEditRequest = {
       id: this.userService.loggedUser.id,
       username: this.editProfileForm.value.username,
@@ -232,9 +237,10 @@ export class EditProfileComponent implements OnInit {
       ]
     );
 
-    editProfileCall$.subscribe(
+    this.loadingService.showLoaderUntilCompletes(editProfileCall$).subscribe(
       res => {
         console.log('COMBINED RESPONSE: ', res);
+
       },
       (err: []) => console.log(err),
       () =>  this.router.navigateByUrl(`/user/${this.userService.loggedUser.id}/${this.activeProfile.userProfileType}`)

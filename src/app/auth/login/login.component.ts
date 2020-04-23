@@ -14,6 +14,7 @@ import { SocialUser, AuthService, GoogleLoginProvider, FacebookLoginProvider } f
 import { User } from '@app/user/models/user.model';
 import { ErrorService } from '@app/errors/error.service';
 import { UserService } from '@app/user/services/user.service';
+import { LoadingService } from '@app/services/loading.service';
 
 
 
@@ -44,6 +45,7 @@ export class LoginComponent implements OnInit {
               private userService: UserService,
               private errorService: ErrorService,
               private socialAuthService: AuthService,
+              private loadingService: LoadingService,
               private logging: LoggingService) {
 
     this.loginForm = this.formBuilder.group({
@@ -56,7 +58,8 @@ export class LoginComponent implements OnInit {
   }
 
   jobbagLogin() {
-    this.loading = true;
+    // this.loading = true;
+    this.loadingService.loadingOn();
     this.authenticationService.signInWithJobbag(this.loginForm.value.email, this.loginForm.value.password)
         .subscribe( data =>  {
           if (this.authenticationService.isLoggedIn) {
@@ -65,23 +68,28 @@ export class LoginComponent implements OnInit {
             this.router.navigate([this.returnUrl, user_id, 'CLIENT'], {queryParams: {o: 'log'}});
           } else {
             this.loginErr = {err: true, message: data.text};
-            this.loading = false;
+            // this.loading = false;
           }
+          this.loadingService.loadingOff();
         }, (error) => {
           this.errorService.errorMessage = error;
           this.router.navigate(['/error']);
           this.logging.log('error on the post request of the login method: ' + error + ' ... (LoginComponent)');
+          this.loadingService.loadingOff();
+
         });
   }
 
   facebookLogin() {
     this.loading = true;
+    this.loadingService.loadingOn();
     this.authenticationService.authProvider = 'FACEBOOK';
     this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
   }
 
   googleLogin() {
     this.loading = true;
+    this.loadingService.loadingOn();
     this.authenticationService.authProvider = 'GOOGLE';
     this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
   }
@@ -99,6 +107,7 @@ export class LoginComponent implements OnInit {
               if ( data.status_code ) {
                 this.logging.log('isLoggedIn subscription was false.... (LoginComponent)' + data);
                 this.loading = false;
+                this.loadingService.loadingOff();
                 this.loginErr = {err: true, message: data.text};
                 this.router.navigate(['./'], {relativeTo: this.route});
               } else {

@@ -9,8 +9,9 @@ import { AuthenticationService } from '../services/authentication.service';
 import { AuthService, SocialUser, FacebookLoginProvider, GoogleLoginProvider } from 'angularx-social-login';
 import { LoggingService } from '@app/services/logging.service';
 import { ErrorService } from '@app/errors/error.service';
-import {passwordMissmatchValidator} from '@app/sharedComponents/customValidators';
+import { passwordMissmatchValidator } from '@app/sharedComponents/customValidators';
 import { UserService } from '@app/user/services/user.service';
+import { LoadingService } from '@app/services/loading.service';
 
 @Component({
   selector: 'app-register',
@@ -36,14 +37,15 @@ export class RegisterComponent implements OnInit {
   // pass1: string; pass2: string;
 
   constructor(private formBuilder: FormBuilder,
-              private route: ActivatedRoute,
-              private userService: UserService,
-              private router: Router,
-              private http: HttpClient,
-              private logging: LoggingService,
-              private socialAuthService: AuthService,
-              private error: ErrorService,
-              private authenticationService: AuthenticationService) {
+    private route: ActivatedRoute,
+    private userService: UserService,
+    private router: Router,
+    private http: HttpClient,
+    private logging: LoggingService,
+    private socialAuthService: AuthService,
+    private error: ErrorService,
+    private loadingService: LoadingService,
+    private authenticationService: AuthenticationService) {
 
     this.registerForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
@@ -51,25 +53,25 @@ export class RegisterComponent implements OnInit {
       password: ['', [Validators.required, Validators.minLength(5)]],
       confirmPassword: ['', [Validators.required]]
     });
-    this.registerErr = {err: false};
+    this.registerErr = { err: false };
 
     this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/user';
   }
 
   ngOnInit() {
-this.registerForm.valueChanges.subscribe(
-  value => {
-    if (value.confirmPassword !== value.password) {
-      this.registerForm.setErrors({passwordsMissmatch: true});
-    }
-  }
-);
+    this.registerForm.valueChanges.subscribe(
+      value => {
+        if (value.confirmPassword !== value.password) {
+          this.registerForm.setErrors({ passwordsMissmatch: true });
+        }
+      }
+    );
 
-this.userService.role$.subscribe(
-  role => this.role = role
-);
+    this.userService.role$.subscribe(
+      role => this.role = role
+    );
 
-this.socialAuthService.authState.subscribe(
+    this.socialAuthService.authState.subscribe(
       (user) => {
         if (user != null && this.loading === true) {
           this.loading = false;
@@ -94,6 +96,7 @@ this.socialAuthService.authState.subscribe(
           };
           this.register();
         }
+        this.loadingService.loadingOff();
       }
     );
 
@@ -101,6 +104,7 @@ this.socialAuthService.authState.subscribe(
 
   register() {
     this.loading = true;
+    this.loadingService.loadingOn();
     console.log('REGISTER REQUEST: ' + JSON.stringify(this.registerRequest));
     this.http.post<any>(this.registerPath, this.registerRequest, { headers: { 'Content-type': 'application/json' } })
       .subscribe(
@@ -112,48 +116,48 @@ this.socialAuthService.authState.subscribe(
             this.logging.log('REGISTER RESPONSE: ' + JSON.stringify(content));
             if (this.registerRequest.provider === 'JOBBAG') {
               this.authenticationService.signInWithJobbag(this.registerForm.value.name, this.registerForm.value.password)
-              .subscribe(
-                data => {
-                  // const role = this.userService.role;
-                  console.log('role: ' + this.role);
-                  if (this.authenticationService.isLoggedIn) {
-                    const user_id = this.authenticationService.getLoggedUserId();
-                    console.log('user_id: ' + user_id);
-
-                    if (this.role) {
-                      const createProfileURL = `/user/${user_id}/${this.role}/create-profile`;
-
-                      console.log('navegando a profile extras...');
-                      this.router.navigate([createProfileURL], { queryParams: { } });
-                    } else {
-                      this.router.navigate(['user', user_id]); // role-select url
-                    }
-                  }
-                });
-            } else {
-              this.authenticationService.socialLogin(this.socialUser, this.authenticationService.authProvider)
-              .subscribe(
-                (response) => {
-                  this.logging.log('SOCIAL LOGIN RESPONSE: ' + response);
-                  if (response) {
+                .subscribe(
+                  data => {
                     // const role = this.userService.role;
                     console.log('role: ' + this.role);
                     if (this.authenticationService.isLoggedIn) {
                       const user_id = this.authenticationService.getLoggedUserId();
                       console.log('user_id: ' + user_id);
+
                       if (this.role) {
                         const createProfileURL = `/user/${user_id}/${this.role}/create-profile`;
+
                         console.log('navegando a profile extras...');
-                        this.router.navigate([createProfileURL]);
+                        this.router.navigate([createProfileURL], { queryParams: {} });
                       } else {
-                        this.router.navigate(['user', user_id]);  // role-select URL
+                        this.router.navigate(['user', user_id]); // role-select url
                       }
                     }
-                  } else {
-                    this.logging.log('isLoggedIn subscription was false.... (LoginComponent)');
+                  });
+            } else {
+              this.authenticationService.socialLogin(this.socialUser, this.authenticationService.authProvider)
+                .subscribe(
+                  (response) => {
+                    this.logging.log('SOCIAL LOGIN RESPONSE: ' + response);
+                    if (response) {
+                      // const role = this.userService.role;
+                      console.log('role: ' + this.role);
+                      if (this.authenticationService.isLoggedIn) {
+                        const user_id = this.authenticationService.getLoggedUserId();
+                        console.log('user_id: ' + user_id);
+                        if (this.role) {
+                          const createProfileURL = `/user/${user_id}/${this.role}/create-profile`;
+                          console.log('navegando a profile extras...');
+                          this.router.navigate([createProfileURL]);
+                        } else {
+                          this.router.navigate(['user', user_id]);  // role-select URL
+                        }
+                      }
+                    } else {
+                      this.logging.log('isLoggedIn subscription was false.... (LoginComponent)');
+                    }
                   }
-                }
-              );
+                );
 
             }
 
@@ -165,8 +169,9 @@ this.socialAuthService.authState.subscribe(
             };
             console.log(this.registerErr.message);
             this.loading = false;
+            this.loadingService.loadingOff();
             this.hiddenPasswords = false;
-            this.router.navigate(['./'], {relativeTo: this.route});
+            this.router.navigate(['./'], { relativeTo: this.route });
           }
 
         });
@@ -175,18 +180,22 @@ this.socialAuthService.authState.subscribe(
 
   facebookRegister() {
     this.loading = true;
+    this.loadingService.loadingOn();
+
     this.authenticationService.authProvider = 'FACEBOOK';
     this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
   }
 
   googleRegister() {
     this.loading = true;
+    this.loadingService.loadingOff();
     this.authenticationService.authProvider = 'GOOGLE';
     this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
   }
 
   jobbagRegister() {
     this.loading = true;
+    this.loadingService.loadingOff();
     this.authenticationService.authProvider = 'JOBBAG';
     this.registerRequest = {
       client_id: environment.clientId,

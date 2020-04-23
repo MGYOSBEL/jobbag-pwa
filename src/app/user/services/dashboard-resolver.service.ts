@@ -8,6 +8,7 @@ import { mergeMap, tap } from 'rxjs/operators';
 import { AuthenticationService } from '@app/auth/services/authentication.service';
 import { ScholarshipService } from './scholarship.service';
 import { ProfessionService } from './profession.service';
+import { LoadingService } from '@app/services/loading.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,11 +20,12 @@ export class DashboardResolverService implements Resolve<User> {
     private scholarshipService: ScholarshipService,
     private professionService: ProfessionService,
     private authenticationService: AuthenticationService,
+    private loadingService: LoadingService,
     private route: ActivatedRoute) {
 
   }
   resolve(route: ActivatedRouteSnapshot): Observable<User> {
-
+    this.loadingService.loadingOn();
     if (this.authenticationService.isLoggedIn) {
       const userId = this.authenticationService.getLoggedUserId();
       return this.userService.get(userId).pipe(
@@ -45,6 +47,7 @@ export class DashboardResolverService implements Resolve<User> {
         tap(() => {
           this.scholarshipService.getAll(true).subscribe();
           this.professionService.getAll(true).subscribe();
+          this.loadingService.loadingOff();
         })
       );
     } else {

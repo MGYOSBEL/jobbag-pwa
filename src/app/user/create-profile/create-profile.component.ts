@@ -12,6 +12,7 @@ import { BriefcaseService } from '../services/briefcase.service';
 import { Country, DivisionValue, DivisionElement } from '../models/country.model';
 import { CountryService } from '../services/country.service';
 import { DatePipe } from '@angular/common';
+import { LoadingService } from '@app/services/loading.service';
 
 const states = ['Alabama', 'Alaska', 'American Samoa', 'Arizona', 'Arkansas', 'California', 'Colorado',
   'Connecticut', 'Delaware', 'District Of Columbia', 'Federated States Of Micronesia', 'Florida', 'Georgia',
@@ -46,12 +47,16 @@ export class CreateProfileComponent implements OnInit {
   countryDivisions: number[] = [];
   myDate = new Date();
   currentDate: string;
-  constructor(private formBuilder: FormBuilder,
+
+
+  constructor(
+    private formBuilder: FormBuilder,
     private authenticationService: AuthenticationService,
     private userProfileService: UserProfileService,
     private briefcaseService: BriefcaseService,
     private errorService: ErrorService,
     private countryService: CountryService,
+    private loadingService: LoadingService,
     private router: Router,
     private route: ActivatedRoute,
     private datePipe: DatePipe
@@ -115,6 +120,7 @@ export class CreateProfileComponent implements OnInit {
   }
 
   createUserProfile() {
+    this.loadingService.loadingOn();
 
     const user_id = this.authenticationService.getLoggedUserId();
 
@@ -149,9 +155,11 @@ export class CreateProfileComponent implements OnInit {
           console.log('createUserProfile RESPONSE: ' + JSON.stringify(response));
           // this.role === 'CLIENT' ? this.activeProfileService.activateClient() : this.activeProfileService.activateServiceProvider() ;
           this.router.navigate(['../'], { relativeTo: this.route });
+          this.loadingService.loadingOff();
         }, (err) => {
           this.errorService.errorMessage = err;
           this.router.navigate(['/error']);
+          this.loadingService.loadingOff();
         }
       );
   }

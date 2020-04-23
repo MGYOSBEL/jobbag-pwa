@@ -15,6 +15,7 @@ import { StatisticsSectionComponent } from './statistics-section/statistics-sect
 import { HowtodoSectionComponent } from './howtodo-section/howtodo-section.component';
 import { ContactSectionComponent } from './contact-section/contact-section.component';
 import { RecommendedComponent } from './recommended/recommended.component';
+import { LoadingComponent } from './loading/loading.component';
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import { RecommendedComponent } from './recommended/recommended.component';
     StatisticsSectionComponent,
     HowtodoSectionComponent,
     ContactSectionComponent,
+    LoadingComponent,
     RecommendedComponent
   ],
   imports: [
@@ -44,6 +46,7 @@ import { RecommendedComponent } from './recommended/recommended.component';
     RoleSelectComponent,
     HomeComponent,
     NotFoundComponent,
+    LoadingComponent,
     InternalServerErrorComponent
   ]
 })
