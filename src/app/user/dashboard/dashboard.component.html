@@ -13,10 +13,37 @@
 </nav>
 <div class="tab-content" id="nav-tabContent">
   <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-    <div class="container-fluid align-items-center">
-      <h1 class="display-1 text-center">Welcome {{activeProfile?.name}}</h1>
-
-
+    <div class="container-fluid align-items-center" id="navitem-one-container">
+      <div class="row">
+        <div class="col-7 py-2 mt-2" style="margin-left:2rem;">
+          <div class="card rounded-0" style=" box-shadow: 10px 10px 12px 0.1rem rgba(0,0,0,0.5); background-color: white;">
+            <div class="card-header"  style="color: white ; background-color: #10467c;">
+              <h4 class="card-text"> Finding Jobs and Services</h4>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Special title treatment</h5>
+              <p class="card-text">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+                dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+              </p>
+            </div>
+          </div> 
+        </div>
+        <div class="col-4 py-2 mt-2">
+          <div class="card rounded-0" style=" box-shadow: 10px 10px 12px 0.1rem rgba(0,0,0,0.5); background-color: white;">
+            <div class="card-header text-right" style="color: white ; background-color: #952a79;">
+              <p>Welcome</p><h3 class="card-text"> {{activeProfile?.name}}</h3>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Special title treatment</h5>
+              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+              <a href="#" class="btn rounded-0" style="background-color: #952a79;color: white;">Go somewhere</a>
+            </div>
+          </div> 
+        </div>
+      </div>
     </div>
   </div>
   <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" style="background-color: #f1f1f1;">
