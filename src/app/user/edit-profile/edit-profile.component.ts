@@ -111,13 +111,10 @@ export class EditProfileComponent implements OnInit {
       value => {
         if (value === 'PERSONAL') {
           this.editProfileForm.get('accountName').enable();
-          this.editProfileForm.get('companyName').disable();
           this.profileName = this.editProfileForm.get('accountName');
-        } else {
-          this.editProfileForm.get('accountName').disable();
+        } else if(value === '') {
           this.editProfileForm.get('companyName').enable();
-          this.profileName = this.editProfileForm.get('companyName');
-
+          this.profileName = this.editProfileForm.get('accountName');
         }
       }
     );

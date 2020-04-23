@@ -50,10 +50,8 @@
           <div class="row">
             <form [formGroup]="profileForm" style="width: 100%; height: 8rem;">
               <div id="profile" class="content container fade">
-
-
                 <div class="form-group row mx-auto" style="margin-top: 3rem;">
-                  <label class="stepper-text">User Name</label> 
+                  <label class="stepper-text">Name</label> 
                   <input type="text" class="form-control" formControlName="accountName" id="accountName"
                     [ngClass]="profileForm.get('accountName').invalid && (profileForm.get('accountName').dirty || profileForm.get('accountName').touched) ? 'is-invalid' : '' "
                     placeholder="Name">
@@ -73,7 +71,6 @@
                     </div>
                   </div>             
                 </div>
-
               </div>
               <div id="picture" class="content container fade">
                 <div class="row">
@@ -126,7 +123,10 @@
               </div>
               <div [hidden]="role==='CLIENT'" id="countries" class="content container fade m-0 p-0">
                 <div class="row m-0 p-0">
-                  <div class="col-12 py-5 px-0 mx-0 h-100">
+                  <div class="col-12 text-center pt-5">
+                    <p style="color:#bebcbe;font-size:0.85rem">You need to select the region you'll work in!</p>
+                  </div>
+                  <div class="col-12 px-0 mx-0 h-100">
                     <app-multi-select [selectedDivisions]="countryDivisions" (selected)="onDivisionsSelect($event)"></app-multi-select>
                     <div class="row justify-content-center">
                       {{divisions}}
@@ -183,23 +183,23 @@
                     </label>
                   </div>
 
-                    <div *ngIf="uploadedCV" class="card col-6 my-0" style="border:transparent">
+                    <div *ngIf="uploadedCV" class="card col-4 my-0" style="border:transparent">
                       <div class="row" style="background-color: #2982c1;margin-left: 0;margin-right: 0;">
                         <div class="col-12 text-center my-0" style="background-color: #2982c1;">
-                          <i class="far fa-folder-open fa-3x my-2" style="color: #fff;"></i>
+                          <i class="far fa-folder-open fa-2x my-2" style="color: #fff;"></i>
                           <hr style="border: 0.5px solid white;margin-bottom: 0; margin-top: 0;">
                         </div>
                       </div>
                       <div class="row" style="background-color: #2982c1;margin-left: 0;margin-right: 0; padding-bottom: 0.2rem;">
                         <div class="col-6 text-center mt-0" style="padding:0">
-                          <a href="#">
-                          <i class="fas fa-eye" style="color: #fff;"></i>
-                          </a>
+                          <button class="btn btn-link" data-toggle="modal" data-target="#viewCVModal">
+                            <i class="fas fa-eye" style="color: #fff;font-size: 0.75rem;"></i>
+                          </button>
                         </div>
                         <div class="col-6 text-center mt-0" style="padding:0">
-                          <a href="#">
-                          <i class="fas fa-download" style="color: #fff;"></i>
-                          </a>
+                          <button class="btn btn-link" data-toggle="modal" data-target="#deleteCVModal">
+                            <i class="fas fa-trash-alt" style="color: #fff;font-size: 0.75rem;"></i>
+                          </button>
                         </div>
                       </div>
                       <div class="card-footer" style="padding:0; background-color: white;">
@@ -230,7 +230,7 @@
           </div>
           <div class="row justify-content-between" id="btn-row">
             <button [disabled]="activeStep === 0" type="button" class="col-3 btn btn-previous mt-5 rounded-0"
-              style="background-color: #BFBDBE;" data-toggle="tooltip" data-placement="top" title="Forward"
+              style="background-color: #BFBDBE;" data-toggle="tooltip" data-placement="top" title="Back"
               (click)="previous()">
               <svg class="svg-arrow-left" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20.01 16.15">
                 <defs>
@@ -240,7 +240,7 @@
                     }
                   </style>
                 </defs>
-                <title>Forward</title>
+                <title>Back</title>
                 <g id="Capa_2" data-name="Capa 2">
                   <g id="Isolation_Mode" data-name="Isolation Mode">
                     <path
