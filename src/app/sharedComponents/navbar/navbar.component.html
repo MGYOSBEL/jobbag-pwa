@@ -19,10 +19,11 @@
     <div *ngIf="(isLoggedIn$ | async)" class="col col-2 mx-0">
       <div class="row container">
         <div class="col-6">
-          <div class="row justify-content-end font-weight-bold my-0">{{loggedUser?.username}}</div>
+          <!-- <div class="row justify-content-end font-weight-bold my-0">{{loggedUser?.username}}</div> -->
           <div class="row justify-content-end my-0">
-            <button class="btn btn-sm btn-link dropdown-toggle my-0 py-0" id="dropdownMenuLink" data-toggle="dropdown"
+            <button class="btn btn-sm btn-link dropdown-toggle my-0 py-0 font-weight-bold" id="dropdownMenuLink" data-toggle="dropdown"
               aria-haspopup="true" aria-expanded="false">
+              {{loggedUser?.username}}
             </button>
             <div class="dropdown-menu ">
               <!-- Item GO TO provider -->
