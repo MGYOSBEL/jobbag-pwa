@@ -80,10 +80,7 @@ export class EditProfileComponent implements OnInit {
       passwordConfirm: [''],
       email: [this.userService.loggedUser.email, [Validators.required, Validators.email]],
       accountType: [this.activeProfile.userProfileAccount, Validators.required],
-      accountName: [this.activeProfile.userProfileAccount === 'PERSONAL'
-        ? this.activeProfile.name : '', [Validators.required, Validators.pattern('[a-zA-Z0-9 ]*')]],
-      companyName: [this.activeProfile.userProfileAccount === 'COMPANY'
-        ? this.activeProfile.name : '', [Validators.required, Validators.pattern('[a-zA-Z0-9 ]*')]],
+      accountName: [ this.activeProfile.name , [Validators.required, Validators.pattern('[a-zA-Z0-9 ]*')]],
       profilePicture: [''],
       curriculum: [''],
       comments: [this.activeProfile.comment]
@@ -109,18 +106,18 @@ export class EditProfileComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.editProfileForm.get('accountType').valueChanges.subscribe(
-      value => {
-        if (value === 'PERSONAL') {
-          this.editProfileForm.get('accountName').enable();
-          this.profileName = this.editProfileForm.get('accountName');
-        } else if (value === '') {
-          this.editProfileForm.get('companyName').enable();
-          this.profileName = this.editProfileForm.get('accountName');
-        }
-      }
-    );
-    this.editProfileForm.get('accountType').setValue('PERSONAL');
+    // this.editProfileForm.get('accountType').valueChanges.subscribe(
+    //   value => {
+    //     if (value === 'PERSONAL') {
+    //       this.editProfileForm.get('accountName').enable();
+    //       this.profileName = this.editProfileForm.get('accountName');
+    //     } else if (value === '') {
+    //       this.editProfileForm.get('companyName').enable();
+    //       this.profileName = this.editProfileForm.get('accountName');
+    //     }
+    //   }
+    // );
+    // this.editProfileForm.get('accountType').setValue('PERSONAL');
 
 
     console.log('activeProfile: ', this.activeProfile.divisions);
@@ -205,12 +202,12 @@ export class EditProfileComponent implements OnInit {
       comment: this.editProfileForm.value.comments,
       summary: '',
       user_id: this.userService.loggedUser.id,
-      scholarship_id: null,
+      scholarship_id: 1,
       picture: '',
       cv: '',
       user_profile_type: this.role,
       user_profile_account: this.editProfileForm.value.accountType,
-      name: this.profileName.value,
+      name: this.editProfileForm.value.accountName,
       add_briefcase: this.briefcaseService.addBriefcases,
       edit_briefcase: this.briefcaseService.editBriefcases,
       delete_briefcase: this.briefcaseService.deleteBriefcases,
@@ -239,7 +236,6 @@ export class EditProfileComponent implements OnInit {
     this.loadingService.showLoaderUntilCompletes(editProfileCall$).subscribe(
       res => {
         console.log('COMBINED RESPONSE: ', res);
-
       },
       (err: []) => {
         const message = 'Error in the edit operation. Please, try again.';
