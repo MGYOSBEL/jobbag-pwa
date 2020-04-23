@@ -1,0 +1,14 @@
+
+<ng-container *ngIf="(errors$ | async) as errors">
+  <div class="messages-container" *ngIf="showMessages">
+    <div class="message alert alert-dismissible justify-content-between col-12" *ngFor="let error of errors">
+        {{error}}
+      <button type="button" class="close" (click)="onClose()" data-dismiss="message" style="color: white" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <!-- <mat-icon class="close" (click)="onClose()">Close</mat-icon> -->
+  </div>
+</ng-container>
+

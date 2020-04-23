@@ -15,6 +15,7 @@ import { CountryService } from '../services/country.service';
 import { Country } from '../models/country.model';
 import { DatePipe } from '@angular/common';
 import { LoadingService } from '@app/services/loading.service';
+import { MessagesService } from '@app/services/messages.service';
 
 
 @Component({
@@ -45,6 +46,7 @@ export class EditProfileComponent implements OnInit {
   constructor(
     private userService: UserService,
     private loadingService: LoadingService,
+    private messages: MessagesService,
     private userProfileService: UserProfileService,
     private mediaService: MediaService,
     private formBuilder: FormBuilder,
@@ -112,7 +114,7 @@ export class EditProfileComponent implements OnInit {
         if (value === 'PERSONAL') {
           this.editProfileForm.get('accountName').enable();
           this.profileName = this.editProfileForm.get('accountName');
-        } else if(value === '') {
+        } else if (value === '') {
           this.editProfileForm.get('companyName').enable();
           this.profileName = this.editProfileForm.get('accountName');
         }
@@ -183,7 +185,7 @@ export class EditProfileComponent implements OnInit {
 
     this.loadingService.loadingOff();
 
-
+    // Editing the user
     const userEditRequest = {
       id: this.userService.loggedUser.id,
       username: this.editProfileForm.value.username,
@@ -194,6 +196,7 @@ export class EditProfileComponent implements OnInit {
 
     const userEdit$ = this.userService.edit(userEditRequest);
 
+    // Editing the profile
     const profileEditRequest = {
       client_id: environment.clientId,
       client_secret: environment.clientSecret,
@@ -202,7 +205,7 @@ export class EditProfileComponent implements OnInit {
       comment: this.editProfileForm.value.comments,
       summary: '',
       user_id: this.userService.loggedUser.id,
-      scholarship_id: 1,
+      scholarship_id: null,
       picture: '',
       cv: '',
       user_profile_type: this.role,
@@ -215,11 +218,10 @@ export class EditProfileComponent implements OnInit {
     };
     console.log('profileEditRequest: ', profileEditRequest);
 
-
-
-
-
     const profileEdit$ = this.userProfileService.edit(profileEditRequest);
+
+
+    // Editing the picture and the cv
 
     const imageEdit$ = this.mediaService.editProfilePicture(this.activeProfile.id, this.imageBase64);
 
@@ -239,7 +241,11 @@ export class EditProfileComponent implements OnInit {
         console.log('COMBINED RESPONSE: ', res);
 
       },
-      (err: []) => console.log(err),
+      (err: []) => {
+        const message = 'Error in the edit operation. Please, try again.';
+        this.messages.showErrors(message);
+        console.log(err);
+      },
       () =>  this.router.navigateByUrl(`/user/${this.userService.loggedUser.id}/${this.activeProfile.userProfileType}`)
 
     );

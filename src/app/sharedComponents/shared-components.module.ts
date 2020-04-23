@@ -16,6 +16,7 @@ import { HowtodoSectionComponent } from './howtodo-section/howtodo-section.compo
 import { ContactSectionComponent } from './contact-section/contact-section.component';
 import { RecommendedComponent } from './recommended/recommended.component';
 import { LoadingComponent } from './loading/loading.component';
+import { MessagesComponent } from './messages/messages.component';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { LoadingComponent } from './loading/loading.component';
     HowtodoSectionComponent,
     ContactSectionComponent,
     LoadingComponent,
-    RecommendedComponent
+    RecommendedComponent,
+    MessagesComponent
   ],
   imports: [
     CommonModule,
@@ -47,6 +49,7 @@ import { LoadingComponent } from './loading/loading.component';
     HomeComponent,
     NotFoundComponent,
     LoadingComponent,
+    MessagesComponent,
     InternalServerErrorComponent
   ]
 })

@@ -16,6 +16,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule } from '@angular/forms';
 import { LoadingComponent } from './sharedComponents/loading/loading.component';
 import { LoadingService } from './services/loading.service';
+import { MessagesService } from './services/messages.service';
 
 const config = new AuthServiceConfig([
   {
@@ -49,11 +50,10 @@ export function provideConfig() {
     NgbModule,
     AppRoutingModule
   ],
-  exports: [
-    LoadingComponent
-  ],
+  exports: [],
   providers: [
     LoadingService,
+    MessagesService,
     {
       provide: AuthServiceConfig,
       useFactory: provideConfig

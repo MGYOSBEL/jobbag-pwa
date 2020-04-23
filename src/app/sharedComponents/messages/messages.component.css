@@ -1,0 +1,26 @@
+
+.messages-container {
+  display: flex;
+  /* color: #a94442; */
+  color: white;
+  /* background-color: #f2dede; */
+  background-color:rgb(148,42,44);
+  /* border: 1px solid #ebccd1; */
+  /* padding: 20px; */
+  height: 3rem;
+  font-family: Roboto;
+  position: relative;
+  text-align: center;
+
+}
+
+/* .close {
+  position: absolute;
+  right: 10px;
+  top:10px;
+  cursor: pointer;
+} */
+
+.message {
+
+}
