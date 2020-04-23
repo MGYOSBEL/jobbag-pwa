@@ -21,9 +21,9 @@
   color: #999999;
 }
 
-img.rounded-circle {
+/* img.rounded-circle {
   height: 80%;
-}
+} */
 
 
 .fa-bars {
@@ -44,15 +44,24 @@ a, a:hover {
 }
 
 .svg-add-user{
-   height: 60%;
-  border-radius: 50%;
-  object-fit: cover;
+   height: 3rem;
+   width: 3rem;
+  /* border-radius: 50%; */
+  object-fit: fill;
   cursor: pointer;
 }
 
 .cls-1 {
   fill: #2985C4;
   height: 50%;
+}
+
+#user-image {
+  height: 3rem;
+  width: 3rem;
+ /* border-radius: 50%; */
+ object-fit: fill;
+ cursor: pointer;
 }
 
 

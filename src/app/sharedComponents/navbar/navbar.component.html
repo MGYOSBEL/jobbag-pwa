@@ -84,11 +84,11 @@
 
         </div>
         <div class="col-6">
-          <div *ngIf="!defaultPicture; else defaultSVG" class="svg-add-user">
-            <img [src]="userImageUrl" class="img img-fluid col-12 rounded-circle">
+          <div *ngIf="!defaultPicture; else defaultSVG" class="rounded-circle" >
+            <img [src]="userImageUrl" class="img img-src rounded-circle" id="user-image" style="height: 2.5rem; width: 2.5rem; object-fit:cover;">
           </div>
           <ng-template #defaultSVG>
-            <span class="icon-user-image" style="font-size: 32px ;"></span>
+            <span class="icon-user-image" style="font-size: 2.5rem ;"></span>
           </ng-template>
 
         </div>
