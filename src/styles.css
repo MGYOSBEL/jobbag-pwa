@@ -22,6 +22,7 @@
 .btn-next:hover:disabled {
   background-color: #dfdfdf;
   fill: #9b9b9b;
+  cursor: not-allowed;
 }
 
 .btn-previous:active:enabled,
