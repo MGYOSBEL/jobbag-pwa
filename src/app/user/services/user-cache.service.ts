@@ -74,4 +74,27 @@ export class UserCacheService {
     this.subject.next(user);
 
   }
+
+  setProfilePicture(profileId: number, picture: string) {
+    let user: User = JSON.parse(localStorage.getItem(USER));
+    const index =  user.profiles.findIndex(profile => profile.id === profileId);
+    if (!! index) {
+      user.profiles[index].picture = picture;
+    }
+    localStorage.setItem(USER, JSON.stringify(user));
+    this.subject.next(user);
+
+  }
+
+
+  setProfileCV(profileId: number, cv: string) {
+    let user: User = JSON.parse(localStorage.getItem(USER));
+    const index =  user.profiles.findIndex(profile => profile.id === profileId);
+    if (!! index) {
+      user.profiles[index].cv = cv;
+    }
+    localStorage.setItem(USER, JSON.stringify(user));
+    this.subject.next(user);
+
+  }
 }

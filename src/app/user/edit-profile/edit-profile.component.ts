@@ -208,10 +208,10 @@ export class EditProfileComponent implements OnInit {
       user_profile_type: this.role,
       user_profile_account: this.editProfileForm.value.accountType,
       name: this.editProfileForm.value.accountName,
-      add_briefcase: this.briefcaseService.addBriefcases,
-      edit_briefcase: this.briefcaseService.editBriefcases,
-      delete_briefcase: this.briefcaseService.deleteBriefcases,
-      divisions: this.activeProfile.divisions
+      add_briefcase: this.role === 'SERVICE_PROVIDER' ? this.briefcaseService.addBriefcases : [],
+      edit_briefcase: this.role === 'SERVICE_PROVIDER' ? this.briefcaseService.editBriefcases : [],
+      delete_briefcase: this.role === 'SERVICE_PROVIDER' ? this.briefcaseService.deleteBriefcases : [],
+      divisions: this.role === 'SERVICE_PROVIDER' ? this.activeProfile.divisions : []
     };
     console.log('profileEditRequest: ', profileEditRequest);
 

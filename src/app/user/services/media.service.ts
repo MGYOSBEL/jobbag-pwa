@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { APIResponse } from '@app/models/app.model';
 import { environment } from '@environments/environment';
 import { catchError, map, tap } from 'rxjs/operators';
+import { UserCacheService } from './user-cache.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,7 @@ export class MediaService {
 
   constructor(
     private http: HttpClient,
+    private userCacheService: UserCacheService
   ) { }
 
     editProfilePicture(userProfileId: number, picture: string): Observable<boolean> {
@@ -36,7 +38,7 @@ export class MediaService {
           }
         }),
         tap(url => {
-          // this.activeProfile.activeProfile.picture = url; // Esto no la agrega al profile del localStorage
+          this.userCacheService.setProfilePicture(request.user_profile_id, url);
         })
       );
     }
@@ -64,7 +66,7 @@ export class MediaService {
           }
         }),
         tap(url => {
-          // this.activeProfile.activeProfile.picture = url; // Esto no la agrega al profile del localStorage
+          this.userCacheService.setProfileCV(request.user_profile_id, url);
         })
       );
     }
