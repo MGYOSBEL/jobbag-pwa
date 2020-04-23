@@ -28,9 +28,15 @@
                   style="background-color: #2888C7;" (click)="saveDivisions()">Accept these regions</button>
               </div>
               <div class="card-body w-100">
-                <ng-select [multiple]="true" [items]="countryDivisions"
-                  [(ngModel)]="selectedDivisions" placeholder="Select your regions"
-                  [closeOnSelect]="false" bindLabel="nameEs" bindValue="id">
+                <ng-select
+                [multiple]="true"
+                [items]="countryDivisions"
+                [(ngModel)]="selectedDivisions"
+                placeholder="Select your regions"
+                [closeOnSelect]="false"
+                bindLabel="nameEs"
+                bindValue="id"
+                (change)="onChange($event)">
                   <ng-template ng-optgroup-tmp let-item="item" let-item$="item$" let-index="index">
                     <input id="item-{{index}}" type="checkbox" [ngModel]="item$.selected" />
                     {{item.nameEs | uppercase}}

@@ -75,5 +75,12 @@ closeModal() {
   console.log('selectedCountryDivisions: ', this.selectedCountryDivisions);
 }
 
+onChange($event) {
+  console.log('onChange called');
+  console.log('onChange: ', this.selectedDivisions);
+  console.log('onChange: ', this.selectedCountryDivisions);
+  this.selected.emit(this.selectedDivisions);
+}
+
 
 }
