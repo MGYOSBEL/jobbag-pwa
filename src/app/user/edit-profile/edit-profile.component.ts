@@ -205,7 +205,7 @@ export class EditProfileComponent implements OnInit {
       comment: this.editProfileForm.value.comments,
       summary: '',
       user_id: this.userService.loggedUser.id,
-      scholarship_id: this.activeProfile.scholarshipid,
+      scholarship_id: 1,
       picture: '',
       cv: '',
       user_profile_type: this.role,

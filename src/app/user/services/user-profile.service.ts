@@ -117,7 +117,7 @@ export class UserProfileService {
       .pipe(
         map(response => {
           console.log('editCompleteResponse: ', response);
-          const content = JSON.parse(response.content); // Seleccionar la parte del response q es el contenido
+          const content = JSON.parse(JSON.parse(response.content)); // Seleccionar la parte del response q es el contenido
           if (response.status_code === 200) {
             console.log('edit response: ', content);
             return content; // Retorno el content del response como cuerpo del observable
