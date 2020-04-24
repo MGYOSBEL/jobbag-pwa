@@ -15,6 +15,7 @@ import { User } from '@app/user/models/user.model';
 import { ErrorService } from '@app/errors/error.service';
 import { UserService } from '@app/user/services/user.service';
 import { LoadingService } from '@app/services/loading.service';
+import { MessagesService } from '@app/services/messages.service';
 
 
 
@@ -46,6 +47,7 @@ export class LoginComponent implements OnInit {
               private errorService: ErrorService,
               private socialAuthService: AuthService,
               private loadingService: LoadingService,
+              private messages: MessagesService,
               private logging: LoggingService) {
 
     this.loginForm = this.formBuilder.group({
@@ -69,12 +71,17 @@ export class LoginComponent implements OnInit {
           } else {
             this.loginErr = {err: true, message: data.text};
             // this.loading = false;
+            // const message = `There was an error: ${data.text}`;
+            // this.messages.showErrors(message);
           }
           this.loadingService.loadingOff();
         }, (error) => {
           this.errorService.errorMessage = error;
-          this.router.navigate(['/error']);
-          this.logging.log('error on the post request of the login method: ' + error + ' ... (LoginComponent)');
+          const message = `There was an error: ${error}`;
+          this.messages.showErrors(message);
+
+          // this.router.navigate(['/error']);
+          // this.logging.log('error on the post request of the login method: ' + error + ' ... (LoginComponent)');
           this.loadingService.loadingOff();
 
         });
@@ -109,7 +116,10 @@ export class LoginComponent implements OnInit {
                 this.loading = false;
                 this.loadingService.loadingOff();
                 this.loginErr = {err: true, message: data.text};
-                this.router.navigate(['./'], {relativeTo: this.route});
+                const message = `There was an error: ${data.text}`;
+                this.messages.showErrors(message);
+
+                // this.router.navigate(['./'], {relativeTo: this.route});
               } else {
                 const user_id = this.authenticationService.getLoggedUserId();
                 // this.userService.role = 'CLIENT';

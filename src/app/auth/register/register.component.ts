@@ -12,6 +12,7 @@ import { ErrorService } from '@app/errors/error.service';
 import { passwordMissmatchValidator } from '@app/sharedComponents/customValidators';
 import { UserService } from '@app/user/services/user.service';
 import { LoadingService } from '@app/services/loading.service';
+import { MessagesService } from '@app/services/messages.service';
 
 @Component({
   selector: 'app-register',
@@ -36,7 +37,8 @@ export class RegisterComponent implements OnInit {
 
   // pass1: string; pass2: string;
 
-  constructor(private formBuilder: FormBuilder,
+  constructor(
+    private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private userService: UserService,
     private router: Router,
@@ -45,6 +47,7 @@ export class RegisterComponent implements OnInit {
     private socialAuthService: AuthService,
     private error: ErrorService,
     private loadingService: LoadingService,
+    private messages: MessagesService,
     private authenticationService: AuthenticationService) {
 
     this.registerForm = this.formBuilder.group({
@@ -133,6 +136,9 @@ export class RegisterComponent implements OnInit {
                         this.router.navigate(['user', user_id]); // role-select url
                       }
                     }
+                  }, err => {
+                    const message = `There was an error: ${err}`;
+                    this.messages.showErrors(message);
                   });
             } else {
               this.authenticationService.socialLogin(this.socialUser, this.authenticationService.authProvider)
@@ -156,6 +162,9 @@ export class RegisterComponent implements OnInit {
                     } else {
                       this.logging.log('isLoggedIn subscription was false.... (LoginComponent)');
                     }
+                  }, err => {
+                    const message = `There was an error: ${err}`;
+                    this.messages.showErrors(message);
                   }
                 );
 
@@ -168,11 +177,20 @@ export class RegisterComponent implements OnInit {
               message: content.text
             };
             console.log(this.registerErr.message);
+            const message = `There was an error: ${content.text}`;
+            this.messages.showErrors(message);
+
             this.loading = false;
             this.loadingService.loadingOff();
             this.hiddenPasswords = false;
             this.router.navigate(['./'], { relativeTo: this.route });
           }
+
+        }, err => {
+          const message = `There was an error: ${err}`;
+          this.messages.showErrors(message);
+          this.loadingService.loadingOff();
+          this.loading = false;
 
         });
 

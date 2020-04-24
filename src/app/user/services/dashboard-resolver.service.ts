@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot, ActivatedRoute } from '@angular/router';
-import { Observable, of, EMPTY } from 'rxjs';
+import { Observable, of, EMPTY, throwError } from 'rxjs';
 import { User } from '../models/user.model';
 import { UserService } from './user.service';
 import { UserModule } from '../user.module';
-import { mergeMap, tap } from 'rxjs/operators';
+import { mergeMap, tap, catchError } from 'rxjs/operators';
 import { AuthenticationService } from '@app/auth/services/authentication.service';
 import { ScholarshipService } from './scholarship.service';
 import { ProfessionService } from './profession.service';
 import { LoadingService } from '@app/services/loading.service';
+import { MessagesService } from '@app/services/messages.service';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,7 @@ export class DashboardResolverService implements Resolve<User> {
     private scholarshipService: ScholarshipService,
     private professionService: ProfessionService,
     private authenticationService: AuthenticationService,
+    private messages: MessagesService,
     private loadingService: LoadingService,
     private route: ActivatedRoute) {
 
@@ -43,6 +45,10 @@ export class DashboardResolverService implements Resolve<User> {
 
             return EMPTY;
           }
+        }),
+        catchError(err => {
+          this.messages.showErrors(`An error ocurred: ${err}`);
+          return throwError(err);
         }),
         tap(() => {
           this.scholarshipService.getAll(true).subscribe();
