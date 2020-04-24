@@ -95,10 +95,17 @@
                           </g>
                         </g>
                       </svg>
-                      <img *ngIf="imageLoaded" [src]="previewUrl" class="rounded-circle svg-add-user mx-auto d-block"
-                        alt="Profile Picture">
-                      <span class="add-badge">+</span>
+                      <img *ngIf="imageLoaded" [src]="previewUrl" class="rounded-circle svg-add-user mx-auto d-block" alt="Profile Picture">
+                      <button type="button" class="btn btn-circle btn-add-img"
+                        style="position: absolute; left: 12rem; bottom:6.3rem; background-color: #2985c4; color: white;
+                        pointer-events: none; cursor: pointer;">
+                        <i class="fa fa-plus"></i>
+                      </button>
                     </label>
+                    <button *ngIf="imageLoaded" type="button" class="btn btn-danger btn-circle btn-del-img"
+                        style="position: absolute; left: 5.2rem; bottom: 12rem;" (click)="delSelectedPicture()">
+                              <i class="fa fa-times"></i>
+                    </button>
                     <h6 class="text-center stepper-text">Upload a picture or select an Avatar</h6>
                     <div class="row">
                       <div class="col-3 mx-auto">
@@ -249,7 +256,7 @@
                 </g>
               </svg>
             </button>
-            <button type="button" class=" col-4 btn btn-send mt-5 rounded-0 border-0 text-light" data-toggle="tooltip"
+            <button type="submit" class="col-4 btn btn-send mt-5 rounded-0 border-0 text-light" data-toggle="tooltip"
               data-placement="top" title="Send" style="background-color: #2688C6; font-size: 1.25rem;"
               (click)="createUserProfile()" [disabled]="profileForm.invalid">SEND</button>
             <button [disabled]="activeStep === 6" [disabled]="(role === 'CLIENT')&&(activeStep === 1)" type=" button"

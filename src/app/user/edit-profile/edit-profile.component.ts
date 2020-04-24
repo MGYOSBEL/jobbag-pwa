@@ -264,4 +264,9 @@ export class EditProfileComponent implements OnInit {
 
    }
 
+   delSelectedPicture(){
+     this.defaultPicture = true;
+     this.imageBase64 = '';
+   }
+
 }
