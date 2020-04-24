@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, tap, catchError } from 'rxjs/operators';
+import { map, tap, catchError, shareReplay } from 'rxjs/operators';
 import { environment } from '@environments/environment';
 import { UserProfile } from '../models/user.model';
 import { of, Observable, throwError } from 'rxjs';
@@ -138,7 +138,9 @@ export class UserProfileService {
           this.userCacheService.setProfiles(profiles);
 
         }
-        ));
+        ),
+        shareReplay()
+      );
   }
 
   delete(id: number): Observable<any> {

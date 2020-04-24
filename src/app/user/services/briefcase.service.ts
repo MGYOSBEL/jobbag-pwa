@@ -37,9 +37,18 @@ export class BriefcaseService {
     private authenticationService: AuthenticationService,
     private userCacheService: UserCacheService) {
 
-    this.briefcases = this.userCacheService.getBriefcases();
-    this.subject.next(this.briefcases);
-    this.idCounter = this.briefcases.length;
+    this.reset();
+
+    this.userService.loggedUser$.subscribe(
+      user => {
+        if (!!user) {
+          this.briefcases = user.profiles
+                                .find(elem => elem.userProfileType === 'SERVICE_PROVIDER')
+                                .briefcases;
+          this.subject.next(this.briefcases);
+        }
+      }
+    );
 
     this.authenticationService.isLoggedIn$.subscribe(
       loggedIn => {
@@ -53,6 +62,16 @@ export class BriefcaseService {
       }
     );
 
+  }
+
+  reset() {
+    this.briefcases = this.userCacheService.getBriefcases();
+    this.subject.next(this.briefcases);
+    this.idCounter = this.briefcases.length;
+
+    this.addBriefcases = [];
+    this.deleteBriefcases = [];
+    this.editBriefcases = [];
   }
 
   // COMPONENTS PURPOSE INTERFACE

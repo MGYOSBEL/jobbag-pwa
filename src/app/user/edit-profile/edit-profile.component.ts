@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProfessionService } from '@app/user/services/profession.service';
 import { ScholarshipService } from '@app/user/services/scholarship.service';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
-import { UserProfile, User } from '@app/user/models/user.model';
+import { UserProfile, User, UserProfileBriefcase } from '@app/user/models/user.model';
 import { UserProfileService } from '@app/user/services/user-profile.service';
 import { environment } from '@environments/environment';
 import { findIndex } from 'rxjs/operators';
@@ -69,7 +69,6 @@ export class EditProfileComponent implements OnInit {
     this.userService.loggedUser$.subscribe(user => {
       this.loggedUser = user;
       this.updateActiveProfile();
-      console.log('editProfile: ', this.activeProfile);
     });
 
 
@@ -80,7 +79,7 @@ export class EditProfileComponent implements OnInit {
       passwordConfirm: [''],
       email: [this.userService.loggedUser.email, [Validators.required, Validators.email]],
       accountType: [this.activeProfile.userProfileAccount, Validators.required],
-      accountName: [ this.activeProfile.name , [Validators.required, Validators.pattern('[a-zA-Z0-9 ]*')]],
+      accountName: [this.activeProfile.name, [Validators.required, Validators.pattern('[a-zA-Z0-9 ]*')]],
       profilePicture: [''],
       curriculum: [''],
       comments: [this.activeProfile.comment]
@@ -91,16 +90,15 @@ export class EditProfileComponent implements OnInit {
   }
 
   private updateActiveProfile() {
-    if (!! this.loggedUser) {
+    if (!!this.loggedUser) {
       this.activeProfile = this.loggedUser.profiles.find(profile => profile.userProfileType === this.role);
-      if (!! this.activeProfile) {
+      if (!!this.activeProfile) {
         // this.briefcaseService.briefcases = this.activeProfile.briefcases;
         this.defaultPicture = !this.activeProfile.picture.includes('uploads');
         this.previewUrl = `${environment.serverBaseURL}/${this.activeProfile.picture}`;
-        }
-
-      console.log('EDIT PROFILE: ', this.defaultPicture, this.previewUrl);
       }
+
+    }
 
 
   }
@@ -180,7 +178,10 @@ export class EditProfileComponent implements OnInit {
 
   saveProfile() {
 
+    console.clear();
     this.loadingService.loadingOff();
+
+    console.log('ActiveProfile: ', this.activeProfile);
 
     // Editing the user
     const userEditRequest = {
@@ -194,6 +195,24 @@ export class EditProfileComponent implements OnInit {
     const userEdit$ = this.userService.edit(userEditRequest);
 
     // Editing the profile
+    const briefcaseChangeLog = this.briefcaseService.getChangeLog();
+    const add = briefcaseChangeLog.added.map(this.briefcaseToRequest)
+      .map(bc => {
+          return {
+          comments: bc.comments,
+          description: bc.description,
+          end_date: bc.end_date,
+          start_date: bc.start_date,
+          pictures: bc.pictures
+        };
+      });
+    const del = briefcaseChangeLog.deleted.map(this.briefcaseToRequest);
+    const upd = briefcaseChangeLog.edited.map(this.briefcaseToRequest);
+
+    console.log('add: ', add,
+      'upd: ', upd,
+      'del: ', del);
+
     const profileEditRequest = {
       client_id: environment.clientId,
       client_secret: environment.clientSecret,
@@ -208,9 +227,9 @@ export class EditProfileComponent implements OnInit {
       user_profile_type: this.role,
       user_profile_account: this.editProfileForm.value.accountType,
       name: this.editProfileForm.value.accountName,
-      add_briefcase: this.role === 'SERVICE_PROVIDER' ? this.briefcaseService.addBriefcases : [],
-      edit_briefcase: this.role === 'SERVICE_PROVIDER' ? this.briefcaseService.editBriefcases : [],
-      delete_briefcase: this.role === 'SERVICE_PROVIDER' ? this.briefcaseService.deleteBriefcases : [],
+      add_briefcase: this.role === 'SERVICE_PROVIDER' ? add : [],
+      edit_briefcase: this.role === 'SERVICE_PROVIDER' ? upd : [],
+      delete_briefcase: this.role === 'SERVICE_PROVIDER' ? del : [],
       divisions: this.role === 'SERVICE_PROVIDER' ? this.activeProfile.divisions : []
     };
     console.log('profileEditRequest: ', profileEditRequest);
@@ -222,7 +241,12 @@ export class EditProfileComponent implements OnInit {
 
     const imageEdit$ = this.mediaService.editProfilePicture(this.activeProfile.id, this.imageBase64);
 
+    console.log('image: ', this.imageBase64);
+    console.log('cv: ', this.cvBase64);
+
     const cvEdit$ = this.mediaService.editProfileCV(this.activeProfile.id, this.cvBase64);
+
+
 
     const editProfileCall$ = combineLatest(
       [
@@ -232,6 +256,7 @@ export class EditProfileComponent implements OnInit {
         profileEdit$
       ]
     );
+    console.log('Making edit request');
 
     this.loadingService.showLoaderUntilCompletes(editProfileCall$).subscribe(
       res => {
@@ -242,7 +267,7 @@ export class EditProfileComponent implements OnInit {
         this.messages.showErrors(message);
         console.log(err);
       },
-      () =>  this.router.navigateByUrl(`/user/${this.userService.loggedUser.id}/${this.activeProfile.userProfileType}`)
+      () => this.router.navigateByUrl(`/user/${this.userService.loggedUser.id}/${this.activeProfile.userProfileType}`)
 
     );
   }
@@ -253,7 +278,7 @@ export class EditProfileComponent implements OnInit {
   }
 
   onClose() {
-    this.router.navigate(['../'], {relativeTo: this.route});
+    this.router.navigate(['../'], { relativeTo: this.route });
 
   }
 
@@ -262,6 +287,17 @@ export class EditProfileComponent implements OnInit {
     console.log('event: ', event);
     console.log('activeProfile: ', this.activeProfile);
 
-   }
+  }
+
+  private briefcaseToRequest(bc: UserProfileBriefcase) {
+    return {
+      id: bc.id,
+      description: bc.description,
+      comments: bc.comments,
+      pictures: bc.pictures,
+      end_date: bc.enddate,
+      start_date: bc.startdate
+    };
+  }
 
 }

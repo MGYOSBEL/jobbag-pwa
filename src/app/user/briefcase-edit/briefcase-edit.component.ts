@@ -41,6 +41,7 @@ export class BriefcaseEditComponent implements OnInit {
 
     this.opSucceed = true;
     this.briefcases$ = this.briefcaseService.briefcases$;
+    this.briefcaseService.reset();
     this.briefcases = [];
     this.pictures = []; // adding pictures array to briefcase
   }
