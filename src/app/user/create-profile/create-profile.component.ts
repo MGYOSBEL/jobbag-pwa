@@ -212,6 +212,11 @@ export class CreateProfileComponent implements OnInit {
     console.log(division);
   }
 
+  delSelectedPicture(){
+    this.imageLoaded = false;
+    this.imageBase64 = '';
+  }
+
   //  search = (text$: Observable<string>) =>
   //    text$.pipe(
   //      debounceTime(200),

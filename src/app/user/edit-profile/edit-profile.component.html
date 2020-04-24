@@ -103,13 +103,25 @@
                               (change)="uploadPicture($event)" accept="image/*" />
                             <div class="m-0 p-0" *ngIf="defaultPicture; else profileHasPicture">
                               <span style="font-size: 120px; color: #2888C7" class="icon-user-image"></span>
-                              <span class="add-badge">+</span>
+                              <button type="button" class="btn btn-circle btn-add-img" 
+                                style="position: absolute; right: 16rem; top:7.7rem; background-color: #2985c4; color: white;
+                                pointer-events: none; cursor: pointer;">
+                                <i class="fa fa-plus"></i>
+                              </button>
                             </div>
                             <ng-template #profileHasPicture>
                               <img [src]="previewUrl" class="rounded-circle svg-add-user mx-auto d-block" alt="Profile Picture">
-                              <span class="add-badge">+</span>
+                              <button type="button" class="btn btn-circle btn-add-img" 
+                                style="position: absolute; right: 16rem; top:7.7rem; background-color: #2985c4; color: white;
+                                pointer-events: none; cursor: pointer;">
+                                <i class="fa fa-plus"></i>
+                              </button>
                             </ng-template>
                           </label>
+                          <button *ngIf="!defaultPicture" type="button" class="btn btn-danger btn-circle btn-del-img"
+                            style="position: absolute; left: 20.5em; top: 3rem;" (click)="delSelectedPicture()">
+                            <i class="fa fa-times"></i>
+                          </button>
                         </div>
                       </div>
                       <div class="row">
