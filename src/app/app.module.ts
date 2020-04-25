@@ -16,7 +16,6 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule } from '@angular/forms';
 import { LoadingService } from './services/loading.service';
 import { MessagesService } from './services/messages.service';
-import {APP_BASE_HREF} from '@angular/common';
 
 
 
@@ -56,9 +55,6 @@ export function provideConfig() {
   providers: [
     LoadingService,
     MessagesService,
-    {
-      provide: APP_BASE_HREF,
-      useValue: '/JobbagPWA'},
     {
       provide: AuthServiceConfig,
       useFactory: provideConfig
