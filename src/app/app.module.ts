@@ -14,9 +14,11 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { TestComponent } from './test/test.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule } from '@angular/forms';
-import { LoadingComponent } from './sharedComponents/loading/loading.component';
 import { LoadingService } from './services/loading.service';
 import { MessagesService } from './services/messages.service';
+import {APP_BASE_HREF} from '@angular/common';
+
+
 
 const config = new AuthServiceConfig([
   {
@@ -54,6 +56,9 @@ export function provideConfig() {
   providers: [
     LoadingService,
     MessagesService,
+    {
+      provide: APP_BASE_HREF,
+      useValue: '/JobbagPWA'},
     {
       provide: AuthServiceConfig,
       useFactory: provideConfig
