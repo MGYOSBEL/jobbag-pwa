@@ -5,7 +5,7 @@ Operation Error!!
 <div class="row justify-content-center">
   <div class="col-md-8 text-center mt-0">
     <button type="button" (click)="addBriefcase()" class="btn btn-link" id="btn-modal-bc" data-toggle="modal" data-target="#exampleModalCenter">
-      <img src="../../../assets/img/breif_add.png" class="" alt="Profile Picture" style="width: 85%;" />
+      <img src="assets/img/breif_add.png" class="" alt="Profile Picture" style="width: 85%;" />
     </button>
     <h6 class="stepper-text" style="color: #6c757d;font-weight: bold;">Add a Briefcase!</h6>
   </div>
@@ -75,7 +75,7 @@ Operation Error!!
                     <label for="file-input">
                       <img *ngIf="imageLoaded" [src]="previewUrl" class="loaded-img-responsive" 
                             width="300" height="400" alt="Profile Picture" style="cursor: pointer;">
-                      <img *ngIf="!imageLoaded" src="../../../assets/img/default-image.png" class="loaded-img-responsive"
+                      <img *ngIf="!imageLoaded" src="assets/img/default-image.png" class="loaded-img-responsive"
                         alt="default-image" title="Default Image" style="cursor: pointer;">
                     </label>
                     <input id="file-input" type="file" (change)="uploadPicture($event)" accept="image/*">
