@@ -1,10 +1,4 @@
-<<<<<<< HEAD
-{{role}}
-{{role==='SERVICE_PROVIDER'}}
 <div class="container bg-faded py-5" id="create-profile-container">
-=======
-<div  class="container bg-faded py-5" id="create-profile-container">
->>>>>>> c01b402df6ffd7aa31e9a1f777e8b4ab8bdd9bdb
   <div class="row justify-content-center">
     <div class="col-4" id="stepper-section">
       <div id="stepper1" class="bs-stepper">
@@ -21,21 +15,11 @@
               <span class="bs-stepper-label">Picture</span>
             </button>
           </div>
-<<<<<<< HEAD
-          <div *ngIf="role==='SERVICE_PROVIDER'" class="m-0 p-0 no-gutters">
-            <div class="step" data-target="#countries">
-              <button class="step-trigger">
-                <span class="bs-stepper-circle">3</span>
-                <span class="bs-stepper-label">Countries</span>
-              </button>
-            </div>
-=======
           <div [hidden]="role==='CLIENT'" class="step" data-target="#countries">
             <button class="step-trigger">
               <span class="bs-stepper-circle">3</span>
               <span class="bs-stepper-label">Countries</span>
             </button>
->>>>>>> c01b402df6ffd7aa31e9a1f777e8b4ab8bdd9bdb
           </div>
           <div [hidden]="role==='CLIENT'" class="step" data-target="#services">
             <button class="step-trigger">
@@ -49,43 +33,50 @@
               <span class="bs-stepper-label">CV</span>
             </button>
           </div>
-          <div [hidden]="role==='CLIENT'" class="step" data-target="#myWork">
+          <div [hidden]="role==='CLIENT'" class="step" data-target="#briefcases">
             <button class="step-trigger">
               <span class="bs-stepper-circle">6</span>
-              <span class="bs-stepper-label">My Work</span>
+              <span class="bs-stepper-label">Briefcases</span>
             </button>
           </div>
-          <div [hidden]="role==='CLIENT'" class="step" data-target="#comments">
+          <div [hidden]="role==='CLIENT'" class="step" data-target="#resume">
             <button class="step-trigger">
               <span class="bs-stepper-circle">7</span>
-              <span class="bs-stepper-label">Comments</span>
+              <span class="bs-stepper-label">Resume</span>
             </button>
           </div>
         </div>
         <div class="bs-stepper-content">
           <div class="row">
-            <form [formGroup]="profileForm" style="width: -moz-available; height: 8rem;">
+            <form [formGroup]="profileForm" style="width: 100%; height: 8rem;">
               <div id="profile" class="content container fade">
-                <div class="form-group row py-5 mx-auto">
-                  <input type="radio" class="form-check-input" name="accountType" formControlName="accountType"
-                    value="PERSONAL">
-                  <label for="accountName" class="form-check-label">Personal Account</label>
+                <div class="form-group row mx-auto" style="margin-top: 3rem;">
+                  <label class="stepper-text">Name</label>
                   <input type="text" class="form-control" formControlName="accountName" id="accountName"
                     [ngClass]="profileForm.get('accountName').invalid && (profileForm.get('accountName').dirty || profileForm.get('accountName').touched) ? 'is-invalid' : '' "
                     placeholder="Name">
                 </div>
-                <div class="form-group row mx-auto">
-                  <input type="radio" class="form-check-input" name="accountType" formControlName="accountType"
-                    value="COMPANY">
-                  <label for="exampleInputEmail1" class="form-check-label">Company Account</label>
-                  <input type="text" class="form-control" formControlName="companyName" id="exampleInputEmail1"
-                    [ngClass]="profileForm.get('companyName').invalid && (profileForm.get('companyName').dirty || profileForm.get('companyName').touched) ? 'is-invalid' : '' "
-                    placeholder="Company or Family Name">
+                <div class="row container-radio-btn px-3">
+                  <label class="stepper-text">Select your Account Type</label>
+                  <div class="col-6 text-center">
+                    <div class="form-group row mx-auto" style="scroll-padding-left: 1rem;">
+                      <input type="radio" class="form-check-input" name="accountType" formControlName="accountType"
+                        value="PERSONAL">
+                      <label for="accountName" class="form-check-label">Personal</label>
+                    </div>
+                  </div>
+                  <div class="col-6 text-center">
+                    <div class="form-group row mx-auto">
+                      <input type="radio" class="form-check-input" name="accountType" formControlName="accountType"
+                        value="COMPANY">
+                      <label for="exampleInputEmail1" class="form-check-label">Company</label>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div id="picture" class="content container fade">
                 <div class="row">
-                  <div class="col-12">
+                  <div class="col-12 px-0">
                     <label for="pictureInput" class="mx-auto d-block">
                       <input class="mx-auto d-block" id="pictureInput" type="file" formControlName="profilePicture"
                         (change)="uploadPicture($event)" accept="image/*" />
@@ -98,7 +89,7 @@
                             }
                           </style>
                         </defs>
-                        <title>user-image</title>
+                        <title>Profile Picture</title>
                         <g id="Layer_2" data-name="Layer 2">
                           <g id="Layer_1-2" data-name="Layer 1">
                             <path class="cls-1"
@@ -108,144 +99,222 @@
                       </svg>
                       <img *ngIf="imageLoaded" [src]="previewUrl" class="rounded-circle svg-add-user mx-auto d-block"
                         alt="Profile Picture">
-                      <span class="add-badge">+</span>
+                      <button type="button" class="btn btn-circle btn-add-img" style="position: absolute; left: 12rem; bottom:6.3rem; background-color: #2985c4; color: white;
+                        pointer-events: none; cursor: pointer;">
+                        <i class="fa fa-plus"></i>
+                      </button>
                     </label>
-                    <h6 class="text-center" style="color: #6c757d;">Upload a picture or select an Avatar</h6>
+                    <button *ngIf="imageLoaded" type="button" class="btn btn-danger btn-circle btn-del-img"
+                      style="position: absolute; left: 5.2rem; bottom: 12rem;" (click)="delSelectedPicture()">
+                      <i class="fa fa-times"></i>
+                    </button>
+                    <h6 class="text-center stepper-text">Upload a picture or select an Avatar</h6>
                     <div class="row">
                       <div class="col-3 mx-auto">
-                        <img src="../../../assets/img/worker.png" class="avatar-img" alt="Responsive image"
+                        <img src="assets/img/worker.png" class="avatar-img" alt="Responsive image" title="workman"
                           (click)="uploadAvatar($event)">
                       </div>
                       <div class="col-3 mx-auto">
-                        <img src="../../../assets/img/officer.png" class="avatar-img" alt="Responsive image"
+                        <img src="assets/img/officer.png" class="avatar-img" alt="Responsive image"
+                          title="office worker" (click)="uploadAvatar($event)">
+                      </div>
+                      <div class="col-3 mx-auto">
+                        <img src="assets/img/worker-2.png" class="avatar-img" alt="Responsive image" title="hard-worker"
                           (click)="uploadAvatar($event)">
                       </div>
                       <div class="col-3 mx-auto">
-                        <img src="../../../assets/img/worker-2.png" class="avatar-img" alt="Responsive image"
-                          (click)="uploadAvatar($event)">
-                      </div>
-                      <div class="col-3 mx-auto">
-                        <img src="../../../assets/img/lawyer.png" class="avatar-img" alt="Responsive image"
+                        <img src="assets/img/lawyer.png" class="avatar-img" alt="Responsive image" title="employee"
                           (click)="uploadAvatar($event)">
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-<<<<<<< HEAD
-              <div class="m-0 p-0 no-gutters" *ngIf="role==='SERVICE_PROVIDER'">
-                <div id="countries" class="content container fade">
-                  <div class="row justify-content-center">
-                    <div class="col-12 py-5">
-                      <label for="checkInput" style="color: #6c757d;">Choose a country!</label>
-                      <div class="form-check">
-                        <div class="row justify-content-center">
-                          <div class="col">
-                            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-                            <label class="form-check-label" for="inlineCheckbox1">Canada</label>
-                          </div>
-                          <div class="col">
-                            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option1">
-                            <label class="form-check-label" for="inlineCheckbox1">Cuba</label>
-                          </div>
-                          <div class="col">
-                            <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option1">
-                            <label class="form-check-label" for="inlineCheckbox1">Spain</label>
-                          </div>
-=======
-              <div id="countries" class="content container fade">
+              <div [hidden]="role==='CLIENT'" id="countries" class="content container fade m-0 p-0">
+                <div class="row m-0 p-0">
+                  <div class="col-12 text-center pt-5">
+                    <p style="color:#bebcbe;font-size:0.85rem">You need to select the region you'll work in!</p>
+                  </div>
+                  <div class="col-12 px-0 mx-0 h-100">
+                    <app-multi-select [selectedDivisions]="countryDivisions" (selected)="onDivisionsSelect($event)">
+                    </app-multi-select>
+                    <div class="row justify-content-center">
+                      {{divisions}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div [hidden]="role==='CLIENT'" id="services" class="content container fade">
                 <div class="row justify-content-center">
-                  <div class="col-12 py-5">
-                    <label for="checkInput" style="color: #6c757d;">Choose a country!</label>
-                    <div class="form-check">
-                      <div class="row justify-content-center">
-                        <div class="col">
-                          <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-                          <label class="form-check-label" for="inlineCheckbox1">Canada</label>
-                        </div>
-                        <div class="col">
-                          <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option1">
-                          <label class="form-check-label" for="inlineCheckbox1">Cuba</label>
-                        </div>
-                        <div class="col">
-                          <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option1">
-                          <label class="form-check-label" for="inlineCheckbox1">Spain</label>
->>>>>>> c01b402df6ffd7aa31e9a1f777e8b4ab8bdd9bdb
-                        </div>
-                      </div>
+                  <div class="col-12">
+                    <div class="form-group row py-5 mx-auto">
+                      <label for="checkInput" class="stepper-text">Select a Service!</label>
+                      <ng-select
+                          [items]="services"
+                          [multiple]="true"
+                          [closeOnSelect]="false"
+                          [hideSelected]="true"
+                          bindLabel="descriptionEs"
+                          bindLabel="descriptionEs"
+                          bindValue="id"
+                          [searchFn]="customSearchFn"
+                          [(ngModel)]="selectedServices">
+                          <ng-template ng-option-tmp let-item="item">
+                              {{item.descriptionEs}}
+                          </ng-template>
+                      </ng-select>
                     </div>
                   </div>
                 </div>
               </div>
+              <div [hidden]="role==='CLIENT'" id="curriculum" class="content">
+                <div class="row justify-content-center" style="margin-top: 1.5rem;">
+                  <div class="col-12">
+                    <p style="color:#bebcbe;font-size:0.85rem">Upload your Updated CV, only in PDF format!</p>
+                  </div>
+                  <div class="col-9 pr-0">
+                    <label *ngIf="!uploadedCV" for="curriculumLabel" id="curriculumLabel">
+                      <p *ngIf="!uploadedCV">Upload File</p>
+                    </label>
+                    <label *ngIf="uploadedCV" for="curriculumLabel" id="curriculumLabelSuccess">
+                      <p *ngIf="uploadedCV">File Upload Succes</p>
+                    </label>
+                  </div>
+                  <div class="col-3 pl-0">
+                    <label for="curriculumUpload" id="curriculumUpload">
+                      <div class="upload-btn-wrapper">
+                        <button class="btn-uploadcv"><i class="far fa-folder fa-3x"></i></button>
 <<<<<<< HEAD
+                        <input type="file" name="myfile" accept="pdf/*" formControlName="curriculum"
+                          class="form-control-file" (change)="uploadCV($event)" />
+=======
+                        <input type="file" name="myfile" accept="pdf/*" formControlName="curriculum" class="form-control-file"
+                              id="file-upload" (change)="uploadCV($event)" />
+>>>>>>> d376225ef31157ca48178dcf5a1202df6f2b40b1
+                      </div>
+                    </label>
+                  </div>
 
-              <div *ngIf="role==='SERVICE_PROVIDER'" id="services" class="content container fade">
-=======
-              <div id="services" class="content container fade">
->>>>>>> c01b402df6ffd7aa31e9a1f777e8b4ab8bdd9bdb
-                <div class="row justify-content-center">
-                  <div class="col-12">
-                    <div class="form-group row py-5 mx-auto">
-                      <label for="checkInput" style="color: #6c757d;">Select a Service!</label>
-                      <input type="text" class="form-control" formControlName="services" id="servicesInput"
-                        placeholder="Input services, separated by a comma..." />
-                    </div>
-                  </div>
-                </div>
-              </div>
+                  <div *ngIf="uploadedCV" class="card col-4 my-0" style="border:transparent">
+                    <div class="row" style="background-color: #2982c1;margin-left: 0;margin-right: 0;">
+                      <div class="col-12 text-center my-0" style="background-color: #2982c1;">
+                        <i class="far fa-folder-open fa-2x my-2" style="color: #fff;"></i>
+                        <hr style="border: 0.5px solid white;margin-bottom: 0; margin-top: 0;">
+                      </div>
 <<<<<<< HEAD
-              <div *ngIf="role==='SERVICE_PROVIDER'" id="curriculum" class="content container fade">
-=======
-              <div id="curriculum" class="content">
->>>>>>> c01b402df6ffd7aa31e9a1f777e8b4ab8bdd9bdb
-                <div class="row justify-content-center">
-                  <div class="col-12">
-                    <div class="form-group row py-5 mx-auto">
-                      <label for="curriculumDescription" style="color: #6c757d;">Curriculum Description!</label>
-                      <div class="row">
-                        <div class="col-9 pr-0">
-                          <label for="curriculumLabel" id="curriculumLabel">
-                            Upload File
-                          </label>
+                    </div>
+                    <div class="row"
+                      style="background-color: #2982c1;margin-left: 0;margin-right: 0; padding-bottom: 0.2rem;">
+                      <div class="col-6 text-center mt-0" style="padding:0">
+                        <button class="btn btn-link" data-toggle="modal" data-target="#viewCVModal">
+                          <i class="fas fa-eye" style="color: #fff;font-size: 0.75rem;"></i>
+                        </button>
+                      </div>
+                      <div class="col-6 text-center mt-0" style="padding:0">
+                        <button class="btn btn-link" data-toggle="modal" data-target="#deleteCVModal">
+                          <i class="fas fa-trash-alt" style="color: #fff;font-size: 0.75rem;"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <div class="card-footer" style="padding:0; background-color: white;">
+                      <div class="row" style="margin: 0;">
+                        <div class="col-12 text-left" style="padding:0">
+                          <small class="text-muted" style="font-weight: bold;font-size: 0.8rem;">Curriculum</small>
                         </div>
-                        <div class="col-3 pl-0">
-                          <label for="curriculumUpload" id="curriculumUpload">
-                            <i class="far fa-folder fa-3x"></i>
-                            <input type="file" accept="pdf/*" formControlName="curriculum" class="form-control-file"
-                              id="curriculumInput" placeholder="Upload your CV in pdf format."
-                              (change)="uploadCV($event)" />
-                          </label>
+                        <div class="col-12 text-left" style="padding:0;">
+                          <small class="text-muted"
+                            style="font-size: 0.8rem;">{{currentDate | date:'yyyy-MM-dd'}}</small>
+=======
+                      <div class="row" style="background-color: #2982c1;margin-left: 0;margin-right: 0; padding-bottom: 0.2rem;">
+                        <div class="col-6 text-center mt-0" style="padding:0">
+                          <button class="btn btn-link" data-toggle="modal" data-target="#viewCVModal">
+                            <i class="fas fa-eye" style="color: #fff;font-size: 0.75rem;"></i>
+                          </button>
+                        </div>
+                        <div class="col-6 text-center mt-0" style="padding:0">
+                          <button class="btn btn-link" data-toggle="modal" data-target="#deleteCVModal" 
+                                  (click)="deleteCV()">
+                            <i class="fas fa-trash-alt" style="color: #fff;font-size: 0.75rem;"></i>
+                          </button>
+                        </div>
+                      </div>
+                      <div class="card-footer" style="padding:0; background-color: white;">
+                        <div class="row" style="margin: 0;">
+                          <div class="col-12 text-left" style="padding:0">
+                            <style>
+                              .ellipsis {
+                                text-overflow: ellipsis;
+                              }
+                            </style>
+                            <p class="overflow ellipsis" id="file-upload-filename" 
+                                  style="font-weight: bold;font-size: 0.8rem;">
+                          </p>
+                          </div>
+>>>>>>> d376225ef31157ca48178dcf5a1202df6f2b40b1
                         </div>
                       </div>
                     </div>
                   </div>
+
                 </div>
-<<<<<<< HEAD
               </div>
-              <div *ngIf="role==='SERVICE_PROVIDER'" id="myWork" class="content container fade">
-=======
-              </div>        
-              <div id="myWork" class="content container fade">            
->>>>>>> c01b402df6ffd7aa31e9a1f777e8b4ab8bdd9bdb
+              <div [hidden]="role==='CLIENT'" id="briefcases" class="content container fade">
                 <app-briefcase-edit></app-briefcase-edit>
               </div>
-              <div id="comments" class="content container fade">
-                <div class="form-group row text-center" id="form-group-comments">
-                  <div class="form-group row py-5 mx-auto">
-                    <label for="commentsInput" style="color: #6c757d;">Resume!</label>
-                    <textarea class="form-control" id="commentsInputText" formControlName="comments"
-                      placeholder="Enter some comments about your skills and previous jobs to enrich your profile..."></textarea>
-                  </div>
+              <div [hidden]="role==='CLIENT'" id="resume" class="content container fade">
+                <div class="form-group row py-2 text-center" id="form-group-comments">
+                  <label for="commentsInput" class="stepper-text">Resume</label>
+                  <textarea class="form-control" id="commentsInputText" style="height: 12rem;"
+                    formControlName="comments"
+                    placeholder="Enter some comments about your skills and previous jobs to enrich your profile..."></textarea>
                 </div>
               </div>
             </form>
           </div>
           <div class="row justify-content-between" id="btn-row">
-            <button type="button" class="col-3 btn btn-previous mt-5 rounded-0" (click)="previous()"></button>
-            <button type="button" class=" col-4 btn btn-primary mt-5 rounded-0 border-0 text-light"
-              style="background-color: #2985c4 ;" (click)="createUserProfile()"
-              [disabled]="profileForm.invalid">Send</button>
-            <button type="button" class="col-3 btn btn-next mt-5 rounded-0" (click)="next()"></button>
+            <button [disabled]="activeStep === 0" type="button" class="col-3 btn btn-previous mt-5 rounded-0"
+              style="background-color: #BFBDBE;" data-toggle="tooltip" data-placement="top" title="Back"
+              (click)="previous()">
+              <svg class="svg-arrow-left" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20.01 16.15">
+                <defs>
+                  <style>
+                    .cls-1 {
+                      fill: #2888C7;
+                    }
+                  </style>
+                </defs>
+                <title>Back</title>
+                <g id="Capa_2" data-name="Capa 2">
+                  <g id="Isolation_Mode" data-name="Isolation Mode">
+                    <path
+                      d="M1,9.07H16.59l-5.36,5.37a1,1,0,0,0,0,1.42,1,1,0,0,0,1.41,0l7.07-7.08h0l.13-.15a.3.3,0,0,0,0-.08.41.41,0,0,0,.05-.09.45.45,0,0,0,0-.11l0-.08a1.23,1.23,0,0,0,0-.2h0a1.23,1.23,0,0,0,0-.19l0-.09,0-.1a.93.93,0,0,0-.05-.1l0-.07a.64.64,0,0,0-.13-.15L12.64.29a1,1,0,0,0-1.41,0,1,1,0,0,0,0,1.42l5.36,5.36H1a1,1,0,0,0,0,2Z" />
+                  </g>
+                </g>
+              </svg>
+            </button>
+            <button type="submit" class="col-4 btn btn-send mt-5 rounded-0 border-0 text-light" data-toggle="tooltip"
+              data-placement="top" title="Send" style="background-color: #2688C6; font-size: 1.25rem;"
+              (click)="createUserProfile()" [disabled]="profileForm.invalid">SEND</button>
+            <button [disabled]="activeStep === 6" [disabled]="(role === 'CLIENT')&&(activeStep === 1)" type=" button"
+              class="col-3 btn btn-next mt-5 rounded-0" style="background-color: #BFBDBE" data-toggle="tooltip"
+              data-placement="top" title="Next" (click)="next()">
+              <svg class="svg-arrow-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20.01 16.15">
+                <defs>
+                  <style>
+                    .cls-1 {
+                      fill: #2888C7;
+                    }
+                  </style>
+                </defs>
+                <title>Next</title>
+                <g id="Capa_2" data-name="Capa 2">
+                  <g id="Isolation_Mode" data-name="Isolation Mode">
+                    <path
+                      d="M1,9.07H16.59l-5.36,5.37a1,1,0,0,0,0,1.42,1,1,0,0,0,1.41,0l7.07-7.08h0l.13-.15a.3.3,0,0,0,0-.08.41.41,0,0,0,.05-.09.45.45,0,0,0,0-.11l0-.08a1.23,1.23,0,0,0,0-.2h0a1.23,1.23,0,0,0,0-.19l0-.09,0-.1a.93.93,0,0,0-.05-.1l0-.07a.64.64,0,0,0-.13-.15L12.64.29a1,1,0,0,0-1.41,0,1,1,0,0,0,0,1.42l5.36,5.36H1a1,1,0,0,0,0,2Z" />
+                  </g>
+                </g>
+              </svg>
+            </button>
           </div>
         </div>
       </div>
