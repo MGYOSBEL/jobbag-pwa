@@ -185,7 +185,7 @@
                       <div class="upload-btn-wrapper">
                         <button class="btn-uploadcv"><i class="far fa-folder fa-3x"></i></button>
                         <input type="file" name="myfile" accept="pdf/*" formControlName="curriculum" class="form-control-file"
-                          (change)="uploadCV($event)" />
+                              id="file-upload" (change)="uploadCV($event)" />
                       </div>
                     </label>
                   </div>
@@ -204,7 +204,8 @@
                           </button>
                         </div>
                         <div class="col-6 text-center mt-0" style="padding:0">
-                          <button class="btn btn-link" data-toggle="modal" data-target="#deleteCVModal">
+                          <button class="btn btn-link" data-toggle="modal" data-target="#deleteCVModal" 
+                                  (click)="deleteCV()">
                             <i class="fas fa-trash-alt" style="color: #fff;font-size: 0.75rem;"></i>
                           </button>
                         </div>
@@ -212,10 +213,14 @@
                       <div class="card-footer" style="padding:0; background-color: white;">
                         <div class="row" style="margin: 0;">
                           <div class="col-12 text-left" style="padding:0">
-                            <small class="text-muted" style="font-weight: bold;font-size: 0.8rem;">Curriculum</small>
-                          </div>
-                          <div class="col-12 text-left" style="padding:0;">                            
-                            <small class="text-muted" style="font-size: 0.8rem;">{{currentDate | date:'yyyy-MM-dd'}}</small>
+                            <style>
+                              .ellipsis {
+                                text-overflow: ellipsis;
+                              }
+                            </style>
+                            <p class="overflow ellipsis" id="file-upload-filename" 
+                                  style="font-weight: bold;font-size: 0.8rem;">
+                          </p>
                           </div>
                         </div>
                       </div>

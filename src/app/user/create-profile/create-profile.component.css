@@ -163,6 +163,12 @@
   margin-top: 0;
 }
 
+.overflow {
+  width: 5.5rem;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
 /*Section BriefCase*/
 
 /*Section Resume*/
