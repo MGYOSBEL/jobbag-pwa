@@ -28,36 +28,35 @@ export class UserProfileService {
 
   get(id: number): Observable<UserProfile> {
     // Leo el array de userProfiles del storage
-    const userProfiles: Array<UserProfile> = JSON.parse(localStorage.getItem('userProfiles')) || [];
-    if (userProfiles.length) {
-      console.log('No lo pidio');
-      for (const iterator of userProfiles) {
-        if (iterator.id === id) { // Recorro el array y si esta el perfil que busco lo retorno como un observable
-          return of(iterator);
-        }
+    const userProfiles: Array<UserProfile> = this.userCacheService.getProfiles() || [];
+    if (userProfiles && userProfiles.length > 0) {
+      console.log('No lo pidio a la api');
+      const profile = userProfiles.find(item => item.id === id);
+      if (profile != null) {
+        return of(profile);
       }
-    } else {
-      console.log('Lo pidio');
-
-      return this.http.get<APIResponse>(this.apiPath + '/user_profile/' + id).pipe(
-        catchError(err => { // Captura si hubo algun error en la llamada y lo relanza
-          throw new Error(err.error.status + ': ' + err.error.detail);  // Relanzo el error con el status y el detail
-        }),
-        map(response => {
-          if (response.status_code === 200) { // Si el status del response es OK retorno contento como dato del observable
-            return JSON.parse(response.content);
-          } else {
-            throw new Error( // Si no es OK el status del response, lanzo un error con el status y el text
-              response.status_code + ': ' + response.content.text
-            );
-          }
-        }),
-        tap(content => { // Si se ejecuta el tap es porque no se lanzo antes ningun error, por lo tanto status===200(OK)
-          userProfiles.push(content);
-          localStorage.setItem('userProfiles', JSON.stringify(userProfiles));
-        })
-      );
     }
+    console.log('Lo pidio a la api');
+
+    return this.http.get<APIResponse>(this.apiPath + '/user_profile/' + id).pipe(
+      catchError(err => { // Captura si hubo algun error en la llamada y lo relanza
+        throw new Error(err.error.status + ': ' + err.error.detail);  // Relanzo el error con el status y el detail
+      }),
+      map(response => {
+        if (response.status_code === 200) { // Si el status del response es OK retorno contento como dato del observable
+          return JSON.parse(response.content);
+        } else {
+          throw new Error( // Si no es OK el status del response, lanzo un error con el status y el text
+            response.status_code + ': ' + response.content.text
+          );
+        }
+      }),
+      tap(content => { // Si se ejecuta el tap es porque no se lanzo antes ningun error, por lo tanto status===200(OK)
+        userProfiles.push(content);
+        localStorage.setItem('userProfiles', JSON.stringify(userProfiles));
+      })
+    );
+
   }
 
   // public get serviceProvider(): UserProfile {
@@ -136,7 +135,7 @@ export class UserProfileService {
           profiles[index] = content;
           // Una vez modificados los campos salvo el array completo de userProfiles
           this.userCacheService.setProfiles(profiles);
-
+          console.log('userProfileService edit: ', content);
         }
         ),
         shareReplay()

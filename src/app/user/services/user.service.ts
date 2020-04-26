@@ -126,7 +126,7 @@ export class UserService {
         user.username = response.username;
 
 
-        console.log(user);
+        console.log('user service edit: ', user);
         this.userSubject.next(user); // Salvo el user en el storage
         this.userCacheService.setUser(user);
       })

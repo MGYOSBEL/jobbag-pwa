@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { APIResponse } from '@app/models/app.model';
 import { environment } from '@environments/environment';
 import { catchError, map, tap } from 'rxjs/operators';
@@ -24,21 +24,22 @@ export class MediaService {
         picture
       };
       return this.http.put<APIResponse>(`${environment.apiBaseURL}/media/userProfilePicture`, request).pipe(
-        catchError(err => {
-          throw  new Error(err.error.status + ': ' + err.error.detail);  // Relanzo el error con el status y el detail
-        }),
         map( response => {
           const content = JSON.parse(response.content); // Seleccionar la parte del response q es el contenido
           if (response.status_code === 200) {
             return JSON.parse(content) ; // Retorno el content del response como cuerpo del observable
           } else { // Si no fue OK el status del response lanzo un error con el status code y el text del response.
-            throw new Error(
+            return throwError(
               response.status_code + ': ' + response.content
             );
           }
         }),
+        catchError(err => {
+          return throwError(err.error.status + ': ' + err.error.detail);  // Relanzo el error con el status y el detail
+        }),
         tap(url => {
           this.userCacheService.setProfilePicture(request.user_profile_id, url);
+          console.log('mediaService picture edit: ', url);
         })
       );
     }
@@ -52,21 +53,23 @@ export class MediaService {
       };
       console.log(`${environment.apiBaseURL}/media/userProfileCV`, request);
       return this.http.put<APIResponse>(`${environment.apiBaseURL}/media/userProfileCV`, request).pipe(
-        catchError(err => {
-          throw  new Error(err.error.status + ': ' + err.error.detail);  // Relanzo el error con el status y el detail
-        }),
         map( response => {
           const content = JSON.parse(response.content); // Seleccionar la parte del response q es el contenido
           if (response.status_code === 200) {
             return JSON.parse(content); // Retorno el content del response como cuerpo del observable
           } else { // Si no fue OK el status del response lanzo un error con el status code y el text del response.
-            throw new Error(
+            return throwError(
               response.status_code + ': ' + response.content
             );
           }
         }),
+        catchError(err => {
+          return throwError(err.error.status + ': ' + err.error.detail);  // Relanzo el error con el status y el detail
+        }),
         tap(url => {
           this.userCacheService.setProfileCV(request.user_profile_id, url);
+          console.log('mediaService cv edit: ', url);
+
         })
       );
     }

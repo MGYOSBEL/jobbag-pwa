@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, forkJoin, EMPTY, combineLatest, of } from 'rxjs';
+import { Observable, forkJoin, EMPTY, combineLatest, of, concat, Subject } from 'rxjs';
 import { CountryService } from '@app/user/services/country.service';
 import { Country } from '@app/user/models/country.model';
+import { ServicesService } from '@app/user/services/services.service';
+import { Service } from '@app/user/models/services.model';
+import { distinctUntilChanged, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-test',
@@ -10,463 +13,108 @@ import { Country } from '@app/user/models/country.model';
 })
 export class TestComponent implements OnInit {
 
-  accounts = [
+  services$: Observable<Service[]>;
+  searchInput$ = new Subject<string>();
+  selectedServices: number[];
+
+  // services: Service[];
+
+  services: Service[] = [
     {
       id: 1,
-      isoCode: "CU-01",
-      nameEs: "Pinar del Río",
-      nameEn: null,
-      nameFr: null,
-      level: "0",
-      parentId: 0,
-      divisions: [
-        {
-          id: 17,
-          isoCode: "CU-01-01",
-          nameEs: "Sandino",
-          nameEn: null,
-          nameFr: null,
-          level: "1",
-          parentId: 1,
-          divisions: []
-        },
-        {
-          id: 18,
-          isoCode: "CU-01-02",
-          nameEs: "Mantua",
-          nameEn: null,
-          nameFr: null,
-          level: "1",
-          parentId: 1,
-          divisions: []
-        },
-        {
-          id: 19,
-          isoCode: "CU-01-03",
-          nameEs: "Minas de Matahambre",
-          nameEn: null,
-          nameFr: null,
-          level: "1",
-          parentId: 1,
-          divisions: []
-        },
-        {
-          id: 20,
-          isoCode: "CU-01-04",
-          nameEs: "Viñales",
-          nameEn: null,
-          nameFr: null,
-          level: "1",
-          parentId: 1,
-          divisions: []
-        },
-        {
-          id: 21,
-          isoCode: "CU-01-05",
-          nameEs: "La Palma",
-          nameEn: null,
-          nameFr: null,
-          level: "1",
-          parentId: 1,
-          divisions: []
-        },
-        {
-          id: 22,
-          isoCode: "CU-01-06",
-          nameEs: "Los Palacios",
-          nameEn: null,
-          nameFr: null,
-          level: "1",
-          parentId: 1,
-          divisions: []
-        },
-        {
-          id: 23,
-          isoCode: "CU-01-07",
-          nameEs: "Consolación del Sur",
-          nameEn: null,
-          nameFr: null,
-          level: "1",
-          parentId: 1,
-          divisions: []
-        },
-        {
-          id: 24,
-          isoCode: "CU-01-08",
-          nameEs: "Pinar del Río",
-          nameEn: null,
-          nameFr: null,
-          level: "1",
-          parentId: 1,
-          divisions: []
-        },
-        {
-          id: 25,
-          isoCode: "CU-01-09",
-          nameEs: "San Luis",
-          nameEn: null,
-          nameFr: null,
-          level: "1",
-          parentId: 1,
-          divisions: []
-        },
-        {
-          id: 26,
-          isoCode: "CU-01-10",
-          nameEs: "San Juan y Martínez",
-          nameEn: null,
-          nameFr: null,
-          level: "1",
-          parentId: 1,
-          divisions: []
-        },
-        {
-          id: 27,
-          isoCode: "CU-01-11",
-          nameEs: "Guane",
-          nameEn: null,
-          nameFr: null,
-          level: "1",
-          parentId: 1,
-          divisions: []
-        }
-      ]
+      shortDescription: 'Consulta de información legal y consejo',
+      descriptionEs: 'Consulta de información legal y consejo',
+      descriptionEn: 'Consultation for legal information and advice',
+      descriptionFr: null,
+      keywords: ['Servicios Legales', 'Leyes y Seguridad Pública', 'inf']
     },
     {
       id: 2,
-      isoCode: "CU-03",
-      nameEs: "La Habana",
-      nameEn: null,
-      nameFr: null,
-      level: "0",
-      parentId: 0,
-      divisions: [
-        {
-          id: 28,
-          isoCode: "CU-03-01",
-          nameEs: "Playa",
-          nameEn: null,
-          nameFr: null,
-          level: "1",
-          parentId: 2,
-          divisions: []
-        },
-        {
-          id: 29,
-          isoCode: "CU-03-02",
-          nameEs: "Plaza de la Revolución",
-          nameEn: null,
-          nameFr: null,
-          level: "1",
-          parentId: 2,
-          divisions: []
-        },
-        {
-          id: 30,
-          isoCode: "CU-03-03",
-          nameEs: "Centro Habana",
-          nameEn: null,
-          nameFr: null,
-          level: "1",
-          parentId: 2,
-          divisions: []
-        },
-        {
-          id: 31,
-          isoCode: "CU-03-04",
-          nameEs: "La Habana Vieja",
-          nameEn: null,
-          nameFr: null,
-          level: "1",
-          parentId: 2,
-          divisions: []
-        },
-        {
-          id: 32,
-          isoCode: "CU-03-05",
-          nameEs: "Regla",
-          nameEn: null,
-          nameFr: null,
-          level: "1",
-          parentId: 2,
-          divisions: []
-        },
-        {
-          id: 33,
-          isoCode: "CU-03-06",
-          nameEs: "La Habana del Este",
-          nameEn: null,
-          nameFr: null,
-          level: "1",
-          parentId: 2,
-          divisions: []
-        },
-        {
-          id: 34,
-          isoCode: "CU-03-07",
-          nameEs: "Guanabacoa",
-          nameEn: null,
-          nameFr: null,
-          level: "1",
-          parentId: 2,
-          divisions: []
-        },
-        {
-          id: 35,
-          isoCode: "CU-03-08",
-          nameEs: "San Miguel del Padrón",
-          nameEn: null,
-          nameFr: null,
-          level: "1",
-          parentId: 2,
-          divisions: []
-        },
-        {
-          id: 36,
-          isoCode: "CU-03-09",
-          nameEs: "Diez de Octubre",
-          nameEn: null,
-          nameFr: null,
-          level: "1",
-          parentId: 2,
-          divisions: []
-        },
-        {
-          id: 37,
-          isoCode: "CU-03-10",
-          nameEs: "Cerro",
-          nameEn: null,
-          nameFr: null,
-          level: "1",
-          parentId: 2,
-          divisions: []
-        },
-        {
-          id: 38,
-          isoCode: "CU-03-11",
-          nameEs: "Marianao",
-          nameEn: null,
-          nameFr: null,
-          level: "1",
-          parentId: 2,
-          divisions: []
-        },
-        {
-          id: 39,
-          isoCode: "CU-03-12",
-          nameEs: "La Lisa",
-          nameEn: null,
-          nameFr: null,
-          level: "1",
-          parentId: 2,
-          divisions: []
-        },
-        {
-          id: 40,
-          isoCode: "CU-03-13",
-          nameEs: "Boyeros",
-          nameEn: null,
-          nameFr: null,
-          level: "1",
-          parentId: 2,
-          divisions: []
-        },
-        {
-          id: 41,
-          isoCode: "CU-03-14",
-          nameEs: "Arroyo Naranjo",
-          nameEn: null,
-          nameFr: null,
-          level: "1",
-          parentId: 2,
-          divisions: []
-        },
-        {
-          id: 42,
-          isoCode: "CU-03-14",
-          nameEs: "Arroyo Naranjo",
-          nameEn: null,
-          nameFr: null,
-          level: "1",
-          parentId: 2,
-          divisions: []
-        },
-        {
-          id: 43,
-          isoCode: "CU-03-15",
-          nameEs: "Cotorro",
-          nameEn: null,
-          nameFr: null,
-          level: "1",
-          parentId: 2,
-          divisions: []
-        }
-      ]
+      shortDescription: 'Preparacion de documentos',
+      descriptionEs: 'Preparacion de documentos',
+      descriptionEn: 'Preparation of documents',
+      descriptionFr: null,
+      keywords: ['Servicios Legales', 'Leyes y Seguridad Pública']
     },
     {
       id: 3,
-      isoCode: "CU-04",
-      nameEs: "Matanzas",
-      nameEn: null,
-      nameFr: null,
-      level: "0",
-      parentId: 0,
-      divisions: []
+      shortDescription: 'Representacion de clientes en negociaciones',
+      descriptionEs: 'Representacion de clientes en negociaciones',
+      descriptionEn: 'Representing clients in negotiations',
+      descriptionFr: null,
+      keywords: ['Servicios Legales', 'Leyes y Seguridad Pública']
     },
     {
       id: 4,
-      isoCode: "CU-05",
-      nameEs: "Villa Clara",
-      nameEn: null,
-      nameFr: null,
-      level: "0",
-      parentId: 0,
-      divisions: []
+      shortDescription: 'Consultor de recursos Humanos',
+      descriptionEs: 'Consultor de recursos Humanos',
+      descriptionEn: 'Human Resource Consultant',
+      descriptionFr: null,
+      keywords: ['Agente', 'Administracion y Negocios']
     },
     {
       id: 5,
-      isoCode: "CU-06",
-      nameEs: "Cienfuegos",
-      nameEn: null,
-      nameFr: null,
-      level: "0",
-      parentId: 0,
-      divisions: []
-    },
-    {
-      id: 6,
-      isoCode: "CU-07",
-      nameEs: "Sancti Spíritus",
-      nameEn: null,
-      nameFr: null,
-      level: "0",
-      parentId: 0,
-      divisions: []
-    },
-    {
-      id: 7,
-      isoCode: "CU-08",
-      nameEs: "Ciego de Ávila",
-      nameEn: null,
-      nameFr: null,
-      level: "0",
-      parentId: 0,
-      divisions: []
-    },
-    {
-      id: 8,
-      isoCode: "CU-09",
-      nameEs: "Camagüey",
-      nameEn: null,
-      nameFr: null,
-      level: "0",
-      parentId: 0,
-      divisions: []
-    },
-    {
-      id: 9,
-      isoCode: "CU-10",
-      nameEs: "Las Tunas",
-      nameEn: null,
-      nameFr: null,
-      level: "0",
-      parentId: 0,
-      divisions: []
-    },
-    {
-      id: 10,
-      isoCode: "CU-11",
-      nameEs: "Holguín",
-      nameEn: null,
-      nameFr: null,
-      level: "0",
-      parentId: 0,
-      divisions: []
-    },
-    {
-      id: 11,
-      isoCode: "CU-12",
-      nameEs: "Granma",
-      nameEn: null,
-      nameFr: null,
-      level: "0",
-      parentId: 0,
-      divisions: []
-    },
-    {
-      id: 12,
-      isoCode: "CU-13",
-      nameEs: "Santiago de Cuba",
-      nameEn: null,
-      nameFr: null,
-      level: "0",
-      parentId: 0,
-      divisions: []
-    },
-    {
-      id: 13,
-      isoCode: "CU-14",
-      nameEs: "Guantánamo",
-      nameEn: null,
-      nameFr: null,
-      level: "0",
-      parentId: 0,
-      divisions: []
-    },
-    {
-      id: 14,
-      isoCode: "CU-15",
-      nameEs: "Artemisa",
-      nameEn: null,
-      nameFr: null,
-      level: "0",
-      parentId: 0,
-      divisions: []
-    },
-    {
-      id: 15,
-      isoCode: "CU-16",
-      nameEs: "Mayabeque",
-      nameEn: null,
-      nameFr: null,
-      level: "0",
-      parentId: 0,
-      divisions: []
-    },
-    {
-      id: 16,
-      isoCode: "CU-99",
-      nameEs: "Isla de la Juventud",
-      nameEn: null,
-      nameFr: null,
-      level: "0",
-      parentId: 0,
-      divisions: []
+      shortDescription: 'Profesor de animacion',
+      descriptionEs: 'Profesor de animacion',
+      descriptionEn: 'Teaching on Animation',
+      descriptionFr: null,
+      keywords: ['Arte y multimedia', 'Servicios de animacion', 'Arte, Diseño y Entretenimiento', 'Educación']
     }
   ];
 
-  selectedPeople = [];
-
-
+  // selectedServices: Service[];
 
 
   countries$: Observable<Country>;
   constructor(
-    private countryService: CountryService
+    private countryService: CountryService,
+    private servicesServ: ServicesService
   ) {}
 
 
   ngOnInit() {
     this.countries$ = this.countryService.get();
+    this.loadServices();
+    // this.servicesServ.getAll().subscribe(
+    //   services => this.services = services
+    // );
   }
 
-  selectAll() {
-    this.selectedPeople = this.accounts;
+customSearchFn(term: string, item: Service) {
+  term = term.toLowerCase();
+  return (
+    item.descriptionEs.toLowerCase().indexOf(term) > -1 ||
+    item.keywords.filter(x => x.toLowerCase().includes(term)).length > 0
+  );
 }
 
-onAdd(event) {
-console.log(event);
+onSearch($event){
+  console.log($event);
 }
+
+trackByFn(item: Service) {
+  return item.id;
+}
+
+private loadServices() {
+  this.services$ = concat(
+    of([]), // default items
+    this.searchInput$.pipe(
+      distinctUntilChanged(),
+      switchMap(term => this.getService(term))
+    )
+  );
+}
+
+getService(term: string = null): Observable<Service[]> {
+  let items = (this.services);
+  if (term) {
+    items = items.filter(
+                x => x.descriptionEs.toLocaleLowerCase().indexOf(term.toLocaleLowerCase()) > -1);
+  }
+  return of (items);
+}
+
 
 
 

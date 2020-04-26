@@ -58,13 +58,12 @@ export class EditProfileComponent implements OnInit {
     this.currentDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
     this.changePassword = false;
     this.imageLoaded = false;
+
+
     this.userService.role$.subscribe(role => {
       this.role = role;
-      console.log(this.role);
       this.updateActiveProfile();
     });
-
-
 
     this.userService.loggedUser$.subscribe(user => {
       this.loggedUser = user;
@@ -171,7 +170,6 @@ export class EditProfileComponent implements OnInit {
       this.cvBase64 = this.cvUrl.toString().split(',')[1];
       this.cvLoaded = true;
       console.log(this.cvUrl);
-
     };
 
   }
@@ -279,7 +277,6 @@ export class EditProfileComponent implements OnInit {
 
   onClose() {
     this.router.navigate(['../'], { relativeTo: this.route });
-
   }
 
   onDivisionsSelect(event) {
@@ -300,7 +297,7 @@ export class EditProfileComponent implements OnInit {
     };
   }
 
-   delSelectedPicture(){
+   delSelectedPicture() {
      this.defaultPicture = true;
      this.imageBase64 = '';
    }

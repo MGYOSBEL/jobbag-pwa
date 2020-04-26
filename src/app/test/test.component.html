@@ -1,45 +1,32 @@
-<!-- {{countries$ | async | json}} -->
-
-
-<div class="container-fluid justify-content-lg-around ">
-  <button type="button" class=" col-3 btn btn-primary mt-5 rounded-0 border-0 text-light mx-3"
-    style="background-color: #2985c4 ;"
-    *ngFor="let country of (countries$ | async)">
-    {{country.nameEn}}
-  </button>
-</div>
-
 
 <div class="select-container row container justify-content-lg-center pt-5">
   <div class="card col-4" style="height: 500px;" id="container">
     <div class="card-body">
-      <ng-select
-      [multiple]="true"
-      [items]="accounts"
-      groupBy="divisions"
-      [selectableGroup]="true"
-      [selectableGroupAsModel]="false"
-      [(ngModel)]="selectedPeople"
-      placeholder="Select your regions"
+
+      <ng-select [items]="services"
+      [multiple] = "true"
       [closeOnSelect]="false"
-      bindLabel="nameEs"
+      [hideSelected] = "true"
+      bindLabel="descriptionEs"
+      bindLabel="descriptionEs"
       bindValue="id"
-      (add)="onAdd($event)"
-      (change)="onAdd($event)">
-      <ng-template ng-optgroup-tmp let-item="item" let-item$="item$" let-index="index">
-        <input id="item-{{index}}" type="checkbox" [ngModel]="item$.selected"/> {{item.nameEs | uppercase}}
-    </ng-template>
-    <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
-        <input id="item-{{index}}" type="checkbox" [ngModel]="item$.selected"/> {{item.nameEs}}
-    </ng-template>
-  </ng-select>
+      [searchFn]="customSearchFn"
+      (search)="onSearch($event)"
+      [(ngModel)]="selectedServices">
+
+
+<ng-template ng-option-tmp let-item="item">
+{{item.descriptionEs}} <br/>
+<small>{{item.keywords[0]}} | {{item.keywords[1]}}</small>
+</ng-template>
+</ng-select>
     </div>
   </div>
 </div>
 
 
       <br>
-      <small>Selected: {{selectedPeople | json}}</small>
+      <small>Selected: {{services | json}}</small>
 
 
 <!-- {{countries$ | async | json}} -->
