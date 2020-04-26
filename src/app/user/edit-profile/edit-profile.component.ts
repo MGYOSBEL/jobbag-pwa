@@ -26,7 +26,7 @@ import { ServicesService } from '../services/services.service';
   providers: [DatePipe]
 })
 export class EditProfileComponent implements OnInit {
-  editProfileForm: FormGroup;
+  editProfileForm = new FormGroup({});
   changePassword: boolean;
   imageLoaded: boolean;
   cvLoaded: boolean;
@@ -86,9 +86,10 @@ export class EditProfileComponent implements OnInit {
       accountName: [this.activeProfile.name, [Validators.required, Validators.pattern('[a-zA-Z0-9 ]*')]],
       profilePicture: [''],
       curriculum: [''],
-      selectedServices: [1],
+      selectedServices: [this.activeProfile.services],
       comments: [this.activeProfile.comment]
     });
+    console.log('FORM' , this.activeProfile.services, this.editProfileForm.value);
   }
 
   private updateActiveProfile() {
@@ -99,6 +100,13 @@ export class EditProfileComponent implements OnInit {
         this.defaultPicture = !this.activeProfile.picture.includes('uploads');
         this.previewUrl = `${environment.serverBaseURL}/${this.activeProfile.picture}`;
         // this.selectedServices = this.activeProfile.services;
+        this.editProfileForm.patchValue({
+          accountType: this.activeProfile.userProfileAccount,
+          accountName: this.activeProfile.name,
+          selectedServices: this.activeProfile.services,
+          comments: this.activeProfile.comment
+        });
+        console.log('activeProfile updated: ', this.activeProfile);
       }
     }
   }
@@ -123,7 +131,7 @@ export class EditProfileComponent implements OnInit {
       }
     );
 
-    console.log('activeProfile: ', this.activeProfile.divisions);
+    console.log('activeProfile: ', this.activeProfile.divisions, this.activeProfile.services);
   }
 
   toggleChangePassword(event) {

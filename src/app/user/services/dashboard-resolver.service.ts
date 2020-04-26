@@ -51,8 +51,8 @@ export class DashboardResolverService implements Resolve<User> {
           return throwError(err);
         }),
         tap(() => {
-          // this.scholarshipService.getAll(true).subscribe();
-          // this.professionService.getAll(true).subscribe();
+          this.scholarshipService.getAll(true).subscribe();
+          this.professionService.getAll(true).subscribe();
           this.loadingService.loadingOff();
         })
       );

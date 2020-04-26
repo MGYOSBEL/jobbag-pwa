@@ -41,9 +41,9 @@ export class CreateProfileComponent implements OnInit {
   countryDivisions: number[] = [];
   myDate = new Date();
   currentDate: string;
-  ngSelServices: FormControl;
+  selectedServices: FormControl;
 
-  selectedServices: number[] = [];
+  // selectedServices: number[] = [];
 
   services: Service[];
   // = [
@@ -113,7 +113,7 @@ export class CreateProfileComponent implements OnInit {
       companyName: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9 ]*')]],
       profilePicture: [''],
       // countries: [''],
-      services: [''],
+      selectedServices: [''],
       curriculum: [''],
       comments: [''],
       // gallery: ['']
@@ -183,7 +183,7 @@ export class CreateProfileComponent implements OnInit {
       user_profile_account: this.profileForm.value.accountType,
       name: this.name.value,
       divisions: this.countryDivisions,
-      services: this.selectedServices,
+      services: this.profileForm.value.selectedServices,
       user_profile_briefcase: this.briefcaseService.briefcases.map(item => {
         return {
           comments: item.comments,
@@ -194,6 +194,7 @@ export class CreateProfileComponent implements OnInit {
         };
       })
     };
+    console.log(userProfileRequest);
 
     this.userProfileService.create(userProfileRequest)
       .subscribe(
