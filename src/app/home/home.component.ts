@@ -20,8 +20,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.userId = this.authenticationService.getLoggedUserId();
-    this.scholarshipService.getAll(true).subscribe();
-    this.professionService.getAll(true).subscribe();
+
   }
 
 
