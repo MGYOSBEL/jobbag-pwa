@@ -195,6 +195,7 @@
                       <div class="col-12 py-5">
                         My Services
                         <ng-select
+                          formControlName="selectedServices"
                           [items]="services"
                           [multiple]="true"
                           [closeOnSelect]="false"
@@ -203,7 +204,7 @@
                           bindLabel="descriptionEs"
                           bindValue="id"
                           [searchFn]="customSearchFn"
-                          [(ngModel)]="selectedServices">
+                          >
                           <ng-template ng-option-tmp let-item="item">
                               {{item.descriptionEs}}
                           </ng-template>

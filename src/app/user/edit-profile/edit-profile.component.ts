@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProfessionService } from '@app/user/services/profession.service';
 import { ScholarshipService } from '@app/user/services/scholarship.service';
-import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl, FormControl } from '@angular/forms';
 import { UserProfile, User, UserProfileBriefcase } from '@app/user/models/user.model';
 import { UserProfileService } from '@app/user/services/user-profile.service';
 import { environment } from '@environments/environment';
@@ -42,8 +42,9 @@ export class EditProfileComponent implements OnInit {
   defaultPicture: boolean;
   myDate = new Date();
   currentDate: string;
+  ngSelServices = new FormControl();
 
-  selectedServices: number[] = [1];
+  // selectedServices: number[] = [1];
 
   services: Service[];
 
@@ -85,6 +86,7 @@ export class EditProfileComponent implements OnInit {
       accountName: [this.activeProfile.name, [Validators.required, Validators.pattern('[a-zA-Z0-9 ]*')]],
       profilePicture: [''],
       curriculum: [''],
+      selectedServices: [1],
       comments: [this.activeProfile.comment]
     });
   }
@@ -115,7 +117,10 @@ export class EditProfileComponent implements OnInit {
     // );
     // this.editProfileForm.get('accountType').setValue('PERSONAL');
     this.servicesService.getAll().subscribe(
-      services => this.services = services
+      services => {
+        this.services = services;
+        console.log(this.services);
+      }
     );
 
     console.log('activeProfile: ', this.activeProfile.divisions);
@@ -302,11 +307,11 @@ export class EditProfileComponent implements OnInit {
      console.log(this.imageBase64);
    }
 
-   deleteCV(){
+   deleteCV() {
     this.cvLoaded = false;
     delete(this.cvBase64);
 
-    console.log('cv'+this.cvBase64);
+    console.log('cv' + this.cvBase64);
    }
 
    showCVName(){

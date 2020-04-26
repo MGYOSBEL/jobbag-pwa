@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import Stepper from 'bs-stepper';
-import { FormGroup, FormBuilder, AbstractControl, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, AbstractControl, Validators, FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { UserProfileService } from '../services/user-profile.service';
@@ -41,6 +41,8 @@ export class CreateProfileComponent implements OnInit {
   countryDivisions: number[] = [];
   myDate = new Date();
   currentDate: string;
+  ngSelServices: FormControl;
+
   selectedServices: number[] = [];
 
   services: Service[];

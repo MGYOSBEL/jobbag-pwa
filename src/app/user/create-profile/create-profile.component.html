@@ -150,6 +150,7 @@
                     <div class="form-group row py-5 mx-auto">
                       <label for="checkInput" class="stepper-text">Select a Service!</label>
                       <ng-select
+                          formControlName="ngSelServices"
                           [items]="services"
                           [multiple]="true"
                           [closeOnSelect]="false"
