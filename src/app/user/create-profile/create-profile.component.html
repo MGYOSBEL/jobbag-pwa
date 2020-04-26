@@ -51,25 +51,27 @@
             <form [formGroup]="profileForm" style="width: 100%; height: 8rem;">
               <div id="profile" class="content container fade">
                 <div class="form-group row mx-auto" style="margin-top: 3rem;">
-                  <label class="stepper-text">Name</label> 
+                  <label class="stepper-text">Name</label>
                   <input type="text" class="form-control" formControlName="accountName" id="accountName"
                     [ngClass]="profileForm.get('accountName').invalid && (profileForm.get('accountName').dirty || profileForm.get('accountName').touched) ? 'is-invalid' : '' "
                     placeholder="Name">
                 </div>
                 <div class="row container-radio-btn px-3">
-                  <label class="stepper-text">Select your Account Type</label> 
+                  <label class="stepper-text">Select your Account Type</label>
                   <div class="col-6 text-center">
                     <div class="form-group row mx-auto" style="scroll-padding-left: 1rem;">
-                      <input type="radio" class="form-check-input" name="accountType" formControlName="accountType" value="PERSONAL">
+                      <input type="radio" class="form-check-input" name="accountType" formControlName="accountType"
+                        value="PERSONAL">
                       <label for="accountName" class="form-check-label">Personal</label>
                     </div>
                   </div>
                   <div class="col-6 text-center">
                     <div class="form-group row mx-auto">
-                      <input type="radio" class="form-check-input" name="accountType" formControlName="accountType" value="COMPANY">
+                      <input type="radio" class="form-check-input" name="accountType" formControlName="accountType"
+                        value="COMPANY">
                       <label for="exampleInputEmail1" class="form-check-label">Company</label>
                     </div>
-                  </div>             
+                  </div>
                 </div>
               </div>
               <div id="picture" class="content container fade">
@@ -95,34 +97,34 @@
                           </g>
                         </g>
                       </svg>
-                      <img *ngIf="imageLoaded" [src]="previewUrl" class="rounded-circle svg-add-user mx-auto d-block" alt="Profile Picture">
-                      <button type="button" class="btn btn-circle btn-add-img"
-                        style="position: absolute; left: 12rem; bottom:6.3rem; background-color: #2985c4; color: white;
+                      <img *ngIf="imageLoaded" [src]="previewUrl" class="rounded-circle svg-add-user mx-auto d-block"
+                        alt="Profile Picture">
+                      <button type="button" class="btn btn-circle btn-add-img" style="position: absolute; left: 12rem; bottom:6.3rem; background-color: #2985c4; color: white;
                         pointer-events: none; cursor: pointer;">
                         <i class="fa fa-plus"></i>
                       </button>
                     </label>
                     <button *ngIf="imageLoaded" type="button" class="btn btn-danger btn-circle btn-del-img"
-                        style="position: absolute; left: 5.2rem; bottom: 12rem;" (click)="delSelectedPicture()">
-                              <i class="fa fa-times"></i>
+                      style="position: absolute; left: 5.2rem; bottom: 12rem;" (click)="delSelectedPicture()">
+                      <i class="fa fa-times"></i>
                     </button>
                     <h6 class="text-center stepper-text">Upload a picture or select an Avatar</h6>
                     <div class="row">
                       <div class="col-3 mx-auto">
-                        <img src="assets/img/worker.png" class="avatar-img" alt="Responsive image"
-                          title="workman" (click)="uploadAvatar($event)">
+                        <img src="assets/img/worker.png" class="avatar-img" alt="Responsive image" title="workman"
+                          (click)="uploadAvatar($event)">
                       </div>
                       <div class="col-3 mx-auto">
                         <img src="assets/img/officer.png" class="avatar-img" alt="Responsive image"
                           title="office worker" (click)="uploadAvatar($event)">
                       </div>
                       <div class="col-3 mx-auto">
-                        <img src="assets/img/worker-2.png" class="avatar-img" alt="Responsive image"
-                          title="hard-worker" (click)="uploadAvatar($event)">
+                        <img src="assets/img/worker-2.png" class="avatar-img" alt="Responsive image" title="hard-worker"
+                          (click)="uploadAvatar($event)">
                       </div>
                       <div class="col-3 mx-auto">
-                        <img src="assets/img/lawyer.png" class="avatar-img" alt="Responsive image"
-                          title="employee" (click)="uploadAvatar($event)">
+                        <img src="assets/img/lawyer.png" class="avatar-img" alt="Responsive image" title="employee"
+                          (click)="uploadAvatar($event)">
                       </div>
                     </div>
                   </div>
@@ -134,7 +136,8 @@
                     <p style="color:#bebcbe;font-size:0.85rem">You need to select the region you'll work in!</p>
                   </div>
                   <div class="col-12 px-0 mx-0 h-100">
-                    <app-multi-select [selectedDivisions]="countryDivisions" (selected)="onDivisionsSelect($event)"></app-multi-select>
+                    <app-multi-select [selectedDivisions]="countryDivisions" (selected)="onDivisionsSelect($event)">
+                    </app-multi-select>
                     <div class="row justify-content-center">
                       {{divisions}}
                     </div>
@@ -146,23 +149,20 @@
                   <div class="col-12">
                     <div class="form-group row py-5 mx-auto">
                       <label for="checkInput" class="stepper-text">Select a Service!</label>
-                      <ng-select [multiple]="true"
-                        formControlName="services"
-                        [items]="countryDivisions"
-                        groupBy="divisions"
-                        [selectableGroup]="true"
-                        [selectableGroupAsModel]="false"
-
-                        placeholder="Select your services"
-                        [closeOnSelect]="false" bindLabel="nameEs" bindValue="id">
-                  <ng-template ng-optgroup-tmp let-item="item" let-item$="item$" let-index="index">
-                    <input id="item-{{index}}" type="checkbox" [ngModel]="item$.selected" />
-                    {{item.nameEs | uppercase}}
-                  </ng-template>
-                  <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
-                    <input id="item-{{index}}" type="checkbox" [ngModel]="item$.selected" /> {{item.nameEs}}
-                  </ng-template>
-                </ng-select>
+                      <ng-select
+                          [items]="services"
+                          [multiple]="true"
+                          [closeOnSelect]="false"
+                          [hideSelected]="true"
+                          bindLabel="descriptionEs"
+                          bindLabel="descriptionEs"
+                          bindValue="id"
+                          [searchFn]="customSearchFn"
+                          [(ngModel)]="selectedServices">
+                          <ng-template ng-option-tmp let-item="item">
+                              {{item.descriptionEs}}
+                          </ng-template>
+                      </ng-select>
                     </div>
                   </div>
                 </div>
@@ -184,42 +184,44 @@
                     <label for="curriculumUpload" id="curriculumUpload">
                       <div class="upload-btn-wrapper">
                         <button class="btn-uploadcv"><i class="far fa-folder fa-3x"></i></button>
-                        <input type="file" name="myfile" accept="pdf/*" formControlName="curriculum" class="form-control-file"
-                          (change)="uploadCV($event)" />
+                        <input type="file" name="myfile" accept="pdf/*" formControlName="curriculum"
+                          class="form-control-file" (change)="uploadCV($event)" />
                       </div>
                     </label>
                   </div>
 
-                    <div *ngIf="uploadedCV" class="card col-4 my-0" style="border:transparent">
-                      <div class="row" style="background-color: #2982c1;margin-left: 0;margin-right: 0;">
-                        <div class="col-12 text-center my-0" style="background-color: #2982c1;">
-                          <i class="far fa-folder-open fa-2x my-2" style="color: #fff;"></i>
-                          <hr style="border: 0.5px solid white;margin-bottom: 0; margin-top: 0;">
-                        </div>
+                  <div *ngIf="uploadedCV" class="card col-4 my-0" style="border:transparent">
+                    <div class="row" style="background-color: #2982c1;margin-left: 0;margin-right: 0;">
+                      <div class="col-12 text-center my-0" style="background-color: #2982c1;">
+                        <i class="far fa-folder-open fa-2x my-2" style="color: #fff;"></i>
+                        <hr style="border: 0.5px solid white;margin-bottom: 0; margin-top: 0;">
                       </div>
-                      <div class="row" style="background-color: #2982c1;margin-left: 0;margin-right: 0; padding-bottom: 0.2rem;">
-                        <div class="col-6 text-center mt-0" style="padding:0">
-                          <button class="btn btn-link" data-toggle="modal" data-target="#viewCVModal">
-                            <i class="fas fa-eye" style="color: #fff;font-size: 0.75rem;"></i>
-                          </button>
-                        </div>
-                        <div class="col-6 text-center mt-0" style="padding:0">
-                          <button class="btn btn-link" data-toggle="modal" data-target="#deleteCVModal">
-                            <i class="fas fa-trash-alt" style="color: #fff;font-size: 0.75rem;"></i>
-                          </button>
-                        </div>
+                    </div>
+                    <div class="row"
+                      style="background-color: #2982c1;margin-left: 0;margin-right: 0; padding-bottom: 0.2rem;">
+                      <div class="col-6 text-center mt-0" style="padding:0">
+                        <button class="btn btn-link" data-toggle="modal" data-target="#viewCVModal">
+                          <i class="fas fa-eye" style="color: #fff;font-size: 0.75rem;"></i>
+                        </button>
                       </div>
-                      <div class="card-footer" style="padding:0; background-color: white;">
-                        <div class="row" style="margin: 0;">
-                          <div class="col-12 text-left" style="padding:0">
-                            <small class="text-muted" style="font-weight: bold;font-size: 0.8rem;">Curriculum</small>
-                          </div>
-                          <div class="col-12 text-left" style="padding:0;">                            
-                            <small class="text-muted" style="font-size: 0.8rem;">{{currentDate | date:'yyyy-MM-dd'}}</small>
-                          </div>
+                      <div class="col-6 text-center mt-0" style="padding:0">
+                        <button class="btn btn-link" data-toggle="modal" data-target="#deleteCVModal">
+                          <i class="fas fa-trash-alt" style="color: #fff;font-size: 0.75rem;"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <div class="card-footer" style="padding:0; background-color: white;">
+                      <div class="row" style="margin: 0;">
+                        <div class="col-12 text-left" style="padding:0">
+                          <small class="text-muted" style="font-weight: bold;font-size: 0.8rem;">Curriculum</small>
+                        </div>
+                        <div class="col-12 text-left" style="padding:0;">
+                          <small class="text-muted"
+                            style="font-size: 0.8rem;">{{currentDate | date:'yyyy-MM-dd'}}</small>
                         </div>
                       </div>
                     </div>
+                  </div>
 
                 </div>
               </div>
@@ -228,10 +230,11 @@
               </div>
               <div [hidden]="role==='CLIENT'" id="resume" class="content container fade">
                 <div class="form-group row py-2 text-center" id="form-group-comments">
-                    <label for="commentsInput" class="stepper-text">Resume</label>
-                    <textarea class="form-control" id="commentsInputText" style="height: 12rem;" formControlName="comments"
-                      placeholder="Enter some comments about your skills and previous jobs to enrich your profile..."></textarea>
-                  </div>
+                  <label for="commentsInput" class="stepper-text">Resume</label>
+                  <textarea class="form-control" id="commentsInputText" style="height: 12rem;"
+                    formControlName="comments"
+                    placeholder="Enter some comments about your skills and previous jobs to enrich your profile..."></textarea>
+                </div>
               </div>
             </form>
           </div>

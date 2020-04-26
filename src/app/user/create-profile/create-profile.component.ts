@@ -14,6 +14,8 @@ import { CountryService } from '../services/country.service';
 import { DatePipe } from '@angular/common';
 import { LoadingService } from '@app/services/loading.service';
 import { MessagesService } from '@app/services/messages.service';
+import { Service } from '../models/services.model';
+import { ServicesService } from '../services/services.service';
 
 @Component({
   selector: 'app-create-profile',
@@ -39,7 +41,51 @@ export class CreateProfileComponent implements OnInit {
   countryDivisions: number[] = [];
   myDate = new Date();
   currentDate: string;
+  selectedServices: number[];
 
+  services: Service[];
+  // = [
+  //   {
+  //     id: 1,
+  //     shortDescription: 'Consulta de información legal y consejo',
+  //     descriptionEs: 'Consulta de información legal y consejo',
+  //     descriptionEn: 'Consultation for legal information and advice',
+  //     descriptionFr: null,
+  //     keywords: ['Servicios Legales', 'Leyes y Seguridad Pública', 'inf']
+  //   },
+  //   {
+  //     id: 2,
+  //     shortDescription: 'Preparacion de documentos',
+  //     descriptionEs: 'Preparacion de documentos',
+  //     descriptionEn: 'Preparation of documents',
+  //     descriptionFr: null,
+  //     keywords: ['Servicios Legales', 'Leyes y Seguridad Pública']
+  //   },
+  //   {
+  //     id: 3,
+  //     shortDescription: 'Representacion de clientes en negociaciones',
+  //     descriptionEs: 'Representacion de clientes en negociaciones',
+  //     descriptionEn: 'Representing clients in negotiations',
+  //     descriptionFr: null,
+  //     keywords: ['Servicios Legales', 'Leyes y Seguridad Pública']
+  //   },
+  //   {
+  //     id: 4,
+  //     shortDescription: 'Consultor de recursos Humanos',
+  //     descriptionEs: 'Consultor de recursos Humanos',
+  //     descriptionEn: 'Human Resource Consultant',
+  //     descriptionFr: null,
+  //     keywords: ['Agente', 'Administracion y Negocios']
+  //   },
+  //   {
+  //     id: 5,
+  //     shortDescription: 'Profesor de animacion',
+  //     descriptionEs: 'Profesor de animacion',
+  //     descriptionEn: 'Teaching on Animation',
+  //     descriptionFr: null,
+  //     keywords: ['Arte y multimedia', 'Servicios de animacion', 'Arte, Diseño y Entretenimiento', 'Educación']
+  //   }
+  // ];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -48,6 +94,7 @@ export class CreateProfileComponent implements OnInit {
     private briefcaseService: BriefcaseService,
     private errorService: ErrorService,
     private countryService: CountryService,
+    private servicesService: ServicesService,
     private loadingService: LoadingService,
     private messages: MessagesService,
     private router: Router,
@@ -73,6 +120,9 @@ export class CreateProfileComponent implements OnInit {
 
   ngOnInit() {
     this.countries$ = this.countryService.get();
+    this.servicesService.getAll().subscribe(
+      services => this.services = services
+    );
 
     this.stepper = new Stepper(document.querySelector('#stepper1'), {
       linear: false,
@@ -131,6 +181,7 @@ export class CreateProfileComponent implements OnInit {
       user_profile_account: this.profileForm.value.accountType,
       name: this.name.value,
       divisions: this.countryDivisions,
+      services: this.selectedServices,
       user_profile_briefcase: this.briefcaseService.briefcases.map(item => {
         return {
           comments: item.comments,
@@ -210,6 +261,14 @@ export class CreateProfileComponent implements OnInit {
   selectDivision(division: DivisionElement) {
     // this.divisions = (division.divisions as Array<any>).map(elem => elem.nameEs);
     console.log(division);
+  }
+
+  customSearchFn(term: string, item: Service) {
+    term = term.toLowerCase();
+    return (
+      item.descriptionEs.toLowerCase().indexOf(term) > -1 ||
+      item.keywords.filter(x => x.toLowerCase().includes(term)).length > 0
+    );
   }
 
   delSelectedPicture(){

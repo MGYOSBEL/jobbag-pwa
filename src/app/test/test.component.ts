@@ -14,7 +14,7 @@ import { distinctUntilChanged, switchMap } from 'rxjs/operators';
 export class TestComponent implements OnInit {
 
   services$: Observable<Service[]>;
-  searchInput$ = new Subject<string>();
+  // searchInput$ = new Subject<string>();
   selectedServices: number[];
 
   // services: Service[];
@@ -68,56 +68,29 @@ export class TestComponent implements OnInit {
   countries$: Observable<Country>;
   constructor(
     private countryService: CountryService,
-    private servicesServ: ServicesService
-  ) {}
+    private servicesService: ServicesService
+  ) { }
 
 
   ngOnInit() {
     this.countries$ = this.countryService.get();
-    this.loadServices();
-    // this.servicesServ.getAll().subscribe(
-    //   services => this.services = services
-    // );
+    this.services$ = this.servicesService.getAll();
   }
 
-customSearchFn(term: string, item: Service) {
-  term = term.toLowerCase();
-  return (
-    item.descriptionEs.toLowerCase().indexOf(term) > -1 ||
-    item.keywords.filter(x => x.toLowerCase().includes(term)).length > 0
-  );
-}
-
-onSearch($event){
-  console.log($event);
-}
-
-trackByFn(item: Service) {
-  return item.id;
-}
-
-private loadServices() {
-  this.services$ = concat(
-    of([]), // default items
-    this.searchInput$.pipe(
-      distinctUntilChanged(),
-      switchMap(term => this.getService(term))
-    )
-  );
-}
-
-getService(term: string = null): Observable<Service[]> {
-  let items = (this.services);
-  if (term) {
-    items = items.filter(
-                x => x.descriptionEs.toLocaleLowerCase().indexOf(term.toLocaleLowerCase()) > -1);
+  customSearchFn(term: string, item: Service) {
+    term = term.toLowerCase();
+    return (
+      item.descriptionEs.toLowerCase().indexOf(term) > -1 ||
+      item.keywords.filter(x => x.toLowerCase().includes(term)).length > 0
+    );
   }
-  return of (items);
-}
 
+  onSearch($event) {
+    console.log($event);
+  }
 
-
-
-
+  trackByFn(item: Service) {
+    return item.id;
+  }
 
 }
