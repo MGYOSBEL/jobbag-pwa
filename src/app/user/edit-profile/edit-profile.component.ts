@@ -16,6 +16,8 @@ import { Country } from '../models/country.model';
 import { DatePipe } from '@angular/common';
 import { LoadingService } from '@app/services/loading.service';
 import { MessagesService } from '@app/services/messages.service';
+import { Service } from '../models/services.model';
+import { ServicesService } from '../services/services.service';
 
 @Component({
   selector: 'app-edit-profile',
@@ -41,10 +43,16 @@ export class EditProfileComponent implements OnInit {
   myDate = new Date();
   currentDate: string;
 
+  selectedServices: number[] = [];
+
+  services: Service[];
+
+
   constructor(
     private userService: UserService,
     private loadingService: LoadingService,
     private messages: MessagesService,
+    private servicesService: ServicesService,
     private userProfileService: UserProfileService,
     private mediaService: MediaService,
     private formBuilder: FormBuilder,
@@ -88,6 +96,7 @@ export class EditProfileComponent implements OnInit {
         // this.briefcaseService.briefcases = this.activeProfile.briefcases;
         this.defaultPicture = !this.activeProfile.picture.includes('uploads');
         this.previewUrl = `${environment.serverBaseURL}/${this.activeProfile.picture}`;
+        this.selectedServices = this.activeProfile.services;
       }
     }
   }
@@ -105,6 +114,9 @@ export class EditProfileComponent implements OnInit {
     //   }
     // );
     // this.editProfileForm.get('accountType').setValue('PERSONAL');
+    this.servicesService.getAll().subscribe(
+      services => this.services = services
+    );
 
     console.log('activeProfile: ', this.activeProfile.divisions);
   }
