@@ -278,7 +278,7 @@ export class CreateProfileComponent implements OnInit {
     this.imageBase64 = '';
   }
 
-  deleteCV(cv){
+  deleteCV() {
     this.cvBase64 = null;
     this.uploadedCV = false;
 

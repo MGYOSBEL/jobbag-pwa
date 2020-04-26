@@ -43,7 +43,7 @@ export class EditProfileComponent implements OnInit {
   myDate = new Date();
   currentDate: string;
 
-  selectedServices: number[] = [];
+  selectedServices: number[] = [1];
 
   services: Service[];
 
@@ -96,7 +96,7 @@ export class EditProfileComponent implements OnInit {
         // this.briefcaseService.briefcases = this.activeProfile.briefcases;
         this.defaultPicture = !this.activeProfile.picture.includes('uploads');
         this.previewUrl = `${environment.serverBaseURL}/${this.activeProfile.picture}`;
-        this.selectedServices = this.activeProfile.services;
+        // this.selectedServices = this.activeProfile.services;
       }
     }
   }
@@ -123,6 +123,14 @@ export class EditProfileComponent implements OnInit {
 
   toggleChangePassword(event) {
     this.changePassword = event.target.checked;
+  }
+
+  customSearchFn(term: string, item: Service) {
+    term = term.toLowerCase();
+    return (
+      item.descriptionEs.toLowerCase().indexOf(term) > -1 ||
+      item.keywords.filter(x => x.toLowerCase().includes(term)).length > 0
+    );
   }
 
   uploadPicture(event) {
