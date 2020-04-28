@@ -26,25 +26,30 @@ import { ServicesService } from '../services/services.service';
   providers: [DatePipe]
 })
 export class EditProfileComponent implements OnInit {
+
+  // Component related variables
   editProfileForm = new FormGroup({});
+  loggedUser: User;
+  role: string;
+  defaultPicture: boolean;
+  // Edit user related variables
   changePassword: boolean;
-  imageLoaded: boolean;
-  cvLoaded: boolean;
-  imageBase64: string;
-  previewUrl: string;
+  // Edit ProfileUser related variables
   activeProfile: UserProfile;
+  countryDivisions: number[];
+  // Edit CV related variables
+  cvLoaded: boolean;
   cvUrl: string;
   cvBase64: string;
+  // Edit profile Picture related variables
+  imageLoaded: boolean;
+  imageBase64: string;
+  previewUrl: string;
+
+
   profileName: AbstractControl;
-  role: string;
-  loggedUser: User;
-  countryDivisions: number[];
-  defaultPicture: boolean;
   myDate = new Date();
   currentDate: string;
-  ngSelServices = new FormControl();
-
-  // selectedServices: number[] = [1];
 
   services: Service[];
 
@@ -62,6 +67,7 @@ export class EditProfileComponent implements OnInit {
     private route: ActivatedRoute,
     private datePipe: DatePipe
   ) {
+
     this.currentDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
     this.changePassword = false;
     this.imageLoaded = false;
@@ -112,18 +118,6 @@ export class EditProfileComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.editProfileForm.get('accountType').valueChanges.subscribe(
-    //   value => {
-    //     if (value === 'PERSONAL') {
-    //       this.editProfileForm.get('accountName').enable();
-    //       this.profileName = this.editProfileForm.get('accountName');
-    //     } else if (value === '') {
-    //       this.editProfileForm.get('companyName').enable();
-    //       this.profileName = this.editProfileForm.get('accountName');
-    //     }
-    //   }
-    // );
-    // this.editProfileForm.get('accountType').setValue('PERSONAL');
     this.servicesService.getAll().subscribe(
       services => {
         this.services = services;
@@ -246,7 +240,7 @@ export class EditProfileComponent implements OnInit {
       divisions: this.role === 'SERVICE_PROVIDER' ? this.activeProfile.divisions : []
     };
 
-    console.log('profileEditRequest: '+ profileEditRequest);
+    console.log('profileEditRequest: ' + profileEditRequest);
 
     const profileEdit$ = this.userProfileService.edit(profileEditRequest);
 
@@ -256,7 +250,7 @@ export class EditProfileComponent implements OnInit {
     console.log('image: ', this.imageBase64);
     console.log('cv: ', this.cvBase64);
     const cvEdit$ = this.mediaService.editProfileCV(this.activeProfile.id, this.cvBase64);
-    const editProfileCall$ = combineLatest(
+    const editProfileCall$ = forkJoin(
       [
         this.imageLoaded ? imageEdit$ : of(1),
         this.cvLoaded ? cvEdit$ : of(1),
@@ -271,6 +265,7 @@ export class EditProfileComponent implements OnInit {
       res => {
 
         console.log('COMBINED RESPONSE: ', res);
+        this.userService.get(this.loggedUser.id).subscribe();
       },
       (err: []) => {
         const message = 'Error in the edit operation. Please, try again.';

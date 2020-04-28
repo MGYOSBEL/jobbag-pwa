@@ -78,12 +78,12 @@ export class UserCacheService {
   setProfilePicture(profileId: number, picture: string) {
     let user: User = JSON.parse(localStorage.getItem(USER));
     const index =  user.profiles.findIndex(profile => profile.id === profileId);
-    if (!! index) {
+    if (index > 0) {
       user.profiles[index].picture = picture;
     }
     localStorage.setItem(USER, JSON.stringify(user));
     this.subject.next(user);
-
+    console.log('user after picture update', user);
   }
 
 

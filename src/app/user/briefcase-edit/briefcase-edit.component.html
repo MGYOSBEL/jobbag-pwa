@@ -60,7 +60,7 @@ Operation Error!!
     <div class="modal-content rounded-0">
       <div class="modal-header py-1 rounded-0" style="background-color:#2985c4;color:white;">
         <p class="modal-title" id="exampleModalCenterTitle">Add a Briefcase</p>
-        <button type="button" class="close" style="color:white;" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" style="color:white;" data-dismiss="modal" aria-label="Close" (click)="resetForm()">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -73,7 +73,7 @@ Operation Error!!
                   <h4 class="text-center mt-1" style="color:#bebcbe ;">Work Samples</h4>
                   <div class="image-upload">
                     <label for="file-input">
-                      <img *ngIf="imageLoaded" [src]="previewUrl" class="loaded-img-responsive" 
+                      <img *ngIf="imageLoaded" [src]="previewUrl" class="loaded-img-responsive"
                             width="300" height="400" alt="Profile Picture" style="cursor: pointer;">
                       <img *ngIf="!imageLoaded" src="assets/img/default-image.png" class="loaded-img-responsive"
                         alt="default-image" title="Default Image" style="cursor: pointer;">

@@ -70,7 +70,7 @@ export class UserService {
   }
 
 
-  get(userId: string): Observable<User> {
+  get(userId: number): Observable<User> {
     // const user_id = JSON.parse(localStorage.getItem('bearerToken')).user_id;
     return this.http.get<APIResponse>(this.apiPath + '/user/get/' + userId).pipe(
       map(response => {

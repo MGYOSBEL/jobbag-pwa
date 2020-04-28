@@ -41,10 +41,9 @@ export class BriefcaseService {
 
     this.userService.loggedUser$.subscribe(
       user => {
-        if (!!user && user.profiles.length > 0) {
-          this.briefcases = user.profiles
-                                .find(elem => elem.userProfileType === 'SERVICE_PROVIDER')
-                                .briefcases;
+        if (!!user) {
+          const providerProfile = user.profiles.find(elem => elem.userProfileType === 'SERVICE_PROVIDER');
+          this.briefcases = providerProfile != null ? providerProfile.briefcases : [] ;
           this.subject.next(this.briefcases);
         }
       }
@@ -65,7 +64,7 @@ export class BriefcaseService {
   }
 
   reset() {
-    this.briefcases = this.userCacheService.getBriefcases() || [];
+    this.briefcases = this.userCacheService.getBriefcases();
     this.subject.next(this.briefcases);
     this.idCounter = this.briefcases.length;
 

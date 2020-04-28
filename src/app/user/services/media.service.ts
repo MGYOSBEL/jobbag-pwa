@@ -39,7 +39,7 @@ export class MediaService {
         }),
         tap(url => {
           this.userCacheService.setProfilePicture(request.user_profile_id, url);
-          console.log('mediaService picture edit: ', url);
+          // console.log('mediaService picture edit: ', url);
         })
       );
     }

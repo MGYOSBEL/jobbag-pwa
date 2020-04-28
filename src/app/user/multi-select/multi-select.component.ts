@@ -35,6 +35,7 @@ export class MultiSelectComponent implements OnInit {
     private countryService: CountryService
     ) {
       this.hideButtons = false;
+      console.log('buttons shown');
     }
 
   ngOnInit() {
