@@ -57,7 +57,7 @@ export class LoginComponent implements OnInit {
     this.loading = false;
     this.loginErr = {err: false};
     this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/user';
-    this.loadingService.loadingOn();
+
   }
 
   jobbagLogin() {

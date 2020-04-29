@@ -31,6 +31,7 @@
     "angularx-social-login": "^2.2.1",
     "bootstrap": "^4.4.1",
     "bs-stepper": "^1.7.0",
+    "jquery": "^3.5.0",
     "rfs": "^9.0.2",
     "rxjs": "^6.4.0",
     "tslib": "^1.10.0",
