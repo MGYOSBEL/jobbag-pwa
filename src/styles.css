@@ -1,6 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
 /* @import '../node_modules/bootstrap/dist/css/bootstrap-reboot.min.css'; */
-@import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 @import "../node_modules/bs-stepper/dist/css/bs-stepper.min.css";
 @import "../node_modules/@ng-select/ng-select/themes/material.theme.css";
 @import "./assets/icons/iconfont/style.css";
@@ -81,7 +80,7 @@
 .modal::-webkit-scrollbar, body::-webkit-scrollbar, .scroll-host::-webkit-scrollbar{
   width: 8px;
   height: 8px;
-} 
+}
 .modal::-webkit-scrollbar-track, body::-webkit-scrollbar-track, .scroll-host::-webkit-scrollbar-track{
   background-color:#BEBCBE;
   border-radius: 0;
