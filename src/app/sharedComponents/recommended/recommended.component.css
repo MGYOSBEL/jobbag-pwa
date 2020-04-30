@@ -18,6 +18,7 @@
     position: relative;
     font-size: 1.3rem;
 	background: #605c61;
+	cursor: pointer;
 }
 .arrow_box:after {
 	left: 100%;
@@ -32,9 +33,22 @@
 	border-left-color: #605c61;
 	border-width: 1rem;
 	margin-top: -1rem;
+	cursor: pointer;
 }
 
 .arrow-text{
 	font-family: 'Segoe UI';
 	color: #2787c4;
+}
+
+.arrow-text:hover{
+	color: #0f5d8d;
+}
+
+.arrow_box:hover {
+	background: #767277;
+}
+
+.arrow_box:hover::after {
+	border-left-color:  #767277;
 }

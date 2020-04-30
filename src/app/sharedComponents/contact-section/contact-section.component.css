@@ -33,6 +33,11 @@
     margin-top: 1rem;  
 }
 
+.btn-contactus:hover{
+    background-color: #2787c4;
+    color: white;
+}
+
 .tittle{
     font-size: 1rem;
     color: #2f057e;;
