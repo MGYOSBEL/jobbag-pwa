@@ -64,4 +64,45 @@ a, a:hover {
  cursor: pointer;
 }
 
+/*Overview 1250px*/
+@media (max-width: 1249.98px) {
+ .img-logo{
+   max-width: 50%!important;
+ }
+}
 
+/*Overview 1080px*/
+@media screen and (max-width: 1079.98px){
+  .img-logo{
+    max-width: 55%!important;
+  }
+ }
+
+ /*Overview 992px*/
+@media screen and (max-width: 991.98px) {
+.img-logo{
+  max-width: 60%!important;
+  }
+}
+
+
+/*Overview 840px*/
+@media (max-width: 840px) {
+  .img-logo{
+    max-width: 75%!important;
+    }
+}
+
+/*Overview 680px*/
+@media (max-width: 679.98px) {
+  .img-logo{
+    max-width: 90%!important;
+    }
+}
+
+/*Overview 576px*/
+@media (max-width: 575.98px) {
+  .img-logo{
+    max-width: 100%!important;
+    }
+}

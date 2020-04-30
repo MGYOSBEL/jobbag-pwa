@@ -1,26 +1,29 @@
-<div class="row container-fluid m-0 p-0" id="home-content">
-    <div class="col-6 m-0 p-0 pt-5 align-self-center">
-      <div class="row container-fluid justify-content-center">
-        <button type="button" class="btn btn-lg rounded-0 col-6" id="btn-left" (click)="hire()">
-          <p class="ml-5 text-btn text-wrap"  i18n="role btn-right|role btn-right title@@role btn-right">I need a Service</p>
-        </button>
-        </div>
-        <div class="row container-fluid justify-content-center">
-          <button type="button" class="btn btn-lg rounded-0 col-6" id="btn-right" (click)="work()">
-            <p class="mr-5 text-btn text-wrap" i18n="role btn-left|role btn-left title@@role btn-left">I want to work</p>
-          </button>
+<div class="container-fluid" style="background-color:#2985C4;">
+  <div class="row">
+      <div class="col-lg-6" style="margin: auto;">
+        <div class="col-12 text-center col-left-btn" style="padding-right: 1.5rem;">
+          <button type=" button" class="btn btn-lg rounded-0 col-6" id="btn-left" (click)="hire()">
+            <p class="text-btn text-center" i18n="role btn-right|role btn-right title@@role btn-right">I need a Service
+            </p>
+            </button>
           </div>
-          <div class="row container-fluid justify-content-center">
-            <p class="motivational-text col-6 text-wrap" i18n="role motivational-text|role motivational-text description@@role motivational-text">
+          <div class="col-12 text-center col-right-btn" style="padding-left: 1.5rem;">
+          <button type=" button" class="btn btn-lg rounded-0 col-6" id="btn-right" (click)="work()">
+            <p class="text-btn text-center" i18n="role btn-left|role btn-left title@@role btn-left">I want to work</p>
+            </button>
+          </div>
+          <div class="col-12 text-center">
+            <p class="motivational-text"
+              i18n="role motivational-text|role motivational-text description@@role motivational-text">
               Hire professionals for the Service you need
             </p>
           </div>
-      <div class="arrow_box"></div>
-
-    </div>
-    <div class="col-6 m-0 p-0">
-        <img src="assets/img/slider01.jpg" class="img-fluid"
-        style="border-left: #2985C4;max-width: 100%; height: auto;" class="jobbag-img" alt="Responsive image">
-    </div>
-
+      </div>
+      <div class="col-lg-6 p-0 m-0">
+          <img src="assets/img/slider01.jpg" class="img-fluid jobbag-img" style="border-left: #2985C4;"
+        alt="Responsive image">
+        <img src="assets/img/slider01-movil.jpg" class="img-fluid jobbag-img-movil" style="border-left: #2985C4;"
+        alt="Responsive image">
+      </div>
+  </div>
 </div>

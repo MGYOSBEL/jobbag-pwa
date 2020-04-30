@@ -1,7 +1,10 @@
+p{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
 .htd{
     font-family: Segoe UI;
-    font-size: 2rem;
-    color: #2787c4;
+    
 }
 
 .row{
@@ -9,19 +12,6 @@
     padding-right: 9rem;
     margin-top: 2rem!important;
     margin-bottom: 2rem!important;
-}
-
-.col-md-4{
-margin-right: initial;
-}
-
-.col-md-1{
-    margin-left: 1rem;
-    margin-right: 1rem;
-}
-
-.col-md-3{
-    text-align: center;
 }
 
 .rounded-circle{
