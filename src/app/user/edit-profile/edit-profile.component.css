@@ -159,8 +159,8 @@
 .fa-folder{
   color:white;
   background-color:#2985c4;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
 }
 
 #curriculumLabel{
@@ -168,7 +168,7 @@
   background-color: #f1f1f1;
   color: #6c757d;
   width: 15rem;
-  padding: 0.33rem;
+  padding: 0.26rem;
   text-align: left;
   margin-top: 0;
 }
@@ -178,7 +178,7 @@
   background-color: #00bfa5;
   color: white;
   width: 15rem;
-  padding: 0.33rem;
+  padding: 0.26rem;
   text-align: left;
   margin-top: 0;
 }
