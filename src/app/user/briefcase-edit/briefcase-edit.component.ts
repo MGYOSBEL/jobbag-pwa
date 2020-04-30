@@ -76,7 +76,7 @@ export class BriefcaseEditComponent implements OnInit {
 
   // EDIT BRIEFCASES SECTION
   editBriefcase(index: number) {
-
+    console.log(`${index}: ${typeof(index)}`);
     this.dataToForm(this.briefcases[index]);
     this.editedBriefcaseIndex = index;
   }
@@ -135,7 +135,7 @@ export class BriefcaseEditComponent implements OnInit {
       startDate: { year: parseInt(start[0], 10), month: parseInt(start[1], 10), day: parseInt(start[2], 10) },
       endDate: { year: parseInt(end[0], 10), month: parseInt(end[1], 10), day: parseInt(end[2], 10) },
     });
-    this.previewUrl = this.parsePictureUrl(briefcase.pictures[0]);
+    this.previewUrl = this.parsePictureUrl((briefcase.pictures != null) ? briefcase.pictures[0] : null);
     this.imageLoaded = this.previewUrl != null;
     console.log('image previewURL >>>>', this.previewUrl);
     console.log('image loaded >>>>', this.imageLoaded);
