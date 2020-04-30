@@ -34,6 +34,7 @@ export class CreateProfileComponent implements OnInit {
   cvBase64: string;
   imageLoaded: boolean;
   cvUrl: any;
+  cvFileName: string;
   name: AbstractControl;
   // countries$: Observable<Country[]>;
   divisions: string[];
@@ -251,6 +252,7 @@ export class CreateProfileComponent implements OnInit {
 
   uploadCV(event) {
     const file = (event.target as HTMLInputElement).files[0];
+    this.cvFileName = file.name;
     let reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = (_event) => {
@@ -259,7 +261,6 @@ export class CreateProfileComponent implements OnInit {
       this.uploadedCV = true;
     };
     console.log('CV:' + this.cvBase64);
-    this.showCVName();
   }
 
   selectDivision(division: DivisionElement) {
@@ -287,30 +288,24 @@ export class CreateProfileComponent implements OnInit {
     console.log('CV:' + this.cvBase64)//;
   }
 
-  showCVName(){
-    var input = document.getElementById( 'file-upload' );
-    var infoArea = document.getElementById( 'file-upload-filename' );
+  // showCVName(){
+  //   var input = document.getElementById( 'file-upload' );
+  //   var infoArea = document.getElementById( 'file-upload-filename' );
 
-    input.addEventListener( 'change', showFileName );
+  //   input.addEventListener( 'change', showFileName );
 
-    function showFileName( event ) {
+  //   function showFileName( event ) {
 
-      // the change event gives us the input it occurred in
-      var input = event.srcElement;
+  //     // the change event gives us the input it occurred in
+  //     var input = event.srcElement;
 
-      // the input has an array of files in the `files` property, each one has a name that you can use. We're just using the name here.
-      var fileName = input.files[0].name;
+  //     // the input has an array of files in the `files` property, each one has a name that you can use. We're just using the name here.
+  //     var fileName = input.files[0].name;
 
-      // use fileName however fits your app best, i.e. add it into a div
-      infoArea.textContent = fileName;
-    }
-   }
+  //     // use fileName however fits your app best, i.e. add it into a div
+  //     infoArea.textContent = fileName;
+  //   }
+  //  }
 
-  //  search = (text$: Observable<string>) =>
-  //    text$.pipe(
-  //      debounceTime(200),
-  //      distinctUntilChanged(),
-  //      map(term => term.length < 2 ? []
-  //        : states.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
-  //    )
+
 }

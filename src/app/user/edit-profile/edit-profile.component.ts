@@ -41,6 +41,7 @@ export class EditProfileComponent implements OnInit {
   cvLoaded: boolean;
   cvUrl: string;
   cvBase64: string;
+  cvFileName: string;
   // Edit profile Picture related variables
   imageLoaded: boolean;
   imageBase64: string;
@@ -71,7 +72,7 @@ export class EditProfileComponent implements OnInit {
     this.currentDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
     this.changePassword = false;
     this.imageLoaded = false;
-
+    this.cvLoaded = false;
 
     this.userService.role$.subscribe(role => {
       this.role = role;
@@ -95,43 +96,21 @@ export class EditProfileComponent implements OnInit {
       selectedServices: [this.activeProfile.services],
       comments: [this.activeProfile.comment]
     });
-    console.log('FORM' , this.activeProfile.services, this.editProfileForm.value);
-  }
-
-  private updateActiveProfile() {
-    if (!!this.loggedUser) {
-      this.activeProfile = this.loggedUser.profiles.find(profile => profile.userProfileType === this.role);
-      if (!!this.activeProfile) {
-        // this.briefcaseService.briefcases = this.activeProfile.briefcases;
-        this.defaultPicture = !this.activeProfile.picture.includes('uploads');
-        this.previewUrl = `${environment.serverBaseURL}/${this.activeProfile.picture}`;
-        // this.selectedServices = this.activeProfile.services;
-        this.editProfileForm.patchValue({
-          accountType: this.activeProfile.userProfileAccount,
-          accountName: this.activeProfile.name,
-          selectedServices: this.activeProfile.services,
-          comments: this.activeProfile.comment
-        });
-        console.log('activeProfile updated: ', this.activeProfile);
-      }
-    }
   }
 
   ngOnInit() {
     this.servicesService.getAll().subscribe(
       services => {
         this.services = services;
-        console.log(this.services);
       }
     );
-
-    console.log('activeProfile: ', this.activeProfile.divisions, this.activeProfile.services);
   }
 
   toggleChangePassword(event) {
     this.changePassword = event.target.checked;
   }
 
+  // Public method for Searching services
   customSearchFn(term: string, item: Service) {
     term = term.toLowerCase();
     return (
@@ -140,6 +119,7 @@ export class EditProfileComponent implements OnInit {
     );
   }
 
+  // Public method (event callback) for upload a picture as response to picture input file
   uploadPicture(event) {
     const file = (event.target as HTMLInputElement).files[0];
     let reader = new FileReader();
@@ -152,8 +132,8 @@ export class EditProfileComponent implements OnInit {
     };
   }
 
+  // Public method (event callback) for upload a picture as response to avatar selection
   uploadAvatar(event) {
-    console.clear();
     const file = event.target as HTMLImageElement;
     const dx = file.width;
     const dy = file.height;
@@ -173,25 +153,25 @@ export class EditProfileComponent implements OnInit {
     };
   }
 
+  // Public method (event callback) for upload a CV as response to CV input file
   uploadCV(event) {
-    this.showCVName();
     const file = (event.target as HTMLInputElement).files[0];
+    this.cvFileName = file.name;
     let reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = (_event) => {
       this.cvUrl = reader.result as string;
       this.cvBase64 = this.cvUrl.toString().split(',')[1];
       this.cvLoaded = true;
-      console.log(this.cvUrl);
     };
 
   }
 
+  // Edit profile method
   saveProfile() {
     console.clear();
     this.loadingService.loadingOff();
     console.log('ActiveProfile: ', this.activeProfile);
-
     // Editing the user
     const userEditRequest = {
       id: this.userService.loggedUser.id,
@@ -201,12 +181,11 @@ export class EditProfileComponent implements OnInit {
     };
     console.log('userEditRequest: ', userEditRequest);
     const userEdit$ = this.userService.edit(userEditRequest);
-
     // Editing the profile
     const briefcaseChangeLog = this.briefcaseService.getChangeLog();
     const add = briefcaseChangeLog.added.map(this.briefcaseToRequest)
       .map(bc => {
-          return {
+        return {
           comments: bc.comments,
           description: bc.description,
           end_date: bc.end_date,
@@ -219,7 +198,7 @@ export class EditProfileComponent implements OnInit {
     console.log('add: ', add,
       'upd: ', upd,
       'del: ', del);
-
+    // Making the profileEdit request
     const profileEditRequest = {
       client_id: environment.clientId,
       client_secret: environment.clientSecret,
@@ -246,7 +225,6 @@ export class EditProfileComponent implements OnInit {
 
     // Editing the picture and the cv
     const imageEdit$ = this.mediaService.editProfilePicture(this.activeProfile.id, this.imageBase64);
-
     console.log('image: ', this.imageBase64);
     console.log('cv: ', this.cvBase64);
     const cvEdit$ = this.mediaService.editProfileCV(this.activeProfile.id, this.cvBase64);
@@ -277,7 +255,6 @@ export class EditProfileComponent implements OnInit {
   }
 
   onCollapse(event) {
-
     console.log(event);
   }
 
@@ -287,9 +264,26 @@ export class EditProfileComponent implements OnInit {
 
   onDivisionsSelect(event) {
     this.activeProfile.divisions = event;
+  }
 
-    console.log('event: ', event);
-    console.log('activeProfile: ', this.activeProfile);
+  private updateActiveProfile() {
+    if (!!this.loggedUser) {
+      this.activeProfile = this.loggedUser.profiles.find(profile => profile.userProfileType === this.role);
+      if (!!this.activeProfile) {
+        // this.briefcaseService.briefcases = this.activeProfile.briefcases;
+        this.cvLoaded = !this.activeProfile.cv.includes('uploads');
+        this.defaultPicture = !this.activeProfile.picture.includes('uploads');
+        this.previewUrl = `${environment.serverBaseURL}/${this.activeProfile.picture}`;
+        // this.selectedServices = this.activeProfile.services;
+        this.editProfileForm.patchValue({
+          accountType: this.activeProfile.userProfileAccount,
+          accountName: this.activeProfile.name,
+          selectedServices: this.activeProfile.services,
+          comments: this.activeProfile.comment
+        });
+        console.log('activeProfile updated: ', this.activeProfile);
+      }
+    }
   }
 
   private briefcaseToRequest(bc: UserProfileBriefcase) {
@@ -303,36 +297,32 @@ export class EditProfileComponent implements OnInit {
     };
   }
 
-   delSelectedPicture() {
-     this.defaultPicture = true;
-     this.imageBase64 = '';
+  delSelectedPicture() {
+    this.defaultPicture = true;
+    this.imageBase64 = '';
+  }
 
-     console.log(this.imageBase64);
-   }
-
-   deleteCV() {
+  deleteCV() {
     this.cvLoaded = false;
-    delete(this.cvBase64);
+    delete (this.cvBase64);
+  }
 
-    console.log('cv' + this.cvBase64);
-   }
+  // showCVName() {
+  //   let input = document.getElementById('file-upload');
+  //   let infoArea = document.getElementById('file-upload-filename');
 
-   showCVName(){
-    var input = document.getElementById( 'file-upload' );
-    var infoArea = document.getElementById( 'file-upload-filename' );
+  //   input.addEventListener('change', showFileName);
 
-    input.addEventListener( 'change', showFileName );
+  //   function showFileName(event) {
 
-    function showFileName( event ) {
+  //     // the change event gives us the input it occurred in
+  //     let input = event.srcElement;
 
-      // the change event gives us the input it occurred in
-      var input = event.srcElement;
+  //     // the input has an array of files in the `files` property, each one has a name that you can use. We're just using the name here.
+  //     let fileName = input.files[0].name;
 
-      // the input has an array of files in the `files` property, each one has a name that you can use. We're just using the name here.
-      var fileName = input.files[0].name;
-
-      // use fileName however fits your app best, i.e. add it into a div
-      infoArea.textContent = fileName;
-    }
-   }
+  //     // use fileName however fits your app best, i.e. add it into a div
+  //     infoArea.textContent = fileName;
+  //   }
+  // }
 }
