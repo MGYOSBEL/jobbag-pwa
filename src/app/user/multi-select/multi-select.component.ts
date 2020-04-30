@@ -30,7 +30,7 @@ export class MultiSelectComponent implements OnInit {
 
 
 
-  countries$: Observable<Country>;
+  countries$: Observable<Country[]>;
   constructor(
     private countryService: CountryService
     ) {

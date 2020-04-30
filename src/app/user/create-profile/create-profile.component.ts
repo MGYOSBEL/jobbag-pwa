@@ -35,7 +35,7 @@ export class CreateProfileComponent implements OnInit {
   imageLoaded: boolean;
   cvUrl: any;
   name: AbstractControl;
-  countries$: Observable<Country>;
+  // countries$: Observable<Country[]>;
   divisions: string[];
   activeStep: number;
   countryDivisions: number[] = [];
@@ -121,7 +121,6 @@ export class CreateProfileComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.countries$ = this.countryService.get();
     this.servicesService.getAll().subscribe(
       services => this.services = services
     );

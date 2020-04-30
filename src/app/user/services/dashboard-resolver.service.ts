@@ -10,6 +10,7 @@ import { ScholarshipService } from './scholarship.service';
 import { ProfessionService } from './profession.service';
 import { LoadingService } from '@app/services/loading.service';
 import { MessagesService } from '@app/services/messages.service';
+import { CountryService } from './country.service';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,7 @@ export class DashboardResolverService implements Resolve<User> {
     private userService: UserService,
     private scholarshipService: ScholarshipService,
     private professionService: ProfessionService,
+    private countryService: CountryService,
     private authenticationService: AuthenticationService,
     private messages: MessagesService,
     private loadingService: LoadingService,
@@ -51,8 +53,7 @@ export class DashboardResolverService implements Resolve<User> {
           return throwError(err);
         }),
         tap(() => {
-          this.scholarshipService.getAll(true).subscribe();
-          this.professionService.getAll(true).subscribe();
+          this.countryService.get().subscribe(); // Llamo al country para que quede en cache
           this.loadingService.loadingOff();
         })
       );

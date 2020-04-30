@@ -65,7 +65,7 @@ export class TestComponent implements OnInit {
   // selectedServices: Service[];
 
 
-  countries$: Observable<Country>;
+  countries$: Observable<Country[]>;
   constructor(
     private countryService: CountryService,
     private servicesService: ServicesService
