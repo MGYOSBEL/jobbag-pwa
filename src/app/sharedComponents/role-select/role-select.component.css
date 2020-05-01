@@ -50,56 +50,10 @@
   display: none;
 }
 
-/*Overview 1250px*/
-@media screen and (max-width: 1249.98px) {
-  .col-left-btn{
-    padding-right: 2rem !important;
-  }  
-  
-  .col-right-btn{
-    padding-left: 2rem !important;
-  } 
-
-  .text-btn {
-    font-size: 1.60rem !important;
-  }
-  .motivational-text {
-    font-size: 1.5rem !important;
-  }
-}
-
-/*Overview 1080px*/
-@media screen and (max-width: 1079.98px) {  
-   
-  .text-btn {
-      font-size: 1.5rem !important;
-    }
-  
-  .motivational-text {
-      font-size: 1rem !important;
-    }
-}
-
 /*Overview 992px*/
 @media screen and (max-width: 991.98px) {
-  .col-lg-6{
+  .col-sm-12{
     padding-top: 4rem;
-    }
-  
-  .col-left-btn{
-    padding-right: 2.5rem !important;
-  }  
-  
-  .col-right-btn{
-    padding-left: 2.5rem !important;
-  }   
-
-  .text-btn {
-      font-size: 2.5rem !important;
-    }
-  
-  .motivational-text {
-      font-size: 1.5rem !important;
     }
 
   .jobbag-img{
@@ -110,33 +64,25 @@
     display: block !important;
     width: 100%;
   }
-}
 
-/*Overview 840px*/
-@media (max-width: 840px) {
-  .text-btn {
-      font-size: 2rem !important;
-    }
-}
-
-/*Overview 680px*/
-@media (max-width: 679.98px) {
-  .text-btn {
-      font-size: 1.75rem !important;
-    }
-  
-  .motivational-text {
-      font-size: 1.25rem !important;
-    }
-}
+  .col-sm-8{
+    text-align: center;
+  }
+} 
 
 /*Overview 576px*/
 @media (max-width: 575.98px) {
+  .col-sm-8{
+    text-align: center;
+  }
+}
+
+/*Overview 359px*/
+@media (max-width: 359.98px) {
   .text-btn {
-      font-size: 1.5rem !important;
-    }
-  
+    font-size: 1.60rem !important;
+  }
   .motivational-text {
-      font-size: 1.0rem !important;
-    }
+    font-size: 1.5rem !important;
+  }
 }
