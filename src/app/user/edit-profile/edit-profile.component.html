@@ -237,11 +237,11 @@
                           <div class="col-2">
                           </div>
                           <div class="col-4 pr-0">
-                            <label *ngIf="!cvLoaded" for="curriculumLabel" id="curriculumLabel">
-                              <p *ngIf="!cvLoaded">Upload File</p>
+                            <label *ngIf="!(cvChange === 'LOADED')" for="curriculumLabel" id="curriculumLabel">
+                              <p *ngIf="!(cvChange === 'LOADED')">Upload File</p>
                             </label>
-                            <label *ngIf="cvLoaded" for="curriculumLabel" id="curriculumLabelSuccess">
-                              <p *ngIf="cvLoaded">File Upload Succes</p>
+                            <label *ngIf="(cvChange === 'LOADED')" for="curriculumLabel" id="curriculumLabelSuccess">
+                              <p *ngIf="(cvChange === 'LOADED')">File Upload Succes</p>
                             </label>
                           </div>
                           <div class="col-3 pl-0">
@@ -253,7 +253,7 @@
                               </div>
                             </label>
                           </div>
-                          <div *ngIf="cvLoaded" class="card col-4 my-0" style="border:transparent; margin-bottom: 1.5rem;">
+                          <div *ngIf="(cvChange === 'LOADED')" class="card col-4 my-0" style="border:transparent; margin-bottom: 1.5rem;">
                             <div class="row" style="background-color: #2982c1;margin-left: 0;margin-right: 0;">
                               <div class="col-12 text-center my-0" style="background-color: #2982c1;">
                                 <i class="far fa-folder-open fa-2x my-2" style="color: #fff;"></i>

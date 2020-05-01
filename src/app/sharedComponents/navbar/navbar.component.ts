@@ -136,7 +136,7 @@ export class NavbarComponent implements OnInit {
       this.userId = this.authenticationService.getLoggedUserId();
       this.activeProfile = this.loggedUser.profiles.find(profile => profile.userProfileType === this.role);
       if (this.activeProfile) {
-        this.defaultPicture = !this.activeProfile.picture.includes('uploads');
+        this.defaultPicture = this.activeProfile.picture == null;
         this.userImageUrl = environment.serverBaseURL + '/' + this.activeProfile.picture;
         console.log('defaultPicture: ', this.defaultPicture, 'userImageUrl: ', this.userImageUrl);
       }

@@ -61,7 +61,7 @@ export class BriefcaseEditComponent implements OnInit {
   saveBriefCase() {
     const bc = this.formToData();
     if (this.editedBriefcaseIndex != null) { // Si this.editedBriefcaseIndex != null es q estoy editando
-      this.opSucceed = this.briefcaseService.editLocal(bc);
+      this.opSucceed = this.briefcaseService.editLocal({...bc});
       console.log('Editing...');
       console.log(bc);
     } else { // Si this.editedBriefcaseIndex == null es q estoy creando

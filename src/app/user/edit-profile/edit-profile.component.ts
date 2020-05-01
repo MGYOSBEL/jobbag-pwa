@@ -38,12 +38,16 @@ export class EditProfileComponent implements OnInit {
   activeProfile: UserProfile;
   countryDivisions: number[];
   // Edit CV related variables
-  cvLoaded: boolean;
+  // cvLoaded: boolean;
+  // cvDelete: boolean; // true when want to delete the cv
+  cvChange: string; // null || 'LOADED' || 'DELETED'
   cvUrl: string;
   cvBase64: string;
   cvFileName: string;
   // Edit profile Picture related variables
-  imageLoaded: boolean;
+  // imageLoaded: boolean;
+  // pictureDelete: boolean; // true when want to delete picture
+  imageChange: string; // null || 'LOADED' || 'DELETED'
   imageBase64: string;
   previewUrl: string;
 
@@ -71,8 +75,13 @@ export class EditProfileComponent implements OnInit {
 
     this.currentDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
     this.changePassword = false;
-    this.imageLoaded = false;
-    this.cvLoaded = false;
+    // this.imageLoaded = false;
+    // this.cvLoaded = false;
+    // this.cvDelete = false;
+    // this.pictureDelete = false;
+    this.cvChange = null;
+    this.imageChange = null;
+
 
     this.userService.role$.subscribe(role => {
       this.role = role;
@@ -127,8 +136,10 @@ export class EditProfileComponent implements OnInit {
     reader.onload = (_event) => {
       this.previewUrl = reader.result as string;
       this.imageBase64 = this.previewUrl.toString().split(',')[1];
-      this.imageLoaded = true;
+      // this.imageLoaded = true;
       this.defaultPicture = false;
+      // this.pictureDelete = false;
+      this.imageChange = 'LOADED';
     };
   }
 
@@ -148,7 +159,8 @@ export class EditProfileComponent implements OnInit {
       let dataUrl = canvas.toDataURL('image/png');
       this.previewUrl = file.src;
       this.imageBase64 = dataUrl.toString().split(',')[1];
-      this.imageLoaded = true;
+      // this.imageLoaded = true;
+      this.imageChange = 'LOADED';
       this.defaultPicture = false;
     };
   }
@@ -162,7 +174,9 @@ export class EditProfileComponent implements OnInit {
     reader.onload = (_event) => {
       this.cvUrl = reader.result as string;
       this.cvBase64 = this.cvUrl.toString().split(',')[1];
-      this.cvLoaded = true;
+      // this.cvLoaded = true;
+      // this.cvDelete = false;
+      this.cvChange = 'LOADED';
     };
 
   }
@@ -224,14 +238,40 @@ export class EditProfileComponent implements OnInit {
     const profileEdit$ = this.userProfileService.edit(profileEditRequest);
 
     // Editing the picture and the cv
-    const imageEdit$ = this.mediaService.editProfilePicture(this.activeProfile.id, this.imageBase64);
-    console.log('image: ', this.imageBase64);
-    console.log('cv: ', this.cvBase64);
-    const cvEdit$ = this.mediaService.editProfileCV(this.activeProfile.id, this.cvBase64);
+    let imageEdit$;
+    switch (this.imageChange) {
+      case 'LOADED':
+        imageEdit$ = this.mediaService.editProfilePicture(this.activeProfile.id, this.imageBase64);
+        break;
+        case 'DELETED':
+        imageEdit$ = this.mediaService.deleteProfilePicture(this.activeProfile.id, this.activeProfile.picture);
+        break;
+      default:
+        imageEdit$ = of (1);
+        break;
+    }
+
+    let cvEdit$;
+    switch (this.cvChange) {
+      case 'LOADED':
+        cvEdit$ = this.mediaService.editProfileCV(this.activeProfile.id, this.cvBase64);
+        break;
+        case 'DELETED':
+        cvEdit$ = this.mediaService.deleteProfileCV(this.activeProfile.id, this.activeProfile.cv);
+        break;
+      default:
+        cvEdit$ = of (1);
+        break;
+    }
+
+    // console.log('cv: ', this.cvBase64);
+    // const cvEdit$ = this.cvDelete ? // if cv delete flag is activated cvEdit$ call is for delete
+    //                 this.mediaService.deleteProfileCV(this.activeProfile.id, this.activeProfile.cv) :
+    //                 this.mediaService.editProfileCV(this.activeProfile.id, this.cvBase64);
     const editProfileCall$ = forkJoin(
       [
-        this.imageLoaded ? imageEdit$ : of(1),
-        this.cvLoaded ? cvEdit$ : of(1),
+        imageEdit$,
+        cvEdit$,
         userEdit$,
         profileEdit$
       ]
@@ -271,8 +311,9 @@ export class EditProfileComponent implements OnInit {
       this.activeProfile = this.loggedUser.profiles.find(profile => profile.userProfileType === this.role);
       if (!!this.activeProfile) {
         // this.briefcaseService.briefcases = this.activeProfile.briefcases;
-        this.cvLoaded = !this.activeProfile.cv.includes('uploads');
-        this.defaultPicture = !this.activeProfile.picture.includes('uploads');
+        this.cvChange = this.activeProfile.cv != null ? 'LOADED' : null ;
+        console.log(this.cvChange);
+        this.defaultPicture = this.activeProfile.picture == null;
         this.previewUrl = `${environment.serverBaseURL}/${this.activeProfile.picture}`;
         // this.selectedServices = this.activeProfile.services;
         this.editProfileForm.patchValue({
@@ -300,29 +341,13 @@ export class EditProfileComponent implements OnInit {
   delSelectedPicture() {
     this.defaultPicture = true;
     this.imageBase64 = '';
+    this.imageChange = 'DELETED';
   }
 
   deleteCV() {
-    this.cvLoaded = false;
-    delete (this.cvBase64);
-  }
+    // this.cvLoaded = false;
+    // this.cvDelete = true;
+    this.cvChange = 'DELETED';
+    }
 
-  // showCVName() {
-  //   let input = document.getElementById('file-upload');
-  //   let infoArea = document.getElementById('file-upload-filename');
-
-  //   input.addEventListener('change', showFileName);
-
-  //   function showFileName(event) {
-
-  //     // the change event gives us the input it occurred in
-  //     let input = event.srcElement;
-
-  //     // the input has an array of files in the `files` property, each one has a name that you can use. We're just using the name here.
-  //     let fileName = input.files[0].name;
-
-  //     // use fileName however fits your app best, i.e. add it into a div
-  //     infoArea.textContent = fileName;
-  //   }
-  // }
 }
