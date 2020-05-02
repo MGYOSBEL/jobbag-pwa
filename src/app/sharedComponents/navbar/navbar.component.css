@@ -64,6 +64,15 @@ a, a:hover {
  cursor: pointer;
 }
 
+.active{
+  background-color: #f7f8f9;
+}
+
+.dropdown-item:active{
+  background-color:#ebeef3;
+}
+
+
 /*Overview 1250px*/
 @media (max-width: 1249.98px) {
  .img-logo{
