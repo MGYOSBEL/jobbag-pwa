@@ -35,6 +35,7 @@ export class CreateProfileComponent implements OnInit {
   imageLoaded: boolean;
   cvUrl: any;
   cvFileName: string;
+  cvFile: any;
   name: AbstractControl;
   // countries$: Observable<Country[]>;
   divisions: string[];
@@ -254,12 +255,15 @@ export class CreateProfileComponent implements OnInit {
     const file = (event.target as HTMLInputElement).files[0];
     this.cvFileName = file.name;
     let reader = new FileReader();
+
     reader.readAsDataURL(file);
+
     reader.onload = (_event) => {
       this.cvUrl = reader.result;
       this.cvBase64 = this.cvUrl.toString().split(',')[1];
       this.uploadedCV = true;
     };
+
     console.log('CV:' + this.cvBase64);
   }
 
@@ -276,7 +280,7 @@ export class CreateProfileComponent implements OnInit {
     );
   }
 
-  delSelectedPicture(){
+  delSelectedPicture() {
     this.imageLoaded = false;
     this.imageBase64 = '';
   }
@@ -285,7 +289,16 @@ export class CreateProfileComponent implements OnInit {
     this.cvBase64 = null;
     this.uploadedCV = false;
 
-    console.log('CV:' + this.cvBase64)//;
+    console.log('CV:' + this.cvBase64) //;
+  }
+
+  viewCV() {
+    // let myWindow = window.open("", "MsgWindow", "width=600,height=600");
+    // myWindow.document.write("<p>This is 'MsgWindow'. I am 200px wide and 100px tall!</p>");
+    // myWindow.document.write(`<iframe src=${this.cvUrl} style='width: 100%'></iframe>`);
+  }
+
+  cvViewerLoaded(pdf) {
   }
 
   // showCVName(){

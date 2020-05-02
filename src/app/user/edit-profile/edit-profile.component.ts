@@ -344,6 +344,11 @@ export class EditProfileComponent implements OnInit {
     this.imageChange = 'DELETED';
   }
 
+  viewCV() {
+    console.log(`${environment.serverBaseURL}/${this.activeProfile.cv}`);
+    window.open(`${environment.serverBaseURL}/${this.activeProfile.cv}`, '_blank');
+  }
+
   deleteCV() {
     // this.cvLoaded = false;
     // this.cvDelete = true;

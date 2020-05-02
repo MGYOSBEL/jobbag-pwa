@@ -14,7 +14,8 @@ import { MultiSelectComponent } from './multi-select/multi-select.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule } from '@angular/forms';
 
-
+import { PdfViewerModule } from 'ng2-pdf-viewer';
+import {NgxExtendedPdfViewerModule} from 'ngx-extended-pdf-viewer';
 
 
 @NgModule({
@@ -32,6 +33,7 @@ import { FormsModule } from '@angular/forms';
     ReactiveFormsModule,
     FormsModule,
     NgSelectModule,
+    NgxExtendedPdfViewerModule,
     NgbModule,
     UserRoutingModule
   ]

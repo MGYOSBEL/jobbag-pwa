@@ -149,21 +149,12 @@
                   <div class="col-12">
                     <div class="form-group row py-5 mx-auto">
                       <label for="checkInput" class="stepper-text">Select a Service!</label>
-                      <ng-select
-                          formControlName="selectedServices"
-                          class="text-center" style="width:18rem"
-                          [items]="services"
-                          [multiple]="true"
-                          [closeOnSelect]="false"
-                          [hideSelected]="true"
-                          bindLabel="descriptionEs"
-                          bindLabel="descriptionEs"
-                          bindValue="id"
-                          [searchFn]="customSearchFn"
-                         >
-                          <ng-template ng-option-tmp let-item="item">
-                              {{item.descriptionEs}}
-                          </ng-template>
+                      <ng-select formControlName="selectedServices" class="text-center" style="width:18rem"
+                        [items]="services" [multiple]="true" [closeOnSelect]="false" [hideSelected]="true"
+                        bindLabel="descriptionEs" bindLabel="descriptionEs" bindValue="id" [searchFn]="customSearchFn">
+                        <ng-template ng-option-tmp let-item="item">
+                          {{item.descriptionEs}}
+                        </ng-template>
                       </ng-select>
                     </div>
                   </div>
@@ -186,8 +177,8 @@
                     <label for="curriculumUpload" id="curriculumUpload">
                       <div class="upload-btn-wrapper">
                         <button class="btn-uploadcv"><i class="far fa-folder fa-2x"></i></button>
-                        <input type="file" name="myfile" accept="pdf/*" formControlName="curriculum" class="form-control-file"
-                              id="file-upload" (change)="uploadCV($event)" />
+                        <input type="file" name="myfile" accept="pdf/*" formControlName="curriculum"
+                          class="form-control-file" id="file-upload" (change)="uploadCV($event)" />
                       </div>
                     </label>
                   </div>
@@ -198,15 +189,15 @@
                         <i class="far fa-folder-open fa-2x my-2" style="color: #fff;"></i>
                         <hr style="border: 0.5px solid white;margin-bottom: 0; margin-top: 0;">
                       </div>
-                      <div class="row" style="background-color: #2982c1;margin-left: 0;margin-right: 0; padding-bottom: 0.2rem;">
+                      <div class="row"
+                        style="background-color: #2982c1;margin-left: 0;margin-right: 0; padding-bottom: 0.2rem;">
                         <div class="col-6 text-center mt-0" style="padding:0">
-                          <button class="btn btn-link" data-toggle="modal" data-target="#viewCVModal">
+                          <button class="btn btn-link" (click)="viewCV()">
                             <i class="fas fa-eye" style="color: #fff;font-size: 0.75rem;"></i>
                           </button>
                         </div>
                         <div class="col-6 text-center mt-0" style="padding:0">
-                          <button class="btn btn-link" data-toggle="modal" data-target="#deleteCVModal"
-                                  (click)="deleteCV()">
+                          <button class="btn btn-link" (click)="deleteCV()">
                             <i class="fas fa-trash-alt" style="color: #fff;font-size: 0.75rem;"></i>
                           </button>
                         </div>
@@ -220,8 +211,8 @@
                               }
                             </style>
                             <p class="overflow ellipsis" id="file-upload-filename"
-                                  style="font-weight: bold;font-size: 0.8rem;"> {{cvFileName}}
-                          </p>
+                              style="font-weight: bold;font-size: 0.8rem;"> {{cvFileName}}
+                            </p>
                           </div>
                         </div>
                       </div>
@@ -293,3 +284,25 @@
     </div>
   </div>
 </div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="openCVModal" tabindex="-1" role="dialog" aria-labelledby="openCVModal" aria-hidden="true">
+  <div class="modal-dialog modal-xl rounded-0 mt-0" role="document">
+    <div class="modal-content rounded-0">
+      <div class="modal-header py-1 rounded-0" style="background-color:#2985c4;color:white;">
+        <p class="modal-title" id="exampleModalCenterTitle">Curriculum Vitae</p>
+        <button type="button" class="close" style="color:white;" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+          <div class="modal-body mt-0 py-3 rounded-0" style=" background-color: white; padding: 2rem; height: 100%;">
+            <div>
+              <ngx-extended-pdf-viewer [base64Src]="cvUrl" useBrowserLocale="true" height="80vh"></ngx-extended-pdf-viewer>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+

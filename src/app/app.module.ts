@@ -17,6 +17,8 @@ import { FormsModule } from '@angular/forms';
 import { LoadingService } from './services/loading.service';
 import { MessagesService } from './services/messages.service';
 
+import { PdfViewerModule } from 'ng2-pdf-viewer';
+
 
 
 const config = new AuthServiceConfig([
@@ -48,6 +50,7 @@ export function provideConfig() {
     FontAwesomeModule,
     SocialLoginModule,
     SharedComponentsModule,
+    PdfViewerModule,
     NgbModule,
     AppRoutingModule
   ],
