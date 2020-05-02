@@ -52,3 +52,11 @@
 .arrow_box:hover::after {
 	border-left-color:  #767277;
 }
+
+/*Overview 576px*/
+@media (max-width: 575.98px) {
+    .container-fluid{
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+    }
+    } 

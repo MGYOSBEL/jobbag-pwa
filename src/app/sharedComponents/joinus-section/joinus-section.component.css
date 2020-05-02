@@ -3,16 +3,8 @@
      display: block;
      margin-left: auto;
      margin-right: auto;
-     width: 70%;
-}
-
-.row{
-    padding-left: 6rem;
-    padding-bottom: 1rem;
-}
-
-.col-md-6{    
-    padding-top: 5rem;
+     height: auto;
+     max-width: 23rem;
 }
 
 .tittle-section, .text-content{
@@ -29,3 +21,34 @@
     border-width: 3px;
     margin-top: 1rem !important;
   }
+
+  /*Overview 992px*/
+@media screen and (max-width: 991.98px) {
+    .left-column{
+        margin-top: 2rem!important;
+        padding: 2rem!important;
+    }  
+  } 
+
+ /*Overview 768px*/
+ @media screen and (max-width: 767.98px) {
+    .joinus-img{
+        max-width: 18rem;
+    }
+
+    .left-column{
+        padding-left: 1.5rem!important;
+        padding-right: 1.5rem!important;
+        padding-bottom: 0rem!important;
+    }  
+  } 
+
+  
+  /*Overview 576px*/
+  @media (max-width: 575.98px) {
+    .left-column{
+        padding-left: 1rem!important;
+        padding-right: 1rem!important;
+    }
+  }
+ 

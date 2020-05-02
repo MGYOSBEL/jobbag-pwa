@@ -43,3 +43,20 @@
     fill:#2f057e;
     width: 32%;
 }
+
+/*Overview 992px*/
+@media screen and (max-width: 991.98px) {
+    .container-fluid{   
+        padding-left: 2rem !important;
+        padding-right: 2rem !important;
+    }  
+} 
+
+/*Overview 576px*/
+@media (max-width: 575.98px) {
+    .container-fluid{
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+    }
+    } 
+
