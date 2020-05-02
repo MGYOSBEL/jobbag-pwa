@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Country } from '../models/country.model';
 import { CountryService } from '../services/country.service';
+import { findIndex } from 'rxjs/operators';
 
 @Component({
   selector: 'app-multi-select',
@@ -16,7 +17,7 @@ export class MultiSelectComponent implements OnInit {
 
   selectedCountry: Country;
 
-  selectedCountryDivisions = []; // Divisions selected, from the selected country
+  selectedCountryDivisions: number[] = []; // Divisions selected, from the selected country
 
   @Input()
   selectedDivisions: number[]; // All divisions selected, from all countries
@@ -60,13 +61,23 @@ onCountrySelect(country: Country) {
 
 }
 
-saveDivisions() {
+saveAllDivisions(event) {
   // this.hideButtons = false;
   // this.selectedDivisions = [...this.selectedDivisions, ...this.selectedCountryDivisions];
   // this.selectedCountryDivisions = [];
   console.log('saveDivisions called');
+  console.log(event);
+  const checked = event.target.checked;
+  this.selectedCountryDivisions = checked ? this.selectedCountry.divisions.map(item => item.id) : [] ;
+  console.log('checked array: ', this.selectedCountryDivisions);
+
+  this.selectedDivisions = [...this.selectedDivisions].filter(elem => this.selectedCountry.divisions.findIndex(div => div.id === elem) < 0);
+  console.log('filtered array: ', this.selectedDivisions);
+
+  this.selectedDivisions = [...this.selectedDivisions, ...this.selectedCountryDivisions];
   console.log('selectedDivisions: ', this.selectedDivisions);
   console.log('selectedCountryDivisions: ', this.selectedCountryDivisions);
+
   this.selected.emit(this.selectedDivisions);
 }
 
