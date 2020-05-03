@@ -48,9 +48,9 @@ export class MultiSelectComponent implements OnInit {
         this.selectedByCountry = [[], [], []];
 
         this.selectedByCountry = [
-          this.selectedDivisions.filter(item => this.countries[0].divisions.findIndex(elem => elem.id === item) > 0),
-          this.selectedDivisions.filter(item => this.countries[1].divisions.findIndex(elem => elem.id === item) > 0),
-          this.selectedDivisions.filter(item => this.countries[2].divisions.findIndex(elem => elem.id === item) > 0),
+          this.selectedDivisions.filter(item => this.countries[0].divisions.findIndex(elem => elem.id === item) > -1),
+          this.selectedDivisions.filter(item => this.countries[1].divisions.findIndex(elem => elem.id === item) > -1),
+          this.selectedDivisions.filter(item => this.countries[2].divisions.findIndex(elem => elem.id === item) > -1),
         ];
         console.log('selectedByCountry', this.selectedByCountry);
       }

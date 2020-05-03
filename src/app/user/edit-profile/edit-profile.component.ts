@@ -230,7 +230,8 @@ export class EditProfileComponent implements OnInit {
       add_briefcase: this.role === 'SERVICE_PROVIDER' ? add : [],
       edit_briefcase: this.role === 'SERVICE_PROVIDER' ? upd : [],
       delete_briefcase: this.role === 'SERVICE_PROVIDER' ? del : [],
-      divisions: this.role === 'SERVICE_PROVIDER' ? this.activeProfile.divisions : []
+      divisions: this.role === 'SERVICE_PROVIDER' ? this.activeProfile.divisions : [],
+      services: this.role === 'SERVICE_PROVIDER' ? this.editProfileForm.value.selectedServices : [],
     };
 
     console.log('profileEditRequest: ' + profileEditRequest);
