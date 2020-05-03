@@ -186,18 +186,12 @@
                   <div *ngIf="uploadedCV" class="card col-4 my-0" style="border:transparent">
                     <div class="row" style="background-color: #2982c1;margin-left: 0;margin-right: 0;">
                       <div class="col-12 text-center my-0" style="background-color: #2982c1;">
-                        <i class="far fa-folder-open fa-2x my-2" style="color: #fff;"></i>
+                        <i class="fa fa-file-pdf fa-2x my-2" style="color: #fff;"></i>
                         <hr style="border: 0.5px solid white;margin-bottom: 0; margin-top: 0;">
                       </div>
-                      <div class="row"
-                        style="background-color: #2982c1;margin-left: 0;margin-right: 0; padding-bottom: 0.2rem;">
-                        <div class="col-6 text-center mt-0" style="padding:0">
-                          <button class="btn btn-link" (click)="viewCV()">
-                            <i class="fas fa-eye" style="color: #fff;font-size: 0.75rem;"></i>
-                          </button>
-                        </div>
-                        <div class="col-6 text-center mt-0" style="padding:0">
-                          <button class="btn btn-link" (click)="deleteCV()">
+                      <div class="row mx-0" style="background-color: #2982c1; padding-bottom: 0.2rem; width: 6rem;">
+                        <div class="col-12 mt-0" style="padding:0">
+                          <button class="btn btn-link float-right" (click)="deleteCV()">
                             <i class="fas fa-trash-alt" style="color: #fff;font-size: 0.75rem;"></i>
                           </button>
                         </div>
