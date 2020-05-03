@@ -2,7 +2,7 @@
     <button type="button" class=" col-3 btn btn-primary rounded-0 border-0 text-light mx-2 px-0"
       data-toggle="modal" data-target="#selectModal" style="background-color: #2985c4 ;"
       (click)="onCountrySelect(country, i)" *ngFor="let country of (countries); let i = index">
-      {{country.nameEn}}
+      {{country.nameEn}}<br>
       <span *ngIf="!!selectedByCountry[i].length" class="badge badge-light rounded-circle"
       style="color: #2985c4">{{selectedByCountry[i].length}}</span>
     </button>
