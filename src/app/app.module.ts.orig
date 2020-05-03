@@ -12,7 +12,16 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SharedComponentsModule } from './sharedComponents/shared-components.module';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { TestComponent } from './test/test.component';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { FormsModule } from '@angular/forms';
+import { LoadingService } from './services/loading.service';
+import { MessagesService } from './services/messages.service';
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> c7b704d68748858e91eda3126305a75abe331a88
 const config = new AuthServiceConfig([
   {
     id: GoogleLoginProvider.PROVIDER_ID,
@@ -31,14 +40,13 @@ export function provideConfig() {
 @NgModule({
   declarations: [
     AppComponent,
-<<<<<<< HEAD
     TestComponent
-=======
->>>>>>> 2840379a45aeb132ac35fdce8455038162b20044
   ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
+    FormsModule,
+    NgSelectModule,
     HttpClientModule,
     FontAwesomeModule,
     SocialLoginModule,
@@ -46,7 +54,10 @@ export function provideConfig() {
     NgbModule,
     AppRoutingModule
   ],
+  exports: [],
   providers: [
+    LoadingService,
+    MessagesService,
     {
       provide: AuthServiceConfig,
       useFactory: provideConfig
@@ -57,6 +68,8 @@ export function provideConfig() {
       multi: true
     }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [
+    AppComponent
+  ]
 })
 export class AppModule { }
