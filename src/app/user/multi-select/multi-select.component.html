@@ -6,6 +6,7 @@
       data-toggle="modal" data-target="#selectModal" style="background-color: #2985c4 ;"
       (click)="onCountrySelect(country, i)" *ngFor="let country of (countries); let i = index">
       {{country.nameEn}}
+      <span *ngIf="!!selectedByCountry[i].length" class="badge badge-light rounded-circle" style="color: #2985c4">{{selectedByCountry[i].length}}</span>
     </button>
   </div>
 
