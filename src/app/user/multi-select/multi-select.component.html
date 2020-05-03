@@ -1,10 +1,14 @@
   <div class="row container-fluid justify-content-around mx-0">
-    <button type="button" class=" col-3 btn btn-primary rounded-0 border-0 text-light mx-2 px-0"
-      data-toggle="modal" data-target="#selectModal" style="background-color: #2985c4 ;"
-      (click)="onCountrySelect(country, i)" *ngFor="let country of (countries); let i = index">
-      {{country.nameEn}}<br>
-      <span *ngIf="!!selectedByCountry[i].length" class="badge badge-light rounded-circle"
-      style="color: #2985c4">{{selectedByCountry[i].length}}</span>
+    <button type="button" class=" col-3 btn btn-primary rounded-0 border-0 mx-2 px-0"
+        data-toggle="modal" data-target="#selectModal"
+        *ngFor="let country of (countries); let i = index"
+        (click)="onCountrySelect(country, i)"
+        [style.color] = "!!selectedByCountry[i].length ? '#FFFFFF' : '#2985c4'"
+        [style.font-weight] = "!!selectedByCountry[i].length ? 'normal' : 'bold'"
+        [style.background-color] = "!!selectedByCountry[i].length ? '#2985c4' : '#BEBCBE'" >
+          {{country.nameEn}}<br>
+          <span   *ngIf="!!selectedByCountry[i].length" class="badge badge-light rounded-circle"
+                  style="color: #2985c4">{{selectedByCountry[i].length}}</span>
     </button>
   </div>
 
@@ -54,4 +58,3 @@
       </div>
     </div>
   </div>
-
