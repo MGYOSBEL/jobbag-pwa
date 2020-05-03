@@ -4,7 +4,7 @@
   <div class="row container-fluid justify-content-around mx-0">
     <button type="button" class=" col-3 btn btn-primary rounded-0 border-0 text-light mx-2 px-0"
       data-toggle="modal" data-target="#selectModal" style="background-color: #2985c4 ;"
-      (click)="onCountrySelect(country)" *ngFor="let country of (countries$ | async); let i = index">
+      (click)="onCountrySelect(country, i)" *ngFor="let country of (countries); let i = index">
       {{country.nameEn}}
     </button>
   </div>
@@ -39,7 +39,7 @@
                 groupBy="parentId"
                 [selectableGroup]	= "true"
                 [selectableGroupAsModel] = "false"
-                [(ngModel)]="selectedDivisions"
+                [(ngModel)]="selectedCountryDivisions"
                 placeholder="Select your regions"
                 [closeOnSelect]="false"
                 bindLabel="nameEs"

@@ -153,7 +153,7 @@ export class CreateProfileComponent implements OnInit {
         };
       })
     };
-    console.log(userProfileRequest);
+    console.log('userProfileRequest', JSON.stringify(userProfileRequest));
 
     this.userProfileService.create(userProfileRequest)
       .subscribe(

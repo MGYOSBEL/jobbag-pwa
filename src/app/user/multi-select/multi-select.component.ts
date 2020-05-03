@@ -13,15 +13,18 @@ export class MultiSelectComponent implements OnInit {
 
   hideButtons: boolean;
 
+  countries: Country[];
+
   countryDivisions = []; // All Divisions of the selected country
 
   selectedCountry: Country;
+  selectedCountryIndex: number;
 
   selectedCountryDivisions: number[] = []; // Divisions selected, from the selected country
+  selectedByCountry: number [][];
 
   @Input()
   selectedDivisions: number[]; // All divisions selected, from all countries
-
   @Input()
   popup: boolean = true;
 
@@ -36,12 +39,24 @@ export class MultiSelectComponent implements OnInit {
     private countryService: CountryService
     ) {
       this.hideButtons = false;
-      console.log('buttons shown');
+
     }
 
   ngOnInit() {
     this.countries$ = this.countryService.get();
-    console.log('ms: selectedDivisions', this.selectedDivisions);
+    this.countries$.subscribe(
+      countries => {
+        this.countries = countries;
+        this.selectedByCountry = [[], [], []];
+
+        this.selectedByCountry = [
+          this.selectedDivisions.filter(item => this.countries[0].divisions.findIndex(elem => elem.id === item) > 0),
+          this.selectedDivisions.filter(item => this.countries[1].divisions.findIndex(elem => elem.id === item) > 0),
+          this.selectedDivisions.filter(item => this.countries[2].divisions.findIndex(elem => elem.id === item) > 0),
+        ];
+        console.log('selectedByCountry', this.selectedByCountry);
+      }
+    );
   }
 
 //   selectAll() {
@@ -52,45 +67,52 @@ export class MultiSelectComponent implements OnInit {
 // console.log(event);
 // }
 
-onCountrySelect(country: Country) {
+onCountrySelect(country: Country, i: number) {
   console.log(country);
   this.hideButtons = true;
   this.selectedCountry = country;
+  this.selectedCountryIndex = i;
   this.countryDivisions = country.divisions;
-  // this.selectedCountryDivisions = [];
+  this.selectedCountryDivisions = [...this.selectedByCountry[i]];
+
+  console.log(this.selectedDivisions);
+  console.log(this.selectedCountryDivisions);
 
 }
 
-saveAllDivisions(event) {
-  // this.hideButtons = false;
-  // this.selectedDivisions = [...this.selectedDivisions, ...this.selectedCountryDivisions];
-  // this.selectedCountryDivisions = [];
-  console.log('saveDivisions called');
-  console.log(event);
-  const checked = event.target.checked;
-  this.selectedCountryDivisions = checked ? this.selectedCountry.divisions.map(item => item.id) : [] ;
-  console.log('checked array: ', this.selectedCountryDivisions);
+// saveAllDivisions(event) {
+//   // this.hideButtons = false;
+//   // this.selectedDivisions = [...this.selectedDivisions, ...this.selectedCountryDivisions];
+//   // this.selectedCountryDivisions = [];
+//   console.log('saveDivisions called');
+//   console.log(event);
+//   const checked = event.target.checked;
+//   this.selectedCountryDivisions = checked ? this.selectedCountry.divisions.map(item => item.id) : [] ;
+//   console.log('checked array: ', this.selectedCountryDivisions);
 
-  this.selectedDivisions = [...this.selectedDivisions].filter(elem => this.selectedCountry.divisions.findIndex(div => div.id === elem) < 0);
-  console.log('filtered array: ', this.selectedDivisions);
+//   this.selectedDivisions = [...this.selectedDivisions].filter(elem => this.selectedCountry.divisions.findIndex(div => div.id === elem) < 0);
+//   console.log('filtered array: ', this.selectedDivisions);
 
-  this.selectedDivisions = [...this.selectedDivisions, ...this.selectedCountryDivisions];
-  console.log('selectedDivisions: ', this.selectedDivisions);
-  console.log('selectedCountryDivisions: ', this.selectedCountryDivisions);
+//   this.selectedDivisions = [...this.selectedDivisions, ...this.selectedCountryDivisions];
+//   console.log('selectedDivisions: ', this.selectedDivisions);
+//   console.log('selectedCountryDivisions: ', this.selectedCountryDivisions);
 
-  this.selected.emit(this.selectedDivisions);
-}
+//   this.selected.emit(this.selectedDivisions);
+// }
 
 closeModal() {
   this.selectedCountryDivisions = [];
-  console.log('selectedDivisions: ', this.selectedDivisions);
-  console.log('selectedCountryDivisions: ', this.selectedCountryDivisions);
 }
 
 onChange($event) {
-  console.log('onChange called');
-  console.log('onChange: ', this.selectedDivisions);
-  console.log('onChange: ', this.selectedCountryDivisions);
+  this.selectedDivisions = [...this.selectedDivisions, ...this.selectedCountryDivisions];
+
+  this.selectedByCountry[this.selectedCountryIndex] = this.selectedCountryDivisions;
+
+  this.selectedDivisions = [...this.selectedByCountry[0], ...this.selectedByCountry[1], ...this.selectedByCountry[2]];
+
+  console.log(this.selectedDivisions);
+
   this.selected.emit(this.selectedDivisions);
 }
 
