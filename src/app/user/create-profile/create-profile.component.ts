@@ -48,48 +48,6 @@ export class CreateProfileComponent implements OnInit {
   // selectedServices: number[] = [];
 
   services: Service[];
-  // = [
-  //   {
-  //     id: 1,
-  //     shortDescription: 'Consulta de información legal y consejo',
-  //     descriptionEs: 'Consulta de información legal y consejo',
-  //     descriptionEn: 'Consultation for legal information and advice',
-  //     descriptionFr: null,
-  //     keywords: ['Servicios Legales', 'Leyes y Seguridad Pública', 'inf']
-  //   },
-  //   {
-  //     id: 2,
-  //     shortDescription: 'Preparacion de documentos',
-  //     descriptionEs: 'Preparacion de documentos',
-  //     descriptionEn: 'Preparation of documents',
-  //     descriptionFr: null,
-  //     keywords: ['Servicios Legales', 'Leyes y Seguridad Pública']
-  //   },
-  //   {
-  //     id: 3,
-  //     shortDescription: 'Representacion de clientes en negociaciones',
-  //     descriptionEs: 'Representacion de clientes en negociaciones',
-  //     descriptionEn: 'Representing clients in negotiations',
-  //     descriptionFr: null,
-  //     keywords: ['Servicios Legales', 'Leyes y Seguridad Pública']
-  //   },
-  //   {
-  //     id: 4,
-  //     shortDescription: 'Consultor de recursos Humanos',
-  //     descriptionEs: 'Consultor de recursos Humanos',
-  //     descriptionEn: 'Human Resource Consultant',
-  //     descriptionFr: null,
-  //     keywords: ['Agente', 'Administracion y Negocios']
-  //   },
-  //   {
-  //     id: 5,
-  //     shortDescription: 'Profesor de animacion',
-  //     descriptionEs: 'Profesor de animacion',
-  //     descriptionEn: 'Teaching on Animation',
-  //     descriptionFr: null,
-  //     keywords: ['Arte y multimedia', 'Servicios de animacion', 'Arte, Diseño y Entretenimiento', 'Educación']
-  //   }
-  // ];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -195,7 +153,7 @@ export class CreateProfileComponent implements OnInit {
         };
       })
     };
-    console.log(userProfileRequest);
+    console.log('userProfileRequest', JSON.stringify(userProfileRequest));
 
     this.userProfileService.create(userProfileRequest)
       .subscribe(

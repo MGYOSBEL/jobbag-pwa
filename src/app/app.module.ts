@@ -17,6 +17,8 @@ import { FormsModule } from '@angular/forms';
 import { LoadingService } from './services/loading.service';
 import { MessagesService } from './services/messages.service';
 
+
+
 const config = new AuthServiceConfig([
   {
     id: GoogleLoginProvider.PROVIDER_ID,

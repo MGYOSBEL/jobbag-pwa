@@ -4,8 +4,9 @@
   <div class="row container-fluid justify-content-around mx-0">
     <button type="button" class=" col-3 btn btn-primary rounded-0 border-0 text-light mx-2 px-0"
       data-toggle="modal" data-target="#selectModal" style="background-color: #2985c4 ;"
-      (click)="onCountrySelect(country)" *ngFor="let country of (countries$ | async)">
+      (click)="onCountrySelect(country, i)" *ngFor="let country of (countries); let i = index">
       {{country.nameEn}}
+      <span *ngIf="!!selectedByCountry[i].length" class="badge badge-light rounded-circle" style="color: #2985c4">{{selectedByCountry[i].length}}</span>
     </button>
   </div>
 
@@ -23,15 +24,23 @@
         <div class="modal-body rounded-0">
           <div class="select-container row container-fluid justify-content-lg-center m-0 p-0">
             <div class="card col-12 h-100 px-0 mx-0" id="container">
-              <div class="card-header">
+              <!-- <div class="card-header justify-content-between">
                 <button class="btn btn-primary btn-edit rounded-0" data-dismiss="modal"
-                  style="background-color: #2888C7;" (click)="saveDivisions()">Accept these regions</button>
-              </div>
+                  style="background-color: #2888C7;" (click)="saveDivisions()">Accept these regions
+                </button>
+
+               {{selectedCountry?.nameEs}}
+
+
+              </div> -->
               <div class="card-body w-100">
                 <ng-select
                 [multiple]="true"
                 [items]="countryDivisions"
-                [(ngModel)]="selectedDivisions"
+                groupBy="parentId"
+                [selectableGroup]	= "true"
+                [selectableGroupAsModel] = "false"
+                [(ngModel)]="selectedCountryDivisions"
                 placeholder="Select your regions"
                 [closeOnSelect]="false"
                 bindLabel="nameEs"
@@ -39,7 +48,7 @@
                 (change)="onChange($event)">
                   <ng-template ng-optgroup-tmp let-item="item" let-item$="item$" let-index="index">
                     <input id="item-{{index}}" type="checkbox" [ngModel]="item$.selected" />
-                    {{item.nameEs | uppercase}}
+                    {{selectedCountry.nameEs | uppercase}}
                   </ng-template>
                   <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
                     <input id="item-{{index}}" type="checkbox" [ngModel]="item$.selected" /> {{item.nameEs}}
