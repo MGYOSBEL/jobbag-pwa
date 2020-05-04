@@ -13,6 +13,7 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { MultiSelectComponent } from './multi-select/multi-select.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule } from '@angular/forms';
+import { EditPasswordComponent } from './edit-password/edit-password.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { FormsModule } from '@angular/forms';
      ProjectsComponent,
      CreateProfileComponent,
      EditProfileComponent,
-     MultiSelectComponent
+     MultiSelectComponent,
+     EditPasswordComponent
     ],
   imports: [
     CommonModule,

@@ -8,33 +8,43 @@ import { BriefcaseEditComponent } from './briefcase-edit/briefcase-edit.componen
 import { CreateProfileComponent } from './create-profile/create-profile.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { NonProfileGuard } from './services/non-profile.guard';
+import { EditPasswordComponent } from './edit-password/edit-password.component';
 
 
 const userRoutes: Routes = [
   {
     path: '',
     canActivate: [AuthGuard],
-    resolve: { user: DashboardResolverService},
+    resolve: { user: DashboardResolverService },
     children: [
       {
-        path: ':id/:role',
+        path: ':id',
         children: [
           {
-            path: 'create-profile', component: CreateProfileComponent,
+            path: 'password',
+            component: EditPasswordComponent
           },
           {
-            path: 'edit', component: EditProfileComponent
+            path: ':role',
+            children: [
+              {
+                path: 'create-profile', component: CreateProfileComponent,
+              },
+              {
+                path: 'edit', component: EditProfileComponent
+              },
+              {
+                path: '',
+                pathMatch: 'full',
+                component: DashboardComponent,
+                // canActivate: [NonProfileGuard]
+              }]
           },
+
           {
-            path: '',
-            pathMatch: 'full',
-            component: DashboardComponent,
-            // canActivate: [NonProfileGuard]
+            path: '', component: RoleSelectComponent
           }
         ]
-      },
-      {
-        path: ':id', component: RoleSelectComponent
       }
     ]
   }
