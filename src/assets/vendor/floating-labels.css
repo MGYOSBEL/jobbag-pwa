@@ -65,6 +65,7 @@ body {
 
 .form-label-group input::placeholder {
   color: transparent;
+  font-weight: 100;
 }
 
 .form-label-group input:not(:placeholder-shown) {
