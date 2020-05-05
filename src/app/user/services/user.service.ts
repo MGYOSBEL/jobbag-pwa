@@ -94,6 +94,24 @@ export class UserService {
     );
   }
 
+  editPassword(data) {
+    const req = {
+      client_id: environment.clientId,
+      client_secret: environment.clientSecret,
+      ...data
+    };
+    return this.http.put<APIResponse>(`${this.apiPath}/user/password`, req).pipe(
+      map(response => {
+        const content = JSON.parse(response.content);
+        if (response.status_code === 200) {
+          return true;
+        } else {
+          throw new Error(`${content.text}`);
+        }
+      })
+    );
+  }
+
   edit(data: any): Observable<User> {
     const req = {
       client_id: environment.clientId,

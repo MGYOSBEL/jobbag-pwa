@@ -4,7 +4,7 @@ import { UserService } from '../services/user.service';
 import { User } from '../models/user.model';
 import { LoadingService } from '@app/services/loading.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { MessagesService } from '@app/services/messages.service';
 
@@ -40,6 +40,9 @@ export class EditPasswordComponent implements OnInit {
         if (value.newPassword !== value.confirmPassword) {
           this.passwordForm.setErrors({ passwordsMissmatch: true });
         }
+        if (value.password === value.newPassword) {
+          this.passwordForm.setErrors({ samePassword: true });
+        }
       }
     );
 
@@ -49,17 +52,18 @@ export class EditPasswordComponent implements OnInit {
 
   submit() {
     console.log(this.passwordForm.value);
-    const editUserRequest = {
+    const editPwdRequest = {
       id: this.loggedUser.id,
       username: this.loggedUser.username,
-      password: this.passwordForm.value.newPassword,
-      email: this.loggedUser.email
+      password: this.passwordForm.value.password,
+      new_password: this.passwordForm.value.newPassword
     };
-    const request$ = this.userService.edit(editUserRequest);
+    const request$ = this.userService.editPassword(editPwdRequest);
 
     this.loading.showLoaderUntilCompletes(request$).subscribe(
-      () => this.router.navigate(['../CLIENT'], {relativeTo: this.route}),
-      err => this.messages.showErrors(err)
+      res => {},
+      err => this.messages.showErrors(err),
+      () => this.router.navigate(['../CLIENT'], {relativeTo: this.route})
     );
   }
 
