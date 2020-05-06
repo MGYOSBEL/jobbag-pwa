@@ -196,12 +196,12 @@ Operation Error!!
         </button>
       </div>
       <div class="modal-body rounded-0">
-        Are you shure you want to delete this briefcase?? It's going to be permanently deleted once you have saved your profile data.
+        Are you shure you want to delete this briefcase?
       </div>
       <div class="modal-footer rounded-0">
-        <button type="button" class="btn btn-secondary btn-edit rounded-0" data-dismiss="modal" (click)="cancelDelete()">Don't delete it</button>
-        <button type="button" class="btn btn-primary btn-edit rounded-0" data-dismiss="modal"
-          style="background-color: #2888C7;" (click)="deleteBriefcase()">Delete it</button>
+        <button type="button" class="btn btn-previous rounded-0" data-dismiss="modal" style="background-color: #BFBDBE;" (click)="cancelDelete()">Decline</button>
+        <button type="button" class="btn btn-send rounded-0" data-dismiss="modal"
+          style="background-color: #2888C7;color: white;" (click)="deleteBriefcase()">Accept</button>
       </div>
     </div>
   </div>
