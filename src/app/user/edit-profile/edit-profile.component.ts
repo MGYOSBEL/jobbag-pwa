@@ -289,6 +289,9 @@ export class EditProfileComponent implements OnInit {
       (err: []) => {
         const message = 'Error in the edit operation. Please, try again.';
         this.messages.showErrors(message);
+        // Es necesario recargar el componente para q se reinicie broefcaseEdit Component
+        // Y reinicie a su vez el el changeLog.
+        this.router.navigate(['./'], {relativeTo: this.route});
         console.log(err);
       },
       () => this.router.navigateByUrl(`/user/${this.userService.loggedUser.id}/${this.activeProfile.userProfileType}`)
