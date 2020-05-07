@@ -26,7 +26,7 @@ export class UserService {
 
   private userRole: string; // Es para saber si el usuario esta autenticado como CLIENT o SERVICE_PROVIDER
 
-  forgotPath = `${environment.serverBaseURL}/forgot`;
+  forgotPath = `${environment.serverBaseURL}/password`;
 
   constructor(
     private http: HttpClient,

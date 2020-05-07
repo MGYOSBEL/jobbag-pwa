@@ -5,6 +5,7 @@ import { LoadingService } from '@app/services/loading.service';
 import { interval } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 import { tap, take } from 'rxjs/operators';
+import { UserService } from '@app/user/services/user.service';
 
 @Component({
   selector: 'app-forgot-password',
@@ -20,6 +21,7 @@ export class ForgotPasswordComponent implements OnInit {
     private messages: MessagesService,
     private loading: LoadingService,
     private router: Router,
+    private userService: UserService,
     private route: ActivatedRoute
   ) {
     this.forgotForm = this.formBuilder.group({
@@ -31,10 +33,11 @@ export class ForgotPasswordComponent implements OnInit {
   }
 
   submit() {
-    const call$ = interval(2000).pipe(
-      take(1),
-      tap( res => console.log(res))
-    );
+    // const call$ = interval(2000).pipe(
+    //   take(1),
+    //   tap( res => console.log(res))
+    // );
+    const call$ = this.userService.recoverPassword(this.forgotForm.value.username);
 
     this.loading.showLoaderUntilCompletes(call$).subscribe(
       () => this.router.navigate(['../login'], {relativeTo: this.route}),
