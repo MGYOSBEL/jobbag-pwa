@@ -1,8 +1,9 @@
 <div class="container bg-faded py-5" id="create-profile-container">
   <div class="row justify-content-center">
-    <div class="col-4" id="stepper-section">
+    <!-- <div class="col-4" id="stepper-section"> -->
+    <div class="col-sm-8 col-lg-4"  id="stepper-section">
       <div id="stepper1" class="bs-stepper">
-        <div class="bs-stepper-header mx-auto w-30 mb-2" style="height: 80px">
+        <div class="bs-stepper-header col-12 mx-auto w-30 mb-2" style="height: 80px">
           <div class="step" data-target="#profile">
             <button class="step-trigger">
               <span class="bs-stepper-circle">1</span>
@@ -51,13 +52,17 @@
             <form [formGroup]="profileForm" style="width: 100%; height: 8rem;">
               <div id="profile" class="content container fade">
                 <div class="form-group row mx-auto" style="margin-top: 3rem;">
-                  <label class="stepper-text">Name</label>
+                  <div class="col-12 px-0">
+                    <label class="stepper-text">Name</label>
                   <input type="text" class="form-control" formControlName="accountName" id="accountName"
                     [ngClass]="profileForm.get('accountName').invalid && (profileForm.get('accountName').dirty || profileForm.get('accountName').touched) ? 'is-invalid' : '' "
                     placeholder="Name">
+                  </div>                  
                 </div>
                 <div class="row container-radio-btn px-3">
-                  <label class="stepper-text">Select your Account Type</label>
+                  <div class="col-12 px-0">
+                    <label class="stepper-text">Select your Account Type</label>
+                  </div>                  
                   <div class="col-6 text-center">
                     <div class="form-group row mx-auto" style="scroll-padding-left: 1rem;">
                       <input type="radio" class="form-check-input" name="accountType" formControlName="accountType"
@@ -165,7 +170,7 @@
                   <div class="col-12">
                     <p style="color:#bebcbe;font-size:0.85rem">Upload your Updated CV, only in PDF format!</p>
                   </div>
-                  <div class="col-9 pr-0">
+                  <div class="col-9 pr-0" style="text-align: right;">
                     <label *ngIf="!uploadedCV" for="curriculumLabel" id="curriculumLabel">
                       <p *ngIf="!uploadedCV">Upload File</p>
                     </label>
@@ -182,14 +187,14 @@
                       </div>
                     </label>
                   </div>
-
-                  <div *ngIf="uploadedCV" class="card col-4 my-0" style="border:transparent">
+                  <div *ngIf="uploadedCV" class="card col-5 my-0" style="border:transparent">
                     <div class="row" style="background-color: #2982c1;margin-left: 0;margin-right: 0;">
                       <div class="col-12 text-center my-0" style="background-color: #2982c1;">
                         <i class="fa fa-file-pdf fa-2x my-2" style="color: #fff;"></i>
                         <hr style="border: 0.5px solid white;margin-bottom: 0; margin-top: 0;">
                       </div>
-                      <div class="row mx-0" style="background-color: #2982c1; padding-bottom: 0.2rem; width: 6rem;">
+                    </div>
+                      <div class="row mx-0" style="background-color: #2982c1; padding-bottom: 0.2rem;">
                         <div class="col-12 mt-0" style="padding:0">
                           <button class="btn btn-link float-right" (click)="deleteCV()">
                             <i class="fas fa-trash-alt" style="color: #fff;font-size: 0.75rem;"></i>
@@ -210,9 +215,7 @@
                           </div>
                         </div>
                       </div>
-                    </div>
                   </div>
-
                 </div>
               </div>
               <div [hidden]="role==='CLIENT'" id="briefcases" class="content container fade">
