@@ -6,8 +6,9 @@ import { LoggingService } from '@app/services/logging.service';
 import { AuthService } from 'angularx-social-login';
 import { FacebookLoginProvider, GoogleLoginProvider } from 'angularx-social-login';
 import { SocialUser } from 'angularx-social-login';
-import {LoginRequest, OAuth2Response} from '../models/auth.model';
+import { LoginRequest, OAuth2Response } from '../models/auth.model';
 import { Observable, of, pipe, BehaviorSubject } from 'rxjs';
+import { APIResponse } from '@app/models/app.model';
 
 @Injectable({
   providedIn: 'root'
@@ -33,6 +34,7 @@ export class AuthenticationService {
 
 
   private loginPath = environment.serverBaseURL + '/login';
+  private forgotPath = `${environment.serverBaseURL}/forgot`;
 
   // public methods
   get isLoggedIn(): boolean {
@@ -41,10 +43,10 @@ export class AuthenticationService {
   }
 
   constructor(private http: HttpClient,
-              // public socialAuthService: AuthService,
-              private logging: LoggingService) {
-                this.authProvider = 'JOBBAG';
-                this.isLoggedIn$ = new BehaviorSubject(localStorage.getItem('bearerToken') !== null);
+    // public socialAuthService: AuthService,
+    private logging: LoggingService) {
+    this.authProvider = 'JOBBAG';
+    this.isLoggedIn$ = new BehaviorSubject(localStorage.getItem('bearerToken') !== null);
   }
 
 
@@ -52,7 +54,7 @@ export class AuthenticationService {
     this.authProvider = 'JOBBAG';
     const loginRequestJSON = this.parseLoginRequest(username, password, this.authProvider);
     console.log(loginRequestJSON);
-    return this.http.post<any>( this.loginPath, loginRequestJSON, { headers: { 'Content-type': 'application/json' } })
+    return this.http.post<any>(this.loginPath, loginRequestJSON, { headers: { 'Content-type': 'application/json' } })
       .pipe(map(response => {
         if (response.status_code === 200) {
           const bearer = JSON.parse(response.content);
@@ -150,7 +152,7 @@ export class AuthenticationService {
   getLoggedUserId() {
     if (this.isLoggedIn) {
       const oauth2Response = localStorage.getItem('bearerToken');
-      return  JSON.parse(oauth2Response).user_id;
+      return JSON.parse(oauth2Response).user_id;
     } else {
       return null;
     }

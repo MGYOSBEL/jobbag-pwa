@@ -26,6 +26,7 @@ export class UserService {
 
   private userRole: string; // Es para saber si el usuario esta autenticado como CLIENT o SERVICE_PROVIDER
 
+  forgotPath = `${environment.serverBaseURL}/forgot`;
 
   constructor(
     private http: HttpClient,
@@ -90,6 +91,24 @@ export class UserService {
         this.userSubject.next(response); // Emito el user y lo salvo en el storage
         console.log('emitted user: ', response);
         this.userCacheService.setUser(response);
+      })
+    );
+  }
+
+  recoverPassword(username: string) {
+    const req = {
+      client_id: environment.clientId,
+      client_secret: environment.clientSecret,
+      username
+    };
+    return this.http.post<APIResponse>(this.forgotPath, req).pipe(
+      map(response => {
+        const content = JSON.parse(response.content);
+        if (response.status_code === 200) {
+          return true;
+        } else {
+          throw new Error(`${content.text}`);
+        }
       })
     );
   }
