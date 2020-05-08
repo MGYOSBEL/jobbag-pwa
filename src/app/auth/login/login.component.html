@@ -11,17 +11,20 @@
       <form [formGroup]="loginForm" (ngSubmit)="jobbagLogin()">
         <div class="row form-group mb-1">
           <fieldset class="col-12 mx-0 px-0">
-            <div class="my-2">
+            <div class="my-2 form-label-group">
               <input
                 [ngClass]="loginForm.get('email').invalid && (loginForm.get('email').dirty || loginForm.get('email').touched) ? 'is-invalid' : '' "
-                class="form-control input-lg" name="email" placeholder="username" formControlName="email" style="border-radius: 0;">
+                class="form-control input-lg" name="email" placeholder="Enter your user name:" formControlName="email" style="border-radius: 0;"
+                id="username" type="text" required autofocus autocomplete="off">
+                <label style="font-weight: 100;" for="username">Enter your user name:</label>
                 <div class="invalid-feedback">Please enter a username</div>
             </div>
-            <div class="my-2 ">
+            <div class="my-2 form-label-group">
               <input
                 [ngClass]="loginForm.get('password').invalid && (loginForm.get('password').dirty || loginForm.get('password').touched) ? 'is-invalid' : '' "
                 class="form-control input-lg" name="password" formControlName="password" type="password"
-                placeholder="********" style="border-radius: 0;">
+                id="password" required autofocus autocomplete="off" placeholder="Password:" style="border-radius: 0;">
+                <label style="font-weight: 100;" for="password">Password:</label>
                 <div class="invalid-feedback">
                   <p *ngIf="loginForm.get('password').hasError('required')">
                     You must enter a password!

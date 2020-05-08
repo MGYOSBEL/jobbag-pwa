@@ -11,20 +11,24 @@
         <div class="row form-group mb-1">
           <fieldset class="col-12 mx-0 px-0">
 
-            <div class="my-2">
+            <div class="my-2 form-label-group">
               <input
                 [ngClass]="registerForm.get('name').invalid && (registerForm.get('name').dirty || registerForm.get('name').touched) ? 'is-invalid' : '' "
-                class="form-control input-lg" name="name" placeholder="username" formControlName="name" style="border-radius: 0rem;">
+                class="form-control input-lg" name="name" placeholder="Username:" formControlName="name" style="border-radius: 0rem;"
+                id="username" type="text" required autofocus autocomplete="off">
+                <label style="font-weight: 100;" for="username">Username:</label>
                 <div class="invalid-feedback">
                   You must enter a username!
                 </div>
 
             </div>
 
-            <div class="my-2">
+            <div class="my-2 form-label-group">
               <input
                 [ngClass]="registerForm.get('email').invalid && (registerForm.get('email').dirty || registerForm.get('email').touched) ? 'is-invalid' : '' "
-                class="form-control input-lg" name="email" placeholder="email@gmail.com" formControlName="email" style="border-radius: 0rem;">
+                class="form-control input-lg" name="email" placeholder="Email:" formControlName="email" style="border-radius: 0rem;"
+                id="email" type="email" required autofocus autocomplete="off">
+                <label style="font-weight: 100;" for="email">Email:</label>
                 <div class="invalid-feedback">
                   <p *ngIf="registerForm.get('email').hasError('required')">
                     You must enter an email!
@@ -36,11 +40,14 @@
             </div>
 
 
-            <div class="my-2 " [hidden]="hiddenPasswords">
+            <div class="my-2 form-label-group" [hidden]="hiddenPasswords">
               <input
                 [ngClass]="registerForm.get('password').invalid && (registerForm.get('password').dirty || registerForm.get('password').touched) ? 'is-invalid' : '' "
                 class="form-control input-lg" name="password" formControlName="password" type="password"
-                placeholder="********(password)" style="border-radius: 0rem;">
+                placeholder="Password:" style="border-radius: 0rem;"
+                id="password" required autofocus autocomplete="off">
+                <label style="font-weight: 100;" for="password">Password:</label>
+
                 <div class="invalid-feedback">
                   <p *ngIf="registerForm.get('password').hasError('required')">
                     You must enter a password!
@@ -51,11 +58,14 @@
                 </div>
             </div>
 
-            <div class="my-2" [hidden]="hiddenPasswords">
+            <div class="my-2 form-label-group" [hidden]="hiddenPasswords">
               <input
                 [ngClass]="(registerForm.hasError('passwordsMissmatch') || registerForm.get('confirmPassword').invalid) && (registerForm.get('confirmPassword').dirty || registerForm.get('confirmPassword').touched) ? 'is-invalid' : '' "
                 class="form-control input-lg" name="confirmPassword" formControlName="confirmPassword" type="password"
-                placeholder="********(confirm password)" style="border-radius: 0rem;">
+                placeholder="Confirm password:" style="border-radius: 0rem;"
+                id="confirmPassword" required autofocus autocomplete="off">
+                <label style="font-weight: 100;" for="confirmPassword">Confirm password:</label>
+
                 <div class="invalid-feedback">
                   <p *ngIf="registerForm.get('confirmPassword').hasError('required')">
                     You must confirm your password!
