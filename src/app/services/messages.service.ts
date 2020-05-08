@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject } from 'rxjs';
-import { filter } from 'rxjs/operators';
+import { Observable, BehaviorSubject, interval } from 'rxjs';
+import { filter, take } from 'rxjs/operators';
 
 @Injectable()
 export class MessagesService {
