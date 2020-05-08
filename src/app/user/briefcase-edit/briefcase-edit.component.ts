@@ -34,7 +34,6 @@ export class BriefcaseEditComponent implements OnInit {
     private route: ActivatedRoute) {
 
     this.briefcaseEditForm = this.formBuilder.group({
-      title: ['', Validators.required],
       comments: [''],
       description: ['', Validators.required],
       startDate: ['', Validators.required],

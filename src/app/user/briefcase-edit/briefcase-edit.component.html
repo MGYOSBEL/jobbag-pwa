@@ -150,7 +150,7 @@ Operation Error!!
                       style="background-color: #BFBDBE; color: #2688C6;" data-toggle="tooltip" data-dismiss="modal" title="Close"
                       (click)="cancelEdit()">CLOSE</button>
                     <button type="button" class="btn col-5 btn btn-edit rounded-0" style="color: white; background-color: #2688C6;"
-                      data-dismiss="modal" title="Save" (click)="saveBriefCase()">SAVE</button>
+                      [disabled]="briefcaseEditForm.invalid" data-dismiss="modal" title="Save" (click)="saveBriefCase()">SAVE</button>
                   </div>
                 </div>
                 </div>
