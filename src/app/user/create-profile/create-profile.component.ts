@@ -125,6 +125,12 @@ export class CreateProfileComponent implements OnInit {
     this.stepper.previous();
   }
 
+  clearServices() {
+    this.profileForm.patchValue({
+      selectedServices: []
+    });
+  }
+
   createUserProfile() {
     this.loadingService.loadingOn();
 

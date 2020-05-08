@@ -57,12 +57,12 @@
                   <input type="text" class="form-control" formControlName="accountName" id="accountName"
                     [ngClass]="profileForm.get('accountName').invalid && (profileForm.get('accountName').dirty || profileForm.get('accountName').touched) ? 'is-invalid' : '' "
                     placeholder="Name">
-                  </div>                  
+                  </div>
                 </div>
                 <div class="row container-radio-btn px-3">
                   <div class="col-12 px-0">
                     <label class="stepper-text">Select your Account Type</label>
-                  </div>                  
+                  </div>
                   <div class="col-6 text-center">
                     <div class="form-group row mx-auto" style="scroll-padding-left: 1rem;">
                       <input type="radio" class="form-check-input" name="accountType" formControlName="accountType"
@@ -152,9 +152,17 @@
               <div [hidden]="role==='CLIENT'" id="services" class="content container fade">
                 <div class="row justify-content-center">
                   <div class="col-12">
-                    <div class="form-group row py-5 mx-auto">
-                      <label for="checkInput" class="stepper-text">Select a Service!</label>
-                      <ng-select formControlName="selectedServices" class="text-center" style="width:18rem"
+                    <div class="form-group py-5 mx-auto">
+                      <div class="row justify-content-between">
+                        <label for="checkInput" class="col stepper-text">Select a Service!</label>
+                        <div *ngIf="profileForm.get('selectedServices').value.length > 0" class="col text-right" >
+                          <button class="btn btn-link" style="color:rgb(148,42,44);"
+                          data-toggle="tooltip" data-placement="top" title="Unselect all">
+                            <span class="fas fa-times" (click)="clearServices()"></span>
+                          </button>
+                        </div>
+                      </div>
+                      <ng-select formControlName="selectedServices" class="text-center row"
                         [items]="services" [multiple]="true" [closeOnSelect]="false" [hideSelected]="true"
                         bindLabel="descriptionEs" bindLabel="descriptionEs" bindValue="id" [searchFn]="customSearchFn">
                         <ng-template ng-option-tmp let-item="item">
