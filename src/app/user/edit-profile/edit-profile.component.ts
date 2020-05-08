@@ -308,6 +308,12 @@ export class EditProfileComponent implements OnInit {
     this.router.navigate(['../'], { relativeTo: this.route });
   }
 
+  clearServices() {
+    this.editProfileForm.patchValue({
+      selectedServices: []
+    });
+  }
+
   onDivisionsSelect(event) {
     this.activeProfile.divisions = event;
   }

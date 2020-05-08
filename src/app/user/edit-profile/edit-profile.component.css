@@ -82,7 +82,7 @@
 
 .card-header-collapse[aria-expanded="false"]:hover{
   background-color: #e9ecef !important;
-  color:black;  
+  color:black;
 }
 
 .card-header-collapse{
@@ -136,10 +136,10 @@
 
   /*Section CurriculumVitae*/
 /*Section CurriculumVitae*/
-.upload-btn-wrapper {  
+.upload-btn-wrapper {
   position: relative;
   overflow: hidden;
-  display: inline-block;  
+  display: inline-block;
 }
 
 .btn-uploadcv {
@@ -187,4 +187,10 @@
   width: 12rem;
   white-space: nowrap;
   overflow: hidden;
+}
+
+/* Services Section */
+.fa-times:hover {
+  font-size: 1.5rem;
+  transition: 200ms;
 }
