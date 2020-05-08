@@ -154,8 +154,8 @@
                   <div class="col-12">
                     <div class="form-group py-5 mx-auto">
                       <div class="row justify-content-between">
-                        <label for="checkInput" class="col stepper-text">Select a Service!</label>
-                        <div *ngIf="profileForm.get('selectedServices').value.length > 0" class="col text-right" >
+                        <div class="col stepper-text align-items-center">Select a Service!</div>
+                        <div *ngIf="profileForm.get('selectedServices').value.length > 0" class="col text-right mr-0 pr-0" >
                           <button class="btn btn-link" style="color:rgb(148,42,44);"
                           data-toggle="tooltip" data-placement="top" title="Unselect all">
                             <span class="fas fa-times" (click)="clearServices()"></span>
