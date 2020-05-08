@@ -5,6 +5,21 @@
 @import "./assets/icons/iconfont/style.css";
 
 
+
+/* ng-select style customization */
+
+
+.ng-clear-wrapper {
+display: none;}
+
+.ng-clear {
+display: none;
+}
+
+
+
+/* <<<<<<<<<<<<<<<<<<<<<<<<<< */
+
 .img {
   max-width: 100%;
 }

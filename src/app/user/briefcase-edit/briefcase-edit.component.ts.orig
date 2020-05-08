@@ -41,8 +41,8 @@ export class BriefcaseEditComponent implements OnInit {
     this.userService.getAllProfessions().subscribe(
       data => {
         this.professions = data;
-        console.log('PROFESSIONS: ' + JSON.stringify(data));
-      });      
+        this.logger.log('PROFESSIONS: ' + JSON.stringify(data));
+      });
   }
 
   selectProfession(e) {
@@ -56,7 +56,7 @@ export class BriefcaseEditComponent implements OnInit {
   }
 
   saveBriefCase() {
-    console.log('PROFESSION: ' + JSON.stringify(this.briefcaseEditForm.get('profession').value));
+    this.logger.log('PROFESSION: ' + JSON.stringify(this.briefcaseEditForm.get('profession').value));
     this.briefcases[this.briefcases.length] = {
       description: this.description.value,
         endDate: this.endDate.value,
@@ -65,7 +65,7 @@ export class BriefcaseEditComponent implements OnInit {
         idProfession: this.briefcaseEditForm.get('profession').value,
         id: null
       };
-      console.log('resetting the form.....');
+      this.logger.log('resetting the form.....');
     this.briefcaseEditForm.reset({ title: [''],
     comments: [''],
     description: [''],
@@ -73,7 +73,7 @@ export class BriefcaseEditComponent implements OnInit {
     endDate: [''],
     profession: ['']});
     }
-    
+
   onResetForm(){
     this.briefcaseEditForm.reset();
   }
@@ -83,7 +83,7 @@ export class BriefcaseEditComponent implements OnInit {
     this.userService.createUserProfile()
     .subscribe(
       response => {
-        console.log('createUserProfile RESPONSE: ' + JSON.stringify(response));
+        this.logger.log('createUserProfile RESPONSE: ' + JSON.stringify(response));
         // Navigate to Dashboard
         this.router.navigate(['../'], { relativeTo: this.route });
       }

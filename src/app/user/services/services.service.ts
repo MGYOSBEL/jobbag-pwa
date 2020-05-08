@@ -5,6 +5,7 @@ import { APIResponse } from '@app/models/app.model';
 import { environment } from '@environments/environment';
 import { map, catchError, tap } from 'rxjs/operators';
 import { Service } from '../models/services.model';
+import { LoggingService } from '@app/services/logging.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,7 @@ import { Service } from '../models/services.model';
 export class ServicesService {
 
   constructor(
+    private logger: LoggingService,
     private http: HttpClient
   ) { }
 
@@ -25,7 +27,7 @@ export class ServicesService {
         }
       }),
       catchError(err => throwError(err)),
-      tap(res => console.log(res))
+      tap(res => this.logger.log(res))
     );
   }
 }

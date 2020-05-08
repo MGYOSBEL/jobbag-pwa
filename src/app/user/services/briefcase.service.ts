@@ -33,6 +33,7 @@ export class BriefcaseService {
 
   constructor(
     private http: HttpClient,
+    private logger: LoggingService,
     private userService: UserService,
     private authenticationService: AuthenticationService,
     private userCacheService: UserCacheService) {
@@ -109,13 +110,13 @@ export class BriefcaseService {
 
   editLocal(briefcase: UserProfileBriefcase): boolean {
     const index = this.briefcases.findIndex(item => item.id === briefcase.id);
-    console.log(index);
+    this.logger.log(index);
     if (index !== -1) {
       this.briefcases[index] = briefcase;
-      console.log(this.briefcases[index]);
+      this.logger.log(this.briefcases[index]);
 
       this.subject.next(this.briefcases);
-      console.log('subject', this.subject.value);
+      this.logger.log('subject', this.subject.value);
     } else { return false; }
 
     // Update change Log
@@ -192,10 +193,10 @@ export class BriefcaseService {
       user_profile_id: userProfileId,
       briefcase
     };
-    console.log('briefcase request: ', data);
+    this.logger.log('briefcase request: ', data);
     return this.http.post<APIResponse>(this.apiPath + '/briefcase', data).pipe(
       map(response => {
-        console.log('bc_create response: ', response);
+        this.logger.log('bc_create response: ', response);
         if (response.status_code === 200) { // Si el status del response es OK retorno contento como dato del observable
           return JSON.parse(JSON.parse(response.content));
         } else {
@@ -208,7 +209,7 @@ export class BriefcaseService {
         return throwError(err.error.status + ': ' + err.error.detail);
       }),
       tap((content: UserProfileBriefcase) => { // Salvo el contenido del nuevo briefcase en el localStorage
-        console.log('content: ', content);
+        this.logger.log('content: ', content);
         let briefcases: UserProfileBriefcase[] = this.userCacheService.getBriefcases();
         briefcases.push(content);
         this.userCacheService.setBriefcases(briefcases);
@@ -225,11 +226,11 @@ export class BriefcaseService {
       user_profile_id: userProfileId,
       briefcase
     };
-    console.log(data);
+    this.logger.log(data);
     return this.http.put<APIResponse>(this.apiPath + '/briefcase', data).pipe(
       map(response => {
         const content = JSON.parse(response.content); // Seleccionar la parte del response q es el contenido
-        console.log('content: ', content);
+        this.logger.log('content: ', content);
         if (response.status_code === 200) {
           return content; // Retorno el content del response como cuerpo del observable
         } else { // Si no fue OK el status del response lanzo un error con el status code y el text del response.
@@ -246,8 +247,8 @@ export class BriefcaseService {
         // Leo los profiles del localStorage
         let briefcases: UserProfileBriefcase[] = this.userCacheService.getBriefcases();
         const index = briefcases.findIndex(elem => elem.id === briefcase.id);
-        console.log('index', index);
-        console.log('briefcases', briefcases);
+        this.logger.log('index', index);
+        this.logger.log('briefcases', briefcases);
         briefcases[index] = content;
         // Una vez modificados los campos salvo el array completo de userProfiles
         this.userCacheService.setBriefcases(briefcases);
@@ -265,10 +266,10 @@ export class BriefcaseService {
       client_secret: environment.clientSecret,
       client_id: environment.clientId
     };
-    console.log(req);
+    this.logger.log(req);
     return this.http.request<APIResponse>('DELETE', this.apiPath + '/briefcase', { body: req }).pipe(
       map(response => {
-        console.log(response);
+        this.logger.log(response);
         if (response.status_code === 200) { // Si el status del response es OK retorno contento como dato del observable
           return JSON.parse(response.content);
         } else {

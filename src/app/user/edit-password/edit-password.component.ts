@@ -7,6 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { catchError, map, tap } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { MessagesService } from '@app/services/messages.service';
+import { LoggingService } from '@app/services/logging.service';
 
 @Component({
   selector: 'app-edit-password',
@@ -22,6 +23,7 @@ export class EditPasswordComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,
+    private logger: LoggingService,
     private router: Router,
     private route: ActivatedRoute,
     private loading: LoadingService,
@@ -51,7 +53,7 @@ export class EditPasswordComponent implements OnInit {
   }
 
   submit() {
-    console.log(this.passwordForm.value);
+    this.logger.log(this.passwordForm.value);
     const editPwdRequest = {
       id: this.loggedUser.id,
       username: this.loggedUser.username,

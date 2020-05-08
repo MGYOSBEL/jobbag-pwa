@@ -32,7 +32,7 @@ export class UserService {
     private http: HttpClient,
     private userCacheService: UserCacheService,
     private authService: AuthenticationService,
-    private logging: LoggingService) {
+    private logger: LoggingService) {
     this.userRole = this.userCacheService.getRole() || 'CLIENT';
     this.userSubject.next(this.userCacheService.getUser());
     this.roleSubject.next(this.userRole);
@@ -41,10 +41,10 @@ export class UserService {
       if (!loggedIn) {
         this.userSubject.next(null);
         this.roleSubject.next(null);
-        console.log('null user emitted');
+        this.logger.log('null user emitted');
       } else {
         // this.userSubject.next(null);
-        // console.log('new user emitted: ', this.userSubject.value);
+        // this.logger.log('new user emitted: ', this.userSubject.value);
       }
     });
 
@@ -84,12 +84,12 @@ export class UserService {
         }
       }),
       catchError(err => { // Captura si hubo algun error en la llamada y lo relanza
-        console.log(err);
+        this.logger.log(err);
         return throwError(err);  // Relanzo el error con el status y el detail
       }),
       tap((response: User) => {
         this.userSubject.next(response); // Emito el user y lo salvo en el storage
-        console.log('emitted user: ', response);
+        this.logger.log('emitted user: ', response);
         this.userCacheService.setUser(response);
       })
     );
@@ -137,11 +137,11 @@ export class UserService {
       client_secret: environment.clientSecret,
       user: data
     };
-    console.log('data request: ', req);
+    this.logger.log('data request: ', req);
     return this.http.put<APIResponse>(this.apiPath + '/user', req).pipe(
       map(response => {
         const content = JSON.parse(JSON.parse(response.content));
-        console.log('edited User: ', content);
+        this.logger.log('edited User: ', content);
         if (response.status_code === 200) {
           return content;
         } else {
@@ -151,11 +151,11 @@ export class UserService {
         }
       }),
       catchError(err => { // Captura si hubo algun error en la llamada y lo relanza
-        console.log(err);
+        this.logger.log(err);
         return throwError(err);  // Relanzo el error con el status y el detail
       }),
       tap((response: User) => {
-        console.log('response', response);
+        this.logger.log('response', response);
         let user = this.userCacheService.getUser();
 
         user.id = response.id;
@@ -163,7 +163,7 @@ export class UserService {
         user.username = response.username;
 
 
-        console.log('user service edit: ', user);
+        this.logger.log('user service edit: ', user);
         this.userSubject.next(user); // Salvo el user en el storage
         this.userCacheService.setUser(user);
       })

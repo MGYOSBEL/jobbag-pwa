@@ -16,6 +16,7 @@ import { LoadingService } from '@app/services/loading.service';
 import { MessagesService } from '@app/services/messages.service';
 import { Service } from '../models/services.model';
 import { ServicesService } from '../services/services.service';
+import { LoggingService } from '@app/services/logging.service';
 
 @Component({
   selector: 'app-create-profile',
@@ -53,6 +54,7 @@ export class CreateProfileComponent implements OnInit {
     private formBuilder: FormBuilder,
     private authenticationService: AuthenticationService,
     private userProfileService: UserProfileService,
+    private logger: LoggingService,
     private briefcaseService: BriefcaseService,
     private errorService: ErrorService,
     private countryService: CountryService,
@@ -91,7 +93,7 @@ export class CreateProfileComponent implements OnInit {
     });
 
     document.getElementById('stepper1').addEventListener('shown.bs-stepper', (e: any) => {
-      console.log(e.detail);
+      this.logger.log(e.detail);
       this.activeStep = e.detail.indexStep;
     });
 
@@ -153,19 +155,19 @@ export class CreateProfileComponent implements OnInit {
         };
       })
     };
-    console.log('userProfileRequest', JSON.stringify(userProfileRequest));
+    this.logger.log('userProfileRequest', JSON.stringify(userProfileRequest));
 
     this.userProfileService.create(userProfileRequest)
       .subscribe(
         response => {
-          console.log('createUserProfile RESPONSE: ' + JSON.stringify(response));
+          this.logger.log('createUserProfile RESPONSE: ' + JSON.stringify(response));
           // this.role === 'CLIENT' ? this.activeProfileService.activateClient() : this.activeProfileService.activateServiceProvider() ;
           this.router.navigate(['../'], { relativeTo: this.route });
           this.loadingService.loadingOff();
         }, (err) => {
           this.errorService.errorMessage = err;
           this.messages.showErrors('There has been an error creating the profile. Please try again in a few minutes.');
-          console.log(err);
+          this.logger.log(err);
           this.loadingService.loadingOff();
         }
       );
@@ -173,7 +175,7 @@ export class CreateProfileComponent implements OnInit {
 
   onDivisionsSelect(event) {
     this.countryDivisions = event;
-    console.log('event: ', event);
+    this.logger.log('event: ', event);
   }
 
   uploadPicture(event) {
@@ -222,12 +224,12 @@ export class CreateProfileComponent implements OnInit {
       this.uploadedCV = true;
     };
 
-    console.log('CV:' + this.cvBase64);
+    this.logger.log('CV:' + this.cvBase64);
   }
 
   selectDivision(division: DivisionElement) {
     // this.divisions = (division.divisions as Array<any>).map(elem => elem.nameEs);
-    console.log(division);
+    this.logger.log(division);
   }
 
   customSearchFn(term: string, item: Service) {
@@ -247,7 +249,7 @@ export class CreateProfileComponent implements OnInit {
     this.cvBase64 = null;
     this.uploadedCV = false;
 
-    console.log('CV:' + this.cvBase64) //;
+    this.logger.log('CV:' + this.cvBase64) //;
   }
 
   viewCV() {

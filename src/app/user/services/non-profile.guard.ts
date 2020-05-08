@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { UserService } from './user.service';
 import { UserCacheService } from './user-cache.service';
 import { User } from '../models/user.model';
+import { LoggingService } from '@app/services/logging.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,7 @@ export class NonProfileGuard implements CanActivate {
 
   constructor(
     private userService: UserService,
+    private logger: LoggingService,
     private router: Router) {
       this.userService.loggedUser$.subscribe(
         user => {
@@ -30,19 +32,19 @@ export class NonProfileGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): boolean {
-    console.log('NonProfileGuard >>>>>>>>>');
-    console.log('ROUTE: ', route);
-    console.log('loggedUser: ', this.loggedUser);
-    console.log('loggedUser.profiles.length: ', this.loggedUser.profiles.length);
-    console.log('NonProfileGuard <<<<<<<<<');
+    this.logger.log('NonProfileGuard >>>>>>>>>');
+    this.logger.log('ROUTE: ', route);
+    this.logger.log('loggedUser: ', this.loggedUser);
+    this.logger.log('loggedUser.profiles.length: ', this.loggedUser.profiles.length);
+    this.logger.log('NonProfileGuard <<<<<<<<<');
     if (!!this.loggedUser && this.loggedUser.profiles.length > 0) {
       return true;
     }
     // not logged in so redirect to login page with the return url
     const role = route.params.role;
     const id = route.params.id;
-    console.log('NonProfileGuard role: ', role);
-    console.log('NonProfileGuard id: ', id);
+    this.logger.log('NonProfileGuard role: ', role);
+    this.logger.log('NonProfileGuard id: ', id);
     this.router.navigate([`/user/${id}/${role}/create-profile`]);
     return false;  }
 }

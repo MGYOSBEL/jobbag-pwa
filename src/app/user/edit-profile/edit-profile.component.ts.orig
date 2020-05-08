@@ -106,7 +106,7 @@ export class EditProfileComponent implements OnInit {
     // );
     // this.editProfileForm.get('accountType').setValue('PERSONAL');
 
-    console.log('activeProfile: ', this.activeProfile.divisions);
+    this.logger.log('activeProfile: ', this.activeProfile.divisions);
   }
 
   toggleChangePassword(event) {
@@ -156,20 +156,20 @@ export class EditProfileComponent implements OnInit {
       this.cvBase64 = this.cvUrl.toString().split(',')[1];
 <<<<<<< HEAD
       this.cvLoaded = true;
-      console.log(this.cvUrl);
+      this.logger.log(this.cvUrl);
     };
 
 =======
-      this.cvLoaded = true;      
-      console.log(this.cvUrl);      
-    };    
+      this.cvLoaded = true;
+      this.logger.log(this.cvUrl);
+    };
 >>>>>>> d376225ef31157ca48178dcf5a1202df6f2b40b1
   }
 
   saveProfile() {
     console.clear();
     this.loadingService.loadingOff();
-    console.log('ActiveProfile: ', this.activeProfile);
+    this.logger.log('ActiveProfile: ', this.activeProfile);
 
     // Editing the user
     const userEditRequest = {
@@ -178,7 +178,7 @@ export class EditProfileComponent implements OnInit {
       email: this.editProfileForm.value.email,
       password: this.changePassword ? this.editProfileForm.value.password : null
     };
-    console.log('userEditRequest: ', userEditRequest);
+    this.logger.log('userEditRequest: ', userEditRequest);
     const userEdit$ = this.userService.edit(userEditRequest);
 
     // Editing the profile
@@ -195,7 +195,7 @@ export class EditProfileComponent implements OnInit {
       });
     const del = briefcaseChangeLog.deleted.map(this.briefcaseToRequest);
     const upd = briefcaseChangeLog.edited.map(this.briefcaseToRequest);
-    console.log('add: ', add,
+    this.logger.log('add: ', add,
       'upd: ', upd,
       'del: ', del);
 
@@ -219,15 +219,15 @@ export class EditProfileComponent implements OnInit {
       divisions: this.role === 'SERVICE_PROVIDER' ? this.activeProfile.divisions : []
     };
 
-    console.log('profileEditRequest: '+ profileEditRequest);
+    this.logger.log('profileEditRequest: '+ profileEditRequest);
 
     const profileEdit$ = this.userProfileService.edit(profileEditRequest);
 
     // Editing the picture and the cv
     const imageEdit$ = this.mediaService.editProfilePicture(this.activeProfile.id, this.imageBase64);
 
-    console.log('image: ', this.imageBase64);
-    console.log('cv: ', this.cvBase64);
+    this.logger.log('image: ', this.imageBase64);
+    this.logger.log('cv: ', this.cvBase64);
     const cvEdit$ = this.mediaService.editProfileCV(this.activeProfile.id, this.cvBase64);
     const editProfileCall$ = combineLatest(
       [
@@ -238,17 +238,17 @@ export class EditProfileComponent implements OnInit {
       ]
     );
 
-    console.log('Making edit request');
+    this.logger.log('Making edit request');
 
     this.loadingService.showLoaderUntilCompletes(editProfileCall$).subscribe(
       res => {
 
-        console.log('COMBINED RESPONSE: ', res);
+        this.logger.log('COMBINED RESPONSE: ', res);
       },
       (err: []) => {
         const message = 'Error in the edit operation. Please, try again.';
         this.messages.showErrors(message);
-        console.log(err);
+        this.logger.log(err);
       },
       () => this.router.navigateByUrl(`/user/${this.userService.loggedUser.id}/${this.activeProfile.userProfileType}`)
     );
@@ -256,7 +256,7 @@ export class EditProfileComponent implements OnInit {
 
   onCollapse(event) {
 
-    console.log(event);
+    this.logger.log(event);
   }
 
   onClose() {
@@ -266,8 +266,8 @@ export class EditProfileComponent implements OnInit {
   onDivisionsSelect(event) {
     this.activeProfile.divisions = event;
 
-    console.log('event: ', event);
-    console.log('activeProfile: ', this.activeProfile);
+    this.logger.log('event: ', event);
+    this.logger.log('activeProfile: ', this.activeProfile);
   }
 
   private briefcaseToRequest(bc: UserProfileBriefcase) {
@@ -285,30 +285,30 @@ export class EditProfileComponent implements OnInit {
      this.defaultPicture = true;
      this.imageBase64 = '';
 
-     console.log(this.imageBase64);
+     this.logger.log(this.imageBase64);
    }
 
    deleteCV(){
     this.cvLoaded = false;
     delete(this.cvBase64);
 
-    console.log('cv'+this.cvBase64);
+    this.logger.log('cv'+this.cvBase64);
    }
 
    showCVName(){
     var input = document.getElementById( 'file-upload' );
     var infoArea = document.getElementById( 'file-upload-filename' );
-    
+
     input.addEventListener( 'change', showFileName );
-    
+
     function showFileName( event ) {
-      
-      // the change event gives us the input it occurred in 
+
+      // the change event gives us the input it occurred in
       var input = event.srcElement;
-      
+
       // the input has an array of files in the `files` property, each one has a name that you can use. We're just using the name here.
       var fileName = input.files[0].name;
-      
+
       // use fileName however fits your app best, i.e. add it into a div
       infoArea.textContent = fileName;
     }

@@ -18,6 +18,7 @@ import { LoadingService } from '@app/services/loading.service';
 import { MessagesService } from '@app/services/messages.service';
 import { Service } from '../models/services.model';
 import { ServicesService } from '../services/services.service';
+import { LoggingService } from '@app/services/logging.service';
 
 @Component({
   selector: 'app-edit-profile',
@@ -63,6 +64,7 @@ export class EditProfileComponent implements OnInit {
     private userService: UserService,
     private loadingService: LoadingService,
     private messages: MessagesService,
+    private logger: LoggingService,
     private servicesService: ServicesService,
     private userProfileService: UserProfileService,
     private mediaService: MediaService,
@@ -185,7 +187,7 @@ export class EditProfileComponent implements OnInit {
   saveProfile() {
     console.clear();
     this.loadingService.loadingOff();
-    console.log('ActiveProfile: ', this.activeProfile);
+    this.logger.log('ActiveProfile: ', this.activeProfile);
     // Editing the user
     const userEditRequest = {
       id: this.userService.loggedUser.id,
@@ -193,7 +195,7 @@ export class EditProfileComponent implements OnInit {
       email: this.editProfileForm.value.email,
       password: this.changePassword ? this.editProfileForm.value.password : null
     };
-    console.log('userEditRequest: ', userEditRequest);
+    this.logger.log('userEditRequest: ', userEditRequest);
     const userEdit$ = this.userService.edit(userEditRequest);
     // Editing the profile
     const briefcaseChangeLog = this.briefcaseService.getChangeLog();
@@ -209,7 +211,7 @@ export class EditProfileComponent implements OnInit {
       });
     const del = briefcaseChangeLog.deleted.map(this.briefcaseToRequest);
     const upd = briefcaseChangeLog.edited.map(this.briefcaseToRequest);
-    console.log('add: ', add,
+    this.logger.log('add: ', add,
       'upd: ', upd,
       'del: ', del);
     // Making the profileEdit request
@@ -234,7 +236,7 @@ export class EditProfileComponent implements OnInit {
       services: this.role === 'SERVICE_PROVIDER' ? this.editProfileForm.value.selectedServices : [],
     };
 
-    console.log('profileEditRequest: ' + profileEditRequest);
+    this.logger.log('profileEditRequest: ' + profileEditRequest);
 
     const profileEdit$ = this.userProfileService.edit(profileEditRequest);
 
@@ -265,7 +267,7 @@ export class EditProfileComponent implements OnInit {
         break;
     }
 
-    // console.log('cv: ', this.cvBase64);
+    // this.logger.log('cv: ', this.cvBase64);
     // const cvEdit$ = this.cvDelete ? // if cv delete flag is activated cvEdit$ call is for delete
     //                 this.mediaService.deleteProfileCV(this.activeProfile.id, this.activeProfile.cv) :
     //                 this.mediaService.editProfileCV(this.activeProfile.id, this.cvBase64);
@@ -278,12 +280,12 @@ export class EditProfileComponent implements OnInit {
       ]
     );
 
-    console.log('Making edit request');
+    this.logger.log('Making edit request');
 
     this.loadingService.showLoaderUntilCompletes(editProfileCall$).subscribe(
       res => {
 
-        console.log('COMBINED RESPONSE: ', res);
+        this.logger.log('COMBINED RESPONSE: ', res);
         this.userService.get(this.loggedUser.id).subscribe();
       },
       (err: []) => {
@@ -292,14 +294,14 @@ export class EditProfileComponent implements OnInit {
         // Es necesario recargar el componente para q se reinicie broefcaseEdit Component
         // Y reinicie a su vez el el changeLog.
         this.router.navigate(['./'], {relativeTo: this.route});
-        console.log(err);
+        this.logger.log(err);
       },
       () => this.router.navigateByUrl(`/user/${this.userService.loggedUser.id}/${this.activeProfile.userProfileType}`)
     );
   }
 
   onCollapse(event) {
-    console.log(event);
+    this.logger.log(event);
   }
 
   onClose() {
@@ -316,7 +318,7 @@ export class EditProfileComponent implements OnInit {
       if (!!this.activeProfile) {
         // this.briefcaseService.briefcases = this.activeProfile.briefcases;
         this.cvChange = this.activeProfile.cv != null ? 'LOADED' : null ;
-        console.log(this.cvChange);
+        this.logger.log(this.cvChange);
         this.defaultPicture = this.activeProfile.picture == null;
         this.previewUrl = `${environment.serverBaseURL}/${this.activeProfile.picture}`;
         // this.selectedServices = this.activeProfile.services;
@@ -326,7 +328,7 @@ export class EditProfileComponent implements OnInit {
           selectedServices: this.activeProfile.services,
           comments: this.activeProfile.comment
         });
-        console.log('activeProfile updated: ', this.activeProfile);
+        this.logger.log('activeProfile updated: ', this.activeProfile);
       }
     }
   }
@@ -349,7 +351,7 @@ export class EditProfileComponent implements OnInit {
   }
 
   viewCV() {
-    console.log(`${environment.serverBaseURL}/${this.activeProfile.cv}`);
+    this.logger.log(`${environment.serverBaseURL}/${this.activeProfile.cv}`);
     window.open(`${environment.serverBaseURL}/${this.activeProfile.cv}`, '_blank');
   }
 

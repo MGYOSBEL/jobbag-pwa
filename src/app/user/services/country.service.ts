@@ -5,6 +5,7 @@ import { catchError, map, tap, retry, count } from 'rxjs/operators';
 import { APIResponse } from '@app/models/app.model';
 import { Country } from '../models/country.model';
 import { Observable, throwError, of } from 'rxjs';
+import { LoggingService } from '@app/services/logging.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,13 +13,14 @@ import { Observable, throwError, of } from 'rxjs';
 export class CountryService {
 
   constructor(
+    private logger: LoggingService,
     private http: HttpClient
   ) { }
 
   get(): Observable<Country[]> {
     const countries: Country[] = JSON.parse(localStorage.getItem('countries'));
     if (countries && countries.length > 0) {
-      console.log('countries fetched from cache.');
+      this.logger.log('countries fetched from cache.');
       return of (countries);
     }
     return this.http.get<APIResponse>(`${environment.apiBaseURL}/country`).pipe(
@@ -38,7 +40,7 @@ export class CountryService {
       tap(
         (content: Country[]) => {
           localStorage.setItem('countries', JSON.stringify(content));
-          console.log('fetched countries from api', content);
+          this.logger.log('fetched countries from api', content);
         }
       )
     );

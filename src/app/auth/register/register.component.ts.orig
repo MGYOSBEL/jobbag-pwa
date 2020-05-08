@@ -94,11 +94,11 @@ this.socialAuthService.authState.subscribe(
 
   register() {
     this.loading = true;
-    console.log('REGISTER REQUEST: ' + JSON.stringify(this.registerRequest));
+    this.logger.log('REGISTER REQUEST: ' + JSON.stringify(this.registerRequest));
     this.http.post<any>(this.registerPath, this.registerRequest, { headers: { 'Content-type': 'application/json' } })
       .subscribe(
         (data) => {
-          console.log('REGISTER RAW RESPONSE:' + JSON.stringify(data));
+          this.logger.log('REGISTER RAW RESPONSE:' + JSON.stringify(data));
           if (data.status_code === 200) {
             const content = JSON.parse(JSON.parse(data.content));
             const username = content.username;
@@ -109,14 +109,14 @@ this.socialAuthService.authState.subscribe(
               .subscribe(
                 data => {
                   const role = this.route.snapshot.queryParams.role;
-                  console.log('role: ' + role);
+                  this.logger.log('role: ' + role);
                   if (this.authenticationService.isLoggedIn) {
                     const user_id = this.authenticationService.getLoggedUserId();
-                    console.log('user_id: ' + user_id);
+                    this.logger.log('user_id: ' + user_id);
 
                     const profileExtrasUrl = '/user/' + user_id + '/profile-extras';
                     if (role) {
-                      console.log('navegando a profile extras...');
+                      this.logger.log('navegando a profile extras...');
                       this.router.navigate([profileExtrasUrl], { queryParams: { role, function: 'CREATE' } });
                     } else {
                       this.router.navigate(['user', user_id, 'select-role'],
@@ -136,13 +136,13 @@ this.socialAuthService.authState.subscribe(
                   this.logging.log('SOCIAL LOGIN RESPONSE: ' + response);
                   if (response) {
                     const role = this.route.snapshot.queryParams.role;
-                    console.log('role: ' + role);
+                    this.logger.log('role: ' + role);
                     if (this.authenticationService.isLoggedIn) {
                       const user_id = this.authenticationService.getLoggedUserId();
-                      console.log('user_id: ' + user_id);
+                      this.logger.log('user_id: ' + user_id);
                       const profileExtrasUrl = '/user/' + user_id + '/profile-extras';
                       if (role) {
-                        console.log('navegando a profile extras...');
+                        this.logger.log('navegando a profile extras...');
                         this.router.navigate([profileExtrasUrl], { queryParams: { role } });
                       } else {
                         this.router.navigate(['user', user_id, 'select-role'], { queryParams: { returnUrl: profileExtrasUrl } });
@@ -151,17 +151,17 @@ this.socialAuthService.authState.subscribe(
                   } else {
                     this.logging.log('isLoggedIn subscription was false.... (LoginComponent)');
 =======
-            console.log('content: ' + content);
-            console.log(JSON.stringify('username: ' + username));
+            this.logger.log('content: ' + content);
+            this.logger.log(JSON.stringify('username: ' + username));
             this.authenticationService.signInWithJobbag(this.name.value, this.password.value).subscribe(
               data => {
                 const role = this.route.snapshot.queryParams.role;
-                console.log('role: ' + role);
+                this.logger.log('role: ' + role);
                 if (this.authenticationService.isLoggedIn) {
                   const user_id = JSON.parse(JSON.parse(localStorage.getItem('bearerToken')).content).user_id;
                   const createProfileURL = '/user/' + user_id + '/create-profile';
                   if (role) {
-                    console.log('navegando a profile extras...');
+                    this.logger.log('navegando a profile extras...');
                     this.router.navigate([createProfileURL], { queryParams: { role } });
                   } else {
                     this.router.navigate(['/user/3/select-role'], { queryParams: { returnUrl: createProfileURL } });
@@ -178,7 +178,7 @@ this.socialAuthService.authState.subscribe(
               err: true,
               message: content.text
             };
-            console.log(this.registerErr.message);
+            this.logger.log(this.registerErr.message);
             this.loading = false;
             this.hiddenPasswords = false;
             this.router.navigate(['./'], {relativeTo: this.route});

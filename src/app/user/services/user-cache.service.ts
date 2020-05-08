@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { User, UserProfile, UserProfileBriefcase } from '../models/user.model';
 import { BehaviorSubject } from 'rxjs';
+import { LoggingService } from '@app/services/logging.service';
 
 // localStorage Keys:
 const USER = 'loggedUser';
@@ -18,7 +19,10 @@ export class UserCacheService {
 
   user$ = this.subject.asObservable();
 
-  constructor() {
+  constructor(
+    private logger: LoggingService
+
+  ) {
     this.subject.next(JSON.parse(localStorage.getItem(USER)));
   }
 
@@ -83,7 +87,7 @@ export class UserCacheService {
     }
     localStorage.setItem(USER, JSON.stringify(user));
     this.subject.next(user);
-    console.log('user after picture update', user);
+    this.logger.log('user after picture update', user);
   }
 
 
@@ -91,7 +95,7 @@ export class UserCacheService {
     let user: User = JSON.parse(localStorage.getItem(USER));
     const index =  user.profiles.findIndex(profile => profile.id === profileId);
     if (!! index) {
-      console.log(cv);
+      this.logger.log(cv);
       user.profiles[index].cv = cv != null ? cv : null ;
     }
     localStorage.setItem(USER, JSON.stringify(user));

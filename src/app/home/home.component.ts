@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AuthenticationService } from '@app/auth/services/authentication.service';
 import { ScholarshipService } from '@app/user/services/scholarship.service';
 import { ProfessionService } from '@app/user/services/profession.service';
+import { LoggingService } from '@app/services/logging.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -15,12 +16,13 @@ export class HomeComponent implements OnInit {
   constructor(private router: Router,
               private authenticationService: AuthenticationService,
               private scholarshipService: ScholarshipService,
+              private logger: LoggingService,
               private professionService: ProfessionService) { }
   userId: string;
 
   ngOnInit() {
     this.userId = this.authenticationService.getLoggedUserId();
-
+    this.logger.log('user: ', this.userId, ' another text');
   }
 
 

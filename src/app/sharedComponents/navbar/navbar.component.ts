@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { environment } from '@environments/environment';
 import { UserProfile, User } from '@app/user/models/user.model';
+import { LoggingService } from '@app/services/logging.service';
 
 @Component({
   selector: 'app-navbar',
@@ -32,6 +33,7 @@ export class NavbarComponent implements OnInit {
 
   constructor(
     private userService: UserService,
+    private logger: LoggingService,
     private authenticationService: AuthenticationService,
     private socialAuthService: AuthService,
     private route: ActivatedRoute,
@@ -69,13 +71,13 @@ export class NavbarComponent implements OnInit {
         this.hiddenNavbar = this.router.url.includes('auth') || this.router.url.includes('create-profile')
           || (this.router.url.includes('user') && !this.role);
 
-        console.log('NAVBAR LOG >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
-        console.log('loggedUser', this.loggedUser);
-        console.log('role', this.role);
-        console.log('hiddenNavbar', this.hiddenNavbar);
-        console.log('hasProfiles', this.hasProfiles);
-        console.log('isloggedin', this.isLoggedIn);
-        console.log('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< NAVBAR LOG');
+        this.logger.log('NAVBAR LOG >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+        this.logger.log('loggedUser', this.loggedUser);
+        this.logger.log('role', this.role);
+        this.logger.log('hiddenNavbar', this.hiddenNavbar);
+        this.logger.log('hasProfiles', this.hasProfiles);
+        this.logger.log('isloggedin', this.isLoggedIn);
+        this.logger.log('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< NAVBAR LOG');
       }
     );
 
@@ -125,7 +127,7 @@ export class NavbarComponent implements OnInit {
         !!(user.profiles.find(profile => profile.userProfileType === 'CLIENT')),
         !!(user.profiles.find(profile => profile.userProfileType === 'SERVICE_PROVIDER')),
       ];
-      console.log(this.hasProfiles);
+      this.logger.log(this.hasProfiles);
     }
     if (role) {
       this.role = role;
@@ -138,7 +140,7 @@ export class NavbarComponent implements OnInit {
       if (this.activeProfile) {
         this.defaultPicture = this.activeProfile.picture == null;
         this.userImageUrl = environment.serverBaseURL + '/' + this.activeProfile.picture;
-        console.log('defaultPicture: ', this.defaultPicture, 'userImageUrl: ', this.userImageUrl);
+        this.logger.log('defaultPicture: ', this.defaultPicture, 'userImageUrl: ', this.userImageUrl);
       }
 
 

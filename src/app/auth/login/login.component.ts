@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
               private socialAuthService: AuthService,
               private loadingService: LoadingService,
               private messages: MessagesService,
-              private logging: LoggingService) {
+              private logger: LoggingService) {
 
     this.loginForm = this.formBuilder.group({
       email: ['', Validators.required],
@@ -111,9 +111,9 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('socialUser', JSON.stringify(user));
           this.authenticationService.socialLogin(user, this.authenticationService.authProvider).subscribe(
             (data) => {
-              console.log(data);
+              this.logger.log(data);
               if ( data.status_code ) {
-                this.logging.log('isLoggedIn subscription was false.... (LoginComponent)' + data);
+                this.logger.log('isLoggedIn subscription was false.... (LoginComponent)' + data);
                 this.loading = false;
                 this.loadingService.loadingOff();
                 this.loginErr = {err: true, message: data.text};

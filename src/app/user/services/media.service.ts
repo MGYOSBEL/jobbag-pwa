@@ -5,6 +5,7 @@ import { APIResponse } from '@app/models/app.model';
 import { environment } from '@environments/environment';
 import { catchError, map, tap } from 'rxjs/operators';
 import { UserCacheService } from './user-cache.service';
+import { LoggingService } from '@app/services/logging.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,7 @@ export class MediaService {
 
   constructor(
     private http: HttpClient,
+    private logger: LoggingService,
     private userCacheService: UserCacheService
   ) { }
 
@@ -39,7 +41,7 @@ export class MediaService {
         }),
         tap(url => {
           this.userCacheService.setProfilePicture(request.user_profile_id, url);
-          // console.log('mediaService picture edit: ', url);
+          // this.logger.log('mediaService picture edit: ', url);
         })
       );
     }
@@ -51,7 +53,7 @@ export class MediaService {
         user_profile_id: userProfileId,
         cv
       };
-      console.log(`${environment.apiBaseURL}/media/userProfileCV`, request);
+      this.logger.log(`${environment.apiBaseURL}/media/userProfileCV`, request);
       return this.http.put<APIResponse>(`${environment.apiBaseURL}/media/userProfileCV`, request).pipe(
         map( response => {
           const content = JSON.parse(response.content); // Seleccionar la parte del response q es el contenido
@@ -68,7 +70,7 @@ export class MediaService {
         }),
         tap(url => {
           this.userCacheService.setProfileCV(request.user_profile_id, url);
-          console.log('mediaService cv edit: ', url);
+          this.logger.log('mediaService cv edit: ', url);
 
         })
       );

@@ -80,7 +80,7 @@ export class CreateProfileComponent implements OnInit {
     });
 
     document.getElementById('stepper1').addEventListener('shown.bs-stepper', (e: any) => {
-      console.log(e.detail);
+      this.logger.log(e.detail);
       this.activeStep = e.detail.indexStep;
     });
 
@@ -140,11 +140,11 @@ export class CreateProfileComponent implements OnInit {
         };
       })
     };
-    console.log('userProfileRequest: ', JSON.stringify(userProfileRequest));
+    this.logger.log('userProfileRequest: ', JSON.stringify(userProfileRequest));
     this.userProfileService.create(userProfileRequest)
     .subscribe(
       response => {
-        console.log('createUserProfile RESPONSE: ' + JSON.stringify(response));
+        this.logger.log('createUserProfile RESPONSE: ' + JSON.stringify(response));
 <<<<<<< HEAD
         // this.role === 'CLIENT' ? this.activeProfileService.activateClient() : this.activeProfileService.activateServiceProvider() ;
 =======
@@ -160,7 +160,7 @@ export class CreateProfileComponent implements OnInit {
 
    onDivisionsSelect(event) {
     this.countryDivisions = event;
-    console.log('event: ', event);
+    this.logger.log('event: ', event);
    }
 
   uploadPicture(event) {
@@ -211,7 +211,7 @@ export class CreateProfileComponent implements OnInit {
 
   selectDivision(division: DivisionElement) {
     // this.divisions = (division.divisions as Array<any>).map(elem => elem.nameEs);
-    console.log(division);
+    this.logger.log(division);
   }
 
   //  search = (text$: Observable<string>) =>

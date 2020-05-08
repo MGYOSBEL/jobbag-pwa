@@ -43,7 +43,7 @@ export class RegisterComponent implements OnInit {
     private userService: UserService,
     private router: Router,
     private http: HttpClient,
-    private logging: LoggingService,
+    private logger: LoggingService,
     private socialAuthService: AuthService,
     private error: ErrorService,
     private loadingService: LoadingService,
@@ -108,29 +108,29 @@ export class RegisterComponent implements OnInit {
   register() {
     this.loading = true;
     this.loadingService.loadingOn();
-    console.log('REGISTER REQUEST: ' + JSON.stringify(this.registerRequest));
+    this.logger.log('REGISTER REQUEST: ' + JSON.stringify(this.registerRequest));
     this.http.post<any>(this.registerPath, this.registerRequest, { headers: { 'Content-type': 'application/json' } })
       .subscribe(
         (data) => {
-          console.log('REGISTER RAW RESPONSE:' + JSON.stringify(data));
+          this.logger.log('REGISTER RAW RESPONSE:' + JSON.stringify(data));
           if (data.status_code === 200) {
             const content = JSON.parse(JSON.parse(data.content));
             const username = content.username;
-            this.logging.log('REGISTER RESPONSE: ' + JSON.stringify(content));
+            this.logger.log('REGISTER RESPONSE: ' + JSON.stringify(content));
             if (this.registerRequest.provider === 'JOBBAG') {
               this.authenticationService.signInWithJobbag(this.registerForm.value.name, this.registerForm.value.password)
                 .subscribe(
                   data => {
                     // const role = this.userService.role;
-                    console.log('role: ' + this.role);
+                    this.logger.log('role: ' + this.role);
                     if (this.authenticationService.isLoggedIn) {
                       const user_id = this.authenticationService.getLoggedUserId();
-                      console.log('user_id: ' + user_id);
+                      this.logger.log('user_id: ' + user_id);
 
                       if (this.role) {
                         const createProfileURL = `/user/${user_id}/${this.role}/create-profile`;
 
-                        console.log('navegando a profile extras...');
+                        this.logger.log('navegando a profile extras...');
                         this.router.navigate([createProfileURL], { queryParams: {} });
                       } else {
                         this.router.navigate(['user', user_id]); // role-select url
@@ -144,23 +144,23 @@ export class RegisterComponent implements OnInit {
               this.authenticationService.socialLogin(this.socialUser, this.authenticationService.authProvider)
                 .subscribe(
                   (response) => {
-                    this.logging.log('SOCIAL LOGIN RESPONSE: ' + response);
+                    this.logger.log('SOCIAL LOGIN RESPONSE: ' + response);
                     if (response) {
                       // const role = this.userService.role;
-                      console.log('role: ' + this.role);
+                      this.logger.log('role: ' + this.role);
                       if (this.authenticationService.isLoggedIn) {
                         const user_id = this.authenticationService.getLoggedUserId();
-                        console.log('user_id: ' + user_id);
+                        this.logger.log('user_id: ' + user_id);
                         if (this.role) {
                           const createProfileURL = `/user/${user_id}/${this.role}/create-profile`;
-                          console.log('navegando a profile extras...');
+                          this.logger.log('navegando a profile extras...');
                           this.router.navigate([createProfileURL]);
                         } else {
                           this.router.navigate(['user', user_id]);  // role-select URL
                         }
                       }
                     } else {
-                      this.logging.log('isLoggedIn subscription was false.... (LoginComponent)');
+                      this.logger.log('isLoggedIn subscription was false.... (LoginComponent)');
                     }
                   }, err => {
                     const message = `There was an error: ${err}`;
@@ -176,7 +176,7 @@ export class RegisterComponent implements OnInit {
               err: true,
               message: content.text
             };
-            console.log(this.registerErr.message);
+            this.logger.log(this.registerErr.message);
             const message = `There was an error: ${content.text}`;
             this.messages.showErrors(message);
 

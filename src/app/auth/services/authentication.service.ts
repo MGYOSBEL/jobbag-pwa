@@ -42,9 +42,10 @@ export class AuthenticationService {
     return (this._isLoggedIn || (bearer != null));
   }
 
-  constructor(private http: HttpClient,
+  constructor(
+    private http: HttpClient,
     // public socialAuthService: AuthService,
-    private logging: LoggingService) {
+    private logger: LoggingService) {
     this.authProvider = 'JOBBAG';
     this.isLoggedIn$ = new BehaviorSubject(localStorage.getItem('bearerToken') !== null);
   }
@@ -53,7 +54,7 @@ export class AuthenticationService {
   signInWithJobbag(username: string, password: string): Observable<any> {
     this.authProvider = 'JOBBAG';
     const loginRequestJSON = this.parseLoginRequest(username, password, this.authProvider);
-    console.log(loginRequestJSON);
+    this.logger.log(loginRequestJSON);
     return this.http.post<any>(this.loginPath, loginRequestJSON, { headers: { 'Content-type': 'application/json' } })
       .pipe(map(response => {
         if (response.status_code === 200) {

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { environment } from '@environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +12,9 @@ export class LoggingService {
     this.counter = 0;
   }
 
-  log(text: string) {
-    console.log(this.counter++, text);
-
+  log(...params) {
+    if (environment.allowLogs) {
+      console.log(this.counter++, params);
+    }
   }
 }

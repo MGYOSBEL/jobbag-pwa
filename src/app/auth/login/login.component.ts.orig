@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
               private authenticationService: AuthenticationService,
               private errorService: ErrorService,
               private socialAuthService: AuthService,
-              private logging: LoggingService) { 
+              private logging: LoggingService) {
     this.loginForm = this.formBuilder.group({
       'email': ['', Validators.minLength(4)],
       'password': ['', Validators.minLength(4)]
@@ -85,13 +85,13 @@ export class LoginComponent implements OnInit {
            this.logging.log('error on the post request of the login method: ' + error + ' ... (LoginComponent)');
 >>>>>>> login-formValidation
         });
-        console.log('Valido');
+        this.logger.log('Valido');
       }
       else
       {
-        console.log('Invalido');
-        console.log(this.email.value);
-        console.log(this.password.value);
+        this.logger.log('Invalido');
+        this.logger.log(this.email.value);
+        this.logger.log(this.password.value);
       }
   }
 
@@ -116,7 +116,7 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('socialUser', JSON.stringify(user));
           this.authenticationService.socialLogin(user, this.authenticationService.authProvider).subscribe(
             (data) => {
-              console.log(data);
+              this.logger.log(data);
               if ( data.status_code ) {
                 this.logging.log('isLoggedIn subscription was false.... (LoginComponent)' + data);
                 this.loading = false;
@@ -135,7 +135,7 @@ export class LoginComponent implements OnInit {
           );
         }
       }
-    );    
+    );
 
   }
 

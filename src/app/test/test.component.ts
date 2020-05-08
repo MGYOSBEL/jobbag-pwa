@@ -5,6 +5,7 @@ import { Country } from '@app/user/models/country.model';
 import { ServicesService } from '@app/user/services/services.service';
 import { Service } from '@app/user/models/services.model';
 import { distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { LoggingService } from '@app/services/logging.service';
 
 @Component({
   selector: 'app-test',
@@ -67,6 +68,7 @@ export class TestComponent implements OnInit {
 
   countries$: Observable<Country[]>;
   constructor(
+    private logger: LoggingService,
     private countryService: CountryService,
     private servicesService: ServicesService
   ) { }
@@ -86,7 +88,7 @@ export class TestComponent implements OnInit {
   }
 
   onSearch($event) {
-    console.log($event);
+    this.logger.log($event);
   }
 
   trackByFn(item: Service) {

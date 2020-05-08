@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { Country } from '../models/country.model';
 import { CountryService } from '../services/country.service';
 import { findIndex } from 'rxjs/operators';
+import { LoggingService } from '@app/services/logging.service';
 
 @Component({
   selector: 'app-multi-select',
@@ -34,6 +35,7 @@ export class MultiSelectComponent implements OnInit {
 
   countries$: Observable<Country[]>;
   constructor(
+    private logger: LoggingService,
     private countryService: CountryService
     ) {
       this.hideButtons = false;
@@ -52,7 +54,7 @@ export class MultiSelectComponent implements OnInit {
           this.selectedDivisions.filter(item => this.countries[1].divisions.findIndex(elem => elem.id === item) > -1),
           this.selectedDivisions.filter(item => this.countries[2].divisions.findIndex(elem => elem.id === item) > -1),
         ];
-        console.log('selectedByCountry', this.selectedByCountry);
+        this.logger.log('selectedByCountry', this.selectedByCountry);
       }
     );
   }
@@ -62,19 +64,19 @@ export class MultiSelectComponent implements OnInit {
 // }
 
 // onAdd(event) {
-// console.log(event);
+// this.logger.log(event);
 // }
 
 onCountrySelect(country: Country, i: number) {
-  console.log(country);
+  this.logger.log(country);
   this.hideButtons = true;
   this.selectedCountry = country;
   this.selectedCountryIndex = i;
   this.countryDivisions = country.divisions;
   this.selectedCountryDivisions = [...this.selectedByCountry[i]];
 
-  console.log(this.selectedDivisions);
-  console.log(this.selectedCountryDivisions);
+  this.logger.log(this.selectedDivisions);
+  this.logger.log(this.selectedCountryDivisions);
 
 }
 
@@ -82,18 +84,18 @@ onCountrySelect(country: Country, i: number) {
 //   // this.hideButtons = false;
 //   // this.selectedDivisions = [...this.selectedDivisions, ...this.selectedCountryDivisions];
 //   // this.selectedCountryDivisions = [];
-//   console.log('saveDivisions called');
-//   console.log(event);
+//   this.logger.log('saveDivisions called');
+//   this.logger.log(event);
 //   const checked = event.target.checked;
 //   this.selectedCountryDivisions = checked ? this.selectedCountry.divisions.map(item => item.id) : [] ;
-//   console.log('checked array: ', this.selectedCountryDivisions);
+//   this.logger.log('checked array: ', this.selectedCountryDivisions);
 
 //   this.selectedDivisions = [...this.selectedDivisions].filter(elem => this.selectedCountry.divisions.findIndex(div => div.id === elem) < 0);
-//   console.log('filtered array: ', this.selectedDivisions);
+//   this.logger.log('filtered array: ', this.selectedDivisions);
 
 //   this.selectedDivisions = [...this.selectedDivisions, ...this.selectedCountryDivisions];
-//   console.log('selectedDivisions: ', this.selectedDivisions);
-//   console.log('selectedCountryDivisions: ', this.selectedCountryDivisions);
+//   this.logger.log('selectedDivisions: ', this.selectedDivisions);
+//   this.logger.log('selectedCountryDivisions: ', this.selectedCountryDivisions);
 
 //   this.selected.emit(this.selectedDivisions);
 // }
@@ -109,7 +111,7 @@ onChange($event) {
 
   this.selectedDivisions = [...this.selectedByCountry[0], ...this.selectedByCountry[1], ...this.selectedByCountry[2]];
 
-  console.log(this.selectedDivisions);
+  this.logger.log(this.selectedDivisions);
 
   this.selected.emit(this.selectedDivisions);
 }

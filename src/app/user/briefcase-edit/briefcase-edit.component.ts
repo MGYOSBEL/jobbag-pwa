@@ -6,6 +6,7 @@ import { BriefcaseService } from '../services/briefcase.service';
 import { ErrorService } from '@app/errors/error.service';
 import { environment } from '@environments/environment';
 import { Observable } from 'rxjs';
+import { LoggingService } from '@app/services/logging.service';
 
 @Component({
   selector: 'app-briefcase-edit',
@@ -27,6 +28,7 @@ export class BriefcaseEditComponent implements OnInit {
 
   constructor(
     private briefcaseService: BriefcaseService,
+    private logger: LoggingService,
     private formBuilder: FormBuilder,
     private router: Router,
     private route: ActivatedRoute) {
@@ -48,7 +50,7 @@ export class BriefcaseEditComponent implements OnInit {
 
   ngOnInit() {
     this.briefcases$.subscribe(
-      briefcases => {this.briefcases = briefcases; console.log('briefcases: ', briefcases); }
+      briefcases => {this.briefcases = briefcases; this.logger.log('briefcases: ', briefcases); }
     );
 
   }
@@ -62,12 +64,12 @@ export class BriefcaseEditComponent implements OnInit {
     const bc = this.formToData();
     if (this.editedBriefcaseIndex != null) { // Si this.editedBriefcaseIndex != null es q estoy editando
       this.opSucceed = this.briefcaseService.editLocal({...bc});
-      console.log('Editing...');
-      console.log(bc);
+      this.logger.log('Editing...');
+      this.logger.log(bc);
     } else { // Si this.editedBriefcaseIndex == null es q estoy creando
       this.opSucceed = this.briefcaseService.addLocal(bc);
-      console.log('Adding...');
-      console.log(bc);
+      this.logger.log('Adding...');
+      this.logger.log(bc);
 
     }
     this.resetForm();
@@ -76,7 +78,7 @@ export class BriefcaseEditComponent implements OnInit {
 
   // EDIT BRIEFCASES SECTION
   editBriefcase(index: number) {
-    console.log(`${index}: ${typeof(index)}`);
+    this.logger.log(`${index}: ${typeof(index)}`);
     this.dataToForm(this.briefcases[index]);
     this.editedBriefcaseIndex = index;
   }
@@ -111,22 +113,22 @@ export class BriefcaseEditComponent implements OnInit {
 
   uploadPicture($event) {
     const file = ($event.target as HTMLInputElement).files[0];
-    console.log('uploading - file', file);
+    this.logger.log('uploading - file', file);
     let reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = (_event) => {
       this.previewUrl = reader.result;
 
       this.imageBase64 = this.previewUrl.toString().split(',')[1];
-      console.log(this.imageBase64);
+      this.logger.log(this.imageBase64);
       this.pictures[0] = this.imageBase64;      // adding pictures array to briefcase (pictures[0]) just one image
       this.imageLoaded = true;
-      console.log('image loaded...');
+      this.logger.log('image loaded...');
     };
   }
 
   private dataToForm(briefcase: UserProfileBriefcase) {
-    console.log('data to form: ', briefcase);
+    this.logger.log('data to form: ', briefcase);
     const start = briefcase.startdate.split('-');
     const end = briefcase.enddate.split('-');
     this.briefcaseEditForm.patchValue({
@@ -137,8 +139,8 @@ export class BriefcaseEditComponent implements OnInit {
     });
     this.previewUrl = this.parsePictureUrl((briefcase.pictures != null) ? briefcase.pictures[0] : null);
     this.imageLoaded = this.previewUrl != null;
-    console.log('image previewURL >>>>', this.previewUrl);
-    console.log('image loaded >>>>', this.imageLoaded);
+    this.logger.log('image previewURL >>>>', this.previewUrl);
+    this.logger.log('image loaded >>>>', this.imageLoaded);
 
   }
 
@@ -172,7 +174,7 @@ export class BriefcaseEditComponent implements OnInit {
 
   private parsePictureUrl(picture: string): string {
     if (picture != null) {
-      console.log(picture);
+      this.logger.log(picture);
       const remoteImage = picture.includes('uploads');
       // No contiene 'uploads' pero no esta vacio, debe ser un base64
       const localImage = !remoteImage && picture != null;
