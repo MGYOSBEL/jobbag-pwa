@@ -1,12 +1,3 @@
-
-/*Briefcase Section*/  
-.svg-add-bc{
-  width: 8rem;
-  height: 5rem;
-  object-fit: cover;
-  cursor: pointer;
-}
-
 .bc-card-col{
   background-color: #2982c1;
   padding-left: 0;
@@ -26,6 +17,14 @@
   margin-top: 0;
 }
 
+.svg-add-bc{
+  width: 50%;
+}
+
+#btn-modal-bc:hover{
+  opacity: 1;
+  transform: scale(1.1);  
+}
 /*Modal Section*/ 
 .col{
   padding-left: 0rem;
