@@ -12,7 +12,7 @@
     </button>
   </div>
 
-  <div class="modal fade rounded-0" id="selectModal" tabindex="-1" role="dialog"
+  <div class="modal fade rounded-0" data-backdrop="static" id="selectModal" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal modal-dialog-centered rounded-0" role="document">
       <div class="modal-content rounded-0 border-0">
@@ -39,7 +39,7 @@
                 [closeOnSelect]="false"
                 bindLabel="nameEs"
                 bindValue="id"
-                (change)="onChange($event)">
+                >
                   <ng-template ng-optgroup-tmp let-item="item" let-item$="item$" let-index="index">
                     <input id="item-{{index}}" type="checkbox" [ngModel]="item$.selected" />
                     {{selectedCountry.nameEs | uppercase}}
@@ -54,6 +54,13 @@
             </div>
           </div>
 
+        </div>
+
+        <div class="modal-footer rounded-0">
+          <button type="button" class="btn btn-previous rounded-0" data-dismiss="modal" style="background-color: #2888C7; color: white;"
+            >Cancel</button>
+          <button type="button" class="btn btn-send rounded-0" data-dismiss="modal"
+            style="background-color: #2888C7;color: white;" (click)="onSave()">Accept</button>
         </div>
       </div>
     </div>

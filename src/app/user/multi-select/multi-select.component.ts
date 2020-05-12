@@ -80,31 +80,23 @@ onCountrySelect(country: Country, i: number) {
 
 }
 
-// saveAllDivisions(event) {
-//   // this.hideButtons = false;
-//   // this.selectedDivisions = [...this.selectedDivisions, ...this.selectedCountryDivisions];
-//   // this.selectedCountryDivisions = [];
-//   this.logger.log('saveDivisions called');
-//   this.logger.log(event);
-//   const checked = event.target.checked;
-//   this.selectedCountryDivisions = checked ? this.selectedCountry.divisions.map(item => item.id) : [] ;
-//   this.logger.log('checked array: ', this.selectedCountryDivisions);
-
-//   this.selectedDivisions = [...this.selectedDivisions].filter(elem => this.selectedCountry.divisions.findIndex(div => div.id === elem) < 0);
-//   this.logger.log('filtered array: ', this.selectedDivisions);
-
-//   this.selectedDivisions = [...this.selectedDivisions, ...this.selectedCountryDivisions];
-//   this.logger.log('selectedDivisions: ', this.selectedDivisions);
-//   this.logger.log('selectedCountryDivisions: ', this.selectedCountryDivisions);
-
-//   this.selected.emit(this.selectedDivisions);
-// }
-
 closeModal() {
   this.selectedCountryDivisions = [];
 }
 
 onChange($event) {
+  this.selectedDivisions = [...this.selectedDivisions, ...this.selectedCountryDivisions];
+
+  this.selectedByCountry[this.selectedCountryIndex] = this.selectedCountryDivisions;
+
+  this.selectedDivisions = [...this.selectedByCountry[0], ...this.selectedByCountry[1], ...this.selectedByCountry[2]];
+
+  this.logger.log(this.selectedDivisions);
+
+  this.selected.emit(this.selectedDivisions);
+}
+
+onSave() {
   this.selectedDivisions = [...this.selectedDivisions, ...this.selectedCountryDivisions];
 
   this.selectedByCountry[this.selectedCountryIndex] = this.selectedCountryDivisions;
