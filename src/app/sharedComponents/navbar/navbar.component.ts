@@ -28,8 +28,8 @@ export class NavbarComponent implements OnInit {
   activeProfile: UserProfile;
   defaultPicture: boolean;
   hasProfiles: boolean[] = [false, false]; // en la posicion 0 es si hay cliente y en la 1 si hay service provider
-
   navEnd: Observable<NavigationEnd>;
+  btnhidder: boolean;
 
   constructor(
     private userService: UserService,
@@ -42,7 +42,6 @@ export class NavbarComponent implements OnInit {
     this.navEnd = router.events.pipe(
       filter(evt => evt instanceof NavigationEnd)
     ) as Observable<NavigationEnd>;
-
     this.hiddenNavbar = false;
     this.defaultPicture = true;
 
@@ -67,7 +66,10 @@ export class NavbarComponent implements OnInit {
     );
 
     this.navEnd.subscribe(
-      evt => {
+      evt => {       
+        if(this.route.snapshot.params.role){
+          this.role = this.route.snapshot.params.role;
+        }
         this.hiddenNavbar = this.router.url.includes('auth') || this.router.url.includes('create-profile')
           || (this.router.url.includes('user') && !this.role);
 
@@ -108,14 +110,18 @@ export class NavbarComponent implements OnInit {
     this.router.navigateByUrl(`/user/${this.loggedUser.id}/CLIENT`);
   }
 
-  createProvider() {
+  createProvider(btnhidder:boolean) {
     this.userService.role = 'SERVICE_PROVIDER';
-    this.router.navigateByUrl(`/user/${this.loggedUser.id}/SERVICE_PROVIDER/create-profile`);
+    this.btnhidder = true;
+    // this.router.navigateByUrl(`/user/${this.loggedUser.id}/SERVICE_PROVIDER/create-profile`);
+    this.router.navigate([`/user/${this.loggedUser.id}/SERVICE_PROVIDER/create-profile`], {queryParams: {btnhidder: btnhidder}});
   }
 
-  createClient() {
+  createClient(btnhidder: boolean) {
     this.userService.role = 'CLIENT';
-    this.router.navigateByUrl(`/user/${this.loggedUser.id}/CLIENT/create-profile`);
+    this.btnhidder = true;
+    // this.router.navigateByUrl(`/user/${this.loggedUser.id}/CLIENT/create-profile`);
+    this.router.navigate([`/user/${this.loggedUser.id}/CLIENT/create-profile`], {queryParams: {btnhidder: btnhidder}});
   }
 
   // Function that reacts to any change in loggedUser
@@ -142,8 +148,6 @@ export class NavbarComponent implements OnInit {
         this.userImageUrl = environment.serverBaseURL + '/' + this.activeProfile.picture;
         this.logger.log('defaultPicture: ', this.defaultPicture, 'userImageUrl: ', this.userImageUrl);
       }
-
-
     }
   }
 
