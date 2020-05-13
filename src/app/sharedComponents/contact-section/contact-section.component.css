@@ -37,8 +37,12 @@
     color: #2f057e;;
 }
 
-.fa-twitter-square, .fa-linkedin{
-    margin-left: 1rem;
+.fa-twitter-square, .fa-linkedin, .fa-facebook-square{
+    cursor: pointer;
+}
+
+.fa-twitter-square:hover, .fa-linkedin:hover, .fa-facebook-square:hover{
+    transform: scale(1.1);
 }
 
 .icons-section{
