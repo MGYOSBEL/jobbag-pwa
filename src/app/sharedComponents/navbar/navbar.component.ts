@@ -81,6 +81,8 @@ export class NavbarComponent implements OnInit {
       }
     );
 
+
+
     this.isLoggedIn$ = this.authenticationService.isLoggedIn$;
     this.isLoggedIn$.subscribe(
       loggedIn => this.isLoggedIn = loggedIn

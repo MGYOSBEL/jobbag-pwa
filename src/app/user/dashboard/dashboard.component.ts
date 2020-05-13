@@ -50,7 +50,7 @@ export class DashboardComponent implements OnInit {
       filter(evt => evt instanceof NavigationEnd)
     ).subscribe(() => {
       if (this.loggedUser) {
-        this.role = this.userService.role;
+        this.role = this.route.snapshot.params.role;
         this.activeProfile = this.loggedUser.profiles.find(profile => profile.userProfileType === this.role);
         }
     }

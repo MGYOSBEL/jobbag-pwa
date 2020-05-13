@@ -67,7 +67,6 @@ export class UserService {
     this.userRole = role;
     this.userCacheService.setRole(role);
     this.roleSubject.next(role);
-
   }
 
 
