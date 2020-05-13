@@ -44,7 +44,7 @@ export class NavbarComponent implements OnInit {
     ) as Observable<NavigationEnd>;
     this.hiddenNavbar = false;
     this.defaultPicture = true;
-
+    this.btnhidder = true;  
     this.isLoggedIn$ = this.authenticationService.isLoggedIn$.asObservable();
   }
 
@@ -114,15 +114,11 @@ export class NavbarComponent implements OnInit {
 
   createProvider(btnhidder:boolean) {
     this.userService.role = 'SERVICE_PROVIDER';
-    this.btnhidder = true;
-    // this.router.navigateByUrl(`/user/${this.loggedUser.id}/SERVICE_PROVIDER/create-profile`);
     this.router.navigate([`/user/${this.loggedUser.id}/SERVICE_PROVIDER/create-profile`], {queryParams: {btnhidder: btnhidder}});
   }
 
   createClient(btnhidder: boolean) {
     this.userService.role = 'CLIENT';
-    this.btnhidder = true;
-    // this.router.navigateByUrl(`/user/${this.loggedUser.id}/CLIENT/create-profile`);
     this.router.navigate([`/user/${this.loggedUser.id}/CLIENT/create-profile`], {queryParams: {btnhidder: btnhidder}});
   }
 

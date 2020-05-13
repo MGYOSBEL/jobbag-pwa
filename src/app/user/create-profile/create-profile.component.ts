@@ -88,9 +88,6 @@ export class CreateProfileComponent implements OnInit {
     );
     
     this.closeProfileHidder = this.route.snapshot.queryParams.btnhidder;
-    if (this.closeProfileHidder === false){
-        this.closeProfileHidder = true;
-    }
 
     this.stepper = new Stepper(document.querySelector('#stepper1'), {
       linear: false,
