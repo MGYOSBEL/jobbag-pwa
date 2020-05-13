@@ -265,11 +265,11 @@ export class CreateProfileComponent implements OnInit {
     const userRole = this.route.snapshot.params.role;
     if(userRole == 'CLIENT'){
       this.userService.role = 'SERVICE_PROVIDER';
-      this.router.navigate([`/user/${userId}/CLIENT?o=log`]);
+      this.router.navigate([`/user/${userId}/CLIENT`]);
     }
     else{
       this.userService.role = 'CLIENT';
-      this.router.navigate([`/user/${userId}/SERVICE_PROVIDER?o=log`]);
+      this.router.navigate([`/user/${userId}/SERVICE_PROVIDER`]);
     }  
   }
 
