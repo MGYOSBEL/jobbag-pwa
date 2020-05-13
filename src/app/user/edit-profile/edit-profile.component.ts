@@ -33,6 +33,7 @@ export class EditProfileComponent implements OnInit {
   loggedUser: User;
   role: string;
   defaultPicture: boolean;
+  dataChange: boolean;
   // Edit user related variables
   changePassword: boolean;
   // Edit ProfileUser related variables
@@ -83,6 +84,7 @@ export class EditProfileComponent implements OnInit {
     // this.pictureDelete = false;
     this.cvChange = null;
     this.imageChange = null;
+    this.dataChange = false;
 
 
     this.userService.role$.subscribe(role => {
@@ -115,7 +117,20 @@ export class EditProfileComponent implements OnInit {
         this.services = services;
       }
     );
+
+    this.briefcaseService.briefcases$.subscribe(
+      () => {
+        const changeLog = this.briefcaseService.getChangeLog();
+        this.dataChange = !!changeLog.added.length || !!changeLog.edited.length || !!changeLog.deleted.length;
+      }
+    );
+
+    this.editProfileForm.valueChanges.subscribe(
+      () => this.dataChange = true
+    );
+
   }
+
 
   toggleChangePassword(event) {
     this.changePassword = event.target.checked;
@@ -142,6 +157,8 @@ export class EditProfileComponent implements OnInit {
       this.defaultPicture = false;
       // this.pictureDelete = false;
       this.imageChange = 'LOADED';
+      this.dataChange = true;
+
     };
   }
 
@@ -164,6 +181,8 @@ export class EditProfileComponent implements OnInit {
       // this.imageLoaded = true;
       this.imageChange = 'LOADED';
       this.defaultPicture = false;
+      this.dataChange = true;
+
     };
   }
 
@@ -179,6 +198,8 @@ export class EditProfileComponent implements OnInit {
       // this.cvLoaded = true;
       // this.cvDelete = false;
       this.cvChange = 'LOADED';
+      this.dataChange = true;
+
     };
 
   }
@@ -316,6 +337,8 @@ export class EditProfileComponent implements OnInit {
 
   onDivisionsSelect(event) {
     this.activeProfile.divisions = event;
+    this.dataChange = true;
+
   }
 
   private updateActiveProfile() {
@@ -354,6 +377,8 @@ export class EditProfileComponent implements OnInit {
     this.defaultPicture = true;
     this.imageBase64 = '';
     this.imageChange = 'DELETED';
+    this.dataChange = true;
+
   }
 
   viewCV() {
@@ -365,6 +390,8 @@ export class EditProfileComponent implements OnInit {
     // this.cvLoaded = false;
     // this.cvDelete = true;
     this.cvChange = 'DELETED';
+    this.dataChange = true;
+
     }
 
 }

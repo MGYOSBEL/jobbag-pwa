@@ -357,7 +357,7 @@
             <div class="card-footer accordion-footer rounded-0">
               <button type="button" class="col-2 btn btn-edit rounded-0 align-items-center align-text-top"
                 style="background-color: #2888C7; color: white; font-size: 1.25rem;"
-                data-toggle="tooltip" title="Edit" (click)="saveProfile()">
+                data-toggle="tooltip" title="Edit" (click)="saveProfile()" [disabled]="!dataChange">
                 <i class="far fa-save mr-2 text-left font-weight-light align-self-center" style="font-size: 1.25rem;"></i>
                 Save
               </button>

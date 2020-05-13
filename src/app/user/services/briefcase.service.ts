@@ -89,11 +89,10 @@ export class BriefcaseService {
     const index = this.briefcases.findIndex(item => item.id === briefcase.id);
     if (index !== -1) {
       this.briefcases.splice(index, 1);
-      this.subject.next(this.briefcases);
     } else { return false; }
 
     // add it to the change log
-    this.deleteBriefcases.push(briefcase);
+    this.deleteBriefcases = [...this.deleteBriefcases, briefcase];
 
     // delete it from previous change logs
     const indexAdd = this.addBriefcases.findIndex(item => item.id === briefcase.id);
@@ -104,6 +103,7 @@ export class BriefcaseService {
     if (indexEdit !== -1) {
       this.editBriefcases.splice(indexEdit, 1);
     }
+    this.subject.next(this.briefcases);
     return true;
 
   }
@@ -113,10 +113,6 @@ export class BriefcaseService {
     this.logger.log(index);
     if (index !== -1) {
       this.briefcases[index] = briefcase;
-      this.logger.log(this.briefcases[index]);
-
-      this.subject.next(this.briefcases);
-      this.logger.log('subject', this.subject.value);
     } else { return false; }
 
     // Update change Log
@@ -131,7 +127,7 @@ export class BriefcaseService {
     if (indexAdd !== -1) {
       this.addBriefcases.splice(indexAdd, 1);
     }
-
+    this.subject.next(this.briefcases);
     return true;
 
   }
