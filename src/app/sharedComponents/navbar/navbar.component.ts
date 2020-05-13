@@ -29,7 +29,6 @@ export class NavbarComponent implements OnInit {
   defaultPicture: boolean;
   hasProfiles: boolean[] = [false, false]; // en la posicion 0 es si hay cliente y en la 1 si hay service provider
   navEnd: Observable<NavigationEnd>;
-  btnhidder: boolean;
 
   constructor(
     private userService: UserService,
@@ -44,7 +43,6 @@ export class NavbarComponent implements OnInit {
     ) as Observable<NavigationEnd>;
     this.hiddenNavbar = false;
     this.defaultPicture = true;
-    this.btnhidder = true;  
     this.isLoggedIn$ = this.authenticationService.isLoggedIn$.asObservable();
   }
 
@@ -66,10 +64,11 @@ export class NavbarComponent implements OnInit {
     );
 
     this.navEnd.subscribe(
-      evt => {       
-        if(this.route.snapshot.params.role){
+      evt => {
+        if (this.route.snapshot.params.role) {
           this.role = this.route.snapshot.params.role;
         }
+
         this.hiddenNavbar = this.router.url.includes('auth') || this.router.url.includes('create-profile')
           || (this.router.url.includes('user') && !this.role);
 
@@ -112,14 +111,14 @@ export class NavbarComponent implements OnInit {
     this.router.navigateByUrl(`/user/${this.loggedUser.id}/CLIENT`);
   }
 
-  createProvider(btnhidder:boolean) {
+  createProvider() {
     this.userService.role = 'SERVICE_PROVIDER';
-    this.router.navigate([`/user/${this.loggedUser.id}/SERVICE_PROVIDER/create-profile`], {queryParams: {btnhidder: btnhidder}});
+    this.router.navigate([`/user/${this.loggedUser.id}/SERVICE_PROVIDER/create-profile`], {queryParams: {btnhidder: true}});
   }
 
-  createClient(btnhidder: boolean) {
+  createClient() {
     this.userService.role = 'CLIENT';
-    this.router.navigate([`/user/${this.loggedUser.id}/CLIENT/create-profile`], {queryParams: {btnhidder: btnhidder}});
+    this.router.navigate([`/user/${this.loggedUser.id}/CLIENT/create-profile`], {queryParams: {btnhidder: true}});
   }
 
   // Function that reacts to any change in loggedUser

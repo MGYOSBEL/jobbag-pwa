@@ -86,7 +86,7 @@ export class CreateProfileComponent implements OnInit {
     this.servicesService.getAll().subscribe(
       services => this.services = services
     );
-    
+
     this.closeProfileHidder = this.route.snapshot.queryParams.btnhidder;
 
     this.stepper = new Stepper(document.querySelector('#stepper1'), {
@@ -257,20 +257,19 @@ export class CreateProfileComponent implements OnInit {
     this.cvBase64 = null;
     this.uploadedCV = false;
 
-    this.logger.log('CV:' + this.cvBase64) //;
+    this.logger.log('CV:' + this.cvBase64);
   }
-  
-  closeRegister(){
+
+  closeRegister() {
     const userId = this.authenticationService.getLoggedUserId();
     const userRole = this.route.snapshot.params.role;
-    if(userRole == 'CLIENT'){
+    if ( userRole === 'CLIENT') {
       this.userService.role = 'SERVICE_PROVIDER';
       this.router.navigate([`/user/${userId}/SERVICE_PROVIDER`]);
-    }
-    else{
+    } else {
       this.userService.role = 'CLIENT';
       this.router.navigate([`/user/${userId}/CLIENT`]);
-    }  
+    }
   }
 
 }

@@ -11,7 +11,7 @@ import { LoggingService } from '@app/services/logging.service';
 @Component({
   selector: 'app-briefcase-edit',
   templateUrl: './briefcase-edit.component.html',
-  styleUrls: ['./briefcase-edit.component.css']
+  styleUrls: ['./briefcase-edit.component.css'],
 })
 export class BriefcaseEditComponent implements OnInit {
   briefcases: UserProfileBriefcase[];
@@ -187,6 +187,5 @@ export class BriefcaseEditComponent implements OnInit {
     }
     return null;
   }
-
 
 }
