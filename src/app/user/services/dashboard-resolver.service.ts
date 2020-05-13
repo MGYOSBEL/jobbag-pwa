@@ -44,7 +44,6 @@ export class DashboardResolverService implements Resolve<User> {
             }
             return of(user);
           } else {
-
             return EMPTY;
           }
         }),
