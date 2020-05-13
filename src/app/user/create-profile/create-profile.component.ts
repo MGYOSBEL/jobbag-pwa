@@ -17,6 +17,7 @@ import { MessagesService } from '@app/services/messages.service';
 import { Service } from '../models/services.model';
 import { ServicesService } from '../services/services.service';
 import { LoggingService } from '@app/services/logging.service';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-create-profile',
@@ -45,9 +46,8 @@ export class CreateProfileComponent implements OnInit {
   myDate = new Date();
   currentDate: string;
   selectedServices: FormControl;
-
   // selectedServices: number[] = [];
-
+  closeProfileHidder: boolean;
   services: Service[];
 
   constructor(
@@ -63,11 +63,11 @@ export class CreateProfileComponent implements OnInit {
     private messages: MessagesService,
     private router: Router,
     private route: ActivatedRoute,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private userService: UserService
   ) {
     this.currentDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
     this.role = this.route.snapshot.params.role;
-
     this.imageLoaded = false;
     this.profileForm = this.formBuilder.group({
       accountType: ['PERSONAL', Validators.required],
@@ -86,6 +86,11 @@ export class CreateProfileComponent implements OnInit {
     this.servicesService.getAll().subscribe(
       services => this.services = services
     );
+    
+    this.closeProfileHidder = this.route.snapshot.queryParams.btnhidder;
+    if (this.closeProfileHidder === false){
+        this.closeProfileHidder = true;
+    }
 
     this.stepper = new Stepper(document.querySelector('#stepper1'), {
       linear: false,
@@ -257,34 +262,18 @@ export class CreateProfileComponent implements OnInit {
 
     this.logger.log('CV:' + this.cvBase64) //;
   }
-
-  viewCV() {
-    // let myWindow = window.open("", "MsgWindow", "width=600,height=600");
-    // myWindow.document.write("<p>This is 'MsgWindow'. I am 200px wide and 100px tall!</p>");
-    // myWindow.document.write(`<iframe src=${this.cvUrl} style='width: 100%'></iframe>`);
+  
+  closeRegister(){
+    const userId = this.authenticationService.getLoggedUserId();
+    const userRole = this.route.snapshot.params.role;
+    if(userRole == 'CLIENT'){
+      this.userService.role = 'SERVICE_PROVIDER';
+      this.router.navigate([`/user/${userId}/CLIENT?o=log`]);
+    }
+    else{
+      this.userService.role = 'CLIENT';
+      this.router.navigate([`/user/${userId}/SERVICE_PROVIDER?o=log`]);
+    }  
   }
-
-  cvViewerLoaded(pdf) {
-  }
-
-  // showCVName(){
-  //   var input = document.getElementById( 'file-upload' );
-  //   var infoArea = document.getElementById( 'file-upload-filename' );
-
-  //   input.addEventListener( 'change', showFileName );
-
-  //   function showFileName( event ) {
-
-  //     // the change event gives us the input it occurred in
-  //     var input = event.srcElement;
-
-  //     // the input has an array of files in the `files` property, each one has a name that you can use. We're just using the name here.
-  //     var fileName = input.files[0].name;
-
-  //     // use fileName however fits your app best, i.e. add it into a div
-  //     infoArea.textContent = fileName;
-  //   }
-  //  }
-
 
 }

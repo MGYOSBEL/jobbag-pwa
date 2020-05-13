@@ -30,9 +30,8 @@ export class DashboardComponent implements OnInit {
     private socialAuthService: AuthService,
     private router: Router,
     private logging: LoggingService) {
-
+      this.userService.role = this.route.snapshot.params.role;
       this.loggedUser$ = this.userService.loggedUser$;
-
       this.userService.role$.subscribe(role => {
         this.role = role;
         if (!! this.loggedUser) {
