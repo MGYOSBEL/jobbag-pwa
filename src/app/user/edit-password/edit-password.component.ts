@@ -19,6 +19,7 @@ export class EditPasswordComponent implements OnInit {
   passwordForm: FormGroup;
 
   loggedUser: User;
+  backUrl: string;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -34,6 +35,8 @@ export class EditPasswordComponent implements OnInit {
       newPassword: ['', [ Validators.required, Validators.minLength(5)]],
       confirmPassword: ['', [ Validators.required, Validators.minLength(5)]]
     });
+
+    this.backUrl = `../${this.userService.role}`;
   }
 
   ngOnInit() {
