@@ -90,7 +90,7 @@
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-  aria-hidden="true">
+  aria-hidden="true" #formModal >
   <div class="modal-dialog modal modal-dialog-centered rounded-0 mt-0" role="document">
     <div class="modal-content rounded-0">
       <div class="modal-header py-1 rounded-0" style="background-color:#2985c4;color:white;">
@@ -183,11 +183,21 @@
                     <button type="button" class="btn col-6 btn btn-previous rounded-0"
                       style="background-color: #BFBDBE; color: #2688C6;" data-toggle="tooltip" data-dismiss="modal"
                       title="Close" (click)="cancelEdit()">CLOSE</button>
-                    <button type="button" class="btn col-5 btn btn-edit rounded-0"
+                      <ng-container *ngIf="briefcaseEditForm.invalid; else validButton">
+                        <button  type="button" class="btn col-5 btn btn-edit rounded-0"
                       style="color: white; background-color: #2688C6;"
-                      data-dismiss="modal" data-toggle="tooltip" title="Save" (click)="saveBriefCase()">
+                      data-toggle="tooltip" title="Save" disabled>
                       SAVE
                     </button>
+                      </ng-container>
+                      <ng-template #validButton>
+                        <button  type="button" class="btn col-5 btn btn-edit rounded-0"
+                        style="color: white; background-color: #2688C6;" data-dismiss="modal"
+                        data-toggle="tooltip" title="Save" (click)="saveBriefCase()">
+                        SAVE
+                      </button>
+
+                      </ng-template>
                   </div>
                 </div>
               </div>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import Stepper from 'bs-stepper';
-import { FormGroup, FormBuilder, AbstractControl, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, AbstractControl, Validators, FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { UserProfileService } from '../services/user-profile.service';
@@ -9,26 +9,24 @@ import { ErrorService } from '@app/errors/error.service';
 import { AuthenticationService } from '@app/auth/services/authentication.service';
 import { environment } from '@environments/environment';
 import { BriefcaseService } from '../services/briefcase.service';
-import { ActiveProfileService } from '../services/active-profile.service';
 import { Country, DivisionValue, DivisionElement } from '../models/country.model';
 import { CountryService } from '../services/country.service';
-
-const states = ['Alabama', 'Alaska', 'American Samoa', 'Arizona', 'Arkansas', 'California', 'Colorado',
-  'Connecticut', 'Delaware', 'District Of Columbia', 'Federated States Of Micronesia', 'Florida', 'Georgia',
-  'Guam', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine',
-  'Marshall Islands', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana',
-  'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota',
-  'Northern Mariana Islands', 'Ohio', 'Oklahoma', 'Oregon', 'Palau', 'Pennsylvania', 'Puerto Rico', 'Rhode Island',
-  'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virgin Islands', 'Virginia',
-  'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'];
+import { DatePipe } from '@angular/common';
+import { LoadingService } from '@app/services/loading.service';
+import { MessagesService } from '@app/services/messages.service';
+import { Service } from '../models/services.model';
+import { ServicesService } from '../services/services.service';
+import { LoggingService } from '@app/services/logging.service';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-create-profile',
   templateUrl: './create-profile.component.html',
-  styleUrls: ['./create-profile.component.css']
+  styleUrls: ['./create-profile.component.css'],
+  providers: [DatePipe]
 })
 export class CreateProfileComponent implements OnInit {
-
+  uploadedCV: boolean;
   private stepper: Stepper;
   model: any;
   previewUrl: any;
@@ -38,41 +36,58 @@ export class CreateProfileComponent implements OnInit {
   cvBase64: string;
   imageLoaded: boolean;
   cvUrl: any;
+  cvFileName: string;
+  cvFile: any;
   name: AbstractControl;
-  countries$: Observable<Country>;
+  // countries$: Observable<Country[]>;
   divisions: string[];
   activeStep: number;
   countryDivisions: number[] = [];
+  myDate = new Date();
+  currentDate: string;
+  selectedServices: FormControl;
+  // selectedServices: number[] = [];
+  closeProfileHidder: boolean;
+  services: Service[];
 
-  constructor(private formBuilder: FormBuilder,
-              private authenticationService: AuthenticationService,
-              private userProfileService: UserProfileService,
-              private activeProfileService: ActiveProfileService,
-              private briefcaseService: BriefcaseService,
-              private errorService: ErrorService,
-              private countryService: CountryService,
-              private router: Router,
-              private route: ActivatedRoute
-              ) {
-
-    this.role = this.route.snapshot.queryParams.role;
-
+  constructor(
+    private formBuilder: FormBuilder,
+    private authenticationService: AuthenticationService,
+    private userProfileService: UserProfileService,
+    private logger: LoggingService,
+    private briefcaseService: BriefcaseService,
+    private errorService: ErrorService,
+    private countryService: CountryService,
+    private servicesService: ServicesService,
+    private loadingService: LoadingService,
+    private messages: MessagesService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private datePipe: DatePipe,
+    private userService: UserService
+  ) {
+    this.currentDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
+    this.role = this.route.snapshot.params.role;
     this.imageLoaded = false;
     this.profileForm = this.formBuilder.group({
       accountType: ['PERSONAL', Validators.required],
       accountName: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9 ]*')]],
       companyName: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9 ]*')]],
       profilePicture: [''],
-      countries: [''],
-      services: [''],
+      // countries: [''],
+      selectedServices: [''],
       curriculum: [''],
       comments: [''],
-      gallery: ['']
+      // gallery: ['']
     });
-   }
+  }
 
   ngOnInit() {
-    this.countries$ = this.countryService.get();
+    this.servicesService.getAll().subscribe(
+      services => this.services = services
+    );
+
+    this.closeProfileHidder = this.route.snapshot.queryParams.btnhidder;
 
     this.stepper = new Stepper(document.querySelector('#stepper1'), {
       linear: false,
@@ -84,7 +99,7 @@ export class CreateProfileComponent implements OnInit {
       this.activeStep = e.detail.indexStep;
     });
 
-    this.role = this.route.snapshot.queryParams.role; // Aca debe ir el param role del activatedRouteSnapshot
+    // this.role = this.route.snapshot.queryParams.role; // Aca debe ir el param role del activatedRouteSnapshot
 
     this.profileForm.get('accountType').valueChanges.subscribe(
       value => {
@@ -92,8 +107,8 @@ export class CreateProfileComponent implements OnInit {
           this.profileForm.get('accountName').enable();
           this.profileForm.get('companyName').disable();
           this.name = this.profileForm.get('accountName');
-        } else {
-          this.profileForm.get('accountName').disable();
+        } else if (value === '') {
+          //this.profileForm.get('accountName').disable();
           this.profileForm.get('companyName').enable();
           this.name = this.profileForm.get('companyName');
 
@@ -106,13 +121,20 @@ export class CreateProfileComponent implements OnInit {
 
   next() {
     this.stepper.next();
-   }
+  }
 
   previous() {
     this.stepper.previous();
-   }
+  }
 
-   createUserProfile() {
+  clearServices() {
+    this.profileForm.patchValue({
+      selectedServices: []
+    });
+  }
+
+  createUserProfile() {
+    this.loadingService.loadingOn();
 
     const user_id = this.authenticationService.getLoggedUserId();
 
@@ -130,38 +152,39 @@ export class CreateProfileComponent implements OnInit {
       user_profile_account: this.profileForm.value.accountType,
       name: this.name.value,
       divisions: this.countryDivisions,
-      user_profile_briefcase: this.briefcaseService.briefcases.map(briefcase => {
+      services: this.profileForm.value.selectedServices,
+      user_profile_briefcase: this.briefcaseService.briefcases.map(item => {
         return {
-          description: briefcase.description,
-          end_date: briefcase.enddate,
-          start_date: briefcase.startdate,
-          comments: briefcase.comments,
-          // id_profession: briefcase.idProfessionFk    Remover profesion
+          comments: item.comments,
+          description: item.description,
+          end_date: item.enddate,
+          pictures: item.pictures,
+          start_date: item.startdate
         };
       })
     };
-    this.logger.log('userProfileRequest: ', JSON.stringify(userProfileRequest));
-    this.userProfileService.create(userProfileRequest)
-    .subscribe(
-      response => {
-        this.logger.log('createUserProfile RESPONSE: ' + JSON.stringify(response));
-<<<<<<< HEAD
-        // this.role === 'CLIENT' ? this.activeProfileService.activateClient() : this.activeProfileService.activateServiceProvider() ;
-=======
-        this.role === 'CLIENT' ? this.activeProfileService.activateClient() : this.activeProfileService.activateServiceProvider();
->>>>>>> user-devAddCountries
-        this.router.navigate(['../'], {relativeTo: this.route});
-      }, (err) => {
-        this.errorService.errorMessage = err;
-        this.router.navigate(['/error']);
-      }
-    );
-   }
+    this.logger.log('userProfileRequest', JSON.stringify(userProfileRequest));
 
-   onDivisionsSelect(event) {
+    this.userProfileService.create(userProfileRequest)
+      .subscribe(
+        response => {
+          this.logger.log('createUserProfile RESPONSE: ' + JSON.stringify(response));
+          // this.role === 'CLIENT' ? this.activeProfileService.activateClient() : this.activeProfileService.activateServiceProvider() ;
+          this.router.navigate(['../'], { relativeTo: this.route });
+          this.loadingService.loadingOff();
+        }, (err) => {
+          this.errorService.errorMessage = err;
+          this.messages.showErrors('There has been an error creating the profile. Please try again in a few minutes.');
+          this.logger.log(err);
+          this.loadingService.loadingOff();
+        }
+      );
+  }
+
+  onDivisionsSelect(event) {
     this.countryDivisions = event;
     this.logger.log('event: ', event);
-   }
+  }
 
   uploadPicture(event) {
     const file = (event.target as HTMLInputElement).files[0];
@@ -175,21 +198,20 @@ export class CreateProfileComponent implements OnInit {
   }
 
   uploadAvatar(event) {
-    console.clear();
     const file = event.target as HTMLImageElement;
     const dx = file.width;
     const dy = file.height;
 
 
-    const canvas = document.createElement("canvas");
-    const context = canvas.getContext('2d',);
+    const canvas = document.createElement('canvas');
+    const context = canvas.getContext('2d');
     const base_image = new Image();
     base_image.src = file.src;
     base_image.onload = () => {
       canvas.width = 475; // Este es el tamano de los iconos en el filesystem
       canvas.height = 514;
 
-      context.drawImage(base_image, 0 , 0);
+      context.drawImage(base_image, 0, 0);
       let dataUrl = canvas.toDataURL('image/png');
       this.previewUrl = file.src;
       this.imageBase64 = dataUrl.toString().split(',')[1];
@@ -199,14 +221,18 @@ export class CreateProfileComponent implements OnInit {
 
   uploadCV(event) {
     const file = (event.target as HTMLInputElement).files[0];
+    this.cvFileName = file.name;
     let reader = new FileReader();
+
     reader.readAsDataURL(file);
+
     reader.onload = (_event) => {
       this.cvUrl = reader.result;
       this.cvBase64 = this.cvUrl.toString().split(',')[1];
+      this.uploadedCV = true;
     };
-    this.imageLoaded = true;
 
+    this.logger.log('CV:' + this.cvBase64);
   }
 
   selectDivision(division: DivisionElement) {
@@ -214,12 +240,40 @@ export class CreateProfileComponent implements OnInit {
     this.logger.log(division);
   }
 
-  //  search = (text$: Observable<string>) =>
-  //    text$.pipe(
-  //      debounceTime(200),
-  //      distinctUntilChanged(),
-  //      map(term => term.length < 2 ? []
-  //        : states.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
-  //    )
+  customSearchFn(term: string, item: Service) {
+    term = term.toLowerCase();
+    return (
+      item.descriptionEs.toLowerCase().indexOf(term) > -1 ||
+      item.keywords.filter(x => x.toLowerCase().includes(term)).length > 0
+    );
+  }
+
+  delSelectedPicture() {
+    this.imageLoaded = false;
+    this.imageBase64 = '';
+  }
+
+  deleteCV() {
+    this.cvBase64 = null;
+    this.uploadedCV = false;
+
+    this.logger.log('CV:' + this.cvBase64);
+  }
+
+  closeRegister() {
+    const userId = this.authenticationService.getLoggedUserId();
+    const userRole = this.route.snapshot.params.role;
+<<<<<<< HEAD
+    if ( userRole === 'CLIENT') {
+=======
+    if(userRole === 'CLIENT'){
+>>>>>>> 1d1624896a4c19498628f99c9b2319b86d0e605e
+      this.userService.role = 'SERVICE_PROVIDER';
+      this.router.navigate([`/user/${userId}/SERVICE_PROVIDER`]);
+    } else {
+      this.userService.role = 'CLIENT';
+      this.router.navigate([`/user/${userId}/CLIENT`]);
+    }
+  }
 
 }

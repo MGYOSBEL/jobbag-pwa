@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { UserProfileBriefcase, IDProfessionFk } from '../models/user.model';
 import { FormGroup, FormBuilder, FormControl, ValidatorFn, AbstractControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -7,6 +7,7 @@ import { ErrorService } from '@app/errors/error.service';
 import { environment } from '@environments/environment';
 import { Observable } from 'rxjs';
 import { LoggingService } from '@app/services/logging.service';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-briefcase-edit',
@@ -25,6 +26,8 @@ export class BriefcaseEditComponent implements OnInit {
   editedBriefcaseIndex: number = null;
   pictures: string[]; // adding pictures array to briefcase
   opSucceed: boolean;
+
+
 
   constructor(
     private briefcaseService: BriefcaseService,
@@ -49,8 +52,9 @@ export class BriefcaseEditComponent implements OnInit {
 
   ngOnInit() {
     this.briefcases$.subscribe(
-      briefcases => {this.briefcases = briefcases; this.logger.log('briefcases: ', briefcases); }
+      briefcases => { this.briefcases = briefcases; this.logger.log('briefcases: ', briefcases); }
     );
+
 
   }
 
@@ -62,7 +66,7 @@ export class BriefcaseEditComponent implements OnInit {
   saveBriefCase() {
     const bc = this.formToData();
     if (this.editedBriefcaseIndex != null) { // Si this.editedBriefcaseIndex != null es q estoy editando
-      this.opSucceed = this.briefcaseService.editLocal({...bc});
+      this.opSucceed = this.briefcaseService.editLocal({ ...bc });
       this.logger.log('Editing...');
       this.logger.log(bc);
     } else { // Si this.editedBriefcaseIndex == null es q estoy creando
@@ -72,12 +76,15 @@ export class BriefcaseEditComponent implements OnInit {
 
     }
     this.resetForm();
+  }
 
+  onFormShow(event) {
+    console.log(event);
   }
 
   // EDIT BRIEFCASES SECTION
   editBriefcase(index: number) {
-    this.logger.log(`${index}: ${typeof(index)}`);
+    this.logger.log(`${index}: ${typeof (index)}`);
     this.dataToForm(this.briefcases[index]);
     this.editedBriefcaseIndex = index;
   }
@@ -147,11 +154,11 @@ export class BriefcaseEditComponent implements OnInit {
     const bc: UserProfileBriefcase = {
       description: this.briefcaseEditForm.value.description,
       enddate: this.briefcaseEditForm.value.endDate ?
-          this.briefcaseEditForm.value.endDate.year.toString() + '-'
+        this.briefcaseEditForm.value.endDate.year.toString() + '-'
         + this.briefcaseEditForm.value.endDate.month.toString() + '-'
         + this.briefcaseEditForm.value.endDate.day.toString() : null,
       startdate: this.briefcaseEditForm.value.startDate ?
-          this.briefcaseEditForm.value.startDate.year.toString() + '-'
+        this.briefcaseEditForm.value.startDate.year.toString() + '-'
         + this.briefcaseEditForm.value.startDate.month.toString() + '-'
         + this.briefcaseEditForm.value.startDate.day.toString() : null,
       comments: this.briefcaseEditForm.value.comments,
