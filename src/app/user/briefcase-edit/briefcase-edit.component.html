@@ -114,7 +114,7 @@
                       <img *ngIf="!imageLoaded" src="assets/img/default-image.png" class="loaded-img-responsive"
                         alt="default-image" title="Default Image" style="cursor: pointer;">
                     </label>
-                    <input id="file-input" type="file" (change)="uploadPicture($event)" accept="image/*">
+                    <input id="file-input" #pictureInput type="file" (change)="uploadPicture($event)" accept="image/*" (click)="pictureInput.value=null;">
                   </div>
                   <h5 class="text-center mt-0 p-0" style="color:#bebcbe ;">Click to add an image!</h5>
                 </div>

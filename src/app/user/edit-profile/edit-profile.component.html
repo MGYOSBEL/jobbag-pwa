@@ -99,8 +99,8 @@
                       <div class="row">
                         <div class="col-12" style="text-align: center;">
                           <label for="pictureInput" class="">
-                            <input class="" id="pictureInput" type="file" formControlName="profilePicture"
-                              (change)="uploadPicture($event)" accept="image/*" />
+                            <input class="" #pictureInput id="pictureInput" type="file" formControlName="profilePicture"
+                              (change)="uploadPicture($event)" accept="image/*" (click)="pictureInput.value=null;"/>
                             <div class="m-0 p-0" *ngIf="defaultPicture; else profileHasPicture">
                               <span style="font-size: 120px; color: #2888C7" class="icon-user-image"></span>
                               <button type="button" class="btn btn-circle btn-add-img"
@@ -256,8 +256,8 @@
                             <label for="curriculumUpload" id="curriculumUpload">
                               <div class="upload-btn-wrapper">
                                 <button class="btn-uploadcv"><i class="far fa-folder fa-2x"></i></button>
-                                <input type="file" name="myfile" accept="pdf/*" formControlName="curriculum"
-                                       class="form-control-file" id="file-upload" (change)="uploadCV($event)" />
+                                <input type="file" #cv name="myfile" accept="pdf/*" formControlName="curriculum"
+                                       class="form-control-file" id="file-upload" (change)="uploadCV($event)" (click)="cv.value=null;" />
                               </div>
                             </label>
                           </div>

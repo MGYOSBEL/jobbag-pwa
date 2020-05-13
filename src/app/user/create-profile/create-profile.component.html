@@ -1,5 +1,5 @@
 <div class="container bg-faded py-5" id="create-profile-container">
-  <div class="row justify-content-center">   
+  <div class="row justify-content-center">
     <!-- <div class="col-4" id="stepper-section"> -->
     <div class="col-sm-8 col-lg-4"  id="stepper-section">
       <div *ngIf="closeProfileHidder" class="col-12 text-right">
@@ -88,8 +88,8 @@
                 <div class="row">
                   <div class="col-12 px-0">
                     <label for="pictureInput" class="mx-auto d-block">
-                      <input class="mx-auto d-block" id="pictureInput" type="file" formControlName="profilePicture"
-                        (change)="uploadPicture($event)" accept="image/*" />
+                      <input class="mx-auto d-block" #pictureInput id="pictureInput" type="file" formControlName="profilePicture"
+                        (change)="uploadPicture($event)" accept="image/*" (click)="pictureInput.value=null;"/>
                       <svg *ngIf="!imageLoaded" class="svg-add-user mx-auto d-block" xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 230.41 230.41">
                         <defs>
@@ -195,8 +195,8 @@
                     <label for="curriculumUpload" id="curriculumUpload">
                       <div class="upload-btn-wrapper">
                         <button class="btn-uploadcv"><i class="far fa-folder fa-2x"></i></button>
-                        <input type="file" name="myfile" accept="pdf/*" formControlName="curriculum"
-                          class="form-control-file" id="file-upload" (change)="uploadCV($event)" />
+                        <input type="file" #cvInput name="myfile" accept="pdf/*" formControlName="curriculum"
+                          class="form-control-file" id="file-upload" (change)="uploadCV($event)" (click)="cvInput.value=null;"/>
                       </div>
                     </label>
                   </div>
