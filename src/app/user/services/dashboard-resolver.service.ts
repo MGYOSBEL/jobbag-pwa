@@ -53,7 +53,10 @@ export class DashboardResolverService implements Resolve<User> {
           return throwError(err);
         }),
         tap(() => {
-          this.countryService.get().subscribe(); // Llamo al country para que quede en cache
+          this.countryService.get().subscribe(
+            () => {},
+            err => this.messages.showErrors('We are unable to fetch some data.')
+          ); // Llamo al country para que quede en cache
           this.loadingService.loadingOff();
         })
       );

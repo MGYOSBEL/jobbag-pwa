@@ -34,6 +34,7 @@ export class CountryService {
           );
         }
       }),
+      retry(3),
       catchError(err => {
         return throwError(err.error.status + ': ' + err.error.detail);  // Relanzo el error con el status y el detail
       }),
