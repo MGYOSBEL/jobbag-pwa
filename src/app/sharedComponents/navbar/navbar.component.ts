@@ -65,20 +65,19 @@ export class NavbarComponent implements OnInit {
 
     this.navEnd.subscribe(
       evt => {
-        if (this.route.snapshot.params.role) {
-          this.role = this.route.snapshot.params.role;
-        }
+
 
         this.hiddenNavbar = this.router.url.includes('auth') || this.router.url.includes('create-profile')
           || (this.router.url.includes('user') && !this.role);
 
-        this.logger.log('NAVBAR LOG >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
-        this.logger.log('loggedUser', this.loggedUser);
-        this.logger.log('role', this.role);
-        this.logger.log('hiddenNavbar', this.hiddenNavbar);
-        this.logger.log('hasProfiles', this.hasProfiles);
-        this.logger.log('isloggedin', this.isLoggedIn);
-        this.logger.log('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< NAVBAR LOG');
+        this.logger.log(
+        'NAVBAR LOG >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>',
+        'loggedUser', this.loggedUser,
+        'role', this.role,
+        'hiddenNavbar', this.hiddenNavbar,
+        'hasProfiles', this.hasProfiles,
+        'isloggedin', this.isLoggedIn,
+        '<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< NAVBAR LOG');
       }
     );
 

@@ -124,7 +124,7 @@ export class LoginComponent implements OnInit {
               } else {
                 const user_id = this.authenticationService.getLoggedUserId();
                 // this.userService.role = 'CLIENT';
-                this.router.navigate([this.returnUrl, user_id, 'CLIENT'], {queryParams: {o: 'log'}});
+                this.router.navigate([this.returnUrl, user_id, 'CLIENT']);
               }
             }
             // }, (error) => {

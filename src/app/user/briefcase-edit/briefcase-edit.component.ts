@@ -55,7 +55,6 @@ export class BriefcaseEditComponent implements OnInit {
       briefcases => { this.briefcases = briefcases; this.logger.log('briefcases: ', briefcases); }
     );
 
-
   }
 
   // ADD BRIEFCASES SECTION
@@ -67,20 +66,12 @@ export class BriefcaseEditComponent implements OnInit {
     const bc = this.formToData();
     if (this.editedBriefcaseIndex != null) { // Si this.editedBriefcaseIndex != null es q estoy editando
       this.opSucceed = this.briefcaseService.editLocal({ ...bc });
-      this.logger.log('Editing...');
-      this.logger.log(bc);
     } else { // Si this.editedBriefcaseIndex == null es q estoy creando
       this.opSucceed = this.briefcaseService.addLocal(bc);
-      this.logger.log('Adding...');
-      this.logger.log(bc);
-
     }
     this.resetForm();
   }
 
-  onFormShow(event) {
-    console.log(event);
-  }
 
   // EDIT BRIEFCASES SECTION
   editBriefcase(index: number) {
@@ -135,8 +126,8 @@ export class BriefcaseEditComponent implements OnInit {
 
   private dataToForm(briefcase: UserProfileBriefcase) {
     this.logger.log('data to form: ', briefcase);
-    const start = briefcase.startdate.split('-') || null;
-    const end = briefcase.enddate.split('-') || null;
+    const start = briefcase.startdate ? briefcase.startdate.split('-') : null;
+    const end = briefcase.enddate ? briefcase.enddate.split('-') : null;
     this.briefcaseEditForm.patchValue({
       comments: briefcase.comments,
       description: briefcase.description,
