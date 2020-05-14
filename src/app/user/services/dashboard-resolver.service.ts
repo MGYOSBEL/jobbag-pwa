@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Resolve, ActivatedRouteSnapshot, ActivatedRoute } from '@angular/router';
+import { Resolve, ActivatedRouteSnapshot, ActivatedRoute, Router } from '@angular/router';
 import { Observable, of, EMPTY, throwError } from 'rxjs';
 import { User } from '../models/user.model';
 import { UserService } from './user.service';
@@ -25,6 +25,7 @@ export class DashboardResolverService implements Resolve<User> {
     private authenticationService: AuthenticationService,
     private messages: MessagesService,
     private loadingService: LoadingService,
+    private router: Router,
     private route: ActivatedRoute) {
 
   }

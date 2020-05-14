@@ -30,7 +30,7 @@ export class DashboardComponent implements OnInit {
     private socialAuthService: AuthService,
     private router: Router,
     private logging: LoggingService) {
-      this.userService.role = this.route.snapshot.params.role;
+
       this.loggedUser$ = this.userService.loggedUser$;
       this.userService.role$.subscribe(role => {
         this.role = role;
@@ -49,7 +49,6 @@ export class DashboardComponent implements OnInit {
       filter(evt => evt instanceof NavigationEnd)
     ).subscribe(() => {
       if (this.loggedUser) {
-        this.role = this.route.snapshot.params.role;
         this.activeProfile = this.loggedUser.profiles.find(profile => profile.userProfileType === this.role);
         }
     }
@@ -60,6 +59,8 @@ export class DashboardComponent implements OnInit {
         this.activeProfile = this.loggedUser.profiles.find(profile => profile.userProfileType === this.role);
       }
     });
+    this.router.navigate([`/user/${this.loggedUser.id}/${this.role}`]);
+
   }
 
   logOut() {
