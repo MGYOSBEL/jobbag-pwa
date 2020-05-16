@@ -16,8 +16,8 @@ import { HowtodoSectionComponent } from './howtodo-section/howtodo-section.compo
 import { ContactSectionComponent } from './contact-section/contact-section.component';
 import { RecommendedComponent } from './recommended/recommended.component';
 import { LoadingComponent } from './loading/loading.component';
+import { LottieAnimationViewModule } from 'ng-lottie';
 import { MessagesComponent } from './messages/messages.component';
-
 
 @NgModule({
   declarations: [
@@ -39,7 +39,8 @@ import { MessagesComponent } from './messages/messages.component';
   ],
   imports: [
     CommonModule,
-    SharedComponentsRoutingModule
+    SharedComponentsRoutingModule,
+    LottieAnimationViewModule.forRoot()
   ],
   exports: [
     FiltersComponent,

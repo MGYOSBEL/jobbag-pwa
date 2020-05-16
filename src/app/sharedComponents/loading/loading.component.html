@@ -1,5 +1,11 @@
 <div class="spinner-container" *ngIf="loadingService.loading$ | async">
-    <img src="assets/img/loading.gif">
+    <!-- <img src="assets/img/loading.gif"> -->
+    <lottie-animation-view
+                    [options]="lottieConfig"
+                    [width]="300"
+                    [height]="300"
+                    (animCreated)="handleAnimation($event)">
+              </lottie-animation-view>
 </div>
 <!-- <div class="spinner-container" *ngIf="loadingService.loading$ | async">
   <div class="spinner-border" style="color: #2787C4; width: 3rem; height: 3rem;" role="status">
