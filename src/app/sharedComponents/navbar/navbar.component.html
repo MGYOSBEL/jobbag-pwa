@@ -1,107 +1,103 @@
-<nav class="navbar container-fluid m-0 p-0 border-bottom shadow" [hidden]="hiddenNavbar">
+<nav class="navbar container-fluid py-0 border-bottom shadow" [hidden]="hiddenNavbar">
   <div class="row container-fluid m-0 p-0">
-    <div class="col col-3 navbar-brand mx-0">
+    <div class="col-5 col-xs-4 col-sm-3 navbar-brand mx-0">
       <img class="img img-fluid col-12 img-logo" style="max-width: 40%;" src="assets/logo/SVG/color.svg">
     </div>
-    <div *ngIf="(isLoggedIn$ | async)" class="col col-6 mx-0">
-      <div class="offset-1">
-        <div class="input-group form-sm form-1 pl-0 rounded-0">
-          <div class="input-group-prepend rounded-0">
-            <span class="input-group-text border-right-0 rounded-0"><i class="fas fa-search"
-                aria-hidden="true"></i></span>
-          </div>
-          <input class="form-control my-0 py-1 border-left-0 rounded-0" type="text" placeholder="Search"
-            aria-label="Search">
-        </div>
-      </div>
-
+    <div class="col-1 col-sm-3 mx-0">
+      <!-- space -->
     </div>
-    <div *ngIf="(isLoggedIn$ | async)" class="col col-2 mx-0">
-      <div class="row container">
-        <div class="col-6">
-          <!-- <div class="row justify-content-end font-weight-bold my-0">{{loggedUser?.username}}</div> -->
-          <div class="row justify-content-end my-0">
-            <button class="btn btn-sm btn-link dropdown-toggle my-0 py-0 font-weight-bold" id="dropdownMenuLink" data-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="false">
-              {{loggedUser?.username}}
-            </button>
-            <div class="dropdown-menu ">
-              <!-- Item GO TO provider -->
-              <div class="dropdown-item row  container-fluid no-gutters" *ngIf="hasProfiles[1] ; else noProvider">
-                <div class="col-2 p-0" style="font-size: 8px;"
-                  [ngStyle]="{'color': role === 'CLIENT' ? 'rgba(255,255,255,0)' : '#64a24f'}">
-                  <i class="fas fa-circle"></i>
-                </div>
-                <a class="btn btn-link text-left text-dark col-10 p-0" (click)="toServiceProvider()">
-                  Provider
-                </a>
-              </div>
-
-              <!-- Item Create provider -->
-              <ng-template #noProvider>
-                <div class="dropdown-item row  container-fluid no-gutters">
-                  <div class="col-2 p-0" style="font-size: 8px;" style="color: rgba(255,255,255,0);">
-                    <i class="fas fa-circle"></i>
-                  </div>
-                  <a class="btn btn-link text-left text-dark col-10 p-0" (click)="createProvider()">
-                    Create Provider
-                  </a>
-                </div>
-              </ng-template>
-
-              <!-- Item GO TO client -->
-              <div class="dropdown-item row container-fluid no-gutters" *ngIf="hasProfiles[0] ; else noClient">
-                <div class="col-2" style="font-size: 8px;"
-                  [ngStyle]="{'color': role === 'SERVICE_PROVIDER' ? 'rgba(255,255,255,0)' : '#64a24f'}">
-                  <i class="fas fa-circle"></i>
-                </div>
-                <a class="btn btn-link text-left text-dark col-10" (click)="toClient()">
-                  Client
-                </a>
-              </div>
-
-              <!-- Item Create provider -->
-              <ng-template #noClient>
-                <div class="dropdown-item row  container-fluid no-gutters">
-                  <div class="col-2 p-0" style="font-size: 8px;" style="color: rgba(255,255,255,0);">
-                    <i class="fas fa-circle"></i>
-                  </div>
-                  <a class="btn btn-link text-left text-dark col-10 p-0" (click)="createClient()">
-                    Create Client
-                  </a>
-                </div>
-              </ng-template>
-
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item text-dark" [routerLink]="['user',userId,role,'edit']"
-                routerLinkActive="active">Edit Profile</a>
-              <a class="dropdown-item text-dark" [routerLink]="['user',userId,'password']"
-                routerLinkActive="active">Change Password</a>
-              <a class="dropdown-item text-dark" style="cursor: pointer;" (click)="signout()">Sign Out</a>
-
-            </div>
-
-          </div>
-
-        </div>
-        <div class="col-6">
-          <div *ngIf="!defaultPicture; else defaultSVG" class="rounded-circle" >
-            <img [src]="userImageUrl" class="img img-src rounded-circle" id="user-image" style="height: 2.5rem; width: 2.5rem; object-fit:cover;">
-          </div>
-          <ng-template #defaultSVG>
-            <span class="icon-user-image" style="font-size: 2.5rem ;"></span>
-          </ng-template>
-
-        </div>
-      </div>
-    </div>
-    <div *ngIf="(isLoggedIn$ | async)" class="col col-1 mx-0">
-      <a routerLink="" routerLinkActive="active">
-        <i class="fas fa-bars" alt="Menu"></i>
-      </a>
-    </div>
-    <div *ngIf="!(isLoggedIn$ | async)" class="col-8 ">
+    <div *ngIf="(isLoggedIn$ | async)" class="col-5 col-xs-4 mx-0 text-right" id="user-name-pict-container">
       <div class="row justify-content-end">
+        <div class="col-5 col-xs-3" style="padding-top: 0.3rem;padding-right: 0;">
+        <button class="btn btn-sm btn-link dropdown-toggle my-0 py-0 font-weight-bold" id="dropdownMenuLink"
+          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{loggedUser?.username}}
+        </button>
+        <div class="dropdown-menu ">
+          <!-- Item GO TO provider -->
+          <div class="dropdown-item row  container-fluid no-gutters" *ngIf="hasProfiles[1] ; else noProvider">
+            <div class="col-2 p-0" style="font-size: 8px;"
+              [ngStyle]="{'color': role === 'CLIENT' ? 'rgba(255,255,255,0)' : '#64a24f'}">
+              <i class="fas fa-circle"></i>
+            </div>
+            <a class="btn btn-link text-left text-dark col-10 p-0" (click)="toServiceProvider()">
+              Provider
+            </a>
+          </div>
+    
+          <!-- Item Create provider -->
+          <ng-template #noProvider>
+            <div class="dropdown-item row  container-fluid no-gutters">
+              <div class="col-2 p-0" style="font-size: 8px;" style="color: rgba(255,255,255,0);">
+                <i class="fas fa-circle"></i>
+              </div>
+              <a class="btn btn-link text-left text-dark col-10 p-0" (click)="createProvider()">
+                Create Provider
+              </a>
+            </div>
+          </ng-template>
+    
+          <!-- Item GO TO client -->
+          <div class="dropdown-item row container-fluid no-gutters" *ngIf="hasProfiles[0] ; else noClient">
+            <div class="col-2" style="font-size: 8px;"
+              [ngStyle]="{'color': role === 'SERVICE_PROVIDER' ? 'rgba(255,255,255,0)' : '#64a24f'}">
+              <i class="fas fa-circle"></i>
+            </div>
+            <a class="btn btn-link text-left text-dark col-10" (click)="toClient()">
+              Client
+            </a>
+          </div>
+    
+          <!-- Item Create provider -->
+          <ng-template #noClient>
+            <div class="dropdown-item row  container-fluid no-gutters">
+              <div class="col-2 p-0" style="font-size: 8px;" style="color: rgba(255,255,255,0);">
+                <i class="fas fa-circle"></i>
+              </div>
+              <a class="btn btn-link text-left text-dark col-10 p-0" (click)="createClient()">
+                Create Client
+              </a>
+            </div>
+          </ng-template>
+    
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item text-dark" [routerLink]="['user',userId,role,'edit']" routerLinkActive="active">Edit
+            Profile</a>
+          <a class="dropdown-item text-dark" [routerLink]="['user',userId,'password']" routerLinkActive="active">Change
+            Password</a>
+          <a class="dropdown-item text-dark" style="cursor: pointer;" (click)="signout()">Sign Out</a>
+    
+          <!-- </div> -->
+    
+          <!-- </div> -->
+    
+          <!-- </div> comented-->
+    
+        </div>
+      </div>
+      <div class="col-6 col-xs-5 col-md-3 col-lg-2 text-left" id="profile-picture-col" style="padding-left: 0.5rem;">
+        <div *ngIf="!defaultPicture; else defaultSVG" class="rounded-circle" >
+          <img [src]="userImageUrl" class="img img-src rounded-circle" id="user-image" style="height: 2.5rem; width: 2.5rem; object-fit:cover;">
+        </div>
+        <ng-template #defaultSVG>
+          <span class="icon-user-image" style="font-size: 2.5rem ;"></span>
+        </ng-template>
+      </div>
+      </div>
+    </div>
+    <!-- Hamburguer Dropdown -->
+    <!-- <div *ngIf="(isLoggedIn$ | async)" class="col col-2 mx-0">
+      <div class="dropdown text-right">
+        <i class="fas fa-bars justify-content-end" alt="Menu" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="false" style="cursor: pointer;"></i>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+        </div>
+      </div>
+    </div> -->
+    <div *ngIf="!(isLoggedIn$ | async)" class="col-5 col-xs-6">
+      <div class="row container-fluid justify-content-end">
         <button class="btn btn-link mx-2" style="font-size:0.850rem;" routerLink='/auth/login' routerLinkActive="active"
           i18n="nav link-login|nav link-login title@@nav link-login">
           <i class="far fa-user"></i>

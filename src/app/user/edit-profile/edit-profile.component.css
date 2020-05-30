@@ -195,8 +195,6 @@
   transition: 200ms;
 }
 
-
-
 /*Overview 1200px*/
 @media screen and (max-width: 1199.98px) {
   .btn-add-img{

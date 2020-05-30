@@ -29,6 +29,7 @@ export class NavbarComponent implements OnInit {
   defaultPicture: boolean;
   hasProfiles: boolean[] = [false, false]; // en la posicion 0 es si hay cliente y en la 1 si hay service provider
   navEnd: Observable<NavigationEnd>;
+  collapsed: boolean = true;//ashcode
 
   constructor(
     private userService: UserService,
