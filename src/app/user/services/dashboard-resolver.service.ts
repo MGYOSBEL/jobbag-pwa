@@ -11,6 +11,7 @@ import { ProfessionService } from './profession.service';
 import { LoadingService } from '@app/services/loading.service';
 import { MessagesService } from '@app/services/messages.service';
 import { CountryService } from './country.service';
+import { LoggingService } from '@app/services/logging.service';
 
 @Injectable({
   providedIn: 'root'
@@ -24,14 +25,17 @@ export class DashboardResolverService implements Resolve<User> {
     private countryService: CountryService,
     private authenticationService: AuthenticationService,
     private messages: MessagesService,
+    private logger: LoggingService,
     private loadingService: LoadingService,
     private router: Router,
     private route: ActivatedRoute) {
 
   }
   resolve(route: ActivatedRouteSnapshot): Observable<User> {
-    this.loadingService.loadingOn();
-    if (this.authenticationService.isLoggedIn) {
+    const loggedIn = this.authenticationService.isLoggedIn;
+    this.logger.log('resolver loggedIn', loggedIn);
+    if (loggedIn) {
+      this.loadingService.loadingOn();
       const userId = this.authenticationService.getLoggedUserId();
       return this.userService.get(userId).pipe(
         mergeMap(user => {

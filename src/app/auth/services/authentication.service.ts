@@ -41,6 +41,10 @@ export class AuthenticationService {
   get isLoggedIn(): boolean {
     const bearer = localStorage.getItem('bearerToken');
     const validToken = moment().isBefore(this.getExpiration());
+    this.logger.log('isLoggedIn(): validToken', validToken);
+    if (!validToken) {
+      this.signOut();
+    }
     return validToken;
   }
 
@@ -102,6 +106,7 @@ export class AuthenticationService {
     const expiration = localStorage.getItem('expiresAt');
     if (expiration != null) {
       const expiresAt = JSON.parse(expiration);
+      this.logger.log('getExpiration() expiresAt', expiresAt);
       return moment(expiresAt);
     }
     return moment();
