@@ -16,6 +16,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule } from '@angular/forms';
 import { LoadingService } from './services/loading.service';
 import { MessagesService } from './services/messages.service';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 
 
@@ -49,7 +51,8 @@ export function provideConfig() {
     SocialLoginModule,
     SharedComponentsModule,
     NgbModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   exports: [],
   providers: [

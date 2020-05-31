@@ -9,6 +9,7 @@ import { SocialUser } from 'angularx-social-login';
 import { LoginRequest, OAuth2Response } from '../models/auth.model';
 import { Observable, of, pipe, BehaviorSubject } from 'rxjs';
 import { APIResponse } from '@app/models/app.model';
+import * as moment from 'moment';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,7 @@ export class AuthenticationService {
   bearerToken: OAuth2Response;
   userData$: Observable<any>;
   // private members
-  private _isLoggedIn = false;
+  // private _isLoggedIn = false;
   public authProvider;
   public isLoggedIn$: BehaviorSubject<boolean>;
   private loginRequest: LoginRequest = {
@@ -39,7 +40,12 @@ export class AuthenticationService {
   // public methods
   get isLoggedIn(): boolean {
     const bearer = localStorage.getItem('bearerToken');
-    return (this._isLoggedIn || (bearer != null));
+    const validToken = moment().isBefore(this.getExpiration());
+    this.logger.log('isLoggedIn(): validToken', validToken);
+    if (!validToken) {
+      this.signOut();
+    }
+    return validToken;
   }
 
   constructor(
@@ -59,7 +65,7 @@ export class AuthenticationService {
       .pipe(map(response => {
         if (response.status_code === 200) {
           const bearer = JSON.parse(response.content);
-          this.setLogin(bearer);
+          this.setSession(bearer);
           return bearer;
         } else {
           const content = (JSON.parse(response.content));
@@ -75,7 +81,7 @@ export class AuthenticationService {
         map(response => {
           if (response.status_code === 200) {
             const bearer = JSON.parse(response.content);
-            this.setLogin(bearer);
+            this.setSession(bearer);
             return bearer;
           } else {
             const error = {
@@ -91,16 +97,28 @@ export class AuthenticationService {
 
   signOut(): void {
     localStorage.clear();
-    this._isLoggedIn = false;
+    // this._isLoggedIn = false;
     this.isLoggedIn$.next(false);
     this.authProvider = null;
   }
 
-  private setLogin(data: any) {
+  private getExpiration() {
+    const expiration = localStorage.getItem('expiresAt');
+    if (expiration != null) {
+      const expiresAt = JSON.parse(expiration);
+      this.logger.log('getExpiration() expiresAt', expiresAt);
+      return moment(expiresAt);
+    }
+    return moment();
+  }
+
+  private setSession(data: any) {
     if (data != null) {
       localStorage.setItem('bearerToken', JSON.stringify(data));
       this.bearerToken = data;
-      this._isLoggedIn = true;
+      const expiresAt = moment().add(this.bearerToken.expires_in, 's');
+      localStorage.setItem('expiresAt', JSON.stringify(expiresAt.valueOf()));
+      // this._isLoggedIn = true;
       this.isLoggedIn$.next(true);
     } else {
       this.signOut();

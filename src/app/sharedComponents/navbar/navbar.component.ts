@@ -66,7 +66,6 @@ export class NavbarComponent implements OnInit {
     this.navEnd.subscribe(
       evt => {
 
-
         this.hiddenNavbar = this.router.url.includes('auth') || this.router.url.includes('create-profile')
           || (this.router.url.includes('user') && !this.role);
 
