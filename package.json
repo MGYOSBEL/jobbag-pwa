@@ -35,6 +35,7 @@
     "bs-stepper": "^1.7.0",
     "jquery": "^3.4.1",
     "ng-lottie": "^0.3.2",
+    "moment": "^2.26.0",
     "ng2-pdf-viewer": "^6.3.0",
     "ngx-extended-pdf-viewer": "^3.2.3",
     "rfs": "^9.0.2",
