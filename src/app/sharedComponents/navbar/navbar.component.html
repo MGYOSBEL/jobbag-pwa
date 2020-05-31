@@ -3,12 +3,11 @@
     <div class="col-5 col-xs-4 col-sm-3 navbar-brand mx-0">
       <img class="img img-fluid col-12 img-logo" style="max-width: 40%;" src="assets/logo/SVG/color.svg">
     </div>
-    <div class="col-1 col-sm-3 mx-0">
-      <!-- space -->
-    </div>
+    <!-- <div class="col-1 col-sm-3 mx-0">
+    </div> -->
     <div *ngIf="(isLoggedIn$ | async)" class="col-5 col-xs-4 mx-0 text-right" id="user-name-pict-container">
       <div class="row justify-content-end">
-        <div class="col-5 col-xs-3" style="padding-top: 0.3rem;padding-right: 0;">
+        <div class="col-4 col-xs-3" id="user-col" style="padding-top: 0.3rem;padding-right: 0;">
         <button class="btn btn-sm btn-link dropdown-toggle my-0 py-0 font-weight-bold" id="dropdownMenuLink"
           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           {{loggedUser?.username}}
@@ -20,62 +19,51 @@
               [ngStyle]="{'color': role === 'CLIENT' ? 'rgba(255,255,255,0)' : '#64a24f'}">
               <i class="fas fa-circle"></i>
             </div>
-            <a class="btn btn-link text-left text-dark col-10 p-0" (click)="toServiceProvider()">
+            <a class="btn btn-link text-left text-dark col-9 p-0" (click)="toServiceProvider()">
               Provider
             </a>
           </div>
-    
           <!-- Item Create provider -->
           <ng-template #noProvider>
             <div class="dropdown-item row  container-fluid no-gutters">
               <div class="col-2 p-0" style="font-size: 8px;" style="color: rgba(255,255,255,0);">
                 <i class="fas fa-circle"></i>
               </div>
-              <a class="btn btn-link text-left text-dark col-10 p-0" (click)="createProvider()">
+              <a class="btn btn-link text-left text-dark col-9 p-0" (click)="createProvider()">
                 Create Provider
               </a>
             </div>
           </ng-template>
-    
           <!-- Item GO TO client -->
           <div class="dropdown-item row container-fluid no-gutters" *ngIf="hasProfiles[0] ; else noClient">
             <div class="col-2" style="font-size: 8px;"
               [ngStyle]="{'color': role === 'SERVICE_PROVIDER' ? 'rgba(255,255,255,0)' : '#64a24f'}">
               <i class="fas fa-circle"></i>
             </div>
-            <a class="btn btn-link text-left text-dark col-10" (click)="toClient()">
+            <a class="btn btn-link text-left text-dark col-9" (click)="toClient()">
               Client
             </a>
           </div>
-    
           <!-- Item Create provider -->
           <ng-template #noClient>
             <div class="dropdown-item row  container-fluid no-gutters">
               <div class="col-2 p-0" style="font-size: 8px;" style="color: rgba(255,255,255,0);">
                 <i class="fas fa-circle"></i>
               </div>
-              <a class="btn btn-link text-left text-dark col-10 p-0" (click)="createClient()">
+              <a class="btn btn-link text-left text-dark col-9 p-0" (click)="createClient()">
                 Create Client
               </a>
             </div>
           </ng-template>
-    
           <div class="dropdown-divider"></div>
           <a class="dropdown-item text-dark" [routerLink]="['user',userId,role,'edit']" routerLinkActive="active">Edit
             Profile</a>
           <a class="dropdown-item text-dark" [routerLink]="['user',userId,'password']" routerLinkActive="active">Change
             Password</a>
           <a class="dropdown-item text-dark" style="cursor: pointer;" (click)="signout()">Sign Out</a>
-    
-          <!-- </div> -->
-    
-          <!-- </div> -->
-    
-          <!-- </div> comented-->
-    
         </div>
       </div>
-      <div class="col-6 col-xs-5 col-md-3 col-lg-2 text-left" id="profile-picture-col" style="padding-left: 0.5rem;">
+      <div class="col-5 col-xs-4 col-sm-3 col-lg-2 text-left" id="picture-col">
         <div *ngIf="!defaultPicture; else defaultSVG" class="rounded-circle" >
           <img [src]="userImageUrl" class="img img-src rounded-circle" id="user-image" style="height: 2.5rem; width: 2.5rem; object-fit:cover;">
         </div>
@@ -96,14 +84,14 @@
         </div>
       </div>
     </div> -->
-    <div *ngIf="!(isLoggedIn$ | async)" class="col-5 col-xs-6">
-      <div class="row container-fluid justify-content-end">
-        <button class="btn btn-link mx-2" style="font-size:0.850rem;" routerLink='/auth/login' routerLinkActive="active"
+    <div *ngIf="!(isLoggedIn$ | async)" class="col-6 -0">
+      <div class="row container-fluid justify-content-end px-0">
+        <button class="btn btn-link col-4 col-xs-3 col-md-2 px-0" id="btn-login" style="font-size:0.850rem;" routerLink='/auth/login' routerLinkActive="active"
           i18n="nav link-login|nav link-login title@@nav link-login">
           <i class="far fa-user"></i>
           Login
         </button>
-        <button class="btn btn-link mx-2" style="font-size: 0.850rem;" routerLink='/auth/register'
+        <button class="btn btn-link col-6 col-xs-5 col-sm-4 col-md-3 col-lg-2 px-0" id="btn-register" style="font-size: 0.850rem;" routerLink='/auth/register'
           routerLinkActive="active" i18n="nav link-register|nav link-register title@@nav link-register">
           <i class="fas fa-user-plus"></i>
           Register
