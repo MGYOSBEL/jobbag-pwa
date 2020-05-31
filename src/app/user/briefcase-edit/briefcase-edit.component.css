@@ -23,9 +23,9 @@
 
 #btn-modal-bc:hover{
   opacity: 1;
-  transform: scale(1.1);  
+  transform: scale(1.1);
 }
-/*Modal Section*/ 
+/*Modal Section*/
 .col{
   padding-left: 0rem;
 }
@@ -73,8 +73,16 @@
 }
 
 .loaded-img-responsive{
-  max-width: 100%; 
+  max-width: 100%;
   max-height: 150px;
   height: auto;
   object-fit: contain;
+}
+
+/*Overview 576px*/
+@media (max-width: 575.98px) {
+  .modal-body{
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
 }
