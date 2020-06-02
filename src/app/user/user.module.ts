@@ -10,7 +10,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CreateProfileComponent } from './create-profile/create-profile.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
-import { MultiSelectComponent } from './multi-select/multi-select.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule } from '@angular/forms';
 import { EditPasswordComponent } from './edit-password/edit-password.component';
@@ -22,7 +21,6 @@ import { EditPasswordComponent } from './edit-password/edit-password.component';
      ProjectsComponent,
      CreateProfileComponent,
      EditProfileComponent,
-     MultiSelectComponent,
      EditPasswordComponent
     ],
   imports: [
