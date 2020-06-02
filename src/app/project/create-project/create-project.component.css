@@ -1,0 +1,52 @@
+/*Component editProfileContainer*/
+.container-cp-component{
+    background-image: url(../../../assets/img/img-blur10-opacity50.png);
+    background-size:125%;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  /*Container Column*/
+  .container-col{
+    padding-left: 0;
+    padding-right: 0;
+    box-shadow: 10px 10px 12px 0.5rem rgba(0,0,0,0.5);
+  }
+
+  /*Container columnBar*/
+  .scroll-host {
+    height: 26.5rem;
+    overflow:auto;
+    padding-right: 1rem;
+  }
+
+  /* Chrome columnBarStyle */
+  .scroll-host::-webkit-scrollbar{
+    width: 8px;
+    height: 8px;
+  }
+
+  .scroll-host::-webkit-scrollbar-track{
+    background-color:#BEBCBE;
+    border-radius: 0;
+  }
+  .scroll-host::-webkit-scrollbar-thumb{
+    background-color: #2888C7;
+    border-radius: 0;
+  }
+
+  /*editProfileFormContainer*/
+  .container-cp-form{
+    padding: 1rem 2rem 1rem 2rem;
+    background-color: white;
+  }
+
+  #section-card{
+    border:0;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .card-header{
+    background-color: #2888C7;
+  }
