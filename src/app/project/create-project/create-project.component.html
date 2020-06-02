@@ -1,1 +1,104 @@
-<p>create-project works!</p>
+<div class="container container-cp-component bg-faded py-4">
+    <div class="row justify-content-center" id="create-project-container2">
+        <div class="col-8 container-col">
+            <!-- <form [formGroup]="createprojectForm"> -->
+            <div class="card tittle-profile-card" style="border-radius: 0;">
+                <div class="card-header" id="headingMain">
+                    <div class="row">
+                        <div class="col-10">
+                            <label style="color: white;">
+                                Create project
+                            </label>
+                        </div>
+                        <div class="col-2 btn-collapse-col">
+                            <button type="button" class="close" aria-label="Close" style="color: white;"
+                                data-toggle="modal" data-target="#closeModal">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container scroll-host" style="background-color: white;">
+                <div class="card mt-3" id="section-card">
+                    <div class="row">
+                        <div class="col-12">
+                            <label class="text-muted"><span>project Title</span></label>
+                            <input type="text" class="form-control rounded-0" id="projectTitle"
+                                formControlName="projectTitle">
+                        </div>
+                        <div class="col-12">
+                            <label class="text-muted"><span>project Resume</span></label>
+                            <div class="form-group mx-auto">
+                                <textarea class="form-control" id="commentsInputText" style="height: 6rem;"
+                                    formControlName="comments" placeholder="Enter your project Resume..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <label class="text-muted"><span>project Services Selector</span></label>
+                        </div>
+                        <div class="col-6">
+                            <label class="text-muted"><span>project Location Selector</span></label>
+
+                            <!-- <app-multi-select
+                                [selectedDivisions]="activeProfile.divisions"
+                                (selected)="onDivisionsSelect($event)"></app-multi-select> -->
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <label class="text-muted"><span>Initial Date</span></label>
+
+                            <!-- <div class="mb-3">
+                                <label for="validationTextarea">Start Date</label>
+                                <div class="input-group">
+                                  <input
+                                    class="form-control rounded-0" formControlName="startDate" id="validationTextarea"
+                                    placeholder="yyyy-mm-dd" ngbDatepicker #startDatePicker="ngbDatepicker">
+                                  <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary calendar rounded-0"
+                                      (click)="startDatePicker.toggle()" type="button">
+                                      <i class="far fa-calendar-alt fa-lg"></i>
+                                    </button>
+                                  </div>
+                                </div>
+                                <div class="invalid-feedback">
+                                  Please enter a date.
+                                </div>
+                              </div> -->
+                        </div>
+                        <div class="col-6">
+                            <label class="text-muted"><span>Online Assistance Job</span></label>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="projectOnlineAssistance">
+                                <label class="form-check-label" for="projectOnlineAssistance">Online Job</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card text-right">
+                <div class="card-footer accordion-footer rounded-0">
+                    <button type="button" class="col-2 btn btn-edit rounded-0 align-items-center align-text-top"
+                        style="background-color: #2888C7; color: white; font-size: 1.25rem;" data-toggle="tooltip"
+                        title="createproject">
+                        <i class="far fa-save mr-2 text-left font-weight-light align-self-center"
+                            style="font-size: 1.25rem;"></i>
+                        Create
+                    </button>
+                </div>
+            </div>
+            <!-- </form> -->
+        </div>
+    </div>
+</div>
+
+<!-- <div class="card-header">
+    <div class="row">
+        <div class="col-12">
+            <p class="text-left">project Tittle</p>
+        </div>
+    </div>
+</div> -->

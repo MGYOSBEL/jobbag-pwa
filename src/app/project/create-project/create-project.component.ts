@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-create-project',
@@ -7,7 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreateProjectComponent implements OnInit {
 
-  constructor() { }
+  createProjectForm = new FormGroup({});
+
+
+
+  constructor(private formBuilder: FormBuilder) {
+    this.createProjectForm = this.formBuilder.group({
+    });
+  }
 
   ngOnInit() {
   }
