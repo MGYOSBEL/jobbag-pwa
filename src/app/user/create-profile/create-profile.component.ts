@@ -221,18 +221,20 @@ export class CreateProfileComponent implements OnInit {
 
   uploadCV(event) {
     const file = (event.target as HTMLInputElement).files[0];
-    this.cvFileName = file.name;
-    let reader = new FileReader();
+    if (file.type === 'application/pdf') {
+      this.cvFileName = file.name;
+      let reader = new FileReader();
 
-    reader.readAsDataURL(file);
+      reader.readAsDataURL(file);
 
-    reader.onload = (_event) => {
-      this.cvUrl = reader.result;
-      this.cvBase64 = this.cvUrl.toString().split(',')[1];
-      this.uploadedCV = true;
-    };
-
-    this.logger.log('CV:' + this.cvBase64);
+      reader.onload = (_event) => {
+        this.cvUrl = reader.result;
+        this.cvBase64 = this.cvUrl.toString().split(',')[1];
+        this.uploadedCV = true;
+      };
+    } else {
+      this.messages.showErrors('You can just select pdf files');
+    }
   }
 
   selectDivision(division: DivisionElement) {

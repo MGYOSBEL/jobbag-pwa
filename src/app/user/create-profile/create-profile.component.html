@@ -195,7 +195,7 @@
                     <label for="curriculumUpload" id="curriculumUpload">
                       <div class="upload-btn-wrapper">
                         <button class="btn-uploadcv"><i class="far fa-folder fa-2x"></i></button>
-                        <input type="file" #cvInput name="myfile" accept=".pdf" formControlName="curriculum"
+                        <input type="file" #cvInput name="myfile" formControlName="curriculum"
                           class="form-control-file" id="file-upload" (change)="uploadCV($event)" (click)="cvInput.value=null;"/>
                       </div>
                     </label>
