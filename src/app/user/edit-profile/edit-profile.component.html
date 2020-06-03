@@ -1,6 +1,6 @@
 <div class="container container-ep-component bg-faded py-4">
   <div class="row justify-content-center" id="edit-profile-container2">
-    <div class="col-8 container-col">
+    <div class="col-md-8 container-col">
       <form [formGroup]="editProfileForm">
         <div class="accordion" id="accordionExample">
           <div class="card tittle-profile-card" style="border-radius: 0;">
@@ -104,7 +104,7 @@
                             <div class="m-0 p-0" *ngIf="defaultPicture; else profileHasPicture">
                               <span style="font-size: 120px; color: #2888C7" class="icon-user-image"></span>
                               <button type="button" class="btn btn-circle btn-add-img"
-                                style="position: absolute; right: 16rem; top:7.7rem; background-color: #2985c4; color: white;
+                                style="position: absolute; right: 16.8rem; top:7.3rem; background-color: #2985c4; color: white;
                                 pointer-events: none; cursor: pointer;">
                                 <i class="fa fa-plus"></i>
                               </button>
@@ -119,7 +119,7 @@
                             </ng-template>
                           </label>
                           <button *ngIf="!defaultPicture" type="button" class="btn btn-danger btn-circle btn-del-img"
-                            style="position: absolute; left: 20.5em; top: 3rem;" (click)="delSelectedPicture()">
+                            style="position: absolute; left: 16.5rem; top: 1.8rem;" (click)="delSelectedPicture()">
                             <i class="fa fa-times"></i>
                           </button>
                         </div>
@@ -129,20 +129,20 @@
                           <h6 class="text-center" style="color: #6c757d;">Upload a picture or select an Avatar</h6>
                         </div>
                       </div>
-                      <div class="row">
-                        <div class="col-3 mx-auto">
+                      <div class="row justify-content-between">
+                        <div class="col-3">
                           <img src="assets/img/worker.png" class="avatar-img" alt="Responsive image"
                             (click)="uploadAvatar($event)">
                         </div>
-                        <div class="col-3 mx-auto">
+                        <div class="col-3">
                           <img src="assets/img/officer.png" class="avatar-img" alt="Responsive image"
                             (click)="uploadAvatar($event)">
                         </div>
-                        <div class="col-3 mx-auto">
+                        <div class="col-3">
                           <img src="assets/img/worker-2.png" class="avatar-img" alt="Responsive image"
                             (click)="uploadAvatar($event)">
                         </div>
-                        <div class="col-3 mx-auto">
+                        <div class="col-3">
                           <img src="assets/img/lawyer.png" class="avatar-img" alt="Responsive image"
                             (click)="uploadAvatar($event)">
                         </div>
@@ -223,76 +223,70 @@
                 </div>
                 </div>
                 <div class="card" id="section-card">
-                <div class="card-header card-header-collapse" id="headingFive" data-toggle="collapse"
-                  data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                  <div class="row">
-                    <div class="col-9">
-                      <p class="text-left">Curriculum Vitae</p>
-                    </div>
-                    <div class="col-3 text-right">
-                      <i class="fa fa-angle-down" style="font-size:1.5rem;color:#2888C7"></i>
+                  <div class="card-header card-header-collapse" id="headingFive" data-toggle="collapse" data-target="#collapseFive"
+                    aria-expanded="false" aria-controls="collapseFive">
+                    <div class="row">
+                      <div class="col-9">
+                        <p class="text-left">Curriculum Vitae</p>
+                      </div>
+                      <div class="col-3 text-right">
+                        <i class="fa fa-angle-down" style="font-size:1.5rem;color:#2888C7"></i>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordionExample">
-                  <div class="card-body pt-0">
-                    <div class="row">
-                      <div class="col-12 py-3">
-                        <div class="row justify-content-center" style="margin-top: 1.5rem;margin-bottom: 1.5rem;">
-                          <div class="col-12">
-                            <p style="color:#bebcbe;font-size:0.85rem">Upload your Updated CV, only in PDF format!</p>
-                          </div>
-                          <div class="col-2">
-                          </div>
-                          <div class="col-4 pr-0">
-                            <label *ngIf="!(cvChange === 'LOADED')" for="curriculumLabel" id="curriculumLabel">
-                              <p *ngIf="!(cvChange === 'LOADED')">Upload File</p>
-                            </label>
-                            <label *ngIf="(cvChange === 'LOADED')" for="curriculumLabel" id="curriculumLabelSuccess">
-                              <p *ngIf="(cvChange === 'LOADED')">File Upload Succes</p>
-                            </label>
-                          </div>
-                          <div class="col-3 pl-0">
-                            <label for="curriculumUpload" id="curriculumUpload">
-                              <div class="upload-btn-wrapper">
-                                <button class="btn-uploadcv"><i class="far fa-folder fa-2x"></i></button>
-                                <input type="file" #cv name="myfile" accept="pdf/*" formControlName="curriculum"
-                                       class="form-control-file" id="file-upload" (change)="uploadCV($event)" (click)="cv.value=null;" />
-                              </div>
-                            </label>
-                          </div>
-                          <div *ngIf="(cvChange === 'LOADED')" class="card col-4 my-0" style="border:transparent; margin-bottom: 1.5rem;">
-                            <div class="row" style="background-color: #2982c1;margin-left: 0;margin-right: 0;">
-                              <div class="col-12 text-center my-0" style="background-color: #2982c1;">
-                                <i class="fa fa-file-pdf fa-2x my-2" style="color: #fff;"></i>
-                                <hr style="border: 0.5px solid white;margin-bottom: 0; margin-top: 0;">
-                              </div>
+                  <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordionExample">
+                    <div class="card-body pt-0">
+                      <div class="row justify-content-center" style="margin-top: 1.5rem;margin-bottom: 1.5rem;">
+                        <div class="col-12 text-center">
+                          <p style="color:#bebcbe;font-size:0.85rem">Upload your Updated CV, only in PDF format!</p>
+                        </div>
+                        <div class="col-8 pr-0" style="text-align: right;">
+                          <label *ngIf="!(cvChange === 'LOADED')" for="curriculumLabel" id="curriculumLabel">
+                            <p *ngIf="!(cvChange === 'LOADED')">Upload File</p>
+                          </label>
+                          <label *ngIf="(cvChange === 'LOADED')" for="curriculumLabel" id="curriculumLabelSuccess">
+                            <p *ngIf="(cvChange === 'LOADED')">File Upload Succes</p>
+                          </label>
+                        </div>
+                        <div class="col-4 pl-0">
+                          <label for="curriculumUpload" id="curriculumUpload">
+                            <div class="upload-btn-wrapper">
+                              <button class="btn-uploadcv"><i class="far fa-folder fa-2x"></i></button>
+                              <input type="file" #cv name="myfile" accept="pdf/*" formControlName="curriculum" class="form-control-file"
+                                id="file-upload" (change)="uploadCV($event)" (click)="cv.value=null;" />
                             </div>
-                            <div class="row" style="background-color: #2982c1;margin-left: 0;margin-right: 0; padding-bottom: 0.2rem;">
-                              <div class="col-6 text-center mt-0" style="padding:0">
-                                <button class="btn btn-link"  (click)="viewCV()">
-                                  <i class="fas fa-eye" style="color: #fff;font-size: 0.75rem;"></i>
-                                </button>
-                              </div>
-                              <div class="col-6 text-center mt-0" style="padding:0">
-                                <button class="btn btn-link" data-toggle="modal" data-target="#deleteCVModal"
-                                        (click)="deleteCV()">
-                                  <i class="fas fa-trash-alt" style="color: #fff;font-size: 0.75rem;"></i>
-                                </button>
-                              </div>
+                          </label>
+                        </div>
+                        <div *ngIf="(cvChange === 'LOADED')" class="card col-4 my-0" style="border:transparent; margin-bottom: 1.5rem;">
+                          <div class="row" style="background-color: #2982c1;margin-left: 0;margin-right: 0;">
+                            <div class="col-12 text-center my-0" style="background-color: #2982c1;">
+                              <i class="fa fa-file-pdf fa-2x my-2" style="color: #fff;"></i>
+                              <hr style="border: 0.5px solid white;margin-bottom: 0; margin-top: 0;">
                             </div>
-                            <div class="card-footer" style="padding:0; background-color: white;">
-                              <div class="row" style="margin: 0;">
-                                <div class="col-12 text-left" style="padding:0">
-                                  <style>
-                                    .ellipsis {
-                                      text-overflow: ellipsis;
-                                    }
-                                  </style>
-                                  <p class="overflow ellipsis" id="file-upload-filename"
-                                        style="font-weight: bold;font-size: 0.8rem;"> {{cvFileName}}
-                                  </p>
-                                </div>
+                          </div>
+                          <div class="row" style="background-color: #2982c1;margin-left: 0;margin-right: 0; padding-bottom: 0.2rem;">
+                            <div class="col-6 text-center mt-0" style="padding:0">
+                              <button class="btn btn-link" (click)="viewCV()">
+                                <i class="fas fa-eye" style="color: #fff;font-size: 0.75rem;"></i>
+                              </button>
+                            </div>
+                            <div class="col-6 text-center mt-0" style="padding:0">
+                              <button class="btn btn-link" data-toggle="modal" data-target="#deleteCVModal" (click)="deleteCV()">
+                                <i class="fas fa-trash-alt" style="color: #fff;font-size: 0.75rem;"></i>
+                              </button>
+                            </div>
+                          </div>
+                          <div class="card-footer" style="padding:0; background-color: white;">
+                            <div class="row" style="margin: 0;">
+                              <div class="col-12 text-left" style="padding:0">
+                                <style>
+                                  .ellipsis {
+                                    text-overflow: ellipsis;
+                                  }
+                                </style>
+                                <p class="overflow ellipsis" id="file-upload-filename" style="font-weight: bold;font-size: 0.8rem;">
+                                  {{cvFileName}}
+                                </p>
                               </div>
                             </div>
                           </div>
@@ -300,7 +294,6 @@
                       </div>
                     </div>
                   </div>
-                </div>
                 </div>
                 <div class="card" id="section-card">
                 <div class="card-header card-header-collapse" id="headingSix" data-toggle="collapse"
@@ -355,7 +348,7 @@
           </div>
           <div class="card text-right">
             <div class="card-footer accordion-footer rounded-0">
-              <button type="button" class="col-2 btn btn-edit rounded-0 align-items-center align-text-top"
+              <button type="button" class="col-4 col-xs-3 col-lg-2  btn btn-edit rounded-0 align-items-center align-text-top"
                 style="background-color: #2888C7; color: white; font-size: 1.25rem;"
                 data-toggle="tooltip" title="Edit" (click)="saveProfile()" [disabled]="!dataChange">
                 <i class="far fa-save mr-2 text-left font-weight-light align-self-center" style="font-size: 1.25rem;"></i>
