@@ -1,7 +1,8 @@
 <div class="container container-cp-component bg-faded py-4">
     <div class="row justify-content-center" id="create-project-container2">
-        <div class="col-md-8 container-col">
+        <div class="col-8 container-col">
             <form [formGroup]="createProjectForm">
+<<<<<<< HEAD
                 <div class="card tittle-profile-card" style="border-radius: 0;">
                     <div class="card-header" id="headingMain">
                         <div class="row">
@@ -16,6 +17,21 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
+=======
+            <div class="card tittle-profile-card" style="border-radius: 0;">
+                <div class="card-header" id="headingMain">
+                    <div class="row">
+                        <div class="col-10">
+                            <label style="color: white;">
+                                Create project
+                            </label>
+                        </div>
+                        <div class="col-2 btn-collapse-col">
+                            <button type="button" class="close" aria-label="Close" style="color: white;"
+                                data-toggle="modal" data-target="#closeModal">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+>>>>>>> 7b9df6c6ca5a05029e3f5a76fe935a0719c15f79
                         </div>
                     </div>
                 </div>
@@ -89,6 +105,10 @@
                         </button>
                     </div>
                 </div>
+<<<<<<< HEAD
+=======
+            </div>
+>>>>>>> 7b9df6c6ca5a05029e3f5a76fe935a0719c15f79
             </form>
         </div>
     </div>
