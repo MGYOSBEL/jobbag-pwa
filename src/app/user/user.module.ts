@@ -5,7 +5,6 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { NavbarComponent } from '@app/sharedComponents/navbar/navbar.component';
 import { BriefcaseEditComponent } from './briefcase-edit/briefcase-edit.component';
 import { SharedComponentsModule } from '@app/sharedComponents/shared-components.module';
-import { ProjectsComponent } from './projects/projects.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CreateProfileComponent } from './create-profile/create-profile.component';
@@ -18,7 +17,6 @@ import { EditPasswordComponent } from './edit-password/edit-password.component';
   declarations: [
      DashboardComponent,
      BriefcaseEditComponent,
-     ProjectsComponent,
      CreateProfileComponent,
      EditProfileComponent,
      EditPasswordComponent
