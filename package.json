@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve -o --ssl --ssl-key localhost.key --ssl-cert localhost.crt",
-    "deploy": "ng build --prod",
+    "deploy": "ng build --prod && cp -avr ./dist/JobbagPWA /c/xampp/htdocs ",
     "start:es": "ng serve --configuration=es",
     "build": "ng build",
     "build:es": "ng build --configuration=es",
