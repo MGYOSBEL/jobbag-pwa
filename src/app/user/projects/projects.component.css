@@ -1,0 +1,40 @@
+.card-header, .fa-star, .fa-star-half-alt, .fa-camera{
+    color: #2787c4;
+}
+
+.card, .card-header, .card-footer, .card-body{
+    border:none !important;
+    background-color: #ffffff;
+}
+
+.card-header, .card-footer,.card-body{
+    padding-top: 10px;
+    padding-bottom: 5px;
+    padding-right: 5px;
+    padding-left: 10px;
+}
+
+.fa-camera, .fa-star, .fa-star-half-alt{
+    align-items: center;
+}
+
+.fa-camera{
+    font-size: xxx-large;
+}
+
+#p.card{
+    text-align: justify!important;
+}
+
+.card{
+    border: none;
+    margin-top: 3rem;
+}
+
+.divline{
+    border-top: 2px solid #2787c4 !important;
+}
+
+.container-fluid{
+    margin-bottom: 2rem;
+}

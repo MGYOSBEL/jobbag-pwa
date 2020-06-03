@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup} from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -18,7 +18,7 @@ export class CreateProjectComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private route: ActivatedRoute
-    ) {
+  ) {
     this.createProjectForm = this.formBuilder.group({
     });
   }

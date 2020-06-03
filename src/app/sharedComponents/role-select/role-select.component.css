@@ -59,7 +59,7 @@
   .jobbag-img{
     display: none !important;
   }
-  
+
   .jobbag-img-movil{
     display: block !important;
     width: 100%;
@@ -68,7 +68,7 @@
   .col-sm-8{
     text-align: center;
   }
-} 
+}
 
 /*Overview 576px*/
 @media (max-width: 575.98px) {

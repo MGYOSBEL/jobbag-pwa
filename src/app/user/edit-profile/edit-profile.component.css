@@ -194,3 +194,161 @@
   font-size: 1.5rem;
   transition: 200ms;
 }
+
+/*Overview 1200px*/
+@media screen and (max-width: 1199.98px) {
+  .btn-add-img{
+    right: 12.8rem !important;
+  }
+
+  .btn-del-img{
+    left: 12.8rem !important;
+  }
+
+  .overflow {
+    width: 9rem;
+  }
+}
+
+/*Overview 992px*/
+@media screen and (max-width: 991.98px) {
+  .avatar-img{
+    height: 6rem;
+  }
+
+  .btn-add-img{
+    right: 7.8rem !important;
+  }
+
+  .btn-del-img{
+    left: 7.8rem !important;
+  }
+
+  .overflow {
+    width: 6rem;
+  }
+}
+
+/*Overview 768px*/
+@media screen and (max-width: 767.98px) {
+  .btn-add-img{
+    right: 9.3rem !important;
+  }
+
+  .btn-del-img{
+    left: 9.3rem !important
+  }
+
+  .overflow {
+    width: 7rem;
+  }
+}
+
+/*Overview 576x*/
+@media screen and (max-width: 575.98px) {
+  .container-ep-form{
+    padding: 1rem 0rem;
+  }
+
+  .card-body{
+    padding: 0.25rem;
+  }
+
+  .btn-add-img{
+    right: 13.8rem!important;
+  }
+
+  .btn-del-img{
+    left: 13.8rem !important;
+  }
+
+  .overflow {
+    width: 8rem;
+  }
+}
+
+/*Overview 481px*/
+@media screen and (max-width: 480.98px) {
+  .btn-add-img{
+    right: 10.8rem!important;
+  }
+
+  .btn-del-img{
+    left: 10.8rem !important;
+  }
+
+  .overflow {
+    width: 7rem;
+  }
+}
+
+/*Overview 415px*/
+@media screen and (max-width: 414.98px) {
+  .avatar-img{
+    height: 4rem;
+  }
+
+  .btn-add-img{
+    right: 8.8rem !important;
+  }
+
+  .btn-del-img{
+    left: 8.8rem !important;
+  }
+
+  .overflow {
+    width: 6rem;
+  }
+}
+
+/*Overview 385px*/
+@media screen and (max-width: 384.98px) {
+  .btn-add-img{
+    right: 7.8rem !important;
+  }
+
+  .btn-del-img{
+    left: 7.8rem !important;
+  }
+}
+
+/*Overview 376px*/
+@media screen and (max-width: 375.98px) {
+  .btn-add-img{
+    right: 7.3rem !important;
+  }
+
+  .btn-del-img{
+    left: 7.3rem !important;
+  }
+}
+
+/*Overview 361px*/
+@media screen and (max-width: 360.98px) {
+  .btn-add-img{
+    right: 6.8rem !important;
+  }
+
+  .btn-del-img{
+    left: 6.8rem !important;
+  }
+
+  .overflow {
+    width: 6rem;
+  }
+}
+
+/*Overview 321x*/
+@media screen and  (max-width: 320.98px) {
+  .btn-add-img{
+    right: 5.8rem !important;
+  }
+
+  .btn-del-img{
+    left: 5.8rem !important;
+  }
+
+  .overflow {
+    width: 5rem;
+  }
+}
