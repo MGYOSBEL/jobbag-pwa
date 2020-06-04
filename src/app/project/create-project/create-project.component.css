@@ -15,7 +15,7 @@
 
   /*Container columnBar*/
   .scroll-host {
-    height: 26.5rem;
+    height: 31rem;
     overflow:auto;
     padding-right: 1rem;
   }
@@ -49,4 +49,9 @@
 
   .card-header{
     background-color: #2888C7;
+  }
+
+  .text-muted{
+    font-size: 0.8rem;
+    font-weight: 600;
   }
