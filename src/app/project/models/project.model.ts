@@ -4,7 +4,7 @@ export interface ProjectDTO {
   name:              string;
   id?:                number;
   description?:       string;
-  startDateExpected?: string;
+  start_date_expected?: string;
   remote?:            boolean;
   divisions?:         number[];
   services?:          number[];
