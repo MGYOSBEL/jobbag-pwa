@@ -15,7 +15,7 @@
 
   /*Container columnBar*/
   .scroll-host {
-    height: 31rem;
+    height: 28.5rem;
     overflow:auto;
     padding-right: 1rem;
   }
@@ -55,3 +55,18 @@
     font-size: 0.8rem;
     font-weight: 600;
   }
+
+  #servicesBtnModal{
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  /*Overview 992px*/
+@media screen and (max-width: 991.98px) {
+.col-12{
+  margin-top: 0.5rem;
+}
+.col-lg-7, .col-lg5{
+  margin-top: 2rem!important;
+}
+}
