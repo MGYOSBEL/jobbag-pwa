@@ -1,47 +1,46 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, AbstractControl, Validators, FormControl } from '@angular/forms';
-
 import { Router, ActivatedRoute } from '@angular/router';
-
-import { ServicesService } from '@app/user/services/services.service';      //Service
-import { Service } from '@app/user/models/services.model';      //Service
-import { Country, DivisionValue, DivisionElement } from '@app/user/models/country.model';     //Country
-import { CountryService } from '@app/user/services/country.service';      //country
+import { ServicesService } from '@app/user/services/services.service';
+import { Service } from '@app/user/models/services.model';
+import { Country, DivisionValue, DivisionElement } from '@app/user/models/country.model';
+import { CountryService } from '@app/user/services/country.service';
 import { LoggingService } from '@app/services/logging.service';
+import { NgbDateAdapter, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-create-project',
   templateUrl: './create-project.component.html',
   styleUrls: ['./create-project.component.css']
+
 })
 export class CreateProjectComponent implements OnInit {
 
   onlineJob: boolean = true;
-  myDate = new Date();  //Date
-  currentDate: string; //Date
 
-  createProjectForm = this.formBuilder.group({
-    projectTitle: [''],
-    projectResume: [''],
-    selectedServices: [''],
-    divisions:[''],
+  createProjectForm: FormGroup;
 
-  });
+  services: Service[]; // Services
+  selectedServices: FormControl; // Services
+  countryDivisions: number[] = []; // Country
 
-  services: Service[];//Services
-  selectedServices: FormControl;//Services
-  private servicesService: ServicesService;
-  activeProfile;//Country
-  divisions: string[];//Country
-  countryDivisions: number[] = [];//Country
+
 
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
+    private servicesService: ServicesService,
     private route: ActivatedRoute,
-
-    private logger: LoggingService,//country
-  ) {}
+    private logger: LoggingService
+  ) {
+    this.createProjectForm = this.formBuilder.group({
+      projectTitle: [''],
+      projectResume: [''],
+      selectedServices: [''],
+      divisions: [''],
+      startDate: ['']
+    });
+  }
 
   ngOnInit() {
     this.servicesService.getAll().subscribe(
@@ -69,7 +68,8 @@ export class CreateProjectComponent implements OnInit {
 
   onDivisionsSelect(event) {
     this.countryDivisions = event;
-    this.logger.log('event: ', event);
-    console.log("TestDivisions"+this.countryDivisions);
+    this.createProjectForm.patchValue({
+      divisions: event
+    });
   }
 }
