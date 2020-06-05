@@ -6,7 +6,7 @@
                     <div class="card-header" id="headingMain">
                         <div class="row">
                             <div class="col-10">
-                                <label style="color: white;">
+                                <label style="color: white;font-size: 1.25rem;">
                                     Create project
                                 </label>
                             </div>
@@ -30,7 +30,7 @@
                             <div class="col-12 mt-1">
                                 <label class="text-muted"><span>Project Resume</span></label>
                                 <div class="form-group mx-auto">
-                                    <textarea class="form-control" id="commentsInputText" style="height: 6rem;"
+                                    <textarea class="form-control" id="commentsInputText" style="height: 6rem; border-radius: 0;"
                                         formControlName="projectResume"
                                         placeholder="Enter your project Resume..."></textarea>
                                 </div>
@@ -39,37 +39,36 @@
                         <div class="row">
                             <div class="col-lg-5 mt-1">
                                 <label class="text-muted"><span>Select your Project's related Services</span></label>
-                                <div class="col-12 text-center">
+                                <div class="col-12 text-center" id="servicesBtnModal">
                                     <button type="button"
-                                        class="btn btn-edit rounded-0 align-items-center align-text-top"
-                                        style="background-color: #bfbdbe; color: #2880a9; font-size: 1.25rem; width: 100%;"
+                                        class="btn rounded-0 align-items-center align-text-top"
+                                        style="background-color: #bfbdbe; color: #2880a9; font-size: 1rem; width: 100%;
+                                        font-weight: bold; margin-top: 0.5rem;"
                                         data-toggle="modal" data-target="#servicesModal">
-                                        <!-- <i class="fas fa-handshake"></i> -->
                                         Services
                                     </button>
                                 </div>
                             </div>
                             <div class="col-lg-7 mt-1">
-                                <label class="text-muted"><span>Select a Location</span></label>
+                                <div class="form-check mb-3" style="display: flex;align-items: center;">
+                                    <input type="checkbox" class="form-check-input" id="onlineJob">
+                                    <label class="form-check-label text-muted" for="onlineJob" style="font-size: 0.8rem;margin-top: 7px;"><span>
+                                       Check for an Online Job, or select a Location.</span></label>
+                                </div>
                                 <app-multi-select [selectedDivisions]="countryDivisions"
                                     (selected)="onDivisionsSelect($event)">
                                 </app-multi-select>
                                 {{divisions}}
-                                <div class="form-check mt-3">
-                                    <input type="checkbox" class="form-check-input" id="onlineJob">
-                                    <label class="form-check-label" for="onlineJob" style="font-size: 0.8rem;">This can
-                                        be an Online Job.</label>
-                                </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-5 mt-3">
                                 <label class="text-muted"><span>Initial Date</span></label>
                                 <div class="mb-3">
-                                    <div class="input-group px-3">
+                                    <div class="input-group">
                                         <input class="form-control rounded-0" formControlName="startDate" id="validationTextarea"
                                             placeholder="yyyy-mm-dd" ngbDatepicker #startDatePicker="ngbDatepicker"
-                                            style="height: 2.5rem;">
+                                            style="height: 2.5rem;border-color:#2880a9;">
                                         <div class="input-group-append">
                                             <button class="btn btn-outline-secondary calendar rounded-0" (click)="startDatePicker.toggle()"
                                                 type="button" style="background-color:#2888C7 ;">
@@ -90,14 +89,14 @@
                 <div class="card text-right">
                     <div class="card-footer accordion-footer rounded-0">
                         <button type="button"
-                            class="col-5 col-lg-2 btn btn-edit rounded-0 align-items-center align-text-top mx-3"
+                            class="col-5 col-lg-3 btn btn-edit rounded-0 align-items-center align-text-top mx-3"
                             style="background-color: #bfbdbe; color: #2880a9; font-size: 1.25rem;" data-toggle="modal"
                             data-target="#closeModal">
                             <i class="fas fa-times"></i>
                             Cancel
                         </button>
                         <button type="button"
-                            class="col-5 col-lg-2 btn btn-edit rounded-0 align-items-center align-text-top"
+                            class="col-5 col-lg-3 btn btn-edit rounded-0 align-items-center align-text-top"
                             style="background-color: #2888C7; color: white; font-size: 1.25rem;" data-toggle="tooltip"
                             title="createproject">
                             <i class="fas fa-check"></i>
