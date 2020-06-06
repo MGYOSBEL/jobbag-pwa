@@ -53,7 +53,7 @@ export class CreateProjectComponent implements OnInit {
       projectResume: [''],
       selectedServices: [[], Validators.required],
       divisions: [[], Validators.required],
-      startDate: [this.calendar.getToday()],
+      startDate: [null],
       onlineJob: [false]
     });
   }
