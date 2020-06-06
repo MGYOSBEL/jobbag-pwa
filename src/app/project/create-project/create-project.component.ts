@@ -34,7 +34,7 @@ export class CreateProjectComponent implements OnInit {
     private logger: LoggingService
   ) {
     this.createProjectForm = this.formBuilder.group({
-      projectTitle: [''],
+      projectTitle: ['', Validators.required],
       projectResume: [''],
       selectedServices: [''],
       divisions: [''],
