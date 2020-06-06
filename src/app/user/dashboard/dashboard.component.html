@@ -2,12 +2,12 @@
 <!-- <app-navbar></app-navbar> -->
 <nav class="mt-4">
   <div class="nav nav-tabs row my-0 px-0 mx-2" id="nav-tab" role="tablist">
-    <a class="nav-item nav-link active col border-0 rounded-0 ml-0 mr-2" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
-      aria-controls="nav-home" aria-selected="true">User Data</a>
-    <a class="nav-item nav-link col border-0 mx-2 rounded-0" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab"
-      aria-controls="nav-profile" aria-selected="false">Profile</a>
-    <a class="nav-item nav-link col border-0 mr-0 ml-2 rounded-0" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab"
-      aria-controls="nav-contact" aria-selected="false">Contact</a>
+    <a class="nav-item nav-link active col border-0 rounded-0 ml-0 mr-2" id="nav-home-tab" data-toggle="tab"
+      href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">User Data</a>
+    <a class="nav-item nav-link col border-0 mx-2 rounded-0" id="nav-profile-tab" data-toggle="tab" href="#nav-profile"
+      role="tab" aria-controls="nav-profile" aria-selected="false">Profile</a>
+    <a class="nav-item nav-link col border-0 mr-0 ml-2 rounded-0" id="nav-contact-tab" data-toggle="tab"
+      href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</a>
   </div>
 
 </nav>
@@ -16,40 +16,65 @@
     <div class="container-fluid align-items-center" id="navitem-one-container">
       <div class="row">
         <div class="col-md-8 py-2 mt-2 order-2">
-          <div class="card rounded-0 border-0" style=" box-shadow: 10px 10px 12px 0.1rem rgba(0,0,0,0.5); background-color: white;">
-            <div class="card-header rounded-0"  style="color: white ; background-color: #10467c;">
+          <div class="card rounded-0 border-0"
+            style=" box-shadow: 10px 10px 12px 0.1rem rgba(0,0,0,0.5); background-color: white;">
+            <div class="card-header rounded-0" style="color: white ; background-color: #10467c;">
               <h4 class="card-text"> Finding Jobs and Services</h4>
             </div>
             <div class="card-body rounded-0">
               <h5 class="card-title">Special title treatment</h5>
               <p class="card-text">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-                dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua.
+                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                consequat. Duis aute irure
+                dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+                occaecat cupidatat non
                 proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
               </p>
             </div>
           </div>
         </div>
         <div class="col-md-4 py-2 mt-2 order-1 order-md-12">
-          <div class="card rounded-0 border-0" style=" box-shadow: 10px 10px 12px 0.1rem rgba(0,0,0,0.5); background-color: white;">
+          <div class="card rounded-0 border-0"
+            style=" box-shadow: 10px 10px 12px 0.1rem rgba(0,0,0,0.5); background-color: white;">
             <div class="card-header rounded-0 text-right" style="color: white ; background-color: #952a79;">
-              <p>Welcome</p><h3 class="card-text"> {{activeProfile?.name}}</h3>
+              <p>Welcome</p>
+              <h3 class="card-text"> {{activeProfile?.name}}</h3>
             </div>
             <div class="card-body rounded-0">
               <h5 class="card-title">Special title treatment</h5>
               <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-              <a routerLink='/project/1' class="btn rounded-0" style="background-color: #952a79;color: white;">Go somewhere</a>
+              <a routerLink='/project/create' class="btn rounded-0" style="background-color: #952a79;color: white;">
+                Create Project
+              </a>
             </div>
           </div>
         </div>
       </div>
+      <div class="row">
+        <ng-container>
+          <table class="table">
+            <thead>
+              <th scope="col">Id</th>
+              <th>Name</th>
+              <th>State</th>
+            </thead>
+            <tbody>
+              <tr  *ngFor="let project of projects$ | async">
+                <th scope="row">{{project.id}}</th>
+                <td >{{project.name}}</td>
+                <td >{{project.state}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </ng-container>
+
+      </div>
     </div>
   </div>
-  <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" style="background-color: #f1f1f1;">
+  <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab"
+    style="background-color: #f1f1f1;">
   </div>
   <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">...</div>
 </div>
-
-
-

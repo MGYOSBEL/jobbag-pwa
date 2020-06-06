@@ -9,6 +9,8 @@ import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { AuthService } from 'angularx-social-login';
 import { UserProfileService } from '../services/user-profile.service';
 import { filter } from 'rxjs/operators';
+import { ProjectService } from '@app/project/services/project.service';
+import { Project } from '@app/project/models/project.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -21,6 +23,7 @@ export class DashboardComponent implements OnInit {
   loggedUser: User;
   activeProfile: UserProfile;
   role: string;
+  projects$: Observable<Project[]>;
 
 
   constructor(
@@ -28,6 +31,7 @@ export class DashboardComponent implements OnInit {
     private userService: UserService,
     private authenticationService: AuthenticationService,
     private socialAuthService: AuthService,
+    private projectService: ProjectService,
     private router: Router,
     private logging: LoggingService) {
 
@@ -59,6 +63,8 @@ export class DashboardComponent implements OnInit {
         this.activeProfile = this.loggedUser.profiles.find(profile => profile.userProfileType === this.role);
       }
     });
+    this.projects$ = this.projectService.getAllProjectSummariesByProfileId(this.activeProfile.id);
+    // this.projects$ = this.projectService.projects$;
     this.router.navigate([`/user/${this.loggedUser.id}/${this.role}`]);
 
   }

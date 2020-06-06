@@ -7,6 +7,14 @@ import { Country, DivisionValue, DivisionElement } from '@app/user/models/countr
 import { CountryService } from '@app/user/services/country.service';
 import { LoggingService } from '@app/services/logging.service';
 import { NgbDateAdapter, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
+import { ProjectService } from '../services/project.service';
+import { Project } from '../models/project.model';
+import { dateToModel } from '@app/models/date.format';
+import { UserService } from '@app/user/services/user.service';
+import { combineLatest } from 'rxjs';
+import { Observable } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { MessagesService } from '@app/services/messages.service';
 
 @Component({
   selector: 'app-create-project',
@@ -16,12 +24,13 @@ import { NgbDateAdapter, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstr
 })
 export class CreateProjectComponent implements OnInit {
 
-  onlineJob: boolean = true;
 
   createProjectForm: FormGroup;
 
+  activeProfileId: number;
+  dashboardRoute: string;
+
   services: Service[]; // Services
-  selectedServices: FormControl; // Services
   countryDivisions: number[] = []; // Country
 
 
@@ -30,7 +39,10 @@ export class CreateProjectComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private servicesService: ServicesService,
+    private projectService: ProjectService,
     private route: ActivatedRoute,
+    private userService: UserService,
+    private messages: MessagesService,
     private logger: LoggingService
   ) {
     this.createProjectForm = this.formBuilder.group({
@@ -38,7 +50,8 @@ export class CreateProjectComponent implements OnInit {
       projectResume: [''],
       selectedServices: [''],
       divisions: [''],
-      startDate: ['']
+      startDate: [''],
+      onlineJob: [false]
     });
   }
 
@@ -46,10 +59,23 @@ export class CreateProjectComponent implements OnInit {
     this.servicesService.getAll().subscribe(
       services => this.services = services
     );
+
+    const activeUserProfile$ = combineLatest(
+      this.userService.loggedUser$,
+      this.userService.role$
+    );
+
+    activeUserProfile$.subscribe(
+      ([user, role]) => {
+        const activeProfile = user.profiles.find(profile => profile.userProfileType === role);
+        this.activeProfileId = activeProfile.id;
+        this.dashboardRoute = `/user/${user.id}/${activeProfile.userProfileType}`;
+      }
+    );
   }
 
   onClose() {
-    this.router.navigate(['../'], { relativeTo: this.route });
+    this.router.navigateByUrl(this.dashboardRoute);
   }
 
   customSearchFn(term: string, item: Service) {
@@ -66,10 +92,34 @@ export class CreateProjectComponent implements OnInit {
     });
   }
 
+  // Methhod for creating a project by clicking on the Create button
+  createProject() {
+    const createProjectRequest = this.formToModel();
+    this.projectService.create(createProjectRequest, this.activeProfileId)
+    .subscribe(
+      () => this.router.navigateByUrl(this.dashboardRoute),
+      err => this.messages.showErrors(`There was an error creating the project. Please try again later.`)
+    );
+  }
+
   onDivisionsSelect(event) {
     this.countryDivisions = event;
     this.createProjectForm.patchValue({
       divisions: event
     });
+  }
+
+  formToModel(): Project {
+    const project: Project = {
+      state: null,
+      name: this.createProjectForm.value.projectTitle,
+      description: this.createProjectForm.value.projectResume,
+      startDateExpected: dateToModel(this.createProjectForm.value.startDate),
+      remote: this.createProjectForm.value.onlineJob,
+      divisions: this.createProjectForm.value.divisions,
+      services: this.createProjectForm.value.selectedServices
+    };
+    console.log('formToModel', project);
+    return project;
   }
 }

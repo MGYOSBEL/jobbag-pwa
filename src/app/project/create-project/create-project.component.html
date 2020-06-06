@@ -44,19 +44,24 @@
                 <div class="col-12 text-center" id="servicesBtnModal">
                   <button type="button" class="btn rounded-0 align-items-center align-text-top" style="background-color: #bfbdbe; color: #2880a9; font-size: 1rem; width: 100%;
                                         font-weight: bold; margin-top: 0.5rem;" data-toggle="modal"
+                                        [style.color] = "!!createProjectForm.get('selectedServices').value.length ? '#FFFFFF' : '#2985c4'"
+                                        [style.font-weight] = "!!createProjectForm.get('selectedServices').value.length ? 'normal' : 'bold'"
+                                        [style.background-color] = "!!createProjectForm.get('selectedServices').value.length ? '#2985c4' : '#BEBCBE'"
                     data-target="#servicesModal">
                     Services
+                    <span *ngIf="!!createProjectForm.get('selectedServices').value.length" class="badge badge-light rounded-circle ml-2"
+                    style="color: #2985c4">{{createProjectForm.get('selectedServices').value.length}}</span>
                   </button>
                 </div>
               </div>
               <div class="col-lg-7 mt-1">
                 <div class="form-check mb-3" style="display: flex;align-items: center;">
-                  <input type="checkbox" class="form-check-input" id="onlineJob">
+                  <input type="checkbox" class="form-check-input" id="onlineJob" formControlName="onlineJob" #onlineJob>
                   <label class="form-check-label text-muted" for="onlineJob"
                     style="font-size: 0.8rem;margin-top: 7px;"><span>
                       Check for an Online Job, or select a Location.</span></label>
                 </div>
-                <app-multi-select [selectedDivisions]="countryDivisions" (selected)="onDivisionsSelect($event)">
+                <app-multi-select [selectedDivisions]="countryDivisions" (selected)="onDivisionsSelect($event)" [disabled]="onlineJob.checked">
                 </app-multi-select>
               </div>
             </div>
@@ -95,13 +100,13 @@
             </button>
             <button type="button" class="col-5 col-lg-3 btn btn-edit rounded-0 align-items-center align-text-top"
               style="background-color: #2888C7; color: white; font-size: 1.25rem;" data-toggle="tooltip"
-              title="createproject">
+              title="createproject"  (click)="createProject()">
               <i class="fas fa-check"></i>
               Create
             </button>
           </div>
         </div>
-        <div class="modal fade rounded-0" id="servicesModal" tabindex="-1" role="dialog"
+        <div class="modal fade rounded-0" id="servicesModal" data-backdrop="static" tabindex="-1" role="dialog"
           aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered rounded-0" role="document">
             <div class="modal-content rounded-0 border-0">
@@ -114,7 +119,7 @@
               <div class="modal-body rounded-0">
                 <div class="card col-12 h-100 px-0 mx-0">
 
-                  <div class="row justify-content-center mx-5">
+                  <div class="row justify-content-center px-2">
                     <div *ngIf="createProjectForm.get('selectedServices').value.length > 0"
                       class="col text-right mr-0 pr-0">
                       <button class="btn btn-link" style="color:rgb(148,42,44);" (click)="clearServices()"
@@ -122,7 +127,7 @@
                         <span class="fas fa-times"></span>
                       </button>
                     </div>
-                    <ng-select formControlName="selectedServices" class="text-center row" [items]="services"
+                    <ng-select formControlName="selectedServices" class="text-center col-12" [items]="services"
                       [multiple]="true" [closeOnSelect]="false" [hideSelected]="true" bindLabel="descriptionEs"
                       bindLabel="descriptionEs" bindValue="id" [searchFn]="customSearchFn">
                       <ng-template ng-option-tmp let-item="item">
@@ -169,7 +174,6 @@
     </div>
   </div>
 </div>
-
 
 
 <!-- <div class="card-header">

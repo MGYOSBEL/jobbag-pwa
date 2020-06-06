@@ -1,6 +1,6 @@
   <div class="row container-fluid justify-content-around mx-0">
     <button type="button" class=" col-3 btn btn-primary rounded-0 border-0 mx-2 px-0"
-        data-toggle="modal" data-target="#selectModal"
+        data-toggle="modal" data-target="#selectModal" [disabled]="disabled"
         *ngFor="let country of (countries); let i = index"
         (click)="onCountrySelect(country, i)"
         [style.color] = "!!selectedByCountry[i].length ? '#FFFFFF' : '#2985c4'"
