@@ -6,7 +6,7 @@ import { Service } from '@app/user/models/services.model';
 import { Country, DivisionValue, DivisionElement } from '@app/user/models/country.model';
 import { CountryService } from '@app/user/services/country.service';
 import { LoggingService } from '@app/services/logging.service';
-import { NgbDateAdapter, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateAdapter, NgbDateParserFormatter, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import { ProjectService } from '../services/project.service';
 import { Project } from '../models/project.model';
 import { dateToModel } from '@app/models/date.format';
@@ -31,6 +31,8 @@ export class CreateProjectComponent implements OnInit {
   dashboardRoute: string;
 
   services: Service[]; // Services
+  servicesTouched = false;
+  divisionsDirty = false;
   countryDivisions: number[] = []; // Country
 
 
@@ -41,6 +43,7 @@ export class CreateProjectComponent implements OnInit {
     private servicesService: ServicesService,
     private projectService: ProjectService,
     private route: ActivatedRoute,
+    private calendar: NgbCalendar,
     private userService: UserService,
     private messages: MessagesService,
     private logger: LoggingService
@@ -48,9 +51,9 @@ export class CreateProjectComponent implements OnInit {
     this.createProjectForm = this.formBuilder.group({
       projectTitle: ['', Validators.required],
       projectResume: [''],
-      selectedServices: [''],
-      divisions: [''],
-      startDate: [''],
+      selectedServices: [[], Validators.required],
+      divisions: [[], Validators.required],
+      startDate: [this.calendar.getToday()],
       onlineJob: [false]
     });
   }
@@ -109,6 +112,16 @@ export class CreateProjectComponent implements OnInit {
     });
   }
 
+  onOnlineJobChange(event) {
+    const state = event.target.checked;
+    this.createProjectForm.get('divisions').setValidators(state ? null : Validators.required);
+    this.createProjectForm.get('divisions').updateValueAndValidity();
+    this.createProjectForm.patchValue({
+      divisions: state ? [] : this.countryDivisions
+    });
+
+  }
+
   formToModel(): Project {
     const project: Project = {
       state: null,
@@ -119,7 +132,6 @@ export class CreateProjectComponent implements OnInit {
       divisions: this.createProjectForm.value.divisions,
       services: this.createProjectForm.value.selectedServices
     };
-    console.log('formToModel', project);
     return project;
   }
 }
