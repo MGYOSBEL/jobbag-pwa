@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, LOCALE_ID, Inject } from '@angular/core'; //i18n
 import { UserService } from '@app/user/services/user.service';
 import { AuthenticationService } from '@app/auth/services/authentication.service';
 import { AuthService } from 'angularx-social-login';
@@ -8,6 +8,7 @@ import { filter } from 'rxjs/operators';
 import { environment } from '@environments/environment';
 import { UserProfile, User } from '@app/user/models/user.model';
 import { LoggingService } from '@app/services/logging.service';
+import { NgLabelTemplateDirective } from '@ng-select/ng-select/lib/ng-templates.directive'; //i18n
 
 @Component({
   selector: 'app-navbar',
@@ -29,6 +30,11 @@ export class NavbarComponent implements OnInit {
   defaultPicture: boolean;
   hasProfiles: boolean[] = [false, false]; // en la posicion 0 es si hay cliente y en la 1 si hay service provider
   navEnd: Observable<NavigationEnd>;
+  languages = [
+    { code: 'en', label: 'English'},
+    { code: 'es', label: 'Español'}
+  ];
+  changeLanguages: any;
 
   constructor(
     private userService: UserService,
@@ -36,7 +42,8 @@ export class NavbarComponent implements OnInit {
     private authenticationService: AuthenticationService,
     private socialAuthService: AuthService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    @Inject(LOCALE_ID) public localeId: string,
   ) {
     this.navEnd = router.events.pipe(
       filter(evt => evt instanceof NavigationEnd)
@@ -152,8 +159,15 @@ export class NavbarComponent implements OnInit {
   }
 
   // Function to reacts to any change on navigation state
-  onNavigationEvent() {
+  onNavigationEvent() {}
 
+  changerLanguageRouter(){
+    if(this.localeId === 'en'){
+      return this.changeLanguages = `user/${this.loggedUser.id}/${this.userService.role}`;
+    }
+    else{
+      return this.changeLanguages = `user/${this.loggedUser.id}/${this.userService.role}`;
+    }
   }
 
 }

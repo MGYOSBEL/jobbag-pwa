@@ -74,10 +74,18 @@
             },
             "es":{
               "aot": true,
-              "outputPath": "dist/under-c-es/",
+              "outputPath": "dist/es/",
               "i18nFile": "i18n/messages.es.xlf",
               "i18nFormat": "xlf",
               "i18nLocale": "es",
+              "i18nMissingTranslation": "error"
+            },
+            "en":{
+              "aot": true,
+              "outputPath": "dist/en/",
+              "i18nFile": "i18n/messages.en.xlf",
+              "i18nFormat": "xlf",
+              "i18nLocale": "en",
               "i18nMissingTranslation": "error"
             }
           }
@@ -93,6 +101,9 @@
             },
             "es":{
               "browserTarget": "JobbagPWA:build:es"
+            },
+            "en":{
+              "browserTarget": "JobbagPWA:build:en"
             }
           }
         },
