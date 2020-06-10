@@ -18,7 +18,7 @@ import { LoadingService } from './services/loading.service';
 import { MessagesService } from './services/messages.service';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
-
+import { ProjectModule } from './project/project.module';//project-card
 
 
 const config = new AuthServiceConfig([
@@ -52,6 +52,7 @@ export function provideConfig() {
     SharedComponentsModule,
     NgbModule,
     AppRoutingModule,
+    ProjectModule,//project-card
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   exports: [],

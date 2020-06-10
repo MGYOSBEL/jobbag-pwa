@@ -1,0 +1,30 @@
+.card-hover .reveal {
+    visibility: hidden;
+    opacity: 0;
+    height: 0;
+    padding: 0;
+}
+
+.card:hover{
+    box-shadow: 0 11px 11px 0 rgba(0, 0, 0,.16);
+    transform: translateY(-2px);
+    border-width: 1.5px;
+    border-style: solid;
+    border-radius: 0;
+    border-color: #bcbebc;
+}
+
+.card-hover:hover .reveal {
+    height: auto;
+    visibility: visible;
+    opacity: 10;
+    transition: opacity 1s ease;
+}
+
+.vertical-align{
+    align-items: center;
+}
+
+.fas:hover{
+    color: #2888C7 !important;
+}

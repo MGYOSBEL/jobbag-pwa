@@ -11,7 +11,6 @@ import { UserProfileService } from '../services/user-profile.service';
 import { filter } from 'rxjs/operators';
 import { ProjectService } from '@app/project/services/project.service';
 import { Project } from '@app/project/models/project.model';
-
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',

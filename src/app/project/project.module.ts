@@ -8,21 +8,23 @@ import { EditProjectComponent } from './edit-project/edit-project.component';
 import { CreateProjectComponent } from './create-project/create-project.component';
 import { ProjectDetailComponent } from './project-detail/project-detail.component';
 import { ProjectRoutingModule } from './project-routing.module';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';     //Date
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ProjectCardComponent } from './project-card/project-card.component';//project-card
 
 
 @NgModule({
   declarations: [
     EditProjectComponent,
     CreateProjectComponent,
-    ProjectDetailComponent
+    ProjectDetailComponent,
+    ProjectCardComponent//project-card
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     SharedComponentsModule,
     NgSelectModule,
-    NgbModule,        //date
+    NgbModule,
     ProjectRoutingModule
   ]
 })
