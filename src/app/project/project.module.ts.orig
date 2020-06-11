@@ -5,12 +5,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { EditProjectComponent } from './edit-project/edit-project.component';
 import { CreateProjectComponent } from './create-project/create-project.component';
 import { ProjectDetailComponent } from './project-detail/project-detail.component';
-<<<<<<< HEAD
 import { ProjectRoutingModule } from './project-routing.module';
-=======
 import { SharedComponentsModule } from '@app/sharedComponents/shared-components.module';
 import { ReactiveFormsModule } from '@angular/forms';
->>>>>>> 7b9df6c6ca5a05029e3f5a76fe935a0719c15f79
 
 
 @NgModule({
@@ -22,10 +19,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-<<<<<<< HEAD
-=======
     SharedComponentsModule,
->>>>>>> 7b9df6c6ca5a05029e3f5a76fe935a0719c15f79
     ProjectRoutingModule
   ]
 })

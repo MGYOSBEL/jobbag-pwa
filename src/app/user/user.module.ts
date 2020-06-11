@@ -12,6 +12,7 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule } from '@angular/forms';
 import { EditPasswordComponent } from './edit-password/edit-password.component';
+import { ProjectModule } from '@app/project/project.module';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { EditPasswordComponent } from './edit-password/edit-password.component';
     FormsModule,
     NgSelectModule,
     NgbModule,
+    ProjectModule,
     UserRoutingModule
   ]
 })

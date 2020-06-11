@@ -9,15 +9,21 @@ import { CreateProjectComponent } from './create-project/create-project.componen
 import { ProjectDetailComponent } from './project-detail/project-detail.component';
 import { ProjectRoutingModule } from './project-routing.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { ProjectCardComponent } from './project-card/project-card.component';//project-card
-
-
+import { ProjectCardComponent } from './project-card/project-card.component';
+import { CandidateProjectsComponent } from './candidate-projects/candidate-projects.component';
+import { ProjectPreviewComponent } from './project-preview/project-preview.component';
+import { ProjectActionBarComponent } from './project-action-bar/project-action-bar.component';
+import { ProjectCardListComponent } from './project-card-list/project-card-list.component';
 @NgModule({
   declarations: [
     EditProjectComponent,
     CreateProjectComponent,
     ProjectDetailComponent,
-    ProjectCardComponent//project-card
+    ProjectCardComponent,
+    CandidateProjectsComponent,
+    ProjectPreviewComponent,
+    ProjectActionBarComponent,
+    ProjectCardListComponent,
   ],
   imports: [
     CommonModule,
@@ -26,6 +32,10 @@ import { ProjectCardComponent } from './project-card/project-card.component';//p
     NgSelectModule,
     NgbModule,
     ProjectRoutingModule
+  ],
+  exports:  [
+    CandidateProjectsComponent,
+    ProjectCardListComponent
   ]
 })
 export class ProjectModule { }

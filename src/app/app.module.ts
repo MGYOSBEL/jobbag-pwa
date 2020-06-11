@@ -18,7 +18,7 @@ import { LoadingService } from './services/loading.service';
 import { MessagesService } from './services/messages.service';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
-import { ProjectModule } from './project/project.module';//project-card
+import { ProjectModule } from './project/project.module';
 
 
 const config = new AuthServiceConfig([
