@@ -68,7 +68,6 @@ export class NavbarComponent implements OnInit {
 
         this.hiddenNavbar = this.router.url.includes('auth') || this.router.url.includes('create-profile')
           || (this.router.url.includes('user') && !this.role);
-
       }
     );
 
@@ -79,7 +78,7 @@ export class NavbarComponent implements OnInit {
       loggedIn => {
         this.isLoggedIn = loggedIn;
         if (!this.isLoggedIn) {
-          this.router.navigateByUrl('/auth/login');
+          this.router.navigate(['./'], {relativeTo: this.route});
         }
       }
     );
