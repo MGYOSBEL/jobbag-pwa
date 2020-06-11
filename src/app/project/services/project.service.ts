@@ -9,6 +9,7 @@ import { projectFromDTO, projectToDTO } from '../models/mappers';
 import { APIResponseToData } from '@app/models/mappers';
 import { ProjectCacheService } from './project-cache.service';
 import { LoadingService } from '@app/services/loading.service';
+import { Service } from '@app/user/models/services.model';
 
 @Injectable({
   providedIn: 'root'
@@ -65,5 +66,21 @@ export class ProjectService {
 
     // return this.projectsAlreadyLoadedForId === userProfileId ? this.projects$ : this.loading.showLoaderUntilCompletes(getProjects$);
     return this.loading.showLoaderUntilCompletes(getProjects$);
+  }
+
+  // Obtener proyectos candidatos
+  getCandidateProjects(userProfileId: number, filters?: {services: number[], divisions: number[]}): Observable<Project[]> {
+    const request = {
+      userProfileId,
+      filters
+    };
+    console.log(request);
+    return this.http.post(`${environment.apiBaseURL}/project_candidate`, request).pipe(
+      map(APIResponseToData),
+        catchError(err => throwError(err)),
+        map(arr => arr.map(projectFromDTO)),
+        shareReplay(),
+        tap(console.log)
+    );
   }
 }
