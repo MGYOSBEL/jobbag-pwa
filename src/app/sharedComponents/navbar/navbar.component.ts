@@ -1,4 +1,4 @@
-import { Component, OnInit, LOCALE_ID, Inject } from '@angular/core'; //i18n
+import { Component, OnInit, LOCALE_ID, Inject } from '@angular/core'; // i18n
 import { UserService } from '@app/user/services/user.service';
 import { AuthenticationService } from '@app/auth/services/authentication.service';
 import { AuthService } from 'angularx-social-login';
@@ -8,7 +8,7 @@ import { filter } from 'rxjs/operators';
 import { environment } from '@environments/environment';
 import { UserProfile, User } from '@app/user/models/user.model';
 import { LoggingService } from '@app/services/logging.service';
-import { NgLabelTemplateDirective } from '@ng-select/ng-select/lib/ng-templates.directive'; //i18n
+import { NgLabelTemplateDirective } from '@ng-select/ng-select/lib/ng-templates.directive'; // i18n
 
 @Component({
   selector: 'app-navbar',
@@ -31,8 +31,8 @@ export class NavbarComponent implements OnInit {
   hasProfiles: boolean[] = [false, false]; // en la posicion 0 es si hay cliente y en la 1 si hay service provider
   navEnd: Observable<NavigationEnd>;
   languages = [
-    { code: 'en', label: 'English'},
-    { code: 'es', label: 'Español'}
+    { code: 'en', label: 'English' },
+    { code: 'es', label: 'Español' }
   ];
   changeLanguages: any;
 
@@ -85,7 +85,7 @@ export class NavbarComponent implements OnInit {
       loggedIn => {
         this.isLoggedIn = loggedIn;
         if (!this.isLoggedIn) {
-          this.router.navigate(['./'], {relativeTo: this.route});
+          this.router.navigate(['./'], { relativeTo: this.route });
         }
       }
     );
@@ -114,12 +114,12 @@ export class NavbarComponent implements OnInit {
 
   createProvider() {
     this.userService.role = 'SERVICE_PROVIDER';
-    this.router.navigate([`/user/${this.loggedUser.id}/SERVICE_PROVIDER/create-profile`], {queryParams: {btnhidder: true}});
+    this.router.navigate([`/user/${this.loggedUser.id}/SERVICE_PROVIDER/create-profile`], { queryParams: { btnhidder: true } });
   }
 
   createClient() {
     this.userService.role = 'CLIENT';
-    this.router.navigate([`/user/${this.loggedUser.id}/CLIENT/create-profile`], {queryParams: {btnhidder: true}});
+    this.router.navigate([`/user/${this.loggedUser.id}/CLIENT/create-profile`], { queryParams: { btnhidder: true } });
   }
 
   // Function that reacts to any change in loggedUser
@@ -150,13 +150,12 @@ export class NavbarComponent implements OnInit {
   }
 
   // Function to reacts to any change on navigation state
-  onNavigationEvent() {}
+  onNavigationEvent() { }
 
-  changerLanguageRouter(){
-    if(this.localeId === 'en'){
+  changerLanguageRouter() {
+    if (this.localeId === 'en') {
       return this.changeLanguages = `user/${this.loggedUser.id}/${this.userService.role}`;
-    }
-    else{
+    } else {
       return this.changeLanguages = `user/${this.loggedUser.id}/${this.userService.role}`;
     }
   }
