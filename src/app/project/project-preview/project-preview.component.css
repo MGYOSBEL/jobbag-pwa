@@ -1,6 +1,20 @@
+ul {
+  display: block;
+}
+
+li {
+  display: inline-block;
+}
+
+li::before {
+  content: "\2022";
+  margin: 0 4px 0px 8px;
+}
+
 hr{
     border: 0;
 border-top: 2px solid #999;
 border-bottom: 2px solid #333;
 height:0;
 }
+

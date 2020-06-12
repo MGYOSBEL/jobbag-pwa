@@ -71,10 +71,10 @@ export class ProjectService {
   // Obtener proyectos candidatos
   getCandidateProjects(userProfileId: number, filters?: {services: number[], divisions: number[]}): Observable<Project[]> {
     const request = {
-      userProfileId,
-      filters
+      user_profile_id: userProfileId,
+      ...filters
     };
-    console.log(request);
+    console.log('request', request);
     return this.http.post(`${environment.apiBaseURL}/project_candidate`, request).pipe(
       map(APIResponseToData),
         catchError(err => throwError(err)),
