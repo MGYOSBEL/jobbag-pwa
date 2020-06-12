@@ -41,7 +41,6 @@ export class AuthenticationService {
   get isLoggedIn(): boolean {
     const bearer = localStorage.getItem('bearerToken');
     const validToken = moment().isBefore(this.getExpiration());
-    this.logger.log('isLoggedIn(): validToken', validToken);
     if (!validToken) {
       this.signOut();
     }
@@ -53,7 +52,8 @@ export class AuthenticationService {
     // public socialAuthService: AuthService,
     private logger: LoggingService) {
     this.authProvider = 'JOBBAG';
-    this.isLoggedIn$ = new BehaviorSubject(localStorage.getItem('bearerToken') !== null);
+    const validToken = moment().isBefore(this.getExpiration());
+    this.isLoggedIn$ = new BehaviorSubject(validToken);
   }
 
 
@@ -100,6 +100,7 @@ export class AuthenticationService {
     // this._isLoggedIn = false;
     this.isLoggedIn$.next(false);
     this.authProvider = null;
+
   }
 
   private getExpiration() {

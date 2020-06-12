@@ -6,9 +6,9 @@
         [style.color] = "!!selectedByCountry[i].length ? '#FFFFFF' : '#2985c4'"
         [style.font-weight] = "!!selectedByCountry[i].length ? 'normal' : 'bold'"
         [style.background-color] = "!!selectedByCountry[i].length ? '#2985c4' : '#BEBCBE'" >
-          {{country.nameEn}}<br>
-          <span   *ngIf="!!selectedByCountry[i].length" class="badge badge-light rounded-circle"
-                  style="color: #2985c4">{{selectedByCountry[i].length}}</span>
+          {{country.nameEn}}
+          <span *ngIf="!!selectedByCountry[i].length" class="badge badge-light rounded-circle"
+                 style="color: #2985c4">{{selectedByCountry[i].length}}</span>
     </button>
   </div>
 
