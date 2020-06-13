@@ -27,7 +27,7 @@
               <input
                 [ngClass]="registerForm.get('email').invalid && (registerForm.get('email').dirty || registerForm.get('email').touched) ? 'is-invalid' : '' "
                 class="form-control input-lg" name="email" placeholder="Email:" formControlName="email" style="border-radius: 0rem;"
-                id="email" type="email" required autofocus autocomplete="off">
+                id="email" type="email" required autocomplete="off">
                 <label style="font-weight: 100;" for="email">Email:</label>
                 <div class="invalid-feedback">
                   <p *ngIf="registerForm.get('email').hasError('required')">
@@ -45,7 +45,7 @@
                 [ngClass]="registerForm.get('password').invalid && (registerForm.get('password').dirty || registerForm.get('password').touched) ? 'is-invalid' : '' "
                 class="form-control input-lg" name="password" formControlName="password" type="password"
                 placeholder="Password:" style="border-radius: 0rem;"
-                id="password" required autofocus autocomplete="off">
+                id="password" required autocomplete="off">
                 <label style="font-weight: 100;" for="password">Password:</label>
 
                 <div class="invalid-feedback">
@@ -63,7 +63,7 @@
                 [ngClass]="(registerForm.hasError('passwordsMissmatch') || registerForm.get('confirmPassword').invalid) && (registerForm.get('confirmPassword').dirty || registerForm.get('confirmPassword').touched) ? 'is-invalid' : '' "
                 class="form-control input-lg" name="confirmPassword" formControlName="confirmPassword" type="password"
                 placeholder="Confirm password:" style="border-radius: 0rem;"
-                id="confirmPassword" required autofocus autocomplete="off">
+                id="confirmPassword" required autocomplete="off">
                 <label style="font-weight: 100;" for="confirmPassword">Confirm password:</label>
 
                 <div class="invalid-feedback">

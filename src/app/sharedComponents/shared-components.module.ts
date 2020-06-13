@@ -18,6 +18,9 @@ import { RecommendedComponent } from './recommended/recommended.component';
 import { LoadingComponent } from './loading/loading.component';
 import { LottieAnimationViewModule } from 'ng-lottie';
 import { MessagesComponent } from './messages/messages.component';
+import { MultiSelectComponent } from './multi-select/multi-select.component';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -34,11 +37,14 @@ import { MessagesComponent } from './messages/messages.component';
     HowtodoSectionComponent,
     ContactSectionComponent,
     LoadingComponent,
+    MultiSelectComponent,
     RecommendedComponent,
     MessagesComponent
   ],
   imports: [
     CommonModule,
+    NgSelectModule,
+    FormsModule,
     SharedComponentsRoutingModule,
     LottieAnimationViewModule.forRoot()
   ],
@@ -49,6 +55,7 @@ import { MessagesComponent } from './messages/messages.component';
     RoleSelectComponent,
     HomeComponent,
     NotFoundComponent,
+    MultiSelectComponent,
     LoadingComponent,
     MessagesComponent,
     InternalServerErrorComponent

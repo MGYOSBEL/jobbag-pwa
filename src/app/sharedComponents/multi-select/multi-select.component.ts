@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Country } from '../models/country.model';
-import { CountryService } from '../services/country.service';
+import { Country } from '../../user/models/country.model';
+import { CountryService } from '../../user/services/country.service';
 import { findIndex } from 'rxjs/operators';
 import { LoggingService } from '@app/services/logging.service';
 
@@ -27,8 +27,13 @@ export class MultiSelectComponent implements OnInit {
   @Input()
   selectedDivisions: number[]; // All divisions selected, from all countries
 
+  @Input()
+  disabled: boolean = false;
+
   @Output()
   selected = new EventEmitter<number[]>();
+
+
 
 
 

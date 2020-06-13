@@ -1,0 +1,229 @@
+<div class="container container-cp-component bg-faded py-4">
+    <div class="row justify-content-center" id="create-project-container2">
+        <div class="col-md-8 container-col">
+            <form [formGroup]="createProjectForm">
+                <div class="card tittle-profile-card" style="border-radius: 0;">
+                    <div class="card-header" id="headingMain">
+                        <div class="row">
+                            <div class="col-10">
+                                <label style="color: white;font-size: 1.25rem;">
+                                    Create project
+                                </label>
+                            </div>
+                            <div class="col-2 btn-collapse-col">
+                                <button type="button" class="close" aria-label="Close" style="color: white;"
+                                    data-toggle="modal" data-target="#closeModal">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container scroll-host" style="background-color: white;">
+                    <div class="card mt-3" id="section-card">
+                        <div class="row">
+                            <div class="col-12">
+                                <label class="text-muted"><span>Project Title</span></label>
+                                <input type="text" class="form-control rounded-0" id="projectTitle"
+                                    formControlName="projectTitle">
+                            </div>
+                            <div class="col-12 mt-1">
+                                <label class="text-muted"><span>Project Resume</span></label>
+                                <div class="form-group mx-auto">
+                                    <textarea class="form-control" id="commentsInputText" style="height: 6rem; border-radius: 0;"
+                                        formControlName="projectResume"
+                                        placeholder="Enter your project Resume..."></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-5 mt-1">
+                                <label class="text-muted"><span>Select your Project's related Services</span></label>
+                                <div class="col-12 text-center" id="servicesBtnModal">
+                                    <button type="button"
+                                        class="btn rounded-0 align-items-center align-text-top"
+                                        style="background-color: #bfbdbe; color: #2880a9; font-size: 1rem; width: 100%;
+                                        font-weight: bold; margin-top: 0.5rem;"
+                                        data-toggle="modal" data-target="#servicesModal">
+                                        Services
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-lg-7 mt-1">
+                                <div class="form-check mb-3" style="display: flex;align-items: center;">
+                                    <input type="checkbox" class="form-check-input" id="onlineJob">
+                                    <label class="form-check-label text-muted" for="onlineJob" style="font-size: 0.8rem;margin-top: 7px;"><span>
+                                       Check for an Online Job, or select a Location.</span></label>
+                                </div>
+                                <app-multi-select [selectedDivisions]="countryDivisions"
+                                    (selected)="onDivisionsSelect($event)">
+                                </app-multi-select>
+                                {{divisions}}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-5 mt-3">
+                                <label class="text-muted"><span>Initial Date</span></label>
+                                <div class="mb-3">
+                                    <div class="input-group">
+                                        <input class="form-control rounded-0" formControlName="startDate" id="validationTextarea"
+                                            placeholder="yyyy-mm-dd" ngbDatepicker #startDatePicker="ngbDatepicker"
+                                            style="height: 2.5rem;border-color:#2880a9;">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-secondary calendar rounded-0" (click)="startDatePicker.toggle()"
+                                                type="button" style="background-color:#2888C7 ;">
+                                                <i class="far fa-calendar-alt fa-lg" style="color: white;"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Please enter a date.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-7 mt-1">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card text-right">
+                    <div class="card-footer accordion-footer rounded-0">
+                        <button type="button"
+                            class="col-5 col-lg-3 btn btn-edit rounded-0 align-items-center align-text-top mx-3"
+                            style="background-color: #bfbdbe; color: #2880a9; font-size: 1.25rem;" data-toggle="modal"
+                            data-target="#closeModal">
+                            <i class="fas fa-times"></i>
+                            Cancel
+                        </button>
+                        <button type="button"
+                            class="col-5 col-lg-3 btn btn-edit rounded-0 align-items-center align-text-top"
+                            style="background-color: #2888C7; color: white; font-size: 1.25rem;" data-toggle="tooltip"
+                            title="createproject">
+                            <i class="fas fa-check"></i>
+                            Create
+                        </button>
+                    </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-5 mt-3">
+                <label class="text-muted"><span>Initial Date</span></label>
+                <div class="mb-3">
+                  <div class="input-group px-3">
+                    <input class="form-control rounded-0" formControlName="startDate" placeholder="yyyy-mm-dd"
+                      ngbDatepicker #startDatePicker="ngbDatepicker" style="height: 2.5rem;">
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-secondary calendar rounded-0" (click)="startDatePicker.toggle()"
+                        type="button" style="background-color:#2888C7 ;">
+                        <i class="far fa-calendar-alt fa-lg" style="color: white;"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="invalid-feedback">
+                    Please enter a date.
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-7 mt-1">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card text-right">
+          <div class="card-footer accordion-footer rounded-0">
+            <button type="button" class="col-5 col-lg-2 btn btn-edit rounded-0 align-items-center align-text-top mx-3"
+              style="background-color: #bfbdbe; color: #2880a9; font-size: 1.25rem;" data-toggle="modal"
+              data-target="#closeModal">
+              <i class="fas fa-times"></i>
+              Cancel
+            </button>
+            <button type="button" class="col-5 col-lg-2 btn btn-edit rounded-0 align-items-center align-text-top"
+              style="background-color: #2888C7; color: white; font-size: 1.25rem;" data-toggle="tooltip"
+              title="createproject">
+              <i class="fas fa-check"></i>
+              Create
+            </button>
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade rounded-0" id="servicesModal" tabindex="-1" role="dialog"
+aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered rounded-0" role="document">
+  <div class="modal-content rounded-0 border-0">
+    <div class="modal-header rounded-0" style="background-color: #2888C7; color: white;">
+      <label>Services</label>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body rounded-0">
+      <div class="card col-12 h-100 px-0 mx-0">
+
+        <div class="row justify-content-center mx-5">
+          <div *ngIf="createProjectForm.get('selectedServices').value.length > 0"
+            class="col text-right mr-0 pr-0">
+            <button class="btn btn-link" style="color:rgb(148,42,44);" (click)="clearServices()"
+              data-toggle="tooltip" data-placement="top" title="Unselect all">
+              <span class="fas fa-times"></span>
+            </button>
+          </div>
+          <ng-select formControlName="selectedServices" class="text-center row" [items]="services"
+            [multiple]="true" [closeOnSelect]="false" [hideSelected]="true" bindLabel="descriptionEs"
+            bindLabel="descriptionEs" bindValue="id" [searchFn]="customSearchFn">
+            <ng-template ng-option-tmp let-item="item">
+              {{item.descriptionEs}}
+            </ng-template>
+          </ng-select>
+        </div>
+
+      </div>
+    </div>
+    <div class="modal-footer rounded-0">
+      <button type="button" class="btn btn-previous rounded-0" data-dismiss="modal"
+        style="background-color: #bfbdbe;color: #2880a9;">Cancel</button>
+      <button type="button" class="btn btn-send rounded-0" data-dismiss="modal"
+        style="background-color: #2888C7;color: white;" >Accept</button>
+    </div>
+  </div>
+</div>
+</div>
+
+
+<div class="modal fade rounded-0" id="closeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered rounded-0" role="document">
+    <div class="modal-content rounded-0 border-0">
+      <div class="modal-header rounded-0" style="background-color: #2888C7; color: white;">
+        <label>Close Confirmation</label>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body rounded-0">
+        Are you sure you want to cancel your project creation?
+      </div>
+      <div class="modal-footer rounded-0">
+        <button type="button" class="btn btn-previous rounded-0" data-dismiss="modal"
+          style="background-color: #bfbdbe;color: #2880a9;">Cancel</button>
+        <button type="button" class="btn btn-send rounded-0" data-dismiss="modal"
+          style="background-color: #2888C7;color: white;" (click)="onClose()">Accept</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- <div class="card-header">
+    <div class="row">
+        <div class="col-12">
+            <p class="text-left">project Tittle</p>
+        </div>
+    </div>
+</div> -->

@@ -1,0 +1,10 @@
+<p>project-detail works! Nice</p>
+
+
+<a routerLink='create'>Create Project</a>
+<a routerLink='edit'>Edit Project</a> <br>
+
+<button (click)="createProject()">Create</button>
+<ul>
+  <li *ngFor="let project of projects$ | async">{{project | json}}</li>
+</ul>

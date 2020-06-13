@@ -76,7 +76,12 @@ export class NavbarComponent implements OnInit {
 
     this.isLoggedIn$ = this.authenticationService.isLoggedIn$;
     this.isLoggedIn$.subscribe(
-      loggedIn => this.isLoggedIn = loggedIn
+      loggedIn => {
+        this.isLoggedIn = loggedIn;
+        if (!this.isLoggedIn) {
+          this.router.navigateByUrl('/auth/login');
+        }
+      }
     );
 
 

@@ -18,13 +18,18 @@ const routes: Routes = [
     canLoad: [AuthGuard]
   },
   {
+    path: 'project', loadChildren: () => import('./project/project.module').then(mod => mod.ProjectModule),
+    canLoad: [AuthGuard]
+  },
+  {
     path: 'error', component: InternalServerErrorComponent
   },
   { path: 'test', component: TestComponent },
 
   {
     path: '',
-    component: HomeComponent
+    component: HomeComponent,
+    pathMatch: 'full'
   },
   {
     path: '**', component: NotFoundComponent
