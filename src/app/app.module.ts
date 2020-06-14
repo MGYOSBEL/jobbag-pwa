@@ -51,8 +51,8 @@ export function provideConfig() {
     SocialLoginModule,
     SharedComponentsModule,
     NgbModule,
-    AppRoutingModule,
     ProjectModule,
+    AppRoutingModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   exports: [],
