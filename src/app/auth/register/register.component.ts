@@ -108,29 +108,22 @@ export class RegisterComponent implements OnInit {
   register() {
     this.loading = true;
     this.loadingService.loadingOn();
-    this.logger.log('REGISTER REQUEST: ' + JSON.stringify(this.registerRequest));
     this.http.post<any>(this.registerPath, this.registerRequest, { headers: { 'Content-type': 'application/json' } })
       .subscribe(
         (data) => {
-          this.logger.log('REGISTER RAW RESPONSE:' + JSON.stringify(data));
           if (data.status_code === 200) {
             const content = JSON.parse(JSON.parse(data.content));
             const username = content.username;
-            this.logger.log('REGISTER RESPONSE: ' + JSON.stringify(content));
             if (this.registerRequest.provider === 'JOBBAG') {
               this.authenticationService.signInWithJobbag(this.registerForm.value.name, this.registerForm.value.password)
                 .subscribe(
                   data => {
                     // const role = this.userService.role;
-                    this.logger.log('role: ' + this.role);
                     if (this.authenticationService.isLoggedIn) {
                       const user_id = this.authenticationService.getLoggedUserId();
-                      this.logger.log('user_id: ' + user_id);
 
                       if (this.role) {
                         const createProfileURL = `/user/${user_id}/${this.role}/create-profile`;
-
-                        this.logger.log('navegando a profile extras...');
                         this.router.navigate([createProfileURL], { queryParams: {} });
                       } else {
                         this.router.navigate(['user', user_id]); // role-select url
@@ -144,16 +137,12 @@ export class RegisterComponent implements OnInit {
               this.authenticationService.socialLogin(this.socialUser, this.authenticationService.authProvider)
                 .subscribe(
                   (response) => {
-                    this.logger.log('SOCIAL LOGIN RESPONSE: ' + response);
                     if (response) {
                       // const role = this.userService.role;
-                      this.logger.log('role: ' + this.role);
                       if (this.authenticationService.isLoggedIn) {
                         const user_id = this.authenticationService.getLoggedUserId();
-                        this.logger.log('user_id: ' + user_id);
                         if (this.role) {
                           const createProfileURL = `/user/${user_id}/${this.role}/create-profile`;
-                          this.logger.log('navegando a profile extras...');
                           this.router.navigate([createProfileURL]);
                         } else {
                           this.router.navigate(['user', user_id]);  // role-select URL

@@ -40,7 +40,6 @@ const userRoutes: Routes = [
                 // canActivate: [NonProfileGuard]
               }]
           },
-
           {
             path: '', component: RoleSelectComponent
           }

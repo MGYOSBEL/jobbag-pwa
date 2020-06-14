@@ -52,7 +52,7 @@ export function provideConfig() {
     SharedComponentsModule,
     NgbModule,
     AppRoutingModule,
-    ProjectModule,//project-card
+    ProjectModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   exports: [],

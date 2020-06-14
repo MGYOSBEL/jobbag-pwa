@@ -17,10 +17,10 @@ const routes: Routes = [
     path: 'user', loadChildren: () => import('./user/user.module').then(mod => mod.UserModule),
     canLoad: [AuthGuard]
   },
-  {
-    path: 'project', loadChildren: () => import('./project/project.module').then(mod => mod.ProjectModule),
-    canLoad: [AuthGuard]
-  },
+  // {
+  //   path: 'project', loadChildren: () => import('./project/project.module').then(mod => mod.ProjectModule),
+  //   canLoad: [AuthGuard]
+  // },
   {
     path: 'error', component: InternalServerErrorComponent
   },

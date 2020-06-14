@@ -16,12 +16,12 @@ import { ProjectModule } from '@app/project/project.module';
 
 @NgModule({
   declarations: [
-     DashboardComponent,
-     BriefcaseEditComponent,
-     CreateProfileComponent,
-     EditProfileComponent,
-     EditPasswordComponent
-    ],
+    DashboardComponent,
+    BriefcaseEditComponent,
+    CreateProfileComponent,
+    EditProfileComponent,
+    EditPasswordComponent
+  ],
   imports: [
     CommonModule,
     SharedComponentsModule,
@@ -29,8 +29,9 @@ import { ProjectModule } from '@app/project/project.module';
     FormsModule,
     NgSelectModule,
     NgbModule,
-    ProjectModule,
-    UserRoutingModule
+    UserRoutingModule,
+    ProjectModule
+
   ]
 })
 export class UserModule { }

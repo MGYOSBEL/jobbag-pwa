@@ -43,7 +43,7 @@ export class NavbarComponent implements OnInit {
     private socialAuthService: AuthService,
     private route: ActivatedRoute,
     private router: Router,
-    @Inject(LOCALE_ID) public localeId: string,
+    @Inject(LOCALE_ID) public localeId: string
   ) {
     this.navEnd = router.events.pipe(
       filter(evt => evt instanceof NavigationEnd)
@@ -84,7 +84,9 @@ export class NavbarComponent implements OnInit {
     this.isLoggedIn$.subscribe(
       loggedIn => {
         this.isLoggedIn = loggedIn;
+        this.logger.log('loggedIn', loggedIn);
         if (!this.isLoggedIn) {
+          console.log('navigating to this.route...');
           this.router.navigate(['./'], { relativeTo: this.route });
         }
       }

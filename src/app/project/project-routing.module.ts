@@ -3,32 +3,39 @@ import { Routes, RouterModule } from '@angular/router';
 import { ProjectDetailComponent } from './project-detail/project-detail.component';
 import { CreateProjectComponent } from './create-project/create-project.component';
 import { EditProjectComponent } from './edit-project/edit-project.component';
+import { AuthGuard } from '@app/auth/helpers/auth.guard';
 
 
-const routes: Routes = [
+const projectRoutes: Routes = [
   {
-    path: 'create',
-    component: CreateProjectComponent
-  },
-  {
-    path: ':id',
+    path: 'project',
+    canActivate: [AuthGuard],
     children: [
       {
-        path: 'edit',
-        component: EditProjectComponent
-
+        path: 'create',
+        component: CreateProjectComponent
       },
       {
-        path: '',
-        component: ProjectDetailComponent
+        path: ':id',
+        children: [
+          {
+            path: 'edit',
+            component: EditProjectComponent
+
+          },
+          {
+            path: '',
+            component: ProjectDetailComponent
+          }
+        ]
       }
     ]
-  },
+  }
 
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [RouterModule.forChild(projectRoutes)],
   exports: [RouterModule]
 })
 export class ProjectRoutingModule { }
