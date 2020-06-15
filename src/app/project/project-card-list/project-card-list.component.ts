@@ -11,9 +11,22 @@ export class ProjectCardListComponent implements OnInit {
   @Input()
   projects: Project[];
 
-  constructor() { }
+  checkedProjects: number[] = [];
+
+  constructor() {
+  }
 
   ngOnInit() {
+  }
+
+  onCardCheck(event) {
+    let checked = new Set(this.checkedProjects);
+    if (event.state) {
+      checked.add(event.projectId);
+    } else {
+      checked.delete(event.projectId);
+    }
+    this.checkedProjects = Array.from(checked);
   }
 
 }

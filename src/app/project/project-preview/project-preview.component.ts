@@ -41,7 +41,7 @@ export class ProjectPreviewComponent implements OnInit {
     let divisions: DivisionElement[] = [];
     this.countries.forEach(country => divisions.push(...country.divisions));
     const filtered = divisions.filter(division => projectDivisions.includes(division.id));
-    return filtered.map(division => division.nameEs);
+    return filtered.map(division => division.nameEs) || [];
   }
 
   getServicesName(projectServices: number[]) {
