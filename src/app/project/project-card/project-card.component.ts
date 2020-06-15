@@ -21,4 +21,17 @@ export class ProjectCardComponent implements OnInit {
     this.candidateProjectService.preview(this.project.id);
   }
 
+  getColor(){
+    if(this.project.name === 'Write')
+    {
+      return 'solid 8px #7bcff4';
+    }
+    else if(this.project.name === 'Read'){
+      return 'solid 8px #a1d173';
+    }
+    else{
+      return 'solid 8px #f99d6e';
+    }
+  }
+
 }
