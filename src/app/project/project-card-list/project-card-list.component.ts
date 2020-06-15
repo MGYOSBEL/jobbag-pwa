@@ -15,5 +15,4 @@ export class ProjectCardListComponent implements OnInit {
 
   ngOnInit() {
   }
-
 }

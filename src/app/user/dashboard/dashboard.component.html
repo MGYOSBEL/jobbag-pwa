@@ -7,7 +7,7 @@
     <a class="nav-item nav-link col border-0 mx-2 rounded-0" id="nav-profile-tab" data-toggle="tab" href="#nav-profile"
       role="tab" aria-controls="nav-profile" aria-selected="false">Candidate Projects</a>
     <a class="nav-item nav-link col border-0 mr-0 ml-2 rounded-0" id="nav-contact-tab" data-toggle="tab"
-      href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</a>
+      href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">My Projects</a>
   </div>
 
 </nav>
@@ -77,5 +77,6 @@
   <app-candidate-projects [userProfileId]="activeProfile.id"></app-candidate-projects>
   </div>
   <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+  <app-my-projects></app-my-projects>
   </div>
 </div>
