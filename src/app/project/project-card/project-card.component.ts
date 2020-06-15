@@ -12,7 +12,7 @@ export class ProjectCardComponent implements OnInit {
   @Input()
   project: Project;
 
-  @Output() checked = new EventEmitter<{state: boolean, projectId: number}>();
+  @Output() checked = new EventEmitter<{ state: boolean, projectId: number }>();
 
   constructor(private candidateProjectService: CandidateProjectService) { }
 
@@ -28,6 +28,16 @@ export class ProjectCardComponent implements OnInit {
       state: event.target.checked,
       projectId: this.project.id
     });
+  }
+
+  getColor() {
+    if (this.project.name === 'Write') {
+      return 'solid 8px #7bcff4';
+    } else if (this.project.name === 'Read') {
+      return 'solid 8px #a1d173';
+    } else {
+      return 'solid 8px #f99d6e';
+    }
   }
 
 }

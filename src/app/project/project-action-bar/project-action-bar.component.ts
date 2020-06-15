@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./project-action-bar.component.css']
 })
 export class ProjectActionBarComponent implements OnInit {
+apply: boolean = true;//testing buttons parameterization
 
   constructor() { }
 

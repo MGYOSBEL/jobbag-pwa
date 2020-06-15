@@ -1,5 +1,5 @@
-<div class="card card-hover col-12" style="background-color: white;border-radius: 0;" (click)="onClick()">
-  <div class="row vertical-align">
+<div class="card card-hover col-12" style="margin-bottom: 0.3rem; background-color: white;border-radius: 0; cursor: pointer;" (click)="onClick()">
+  <div [ngStyle]="{'border-left':getColor()}"class="row vertical-align">
     <div class="card-select col-1">
       <input type="checkbox" value="card-select" (change)="onCheck($event)">
     </div>
@@ -8,11 +8,9 @@
         {{project.name}}
       </p>
     </div>
-    <div class="col-3 px-0">
+    <div class="col-3 px-2 text-right">
       <div class="reveal">
         <button type="button" class="btn mx-2 px-1" alt="View" style="border-radius: 0;"><i class="fas fa-eye"
-            style="color: #bebcbe;"></i></button>
-        <button type="button" class="btn px-1" style="border-radius: 0;"><i class="fas fa-edit"
             style="color: #bebcbe;"></i></button>
         <button type="button" class="btn mx-2 px-1" style="border-radius: 0;"><i class="fas fa-trash"
             style="color: #bebcbe;"></i></button>

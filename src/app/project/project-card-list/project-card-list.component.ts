@@ -28,5 +28,4 @@ export class ProjectCardListComponent implements OnInit {
     }
     this.checkedProjects = Array.from(checked);
   }
-
 }

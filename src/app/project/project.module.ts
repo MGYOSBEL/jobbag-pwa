@@ -14,6 +14,7 @@ import { CandidateProjectsComponent } from './candidate-projects/candidate-proje
 import { ProjectPreviewComponent } from './project-preview/project-preview.component';
 import { ProjectActionBarComponent } from './project-action-bar/project-action-bar.component';
 import { ProjectCardListComponent } from './project-card-list/project-card-list.component';
+import { MyProjectsComponent } from './my-projects/my-projects.component';
 @NgModule({
   declarations: [
     EditProjectComponent,
@@ -24,6 +25,7 @@ import { ProjectCardListComponent } from './project-card-list/project-card-list.
     ProjectPreviewComponent,
     ProjectActionBarComponent,
     ProjectCardListComponent,
+    MyProjectsComponent
   ],
   imports: [
     CommonModule,
@@ -35,7 +37,8 @@ import { ProjectCardListComponent } from './project-card-list/project-card-list.
   ],
   exports:  [
     CandidateProjectsComponent,
-    ProjectCardListComponent
+    ProjectCardListComponent,
+    MyProjectsComponent
   ]
 })
 export class ProjectModule { }
