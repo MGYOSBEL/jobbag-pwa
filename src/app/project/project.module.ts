@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { SharedComponentsModule } from '@app/sharedComponents/shared-components.module';
 import { NgSelectModule } from '@ng-select/ng-select';
 
@@ -32,6 +32,7 @@ import { MyProjectsComponent } from './my-projects/my-projects.component';
     ReactiveFormsModule,
     SharedComponentsModule,
     NgSelectModule,
+    FormsModule,
     NgbModule,
     ProjectRoutingModule
   ],

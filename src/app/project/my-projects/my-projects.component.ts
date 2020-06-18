@@ -16,13 +16,13 @@ export class MyProjectsComponent implements OnInit {
   candidateProjects: Observable<Project[]>;
 
   constructor(
-    private candidateProjectService: CandidateProjectService
+    // private candidateProjectService: CandidateProjectService
   ) {
-    this.candidateProjects = this.candidateProjectService.candidateProjects$;
+    // this.candidateProjects = this.candidateProjectService.candidateProjects$;
    }
 
   ngOnInit() {
-    this.candidateProjectService.loadCandidatesByUserProfileId(this.userProfileId);
+    // this.candidateProjectService.loadCandidatesByUserProfileId(this.userProfileId);
   }
 
 }
