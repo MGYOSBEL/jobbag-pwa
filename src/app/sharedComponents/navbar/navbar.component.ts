@@ -126,7 +126,6 @@ export class NavbarComponent implements OnInit {
 
   // Function that reacts to any change in loggedUser
   onUserEvent(user?: User, role?: string) {
-
     if (user) {
       this.loggedUser = user;
       this.hasProfiles = [
@@ -156,7 +155,7 @@ export class NavbarComponent implements OnInit {
 
   changerLanguageRouter() {
     if (!!this.loggedUser) {
-        return this.changeLanguages = user/${this.loggedUser.id}/${this.userService.role};
+        return this.changeLanguages = `user/${this.loggedUser.id}/${this.userService.role}`;
       }
   }
 }

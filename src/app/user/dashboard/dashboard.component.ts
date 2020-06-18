@@ -62,7 +62,7 @@ export class DashboardComponent implements OnInit {
         this.activeProfile = this.loggedUser.profiles.find(profile => profile.userProfileType === this.role);
       }
     });
-    this.projects$ = this.projectService.getAllProjectSummariesByProfileId(this.activeProfile.id);
+    // this.projects$ = this.projectService.getAllProjectSummariesByProfileId(this.activeProfile.id);
     // this.projects$ = this.projectService.projects$;
     this.router.navigate([`/user/${this.loggedUser.id}/${this.role}`]);
 

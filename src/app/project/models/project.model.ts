@@ -1,6 +1,6 @@
 
 export interface ProjectDTO {
-  state:             string;
+  state:             ProjectState;
   name:              string;
   id?:                number;
   description?:       string;
@@ -14,7 +14,7 @@ export interface ProjectDTO {
 
 
 export interface Project {
-  state:             string;
+  state:             ProjectState;
   name:              string;
   id?:                number;
   description?:       string;
@@ -22,6 +22,14 @@ export interface Project {
   remote?:            boolean;
   divisions?:         number[];
   services?:          number[];
+}
+
+
+export enum ProjectState {
+   NEW = 'NEW',
+   PROGRESS = 'PROGRESS',
+   FINISH = 'FINISH',
+   CANCEL = 'CANCEL'
 }
 
 

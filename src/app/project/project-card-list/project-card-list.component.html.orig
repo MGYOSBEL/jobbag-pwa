@@ -1,0 +1,7 @@
+<ng-container *ngFor="let project of projects">
+<<<<<<< HEAD
+  <app-project-card [project]="project" (checked)="onCardCheck($event)"></app-project-card>
+=======
+    <app-project-card [project]="project"></app-project-card>
+>>>>>>> dev
+</ng-container>

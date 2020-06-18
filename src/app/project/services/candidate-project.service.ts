@@ -3,22 +3,25 @@ import { ProjectService } from './project.service';
 import { Project } from '../models/project.model';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { AuthenticationService } from '@app/auth/services/authentication.service';
-import { filter } from 'rxjs/operators';
+import { filter, tap } from 'rxjs/operators';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class CandidateProjectService {
 
   private candidatesSubject = new BehaviorSubject<Project[]>([]);
-
   candidateProjects$: Observable<Project[]> = this.candidatesSubject.asObservable();
 
-  multiSelectedProjects: number[];
 
-  activeProjectSubject = new BehaviorSubject<Project>(null);
+  private multiSelectedProjectsSubject = new BehaviorSubject<number[]>([]);
+  multiSelectedProjects$: Observable<number[]> = this.multiSelectedProjectsSubject.asObservable();
 
+
+  private activeProjectSubject = new BehaviorSubject<Project>(null);
   activeProject$: Observable<Project> = this.activeProjectSubject.asObservable();
+
+  private selectAllSubject = new BehaviorSubject<boolean>(false);
+  selectAll$ = this.selectAllSubject.asObservable();
+
 
   constructor(
     private projectService: ProjectService,
@@ -31,10 +34,19 @@ export class CandidateProjectService {
       });
   }
 
+  selectAll(state: boolean) {
+    this.selectAllSubject.next(state);
+  }
+
+  setMultiSelected(projects: number[]) {
+    this.multiSelectedProjectsSubject.next(projects);
+  }
+
   resetcandidates() {
     this.candidatesSubject.next([]);
     this.activeProjectSubject.next(null);
-    this.multiSelectedProjects = [];
+    this.selectAllSubject.next(false);
+    this.multiSelectedProjectsSubject.next([]);
   }
 
   loadCandidatesByUserProfileId(userProfileId: number) {
@@ -43,8 +55,14 @@ export class CandidateProjectService {
    );
   }
 
+  registerInterest(userProfileId: number): Observable<boolean> {
+    return this.projectService.registerInterestProjects(userProfileId , this.multiSelectedProjectsSubject.value);
+  }
+
   preview(projectId: number) {
     const candidates = this.candidatesSubject.value;
     this.activeProjectSubject.next(candidates.find(proj => proj.id === projectId));
   }
+
+
 }

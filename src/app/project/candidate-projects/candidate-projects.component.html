@@ -2,20 +2,26 @@
   <div class="row">
     <div class="col-12 px-1">
       <!-- ACTION BAR -->
-      <app-project-action-bar></app-project-action-bar>
+      <app-project-action-bar (selectAll)="onSelectAll($event)" (action)="onAction($event)"></app-project-action-bar>
     </div>
   </div>
   <div class="row py-3">
     <div class="col-6 px-2 scroll-host">
       <!-- PROJECT CARD -->
-      <ng-container *ngIf="candidateProjects | async as candidates">
-        <app-project-card-list [projects]="candidates"></app-project-card-list>
+      <ng-container *ngIf="candidateProjects$ | async as candidates">
+        <app-project-card-list
+            [projects]="candidates"
+            [masterSelected$]="masterSelected$"
+            (checkedProjects)="onSelectCandidates($event)"
+            (cardClicked)="onCardClicked($event)"
+            [cardMode]="'WIDE'">
+
+        </app-project-card-list>
       </ng-container>
     </div>
     <div class="col-6 px-2">
       <!-- PROJECT PREVIEW -->
-      <app-project-preview></app-project-preview>
+      <app-project-preview [userProfileId]="userProfileId"></app-project-preview>
     </div>
   </div>
 </div>
-

@@ -35,7 +35,6 @@ export class ProjectService {
   // Params: project(proyecto a crear) | userProfileId: id del perfil de usuario asociado
   create(project: Project, userProfileId: number): Observable<Project> {
     const projectToCreate: ProjectDTO = projectToDTO(project, userProfileId);
-    console.log('projectToCreate', JSON.stringify(projectToCreate));
     const createProject$ = this.http.post<APIResponse>(`${environment.apiBaseURL}/project`, projectToCreate).pipe(
       map(res => APIResponseToData(res)),
       catchError(err => throwError(err)),
@@ -56,7 +55,8 @@ export class ProjectService {
       .pipe(
         map(APIResponseToData),
         catchError(err => throwError(err)),
-        map(arr => arr.map(projectFromDTO)),
+        map(projects => projects.map(projectFromDTO)),
+        tap(console.log),
         shareReplay(),
         tap((projects) => {
           this.projectsAlreadyLoadedForId = userProfileId;
@@ -74,13 +74,31 @@ export class ProjectService {
       user_profile_id: userProfileId,
       ...filters
     };
-    console.log('request', request);
     return this.http.post(`${environment.apiBaseURL}/project_candidate`, request).pipe(
       map(APIResponseToData),
         catchError(err => throwError(err)),
         map(arr => arr.map(projectFromDTO)),
         shareReplay(),
-        tap(console.log)
+        tap()
     );
+  }
+
+  // Params:
+  // userProfileId: Id del proveedor de servicios
+  // projects: Ids de los proyectos q se van a agregar como interes
+  registerInterestProjects(userProfileId: number, projects: number[]): Observable<boolean> {
+    const request = {
+      user_profile_id: userProfileId,
+      projects
+    };
+    const registerInterestProject$ = this.http.post<APIResponse>(`${environment.apiBaseURL}/project_interest`, request)
+      .pipe(
+        map(APIResponseToData),
+        catchError(err => throwError(err)),
+        map(res => 'OK' ? true : false),
+        shareReplay()
+      );
+
+    return this.loading.showLoaderUntilCompletes(registerInterestProject$);
   }
 }
