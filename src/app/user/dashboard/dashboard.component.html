@@ -74,9 +74,9 @@
   </div>
   <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" *ngIf="role === 'SERVICE_PROVIDER'"
     style="background-color: #f1f1f1;">
-  <app-candidate-projects [userProfileId]="activeProfile.id"></app-candidate-projects>
+  <app-candidate-projects [userProfileId]="activeProfile!.id"></app-candidate-projects>
   </div>
-  <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-  <app-my-projects></app-my-projects>
+  <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" *ngIf="!!activeProfile">
+  <app-my-projects [userProfileId]="activeProfile.id"></app-my-projects>
   </div>
 </div>

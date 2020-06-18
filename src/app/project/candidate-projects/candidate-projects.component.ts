@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { CandidateProjectService } from '../services/candidate-project.service';
 import { Observable, of } from 'rxjs';
 import { Project } from '../models/project.model';
+import { MessagesService } from '@app/services/messages.service';
 
 @Component({
   selector: 'app-candidate-projects',
@@ -23,7 +24,8 @@ export class CandidateProjectsComponent implements OnInit {
 
 
   constructor(
-    private candidateProjectService: CandidateProjectService
+    private candidateProjectService: CandidateProjectService,
+    private messages: MessagesService
   ) {
     this.candidateProjects$ = this.candidateProjectService.candidateProjects$;
     this.masterSelected$ = this.candidateProjectService.selectAll$;
@@ -39,6 +41,10 @@ export class CandidateProjectsComponent implements OnInit {
     this.candidateProjectService.selectAll(state);
   }
 
+  onCardClicked(event) {
+    this.candidateProjectService.preview(event);
+  }
+
   onSelectCandidates(event) {
     this.candidateProjectService.setMultiSelected(event);
   }
@@ -46,7 +52,16 @@ export class CandidateProjectsComponent implements OnInit {
   onAction(event) {
     switch (event) {
       case 'apply':
-        this.candidateProjectService.onApply();
+        console.log('applying candidates');
+        this.candidateProjectService.registerInterest(this.userProfileId).subscribe(
+          success => {
+            if (success) {
+              console.log('Candidates set as interests');
+            } else {
+              this.messages.showErrors('Some error applying. Try again later.');
+            }
+          }
+        );
         break;
 
       default:

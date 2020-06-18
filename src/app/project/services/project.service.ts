@@ -55,7 +55,8 @@ export class ProjectService {
       .pipe(
         map(APIResponseToData),
         catchError(err => throwError(err)),
-        map(arr => arr.map(projectFromDTO)),
+        map(projects => projects.map(projectFromDTO)),
+        tap(console.log),
         shareReplay(),
         tap((projects) => {
           this.projectsAlreadyLoadedForId = userProfileId;
@@ -90,12 +91,14 @@ export class ProjectService {
       user_profile_id: userProfileId,
       projects
     };
-    return this.http.post<APIResponse>(`${environment.apiBaseURL}/project_interest`, request)
+    const registerInterestProject$ = this.http.post<APIResponse>(`${environment.apiBaseURL}/project_interest`, request)
       .pipe(
         map(APIResponseToData),
         catchError(err => throwError(err)),
         map(res => 'OK' ? true : false),
         shareReplay()
       );
+
+    return this.loading.showLoaderUntilCompletes(registerInterestProject$);
   }
 }

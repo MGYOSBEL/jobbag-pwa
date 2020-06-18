@@ -19,12 +19,16 @@ export class ProjectCardListComponent implements OnInit {
 
   private selectedProjects: number[];
 
+  @Input()
+  cardMode: 'WIDE' | 'COMPACT';
+
   @Output()
   checkedProjects = new EventEmitter<number[]>();
 
-  constructor(
-  ) {
-   }
+  @Output()
+  cardClicked = new EventEmitter<number>();
+
+  constructor() {}
 
   ngOnInit() {
     this.masterSelected$
@@ -43,5 +47,9 @@ export class ProjectCardListComponent implements OnInit {
     }
     this.selectedProjects = Array.from(checked);
     this.checkedProjects.emit(this.selectedProjects);
+  }
+
+  onCardClicked(event) {
+    this.cardClicked.emit(event);
   }
 }

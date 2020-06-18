@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { Project } from '../models/project.model';
+import { Project, ProjectState } from '../models/project.model';
 import { CandidateProjectService } from '../services/candidate-project.service';
 import { timeInterval } from 'rxjs/operators';
 import { interval } from 'rxjs';
@@ -16,17 +16,22 @@ export class ProjectCardComponent implements OnInit {
 
   @Output() checked = new EventEmitter<{ state: boolean, projectId: number }>();
 
+  @Output() clicked = new EventEmitter<number>();
+
   @Input()
   cardSelected: boolean;
 
-  constructor(private candidateProjectService: CandidateProjectService) { }
+  @Input()
+  cardMode: 'wide' | 'compact';
+
+  constructor() { }
 
   ngOnInit() {
 
   }
 
   onClick() {
-    this.candidateProjectService.preview(this.project.id);
+    this.clicked.emit(this.project.id);
   }
 
   onCheck(event) {
@@ -37,12 +42,18 @@ export class ProjectCardComponent implements OnInit {
   }
 
   getColor() {
-    if (this.project.state === "'NEW'") {
-      return 'solid 8px #7bcff4';
-    } else if (this.project.name === 'Read') {
-      return 'solid 8px #a1d173';
-    } else {
-      return 'solid 8px #f99d6e';
+    switch (this.project.state) {
+      case ProjectState.NEW:
+        return 'solid 8px #7bcff4';
+      case ProjectState.PROGRESS:
+        return 'solid 8px #a1d173';
+      case ProjectState.FINISH:
+        return 'solid 8px #f99d6e';
+      case ProjectState.CANCEL:
+        return 'solid 8px #7bcff4';
+
+      default:
+        break;
     }
   }
 

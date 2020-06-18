@@ -55,12 +55,14 @@ export class CandidateProjectService {
    );
   }
 
+  registerInterest(userProfileId: number): Observable<boolean> {
+    return this.projectService.registerInterestProjects(userProfileId , this.multiSelectedProjectsSubject.value);
+  }
+
   preview(projectId: number) {
     const candidates = this.candidatesSubject.value;
     this.activeProjectSubject.next(candidates.find(proj => proj.id === projectId));
   }
 
-  onApply() {
-    console.log(this.multiSelectedProjectsSubject.value);
-  }
+
 }

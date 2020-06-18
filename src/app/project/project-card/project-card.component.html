@@ -1,4 +1,4 @@
-<div class="card card-hover col-12" style="margin-bottom: 0.3rem; background-color: white;border-radius: 0; cursor: pointer;" (click)="onClick()">
+<div class="card card-hover col-12" style="margin-bottom: 0.3rem; background-color: white;border-radius: 0; cursor: pointer;" (click)="onClick(project.id)">
   <div [ngStyle]="{'border-left':getColor()}"class="row vertical-align">
     <div class="card-select col-1">
       <input type="checkbox" [(ngModel)]="cardSelected" (change)="onCheck($event)">
@@ -8,8 +8,8 @@
         {{project.name}}
       </p>
     </div>
-    <div class="col-3 px-2 text-right">
-      <div class="reveal">
+    <div class="col-3 px-2 text-right" *ngIf="cardMode === 'WIDE'">
+      <div  class="reveal">
         <button type="button" class="btn mx-2 px-1" alt="View" style="border-radius: 0;"><i class="fas fa-eye"
             style="color: #bebcbe;"></i></button>
         <button type="button" class="btn mx-2 px-1" style="border-radius: 0;"><i class="fas fa-trash"
