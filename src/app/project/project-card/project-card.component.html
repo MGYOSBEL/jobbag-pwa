@@ -1,9 +1,9 @@
-<div class="card card-hover col-12" style="margin-bottom: 0.3rem; background-color: white;border-radius: 0; cursor: pointer;" (click)="onClick(project.id)">
+<div class="card card-hover col-12" style="margin-bottom: 0.3rem; background-color: white;border-radius: 0; cursor: pointer;">
   <div [ngStyle]="{'border-left':getColor()}"class="row vertical-align">
     <div class="card-select col-1">
       <input type="checkbox" [(ngModel)]="cardSelected" (change)="onCheck($event)">
     </div>
-    <div class="col-8 px-1">
+    <div class="col-8 px-1" (click)="onClick(project.id)">
       <p class="project-title text-left my-2" style="color:#2888C7; font-weight: light; font-size: 1.2rem;">
         {{project.name}}
       </p>
