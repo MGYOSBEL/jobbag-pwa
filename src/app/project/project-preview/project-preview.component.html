@@ -1,7 +1,7 @@
 <ng-container *ngIf="previewProject$ | async as previewProject">
 
-<div class="card col-12" style="border-radius: 0;">
-  <div class="row vertical-align py-1" style="background-color: white;">
+<div class="card col-12 rounded-0" >
+  <div class="row vertical-align py-1 preview-toolbar" >
     <div class="col-9">
       <button class="btn col-5" type="button" style=" background-color: #2888C7; color: white; border-radius: 0;"
               (click)="onApply()">
@@ -18,24 +18,26 @@
       </div>
     </div>
   </div>
-  <div class="row" style="background-color: #f1f1f1;">
+  <div class="row" style="background-color: #f1f1f1; color:#605c61;">
     <div class="col-12">
-      <p class="project-title text-left my-2" style="color:#bebcbe; font-weight: light; font-size: 1.2rem;">
+      <p class="project-title text-left my-2" style="color:#605c61; font-weight: light; font-size: 1.2rem;">
         {{previewProject.name}}
       </p>
+      <hr class="border-bottom mt-0">
     </div>
     <hr>
     <div class="col-12">
-      <p style="font-size:small">
+      <p style="font-size:medium">
         {{previewProject.description}}
       </p>
     </div>
   </div>
   <div class="row" style="background-color: #f1f1f1;">
     <div class="col-12">
-      <p class="project-title text-left my-2" style="color:#bebcbe; font-weight: light; font-size: 1.2rem;">
-        Location
+      <p class="project-title text-left my-2" style="color:#605c61; font-weight: light; font-size: 1.2rem;">
+        Required Locations
       </p>
+      <hr class="border-bottom mt-0">
     </div>
     <hr>
     <div class="col-12">
@@ -50,11 +52,11 @@
   </div>
   <div class="row" style="background-color: #f1f1f1;">
     <div class="col-12">
-      <p class="project-title text-left my-2" style="color:#bebcbe; font-weight: light; font-size: 1.2rem;">
-        Services
+      <p class="project-title text-left my-2" style="color:#605c61; font-weight: light; font-size: 1.2rem;">
+        Required Services
       </p>
+      <hr class="border-bottom mt-0">
     </div>
-    <hr>
     <div class="col-12">
       <div style="font-size:small">
         <ul >

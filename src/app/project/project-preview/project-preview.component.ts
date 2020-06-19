@@ -62,7 +62,7 @@ export class ProjectPreviewComponent implements OnInit {
   }
 
   onApply() {
-    this.projectService.registerInterestProjects(4, [this.previewProject.id])
+    this.projectService.registerInterestProjects(this.userProfileId, [this.previewProject.id])
       .subscribe(
         success => {
           if (!success) {
