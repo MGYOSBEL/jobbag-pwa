@@ -22,7 +22,7 @@ export class ProjectCardComponent implements OnInit {
   cardSelected: boolean;
 
   @Input()
-  cardMode: 'wide' | 'compact';
+  cardMode: 'WIDE' | 'COMPACT';
 
   constructor() { }
 
@@ -39,6 +39,9 @@ export class ProjectCardComponent implements OnInit {
       state: event.target.checked,
       projectId: this.project.id
     });
+    if (this.cardMode === 'WIDE') {
+      this.clicked.emit(this.project.id);
+    }
   }
 
   getColor() {
@@ -50,7 +53,7 @@ export class ProjectCardComponent implements OnInit {
       case ProjectState.FINISH:
         return 'solid 8px #f99d6e';
       case ProjectState.CANCEL:
-        return 'solid 8px #7bcff4';
+        return 'solid 8px #942a2c';
 
       default:
         break;

@@ -4,7 +4,7 @@ import { BehaviorSubject, Observable, throwError, of } from 'rxjs';
 import { environment } from '@environments/environment';
 import { map, tap, catchError, shareReplay } from 'rxjs/operators';
 import { APIResponse } from '@app/models/app.model';
-import { Project, ProjectDTO } from '../models/project.model';
+import { Project, ProjectDTO, ProjectState } from '../models/project.model';
 import { projectFromDTO, projectToDTO } from '../models/mappers';
 import { APIResponseToData } from '@app/models/mappers';
 import { ProjectCacheService } from './project-cache.service';
@@ -56,7 +56,6 @@ export class ProjectService {
         map(APIResponseToData),
         catchError(err => throwError(err)),
         map(projects => projects.map(projectFromDTO)),
-        tap(console.log),
         shareReplay(),
         tap((projects) => {
           this.projectsAlreadyLoadedForId = userProfileId;

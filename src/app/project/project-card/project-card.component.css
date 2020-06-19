@@ -13,6 +13,7 @@
     border-style: solid;
     border-radius: 0;
     border-color: #bcbebc;
+    transition: 200ms;
 }
 
 .card-hover:hover .reveal {
