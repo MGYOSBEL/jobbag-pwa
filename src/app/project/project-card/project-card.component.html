@@ -3,7 +3,7 @@
     <div class="card-select col-1">
       <input type="checkbox" [(ngModel)]="cardSelected" (change)="onCheck($event)">
     </div>
-    <div class="col-8 px-1" (click)="onClick(project.id)">
+    <div class="col-8 px-1" (click)="onClick()">
       <p class="project-title text-left my-2" style="color:#2888C7; font-weight: light; font-size: 1.2rem;">
         {{project.name}}
       </p>
