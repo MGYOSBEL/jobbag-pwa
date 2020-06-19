@@ -11,10 +11,10 @@ li::before {
   margin: 0 4px 0px 8px;
 }
 
-hr{
-    border: 0;
-border-top: 2px solid #999;
-border-bottom: 2px solid #333;
-height:0;
+.preview-toolbar {
+  background-color: #ffffff;
+  color: #2985C4;
+  border-bottom: 1px solid #2985C4;
+  z-index: 1;
 }
 

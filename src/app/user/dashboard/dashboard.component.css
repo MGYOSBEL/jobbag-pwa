@@ -12,12 +12,12 @@
 }
 
 .nav-item{
-  background-color: #999999;
-  color: white;
+  background-color: #bebcbe;
+  color: #605c61;
   margin-bottom: 10px;
 }
 
-#navitem-one-container{
+.navitem-container{
   background-image: url(../../../assets/img/img-blur10-opacity50.png);
   background-size:65%;
   background-position: center;
