@@ -158,5 +158,4 @@ export class NavbarComponent implements OnInit {
         return this.changeLanguages = `user/${this.loggedUser.id}/${this.userService.role}`;
       }
   }
-
 }
