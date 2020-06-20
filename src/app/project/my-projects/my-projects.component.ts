@@ -41,6 +41,7 @@ export class MyProjectsComponent implements OnInit {
     userProfile$.subscribe(
       ([user, role]) => {
         this.userProfile = user.profiles.find(profile => profile.userProfileType === role);
+        this.projects$ = this.projectService.getAllProjectSummariesByProfileId(this.userProfile.id);
         this.actionBar = [
           ProjectAction.Delete,
           ProjectAction.SelectAll,
@@ -51,7 +52,6 @@ export class MyProjectsComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.projects$ = this.projectService.getAllProjectSummariesByProfileId(this.userProfile.id);
 
     this.newProjects$ = this.projects$.pipe(
       map(projects => projects.filter(elem => elem.state === ProjectState.NEW))
