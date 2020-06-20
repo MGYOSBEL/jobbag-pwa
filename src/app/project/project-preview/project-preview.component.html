@@ -1,7 +1,7 @@
 <ng-container *ngIf="previewProject$ | async as previewProject">
 
 <div class="card col-12 rounded-0" >
-  <div class="row vertical-align py-1 preview-toolbar" >
+  <div class="row vertical-align py-1 preview-toolbar" style="z-index: 0;">
     <div class="col-9">
       <button class="btn col-5" type="button" style=" background-color: #2888C7; color: white; border-radius: 0;"
               (click)="onApply()">
