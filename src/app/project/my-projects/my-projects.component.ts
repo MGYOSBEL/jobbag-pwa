@@ -40,8 +40,12 @@ export class MyProjectsComponent implements OnInit {
     );
     userProfile$.subscribe(
       ([user, role]) => {
+        console.log(`role changed to ${role}`);
         this.userProfile = user.profiles.find(profile => profile.userProfileType === role);
-        this.projects$ = this.projectService.getAllProjectSummariesByProfileId(this.userProfile.id);
+        this.projects$ = this.projectService.getAllProjectSummariesByProfileId(this.userProfile.id)
+        .pipe(
+          tap(() => this.filterProjects())
+        );
         this.actionBar = [
           ProjectAction.Delete,
           ProjectAction.SelectAll,
@@ -52,7 +56,11 @@ export class MyProjectsComponent implements OnInit {
    }
 
   ngOnInit() {
+    this.filterProjects();
 
+  }
+
+  filterProjects() {
     this.newProjects$ = this.projects$.pipe(
       map(projects => projects.filter(elem => elem.state === ProjectState.NEW))
     );
