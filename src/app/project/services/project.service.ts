@@ -100,4 +100,13 @@ export class ProjectService {
 
     return this.loading.showLoaderUntilCompletes(registerInterestProject$);
   }
+
+  addProjects(projects: Project[]) {
+    console.log('projectsToAdd => ', projects);
+    const oldProjects = this.projectsSubject.value;
+    console.log('oldProjects => ', projects);
+    const newProjects = oldProjects.concat(projects);
+    console.log('newProjects => ', newProjects);
+    this.projectsSubject.next(newProjects);
+  }
 }
