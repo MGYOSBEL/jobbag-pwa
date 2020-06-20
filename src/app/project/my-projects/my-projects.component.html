@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-12 px-1">
       <!-- ACTION BAR -->
-      <app-project-action-bar></app-project-action-bar>
+      <app-project-action-bar [actions]="actionBar" (action)="onAction($event)"></app-project-action-bar>
     </div>
   </div>
   <div class="row py-3">

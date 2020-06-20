@@ -1,20 +1,20 @@
 <div class="card col-12" style="background-color: white;border-radius: 0;">
   <div class="row vertical-align py-2">
     <div class="action-col col-3 px-0">
-      <input type="checkbox" value="select-all" style="margin-left: 1rem; margin-right: 1rem;"
+      <input *ngIf="SELECTALL" type="checkbox" value="select-all" style="margin-left: 1rem; margin-right: 1rem;"
         (change)="onSelectAll($event)">
-      <button *ngIf="apply === false" class="btn col-6" type="button"
-        style=" background-color: #2888C7; color: white; border-radius: 0;" (click)="onAction()">
+      <button *ngIf="APPLY" class="btn col-6" type="button"
+        style=" background-color: #2888C7; color: white; border-radius: 0;" (click)="onAction('APPLY')">
         <i class="fab fa-telegram-plane"></i>
         Apply
       </button>
-      <button *ngIf="apply === true" class="btn col-6" type="button"
-        style=" background-color: #2888C7; color: white; border-radius: 0;" (click)="onAction()">
+      <button *ngIf="CREATE" class="btn col-6" type="button"
+        style=" background-color: #2888C7; color: white; border-radius: 0;" (click)="onAction('CREATE')">
         <i class="fas fa-folder-plus"></i>
         New Project
       </button>
-      <button type="button" class="btn mx-2 px-3" style="border-radius: 0;"><i class="fas fa-trash"
-          style="color: #bebcbe;"></i></button>
+      <button *ngIf="DELETE" type="button" class="btn mx-2 px-3" style="border-radius: 0;"><i class="fas fa-trash"
+          style="color: #bebcbe;" (click)="onAction('DELETE')"></i></button>
     </div>
     <div class="col-3">
       <div class="form-group" style="margin-bottom: 0;">

@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-12 px-1">
       <!-- ACTION BAR -->
-      <app-project-action-bar (selectAll)="onSelectAll($event)" (action)="onAction($event)"></app-project-action-bar>
+      <app-project-action-bar [actions]="actionBar" (selectAll)="onSelectAll($event)" (action)="onAction($event)"></app-project-action-bar>
     </div>
   </div>
   <div class="row py-3">
@@ -21,7 +21,7 @@
     </div>
     <div class="col-6 px-2">
       <!-- PROJECT PREVIEW -->
-      <app-project-preview [userProfileId]="userProfileId"></app-project-preview>
+      <app-project-preview [userProfileId]="userProfile!.id"></app-project-preview>
     </div>
   </div>
 </div>

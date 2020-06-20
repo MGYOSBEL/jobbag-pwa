@@ -31,6 +31,12 @@ export enum ProjectState {
    FINISH = 'FINISH',
    CANCEL = 'CANCEL'
 }
+export enum ProjectAction {
+   SelectAll = 'SELECTALL',
+   Apply = 'APPLY',
+   Create = 'CREATE',
+   Delete = 'DELETE'
+}
 
 
 

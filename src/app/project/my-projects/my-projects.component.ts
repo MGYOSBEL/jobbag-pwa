@@ -1,10 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Project, ProjectState } from '../models/project.model';
+import { Observable, combineLatest } from 'rxjs';
+import { Project, ProjectState, ProjectAction } from '../models/project.model';
 import { UserProfile } from '@app/user/models/user.model';
 import { ProjectService } from '../services/project.service';
 import { filter, map, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { UserService } from '@app/user/services/user.service';
 
 @Component({
   selector: 'app-my-projects',
@@ -13,9 +14,8 @@ import { Router } from '@angular/router';
 })
 export class MyProjectsComponent implements OnInit {
 
-  @Input()
-  userProfileId: number;
 
+  userProfile: UserProfile;
   projects$: Observable<Project[]>;
 
   newProjects$: Observable<Project[]>;
@@ -24,14 +24,34 @@ export class MyProjectsComponent implements OnInit {
 
   selectAll$ = new Observable<boolean>();
 
+  actionBar = [
+    ProjectAction.Delete,
+    ProjectAction.SelectAll
+  ];
+
   constructor(
-     private projectService: ProjectService,
-     private router: Router
+    private userService: UserService,
+    private projectService: ProjectService,
+    private router: Router
   ) {
+    const userProfile$ = combineLatest(
+      userService.loggedUser$,
+      userService.role$
+    );
+    userProfile$.subscribe(
+      ([user, role]) => {
+        this.userProfile = user.profiles.find(profile => profile.userProfileType === role);
+        this.actionBar = [
+          ProjectAction.Delete,
+          ProjectAction.SelectAll,
+          this.userProfile.userProfileType === 'CLIENT' ? ProjectAction.Create : null
+        ];
+      }
+    );
    }
 
   ngOnInit() {
-    this.projects$ = this.projectService.getAllProjectSummariesByProfileId(this.userProfileId);
+    this.projects$ = this.projectService.getAllProjectSummariesByProfileId(this.userProfile.id);
 
     this.newProjects$ = this.projects$.pipe(
       map(projects => projects.filter(elem => elem.state === ProjectState.NEW))
@@ -50,6 +70,28 @@ export class MyProjectsComponent implements OnInit {
 
   onCardClicked(event) {
     this.router.navigateByUrl(`/project/${event}`);
+  }
+
+  onCreate() {
+    this.router.navigateByUrl('/project/create');
+  }
+
+  onApply() {
+
+  }
+
+  onAction(event) {
+    switch (event) {
+      case ProjectAction.Create:
+        this.onCreate();
+        break;
+      case ProjectAction.Apply:
+        this.onApply();
+        break;
+
+      default:
+        break;
+    }
   }
 
 }
