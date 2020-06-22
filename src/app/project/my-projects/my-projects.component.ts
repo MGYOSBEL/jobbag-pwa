@@ -55,7 +55,7 @@ export class MyProjectsComponent implements OnInit {
   ngOnInit() {
   }
 
-  filterProjectsByState(projects: Project[], state: ProjectState, extraState?: ProjectState): Project[] {
+  filterProjectsByState(projects: Project[], state: string | ProjectState, extraState?: string | ProjectState): Project[] {
     return projects.filter(elem => elem.state === state || elem.state === extraState);
   }
 
