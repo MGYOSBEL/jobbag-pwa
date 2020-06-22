@@ -42,10 +42,7 @@ export class MyProjectsComponent implements OnInit {
       ([user, role]) => {
         console.log(`role changed to ${role}`);
         this.userProfile = user.profiles.find(profile => profile.userProfileType === role);
-        this.projects$ = this.projectService.getAllProjectSummariesByProfileId(this.userProfile.id)
-        .pipe(
-          tap(() => this.filterProjects())
-        );
+        this.projects$ = this.projectService.getAllProjectSummariesByProfileId(this.userProfile.id);
         this.actionBar = [
           ProjectAction.Delete,
           ProjectAction.SelectAll,
@@ -56,21 +53,12 @@ export class MyProjectsComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.filterProjects();
-
   }
 
-  filterProjects() {
-    this.newProjects$ = this.projects$.pipe(
-      map(projects => projects.filter(elem => elem.state === ProjectState.NEW))
-    );
-    this.inProgressProjects$ = this.projects$.pipe(
-      map(projects => projects.filter(elem => elem.state === ProjectState.PROGRESS))
-    );
-    this.finishedProjects$ = this.projects$.pipe(
-      map(projects => projects.filter(elem => elem.state === ProjectState.FINISH || elem.state === ProjectState.CANCEL))
-    );
+  filterProjectsByState(projects: Project[], state: ProjectState, extraState?: ProjectState): Project[] {
+    return projects.filter(elem => elem.state === state || elem.state === extraState);
   }
+
 
   onProjectChecked(event) {
     console.log('checked projects', event);

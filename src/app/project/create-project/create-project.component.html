@@ -1,4 +1,4 @@
-<div class="container container-cp-component bg-faded py-4">
+<!-- <div class="container container-cp-component bg-faded py-4">
   <div class="row justify-content-center" id="create-project-container2">
     <div class="col-md-8 container-col border-0 rounded-0">
       <form [formGroup]="createProjectForm">
@@ -118,6 +118,8 @@
             </button>
           </div>
         </div>
+
+
         <div class="modal fade rounded-0" id="servicesModal" data-backdrop="static" tabindex="-1" role="dialog"
           aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered rounded-0" role="document">
@@ -160,6 +162,7 @@
             </div>
           </div>
         </div>
+
       </form>
     </div>
   </div>
@@ -186,7 +189,268 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 <!-- {{createProjectForm.value | json}} <br>
 INVALID: {{createProjectForm.invalid}} <br>
 ERRORS: {{createProjectForm.errors | json}} <br> -->
+<div class="container bg-faded py-5" id="create-profile-container">
+  <div class="row justify-content-center">
+    <!-- <div class="col-4" id="stepper-section"> -->
+    <div class="col-sm-8 col-lg-4" id="stepper-section">
+      <div class="col-12 text-right">
+        <button type="button" class="close" aria-label="Close" style="color:#bcbebc;"
+        data-toggle="modal" data-target="#closeModal">
+          <span aria-hidden="true"><i class="fas fa-times"></i></span>
+        </button>
+      </div>
+      <div id="createProjectStepper" class="bs-stepper">
+        <div class="bs-stepper-header col-12 mx-auto w-30 mb-2" style="height: 80px">
+          <div class="step" data-target="#projectName">
+            <button class="step-trigger">
+              <span class="bs-stepper-circle">1</span>
+              <span class="bs-stepper-label">Title</span>
+            </button>
+          </div>
+          <div class="step" data-target="#projectDescription">
+            <button class="step-trigger">
+              <span class="bs-stepper-circle">2</span>
+              <span class="bs-stepper-label">Description</span>
+            </button>
+          </div>
+          <div class="step" data-target="#projectLocations">
+            <button class="step-trigger">
+              <span class="bs-stepper-circle">3</span>
+              <span class="bs-stepper-label">Countries</span>
+            </button>
+          </div>
+          <div class="step" data-target="#projectServices">
+            <button class="step-trigger">
+              <span class="bs-stepper-circle">4</span>
+              <span class="bs-stepper-label">Services</span>
+            </button>
+          </div>
+          <div class="step" data-target="#projectStartDate">
+            <button class="step-trigger">
+              <span class="bs-stepper-circle">5</span>
+              <span class="bs-stepper-label">Date</span>
+            </button>
+          </div>
+
+        </div>
+        <div class="bs-stepper-content">
+          <div class="row">
+            <form [formGroup]="createProjectForm" style="width: 100%; height: 8rem;">
+              <div id="projectName" class="content container fade">
+                <div class="form-group row mx-auto" style="margin-top: 3rem;">
+                  <div class="col-12 px-0">
+                    <label class="text-muted"><span>Project Title</span></label>
+                    <input type="text" class="form-control rounded-0" id="projectTitle" formControlName="projectTitle"
+                      [ngClass]="createProjectForm.get('projectTitle').invalid && (createProjectForm.get('projectTitle').dirty || createProjectForm.get('projectTitle').touched) ? 'is-invalid' : '' ">
+                    <div class="invalid-feedback">
+                      You must enter a project title!
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+              <div id="projectDescription" class="content container fade">
+                <div class="row">
+                  <div class="col-12 px-0">
+                    <label class="text-muted"><span>Project Description</span></label>
+                    <div class="form-group mx-auto">
+                      <textarea class="form-control" id="commentsInputText" style="height: 6rem; border-radius: 0;"
+                        formControlName="projectResume" placeholder="Enter your project Resume..."></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="projectLocations" class="content container fade m-0 p-0">
+                <div class="row m-0 p-0">
+                  <div class="col-12 text-center pt-5">
+                    <p style="color:#bebcbe;font-size:0.85rem">You need to select the region you'll work in!</p>
+                  </div>
+                  <div class="col-12 px-0 mx-0 h-100">
+                    <div class="custom-control custom-checkbox mb-3 rounded-0" style="display: flex;align-items: center;">
+                      <input type="checkbox" class="custom-control-input rounded-0" id="onlineJob" formControlName="onlineJob" #onlineJob
+                        (click)="onOnlineJobChange($event)">
+                      <label class="custom-control-label text-muted" for="onlineJob"
+                        style="font-size: 0.8rem;margin-top: 7px;"><span>
+                          Check for an Online Job, or select a Location.</span></label>
+                    </div>
+                    <div class="m-0 p-0"
+                      [ngClass]="createProjectForm.get('divisions').invalid && divisionsDirty ? 'is-invalid' : 'border-0' ">
+                      <app-multi-select [selectedDivisions]="countryDivisions" (selected)="onDivisionsSelect($event)"
+                        [disabled]="onlineJob.checked" (click)="divisionsDirty = true">
+                      </app-multi-select>
+                    </div>
+                    <div class="invalid-feedback text-left">
+                      You must select at least one region!
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+              <div id="projectServices" class="content container fade">
+                <div class="row justify-content-center">
+                  <div class="col-12">
+                    <div class="form-group py-5 mx-auto">
+                      <div class="row justify-content-between">
+                        <div class="col stepper-text align-items-center">Select a Service!</div>
+
+                      </div>
+                      <button type="button" class="btn rounded-0 align-items-center align-text-top" style="background-color: #bfbdbe; color: #2880a9; font-size: 1rem; width: 100%;
+                                        font-weight: bold; margin-top: 0.5rem;" data-toggle="modal"
+                    data-target="#servicesModal"
+                    [style.color]="!!createProjectForm.get('selectedServices').value.length ? '#FFFFFF' : '#2985c4'"
+                    [style.font-weight]="!!createProjectForm.get('selectedServices').value.length ? 'normal' : 'bold'"
+                    [style.background-color]="!!createProjectForm.get('selectedServices').value.length ? '#2985c4' : '#BEBCBE'"
+                    [ngClass]="createProjectForm.get('selectedServices').invalid && servicesTouched ? 'is-invalid border-danger' : 'border-0' ">
+                    Services
+                    <span *ngIf="!!createProjectForm.get('selectedServices').value.length"
+                      class="badge badge-light rounded-circle ml-2"
+                      style="color: #2985c4">{{createProjectForm.get('selectedServices').value.length}}</span>
+                  </button>
+                  <div *ngIf="createProjectForm.get('selectedServices').invalid && servicesTouched"
+                    class="invalid-feedback text-left">
+                    You must select at least one service!
+                  </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="projectStartDate" class="content">
+                <div class="justify-content-center" style="margin-top: 1.5rem;">
+                  <label class="text-muted"><span>Initial Date</span></label>
+                <div class="mb-3">
+                  <div class="input-group">
+                    <input class="form-control rounded-0" formControlName="startDate" id="validationTextarea"
+                      placeholder="yyyy-mm-dd" ngbDatepicker #startDatePicker="ngbDatepicker"
+                      style="height: 2.5rem;border-color:#2880a9;">
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-secondary calendar rounded-0" (click)="startDatePicker.toggle()"
+                        type="button" style="background-color:#2888C7 ;">
+                        <i class="far fa-calendar-alt fa-lg" style="color: white;"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                </div>
+              </div>
+
+              <div class="modal fade rounded-0" id="servicesModal" data-backdrop="static" tabindex="-1" role="dialog"
+              aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered rounded-0" role="document">
+                <div class="modal-content rounded-0 border-0">
+                  <div class="modal-header rounded-0" style="background-color: #2888C7; color: white;">
+                    <label>Services</label>
+                    <button type="button" class="close" (click)="servicesTouched = true" data-dismiss="modal"
+                      aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body rounded-0">
+                    <div class="card col-12 h-100 px-0 mx-0">
+
+                      <div class="row justify-content-center px-2">
+                        <div *ngIf="createProjectForm.get('selectedServices').value.length > 0"
+                          class="col text-right mr-0 pr-0">
+                          <button class="btn btn-link" style="color:rgb(148,42,44);" (click)="clearServices()"
+                            data-toggle="tooltip" data-placement="top" title="Unselect all">
+                            <span class="fas fa-times"></span>
+                          </button>
+                        </div>
+                        <ng-select formControlName="selectedServices" class="text-center col-12" [items]="services"
+                          [multiple]="true" [closeOnSelect]="false" [hideSelected]="true" bindLabel="descriptionEs"
+                          bindLabel="descriptionEs" bindValue="id" [searchFn]="customSearchFn">
+                          <ng-template ng-option-tmp let-item="item">
+                            {{item.descriptionEs}}
+                          </ng-template>
+                        </ng-select>
+                      </div>
+
+                    </div>
+                  </div>
+                  <div class="modal-footer rounded-0">
+                    <button type="button" class="btn btn-previous rounded-0" data-dismiss="modal"
+                      style="background-color: #bfbdbe;color: #2880a9;" (click)="servicesTouched = true">Cancel</button>
+                    <button type="button" class="btn btn-send rounded-0" data-dismiss="modal"
+                      style="background-color: #2888C7;color: white;" (click)="servicesTouched = true">Accept</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            </form>
+          </div>
+          <div class="row justify-content-between" id="btn-row">
+            <button [disabled]="activeStep === 0" type="button" class="col-3 btn btn-previous mt-5 rounded-0"
+              style="background-color: #BFBDBE;" data-toggle="tooltip" data-placement="top" title="Back"
+              (click)="previous()">
+              <svg class="svg-arrow-left" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20.01 16.15">
+                <defs>
+                  <style>
+                    .cls-1 {
+                      fill: #2888C7;
+                    }
+                  </style>
+                </defs>
+                <title>Back</title>
+                <g id="Capa_2" data-name="Capa 2">
+                  <g id="Isolation_Mode" data-name="Isolation Mode">
+                    <path
+                      d="M1,9.07H16.59l-5.36,5.37a1,1,0,0,0,0,1.42,1,1,0,0,0,1.41,0l7.07-7.08h0l.13-.15a.3.3,0,0,0,0-.08.41.41,0,0,0,.05-.09.45.45,0,0,0,0-.11l0-.08a1.23,1.23,0,0,0,0-.2h0a1.23,1.23,0,0,0,0-.19l0-.09,0-.1a.93.93,0,0,0-.05-.1l0-.07a.64.64,0,0,0-.13-.15L12.64.29a1,1,0,0,0-1.41,0,1,1,0,0,0,0,1.42l5.36,5.36H1a1,1,0,0,0,0,2Z" />
+                  </g>
+                </g>
+              </svg>
+            </button>
+            <button type="submit" class="col-4 btn btn-send mt-5 rounded-0 border-0 text-light" data-toggle="tooltip"
+              data-placement="top" title="Send" style="background-color: #2688C6; font-size: 1.25rem;"
+              [disabled]="createProjectForm.invalid" (click)="createProject()">CREATE</button>
+            <button [disabled]="activeStep === 4" type=" button" class="col-3 btn btn-next mt-5 rounded-0"
+              style="background-color: #BFBDBE" data-toggle="tooltip" data-placement="top" title="Next"
+              (click)="next()">
+              <svg class="svg-arrow-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20.01 16.15">
+                <defs>
+                  <style>
+                    .cls-1 {
+                      fill: #2888C7;
+                    }
+                  </style>
+                </defs>
+                <title>Next</title>
+                <g id="Capa_2" data-name="Capa 2">
+                  <g id="Isolation_Mode" data-name="Isolation Mode">
+                    <path
+                      d="M1,9.07H16.59l-5.36,5.37a1,1,0,0,0,0,1.42,1,1,0,0,0,1.41,0l7.07-7.08h0l.13-.15a.3.3,0,0,0,0-.08.41.41,0,0,0,.05-.09.45.45,0,0,0,0-.11l0-.08a1.23,1.23,0,0,0,0-.2h0a1.23,1.23,0,0,0,0-.19l0-.09,0-.1a.93.93,0,0,0-.05-.1l0-.07a.64.64,0,0,0-.13-.15L12.64.29a1,1,0,0,0-1.41,0,1,1,0,0,0,0,1.42l5.36,5.36H1a1,1,0,0,0,0,2Z" />
+                  </g>
+                </g>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade rounded-0" id="closeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered rounded-0" role="document">
+    <div class="modal-content rounded-0 border-0">
+      <div class="modal-header rounded-0" style="background-color: #2888C7; color: white;">
+        <label>Close Confirmation</label>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body rounded-0">
+        Are you sure you want to cancel your project creation?
+      </div>
+      <div class="modal-footer rounded-0">
+        <button type="button" class="btn btn-previous rounded-0" data-dismiss="modal"
+          style="background-color: #bfbdbe;color: #2880a9;">Cancel</button>
+        <button type="button" class="btn btn-send rounded-0" data-dismiss="modal"
+          style="background-color: #2888C7;color: white;" (click)="onClose()">Accept</button>
+      </div>
+    </div>
+  </div>
+</div>

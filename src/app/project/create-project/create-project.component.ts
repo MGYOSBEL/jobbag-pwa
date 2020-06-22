@@ -15,6 +15,7 @@ import { combineLatest } from 'rxjs';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { MessagesService } from '@app/services/messages.service';
+import Stepper from 'bs-stepper';
 
 @Component({
   selector: 'app-create-project',
@@ -24,7 +25,8 @@ import { MessagesService } from '@app/services/messages.service';
 })
 export class CreateProjectComponent implements OnInit {
 
-
+  private stepper: Stepper;
+  activeStep: number;
   createProjectForm: FormGroup;
 
   activeProfileId: number;
@@ -75,6 +77,17 @@ export class CreateProjectComponent implements OnInit {
         this.dashboardRoute = `/user/${user.id}/${activeProfile.userProfileType}`;
       }
     );
+
+    // Stepper Methods
+    this.stepper = new Stepper(document.querySelector('#createProjectStepper'), {
+      linear: false,
+      animation: true
+    });
+
+    document.getElementById('createProjectStepper').addEventListener('shown.bs-stepper', (e: any) => {
+      this.logger.log(e.detail);
+      this.activeStep = e.detail.indexStep;
+    });
   }
 
   onClose() {
@@ -99,10 +112,10 @@ export class CreateProjectComponent implements OnInit {
   createProject() {
     const createProjectRequest = this.formToModel();
     this.projectService.create(createProjectRequest, this.activeProfileId)
-    .subscribe(
-      () => this.router.navigateByUrl(this.dashboardRoute),
-      err => this.messages.showErrors(`There was an error creating the project. Please try again later.`)
-    );
+      .subscribe(
+        () => this.router.navigateByUrl(this.dashboardRoute),
+        err => this.messages.showErrors(`There was an error creating the project. Please try again later.`)
+      );
   }
 
   onDivisionsSelect(event) {
@@ -134,4 +147,18 @@ export class CreateProjectComponent implements OnInit {
     };
     return project;
   }
+
+  closeRegisterProfile() {
+
+  }
+
+  // Stepper methods
+  next() {
+    this.stepper.next();
+  }
+
+  previous() {
+    this.stepper.previous();
+  }
+
 }
