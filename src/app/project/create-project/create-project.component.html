@@ -220,7 +220,7 @@ ERRORS: {{createProjectForm.errors | json}} <br> -->
           <div class="step" data-target="#projectLocations">
             <button class="step-trigger">
               <span class="bs-stepper-circle">3</span>
-              <span class="bs-stepper-label">Countries</span>
+              <span class="bs-stepper-label">Location</span>
             </button>
           </div>
           <div class="step" data-target="#projectServices">
@@ -243,7 +243,7 @@ ERRORS: {{createProjectForm.errors | json}} <br> -->
               <div id="projectName" class="content container fade">
                 <div class="form-group row mx-auto" style="margin-top: 3rem;">
                   <div class="col-12 px-0">
-                    <label class="text-muted"><span>Project Title</span></label>
+                    <!-- <label class="text-muted"><span>Project Title</span></label> -->
                     <input type="text" class="form-control rounded-0" id="projectTitle" formControlName="projectTitle"
                       [ngClass]="createProjectForm.get('projectTitle').invalid && (createProjectForm.get('projectTitle').dirty || createProjectForm.get('projectTitle').touched) ? 'is-invalid' : '' ">
                     <div class="invalid-feedback">
@@ -256,9 +256,9 @@ ERRORS: {{createProjectForm.errors | json}} <br> -->
               <div id="projectDescription" class="content container fade">
                 <div class="row">
                   <div class="col-12 px-0">
-                    <label class="text-muted"><span>Project Description</span></label>
+                    <!-- <label class="text-muted"><span>Project Description</span></label> -->
                     <div class="form-group mx-auto">
-                      <textarea class="form-control" id="commentsInputText" style="height: 6rem; border-radius: 0;"
+                      <textarea class="form-control mt-5" id="commentsInputText" style="height: 6rem; border-radius: 0;"
                         formControlName="projectResume" placeholder="Enter your project Resume..."></textarea>
                     </div>
                   </div>
@@ -266,13 +266,13 @@ ERRORS: {{createProjectForm.errors | json}} <br> -->
               </div>
               <div id="projectLocations" class="content container fade m-0 p-0">
                 <div class="row m-0 p-0">
-                  <div class="col-12 text-center pt-5">
+                  <!-- <div class="col-12 text-center pt-5">
                     <p style="color:#bebcbe;font-size:0.85rem">You need to select the region you'll work in!</p>
-                  </div>
-                  <div class="col-12 px-0 mx-0 h-100">
+                  </div> -->
+                  <div class="col-12 px-0 mx-0 h-100 mt-5">
                     <div class="custom-control custom-checkbox mb-3 rounded-0" style="display: flex;align-items: center;">
-                      <input type="checkbox" class="custom-control-input rounded-0" id="onlineJob" formControlName="onlineJob" #onlineJob
-                        (click)="onOnlineJobChange($event)">
+                      <input type="checkbox" class="custom-control-input rounded-0" id="onlineJob"
+                            formControlName="onlineJob" #onlineJob (click)="onOnlineJobChange($event)">
                       <label class="custom-control-label text-muted" for="onlineJob"
                         style="font-size: 0.8rem;margin-top: 7px;"><span>
                           Check for an Online Job, or select a Location.</span></label>
@@ -295,7 +295,7 @@ ERRORS: {{createProjectForm.errors | json}} <br> -->
                   <div class="col-12">
                     <div class="form-group py-5 mx-auto">
                       <div class="row justify-content-between">
-                        <div class="col stepper-text align-items-center">Select a Service!</div>
+                        <!-- <div class="col stepper-text align-items-center">Select a Service!</div> -->
 
                       </div>
                       <button type="button" class="btn rounded-0 align-items-center align-text-top" style="background-color: #bfbdbe; color: #2880a9; font-size: 1rem; width: 100%;
