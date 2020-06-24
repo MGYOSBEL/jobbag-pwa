@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { ProjectService } from './project.service';
 import { Project } from '../models/project.model';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, throwError } from 'rxjs';
 import { AuthenticationService } from '@app/auth/services/authentication.service';
-import { filter, tap } from 'rxjs/operators';
+import { filter, tap, catchError } from 'rxjs/operators';
 
 @Injectable()
 export class CandidateProjectService {
@@ -56,12 +56,34 @@ export class CandidateProjectService {
   }
 
   registerInterest(userProfileId: number): Observable<boolean> {
-    return this.projectService.registerInterestProjects(userProfileId , this.multiSelectedProjectsSubject.value);
+    return this.projectService.registerInterestProjects(userProfileId , this.multiSelectedProjectsSubject.value)
+    .pipe(
+      catchError(err => throwError(err)),
+      tap(() => {
+        this.uploadCandidates();
+      })
+    );
   }
 
   preview(projectId: number) {
     const candidates = this.candidatesSubject.value;
     this.activeProjectSubject.next(candidates.find(proj => proj.id === projectId));
+  }
+
+  removeCandidates(projects: number[]) {
+    const candidates = this.candidatesSubject.value;
+    const newCandidates = candidates.filter(elem => !projects.find(id => id === elem.id));
+    return newCandidates;
+  }
+
+  uploadCandidates() {
+    const candidatesToRemove = this.multiSelectedProjectsSubject.value;
+    const newCandidates = this.removeCandidates(candidatesToRemove);
+    const addedCandidates = this.candidatesSubject.value.filter(elem => candidatesToRemove.find(id => id === elem.id));
+    console.log('addedCandidates => ', addedCandidates);
+    this.candidatesSubject.next(newCandidates);
+    this.projectService.addProjects(addedCandidates);
+
   }
 
 
