@@ -20,7 +20,7 @@ export class CandidateProjectsComponent implements OnInit {
   candidateProjects$: Observable<Project[]>;
   selectedCandidates$: Observable<number[]>;
   selectAll$ = new Observable<boolean>();
-
+  previewProject$: Observable<Project>;
   masterSelected$: Observable<boolean>;
 
   actionBar = [ProjectAction.Apply, ProjectAction.Delete, ProjectAction.SelectAll];
@@ -45,6 +45,7 @@ export class CandidateProjectsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.previewProject$ = this.candidateProjectService.activeProject$;
     this.candidateProjectService.loadCandidatesByUserProfileId(this.userProfile.id);
   }
 

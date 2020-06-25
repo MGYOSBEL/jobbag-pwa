@@ -57,3 +57,36 @@
 </ng-container>
 
 
+<ng-container *ngIf="projects$ | async as projects">
+  <div class="container-fluid py-4">
+    <div class="row">
+      <div class="col-12 px-1">
+        <!-- ACTION BAR -->
+        <app-project-action-bar [actions]="actionBar" (action)="onAction($event)"></app-project-action-bar>
+      </div>
+    </div>
+    <div class="row py-3">
+      <div class="col-6 px-2 scroll-host">
+        <!-- PROJECT CARD -->
+        <ng-container *ngIf="projects$ | async as myProjects">
+          <app-project-card-list
+              [projects]="myProjects"
+              [masterSelected$]="selectAll$"
+              (checkedProjects)="onProjectChecked($event)"
+              (cardClicked)="onCardClicked($event)"
+              [cardMode]="'WIDE'">
+
+          </app-project-card-list>
+        </ng-container>
+      </div>
+      <div class="col-6 px-2">
+        <!-- PROJECT PREVIEW -->
+        <app-project-preview [userProfileId]="userProfile!.id"></app-project-preview>
+      </div>
+    </div>
+  </div>
+
+</ng-container>
+
+
+

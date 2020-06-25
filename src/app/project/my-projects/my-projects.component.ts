@@ -6,6 +6,7 @@ import { ProjectService } from '../services/project.service';
 import { filter, map, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { UserService } from '@app/user/services/user.service';
+import { PersonalProjectService } from '../services/personal-project.service';
 
 @Component({
   selector: 'app-my-projects',
@@ -17,6 +18,7 @@ export class MyProjectsComponent implements OnInit {
 
   userProfile: UserProfile;
   projects$: Observable<Project[]>;
+  previewProject$: Observable<Project>;
 
   newProjects$: Observable<Project[]>;
   inProgressProjects$: Observable<Project[]>;
@@ -31,18 +33,15 @@ export class MyProjectsComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private projectService: ProjectService,
+    private personalProjectService: PersonalProjectService,
     private router: Router
   ) {
-    const userProfile$ = combineLatest(
-      userService.loggedUser$,
-      userService.role$
-    );
-    userProfile$.subscribe(
+
+    personalProjectService.userProfile$.subscribe(
       ([user, role]) => {
         console.log(`role changed to ${role}`);
         this.userProfile = user.profiles.find(profile => profile.userProfileType === role);
-        this.projects$ = this.projectService.getAllProjectSummariesByProfileId(this.userProfile.id);
+        this.projects$ = personalProjectService.personalProjects$;
         this.actionBar = [
           ProjectAction.Delete,
           ProjectAction.SelectAll,
@@ -53,6 +52,7 @@ export class MyProjectsComponent implements OnInit {
    }
 
   ngOnInit() {
+    this.personalProjectService.getPersonalProjects(this.userProfile.id);
   }
 
   filterProjectsByState(projects: Project[], state: string | ProjectState, extraState?: string | ProjectState): Project[] {
@@ -65,7 +65,7 @@ export class MyProjectsComponent implements OnInit {
   }
 
   onCardClicked(event) {
-    this.router.navigateByUrl(`/project/${event}`);
+    // this.router.navigateByUrl(`/project/${event}`);
   }
 
   onCreate() {

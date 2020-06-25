@@ -17,13 +17,14 @@ import { MessagesService } from '@app/services/messages.service';
 export class ProjectPreviewComponent implements OnInit {
 
   constructor(
-    private candidateProjectService: CandidateProjectService,
+    // private candidateProjectService: CandidateProjectService,
     private projectService: ProjectService,
     private messages: MessagesService,
     private countryService: CountryService,
     private servicesService: ServicesService
   ) { }
 
+  @Input()
   previewProject$: Observable<Project>;
   previewProject: Project;
 
@@ -34,7 +35,7 @@ export class ProjectPreviewComponent implements OnInit {
   services: Service[];
 
   ngOnInit() {
-    this.previewProject$ = this.candidateProjectService.activeProject$;
+    // this.previewProject$ = this.candidateProjectService.activeProject$;
 
     this.previewProject$.subscribe(
       project => this.previewProject = project

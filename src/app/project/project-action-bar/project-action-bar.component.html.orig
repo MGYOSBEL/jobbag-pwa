@@ -1,0 +1,65 @@
+<div class="card col-12" style="background-color: white;border-radius: 0;">
+  <div class="row vertical-align py-2">
+<<<<<<< HEAD
+    <div class="action-col col-4 px-0">
+      <input *ngIf="SELECTALL" type="checkbox" value="select-all" style="margin-left: 1rem; margin-right: 1rem;"
+=======
+      <input *ngIf="SELECTALL" type="checkbox"  value="select-all" style="margin-left: 1rem; margin-right: 1rem;"
+>>>>>>> proj-fixActionBarSizes
+        (change)="onSelectAll($event)">
+      <button *ngIf="APPLY" class="btn col-2" type="button"
+        style=" background-color: #2888C7; color: white; border-radius: 0;" (click)="onAction('APPLY')">
+        <i class="fab fa-telegram-plane"></i>
+        Apply
+      </button>
+      <button *ngIf="CREATE" class="btn col-2" type="button"
+        style=" background-color: #2888C7; color: white; border-radius: 0;" (click)="onAction('CREATE')">
+        <i class="fas fa-folder-plus"></i>
+        New Project
+      </button>
+<<<<<<< HEAD
+      <button *ngIf="DELETE" type="button" class="btn mx-2 px-3" style="border-radius: 0;"><i class="fas fa-trash"
+          style="color: #bebcbe;" (click)="onAction('DELETE')"></i></button>
+    </div>
+    <div class="col-2">
+=======
+      <button *ngIf="DELETE" type="button" class="btn mx-2 px-3" style="border-radius: 0; color: #2888C7;"><i class="fas fa-trash"
+           (click)="onAction('DELETE')"></i></button>
+    <div class="col-3">
+>>>>>>> proj-fixActionBarSizes
+      <div class="form-group" style="margin-bottom: 0;">
+        <select data-style="btn-new" class="form-control" id="locationFilterSelect"
+          style="border-radius: 0; border-color: #2888C7;">
+          <option value="0">Location</option>
+          <option>España</option>
+          <option>Canada</option>
+          <option>Cuba</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-2">
+      <div class="form-group" style="margin-bottom: 0;">
+        <select class="form-control" id="servicesFilterSelect" style="border-radius: 0; border-color: #2888C7;">
+          <option value="0">Services</option>
+          <option>Designer</option>
+          <option>Development</option>
+          <option>Arquitect</option>
+        </select>
+      </div>
+    </div>
+<<<<<<< HEAD
+    <div class="col-4">
+=======
+    <div class="col">
+>>>>>>> proj-fixActionBarSizes
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="Search" style="border-radius: 0; border-color: #2888C7;">
+        <div class="input-group-append">
+          <button class="btn" type="button" style="border-radius:0; background-color: #2888C7; color:white;z-index: 0;">
+            <i class="fa fa-search"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
