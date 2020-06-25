@@ -15,7 +15,7 @@ import { PersonalProjectService } from '../services/personal-project.service';
 })
 export class MyProjectsComponent implements OnInit {
 
-
+  showActionBar: boolean = false;
   userProfile: UserProfile;
   projects$: Observable<Project[]>;
   previewProject$: Observable<Project>;
@@ -92,4 +92,11 @@ export class MyProjectsComponent implements OnInit {
     }
   }
 
+  hideActionBar(){
+    this.showActionBar = false;
+  }
+
+  showActionBarMethod(){
+    this.showActionBar = true;
+  }
 }

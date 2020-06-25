@@ -25,6 +25,7 @@ export class ProjectActionBarComponent implements OnInit {
   CREATE: boolean;
   DELETE: boolean;
 
+  showCU: boolean = false;
 
   constructor(
   ) {
@@ -61,8 +62,13 @@ export class ProjectActionBarComponent implements OnInit {
     }
   }
 
-
-
-
-
+  changeShowCU(){
+    if(this.showCU === true)
+    {
+      this.showCU = false;
+    }
+    else{
+      this.showCU = true;
+    }
+  }
 }
