@@ -1,7 +1,9 @@
 <ng-container *ngFor="let project of projects">
-  <app-project-card [project]="project"
-                    (checked)="onCardCheck($event)"
-                    [cardSelected]="masterSelected$ | async"
-                    [cardMode]="cardMode"
-                    (clicked)="onCardClicked($event)"></app-project-card>
+  <div class="container">
+    <app-project-card [project]="project"
+    (checked)="onCardCheck($event)"
+    [cardSelected]="masterSelected$ | async"
+    [cardMode]="cardMode"
+    (clicked)="onCardClicked($event)"></app-project-card>
+  </div>
 </ng-container>
