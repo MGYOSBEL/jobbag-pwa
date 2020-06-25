@@ -14,7 +14,7 @@ import { UserService } from '@app/user/services/user.service';
 })
 export class MyProjectsComponent implements OnInit {
 
-
+  showActionBar: boolean = false;
   userProfile: UserProfile;
   projects$: Observable<Project[]>;
 
@@ -90,4 +90,11 @@ export class MyProjectsComponent implements OnInit {
     }
   }
 
+  hideActionBar(){
+    this.showActionBar = false;
+  }
+
+  showActionBarMethod(){
+    this.showActionBar = true;
+  }
 }
