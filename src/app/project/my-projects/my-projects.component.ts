@@ -31,6 +31,8 @@ export class MyProjectsComponent implements OnInit {
     ProjectAction.SelectAll
   ];
 
+  statusFilter = [];
+
   constructor(
     private userService: UserService,
     private personalProjectService: PersonalProjectService,
@@ -47,6 +49,10 @@ export class MyProjectsComponent implements OnInit {
           ProjectAction.SelectAll,
           this.userProfile.userProfileType === 'CLIENT' ? ProjectAction.Create : null
         ];
+        this.statusFilter = [ProjectState.FINISH, ProjectState.CANCEL, ProjectState.PROGRESS,
+                              this.userProfile.userProfileType === 'CLIENT' ? ProjectState.NEW : null
+      ];
+
       }
     );
    }

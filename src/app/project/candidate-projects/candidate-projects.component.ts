@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { CandidateProjectService } from '../services/candidate-project.service';
 import { Observable, of, combineLatest } from 'rxjs';
-import { Project, ProjectAction } from '../models/project.model';
+import { Project, ProjectAction, ProjectState } from '../models/project.model';
 import { MessagesService } from '@app/services/messages.service';
 import { UserProfile } from '@app/user/models/user.model';
 import { UserProfileService } from '@app/user/services/user-profile.service';
@@ -24,6 +24,7 @@ export class CandidateProjectsComponent implements OnInit {
   masterSelected$: Observable<boolean>;
 
   actionBar = [ProjectAction.Apply, ProjectAction.Delete, ProjectAction.SelectAll];
+  statusFilter = [ProjectState.NEW, 'INTEREST'];
 
   constructor(
     private userService: UserService,

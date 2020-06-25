@@ -4,7 +4,10 @@
       <!-- <button type="button" class="bottom-btn" style="position:fixed">UP/Down</button> -->
       <div class="col-12 px-2">
         <!-- ACTION BAR -->
-        <app-project-action-bar [actions]="actionBar" (action)="onAction($event)"></app-project-action-bar>
+        <app-project-action-bar
+            [actions]="actionBar"
+            (action)="onAction($event)"
+            [statusFilter]="statusFilter"></app-project-action-bar>
       </div>
     </div>
     <div class="row py-3">

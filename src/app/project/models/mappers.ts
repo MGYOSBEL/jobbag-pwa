@@ -1,4 +1,4 @@
-import { Project, ProjectDTO } from './project.model';
+import { Project, ProjectDTO, ProjectState } from './project.model';
 import { dashCaseToCamelCase } from '@angular/compiler/src/util';
 
 export function projectFromDTO(projectDTO: ProjectDTO): Project {
@@ -26,4 +26,21 @@ export function projectToDTO(project: Project, userProfileId?: number): ProjectD
     divisions: project.divisions,
     services: project.services
     };
+}
+
+export function projectStatusToString(status: ProjectState | 'INTEREST'): string {
+  switch (status) {
+    case ProjectState.CANCEL:
+      return 'Canceled';
+    case ProjectState.FINISH:
+      return 'Finished';
+    case ProjectState.NEW:
+      return 'New';
+    case ProjectState.PROGRESS:
+      return 'In Progress';
+    case 'INTEREST':
+      return 'Interests';
+    default:
+      break;
+  }
 }

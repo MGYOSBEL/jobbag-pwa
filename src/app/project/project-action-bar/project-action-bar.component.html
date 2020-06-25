@@ -1,59 +1,65 @@
 <div class="card col-12 collapse" id="collapseAB" style="background-color: white;border-radius: 0;">
-    <div class="row vertical-align py-2">
-      <div class="action-col col-4 px-0">
-        <input *ngIf="SELECTALL" type="checkbox" value="select-all" style="margin-left: 1rem; margin-right: 1rem;"
-          (change)="onSelectAll($event)">
-        <button *ngIf="APPLY" class="btn col-6" type="button"
-          style=" background-color: #2888C7; color: white; border-radius: 0;" (click)="onAction('APPLY')">
-          <i class="fab fa-telegram-plane"></i>
-          Apply
-        </button>
-        <button *ngIf="CREATE" class="btn col-6" type="button"
-          style=" background-color: #2888C7; color: white; border-radius: 0;" (click)="onAction('CREATE')">
-          <i class="fas fa-folder-plus"></i>
-          New Project
-        </button>
-        <button *ngIf="DELETE" type="button" class="btn mx-2 px-3" style="border-radius: 0;"><i class="fas fa-trash"
-            style="color: #bebcbe;" (click)="onAction('DELETE')"></i></button>
+  <div class="row vertical-align py-2">
+    <input *ngIf="SELECTALL" type="checkbox" value="select-all" style="margin-left: 1rem; margin-right: 1rem;"
+      (change)="onSelectAll($event)">
+    <button *ngIf="APPLY" class="btn col-2" type="button"
+      style=" background-color: #2888C7; color: white; border-radius: 0;" (click)="onAction('APPLY')">
+      <i class="fab fa-telegram-plane"></i>
+      Apply
+    </button>
+    <button *ngIf="CREATE" class="btn col-2" type="button"
+      style=" background-color: #2888C7; color: white; border-radius: 0;" (click)="onAction('CREATE')">
+      <i class="fas fa-folder-plus"></i>
+      New Project
+    </button>
+    <button *ngIf="DELETE" type="button" class="btn mx-2 px-3" style="border-radius: 0;"><i class="fas fa-trash"
+        style="color: #bebcbe;" (click)="onAction('DELETE')"></i></button>
+    <div class="col-2 pl-0">
+      <div class="form-group" style="margin-bottom: 0;">
+        <select data-style="btn-new" class="form-control" id="locationFilterSelect"
+          style="border-radius: 0; border-color: #2888C7;">
+          <option value="0">Location</option>
+          <option>España</option>
+          <option>Canada</option>
+          <option>Cuba</option>
+        </select>
       </div>
-      <div class="col-2">
-        <div class="form-group" style="margin-bottom: 0;">
-          <select data-style="btn-new" class="form-control" id="locationFilterSelect"
-            style="border-radius: 0; border-color: #2888C7;">
-            <option value="0">Location</option>
-            <option>España</option>
-            <option>Canada</option>
-            <option>Cuba</option>
-          </select>
-        </div>
+    </div>
+    <div class="col-2 pl-0">
+      <div class="form-group" style="margin-bottom: 0;">
+        <select class="form-control" id="servicesFilterSelect" style="border-radius: 0; border-color: #2888C7;">
+          <option value="0">Services</option>
+          <option>Designer</option>
+          <option>Development</option>
+          <option>Arquitect</option>
+        </select>
       </div>
-      <div class="col-2">
-        <div class="form-group" style="margin-bottom: 0;">
-          <select class="form-control" id="servicesFilterSelect" style="border-radius: 0; border-color: #2888C7;">
-            <option value="0">Services</option>
-            <option>Designer</option>
-            <option>Development</option>
-            <option>Arquitect</option>
-          </select>
-        </div>
+    </div>
+    <div class="col-2 pl-0">
+      <div class="form-group" style="margin-bottom: 0;">
+        <select class="form-control" id="servicesFilterSelect" style="border-radius: 0; border-color: #2888C7;">
+          <option value="0">Status</option>
+          <option *ngFor="let status of statusFilter">{{statusStringify(status)}}</option>
+        </select>
       </div>
-      <div class="col-4">
-        <div class="input-group">
-          <input type="text" class="form-control" placeholder="Search" style="border-radius: 0; border-color: #2888C7;">
-          <div class="input-group-append">
-            <button class="btn" type="button" style="border-radius:0; background-color: #2888C7; color:white;z-index: 0;">
-              <i class="fa fa-search"></i>
-            </button>
-          </div>
+    </div>
+    <div class="col pl-0">
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="Search" style="border-radius: 0; border-color: #2888C7;">
+        <div class="input-group-append">
+          <button class="btn" type="button" style="border-radius:0; background-color: #2888C7; color:white;z-index: 0;">
+            <i class="fa fa-search"></i>
+          </button>
         </div>
       </div>
     </div>
+  </div>
 </div>
 
 <div class="row mt-0 py-0">
   <div class="col-12 my-0 py-0 text-right">
     <div class="btn bottom-btn p-0 m-0 text-center" data-toggle="collapse" data-target="#collapseAB"
-        aria-expanded="false" aria-controls="collapseExample" (click)="changeShowCU()">
+      aria-expanded="false" aria-controls="collapseExample" (click)="changeShowCU()">
       <i [ngClass]="{'fa-chevron-up':showCU === true}" class="fas fa-chevron-down" style="color: white;"></i>
     </div>
   </div>

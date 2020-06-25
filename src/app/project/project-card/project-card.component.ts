@@ -53,7 +53,7 @@ export class ProjectCardComponent implements OnInit {
       case ProjectState.FINISH:
         return 'solid 8px #f99d6e';
       case ProjectState.CANCEL:
-        return 'solid 8px #942a2c';
+        return 'solid 8px #f15d5d';
 
       default:
         break;
