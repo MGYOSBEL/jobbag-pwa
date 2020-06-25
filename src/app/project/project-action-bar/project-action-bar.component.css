@@ -2,5 +2,16 @@
     align-items: center;
 }
 
+.bottom-btn{
+    background: #2787c4;
+    display: inline-block;
+    /* margin: 0 1em 1em 0; */
+    height: 28px;
+    width: 40px;
+    border-bottom-left-radius: 40px;
+    border-bottom-right-radius: 40px;
+    margin-left: 0.25rem!important;
+}
+
 
 
