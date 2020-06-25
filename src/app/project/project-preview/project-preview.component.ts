@@ -38,7 +38,8 @@ export class ProjectPreviewComponent implements OnInit {
     // this.previewProject$ = this.candidateProjectService.activeProject$;
 
     this.previewProject$.subscribe(
-      project => this.previewProject = project
+      project => {this.previewProject = project;
+      console.log('preview project => ', project);}
     );
 
     this.countryService.get().subscribe(

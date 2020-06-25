@@ -24,6 +24,9 @@ export class PersonalProjectService {
 
   userProfile$: Observable<any>;
 
+  activeProjectSubject = new BehaviorSubject<Project>(null);
+  activeProject$: Observable<Project> = this.activeProjectSubject.asObservable();
+
   personalProjectsSubject = new BehaviorSubject<Project[]>([]);
 
   personalProjects$: Observable<Project[]> = this.personalProjectsSubject.asObservable();
@@ -43,5 +46,11 @@ export class PersonalProjectService {
     this.loading.showLoaderUntilCompletes(projects$).subscribe(
       projects => this.personalProjectsSubject.next(projects)
     );
+  }
+
+
+  preview(projectId: number) {
+    const projects = this.personalProjectsSubject.value;
+    this.activeProjectSubject.next(projects.find(proj => proj.id === projectId));
   }
 }

@@ -7,65 +7,6 @@
       </div>
     </div>
     <div class="row py-3">
-      <div class="col-4 px-2 scroll-host">
-        <!--NEW PROJECTS CARD LIST-->
-        <h5 class="column-title">
-          {{userProfile.userProfileType === 'CLIENT' ? 'New Projects' : 'Projects you have interest in'}}
-        </h5>
-        <ng-container >
-          <app-project-card-list
-            [projects]="filterProjectsByState(projects, 'NEW')"
-            [cardMode]="'COMPACT'"
-            [masterSelected$]="selectAll$"
-            (cardClicked)="onCardClicked($event)"
-            (checkedProjects)="onProjectChecked($event)">
-          </app-project-card-list>
-        </ng-container>
-      </div>
-      <div class="col-4 px-2 scroll-host">
-        <!--IN PROGRESS PROJECTS CARD LIST-->
-        <h5 class="column-title">
-          Projects in Progress
-        </h5>
-        <ng-container >
-          <app-project-card-list
-            [projects]="filterProjectsByState(projects, 'PROGRESS')"
-            [cardMode]="'COMPACT'"
-            [masterSelected$]="selectAll$"
-            (cardClicked)="onCardClicked($event)"
-            (checkedProjects)="onProjectChecked($event)">
-          </app-project-card-list>
-        </ng-container>
-      </div>
-      <div class="col-4 px-2 scroll-host">
-        <!--COMPLETED PROJECTS CARD LIST -->
-        <h5 class="column-title">
-          Finished Projects
-        </h5>
-        <ng-container >
-          <app-project-card-list
-            [projects]="filterProjectsByState(projects, 'FINISH', 'CANCEL')"
-            [cardMode]="'COMPACT'"
-            [masterSelected$]="selectAll$"
-            (cardClicked)="onCardClicked($event)"
-            (checkedProjects)="onProjectChecked($event)">
-          </app-project-card-list>
-        </ng-container>
-      </div>
-    </div>
-  </div>
-</ng-container>
-
-
-<ng-container *ngIf="projects$ | async as projects">
-  <div class="container-fluid py-4">
-    <div class="row">
-      <div class="col-12 px-1">
-        <!-- ACTION BAR -->
-        <app-project-action-bar [actions]="actionBar" (action)="onAction($event)"></app-project-action-bar>
-      </div>
-    </div>
-    <div class="row py-3">
       <div class="col-6 px-2 scroll-host">
         <!-- PROJECT CARD -->
         <ng-container *ngIf="projects$ | async as myProjects">
@@ -81,7 +22,9 @@
       </div>
       <div class="col-6 px-2">
         <!-- PROJECT PREVIEW -->
-        <app-project-preview [userProfileId]="userProfile!.id"></app-project-preview>
+        <app-project-preview
+          [userProfileId]="userProfile!.id"
+          [previewProject$]="previewProject$"></app-project-preview>
       </div>
     </div>
   </div>

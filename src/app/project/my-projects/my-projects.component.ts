@@ -52,6 +52,7 @@ export class MyProjectsComponent implements OnInit {
    }
 
   ngOnInit() {
+    this.previewProject$ = this.personalProjectService.activeProject$;
     this.personalProjectService.getPersonalProjects(this.userProfile.id);
   }
 
@@ -66,6 +67,7 @@ export class MyProjectsComponent implements OnInit {
 
   onCardClicked(event) {
     // this.router.navigateByUrl(`/project/${event}`);
+    this.personalProjectService.preview(event);
   }
 
   onCreate() {
