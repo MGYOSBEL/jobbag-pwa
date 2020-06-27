@@ -1,0 +1,25 @@
+.column-title{
+    color:#605c61;
+    font-size: 1rem;
+    text-align: left;
+}
+
+.user-name{
+    color:#2888C7;
+    font-weight: light;
+    font-size: 1rem;
+    margin-left: 1rem;
+}
+
+.comment-text{
+    font-size: small;
+}
+
+.reply-btn{
+    color: white;
+    background-color:#2888C7;
+}
+
+.reply-btn:hover{
+    color: #605c61;
+}

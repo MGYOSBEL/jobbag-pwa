@@ -1,0 +1,24 @@
+.card{
+    border-radius: 0;
+}
+
+.user-name{
+    color:#2888C7;
+    font-weight: light;
+    font-size: 1.5rem;
+    margin-left: 1rem;
+}
+
+.vl{
+border-left: 1px solid #605c61;
+/* height: 500px; */
+}
+
+.fas{
+    color: #2888C7;
+    font-size: 1.25rem;
+}
+
+.fas:hover{
+    color: #605c61;
+}
