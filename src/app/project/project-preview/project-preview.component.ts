@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { CandidateProjectService } from '../services/candidate-project.service';
 import { Project, ProjectState } from '../models/project.model';
 import { Observable } from 'rxjs';
@@ -30,6 +30,9 @@ export class ProjectPreviewComponent implements OnInit {
 
   @Input()
   userProfileId: number;
+
+  @Output()
+  detail = new EventEmitter<number>();
 
   countries: Country[];
   services: Service[];
@@ -74,6 +77,10 @@ export class ProjectPreviewComponent implements OnInit {
           }
         }
       );
+  }
+
+  viewDetails() {
+    this.detail.emit(this.previewProject.id);
   }
 
 

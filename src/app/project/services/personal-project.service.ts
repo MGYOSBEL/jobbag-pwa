@@ -24,13 +24,17 @@ export class PersonalProjectService {
 
   userProfile$: Observable<any>;
 
+  // Subject y Observable para el project-detail
   activeProjectSubject = new BehaviorSubject<Project>(null);
   activeProject$: Observable<Project> = this.activeProjectSubject.asObservable();
 
+  // Subject y Observable para mostrar el preview
+  previewProjectSubject = new BehaviorSubject<Project>(null);
+  previewProject$: Observable<Project> = this.previewProjectSubject.asObservable();
+
+  // Subject y Observables con los projectos del usuario. Observables filtrados por status
   personalProjectsSubject = new BehaviorSubject<Project[]>([]);
-
   personalProjects$: Observable<Project[]> = this.personalProjectsSubject.asObservable();
-
   newProjects$ = this.personalProjectsSubject.asObservable().pipe(
     map(projects => projects.filter(project => project.state === ProjectState.NEW))
   );
@@ -51,9 +55,20 @@ export class PersonalProjectService {
     );
   }
 
+  viewDetail(projectId: number) {
+    const project = this.personalProjectsSubject.value.find(proj => proj.id === projectId);
+    if (project != null) {
+      this.activeProjectSubject.next(project);
+    }
+  }
+
+  backToList() {
+    this.activeProjectSubject.next(null);
+  }
+
 
   preview(projectId: number) {
     const projects = this.personalProjectsSubject.value;
-    this.activeProjectSubject.next(projects.find(proj => proj.id === projectId));
+    this.previewProjectSubject.next(projects.find(proj => proj.id === projectId));
   }
 }

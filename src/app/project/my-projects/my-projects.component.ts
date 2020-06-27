@@ -19,7 +19,7 @@ export class MyProjectsComponent implements OnInit {
   userProfile: UserProfile;
   projects$: Observable<Project[]>;
   previewProject$: Observable<Project>;
-
+  detailProject$: Observable<Project>;
   newProjects$: Observable<Project[]>;
   inProgressProjects$: Observable<Project[]>;
   finishedProjects$: Observable<Project[]>;
@@ -38,7 +38,7 @@ export class MyProjectsComponent implements OnInit {
     private personalProjectService: PersonalProjectService,
     private router: Router
   ) {
-
+    this.detailProject$ = personalProjectService.activeProject$;
     personalProjectService.userProfile$.subscribe(
       ([user, role]) => {
         console.log(`role changed to ${role}`);
@@ -58,7 +58,7 @@ export class MyProjectsComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.previewProject$ = this.personalProjectService.activeProject$;
+    this.previewProject$ = this.personalProjectService.previewProject$;
     this.personalProjectService.getPersonalProjects(this.userProfile.id);
   }
 
@@ -82,6 +82,10 @@ export class MyProjectsComponent implements OnInit {
 
   onApply() {
 
+  }
+
+  viewDetail(event) {
+    this.personalProjectService.viewDetail(event);
   }
 
   onAction(event) {
