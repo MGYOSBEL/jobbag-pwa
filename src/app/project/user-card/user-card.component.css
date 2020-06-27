@@ -1,0 +1,25 @@
+.card{
+    border-radius: 0;
+}
+
+.column-title{
+    color:#605c61;
+    font-size: 1rem;
+    text-align: left;
+}
+
+.date-text{
+    color:#605c61;
+}
+
+.card:hover{
+    cursor: pointer;
+    box-shadow: 0 11px 11px 0 rgba(0, 0, 0,.16);
+    transform: translateY(-2px);
+    transform: translateX(5px);
+    border-width: 1.5px;
+    border-style: solid;
+    border-radius: 0;
+    border-color: #bcbebc;
+    transition: 200ms;
+}

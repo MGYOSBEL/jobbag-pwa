@@ -15,6 +15,9 @@ import { ProjectPreviewComponent } from './project-preview/project-preview.compo
 import { ProjectActionBarComponent } from './project-action-bar/project-action-bar.component';
 import { ProjectCardListComponent } from './project-card-list/project-card-list.component';
 import { MyProjectsComponent } from './my-projects/my-projects.component';
+import { UserCardComponent } from './user-card/user-card.component';
+import { UserCardListComponent } from './user-card-list/user-card-list.component';
+import { ProjectCommentsComponent } from './project-comments/project-comments.component';
 @NgModule({
   declarations: [
     EditProjectComponent,
@@ -25,7 +28,10 @@ import { MyProjectsComponent } from './my-projects/my-projects.component';
     ProjectPreviewComponent,
     ProjectActionBarComponent,
     ProjectCardListComponent,
-    MyProjectsComponent
+    MyProjectsComponent,
+    UserCardComponent,
+    UserCardListComponent,
+    ProjectCommentsComponent
   ],
   imports: [
     CommonModule,
