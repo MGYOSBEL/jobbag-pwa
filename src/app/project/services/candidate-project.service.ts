@@ -3,13 +3,16 @@ import { ProjectService } from './project.service';
 import { Project } from '../models/project.model';
 import { Observable, BehaviorSubject, throwError } from 'rxjs';
 import { AuthenticationService } from '@app/auth/services/authentication.service';
-import { filter, tap, catchError } from 'rxjs/operators';
+import { filter, tap, catchError, map } from 'rxjs/operators';
 
 @Injectable()
 export class CandidateProjectService {
 
   private candidatesSubject = new BehaviorSubject<Project[]>([]);
   candidateProjects$: Observable<Project[]> = this.candidatesSubject.asObservable();
+  // interestProjects$: Observable<Project[]> = this.candidatesSubject.asObservable().pipe(
+  //   map(projects => projects.filter(project => ))
+  // );
 
 
   private multiSelectedProjectsSubject = new BehaviorSubject<number[]>([]);

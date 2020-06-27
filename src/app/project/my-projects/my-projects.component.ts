@@ -15,7 +15,7 @@ import { PersonalProjectService } from '../services/personal-project.service';
 })
 export class MyProjectsComponent implements OnInit {
 
-  showActionBar: boolean = false;
+  // showActionBar: boolean = false;
   userProfile: UserProfile;
   projects$: Observable<Project[]>;
   previewProject$: Observable<Project>;
@@ -43,7 +43,7 @@ export class MyProjectsComponent implements OnInit {
       ([user, role]) => {
         console.log(`role changed to ${role}`);
         this.userProfile = user.profiles.find(profile => profile.userProfileType === role);
-        this.projects$ = personalProjectService.personalProjects$;
+        this.projects$ = personalProjectService.newProjects$;
         this.actionBar = [
           ProjectAction.Delete,
           ProjectAction.SelectAll,
@@ -98,11 +98,31 @@ export class MyProjectsComponent implements OnInit {
     }
   }
 
-  hideActionBar(){
-    this.showActionBar = false;
+  onActionBarFilters(event) {
+    switch (event.status) {
+      case ProjectState.NEW:
+        this.projects$ = this.personalProjectService.newProjects$;
+        break;
+      case ProjectState.PROGRESS:
+        this.projects$ = this.personalProjectService.progressProjects$;
+        break;
+      case ProjectState.CANCEL:
+        this.projects$ = this.personalProjectService.finishProjects$;
+        break;
+      case ProjectState.FINISH:
+        this.projects$ = this.personalProjectService.cancelProjects$;
+        break;
+
+      default:
+        break;
+    }
   }
 
-  showActionBarMethod(){
-    this.showActionBar = true;
-  }
+  // hideActionBar(){
+  //   this.showActionBar = false;
+  // }
+
+  // showActionBarMethod(){
+  //   this.showActionBar = true;
+  // }
 }

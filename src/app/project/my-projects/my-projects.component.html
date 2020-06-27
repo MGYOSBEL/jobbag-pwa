@@ -7,6 +7,7 @@
         <app-project-action-bar
             [actions]="actionBar"
             (action)="onAction($event)"
+            (filters)="onActionBarFilters($event)"
             [statusFilter]="statusFilter"></app-project-action-bar>
       </div>
     </div>

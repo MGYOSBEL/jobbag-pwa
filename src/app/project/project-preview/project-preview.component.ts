@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { CandidateProjectService } from '../services/candidate-project.service';
-import { Project } from '../models/project.model';
+import { Project, ProjectState } from '../models/project.model';
 import { Observable } from 'rxjs';
 import { Country, DivisionElement } from '@app/user/models/country.model';
 import { Service } from '@app/user/models/services.model';
@@ -75,5 +75,7 @@ export class ProjectPreviewComponent implements OnInit {
         }
       );
   }
+
+
 
 }

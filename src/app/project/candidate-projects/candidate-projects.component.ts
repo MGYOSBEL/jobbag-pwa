@@ -62,6 +62,20 @@ export class CandidateProjectsComponent implements OnInit {
     this.candidateProjectService.setMultiSelected(event);
   }
 
+  onActionBarFilter(statusFilters) {
+    switch (statusFilters) {
+      case ProjectState.NEW:
+
+        break;
+      case 'INTEREST':
+
+        break;
+
+      default:
+        break;
+    }
+  }
+
   onApply() {
     console.log('applying candidates');
     this.candidateProjectService.registerInterest(this.userProfile.id).subscribe(

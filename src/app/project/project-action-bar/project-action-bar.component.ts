@@ -85,5 +85,7 @@ export class ProjectActionBarComponent implements OnInit {
     return projectStatusToString(status);
   }
 
-
+  onStatusFilter(event) {
+    this.filters.emit({ status: event.target.value });
+  }
 }

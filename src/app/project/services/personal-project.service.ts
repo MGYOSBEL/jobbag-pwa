@@ -38,7 +38,10 @@ export class PersonalProjectService {
     map(projects => projects.filter(project => project.state === ProjectState.PROGRESS))
   );
   finishProjects$ = this.personalProjectsSubject.asObservable().pipe(
-    map(projects => projects.filter(project => project.state === ProjectState.FINISH || project.state === ProjectState.CANCEL))
+    map(projects => projects.filter(project => project.state === ProjectState.FINISH))
+  );
+  cancelProjects$ = this.personalProjectsSubject.asObservable().pipe(
+    map(projects => projects.filter(project => project.state === ProjectState.CANCEL))
   );
 
   getPersonalProjects(userProfileId: number) {
