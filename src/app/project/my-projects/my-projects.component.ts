@@ -42,8 +42,9 @@ export class MyProjectsComponent implements OnInit {
     personalProjectService.userProfile$.subscribe(
       ([user, role]) => {
         console.log(`role changed to ${role}`);
+        this.personalProjectService.preview(null);
         this.userProfile = user.profiles.find(profile => profile.userProfileType === role);
-        this.projects$ = personalProjectService.newProjects$;
+        this.projects$ = role === 'CLIENT' ? personalProjectService.newProjects$ : personalProjectService.progressProjects$;
         this.actionBar = [
           ProjectAction.Delete,
           ProjectAction.SelectAll,

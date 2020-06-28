@@ -39,7 +39,7 @@
       <div class="form-group" style="margin-bottom: 0;">
         <select class="form-control"  id="servicesFilterSelect" style="border-radius: 0; border-color: #2888C7;" (change)="onStatusFilter($event)">
           <option value="0">Status</option>
-          <option *ngFor="let status of statusFilter" [value]="status" >{{statusStringify(status)}}</option>
+          <option *ngFor="let status of statusFilter" [value]="status!" >{{statusStringify(status)}}</option>
         </select>
       </div>
     </div>
