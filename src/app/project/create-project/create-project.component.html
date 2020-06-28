@@ -244,7 +244,7 @@ ERRORS: {{createProjectForm.errors | json}} <br> -->
                 <div class="form-group row mx-auto" style="margin-top: 3rem;">
                   <div class="col-12 px-0">
                     <!-- <label class="text-muted"><span>Project Title</span></label> -->
-                    <input type="text" class="form-control rounded-0" id="projectTitle" formControlName="projectTitle"
+                    <input type="text" class="form-control rounded-0" id="projectTitle" formControlName="projectTitle" placeholder="Project Title"
                       [ngClass]="createProjectForm.get('projectTitle').invalid && (createProjectForm.get('projectTitle').dirty || createProjectForm.get('projectTitle').touched) ? 'is-invalid' : '' ">
                     <div class="invalid-feedback">
                       You must enter a project title!
