@@ -259,9 +259,9 @@ ERRORS: {{createProjectForm.errors | json}} <br> -->
                   <div class="col-12 px-0">
                     <!-- <label class="text-muted"><span>Project Description</span></label> -->
                     <div class="form-group form-label-group mx-auto">
-                      <textarea class="form-control mt-5" id="commentsInputText" style="height: 6rem; border-radius: 0;"
+                      <textarea class="form-control mt-5" maxlength="256" id="commentsInputText" style="height: 6rem; border-radius: 0;"
                         formControlName="projectResume" placeholder="Enter your project Resume..."></textarea>
-                        <!-- <label style="font-weight: 100;" for="commentsInputText">Enter your project Resume...</label> -->
+                        <label style="font-weight: 100;" for="commentsInputText">Enter your project Resume...</label>
 
                       </div>
                   </div>
