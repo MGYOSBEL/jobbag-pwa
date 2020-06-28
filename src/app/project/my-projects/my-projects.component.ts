@@ -120,6 +120,7 @@ export class MyProjectsComponent implements OnInit {
       default:
         break;
     }
+    this.personalProjectService.preview(null);
   }
 
   // hideActionBar(){

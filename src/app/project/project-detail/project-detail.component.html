@@ -1,79 +1,78 @@
 <div class="container-fluid">
   <div class="row mt-3" style="border-bottom: 1px solid #2888C7 ;">
-      <div class="col-8">
-        <p class="user-name text-left my-2 pt-2 d-inline">
-          Project Name</p>
-          <button class="btn-link active d-inline" aria-pressed="true" style="margin-top: 1.5rem;
-          margin-left: 1rem;" (click)="backToList()">Go Back</button>
-      </div>
-      <div class="col-4 text-right">
-        <button type="button" class="btn mx-2 px-1 action-btn rounded-0" alt="View">
-          <i class="fas fa-edit"></i>
-        </button>
-        <button type="button" class="btn mx-2 px-1 rounded-0">
-          <i class="fas fa-trash"></i>
+    <div class="col-8 ">
+      <div class="row no-gutters align-items-end">
+        <p class="user-name text-left my-2 pt-2  align-self-end">
+          {{project.name}}
+        </p>
+        <button class="btn btn-link mt-2 pt-2" (click)="backToList()">
+          Go Back
         </button>
       </div>
+
+    </div>
+    <div class="col-4 text-right">
+      <button type="button" class="btn mx-2 px-1 action-btn rounded-0" alt="View">
+        <i class="fas fa-edit"></i>
+      </button>
+      <button type="button" class="btn mx-2 px-1 rounded-0">
+        <i class="fas fa-trash"></i>
+      </button>
+    </div>
   </div>
   <div class="row mx-2 mt-3 border" style="background-color: #f1f1f1; color:#605c61;">
     <div class="col">
       <div class="col-12">
         <!-- <app-project-preview></app-project-preview> -->
-            <p class="project-title text-left my-2" style="color:#605c61; font-weight: light; font-size: 1.2rem;">
-              Project Name
-            </p>
-            <!-- <hr class="border-bottom mt-0"> -->
-            <hr>
-      <div class="col-12">
-        <p style="font-size:medium">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-          consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-          cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-          non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-        </p>
-      </div>
-    </div>
-  </div>
-  <div class="vl my-3"></div>
-  <div class="col">
-    <div class="row" style="background-color: #f1f1f1;">
-      <div class="col-12">
         <p class="project-title text-left my-2" style="color:#605c61; font-weight: light; font-size: 1.2rem;">
-          Required Locations
+          {{project.name}}
         </p>
-        <hr class="border-bottom mt-0">
-      </div>
-      <hr>
-      <div class="col-12">
-        <div style="font-size:small">
-          <ul>
-            <li>
-              Cuba
-            </li>
-          </ul>
+        <!-- <hr class="border-bottom mt-0"> -->
+        <hr>
+        <div class="col-12">
+          <p style="font-size:medium">
+            {{project.description}}
+          </p>
         </div>
       </div>
     </div>
-    <div class="row" style="background-color: #f1f1f1;">
-            <div class="col-12">
-              <p class="project-title text-left my-2" style="color:#605c61; font-weight: light; font-size: 1.2rem;">
-                Required Services
-              </p>
-              <hr class="border-bottom mt-0">
-            </div>
-            <div class="col-12">
-              <div style="font-size:small">
-                <ul >
-                  <li>
-                    Designer
-                  </li>
-                </ul>
-              </div>
-            </div>
+    <div class="vl my-3"></div>
+    <div class="col">
+      <div class="row" style="background-color: #f1f1f1;">
+        <div class="col-12">
+          <p class="project-title text-left my-2" style="color:#605c61; font-weight: light; font-size: 1.2rem;">
+            Required Locations
+          </p>
+          <hr class="border-bottom mt-0">
+        </div>
+        <div class="col-12">
+          <div style="font-size:small">
+            <ul >
+              <li  *ngFor="let division of getDivisionsName(project.divisions)">
+                {{division}}
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="row" style="background-color: #f1f1f1;">
+        <div class="col-12">
+          <p class="project-title text-left my-2" style="color:#605c61; font-weight: light; font-size: 1.2rem;">
+            Required Services
+          </p>
+          <hr class="border-bottom mt-0">
+        </div>
+        <div class="col-12">
+          <div style="font-size:small">
+            <ul >
+              <li *ngFor="let service of getServicesName(project.services)" >
+                {{service}}
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
   </div>
 
   <div class="row">
@@ -91,5 +90,5 @@
 
 <!-- <button (click)="createProject()">Create</button>
 <ul> -->
-  <!-- <li *ngFor="let project of projects$ | async">{{project | json}}</li>
+<!-- <li *ngFor="let project of projects$ | async">{{project | json}}</li>
 </ul> -->

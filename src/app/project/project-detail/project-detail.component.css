@@ -22,3 +22,16 @@ border-left: 1px solid #605c61;
 .fas:hover{
     color: #605c61;
 }
+
+ul {
+  display: block;
+}
+
+li {
+  display: inline-block;
+}
+
+li::before {
+  content: "\2022";
+  margin: 0 4px 0px 8px;
+}
