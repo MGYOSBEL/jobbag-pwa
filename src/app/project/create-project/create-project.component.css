@@ -1,3 +1,5 @@
+@import "../../../assets/vendor/floating-labels.css";
+
 /*Component editProfileContainer*/
 .container-cp-component{
     background-image: url(../../../assets/img/img-blur10-opacity50.png);
