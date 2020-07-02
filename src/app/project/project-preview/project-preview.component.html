@@ -3,7 +3,7 @@
 <div class="card col-12 rounded-0" >
   <div class="row vertical-align py-1 preview-toolbar" style="z-index: 0;">
     <div class="col-9">
-      <button class="btn col-5" type="button" style=" background-color: #2888C7; color: white; border-radius: 0;"
+      <button class="btn col-5" type="button" *ngIf="role === 'SERVICE_PROVIDER'" style=" background-color: #2888C7; color: white; border-radius: 0;"
               (click)="onApply()">
         <i class="fab fa-telegram-plane"></i>
         Apply
@@ -42,11 +42,14 @@
     <hr>
     <div class="col-12">
       <div style="font-size:small">
-        <ul >
+        <ul *ngIf="role === 'CLIENT';else providerDivisions">
           <li  *ngFor="let division of getDivisionsName(previewProject.divisions)">
             {{division}}
           </li>
         </ul>
+        <ng-template #providerDivisions>
+          Your profile locations apply for this project. Click <i class="fas fa-eye"></i> for more details.
+        </ng-template>
       </div>
     </div>
   </div>
@@ -59,11 +62,14 @@
     </div>
     <div class="col-12">
       <div style="font-size:small">
-        <ul >
+        <ul *ngIf="role === 'CLIENT'; else providerServices">
           <li *ngFor="let service of getServicesName(previewProject.services)">
             {{service}}
           </li>
         </ul>
+        <ng-template #providerServices>
+          Your profile services apply for this project. Click <i class="fas fa-eye"></i> for more details.
+        </ng-template>
       </div>
     </div>
   </div>

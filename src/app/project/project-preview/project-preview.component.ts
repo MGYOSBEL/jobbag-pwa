@@ -30,6 +30,8 @@ export class ProjectPreviewComponent implements OnInit {
 
   @Input()
   userProfileId: number;
+  @Input()
+  role?: string;
 
   @Output()
   detail = new EventEmitter<number>();

@@ -68,6 +68,10 @@ export class DashboardComponent implements OnInit {
 
   }
 
+  onCreateProject() {
+    this.router.navigateByUrl('/project/create');
+  }
+
   logOut() {
     if (this.authenticationService.authProvider === 'GOOGLE' || this.authenticationService.authProvider === 'FACEBOOK') {
       this.socialAuthService.signOut();
