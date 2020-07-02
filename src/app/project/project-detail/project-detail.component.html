@@ -1,94 +1,79 @@
 <div class="container-fluid">
-  <div class="row mt-3" style="border-bottom: 1px solid #2888C7 ;">
+  <div class="row" style="border-bottom: 1px solid #2888C7; height:3rem;">
     <div class="col-8 ">
-      <div class="row no-gutters align-items-end">
-        <p class="user-name text-left my-2 pt-2  align-self-end">
+      <div class="row no-gutters">
+      <!-- <div class="row no-gutters align-items-end"> -->
+        <p class="user-name text-left pt-2  align-self-end">
           {{project.name}}
         </p>
-        <button class="btn btn-link mt-2 pt-2" (click)="backToList()">
+        <button class="btn btn-link pt-2" (click)="backToList()">
           Go Back
         </button>
       </div>
 
     </div>
     <div class="col-4 text-right">
-      <button type="button" class="btn mx-2 px-1 action-btn rounded-0" alt="View">
+      <button type="button" class="btn mx-2 px-1 mt-2 action-btn rounded-0" alt="View">
         <i class="fas fa-edit"></i>
       </button>
-      <button type="button" class="btn mx-2 px-1 rounded-0">
+      <button type="button" class="btn mx-2 px-1 mt-2 action-btn rounded-0">
         <i class="fas fa-trash"></i>
       </button>
     </div>
   </div>
-  <div class="row mx-2 mt-3 border" style="background-color: #f1f1f1; color:#605c61;">
-    <div class="col">
+
+ <div class="row mt-3 mx-2">
+  <div class="col-6 border" style="background-color: #f1f1f1; color:#605c61;">
+    <div class="col-12">
+      <!-- <app-project-preview></app-project-preview> -->
+      <p class="project-title text-left my-2" style="color:#605c61; font-weight: light; font-size: 1.2rem;">
+        {{project.name}}
+      </p>
+      <!-- <hr class="border-bottom mt-0"> -->
+      <hr>
       <div class="col-12">
-        <!-- <app-project-preview></app-project-preview> -->
-        <p class="project-title text-left my-2" style="color:#605c61; font-weight: light; font-size: 1.2rem;">
-          {{project.name}}
+        <p style="font-size:medium">
+          {{project.description}}
         </p>
-        <!-- <hr class="border-bottom mt-0"> -->
-        <hr>
-        <div class="col-12">
-          <p style="font-size:medium">
-            {{project.description}}
-          </p>
-        </div>
       </div>
     </div>
-    <div class="vl my-3"></div>
-    <div class="col">
-      <div class="row" style="background-color: #f1f1f1;">
-        <div class="col-12">
-          <p class="project-title text-left my-2" style="color:#605c61; font-weight: light; font-size: 1.2rem;">
-            Required Locations
-          </p>
-          <hr class="border-bottom mt-0">
-        </div>
-        <div class="col-12">
-          <div style="font-size:small">
-            <ul >
-              <li  *ngFor="let division of getDivisionsName(project.divisions)">
-                {{division}}
-              </li>
-            </ul>
-          </div>
-        </div>
+    <div class="col-12">
+      <p class="project-title text-left my-2" style="color:#605c61; font-weight: light; font-size: 1.2rem;">
+        Required Locations
+      </p>
+      <hr class="border-bottom mt-0">
+    </div>
+    <div class="col-12">
+      <div style="font-size:small">
+        <ul >
+          <li  *ngFor="let division of getDivisionsName(project.divisions)">
+            {{division}}
+          </li>
+        </ul>
       </div>
-      <div class="row" style="background-color: #f1f1f1;">
-        <div class="col-12">
-          <p class="project-title text-left my-2" style="color:#605c61; font-weight: light; font-size: 1.2rem;">
-            Required Services
-          </p>
-          <hr class="border-bottom mt-0">
-        </div>
-        <div class="col-12">
-          <div style="font-size:small">
-            <ul >
-              <li *ngFor="let service of getServicesName(project.services)" >
-                {{service}}
-              </li>
-            </ul>
-          </div>
-        </div>
+    </div>
+    <div class="col-12">
+      <p class="project-title text-left my-2" style="color:#605c61; font-weight: light; font-size: 1.2rem;">
+        Required Services
+      </p>
+      <hr class="border-bottom mt-0">
+    </div>
+    <div class="col-12">
+      <div style="font-size:small">
+        <ul >
+          <li *ngFor="let service of getServicesName(project.services)" >
+            {{service}}
+          </li>
+        </ul>
       </div>
     </div>
   </div>
-
-  <div class="row">
-    <div class="col-6">
-      <app-user-card-list></app-user-card-list>
-    </div>
-    <div class="col-6">
-      <app-project-comments></app-project-comments>
-    </div>
+  <div class="col-6">
+    <app-user-card-list></app-user-card-list>
   </div>
 </div>
-
-<!-- <a routerLink='create'>Create Project</a>
-<a routerLink='edit'>Edit Project</a> <br> -->
-
-<!-- <button (click)="createProject()">Create</button>
-<ul> -->
-<!-- <li *ngFor="let project of projects$ | async">{{project | json}}</li>
-</ul> -->
+<div class="row">
+  <div class="col-6 mb-3">
+    <app-project-comments></app-project-comments>
+  </div>
+</div>
