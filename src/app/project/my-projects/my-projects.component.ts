@@ -70,6 +70,7 @@ export class MyProjectsComponent implements OnInit {
 
 
   onProjectChecked(event) {
+    // Aca deberia setear el multiselected Projects del servicio personal projects, para en caso de acciones multiples
     console.log('checked projects', event);
   }
 
