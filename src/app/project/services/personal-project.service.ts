@@ -24,6 +24,10 @@ export class PersonalProjectService {
 
   userProfile$: Observable<any>;
 
+  // Subject y observable para el Select All
+  private selectAllSubject = new BehaviorSubject<boolean>(false);
+  selectAll$: Observable<boolean> = this.selectAllSubject.asObservable();
+
   // Subject y Observable para el project-detail
   activeProjectSubject = new BehaviorSubject<Project>(null);
   activeProject$: Observable<Project> = this.activeProjectSubject.asObservable();
@@ -64,6 +68,10 @@ export class PersonalProjectService {
 
   backToList() {
     this.activeProjectSubject.next(null);
+  }
+
+  selectAll(state: boolean) {
+    this.selectAllSubject.next(state);
   }
 
 

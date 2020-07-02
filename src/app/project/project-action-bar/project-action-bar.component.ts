@@ -13,19 +13,19 @@ import {projectStatusToString} from '../models/mappers';
 export class ProjectActionBarComponent implements OnInit {
 
   @Input()
-  actions: ProjectAction[];
+  actions: ProjectAction[]; // Lista de acciones q seran mostradas en la barra
 
   @Input()
-  statusFilter: ProjectState[];
+  statusFilter: ProjectState[]; // Estados q se mostraran en el filter status select
 
   @Output()
-  selectAll = new EventEmitter<boolean>();
+  selectAll = new EventEmitter<boolean>(); // Evento emitido cuando se marca el check de selectAll
 
   @Output()
-  action = new EventEmitter<string>();
+  action = new EventEmitter<string>(); // Accion emitida desde el actionBar
 
   @Output()
-  filters = new EventEmitter<{
+  filters = new EventEmitter<{ // Se emite cada vez q se selecciona un filtro en el actionBar
     locations?: number[],
     services?: number[],
     status?: ProjectState
@@ -35,7 +35,7 @@ export class ProjectActionBarComponent implements OnInit {
   SELECTALL: boolean;
   CREATE: boolean;
   DELETE: boolean;
-
+  selectAllCheckbox = false;
   showCU: boolean = false;
 
   constructor(
@@ -86,6 +86,8 @@ export class ProjectActionBarComponent implements OnInit {
   }
 
   onStatusFilter(event) {
+    this.selectAll.emit(false);
+    this.selectAllCheckbox = false;
     this.filters.emit({ status: event.target.value });
   }
 }

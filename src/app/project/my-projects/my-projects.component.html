@@ -9,7 +9,9 @@
         <div class="col-12 px-2">
           <!-- ACTION BAR -->
           <app-project-action-bar [actions]="actionBar" (action)="onAction($event)"
-            (filters)="onActionBarFilters($event)" [statusFilter]="statusFilter"></app-project-action-bar>
+            (filters)="onActionBarFilters($event)" [statusFilter]="statusFilter"
+            (selectAll)="onSelectAll($event)"
+            ></app-project-action-bar>
         </div>
       </div>
       <div class="row py-3">

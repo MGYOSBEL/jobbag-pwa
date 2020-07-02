@@ -60,6 +60,7 @@ export class MyProjectsComponent implements OnInit {
   ngOnInit() {
     this.previewProject$ = this.personalProjectService.previewProject$;
     this.personalProjectService.getPersonalProjects(this.userProfile.id);
+    this.selectAll$ = this.personalProjectService.selectAll$;
   }
 
   filterProjectsByState(projects: Project[], state: string | ProjectState, extraState?: string | ProjectState): Project[] {
@@ -121,6 +122,10 @@ export class MyProjectsComponent implements OnInit {
         break;
     }
     this.personalProjectService.preview(null);
+  }
+
+  onSelectAll(state) {
+    this.personalProjectService.selectAll(state);
   }
 
   // hideActionBar(){

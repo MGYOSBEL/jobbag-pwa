@@ -1,7 +1,7 @@
 <div class="card col-12 collapse" id="collapseAB" style="background-color: white;border-radius: 0;">
   <div class="row vertical-align py-2">
-    <input *ngIf="SELECTALL" type="checkbox" value="select-all" style="margin-left: 1rem; margin-right: 1rem;"
-      (change)="onSelectAll($event)">
+    <input *ngIf="SELECTALL" type="checkbox" style="margin-left: 1rem; margin-right: 1rem;"
+      (change)="onSelectAll($event)" [(ngModel)]="selectAllCheckbox">
     <button *ngIf="APPLY" class="btn col-2" type="button"
       style=" background-color: #2888C7; color: white; border-radius: 0;" (click)="onAction('APPLY')">
       <i class="fab fa-telegram-plane"></i>
