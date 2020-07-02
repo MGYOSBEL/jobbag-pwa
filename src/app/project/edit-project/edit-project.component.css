@@ -1,0 +1,209 @@
+/*Component editProContainer*/
+.container-edit-component{
+    background-image: url(../../../assets/img/img-blur10-opacity50.png);
+    background-size:125%;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  /*Container Column*/
+  .container-col{
+    padding-left: 0;
+    padding-right: 0;
+    box-shadow: 10px 10px 12px 0.5rem rgba(0,0,0,0.5);
+  }
+
+  /*Container columnBar*/
+  .scroll-host {
+    height: 26.5rem;
+    overflow:auto;
+    padding-right: 1rem;
+  }
+
+  /* Chrome columnBarStyle */
+  .scroll-host::-webkit-scrollbar{
+    width: 8px;
+    height: 8px;
+  }
+
+  .scroll-host::-webkit-scrollbar-track{
+    background-color:#BEBCBE;
+    border-radius: 0;
+  }
+  .scroll-host::-webkit-scrollbar-thumb{
+    background-color: #2888C7;
+    border-radius: 0;
+  }
+
+  /*editProFormContainer*/
+  .container-edit-form{
+    padding: 1rem 2rem 1rem 2rem;
+    background-color: white;
+  }
+
+  /*Tittle proCardSection*/
+  #section-card{
+    border:0;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-width: 0.5px !important;
+    border-bottom-style: solid !important ;
+    border-bottom-color: #e9ecef;
+  }
+
+  .title-project-card{
+    background-color: #2888C7;
+  }
+
+  .btn-collapse-col{
+    text-align: right;
+  }
+
+  /*Body headingCards*/
+  .fa-angle-down{
+    font-size:1.5rem;
+    color:#2888C7;
+  }
+
+  /* .fa-angle-up{
+    font-size:1.5rem;
+    color:white!important;
+  } */
+
+  .card-header-collapse[aria-expanded="true"] .fa-angle-down{
+    color:white!important;
+    transform: rotate(180deg);
+  }
+
+  [data-toggle="collapse"].collapsed:after {
+    transform: rotate(0deg) ;
+  }
+  /* .fa-angle-up{
+    font-size:1.5rem;
+    color:white;
+  } */
+  
+  .card-header-collapse[aria-expanded="true"]{
+    background-color: #2888C7;
+    color:white;
+  }
+  
+  .card-header-collapse[aria-expanded="false"]{
+    background:white;
+    color:black;
+  }
+  
+  .card-header-collapse[aria-expanded="false"]:hover{
+    background-color: #e9ecef !important;
+    color:black;
+  }
+  
+  .card-header-collapse{
+      border-radius: 0;
+      background-color: white;
+      margin-bottom: 0px;
+      padding-bottom: 0px;
+      border-bottom: 0;
+      cursor: pointer;
+  }
+  
+  /*Body Card*/
+  .card-body{
+    padding-bottom: 0 !important;
+  }
+  
+  /*Footer Card*/
+  .accordion-footer{
+      background-color: white;
+  }
+  
+  /*Section Picture*/
+  #pictureInput{
+      visibility: hidden;
+      width: 0;
+    }
+  
+    .svg-add-user{
+      width: 8rem;
+      width: 8rem;
+      height: 8rem;
+      border-radius: 50%;
+      object-fit: cover;
+      cursor: pointer;
+    }
+  
+    .btn-circle {
+      width: 30px;
+      height: 30px;
+      padding: 6px 0px;
+      border-radius: 15px;
+      text-align: center;
+      font-size: 12px;
+      line-height: 1.42857;
+    }
+  
+    .avatar-img{
+      height: 8rem;
+      cursor: pointer;
+    }
+  
+    /*Section CurriculumVitae*/
+  /*Section CurriculumVitae*/
+  .upload-btn-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+  }
+  
+  .btn-uploadcv {
+    background-color: #2985c4;
+    border: 0;
+  }
+  
+  .upload-btn-wrapper input[type=file] {
+    font-size: 2.5rem;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    cursor:pointer;
+  }
+  
+  .fa-folder{
+    color:white;
+    background-color:#2985c4;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+  
+  #curriculumLabel{
+    text-align: center !important;
+    background-color: #f1f1f1;
+    color: #6c757d;
+    width: 15rem;
+    padding: 0.26rem;
+    text-align: left;
+    margin-top: 0;
+  }
+  
+  #curriculumLabelSuccess{
+    text-align: center !important;
+    background-color: #00bfa5;
+    color: white;
+    width: 15rem;
+    padding: 0.26rem;
+    text-align: left;
+    margin-top: 0;
+  }
+  
+  .overflow {
+    width: 12rem;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  
+  /* Services Section */
+  .fa-times:hover {
+    font-size: 1.5rem;
+    transition: 200ms;
+  }

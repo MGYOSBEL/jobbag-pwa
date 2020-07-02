@@ -3,6 +3,7 @@ import { Project, ProjectState } from '../models/project.model';
 import { CandidateProjectService } from '../services/candidate-project.service';
 import { timeInterval } from 'rxjs/operators';
 import { interval } from 'rxjs';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router'; //toEdit
 
 @Component({
   selector: 'app-project-card',
@@ -24,7 +25,10 @@ export class ProjectCardComponent implements OnInit {
   @Input()
   cardMode: 'WIDE' | 'COMPACT';
 
-  constructor() { }
+  constructor(
+    private route: ActivatedRoute, //toEdit
+    private router: Router){} //toEdit)
+  
 
   ngOnInit() {
 
@@ -67,5 +71,10 @@ export class ProjectCardComponent implements OnInit {
       projectId: this.project.id
     });
   }
+
+  onEditProject(){
+    this.router.navigateByUrl(`/project/id/edit`);
+  }
+
 
 }

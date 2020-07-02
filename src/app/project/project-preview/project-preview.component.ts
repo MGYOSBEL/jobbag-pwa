@@ -8,6 +8,7 @@ import { CountryService } from '@app/user/services/country.service';
 import { ServicesService } from '@app/user/services/services.service';
 import { ProjectService } from '../services/project.service';
 import { MessagesService } from '@app/services/messages.service';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router'; //toEdit
 
 @Component({
   selector: 'app-project-preview',
@@ -18,6 +19,8 @@ export class ProjectPreviewComponent implements OnInit {
 
   constructor(
     // private candidateProjectService: CandidateProjectService,
+    private route: ActivatedRoute, //toEdit
+    private router: Router, //toEdit
     private projectService: ProjectService,
     private messages: MessagesService,
     private countryService: CountryService,
@@ -85,6 +88,9 @@ export class ProjectPreviewComponent implements OnInit {
     this.detail.emit(this.previewProject.id);
   }
 
+  onEditProject(){
+    this.router.navigateByUrl(`/project/id/edit`);
+  }
 
 
 }
