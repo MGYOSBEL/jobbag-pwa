@@ -73,14 +73,6 @@ export class ProjectActionBarComponent implements OnInit {
     }
   }
 
-  changeShowCU() {
-    if (this.showCU === true) {
-      this.showCU = false;
-    } else {
-      this.showCU = true;
-    }
-  }
-
   statusStringify(status: ProjectState): string {
     return projectStatusToString(status);
   }
