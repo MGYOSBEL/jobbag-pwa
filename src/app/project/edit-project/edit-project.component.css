@@ -1,3 +1,5 @@
+@import "../../../assets/vendor/floating-labels.css";
+
 /*Component editProContainer*/
 .container-edit-component{
     background-image: url(../../../assets/img/img-blur10-opacity50.png);
@@ -82,22 +84,22 @@
     font-size:1.5rem;
     color:white;
   } */
-  
+
   .card-header-collapse[aria-expanded="true"]{
     background-color: #2888C7;
     color:white;
   }
-  
+
   .card-header-collapse[aria-expanded="false"]{
     background:white;
     color:black;
   }
-  
+
   .card-header-collapse[aria-expanded="false"]:hover{
     background-color: #e9ecef !important;
     color:black;
   }
-  
+
   .card-header-collapse{
       border-radius: 0;
       background-color: white;
@@ -106,23 +108,23 @@
       border-bottom: 0;
       cursor: pointer;
   }
-  
+
   /*Body Card*/
   .card-body{
     padding-bottom: 0 !important;
   }
-  
+
   /*Footer Card*/
   .accordion-footer{
       background-color: white;
   }
-  
+
   /*Section Picture*/
   #pictureInput{
       visibility: hidden;
       width: 0;
     }
-  
+
     .svg-add-user{
       width: 8rem;
       width: 8rem;
@@ -131,7 +133,7 @@
       object-fit: cover;
       cursor: pointer;
     }
-  
+
     .btn-circle {
       width: 30px;
       height: 30px;
@@ -141,12 +143,12 @@
       font-size: 12px;
       line-height: 1.42857;
     }
-  
+
     .avatar-img{
       height: 8rem;
       cursor: pointer;
     }
-  
+
     /*Section CurriculumVitae*/
   /*Section CurriculumVitae*/
   .upload-btn-wrapper {
@@ -154,12 +156,12 @@
     overflow: hidden;
     display: inline-block;
   }
-  
+
   .btn-uploadcv {
     background-color: #2985c4;
     border: 0;
   }
-  
+
   .upload-btn-wrapper input[type=file] {
     font-size: 2.5rem;
     position: absolute;
@@ -168,14 +170,14 @@
     opacity: 0;
     cursor:pointer;
   }
-  
+
   .fa-folder{
     color:white;
     background-color:#2985c4;
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
   }
-  
+
   #curriculumLabel{
     text-align: center !important;
     background-color: #f1f1f1;
@@ -185,7 +187,7 @@
     text-align: left;
     margin-top: 0;
   }
-  
+
   #curriculumLabelSuccess{
     text-align: center !important;
     background-color: #00bfa5;
@@ -195,13 +197,13 @@
     text-align: left;
     margin-top: 0;
   }
-  
+
   .overflow {
     width: 12rem;
     white-space: nowrap;
     overflow: hidden;
   }
-  
+
   /* Services Section */
   .fa-times:hover {
     font-size: 1.5rem;
