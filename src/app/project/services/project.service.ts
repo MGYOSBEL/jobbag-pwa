@@ -78,7 +78,7 @@ export class ProjectService {
         catchError(err => throwError(err)),
         map(arr => arr.map(projectFromDTO)),
         shareReplay(),
-        tap(projects => console.log('getCandidatesByProfileId => ', projects))
+        tap()
     );
   }
 
@@ -101,6 +101,19 @@ export class ProjectService {
     return this.loading.showLoaderUntilCompletes(registerInterestProject$);
   }
 
+  // http://jobbag.api/api/user_profile/6/project/6
+  getProjectDetailByProfileType(userProfileId: number, projectId): Observable<Project> {
+    const projectDetail$ = this.http.get<APIResponse>(`${environment.apiBaseURL}/user_profile/${userProfileId}/project/${projectId}`)
+                            .pipe(
+                              map(APIResponseToData),
+                              catchError(err => throwError(err)),
+                              map(projectFromDTO),
+                              shareReplay(),
+                              tap(projectDetail => console.log('projectDetail => ', projectDetail))
+                            );
+    return this.loading.showLoaderUntilCompletes(projectDetail$);
+  }
+
   addProjects(projects: Project[]) {
     console.log('projectsToAdd => ', projects);
     const oldProjects = this.projectsSubject.value;
@@ -109,4 +122,7 @@ export class ProjectService {
     console.log('newProjects => ', newProjects);
     this.projectsSubject.next(newProjects);
   }
+
+
+
 }

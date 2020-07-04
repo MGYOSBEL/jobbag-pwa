@@ -1,3 +1,4 @@
+import { UserProfile } from '@app/user/models/user.model';
 
 export interface ProjectDTO {
   state:             ProjectState;
@@ -9,6 +10,7 @@ export interface ProjectDTO {
   divisions?:         number[];
   services?:          number[];
   user_profile_id?:     number;
+  interested_profiles?: UserProfile[];
 }
 
 
@@ -23,6 +25,7 @@ export interface Project {
   divisions?:         number[];
   services?:          number[];
   interest?: boolean;
+  interestedProfiles?: UserProfile[];
 }
 
 

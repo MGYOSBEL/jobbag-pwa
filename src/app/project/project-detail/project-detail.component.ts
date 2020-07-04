@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { ProjectService } from '../services/project.service';
 import { Project } from '../models/project.model';
 import { Observable } from 'rxjs';
@@ -14,18 +14,21 @@ import { Router, ActivatedRoute, NavigationEnd } from '@angular/router'; //toEdi
   templateUrl: './project-detail.component.html',
   styleUrls: ['./project-detail.component.css']
 })
-export class ProjectDetailComponent implements OnInit {
+export class ProjectDetailComponent implements OnInit, OnDestroy {
 
   @Input()
   project: Project;
 
   countries: Country[];
   services: Service[];
-  projectOwner: boolean = true;
+  // projectOwner: boolean = true;
+
+  divisionsName: string[] = [];
+  servicesName: string[] = [];
 
   constructor(
-    private route: ActivatedRoute, //toEdit
-    private router: Router, //toEdit
+    private route: ActivatedRoute, // toEdit
+    private router: Router, // toEdit
     private personalProjectService: PersonalProjectService,
     private countryService: CountryService,
     private servicesService: ServicesService
@@ -33,13 +36,22 @@ export class ProjectDetailComponent implements OnInit {
 
   ngOnInit() {
     this.countryService.get().subscribe(
-      countries => this.countries = countries
+      countries => {
+        this.countries = countries;
+        this.divisionsName = this.getDivisionsName(this.project.divisions);
+      }
     );
 
     this.servicesService.getAll().subscribe(
-      services => this.services = services
+      services => {
+        this.services = services;
+        this.servicesName = this.getServicesName(this.project.services);
+      }
     );
-    this.projectOwner = this.getProjectOwner();
+    // this.projectOwner = this.isLoggedUserProjectOwner();
+  }
+
+  ngOnDestroy() {
   }
 
   backToList() {
@@ -59,12 +71,12 @@ export class ProjectDetailComponent implements OnInit {
   }
 
   onEditProject() {
-    this.router.navigateByUrl(`/project/id/edit`);
+    this.router.navigateByUrl(`/project/${this.project.id}/edit`);
   }
 
-  getProjectOwner(){
-    // if(this.project.interested_profiles === null)
-    return true;
-  }
+  // isLoggedUserProjectOwner() {
+  //   // if(this.project.interested_profiles === null)
+  //   return true;
+  // }
 
 }

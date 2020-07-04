@@ -67,10 +67,9 @@ export class PersonalProjectService {
   }
 
   viewDetail(projectId: number) {
-    const project = this.personalProjectsSubject.value.find(proj => proj.id === projectId);
-    if (project != null) {
-      this.activeProjectSubject.next(project);
-    }
+    this.projectService.getProjectDetailByProfileType(this.userService.loggedUser.id, projectId).subscribe(
+      project => this.activeProjectSubject.next(project)
+    );
   }
 
   backToList() {
@@ -79,6 +78,11 @@ export class PersonalProjectService {
 
   selectAll(state: boolean) {
     this.selectAllSubject.next(state);
+  }
+
+  reset() {
+    this.preview(null);
+    this.activeProjectSubject.next(null);
   }
 
 

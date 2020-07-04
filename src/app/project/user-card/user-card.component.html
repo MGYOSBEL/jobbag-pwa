@@ -1,14 +1,12 @@
-<div class="col-12">
-    <h5 class="column-title my-3">Interested Candidates</h5>
-</div>
 <div class="card col-12 mt-2 p-0">
     <div class="row container-fluid">
         <div class="col-1">
-            <img src="../../../assets//img/lawyer.png" class="rounded mt-2" alt="" style="max-width: 100%;border-radius: 50%!important;">
+            <img [src]="userPictureUrl" class="rounded mt-2" alt="" style="max-width: 100%;border-radius: 50%!important;">
         </div>
         <div class="col p-0">
             <p class="user-name text-left mt-2" style="color:#2888C7; font-weight: light; font-size: 1.2rem;">
-                Alan Allison</p>
+                {{userProfile.name}}
+            </p>
         </div>
         <div class="col-3 text-right">
             <p class="date-text mt-2">21 June 2020</p>
@@ -16,7 +14,7 @@
     </div>
 </div>
 <!-- PREVISUALIZACION DE UNA LISTA -->
-<div class="card col-12 mt-2 p-0">
+<!-- <div class="card col-12 mt-2 p-0">
     <div class="row container-fluid">
         <div class="col-1">
             <img src="../../../assets//img/officer.png" class="rounded mt-2" alt="" style="max-width: 100%;border-radius: 50%!important;">
@@ -43,5 +41,5 @@
             <p class="date-text">21 June 2020</p>
         </div>
     </div>
-</div>
+</div> -->
 

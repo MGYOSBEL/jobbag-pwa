@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { UserProfile } from '@app/user/models/user.model';
+import { environment } from '@environments/environment';
 
 @Component({
   selector: 'app-user-card',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserCardComponent implements OnInit {
 
-  constructor() { }
+  @Input()
+  userProfile: UserProfile;
+
+  userPictureUrl;
+
+  constructor() {
+   }
 
   ngOnInit() {
+    this.userPictureUrl = `${environment.serverBaseURL}/${this.userProfile.picture}`;
+
   }
 
 }

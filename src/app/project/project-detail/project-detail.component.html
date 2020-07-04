@@ -2,7 +2,7 @@
   <div class="row" style="border-bottom: 1px solid #2888C7; height:3rem;">
     <div class="col">
       <div class="row no-gutters">
-      <!-- <div class="row no-gutters align-items-end"> -->
+        <!-- <div class="row no-gutters align-items-end"> -->
         <p class="user-name text-left pt-2  align-self-end">
           {{project.name}}
         </p>
@@ -22,65 +22,68 @@
     </div>
   </div>
 
- <div class="row mt-3 mx-2">
-  <div class="col-6 border" style="background-color: #f1f1f1; color:#605c61;">
-    <div class="col-12">
-      <!-- <app-project-preview></app-project-preview> -->
-      <p class="project-title text-left my-2" style="color:#605c61; font-weight: light; font-size: 1.2rem;">
-        {{project.name}}
-      </p>
-      <!-- <hr class="border-bottom mt-0"> -->
-      <hr>
+  <div class="row mt-3 mx-2">
+    <div class="col-6 border" style="background-color: #f1f1f1; color:#605c61;">
       <div class="col-12">
-        <p style="font-size:medium">
-          {{project.description}}
+        <!-- <app-project-preview></app-project-preview> -->
+        <p class="project-title text-left my-2" style="color:#605c61; font-weight: light; font-size: 1.2rem;">
+          {{project.name}}
         </p>
+        <!-- <hr class="border-bottom mt-0"> -->
+        <hr>
+        <div class="col-12">
+          <p style="font-size:medium">
+            {{project.description}}
+          </p>
+        </div>
+      </div>
+      <div class="col-12">
+        <p class="project-title text-left my-2" style="color:#605c61; font-weight: light; font-size: 1.2rem;">
+          Required Locations
+        </p>
+        <hr class="border-bottom mt-0">
+      </div>
+      <div class="col-12">
+        <div style="font-size:small">
+          <ul>
+            <li *ngFor="let division of divisionsName">
+              {{division}}
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-12">
+        <p class="project-title text-left my-2" style="color:#605c61; font-weight: light; font-size: 1.2rem;">
+          Required Services
+        </p>
+        <hr class="border-bottom mt-0">
+      </div>
+      <div class="col-12">
+        <div style="font-size:small">
+          <ul>
+            <li *ngFor="let service of servicesName">
+              {{service}}
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
-    <div class="col-12">
-      <p class="project-title text-left my-2" style="color:#605c61; font-weight: light; font-size: 1.2rem;">
-        Required Locations
-      </p>
-      <hr class="border-bottom mt-0">
+    <div *ngIf="project.interestedProfiles != null; else notProjectOwner" class="col-6">
+      <div class="col-12">
+        <h5 class="column-title my-3">Interested Candidates</h5>
+      </div>
+      <app-user-card-list [users]="project.interestedProfiles"></app-user-card-list>
     </div>
-    <div class="col-12">
-      <div style="font-size:small">
-        <ul >
-          <li  *ngFor="let division of getDivisionsName(project.divisions)">
-            {{division}}
-          </li>
-        </ul>
+    <ng-template #notProjectOwner>
+      <div class="col-6">
+        <app-project-comments></app-project-comments>
+      </div>
+    </ng-template>
+  </div>
+  <ng-container *ngIf="project.interestedProfiles != null">
+    <div class="row">
+      <div class="col-12 mb-3">
+        <app-project-comments></app-project-comments>
       </div>
     </div>
-    <div class="col-12">
-      <p class="project-title text-left my-2" style="color:#605c61; font-weight: light; font-size: 1.2rem;">
-        Required Services
-      </p>
-      <hr class="border-bottom mt-0">
-    </div>
-    <div class="col-12">
-      <div style="font-size:small">
-        <ul >
-          <li *ngFor="let service of getServicesName(project.services)" >
-            {{service}}
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-  <div *ngIf="projectOwner===false, else userProviderTemplate" class="col-6">
-    <app-user-card-list></app-user-card-list>
-  </div>
-  <ng-template #userProviderTemplate>
-    <div class="col-6">
-      <app-project-comments></app-project-comments>
-    </div>
-  </ng-template>
-</div>
-<ng-template [ngIf]="projectOwner===false">
-  <div class="row">
-    <div class="col-12 mb-3">
-      <app-project-comments></app-project-comments>
-    </div>
-  </div>
-</ng-template>
+  </ng-container>

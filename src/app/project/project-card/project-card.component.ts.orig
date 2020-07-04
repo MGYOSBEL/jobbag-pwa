@@ -3,8 +3,11 @@ import { Project, ProjectState } from '../models/project.model';
 import { CandidateProjectService } from '../services/candidate-project.service';
 import { timeInterval } from 'rxjs/operators';
 import { interval } from 'rxjs';
+<<<<<<< HEAD
 import { UserService } from '@app/user/services/user.service';
-import { Router, ActivatedRoute, NavigationEnd } from '@angular/router'; // toEdit
+=======
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router'; //toEdit
+>>>>>>> bea614830335156b9d9cbd6199363136432bbfd6
 
 @Component({
   selector: 'app-project-card',
@@ -26,16 +29,18 @@ export class ProjectCardComponent implements OnInit {
   @Input()
   cardMode: 'WIDE' | 'COMPACT';
 
+<<<<<<< HEAD
   private userRole: string;
+=======
+  constructor(
+    private route: ActivatedRoute, //toEdit
+    private router: Router){} //toEdit)
+  
+>>>>>>> bea614830335156b9d9cbd6199363136432bbfd6
 
   constructor(
-    private route: ActivatedRoute, // toEdit
-    private router: Router, // toEdit)
     private userService: UserService
-    ) {}
-
-
-
+  ) { }
 
   ngOnInit() {
     this.userRole = this.userService.role;
@@ -83,9 +88,12 @@ export class ProjectCardComponent implements OnInit {
     });
   }
 
-  onEditProject() {
-    this.router.navigateByUrl(`/project/${this.project.id}/edit`);
+<<<<<<< HEAD
+=======
+  onEditProject(){
+    this.router.navigateByUrl(`/project/id/edit`);
   }
+>>>>>>> bea614830335156b9d9cbd6199363136432bbfd6
 
 
 }
