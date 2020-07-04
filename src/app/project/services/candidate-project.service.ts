@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { ProjectService } from './project.service';
-import { Project } from '../models/project.model';
+import { Project, ProjectState } from '../models/project.model';
 import { Observable, BehaviorSubject, throwError } from 'rxjs';
 import { AuthenticationService } from '@app/auth/services/authentication.service';
 import { filter, tap, catchError, map } from 'rxjs/operators';
+import { PersonalProjectService } from './personal-project.service';
 
 @Injectable()
 export class CandidateProjectService {
@@ -13,7 +14,8 @@ export class CandidateProjectService {
   // interestProjects$: Observable<Project[]> = this.candidatesSubject.asObservable().pipe(
   //   map(projects => projects.filter(project => ))
   // );
-
+  private interestProjectsSubject = new BehaviorSubject<Project[]>([]);
+  interestProjects$ = this.interestProjectsSubject.asObservable();
 
   private multiSelectedProjectsSubject = new BehaviorSubject<number[]>([]);
   multiSelectedProjects$: Observable<number[]> = this.multiSelectedProjectsSubject.asObservable();
@@ -28,6 +30,7 @@ export class CandidateProjectService {
 
   constructor(
     private projectService: ProjectService,
+    private personalProjectService: PersonalProjectService,
     private authenticationService: AuthenticationService
     ) {
       this.authenticationService.isLoggedIn$.pipe(
@@ -35,6 +38,14 @@ export class CandidateProjectService {
       ).subscribe( () => {
         this.resetcandidates();
       });
+      this.personalProjectService.newProjects$.subscribe(
+        projects => {
+          projects = projects.map(elem => {
+            return {interest : true, ...elem};
+          });
+          this.interestProjectsSubject.next(projects);
+        }
+      );
   }
 
   selectAll(state: boolean) {
@@ -43,6 +54,17 @@ export class CandidateProjectService {
 
   setMultiSelected(projects: number[]) {
     this.multiSelectedProjectsSubject.next(projects);
+  }
+  getMultiSelected(): number[] {
+    return this.multiSelectedProjectsSubject.value;
+  }
+
+  addInterests(projects: Project[]) {
+    const currentInterests = this.interestProjectsSubject.value;
+    console.log('currentInterests => ', currentInterests);
+    const nextInterests = [...currentInterests, ...projects];
+    this.interestProjectsSubject.next(nextInterests);
+    console.log('interests after added => ', nextInterests);
   }
 
   resetcandidates() {
@@ -58,12 +80,16 @@ export class CandidateProjectService {
    );
   }
 
-  registerInterest(userProfileId: number): Observable<boolean> {
-    return this.projectService.registerInterestProjects(userProfileId , this.multiSelectedProjectsSubject.value)
+  registerInterest(userProfileId: number, projects: number []): Observable<boolean> {
+    return this.projectService.registerInterestProjects(userProfileId , projects)
     .pipe(
       catchError(err => throwError(err)),
       tap(() => {
         this.uploadCandidates();
+        const interests = this.candidatesSubject.value.filter(elem => projects.includes(elem.id));
+        console.log('interests ids => ', interests);
+        this.addInterests(interests);
+        this.preview(null);
       })
     );
   }
@@ -83,7 +109,6 @@ export class CandidateProjectService {
     const candidatesToRemove = this.multiSelectedProjectsSubject.value;
     const newCandidates = this.removeCandidates(candidatesToRemove);
     const addedCandidates = this.candidatesSubject.value.filter(elem => candidatesToRemove.find(id => id === elem.id));
-    console.log('addedCandidates => ', addedCandidates);
     this.candidatesSubject.next(newCandidates);
     this.projectService.addProjects(addedCandidates);
 

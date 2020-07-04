@@ -13,11 +13,11 @@
   <div class="row py-3">
     <div class="col-6 px-2 scroll-host">
       <!-- PROJECT CARD -->
-      <ng-container *ngIf="candidateProjects$ | async as candidates">
+      <ng-container *ngIf="projectList$ | async as projects">
         <app-project-card-list
-            [projects]="candidates"
+            [projects]="projects"
             [masterSelected$]="masterSelected$"
-            (checkedProjects)="onSelectCandidates($event)"
+            (checkedProjects)="onSelectProjects($event)"
             (cardClicked)="onCardClicked($event)"
             [cardMode]="'WIDE'">
 

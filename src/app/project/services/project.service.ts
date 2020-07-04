@@ -78,7 +78,7 @@ export class ProjectService {
         catchError(err => throwError(err)),
         map(arr => arr.map(projectFromDTO)),
         shareReplay(),
-        tap()
+        tap(projects => console.log('getCandidatesByProfileId => ', projects))
     );
   }
 

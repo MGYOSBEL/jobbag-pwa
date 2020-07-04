@@ -37,8 +37,8 @@
     </div>
     <div class="col-2 pl-0">
       <div class="form-group" style="margin-bottom: 0;">
-        <select class="form-control"  id="servicesFilterSelect" style="border-radius: 0; border-color: #2888C7;" (change)="onStatusFilter($event)">
-          <option value="0">Status</option>
+        <select class="form-control"  title="Status" id="servicesFilterSelect" style="border-radius: 0; border-color: #2888C7;" (change)="onStatusFilter($event)">
+          <option disabled>Status</option>
           <option *ngFor="let status of statusFilter" [value]="status!" >{{statusStringify(status)}}</option>
         </select>
       </div>

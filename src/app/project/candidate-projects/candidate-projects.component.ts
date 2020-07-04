@@ -17,7 +17,10 @@ export class CandidateProjectsComponent implements OnInit {
 
   userProfile: UserProfile;
 
+  projectList$: Observable<Project[]>;
+
   candidateProjects$: Observable<Project[]>;
+  interestProjects$: Observable<Project[]>;
   selectedCandidates$: Observable<number[]>;
   selectAll$ = new Observable<boolean>();
   previewProject$: Observable<Project>;
@@ -31,7 +34,7 @@ export class CandidateProjectsComponent implements OnInit {
     private candidateProjectService: CandidateProjectService,
     private messages: MessagesService
   ) {
-    this.candidateProjects$ = this.candidateProjectService.candidateProjects$;
+    this.projectList$ = this.candidateProjects$;
     this.masterSelected$ = this.candidateProjectService.selectAll$;
     this.selectedCandidates$ = this.candidateProjectService.multiSelectedProjects$;
     const userProfile$ = combineLatest(
@@ -58,17 +61,17 @@ export class CandidateProjectsComponent implements OnInit {
     this.candidateProjectService.preview(event);
   }
 
-  onSelectCandidates(event) {
+  onSelectProjects(event) {
     this.candidateProjectService.setMultiSelected(event);
   }
 
-  onActionBarFilter(statusFilters) {
-    switch (statusFilters) {
+  onActionBarFilter({status}) {
+    switch (status) {
       case ProjectState.NEW:
-
+        this.projectList$ = this.candidateProjectService.candidateProjects$;
         break;
       case 'INTEREST':
-
+        this.projectList$ = this.candidateProjectService.interestProjects$;
         break;
 
       default:
@@ -78,7 +81,7 @@ export class CandidateProjectsComponent implements OnInit {
 
   onApply() {
     console.log('applying candidates');
-    this.candidateProjectService.registerInterest(this.userProfile.id).subscribe(
+    this.candidateProjectService.registerInterest(this.userProfile.id, this.candidateProjectService.getMultiSelected()).subscribe(
       success => {
         if (success) {
           console.log('Candidates set as interests');

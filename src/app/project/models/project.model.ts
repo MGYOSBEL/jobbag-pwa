@@ -22,6 +22,7 @@ export interface Project {
   remote?:            boolean;
   divisions?:         number[];
   services?:          number[];
+  interest?: boolean;
 }
 
 

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ProjectService } from './project.service';
 import { BehaviorSubject, Observable, combineLatest } from 'rxjs';
 import { Project, ProjectState } from '../models/project.model';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { UserProfile } from '@app/user/models/user.model';
 import { UserService } from '@app/user/services/user.service';
 import { LoadingService } from '@app/services/loading.service';
@@ -19,6 +19,13 @@ export class PersonalProjectService {
     this.userProfile$ = combineLatest(
       userService.loggedUser$,
       userService.role$
+    ).pipe(
+      tap(([user, role]) => {
+        const profile: UserProfile = user.profiles.find(elem => elem.userProfileType === role);
+        this.getPersonalProjects(profile.id);
+        console.log('profile has changed =>', role, profile, profile.id);
+      }
+      )
     );
   }
 
