@@ -7,6 +7,7 @@ import { ServicesService } from '@app/user/services/services.service';
 import { CountryService } from '@app/user/services/country.service';
 import { Country, DivisionElement } from '@app/user/models/country.model';
 import { Service } from '@app/user/models/services.model';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router'; //toEdit
 
 @Component({
   selector: 'app-project-detail',
@@ -20,15 +21,17 @@ export class ProjectDetailComponent implements OnInit {
 
   countries: Country[];
   services: Service[];
+  projectOwner: boolean = true;
 
   constructor(
+    private route: ActivatedRoute, //toEdit
+    private router: Router, //toEdit
     private personalProjectService: PersonalProjectService,
     private countryService: CountryService,
     private servicesService: ServicesService
   ) { }
 
   ngOnInit() {
-
     this.countryService.get().subscribe(
       countries => this.countries = countries
     );
@@ -36,6 +39,7 @@ export class ProjectDetailComponent implements OnInit {
     this.servicesService.getAll().subscribe(
       services => this.services = services
     );
+    this.projectOwner = this.getProjectOwner();
   }
 
   backToList() {
@@ -54,5 +58,13 @@ export class ProjectDetailComponent implements OnInit {
     return servs.map(service => service.descriptionEs);
   }
 
+  onEditProject() {
+    this.router.navigateByUrl(`/project/id/edit`);
+  }
+
+  getProjectOwner(){
+    // if(this.project.interested_profiles === null)
+    return true;
+  }
 
 }

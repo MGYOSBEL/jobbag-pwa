@@ -4,6 +4,7 @@ import { CandidateProjectService } from '../services/candidate-project.service';
 import { timeInterval } from 'rxjs/operators';
 import { interval } from 'rxjs';
 import { UserService } from '@app/user/services/user.service';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router'; // toEdit
 
 @Component({
   selector: 'app-project-card',
@@ -28,8 +29,13 @@ export class ProjectCardComponent implements OnInit {
   private userRole: string;
 
   constructor(
+    private route: ActivatedRoute, // toEdit
+    private router: Router, // toEdit)
     private userService: UserService
-  ) { }
+    ) {}
+
+
+
 
   ngOnInit() {
     this.userRole = this.userService.role;
@@ -77,6 +83,9 @@ export class ProjectCardComponent implements OnInit {
     });
   }
 
+  onEditProject() {
+    this.router.navigateByUrl(`/project/id/edit`);
+  }
 
 
 }

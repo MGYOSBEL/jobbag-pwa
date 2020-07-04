@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-edit-project',
@@ -6,10 +7,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./edit-project.component.css']
 })
 export class EditProjectComponent implements OnInit {
+  showUp: boolean = false;
 
-  constructor() { }
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+  ) { }
 
   ngOnInit() {
   }
 
+onClose() {
+  this.router.navigate(['../'], { relativeTo: this.route });
+}
 }

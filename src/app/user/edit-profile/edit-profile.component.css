@@ -65,10 +65,10 @@
   color:#2888C7;
 }
 
-/* .fa-angle-up{
-  font-size:1.5rem;
-  color:white;
-} */
+.card-header-collapse[aria-expanded="true"] .fa-angle-down{
+  color:white!important;
+  transform: rotate(180deg);
+}
 
 .card-header-collapse[aria-expanded="true"]{
   background-color: #2888C7;

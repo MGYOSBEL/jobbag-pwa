@@ -1,23 +1,23 @@
 <div class="container-fluid">
   <div class="row" style="border-bottom: 1px solid #2888C7; height:3rem;">
-    <div class="col-8 ">
+    <div class="col">
       <div class="row no-gutters">
       <!-- <div class="row no-gutters align-items-end"> -->
         <p class="user-name text-left pt-2  align-self-end">
           {{project.name}}
         </p>
-        <button class="btn btn-link pt-2" (click)="backToList()">
-          Go Back
-        </button>
       </div>
 
     </div>
-    <div class="col-4 text-right">
-      <button type="button" class="btn mx-2 px-1 mt-2 action-btn rounded-0" alt="View">
-        <i class="fas fa-edit"></i>
+    <div class="col text-right">
+      <button type="button" class="btn mx-2 px-1 mt-2 action-btn rounded-0" data-toggle="tooltip" title="Go Back"
+        alt="goBack" (click)="backToList()"><i class="fas fa-chevron-circle-left"></i>
       </button>
-      <button type="button" class="btn mx-2 px-1 mt-2 action-btn rounded-0">
-        <i class="fas fa-trash"></i>
+      <button type="button" class="btn mx-2 px-1 mt-2 action-btn rounded-0" data-toggle="tooltip" title="Edit Project"
+        alt="Edit" (click)="onEditProject()"><i class="fas fa-edit"></i>
+      </button>
+      <button type="button" class="btn mx-2 px-1 mt-2 action-btn rounded-0" data-toggle="tooltip" title="Delete Project"
+        alt="Delete"><i class="fas fa-trash"></i>
       </button>
     </div>
   </div>
@@ -68,12 +68,19 @@
       </div>
     </div>
   </div>
-  <div class="col-6">
+  <div *ngIf="projectOwner===false, else userProviderTemplate" class="col-6">
     <app-user-card-list></app-user-card-list>
   </div>
+  <ng-template #userProviderTemplate>
+    <div class="col-6">
+      <app-project-comments></app-project-comments>
+    </div>
+  </ng-template>
 </div>
-<div class="row">
-  <div class="col-6 mb-3">
-    <app-project-comments></app-project-comments>
+<ng-template [ngIf]="projectOwner===false">
+  <div class="row">
+    <div class="col-12 mb-3">
+      <app-project-comments></app-project-comments>
+    </div>
   </div>
-</div>
+</ng-template>
