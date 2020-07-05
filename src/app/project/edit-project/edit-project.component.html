@@ -1,181 +1,183 @@
-<div class="container container-edit-component bg-faded py-4">
-  <div class="row justify-content-center" id="edit-pro-container2">
-    <div class="col-md-8 container-col">
-      <div class="accordion" id="accordionExample">
-        <div class="card title-project-card rounded-0">
-          <div class="card-header" id="headingMain">
-            <div class="row">
-              <div class="col-10">
-                <label style="color: white;">
-                  <!-- {{project!.name}} -->
-                </label>
-              </div>
-              <div class="col-2 btn-collapse-col">
-                <button type="button" class="close" aria-label="Close" style="color: white;" data-toggle="modal"
-                  data-target="#closeModal">
-                  <span aria-hidden="true">&times;</span>
-                </button>
+<ng-container *ngIf="project">
+  <div class="container container-edit-component bg-faded py-4">
+    <div class="row justify-content-center" id="edit-pro-container2">
+      <div class="col-md-8 container-col">
+        <div class="accordion" id="accordionExample">
+          <div class="card title-project-card rounded-0">
+            <div class="card-header" id="headingMain">
+              <div class="row">
+                <div class="col-10">
+                  <label style="color: white;">
+                    {{project.name}}
+                  </label>
+                </div>
+                <div class="col-2 btn-collapse-col">
+                  <button type="button" class="close" aria-label="Close" style="color: white;" data-toggle="modal"
+                    data-target="#closeModal">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="container container-edit-form">
-          <form [formGroup]="editProjectForm">
-            <div class="container scroll-host">
-              <div class="card" id="section-card">
-                <div class="card-header card-header-collapse" id="headingOne" data-toggle="collapse"
-                  data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                  <div class="row">
-                    <div class="col-9">
-                      <p class="text-left">Project Title</p>
-                    </div>
-                    <div class="col-3 text-right">
-                      <i class="fas fa-angle-down" style="color: #2888C7;"></i>
+          <div class="container container-edit-form">
+            <form [formGroup]="editProjectForm">
+              <div class="container scroll-host">
+                <div class="card" id="section-card">
+                  <div class="card-header card-header-collapse" id="headingOne" data-toggle="collapse"
+                    data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                    <div class="row">
+                      <div class="col-9">
+                        <p class="text-left">Project Title</p>
+                      </div>
+                      <div class="col-3 text-right">
+                        <i class="fas fa-angle-down" style="color: #2888C7;"></i>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-                  <div class="card-body">
-                    <div class="form-group row mx-auto mb-5">
-                      <div class="col-12 px-0 form-label-group">
-                        <!-- <label class="text-muted"><span>Project Title</span></label> -->
-                        <input type="text" class="form-control input-lg rounded-0" id="projectTitle"
-                          formControlName="projectTitle" placeholder="Project Title:"
-                          [ngClass]="editProjectForm.get('projectTitle').invalid && (editProjectForm.get('projectTitle').dirty || editProjectForm.get('projectTitle').touched) ? 'is-invalid' : '' ">
-                        <label style="font-weight: 100;" for="projectTitle">Project Title:</label>
-                        <div class="invalid-feedback">
-                          You must enter a project title!
+                  <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                    <div class="card-body">
+                      <div class="form-group row mx-auto mb-5">
+                        <div class="col-12 px-0 form-label-group">
+                          <!-- <label class="text-muted"><span>Project Title</span></label> -->
+                          <input type="text" class="form-control input-lg rounded-0" id="projectTitle"
+                            formControlName="projectTitle" placeholder="Project Title:"
+                            [ngClass]="editProjectForm.get('projectTitle').invalid && (editProjectForm.get('projectTitle').dirty || editProjectForm.get('projectTitle').touched) ? 'is-invalid' : '' ">
+                          <label style="font-weight: 100;" for="projectTitle">Project Title:</label>
+                          <div class="invalid-feedback">
+                            You must enter a project title!
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="card" id="section-card">
-                <div class="card-header card-header-collapse" id="headingTwo" data-toggle="collapse"
-                  data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                  <div class="row">
-                    <div class="col-9">
-                      <p class="text-left">Description</p>
+                <div class="card" id="section-card">
+                  <div class="card-header card-header-collapse" id="headingTwo" data-toggle="collapse"
+                    data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    <div class="row">
+                      <div class="col-9">
+                        <p class="text-left">Description</p>
+                      </div>
+                      <div class="col-3 text-right">
+                        <i class="fa fa-angle-down" aria-hidden="true"></i>
+                      </div>
                     </div>
-                    <div class="col-3 text-right">
-                      <i class="fa fa-angle-down" aria-hidden="true"></i>
+                  </div>
+                  <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                    <div class="card-body">
+                      <div class="form-group form-label-group mx-auto">
+                        <textarea class="form-control mt-5" maxlength="256" id="commentsInputText"
+                          style="height: 6rem; border-radius: 0;" formControlName="projectResume"
+                          placeholder="Enter your project Resume..."></textarea>
+                        <label style="font-weight: 100;" for="commentsInputText">Enter your project Resume...</label>
+                      </div>
                     </div>
                   </div>
                 </div>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-                  <div class="card-body">
-                    <div class="form-group form-label-group mx-auto">
-                      <textarea class="form-control mt-5" maxlength="256" id="commentsInputText"
-                        style="height: 6rem; border-radius: 0;" formControlName="projectResume"
-                        placeholder="Enter your project Resume..."></textarea>
-                      <label style="font-weight: 100;" for="commentsInputText">Enter your project Resume...</label>
+                <div class="card" id="section-card">
+                  <div class="card-header card-header-collapse" id="headingThree" data-toggle="collapse"
+                    data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    <div class="row">
+                      <div class="col-9">
+                        <p class="text-left">Location</p>
+                      </div>
+                      <div class="col-3 text-right">
+                        <i class="fa fa-angle-down" aria-hidden="true"></i>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </div>
-              <div class="card" id="section-card">
-                <div class="card-header card-header-collapse" id="headingThree" data-toggle="collapse"
-                  data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                  <div class="row">
-                    <div class="col-9">
-                      <p class="text-left">Location</p>
-                    </div>
-                    <div class="col-3 text-right">
-                      <i class="fa fa-angle-down" aria-hidden="true"></i>
-                    </div>
-                  </div>
-                </div>
-                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-                  <div class="card-body">
-                    <div class="form-group row mx-auto mb-5">
-                      <div class="col-12 px-0 mx-0 h-100 mt-5">
-                        <div class="custom-control custom-checkbox mb-3 rounded-0"
-                          style="display: flex;align-items: center;">
-                          <input type="checkbox" class="custom-control-input rounded-0" id="onlineJob"
-                            formControlName="onlineJob" #onlineJob (click)="onOnlineJobChange($event)">
-                          <label class="custom-control-label text-muted" for="onlineJob"
-                            style="font-size: 0.8rem;margin-top: 7px;"><span>
-                              Check for an Online Job, or select a Location.</span></label>
-                        </div>
-                        <div class="m-0 p-0"
-                          [ngClass]="editProjectForm.get('divisions').invalid && divisionsDirty ? 'is-invalid' : 'border-0' ">
-                          <app-multi-select [selectedDivisions]="countryDivisions" (selected)="onDivisionsSelect($event)"
-                            [disabled]="onlineJob.checked" (click)="divisionsDirty = true">
-                          </app-multi-select>
-                        </div>
-                        <div class="invalid-feedback text-left">
-                          You must select at least one region!
-                        </div>
+                  <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                    <div class="card-body">
+                      <div class="form-group row mx-auto mb-5">
+                        <div class="col-12 px-0 mx-0 h-100 mt-5">
+                          <div class="custom-control custom-checkbox mb-3 rounded-0"
+                            style="display: flex;align-items: center;">
+                            <input type="checkbox" class="custom-control-input rounded-0" id="onlineJob"
+                              formControlName="onlineJob" #onlineJob (click)="onOnlineJobChange($event)">
+                            <label class="custom-control-label text-muted" for="onlineJob"
+                              style="font-size: 0.8rem;margin-top: 7px;"><span>
+                                Check for an Online Job, or select a Location.</span></label>
+                          </div>
+                          <div class="m-0 p-0"
+                            [ngClass]="editProjectForm.get('divisions').invalid && divisionsDirty ? 'is-invalid' : 'border-0' ">
+                            <app-multi-select [selectedDivisions]="countryDivisions" (selected)="onDivisionsSelect($event)"
+                              [disabled]="onlineJob.checked" (click)="divisionsDirty = true">
+                            </app-multi-select>
+                          </div>
+                          <div class="invalid-feedback text-left">
+                            You must select at least one region!
+                          </div>
 
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="card" id="section-card">
-                <div class="card-header card-header-collapse" id="headingFour" data-toggle="collapse"
-                  data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                  <div class="row">
-                    <div class="col-9">
-                      <p class="text-left">Services</p>
-                    </div>
-                    <div class="col-3 text-right">
-                      <i class="fa fa-angle-down" aria-hidden="true"></i>
+                <div class="card" id="section-card">
+                  <div class="card-header card-header-collapse" id="headingFour" data-toggle="collapse"
+                    data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                    <div class="row">
+                      <div class="col-9">
+                        <p class="text-left">Services</p>
+                      </div>
+                      <div class="col-3 text-right">
+                        <i class="fa fa-angle-down" aria-hidden="true"></i>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
-                  <div class="card-body">
-                    <div class="form-group row mx-auto mb-5">
-                      <button type="button" class="btn rounded-0 align-items-center align-text-top" style="background-color: #bfbdbe; color: #2880a9; font-size: 1rem; width: 100%;
-                                        font-weight: bold; margin-top: 0.5rem;" data-toggle="modal"
-                        data-target="#servicesModal"
-                        [style.color]="!!editProjectForm.get('selectedServices').value.length ? '#FFFFFF' : '#2985c4'"
-                        [style.font-weight]="!!editProjectForm.get('selectedServices').value.length ? 'normal' : 'bold'"
-                        [style.background-color]="!!editProjectForm.get('selectedServices').value.length ? '#2985c4' : '#BEBCBE'"
-                        [ngClass]="editProjectForm.get('selectedServices').invalid && servicesTouched ? 'is-invalid border-danger' : 'border-0' ">
-                        Services
-                        <span *ngIf="!!editProjectForm.get('selectedServices').value.length"
-                          class="badge badge-light rounded-circle ml-2"
-                          style="color: #2985c4">{{editProjectForm.get('selectedServices').value.length}}</span>
-                      </button>
-                      <div *ngIf="editProjectForm.get('selectedServices').invalid && servicesTouched"
-                        class="invalid-feedback text-left">
-                        You must select at least one service!
+                  <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
+                    <div class="card-body">
+                      <div class="form-group row mx-auto mb-5">
+                        <button type="button" class="btn rounded-0 align-items-center align-text-top" style="background-color: #bfbdbe; color: #2880a9; font-size: 1rem; width: 100%;
+                                          font-weight: bold; margin-top: 0.5rem;" data-toggle="modal"
+                          data-target="#servicesModal"
+                          [style.color]="!!editProjectForm.get('selectedServices').value.length ? '#FFFFFF' : '#2985c4'"
+                          [style.font-weight]="!!editProjectForm.get('selectedServices').value.length ? 'normal' : 'bold'"
+                          [style.background-color]="!!editProjectForm.get('selectedServices').value.length ? '#2985c4' : '#BEBCBE'"
+                          [ngClass]="editProjectForm.get('selectedServices').invalid && servicesTouched ? 'is-invalid border-danger' : 'border-0' ">
+                          Services
+                          <span *ngIf="!!editProjectForm.get('selectedServices').value.length"
+                            class="badge badge-light rounded-circle ml-2"
+                            style="color: #2985c4">{{editProjectForm.get('selectedServices').value.length}}</span>
+                        </button>
+                        <div *ngIf="editProjectForm.get('selectedServices').invalid && servicesTouched"
+                          class="invalid-feedback text-left">
+                          You must select at least one service!
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="card" id="section-card">
-                <div class="card-header card-header-collapse" id="headingFive" data-toggle="collapse"
-                  data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                  <div class="row">
-                    <div class="col-9">
-                      <p class="text-left">Date</p>
-                    </div>
-                    <div class="col-3 text-right">
-                      <i class="fa fa-angle-down" aria-hidden="true"></i>
+                <div class="card" id="section-card">
+                  <div class="card-header card-header-collapse" id="headingFive" data-toggle="collapse"
+                    data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                    <div class="row">
+                      <div class="col-9">
+                        <p class="text-left">Date</p>
+                      </div>
+                      <div class="col-3 text-right">
+                        <i class="fa fa-angle-down" aria-hidden="true"></i>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordionExample">
-                  <div class="card-body">
-                    <div class="form-group row mx-auto mb-5">
-                      <div class="col-12">
-                        <div class="justify-content-center" style="margin-top: 1.5rem;">
-                          <label class="text-muted"><span>Initial Date</span></label>
-                          <div class="mb-3">
-                            <div class="input-group">
-                              <input class="form-control rounded-0" formControlName="startDate" id="validationTextarea"
-                                placeholder="yyyy-mm-dd" ngbDatepicker #startDatePicker="ngbDatepicker"
-                                style="height: 2.5rem;border-color:#2880a9;">
-                              <div class="input-group-append">
-                                <button class="btn btn-outline-secondary calendar rounded-0" (click)="startDatePicker.toggle()"
-                                  type="button" style="background-color:#2888C7 ;">
-                                  <i class="far fa-calendar-alt fa-lg" style="color: white;"></i>
-                                </button>
+                  <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordionExample">
+                    <div class="card-body">
+                      <div class="form-group row mx-auto mb-5">
+                        <div class="col-12">
+                          <div class="justify-content-center" style="margin-top: 1.5rem;">
+                            <label class="text-muted"><span>Initial Date</span></label>
+                            <div class="mb-3">
+                              <div class="input-group">
+                                <input class="form-control rounded-0" formControlName="startDate" id="validationTextarea"
+                                  placeholder="yyyy-mm-dd" ngbDatepicker #startDatePicker="ngbDatepicker"
+                                  style="height: 2.5rem;border-color:#2880a9;">
+                                <div class="input-group-append">
+                                  <button class="btn btn-outline-secondary calendar rounded-0" (click)="startDatePicker.toggle()"
+                                    type="button" style="background-color:#2888C7 ;">
+                                    <i class="far fa-calendar-alt fa-lg" style="color: white;"></i>
+                                  </button>
+                                </div>
                               </div>
                             </div>
                           </div>
@@ -185,66 +187,67 @@
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="modal fade rounded-0" id="servicesModal" data-backdrop="static" tabindex="-1" role="dialog"
-                aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered rounded-0" role="document">
-                  <div class="modal-content rounded-0 border-0">
-                    <div class="modal-header rounded-0" style="background-color: #2888C7; color: white;">
-                      <label>Services</label>
-                      <button type="button" class="close" (click)="servicesTouched = true" data-dismiss="modal"
-                        aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                    <div class="modal-body rounded-0">
-                      <div class="card col-12 h-100 px-0 mx-0">
-
-                        <div class="row justify-content-center px-2">
-                          <div *ngIf="editProjectForm.get('selectedServices').value.length > 0"
-                            class="col text-right mr-0 pr-0">
-                            <button class="btn btn-link" style="color:rgb(148,42,44);" (click)="clearServices()"
-                              data-toggle="tooltip" data-placement="top" title="Unselect all">
-                              <span class="fas fa-times"></span>
-                            </button>
-                          </div>
-                          <ng-select formControlName="selectedServices" class="text-center col-12" [items]="services"
-                            [multiple]="true" [closeOnSelect]="false" [hideSelected]="true" bindLabel="descriptionEs"
-                            bindLabel="descriptionEs" bindValue="id" [searchFn]="customSearchFn">
-                            <ng-template ng-option-tmp let-item="item">
-                              {{item.descriptionEs}}
-                            </ng-template>
-                          </ng-select>
-                        </div>
-
+              <div class="modal fade rounded-0" id="servicesModal" data-backdrop="static" tabindex="-1" role="dialog"
+                  aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered rounded-0" role="document">
+                    <div class="modal-content rounded-0 border-0">
+                      <div class="modal-header rounded-0" style="background-color: #2888C7; color: white;">
+                        <label>Services</label>
+                        <button type="button" class="close" (click)="servicesTouched = true" data-dismiss="modal"
+                          aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
                       </div>
-                    </div>
-                    <div class="modal-footer rounded-0">
-                      <button type="button" class="btn btn-previous rounded-0" data-dismiss="modal"
-                        style="background-color: #bfbdbe;color: #2880a9;"
-                        (click)="servicesTouched = true">Cancel</button>
-                      <button type="button" class="btn btn-send rounded-0" data-dismiss="modal"
-                        style="background-color: #2888C7;color: white;" (click)="servicesTouched = true">Accept</button>
+                      <div class="modal-body rounded-0">
+                        <div class="card col-12 h-100 px-0 mx-0">
+
+                          <div class="row justify-content-center px-2">
+                            <div *ngIf="editProjectForm.get('selectedServices').value.length > 0"
+                              class="col text-right mr-0 pr-0">
+                              <button class="btn btn-link" style="color:rgb(148,42,44);" (click)="clearServices()"
+                                data-toggle="tooltip" data-placement="top" title="Unselect all">
+                                <span class="fas fa-times"></span>
+                              </button>
+                            </div>
+                            <ng-select formControlName="selectedServices" class="text-center col-12" [items]="services"
+                              [multiple]="true" [closeOnSelect]="false" [hideSelected]="true" bindLabel="descriptionEs"
+                              bindLabel="descriptionEs" bindValue="id" [searchFn]="customSearchFn">
+                              <ng-template ng-option-tmp let-item="item">
+                                {{item.descriptionEs}}
+                              </ng-template>
+                            </ng-select>
+                          </div>
+
+                        </div>
+                      </div>
+                      <div class="modal-footer rounded-0">
+                        <button type="button" class="btn btn-previous rounded-0" data-dismiss="modal"
+                          style="background-color: #bfbdbe;color: #2880a9;"
+                          (click)="servicesTouched = true">Cancel</button>
+                        <button type="button" class="btn btn-send rounded-0" data-dismiss="modal"
+                          style="background-color: #2888C7;color: white;" (click)="servicesTouched = true">Accept</button>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-          </form>
-        </div>
-        <div class="card text-right">
-          <div class="card-footer accordion-footer rounded-0">
-            <button type="button"
-              class="col-4 col-xs-3 col-lg-2  btn btn-edit rounded-0 align-items-center align-text-top"
-              style="background-color: #2888C7; color: white; font-size: 1.25rem;" data-toggle="tooltip" title="Edit">
-              <i class="far fa-save mr-2 text-left font-weight-light align-self-center" style="font-size: 1.25rem;"></i>
-              Save
-            </button>
+            </form>
+          </div>
+          <div class="card text-right">
+            <div class="card-footer accordion-footer rounded-0">
+              <button type="button"
+                class="col-4 col-xs-3 col-lg-2  btn btn-edit rounded-0 align-items-center align-text-top"
+                style="background-color: #2888C7; color: white; font-size: 1.25rem;" data-toggle="tooltip" title="Edit" (click)="onEdit()">
+                <i class="far fa-save mr-2 text-left font-weight-light align-self-center" style="font-size: 1.25rem;"></i>
+                Save
+              </button>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+</ng-container>
+
 
 <div class="modal fade rounded-0" id="closeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
   aria-hidden="true">

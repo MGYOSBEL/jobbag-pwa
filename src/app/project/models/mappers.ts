@@ -16,18 +16,19 @@ export function projectFromDTO(projectDTO: ProjectDTO): Project {
 }
 
 export function projectToDTO(project: Project, userProfileId?: number): ProjectDTO {
-  return {
-    user_profile_id: !!userProfileId ? userProfileId : null,
+  const projectDTO = {
     start_date_expected: project.startDateExpected,
     name: project.name,
     description: project.description,
     state: project.state,
-    id: project.id || null,
+    id_project: project.id || null,
     remote: project.remote,
     divisions: project.divisions,
     services: project.services,
     interested_profiles: project.interestedProfiles
     };
+  return !!userProfileId ? {user_profile_id: userProfileId, ...projectDTO} : projectDTO;
+
 }
 
 export function projectStatusToString(status: ProjectState | 'INTEREST'): string {

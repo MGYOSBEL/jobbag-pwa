@@ -5,8 +5,10 @@ import { combineLatest } from 'rxjs';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Service } from '@app/user/models/services.model';
 import { Project } from '../models/project.model';
-import { dateToModel } from '@app/models/date.format';
+import { dateToModel, dateFromModel } from '@app/models/date.format';
 import { ServicesService } from '@app/user/services/services.service';
+import { ProjectService } from '../services/project.service';
+import { MessagesService } from '@app/services/messages.service';
 
 @Component({
   selector: 'app-edit-project',
@@ -32,17 +34,29 @@ export class EditProjectComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private servicesService: ServicesService,
+    private projectService: ProjectService,
     private formBuilder: FormBuilder,
+    private messages: MessagesService,
     private userService: UserService
   ) {
-    this.editProjectForm = this.formBuilder.group({
-      projectTitle: ['', Validators.required],
-      projectResume: [''],
-      selectedServices: [[], Validators.required],
-      divisions: [[], Validators.required],
-      startDate: [null],
-      onlineJob: [false]
-    });
+    const projectId = this.route.snapshot.params.id;
+    this.projectService.getProjectDetailByProfileType(this.userService.loggedUser.id, projectId).subscribe(
+      project => {
+        this.project = project;
+        console.log('edit project => ', project);
+        this.countryDivisions = project.divisions;
+        this.editProjectForm = this.formBuilder.group({
+          projectTitle: [project.name, Validators.required],
+          projectResume: [project.description],
+          selectedServices: [project.services, Validators.required],
+          divisions: [project.divisions, Validators.required],
+          startDate: dateFromModel(project.startDateExpected),
+          onlineJob: !!project.remote
+        });
+        console.log('formBuilder => ', this.editProjectForm.value
+        );
+      }
+    );
   }
 
   ngOnInit() {
@@ -105,12 +119,22 @@ export class EditProjectComponent implements OnInit {
       startDateExpected: dateToModel(this.editProjectForm.value.startDate),
       remote: this.editProjectForm.value.onlineJob,
       divisions: this.editProjectForm.value.divisions,
-      services: this.editProjectForm.value.selectedServices
+      services: this.editProjectForm.value.selectedServices,
+      id: this.project.id
     };
     return project;
   }
 
-onClose() {
-  this.router.navigateByUrl(this.dashboardRoute);
-}
+  onEdit() {
+    console.log('onEditCalled');
+    const project = this.formToModel();
+    this.projectService.edit(project).subscribe(
+      () => this.router.navigateByUrl(this.dashboardRoute),
+      err => this.messages.showErrors('There was an error editing the project. Try again Later')
+    );
+  }
+
+  onClose() {
+    this.router.navigateByUrl(this.dashboardRoute);
+  }
 }

@@ -28,7 +28,7 @@ export class ProjectService {
     private loading: LoadingService,
     private projectCache: ProjectCacheService
   ) {
-    this. projectsAlreadyLoadedForId = 0; // projects not loaded for any profileId
+    this.projectsAlreadyLoadedForId = 0; // projects not loaded for any profileId
   }
 
   // Crea un nuevo proyecto.
@@ -68,17 +68,17 @@ export class ProjectService {
   }
 
   // Obtener proyectos candidatos
-  getCandidateProjects(userProfileId: number, filters?: {services: number[], divisions: number[]}): Observable<Project[]> {
+  getCandidateProjects(userProfileId: number, filters?: { services: number[], divisions: number[] }): Observable<Project[]> {
     const request = {
       user_profile_id: userProfileId,
       ...filters
     };
     return this.http.post(`${environment.apiBaseURL}/project_candidate`, request).pipe(
       map(APIResponseToData),
-        catchError(err => throwError(err)),
-        map(arr => arr.map(projectFromDTO)),
-        shareReplay(),
-        tap()
+      catchError(err => throwError(err)),
+      map(arr => arr.map(projectFromDTO)),
+      shareReplay(),
+      tap()
     );
   }
 
@@ -104,14 +104,27 @@ export class ProjectService {
   // http://jobbag.api/api/user_profile/6/project/6
   getProjectDetailByProfileType(userProfileId: number, projectId): Observable<Project> {
     const projectDetail$ = this.http.get<APIResponse>(`${environment.apiBaseURL}/user_profile/${userProfileId}/project/${projectId}`)
-                            .pipe(
-                              map(APIResponseToData),
-                              catchError(err => throwError(err)),
-                              map(projectFromDTO),
-                              shareReplay(),
-                              tap(projectDetail => console.log('projectDetail => ', projectDetail))
-                            );
+      .pipe(
+        map(APIResponseToData),
+        catchError(err => throwError(err)),
+        map(projectFromDTO),
+        shareReplay()
+      );
     return this.loading.showLoaderUntilCompletes(projectDetail$);
+  }
+
+  edit(project: Project): Observable<Project> {
+    const request = projectToDTO(project);
+    console.log(JSON.stringify(request));
+    const editProject$ = this.http.put<APIResponse>(`${environment.apiBaseURL}/project`, request).pipe(
+      map(APIResponseToData),
+      catchError(err => throwError(err)),
+      map(projectFromDTO),
+      shareReplay(),
+      tap(responseProject => console.log('projectEdit => ', responseProject))
+    );
+
+    return this.loading.showLoaderUntilCompletes(editProject$);
   }
 
   addProjects(projects: Project[]) {
