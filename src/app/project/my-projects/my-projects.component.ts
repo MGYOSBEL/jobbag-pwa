@@ -88,7 +88,10 @@ export class MyProjectsComponent implements OnInit {
   }
 
   viewDetail(event) {
-    this.personalProjectService.viewDetail(event);
+    this.personalProjectService.viewDetail(this.userProfile.id, event);
+  }
+  onBackToList() {
+    this.personalProjectService.backToList();
   }
 
   onAction(event) {

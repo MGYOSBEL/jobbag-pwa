@@ -6,6 +6,7 @@ import { MessagesService } from '@app/services/messages.service';
 import { UserProfile } from '@app/user/models/user.model';
 import { UserProfileService } from '@app/user/services/user-profile.service';
 import { UserService } from '@app/user/services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-candidate-projects',
@@ -24,6 +25,7 @@ export class CandidateProjectsComponent implements OnInit {
   selectedCandidates$: Observable<number[]>;
   selectAll$ = new Observable<boolean>();
   previewProject$: Observable<Project>;
+  detailProject$: Observable<Project>;
   masterSelected$: Observable<boolean>;
 
   actionBar = [ProjectAction.Apply, ProjectAction.Delete, ProjectAction.SelectAll];
@@ -32,7 +34,8 @@ export class CandidateProjectsComponent implements OnInit {
   constructor(
     private userService: UserService,
     private candidateProjectService: CandidateProjectService,
-    private messages: MessagesService
+    private messages: MessagesService,
+    private router: Router
   ) {
     this.projectList$ = this.candidateProjects$;
     this.masterSelected$ = this.candidateProjectService.selectAll$;
@@ -49,7 +52,8 @@ export class CandidateProjectsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.previewProject$ = this.candidateProjectService.activeProject$;
+    this.previewProject$ = this.candidateProjectService.previewProject$;
+    this.detailProject$ = this.candidateProjectService.activeProject$;
     this.candidateProjectService.loadCandidatesByUserProfileId(this.userProfile.id);
   }
 
@@ -58,6 +62,7 @@ export class CandidateProjectsComponent implements OnInit {
   }
 
   onCardClicked(event) {
+    console.log(`clicked project ${event}`);
     this.candidateProjectService.preview(event);
   }
 
@@ -65,7 +70,7 @@ export class CandidateProjectsComponent implements OnInit {
     this.candidateProjectService.setMultiSelected(event);
   }
 
-  onActionBarFilter({status}) {
+  onActionBarFilter({ status }) {
     switch (status) {
       case ProjectState.NEW:
         this.projectList$ = this.candidateProjectService.candidateProjects$;
@@ -98,6 +103,15 @@ export class CandidateProjectsComponent implements OnInit {
         break;
     }
   }
+  // Se ejecuta cuando se da click en el detail del preview
+  onDetail(event) {
+    this.candidateProjectService.viewDetail(this.userProfile.id, event);
+  }
+  // Se ejecuta cuando se regresa a la lista
+  onBackToList() {
+    this.candidateProjectService.backToList();
+  }
+
 
   applyToCandidateProjects(projects: number[]) {
     this.candidateProjectService.registerInterest(this.userProfile.id, projects).subscribe(

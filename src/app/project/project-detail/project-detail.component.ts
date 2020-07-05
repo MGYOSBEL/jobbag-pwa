@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { ProjectService } from '../services/project.service';
 import { Project } from '../models/project.model';
 import { Observable } from 'rxjs';
@@ -18,6 +18,9 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
 
   @Input()
   project: Project;
+
+  @Output()
+  goBack = new EventEmitter();
 
   countries: Country[];
   services: Service[];
@@ -55,7 +58,8 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
   }
 
   backToList() {
-    this.personalProjectService.backToList();
+    // this.personalProjectService.backToList();
+    this.goBack.emit();
   }
 
   getDivisionsName(projectDivisions: number[]) {

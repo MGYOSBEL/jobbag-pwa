@@ -66,14 +66,15 @@ export class PersonalProjectService {
     );
   }
 
-  viewDetail(projectId: number) {
-    this.projectService.getProjectDetailByProfileType(this.userService.loggedUser.id, projectId).subscribe(
+  viewDetail(userProfileId: number, projectId: number) {
+    this.projectService.getProjectDetailByProfileType(userProfileId, projectId).subscribe(
       project => this.activeProjectSubject.next(project)
     );
   }
 
   backToList() {
     this.activeProjectSubject.next(null);
+    this.previewProjectSubject.next(null);
   }
 
   selectAll(state: boolean) {

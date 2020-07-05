@@ -5,6 +5,7 @@ import { Observable, BehaviorSubject, throwError } from 'rxjs';
 import { AuthenticationService } from '@app/auth/services/authentication.service';
 import { filter, tap, catchError, map } from 'rxjs/operators';
 import { PersonalProjectService } from './personal-project.service';
+import { UserService } from '@app/user/services/user.service';
 
 @Injectable()
 export class CandidateProjectService {
@@ -21,6 +22,9 @@ export class CandidateProjectService {
   multiSelectedProjects$: Observable<number[]> = this.multiSelectedProjectsSubject.asObservable();
 
 
+  private previewProjectSubject = new BehaviorSubject<Project>(null);
+  previewProject$: Observable<Project> = this.previewProjectSubject.asObservable();
+  // subject y observable para el project detail
   private activeProjectSubject = new BehaviorSubject<Project>(null);
   activeProject$: Observable<Project> = this.activeProjectSubject.asObservable();
 
@@ -31,6 +35,7 @@ export class CandidateProjectService {
   constructor(
     private projectService: ProjectService,
     private personalProjectService: PersonalProjectService,
+    private userService: UserService,
     private authenticationService: AuthenticationService
     ) {
       this.authenticationService.isLoggedIn$.pipe(
@@ -69,7 +74,7 @@ export class CandidateProjectService {
 
   resetcandidates() {
     this.candidatesSubject.next([]);
-    this.activeProjectSubject.next(null);
+    this.previewProjectSubject.next(null);
     this.selectAllSubject.next(false);
     this.multiSelectedProjectsSubject.next([]);
   }
@@ -96,7 +101,19 @@ export class CandidateProjectService {
 
   preview(projectId: number) {
     const candidates = this.candidatesSubject.value;
-    this.activeProjectSubject.next(candidates.find(proj => proj.id === projectId));
+    const interests = this.interestProjectsSubject.value;
+    const preview = candidates.find(proj => proj.id === projectId) || interests.find(proj => proj.id === projectId);
+    this.previewProjectSubject.next(preview);
+  }
+
+  viewDetail(userProfileId: number, projectId: number) {
+    this.projectService.getProjectDetailByProfileType(userProfileId, projectId).subscribe(
+      project => this.activeProjectSubject.next(project)
+    );
+  }
+  backToList() {
+    this.activeProjectSubject.next(null);
+    this.previewProjectSubject.next(null);
   }
 
   removeCandidates(projects: number[]) {

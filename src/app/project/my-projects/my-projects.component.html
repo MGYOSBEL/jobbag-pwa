@@ -1,5 +1,5 @@
 <ng-container *ngIf="detailProject$ | async as detailProject; else listTemplate">
-  <app-project-detail [project]="detailProject"></app-project-detail>
+  <app-project-detail [project]="detailProject" (goBack)="onBackToList()"></app-project-detail>
 </ng-container>
 <ng-template #listTemplate>
   <ng-container *ngIf="projects$ | async as projects">
