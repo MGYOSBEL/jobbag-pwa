@@ -43,7 +43,6 @@ export class EditProjectComponent implements OnInit {
     this.projectService.getProjectDetailByProfileType(this.userService.loggedUser.id, projectId).subscribe(
       project => {
         this.project = project;
-        console.log('edit project => ', project);
         this.countryDivisions = project.divisions;
         this.editProjectForm = this.formBuilder.group({
           projectTitle: [project.name, Validators.required],
@@ -53,8 +52,6 @@ export class EditProjectComponent implements OnInit {
           startDate: dateFromModel(project.startDateExpected),
           onlineJob: !!project.remote
         });
-        console.log('formBuilder => ', this.editProjectForm.value
-        );
       }
     );
   }
@@ -126,7 +123,6 @@ export class EditProjectComponent implements OnInit {
   }
 
   onEdit() {
-    console.log('onEditCalled');
     const project = this.formToModel();
     this.projectService.edit(project).subscribe(
       () => this.router.navigateByUrl(this.dashboardRoute),
