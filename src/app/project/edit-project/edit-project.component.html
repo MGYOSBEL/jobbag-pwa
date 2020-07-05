@@ -37,7 +37,7 @@
                   </div>
                   <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
                     <div class="card-body">
-                      <div class="form-group row mx-auto mb-5">
+                      <div class="form-group row mx-auto mt-3 mb-4">
                         <div class="col-12 px-0 form-label-group">
                           <!-- <label class="text-muted"><span>Project Title</span></label> -->
                           <input type="text" class="form-control input-lg rounded-0" id="projectTitle"
@@ -66,8 +66,8 @@
                   </div>
                   <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
                     <div class="card-body">
-                      <div class="form-group form-label-group mx-auto">
-                        <textarea class="form-control mt-5" maxlength="256" id="commentsInputText"
+                      <div class="form-group form-label-group mx-auto mt-3 mb-5">
+                        <textarea class="form-control" maxlength="256" id="commentsInputText"
                           style="height: 6rem; border-radius: 0;" formControlName="projectResume"
                           placeholder="Enter your project Resume..."></textarea>
                         <label style="font-weight: 100;" for="commentsInputText">Enter your project Resume...</label>
@@ -90,7 +90,7 @@
                   <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
                     <div class="card-body">
                       <div class="form-group row mx-auto mb-5">
-                        <div class="col-12 px-0 mx-0 h-100 mt-5">
+                        <div class="col-12 px-0 mx-0 h-100">
                           <div class="custom-control custom-checkbox mb-3 rounded-0"
                             style="display: flex;align-items: center;">
                             <input type="checkbox" class="custom-control-input rounded-0" id="onlineJob"
@@ -108,7 +108,6 @@
                           <div class="invalid-feedback text-left">
                             You must select at least one region!
                           </div>
-
                         </div>
                       </div>
                     </div>
@@ -128,9 +127,9 @@
                   </div>
                   <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
                     <div class="card-body">
-                      <div class="form-group row mx-auto mb-5">
+                      <div class="form-group row mx-auto mt-3 mb-5">
                         <button type="button" class="btn rounded-0 align-items-center align-text-top" style="background-color: #bfbdbe; color: #2880a9; font-size: 1rem; width: 100%;
-                                          font-weight: bold; margin-top: 0.5rem;" data-toggle="modal"
+                                          font-weight: bold;" data-toggle="modal"
                           data-target="#servicesModal"
                           [style.color]="!!editProjectForm.get('selectedServices').value.length ? '#FFFFFF' : '#2985c4'"
                           [style.font-weight]="!!editProjectForm.get('selectedServices').value.length ? 'normal' : 'bold'"
@@ -163,9 +162,9 @@
                   </div>
                   <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordionExample">
                     <div class="card-body">
-                      <div class="form-group row mx-auto mb-5">
+                      <div class="form-group row mx-auto mb-4">
                         <div class="col-12">
-                          <div class="justify-content-center" style="margin-top: 1.5rem;">
+                          <div class="justify-content-center">
                             <label class="text-muted"><span>Initial Date</span></label>
                             <div class="mb-3">
                               <div class="input-group">
