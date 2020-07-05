@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {Observable, interval, timer} from 'rxjs';
+import { Observable, interval, timer } from 'rxjs';
 // import {Message} from '../model/message';
-import {tap, take} from 'rxjs/operators';
+import { tap, take } from 'rxjs/operators';
 import { MessagesService } from '@app/services/messages.service';
 
 @Component({
@@ -16,6 +16,7 @@ export class MessagesComponent implements OnInit {
 
   errors$: Observable<string[]>;
   messages$: Observable<string[]>;
+
   errortimer$;
   messagetimer$;
   constructor(private messagesService: MessagesService) {
@@ -35,19 +36,21 @@ export class MessagesComponent implements OnInit {
 
   ngOnInit() {
     this.errors$ = this.messagesService.errors$
-    .pipe(
-      tap(() => {
-        this.errortimer$.subscribe();
-      }),
+      .pipe(
+        tap(() => {
+          this.showErrors = true;
+          this.errortimer$.subscribe();
+        })
 
-    );
+      );
     this.messages$ = this.messagesService.messages$
-    .pipe(
-      tap(() => {
-        this.messagetimer$.subscribe();
-      }),
+      .pipe(
+        tap((messages) => {
+          this.showMessages = true;
+          this.messagetimer$.subscribe();
+        })
 
-    );
+      );
   }
 
 

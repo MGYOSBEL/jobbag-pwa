@@ -84,7 +84,7 @@ export class CandidateProjectsComponent implements OnInit {
     this.candidateProjectService.registerInterest(this.userProfile.id, this.candidateProjectService.getMultiSelected()).subscribe(
       success => {
         if (success) {
-          console.log('Candidates set as interests');
+          this.messages.showMessages('You have succesfuly applied to the project(s)');
         } else {
           this.messages.showErrors('Some error applying. Try again later.');
         }

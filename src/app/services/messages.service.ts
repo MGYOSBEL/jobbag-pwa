@@ -22,6 +22,6 @@ export class MessagesService {
   }
 
   showMessages(...messages: string[]) {
-    this.errorSubject.next(messages);
+    this.messagesSubject.next(messages);
   }
 }
