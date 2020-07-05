@@ -45,14 +45,17 @@ export class MyProjectsComponent implements OnInit {
         this.personalProjectService.reset();
         this.userProfile = user.profiles.find(profile => profile.userProfileType === role);
         this.projects$ = role === 'CLIENT' ? personalProjectService.newProjects$ : personalProjectService.progressProjects$;
-        this.actionBar = [
+        const actions = [
           ProjectAction.Delete,
-          ProjectAction.SelectAll,
-          this.userProfile.userProfileType === 'CLIENT' ? ProjectAction.Create : null
+          ProjectAction.SelectAll
         ];
-        this.statusFilter = [ProjectState.FINISH, ProjectState.CANCEL, ProjectState.PROGRESS,
-                              this.userProfile.userProfileType === 'CLIENT' ? ProjectState.NEW : null
-      ];
+        this.actionBar = this.userProfile.userProfileType === 'CLIENT' ? [ProjectAction.Create, ...actions] : actions;
+        const filters = [
+          ProjectState.PROGRESS,
+          ProjectState.FINISH,
+          ProjectState.CANCEL
+        ];
+        this.statusFilter = this.userProfile.userProfileType === 'CLIENT' ? [ProjectState.NEW, ...filters ] : filters ;
 
       }
     );
