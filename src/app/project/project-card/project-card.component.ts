@@ -2,7 +2,7 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { Project, ProjectState } from '../models/project.model';
 import { CandidateProjectService } from '../services/candidate-project.service';
 import { timeInterval } from 'rxjs/operators';
-import { interval } from 'rxjs';
+import { interval, Observable } from 'rxjs';
 import { UserService } from '@app/user/services/user.service';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router'; // toEdit
 
@@ -16,6 +16,9 @@ export class ProjectCardComponent implements OnInit {
   @Input()
   project: Project;
 
+  @Input()
+  pressed$: Observable<number>;
+
   @Output() checked = new EventEmitter<{ state: boolean, projectId: number }>();
 
   @Output() clicked = new EventEmitter<number>();
@@ -25,6 +28,8 @@ export class ProjectCardComponent implements OnInit {
 
   @Input()
   cardMode: 'WIDE' | 'COMPACT';
+
+  isPressed: boolean;
 
   private userRole: string;
 
@@ -40,6 +45,10 @@ export class ProjectCardComponent implements OnInit {
   ngOnInit() {
     this.userRole = this.userService.role;
     console.log(this.userService.role);
+
+    this.pressed$.subscribe(
+      id => this.isPressed = (this.project.id === id)
+    );
   }
 
   onClick() {

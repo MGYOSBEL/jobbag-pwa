@@ -1,4 +1,5 @@
-<div class="card card-hover col-12" style="margin-bottom: 0.3rem; background-color: white;border-radius: 0; cursor: pointer;">
+<div class="card card-hover col-12" style="margin-bottom: 0.3rem; background-color: white;border-radius: 0; cursor: pointer;"
+    [ngClass]="isPressed ? 'card-selected' : ''">
   <div [ngStyle]="{'border-left':getColor()}"class="row vertical-align">
     <div class="card-select col-1">
       <input type="checkbox" [(ngModel)]="cardSelected" (change)="onCheck($event)">

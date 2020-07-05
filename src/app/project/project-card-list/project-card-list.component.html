@@ -4,6 +4,7 @@
     (checked)="onCardCheck($event)"
     [cardSelected]="masterSelected$ | async"
     [cardMode]="cardMode"
+    [pressed$]="pressedCard$"
     (clicked)="onCardClicked($event)"></app-project-card>
   </div>
 </ng-container>
