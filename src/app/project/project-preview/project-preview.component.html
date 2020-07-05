@@ -45,7 +45,7 @@
     <div class="col-12">
       <div style="font-size:small">
         <ul *ngIf="role === 'CLIENT';else providerDivisions">
-          <li  *ngFor="let division of getDivisionsName(previewProject.divisions)">
+          <li  *ngFor="let division of divisionsName">
             {{division}}
           </li>
         </ul>
@@ -65,7 +65,7 @@
     <div class="col-12">
       <div style="font-size:small">
         <ul *ngIf="role === 'CLIENT'; else providerServices">
-          <li *ngFor="let service of getServicesName(previewProject.services)">
+          <li *ngFor="let service of servicesName">
             {{service}}
           </li>
         </ul>

@@ -42,6 +42,9 @@ export class ProjectPreviewComponent implements OnInit {
   countries: Country[];
   services: Service[];
 
+  divisionsName: string[] = [];
+  servicesName: string[] = [];
+
   ngOnInit() {
     // this.previewProject$ = this.candidateProjectService.activeProject$;
 
@@ -52,11 +55,17 @@ export class ProjectPreviewComponent implements OnInit {
     );
 
     this.countryService.get().subscribe(
-      countries => this.countries = countries
+      countries => {
+        this.countries = countries;
+        this.divisionsName = this.getDivisionsName(this.previewProject.divisions);
+      }
     );
 
     this.servicesService.getAll().subscribe(
-      services => this.services = services
+      services => {
+        this.services = services;
+        this.servicesName = this.getServicesName(this.previewProject.services);
+      }
     );
   }
 
@@ -90,7 +99,7 @@ export class ProjectPreviewComponent implements OnInit {
   }
 
   onEditProject() {
-    this.router.navigateByUrl(`/project/id/edit`);
+    this.router.navigateByUrl(`/project/${this.previewProject.id}/edit`);
   }
 
 
