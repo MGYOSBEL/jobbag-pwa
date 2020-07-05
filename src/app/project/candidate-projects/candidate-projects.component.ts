@@ -52,6 +52,7 @@ export class CandidateProjectsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.projectList$ = this.candidateProjectService.candidateProjects$;
     this.previewProject$ = this.candidateProjectService.previewProject$;
     this.detailProject$ = this.candidateProjectService.activeProject$;
     this.candidateProjectService.loadCandidatesByUserProfileId(this.userProfile.id);
