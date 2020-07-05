@@ -49,8 +49,6 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
       }
     );
     // this.projectOwner = this.isLoggedUserProjectOwner();
-    console.log("Checking Project Details"+this.project);
-    console.log(JSON.stringify(this.project));
   }
 
   ngOnDestroy() {
