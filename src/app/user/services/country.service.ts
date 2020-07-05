@@ -4,7 +4,7 @@ import { environment } from '@environments/environment';
 import { catchError, map, tap, retry, count } from 'rxjs/operators';
 import { APIResponse } from '@app/models/app.model';
 import { Country } from '../models/country.model';
-import { Observable, throwError, of } from 'rxjs';
+import { Observable, throwError, of, BehaviorSubject } from 'rxjs';
 import { LoggingService } from '@app/services/logging.service';
 
 @Injectable({
@@ -12,10 +12,17 @@ import { LoggingService } from '@app/services/logging.service';
 })
 export class CountryService {
 
+  private subject = new BehaviorSubject<Country[]>([]);
+  countries$ = this.subject.asObservable();
+
   constructor(
     private logger: LoggingService,
     private http: HttpClient
-  ) { }
+  ) {
+    this.get().subscribe(
+      countries => this.subject.next(countries)
+    );
+  }
 
   get(): Observable<Country[]> {
     const countries: Country[] = JSON.parse(localStorage.getItem('countries'));

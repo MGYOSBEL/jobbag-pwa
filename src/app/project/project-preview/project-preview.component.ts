@@ -51,22 +51,23 @@ export class ProjectPreviewComponent implements OnInit {
     this.previewProject$.subscribe(
       project => {
         this.previewProject = project;
+        this.countryService.countries$.subscribe(
+          countries => {
+            this.countries = countries;
+            this.divisionsName = this.getDivisionsName(this.previewProject.divisions);
+          }
+        );
+
+        this.servicesService.services$.subscribe(
+          services => {
+            this.services = services;
+            this.servicesName = this.getServicesName(this.previewProject.services);
+          }
+        );
       }
     );
 
-    this.countryService.get().subscribe(
-      countries => {
-        this.countries = countries;
-        this.divisionsName = this.getDivisionsName(this.previewProject.divisions);
-      }
-    );
 
-    this.servicesService.getAll().subscribe(
-      services => {
-        this.services = services;
-        this.servicesName = this.getServicesName(this.previewProject.services);
-      }
-    );
   }
 
   getDivisionsName(projectDivisions: number[]) {
@@ -88,7 +89,7 @@ export class ProjectPreviewComponent implements OnInit {
           if (!success) {
             this.messages.showErrors('Error applying. Try again later.');
           } else {
-            console.log('Project added succesfully to your interests.');
+            this.messages.showMessages('You have applied to one or more projects succesfully.');
           }
         }
       );

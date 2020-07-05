@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { Observable, throwError, BehaviorSubject } from 'rxjs';
 import { APIResponse } from '@app/models/app.model';
 import { environment } from '@environments/environment';
 import { map, catchError, tap } from 'rxjs/operators';
@@ -12,10 +12,17 @@ import { LoggingService } from '@app/services/logging.service';
 })
 export class ServicesService {
 
+  private subject = new BehaviorSubject<Service[]>([]);
+  services$ = this.subject.asObservable();
+
   constructor(
     private logger: LoggingService,
     private http: HttpClient
-  ) { }
+  ) {
+    this.getAll().subscribe(
+      services => this.subject.next(services)
+    );
+   }
 
   getAll(): Observable<Service[]> {
     return this.http.get<APIResponse>(`${environment.apiBaseURL}/service`).pipe(
