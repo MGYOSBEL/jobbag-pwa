@@ -46,8 +46,9 @@ export class ProjectPreviewComponent implements OnInit {
     // this.previewProject$ = this.candidateProjectService.activeProject$;
 
     this.previewProject$.subscribe(
-      project => {this.previewProject = project;
-      console.log('preview project => ', project);}
+      project => {
+        this.previewProject = project;
+      }
     );
 
     this.countryService.get().subscribe(
@@ -88,7 +89,7 @@ export class ProjectPreviewComponent implements OnInit {
     this.detail.emit(this.previewProject.id);
   }
 
-  onEditProject(){
+  onEditProject() {
     this.router.navigateByUrl(`/project/id/edit`);
   }
 
