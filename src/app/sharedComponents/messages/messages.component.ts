@@ -11,14 +11,25 @@ import { MessagesService } from '@app/services/messages.service';
 })
 export class MessagesComponent implements OnInit {
 
+  showErrors = false;
   showMessages = false;
 
   errors$: Observable<string[]>;
-  timer$;
+  messages$: Observable<string[]>;
+  errortimer$;
+  messagetimer$;
   constructor(private messagesService: MessagesService) {
-    this.timer$ = interval(15000).pipe(
+    this.errortimer$ = interval(15000).pipe(
       take(1),
-      tap(() => this.showMessages = false)
+      tap(() => {
+        this.showErrors = false;
+      })
+    );
+    this.messagetimer$ = interval(15000).pipe(
+      take(1),
+      tap(() => {
+        this.showMessages = false;
+      })
     );
   }
 
@@ -26,17 +37,25 @@ export class MessagesComponent implements OnInit {
     this.errors$ = this.messagesService.errors$
     .pipe(
       tap(() => {
-        this.showMessages = true;
-        this.timer$.subscribe();
+        this.errortimer$.subscribe();
+      }),
+
+    );
+    this.messages$ = this.messagesService.messages$
+    .pipe(
+      tap(() => {
+        this.messagetimer$.subscribe();
       }),
 
     );
   }
 
 
-  onClose() {
+  onErrorClose() {
+    this.showErrors = false;
+  }
+  onMessageClose() {
     this.showMessages = false;
-
   }
 
 }

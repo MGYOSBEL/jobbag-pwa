@@ -115,13 +115,12 @@ export class ProjectService {
 
   edit(project: Project): Observable<Project> {
     const request = projectToDTO(project);
-    console.log(JSON.stringify(request));
     const editProject$ = this.http.put<APIResponse>(`${environment.apiBaseURL}/project`, request).pipe(
       map(APIResponseToData),
       catchError(err => throwError(err)),
       map(projectFromDTO),
       shareReplay(),
-      tap(responseProject => console.log('projectEdit => ', responseProject))
+      tap()
     );
 
     return this.loading.showLoaderUntilCompletes(editProject$);
