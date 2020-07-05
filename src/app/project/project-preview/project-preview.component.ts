@@ -38,6 +38,8 @@ export class ProjectPreviewComponent implements OnInit {
 
   @Output()
   detail = new EventEmitter<number>();
+  @Output()
+  apply = new EventEmitter<number>();
 
   countries: Country[];
   services: Service[];
@@ -85,16 +87,7 @@ export class ProjectPreviewComponent implements OnInit {
   }
 
   onApply() {
-    this.projectService.registerInterestProjects(this.userProfileId, [this.previewProject.id])
-      .subscribe(
-        success => {
-          if (!success) {
-            this.messages.showErrors('Error applying. Try again later.');
-          } else {
-            this.messages.showMessages('You have succesfully applied to the project.');
-          }
-        }
-      );
+    this.apply.emit(this.previewProject.id);
   }
 
   viewDetails() {

@@ -29,7 +29,8 @@
       <app-project-preview
         [userProfileId]="userProfile!.id"
         [role]="'SERVICE_PROVIDER'"
-        [previewProject$]="previewProject$"></app-project-preview>
+        [previewProject$]="previewProject$"
+        (apply)="onPreviewApply($event)"></app-project-preview>
     </div>
   </div>
 </div>

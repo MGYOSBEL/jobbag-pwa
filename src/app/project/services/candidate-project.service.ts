@@ -61,10 +61,10 @@ export class CandidateProjectService {
 
   addInterests(projects: Project[]) {
     const currentInterests = this.interestProjectsSubject.value;
-    console.log('currentInterests => ', currentInterests);
     const nextInterests = [...currentInterests, ...projects];
-    this.interestProjectsSubject.next(nextInterests);
-    console.log('interests after added => ', nextInterests);
+    this.interestProjectsSubject.next(nextInterests.map(elem => {
+      return {interest : true, ...elem};
+    }));
   }
 
   resetcandidates() {
@@ -85,10 +85,10 @@ export class CandidateProjectService {
     .pipe(
       catchError(err => throwError(err)),
       tap(() => {
-        this.uploadCandidates();
         const interests = this.candidatesSubject.value.filter(elem => projects.includes(elem.id));
-        console.log('interests ids => ', interests);
         this.addInterests(interests);
+
+        this.uploadCandidates(projects);
         this.preview(null);
       })
     );
@@ -105,10 +105,10 @@ export class CandidateProjectService {
     return newCandidates;
   }
 
-  uploadCandidates() {
-    const candidatesToRemove = this.multiSelectedProjectsSubject.value;
-    const newCandidates = this.removeCandidates(candidatesToRemove);
-    const addedCandidates = this.candidatesSubject.value.filter(elem => candidatesToRemove.find(id => id === elem.id));
+  uploadCandidates(projects: number[]) {
+    // const candidatesToRemove = this.multiSelectedProjectsSubject.value;
+    const newCandidates = this.removeCandidates(projects);
+    const addedCandidates = this.candidatesSubject.value.filter(elem => projects.find(id => id === elem.id));
     this.candidatesSubject.next(newCandidates);
     this.projectService.addProjects(addedCandidates);
 

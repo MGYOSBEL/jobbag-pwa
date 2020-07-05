@@ -78,10 +78,29 @@ export class CandidateProjectsComponent implements OnInit {
         break;
     }
   }
+  // Se llama cuando se da me interesa desde el preview
+  onPreviewApply(event) {
+    this.onApply([event]);
+  }
+  // Aplicar a un proyecto (me interesa)
+  onApply(projects: number[]) {
+    this.applyToCandidateProjects(projects);
+  }
+  // Respuesta a las acciones q se emiten desde el actionBar
+  onAction(event) {
+    switch (event) {
+      case ProjectAction.Apply:
+        const appliedCandidates = this.candidateProjectService.getMultiSelected();
+        this.onApply(appliedCandidates);
+        break;
 
-  onApply() {
-    console.log('applying candidates');
-    this.candidateProjectService.registerInterest(this.userProfile.id, this.candidateProjectService.getMultiSelected()).subscribe(
+      default:
+        break;
+    }
+  }
+
+  applyToCandidateProjects(projects: number[]) {
+    this.candidateProjectService.registerInterest(this.userProfile.id, projects).subscribe(
       success => {
         if (success) {
           this.messages.showMessages('You have succesfuly applied to the project(s)');
@@ -90,17 +109,6 @@ export class CandidateProjectsComponent implements OnInit {
         }
       }
     );
-  }
-
-  onAction(event) {
-    switch (event) {
-      case ProjectAction.Apply:
-        this.onApply();
-        break;
-
-      default:
-        break;
-    }
   }
 
 }
