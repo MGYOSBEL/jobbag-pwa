@@ -135,6 +135,4 @@ export class ProjectService {
     this.projectsSubject.next(newProjects);
   }
 
-
-
 }

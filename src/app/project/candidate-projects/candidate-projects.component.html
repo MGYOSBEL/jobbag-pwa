@@ -10,6 +10,7 @@
             [actions]="actionBar"
             (selectAll)="onSelectAll($event)"
             (action)="onAction($event)"
+            [canApply$]="canMultiselectedApply$"
             (filters)="onActionBarFilter($event)"
             [statusFilter]="statusFilter"></app-project-action-bar>
       </div>
@@ -33,6 +34,7 @@
         <app-project-preview
           [userProfileId]="userProfile!.id"
           [role]="'SERVICE_PROVIDER'"
+          [canApply$]="canPreviewApply$"
           [previewProject$]="previewProject$"
           (apply)="onPreviewApply($event)"
           (detail)="onDetail($event)"></app-project-preview>

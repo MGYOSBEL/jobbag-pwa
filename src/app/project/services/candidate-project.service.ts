@@ -7,6 +7,7 @@ import { filter, tap, catchError, map } from 'rxjs/operators';
 import { PersonalProjectService } from './personal-project.service';
 import { UserService } from '@app/user/services/user.service';
 
+const MULTISELECT_MAX_ALLOWED_APPLIES = 10;
 @Injectable()
 export class CandidateProjectService {
 
@@ -129,6 +130,25 @@ export class CandidateProjectService {
     this.candidatesSubject.next(newCandidates);
     this.projectService.addProjects(addedCandidates);
 
+  }
+
+  isInterest(projectId: number): boolean {
+    const interests = this.interestProjectsSubject.value;
+    return !!interests.find(project => project.id === projectId);
+  }
+
+  canApplyMultipleProjects(projects: number[]): boolean {
+    if (projects.length === 0 || projects.length > MULTISELECT_MAX_ALLOWED_APPLIES) {
+      return false;
+    }
+    const interests = this.interestProjectsSubject.value;
+    for (const iterator of projects) {
+      const interest = this.isInterest(iterator);
+      if (interest) {
+        return false;
+      }
+    }
+    return true;
   }
 
 

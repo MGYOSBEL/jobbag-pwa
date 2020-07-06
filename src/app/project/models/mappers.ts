@@ -31,7 +31,7 @@ export function projectToDTO(project: Project, userProfileId?: number): ProjectD
 
 }
 
-export function projectStatusToString(status: ProjectState | 'INTEREST'): string {
+export function projectStatusToString(status: ProjectState | 'INTEREST' | 'MIXED'): string {
   switch (status) {
     case ProjectState.CANCEL:
       return 'Canceled';
@@ -43,6 +43,8 @@ export function projectStatusToString(status: ProjectState | 'INTEREST'): string
       return 'In Progress';
     case 'INTEREST':
       return 'Interests';
+    case 'MIXED':
+      return 'Mixed view';
     default:
       break;
   }

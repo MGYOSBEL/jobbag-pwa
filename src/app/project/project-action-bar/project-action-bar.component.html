@@ -2,7 +2,7 @@
   <div class="row vertical-align py-2">
     <input *ngIf="SELECTALL" type="checkbox" style="margin-left: 1rem; margin-right: 1rem;"
       (change)="onSelectAll($event)" [(ngModel)]="selectAllCheckbox">
-    <button *ngIf="APPLY" class="btn col-2" type="button"
+    <button *ngIf="APPLY" [disabled]="!(canApply$ | async)" class="btn col-2" type="button"
       style=" background-color: #2888C7; color: white; border-radius: 0;" (click)="onAction('APPLY')">
       <i class="fab fa-telegram-plane"></i>
       Apply

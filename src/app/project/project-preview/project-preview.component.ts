@@ -35,6 +35,8 @@ export class ProjectPreviewComponent implements OnInit {
   userProfileId: number;
   @Input()
   role?: string;
+  @Input()
+  canApply$?: Observable<boolean>;
 
   @Output()
   detail = new EventEmitter<number>();

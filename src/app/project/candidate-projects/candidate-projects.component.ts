@@ -7,6 +7,7 @@ import { UserProfile } from '@app/user/models/user.model';
 import { UserProfileService } from '@app/user/services/user-profile.service';
 import { UserService } from '@app/user/services/user.service';
 import { Router } from '@angular/router';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-candidate-projects',
@@ -27,9 +28,10 @@ export class CandidateProjectsComponent implements OnInit {
   previewProject$: Observable<Project>;
   detailProject$: Observable<Project>;
   masterSelected$: Observable<boolean>;
-
+  canPreviewApply$: Observable<boolean>;
+  canMultiselectedApply$: Observable<boolean>;
   actionBar = [ProjectAction.Apply, ProjectAction.Delete, ProjectAction.SelectAll];
-  statusFilter = [ProjectState.NEW, 'INTEREST'];
+  statusFilter = ['MIXED', ProjectState.NEW, 'INTEREST'];
 
   constructor(
     private userService: UserService,
@@ -38,6 +40,7 @@ export class CandidateProjectsComponent implements OnInit {
     private router: Router
   ) {
     this.projectList$ = this.candidateProjects$;
+    this.canMultiselectedApply$ = of(false);
     this.masterSelected$ = this.candidateProjectService.selectAll$;
     this.selectedCandidates$ = this.candidateProjectService.multiSelectedProjects$;
     const userProfile$ = combineLatest(
@@ -52,10 +55,21 @@ export class CandidateProjectsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.projectList$ = this.candidateProjectService.candidateProjects$;
+    this.projectList$ = combineLatest(this.candidateProjectService.interestProjects$, this.candidateProjectService.candidateProjects$)
+          .pipe(
+            map(([interests, candidates] ) => [...interests, ...candidates ]));
     this.previewProject$ = this.candidateProjectService.previewProject$;
     this.detailProject$ = this.candidateProjectService.activeProject$;
     this.candidateProjectService.loadCandidatesByUserProfileId(this.userProfile.id);
+
+    this.previewProject$.subscribe(
+      project => {
+        if (project != null) {
+          const canApply = !this.candidateProjectService.isInterest(project.id);
+          this.canPreviewApply$ = of (canApply);
+        }
+      }
+    );
   }
 
   onSelectAll(state) {
@@ -63,12 +77,13 @@ export class CandidateProjectsComponent implements OnInit {
   }
 
   onCardClicked(event) {
-    console.log(`clicked project ${event}`);
     this.candidateProjectService.preview(event);
   }
 
   onSelectProjects(event) {
     this.candidateProjectService.setMultiSelected(event);
+    const canApply = this.candidateProjectService.canApplyMultipleProjects(event);
+    this.canMultiselectedApply$ = of (canApply);
   }
 
   onActionBarFilter({ status }) {
@@ -78,6 +93,11 @@ export class CandidateProjectsComponent implements OnInit {
         break;
       case 'INTEREST':
         this.projectList$ = this.candidateProjectService.interestProjects$;
+        break;
+      case 'MIXED':
+        this.projectList$ = combineLatest(this.candidateProjectService.interestProjects$, this.candidateProjectService.candidateProjects$)
+          .pipe(
+            map(([interests, candidates] ) => [...interests, ...candidates ]));
         break;
 
       default:

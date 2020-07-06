@@ -18,6 +18,9 @@ export class ProjectActionBarComponent implements OnInit {
   @Input()
   statusFilter: ProjectState[]; // Estados q se mostraran en el filter status select
 
+  @Input()
+  canApply$: Observable<boolean>;
+
   @Output()
   selectAll = new EventEmitter<boolean>(); // Evento emitido cuando se marca el check de selectAll
 
@@ -28,7 +31,7 @@ export class ProjectActionBarComponent implements OnInit {
   filters = new EventEmitter<{ // Se emite cada vez q se selecciona un filtro en el actionBar
     locations?: number[],
     services?: number[],
-    status?: ProjectState
+    status?: ProjectState | 'MIXED'
   }>();
 
   APPLY: boolean;
@@ -78,8 +81,9 @@ export class ProjectActionBarComponent implements OnInit {
   }
 
   onStatusFilter(event) {
+    const statusFilters = event.target.value;
     this.selectAll.emit(false);
     this.selectAllCheckbox = false;
-    this.filters.emit({ status: event.target.value });
+    this.filters.emit({ status: statusFilters });
   }
 }
