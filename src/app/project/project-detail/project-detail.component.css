@@ -14,12 +14,24 @@ border-left: 1px solid #605c61;
 /* height: 500px; */
 }
 
-.fas{
+.fas, .fa, .fab{
     color: #2888C7;
     font-size: 1.25rem;
 }
 
-.fas:hover{
+.fa, .fab{
+  font-size: 1.50rem !important;
+}
+
+.fa-chevron-circle-left{
+  color: #605c61 !important;
+}
+
+.fa-chevron-circle-left:hover{
+  color: #bebcbe !important;
+}
+
+.fas:hover, .fab:hover{
     color: #605c61;
 }
 
