@@ -36,8 +36,7 @@
           [role]="'SERVICE_PROVIDER'"
           [canApply$]="canPreviewApply$"
           [previewProject$]="previewProject$"
-          (apply)="onPreviewApply($event)"
-          (startExecution)="onStartExecution($event)"
+          (action)="onPreviewAction($event)"
           (detail)="onDetail($event)"></app-project-preview>
       </div>
     </div>

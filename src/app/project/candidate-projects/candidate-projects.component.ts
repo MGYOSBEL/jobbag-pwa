@@ -105,18 +105,45 @@ export class CandidateProjectsComponent implements OnInit {
     }
   }
   // Se llama cuando se da me interesa desde el preview
-  onPreviewApply(event) {
-    this.onApply([event]);
+  onPreviewAction({ projectId, action }) {
+    switch (action) {
+      case 'APPLY':
+        this.Apply([projectId]);
+        break;
+      case 'START':
+        this.StartExecution(projectId);
+        break;
+      case 'FINISH':
+        this.FinishExecution(projectId);
+        break;
+      case 'FINISH':
+        this.CancelExecution(projectId);
+        break;
+      default:
+        break;
+    }
+  }
+  CancelExecution(projectId: number) {
+    this.candidateProjectService.startExecution(projectId, this.userProfile.id).subscribe(
+      () => this.messages.showMessages('You have succesfully started a project execution. You can view it in My Projects tab.'),
+      err => this.messages.showErrors('There has been an error starting the project execution. Try it later.')
+    );
+  }
+  FinishExecution(projectId: number) {
+    this.candidateProjectService.startExecution(projectId, this.userProfile.id).subscribe(
+      () => this.messages.showMessages('You have succesfully started a project execution. You can view it in My Projects tab.'),
+      err => this.messages.showErrors('There has been an error starting the project execution. Try it later.')
+    );
   }
   // Comenzar la ejecucion de un proyecto
-  onStartExecution(projectId) {
+  StartExecution(projectId) {
     this.candidateProjectService.startExecution(projectId, this.userProfile.id).subscribe(
       () => this.messages.showMessages('You have succesfully started a project execution. You can view it in My Projects tab.'),
       err => this.messages.showErrors('There has been an error starting the project execution. Try it later.')
     );
   }
   // Aplicar a un proyecto (me interesa)
-  onApply(projects: number[]) {
+  Apply(projects: number[]) {
     this.applyToCandidateProjects(projects);
   }
   // Respuesta a las acciones q se emiten desde el actionBar
@@ -124,7 +151,7 @@ export class CandidateProjectsComponent implements OnInit {
     switch (event) {
       case ProjectAction.Apply:
         const appliedCandidates = this.candidateProjectService.getMultiSelected();
-        this.onApply(appliedCandidates);
+        this.Apply(appliedCandidates);
         break;
 
       default:

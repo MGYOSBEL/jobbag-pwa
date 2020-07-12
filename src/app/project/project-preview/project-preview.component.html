@@ -1,87 +1,97 @@
 <ng-container *ngIf="previewProject$ | async as previewProject">
 
-<div class="card col-12 rounded-0" >
-  <div class="row vertical-align py-1 preview-toolbar" style="z-index: 0;">
-    <div class="col-9">
-      <button class="btn col-5" type="button" *ngIf="canApply$ | async; else playTemplate" style=" background-color: #2888C7; color: white; border-radius: 0;"
-              (click)="onApply()">
-        <i class="fab fa-telegram-plane"></i>
-        Apply
-      </button>
-      <ng-template #playTemplate>
-        <button class="btn col-5" type="button" style=" background-color: #2888C7; color: white; border-radius: 0;"
-              (click)="onStartProjectExecution()">
-        <i class="fab fa-telegram-plane"></i>
-        Start
-      </button>
-      </ng-template>
+  <div class="card col-12 rounded-0">
+    <div class="row vertical-align py-1 preview-toolbar" style="z-index: 0;">
+      <div class="col-9">
+        <button class="btn col-5" type="button" *ngIf="canApply$ | async; else playTemplate"
+          style=" background-color: #2888C7; color: white; border-radius: 0;" (click)="onApply()">
+          <i class="fab fa-telegram-plane"></i>
+          Apply
+        </button>
+        <ng-template #playTemplate>
+          <button class="btn col-5" type="button" *ngIf="previewProject.state === 'NEW' && role === 'SERVICE_PROVIDER'"
+            style=" background-color: #2888C7; color: white; border-radius: 0;" (click)="onStartProjectExecution()">
+            <i class="fab fa-telegram-plane"></i>
+            Start
+          </button>
+          <button class="btn col-3" type="button" *ngIf="previewProject.state === 'PROGRESS'"
+            style=" background-color: #2888C7; color: white; border-radius: 0;" (click)="onFinishProjectExecution()">
+            <i class="fab fa-telegram-plane"></i>
+            Finish
+          </button>
+          <button class="btn col-3" type="button" *ngIf="previewProject.state === 'PROGRESS'"
+            style=" background-color: #2888C7; color: white; border-radius: 0;" (click)="onCancelProjectExecution()">
+            <i class="fab fa-telegram-plane"></i>
+            Cancel
+          </button>
+        </ng-template>
 
+      </div>
+      <div class="col-3 px-2 text-right">
+        <div class="reveal">
+          <button type="button" class="btn mx-2 px-1 rounded-0" alt="View">
+            <i class="fas fa-eye" style="color: #2888C7;" (click)="viewDetails()"></i></button>
+          <button type="button" class="btn mx-2 px-1 rounded-0" alt="Edit">
+            <i class="fas fa-edit" style="color: #2888C7;" (click)="onEditProject()"></i></button>
+          <button type="button" class="btn mx-2 px-1 rounded-0">
+            <i class="fas fa-trash" style="color: #2888C7;"></i></button>
+        </div>
+      </div>
     </div>
-    <div class="col-3 px-2 text-right">
-      <div class="reveal">
-        <button type="button" class="btn mx-2 px-1 rounded-0" alt="View">
-          <i class="fas fa-eye" style="color: #2888C7;" (click)="viewDetails()"></i></button>
-        <button type="button" class="btn mx-2 px-1 rounded-0" alt="Edit">
-          <i class="fas fa-edit" style="color: #2888C7;" (click)="onEditProject()"></i></button>
-        <button type="button" class="btn mx-2 px-1 rounded-0">
-          <i class="fas fa-trash" style="color: #2888C7;"></i></button>
+    <div class="row" style="background-color: #f1f1f1; color:#605c61;">
+      <div class="col-12">
+        <p class="project-title text-left my-2" style="color:#605c61; font-weight: light; font-size: 1.2rem;">
+          {{previewProject.name}}
+        </p>
+        <hr class="border-bottom mt-0">
+      </div>
+      <hr>
+      <div class="col-12">
+        <p style="font-size:medium">
+          {{previewProject.description}}
+        </p>
+      </div>
+    </div>
+    <div class="row" style="background-color: #f1f1f1;">
+      <div class="col-12">
+        <p class="project-title text-left my-2" style="color:#605c61; font-weight: light; font-size: 1.2rem;">
+          Required Locations
+        </p>
+        <hr class="border-bottom mt-0">
+      </div>
+      <hr>
+      <div class="col-12">
+        <div style="font-size:small">
+          <ul *ngIf="role === 'CLIENT';else providerDivisions">
+            <li *ngFor="let division of divisionsName">
+              {{division}}
+            </li>
+          </ul>
+          <ng-template #providerDivisions>
+            Your profile locations apply for this project. Click <i class="fas fa-eye"></i> for more details.
+          </ng-template>
+        </div>
+      </div>
+    </div>
+    <div class="row" style="background-color: #f1f1f1;">
+      <div class="col-12">
+        <p class="project-title text-left my-2" style="color:#605c61; font-weight: light; font-size: 1.2rem;">
+          Required Services
+        </p>
+        <hr class="border-bottom mt-0">
+      </div>
+      <div class="col-12">
+        <div style="font-size:small">
+          <ul *ngIf="role === 'CLIENT'; else providerServices">
+            <li *ngFor="let service of servicesName">
+              {{service}}
+            </li>
+          </ul>
+          <ng-template #providerServices>
+            Your profile services apply for this project. Click <i class="fas fa-eye"></i> for more details.
+          </ng-template>
+        </div>
       </div>
     </div>
   </div>
-  <div class="row" style="background-color: #f1f1f1; color:#605c61;">
-    <div class="col-12">
-      <p class="project-title text-left my-2" style="color:#605c61; font-weight: light; font-size: 1.2rem;">
-        {{previewProject.name}}
-      </p>
-      <hr class="border-bottom mt-0">
-    </div>
-    <hr>
-    <div class="col-12">
-      <p style="font-size:medium">
-        {{previewProject.description}}
-      </p>
-    </div>
-  </div>
-  <div class="row" style="background-color: #f1f1f1;">
-    <div class="col-12">
-      <p class="project-title text-left my-2" style="color:#605c61; font-weight: light; font-size: 1.2rem;">
-        Required Locations
-      </p>
-      <hr class="border-bottom mt-0">
-    </div>
-    <hr>
-    <div class="col-12">
-      <div style="font-size:small">
-        <ul *ngIf="role === 'CLIENT';else providerDivisions">
-          <li  *ngFor="let division of divisionsName">
-            {{division}}
-          </li>
-        </ul>
-        <ng-template #providerDivisions>
-          Your profile locations apply for this project. Click <i class="fas fa-eye"></i> for more details.
-        </ng-template>
-      </div>
-    </div>
-  </div>
-  <div class="row" style="background-color: #f1f1f1;">
-    <div class="col-12">
-      <p class="project-title text-left my-2" style="color:#605c61; font-weight: light; font-size: 1.2rem;">
-        Required Services
-      </p>
-      <hr class="border-bottom mt-0">
-    </div>
-    <div class="col-12">
-      <div style="font-size:small">
-        <ul *ngIf="role === 'CLIENT'; else providerServices">
-          <li *ngFor="let service of servicesName">
-            {{service}}
-          </li>
-        </ul>
-        <ng-template #providerServices>
-          Your profile services apply for this project. Click <i class="fas fa-eye"></i> for more details.
-        </ng-template>
-      </div>
-    </div>
-  </div>
-</div>
 </ng-container>
