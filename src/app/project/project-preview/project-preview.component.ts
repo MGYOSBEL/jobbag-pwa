@@ -108,13 +108,13 @@ export class ProjectPreviewComponent implements OnInit {
 
   onFinishProjectExecution() {
     this.action.emit({
-      projectId: this.previewProject.id,
+      projectId: this.previewProject.executionId,
       action: 'FINISH'
     });
   }
   onCancelProjectExecution() {
     this.action.emit({
-      projectId: this.previewProject.id,
+      projectId: this.previewProject.executionId,
       action: 'CANCEL'
     });
 
