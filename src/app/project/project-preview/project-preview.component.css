@@ -18,3 +18,14 @@ li::before {
   z-index: 1;
 }
 
+.cancel-btn, .finish-btn{
+  width: 1.25rem;
+}
+
+.cancel-btn:hover, .edit-btn:hover{
+  fill: #605c61;
+}
+
+.btn-space{
+  margin-right: 5px;
+}
