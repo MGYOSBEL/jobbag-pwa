@@ -151,5 +151,18 @@ export class CandidateProjectService {
     return true;
   }
 
+  startExecution(projectId: number, userProfileId: number) {
+    return this.projectService.registerProjectExecution(projectId, userProfileId).pipe(
+      catchError(err => throwError(err)),
+      tap(project => {
+        this.preview(null);
+        const interests = this.interestProjectsSubject.value;
+        const index = interests.findIndex(elem => elem.id === project.id);
+        interests.splice(index, 1);
+        this.personalProjectService.addPersonalProject(project);
+        this.interestProjectsSubject.next(interests);
+      })
+    );
+  }
 
 }
