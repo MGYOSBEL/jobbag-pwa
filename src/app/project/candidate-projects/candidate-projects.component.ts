@@ -7,7 +7,8 @@ import { UserProfile } from '@app/user/models/user.model';
 import { UserProfileService } from '@app/user/services/user-profile.service';
 import { UserService } from '@app/user/services/user.service';
 import { Router } from '@angular/router';
-import { map } from 'rxjs/operators';
+import { map, filter } from 'rxjs/operators';
+import { filterByLocation, filterByService } from '../models/filters';
 
 @Component({
   selector: 'app-candidate-projects',
@@ -18,7 +19,7 @@ import { map } from 'rxjs/operators';
 export class CandidateProjectsComponent implements OnInit {
 
   userProfile: UserProfile;
-
+  selectedDivisionsFilter: number[] = [];
   projectList$: Observable<Project[]>;
 
   candidateProjects$: Observable<Project[]>;
@@ -32,6 +33,9 @@ export class CandidateProjectsComponent implements OnInit {
   canMultiselectedApply$: Observable<boolean>;
   actionBar = [ProjectAction.Apply, ProjectAction.Delete, ProjectAction.SelectAll];
   statusFilter = ['MIXED', ProjectState.NEW, 'INTEREST'];
+  locationFilter: number[];
+  servicesFilter: number[];
+  currentStatusFilter: string;
 
   constructor(
     private userService: UserService,
@@ -50,14 +54,17 @@ export class CandidateProjectsComponent implements OnInit {
     userProfile$.subscribe(
       ([user, role]) => {
         this.userProfile = user.profiles.find(profile => profile.userProfileType === role);
+        this.locationFilter = this.userProfile.divisions;
+        this.servicesFilter = this.userProfile.services;
       }
     );
   }
 
   ngOnInit() {
     this.projectList$ = combineLatest(this.candidateProjectService.interestProjects$, this.candidateProjectService.candidateProjects$)
-          .pipe(
-            map(([interests, candidates] ) => [...interests, ...candidates ]));
+      .pipe(
+        map(([interests, candidates]) => [...interests, ...candidates]),
+        map(projects => filterByLocation(projects, this.locationFilter)));
     this.previewProject$ = this.candidateProjectService.previewProject$;
     this.detailProject$ = this.candidateProjectService.activeProject$;
     this.candidateProjectService.loadCandidatesByUserProfileId(this.userProfile.id);
@@ -66,7 +73,7 @@ export class CandidateProjectsComponent implements OnInit {
       project => {
         if (project != null) {
           const canApply = !this.candidateProjectService.isInterest(project.id);
-          this.canPreviewApply$ = of (canApply);
+          this.canPreviewApply$ = of(canApply);
         }
       }
     );
@@ -83,21 +90,41 @@ export class CandidateProjectsComponent implements OnInit {
   onSelectProjects(event) {
     this.candidateProjectService.setMultiSelected(event);
     const canApply = this.candidateProjectService.canApplyMultipleProjects(event);
-    this.canMultiselectedApply$ = of (canApply);
+    this.canMultiselectedApply$ = of(canApply);
   }
 
-  onActionBarFilter({ status }) {
+  onActionBarFilter({ status, locations }) {
+    if (!!locations) {
+      this.locationFilter = locations;
+    }
+    this.filterProjectsByStatus(!!status ? status : this.currentStatusFilter);
+    this.candidateProjectService.preview(null);
+  }
+  // Filtrar proyectos por estado
+  filterProjectsByStatus(status) {
+    this.currentStatusFilter = status;
     switch (status) {
       case ProjectState.NEW:
-        this.projectList$ = this.candidateProjectService.candidateProjects$;
+        this.projectList$ = this.candidateProjectService.candidateProjects$
+        .pipe(
+          map(projects => filterByLocation(projects, this.locationFilter)),
+          map(projects => filterByService(projects, this.servicesFilter))
+          );
         break;
       case 'INTEREST':
-        this.projectList$ = this.candidateProjectService.interestProjects$;
+        this.projectList$ = this.candidateProjectService.interestProjects$
+        .pipe(
+          map(projects => filterByLocation(projects, this.locationFilter)),
+          map(projects => filterByService(projects, this.servicesFilter))
+          );
         break;
       case 'MIXED':
         this.projectList$ = combineLatest(this.candidateProjectService.interestProjects$, this.candidateProjectService.candidateProjects$)
           .pipe(
-            map(([interests, candidates] ) => [...interests, ...candidates ]));
+            map(([interests, candidates]) => [...interests, ...candidates]),
+            map(projects => filterByLocation(projects, this.locationFilter)),
+            map(projects => filterByService(projects, this.servicesFilter))
+            );
         break;
 
       default:
@@ -146,4 +173,8 @@ export class CandidateProjectsComponent implements OnInit {
     );
   }
 
+
+  onDivisionsSelect(event) {
+    this.selectedDivisionsFilter = event;
+  }
 }

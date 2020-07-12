@@ -4,20 +4,33 @@
 @import "../node_modules/@ng-select/ng-select/themes/material.theme.css";
 @import "./assets/icons/iconfont/style.css";
 
-
-
-
 /* ng-select style customization */
 
-
-.ng-clear-wrapper {
-display: none;}
-
-.ng-clear {
-display: none;
+.ng-select.custom-ng-select {
+  border: 0px;
+  display: block;
+  min-height: 0px;
+  -moz-border-radius: 0px !important;
+  -webkit-border-radius: 0px !important;
+  border-color: #2888c7 !important;
+  border-radius: 0px !important;
+  padding-bottom: 0px;
+}
+.ng-select.custom-ng-select .ng-select-container.ng-appearance-outline {
+  min-height: 0px;
+  border-color: #2888c7 !important;
+  -moz-border-radius: 0px !important;
+  -webkit-border-radius: 0px !important;
+  border-radius: 0px !important;
 }
 
+.ng-clear-wrapper {
+  display: none;
+}
 
+.ng-clear {
+  display: none;
+}
 
 /* <<<<<<<<<<<<<<<<<<<<<<<<<< */
 
@@ -86,24 +99,31 @@ display: none;
   transform: scale(0.9);
 }
 
-
 /* Firefox columnBarStyle */
-.scroll-host, .fontawesome-i2svg-active, .modal, body{
-  scrollbar-color: #2888C7 #BEBCBE;
+.scroll-host,
+.fontawesome-i2svg-active,
+.modal,
+body {
+  scrollbar-color: #2888c7 #bebcbe;
   scrollbar-width: thin;
 }
 
-.modal::-webkit-scrollbar, body::-webkit-scrollbar, .scroll-host::-webkit-scrollbar{
+.modal::-webkit-scrollbar,
+body::-webkit-scrollbar,
+.scroll-host::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
-.modal::-webkit-scrollbar-track, body::-webkit-scrollbar-track, .scroll-host::-webkit-scrollbar-track{
-  background-color:#BEBCBE;
+.modal::-webkit-scrollbar-track,
+body::-webkit-scrollbar-track,
+.scroll-host::-webkit-scrollbar-track {
+  background-color: #bebcbe;
   border-radius: 0;
 }
 
-.modal::-webkit-scrollbar-thumb, body::-webkit-scrollbar-thumb, .scroll-host::-webkit-scrollbar-thumb{
-  background-color: #2888C7;
+.modal::-webkit-scrollbar-thumb,
+body::-webkit-scrollbar-thumb,
+.scroll-host::-webkit-scrollbar-thumb {
+  background-color: #2888c7;
   border-radius: 0;
-
 }
