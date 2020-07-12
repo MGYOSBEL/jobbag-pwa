@@ -147,7 +147,7 @@ export class MyProjectsComponent implements OnInit {
       case 'FINISH':
         this.finishExecution(projectId);
         break;
-      case 'FINISH':
+      case 'CANCEL':
         this.cancelExecution(projectId);
         break;
       default:
