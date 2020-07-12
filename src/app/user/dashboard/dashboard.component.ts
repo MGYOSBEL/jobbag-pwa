@@ -35,14 +35,14 @@ export class DashboardComponent implements OnInit {
     private router: Router,
     private logging: LoggingService) {
 
-      this.loggedUser$ = this.userService.loggedUser$;
-      this.userService.role$.subscribe(role => {
-        this.role = role;
-        if (!! this.loggedUser) {
-          this.activeProfile = this.loggedUser.profiles.find(profile => profile.userProfileType === this.role);
-        }
-      });
-      this.obtainActiveTab();
+    this.loggedUser$ = this.userService.loggedUser$;
+    this.userService.role$.subscribe(role => {
+      this.role = role;
+      if (!!this.loggedUser) {
+        this.activeProfile = this.loggedUser.profiles.find(profile => profile.userProfileType === this.role);
+      }
+    });
+    this.obtainActiveTab();
   }
 
   ngOnInit() {
@@ -55,12 +55,12 @@ export class DashboardComponent implements OnInit {
     ).subscribe(() => {
       if (this.loggedUser) {
         this.activeProfile = this.loggedUser.profiles.find(profile => profile.userProfileType === this.role);
-        }
+      }
     }
     );
     this.loggedUser$.subscribe(user => {
       this.loggedUser = user;
-      if (!! this.loggedUser) {
+      if (!!this.loggedUser) {
         this.activeProfile = this.loggedUser.profiles.find(profile => profile.userProfileType === this.role);
       }
     });
@@ -68,7 +68,7 @@ export class DashboardComponent implements OnInit {
     // this.projects$ = this.projectService.projects$;
     this.router.navigate([`/user/${this.loggedUser.id}/${this.role}`]);
 
-    this.saveActiveTab(this.activeTab);
+    this.obtainActiveTab();
   }
 
   onCreateProject() {
@@ -83,23 +83,14 @@ export class DashboardComponent implements OnInit {
     this.router.navigate(['']);
   }
 
-  saveActiveTab(activeTab){
+  saveActiveTab(activeTab) {
     this.activeTab = activeTab;
     localStorage.setItem('activeTab', this.activeTab);
   }
 
-  obtainActiveTab(){
-    if(this.activeTab == null){
-      this.activeTab = 'navHome';
-      this.saveActiveTab(this.activeTab);
-    }
-    else
-    {
-      this.activeTab = localStorage.getItem('activeTab');
-    }
-
+  obtainActiveTab() {
     const savedTab = localStorage.getItem('activeTab');
-    this.activeTab = !! savedTab ? savedTab : 'naveHome';
+    this.activeTab = !!savedTab ? savedTab : 'navHome';
   }
 
 
