@@ -2,18 +2,20 @@
 <!-- <app-navbar></app-navbar> -->
 <nav class="mt-4">
   <div class="nav nav-tabs row my-0 px-0 mx-2" id="nav-tab" role="tablist">
-    <a class="nav-item nav-link active col-3 border-0 rounded-0 ml-0 mr-2 text-uppercase" id="nav-home-tab"
-      data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Dashboard</a>
-    <a class="nav-item nav-link col-3 border-0 mx-2 rounded-0 text-uppercase" id="nav-profile-tab" data-toggle="tab"
-      href="#nav-profile" *ngIf="role === 'SERVICE_PROVIDER'" role="tab" aria-controls="nav-profile"
-      aria-selected="false">Candidate Projects</a>
+    <a class="nav-item nav-link col-3 border-0 rounded-0 ml-0 mr-2 text-uppercase" id="nav-home-tab"
+      data-toggle="tab" href="#nav-home" [ngClass]="{'show active':activeTab==='navHome'}"
+       role="tab" aria-controls="nav-home" aria-selected="true" (click)="saveActiveTab('navHome')">Dashboard</a>
+       <a class="nav-item nav-link col-3 border-0 mx-2 rounded-0 text-uppercase" id="nav-profile-tab" data-toggle="tab"
+      href="#nav-profile" *ngIf="role === 'SERVICE_PROVIDER'"
+      role="tab" aria-controls="nav-profile" aria-selected="false">Candidate Projects</a>
     <a class="nav-item nav-link col-3 border-0 mr-0 ml-2 rounded-0 text-uppercase" id="nav-contact-tab"
-      data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">My Projects</a>
+      data-toggle="tab" href="#nav-contact" [ngClass]="{'show active':activeTab==='navContact'}"
+      role="tab" aria-controls="nav-contact" aria-selected="false" (click)="saveActiveTab('navContact')">My Projects</a>
   </div>
 
 </nav>
 <div class="tab-content" id="nav-tabContent">
-  <div class="tab-pane fade navitem-container show active " id="nav-home" role="tabpanel"
+  <div class="tab-pane fade navitem-container" id="nav-home" [ngClass]="{ 'show active':activeTab==='navHome'}" role="tabpanel"
     aria-labelledby="nav-home-tab">
     <div class="container-fluid align-items-center" id="navitem-one-container">
       <div class="row">
@@ -56,7 +58,7 @@
     *ngIf="role === 'SERVICE_PROVIDER'">
     <app-candidate-projects></app-candidate-projects>
   </div>
-  <div class="tab-pane fade navitem-container" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab"
+  <div class="tab-pane fade navitem-container" id="nav-contact" [ngClass]="{ 'show active':activeTab==='navContact'}" role="tabpanel" aria-labelledby="nav-contact-tab"
     *ngIf="!!activeProfile">
     <app-my-projects></app-my-projects>
   </div>
