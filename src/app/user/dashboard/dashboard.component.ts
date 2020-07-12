@@ -68,8 +68,7 @@ export class DashboardComponent implements OnInit {
     // this.projects$ = this.projectService.projects$;
     this.router.navigate([`/user/${this.loggedUser.id}/${this.role}`]);
 
-    this.activeTab == 'navHome';
-    localStorage.setItem('activeTab', JSON.stringify(this.activeTab));
+    this.saveActiveTab(this.activeTab);
   }
 
   onCreateProject() {
@@ -98,6 +97,9 @@ export class DashboardComponent implements OnInit {
     {
       this.activeTab = localStorage.getItem('activeTab');
     }
+
+    const savedTab = localStorage.getItem('activeTab');
+    this.activeTab = !! savedTab ? savedTab : 'naveHome';
   }
 
 
