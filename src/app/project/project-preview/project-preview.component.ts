@@ -42,6 +42,8 @@ export class ProjectPreviewComponent implements OnInit {
   detail = new EventEmitter<number>();
   @Output()
   apply = new EventEmitter<number>();
+  @Output()
+  startExecution = new EventEmitter<number>();
 
   countries: Country[];
   services: Service[];
@@ -90,6 +92,10 @@ export class ProjectPreviewComponent implements OnInit {
 
   onApply() {
     this.apply.emit(this.previewProject.id);
+  }
+
+  onStartProjectExecution() {
+    this.startExecution.emit(this.previewProject.id);
   }
 
   viewDetails() {

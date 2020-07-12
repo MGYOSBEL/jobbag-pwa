@@ -66,6 +66,12 @@ export class PersonalProjectService {
     );
   }
 
+  addPersonalProject(project: Project) {
+    const projects = this.personalProjectsSubject.value;
+    projects.push(project);
+    this.personalProjectsSubject.next(projects);
+  }
+
   viewDetail(userProfileId: number, projectId: number) {
     this.projectService.getProjectDetailByProfileType(userProfileId, projectId).subscribe(
       project => this.activeProjectSubject.next(project)

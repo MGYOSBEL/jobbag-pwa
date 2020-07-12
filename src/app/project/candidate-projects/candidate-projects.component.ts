@@ -56,8 +56,8 @@ export class CandidateProjectsComponent implements OnInit {
 
   ngOnInit() {
     this.projectList$ = combineLatest(this.candidateProjectService.interestProjects$, this.candidateProjectService.candidateProjects$)
-          .pipe(
-            map(([interests, candidates] ) => [...interests, ...candidates ]));
+      .pipe(
+        map(([interests, candidates]) => [...interests, ...candidates]));
     this.previewProject$ = this.candidateProjectService.previewProject$;
     this.detailProject$ = this.candidateProjectService.activeProject$;
     this.candidateProjectService.loadCandidatesByUserProfileId(this.userProfile.id);
@@ -66,7 +66,7 @@ export class CandidateProjectsComponent implements OnInit {
       project => {
         if (project != null) {
           const canApply = !this.candidateProjectService.isInterest(project.id);
-          this.canPreviewApply$ = of (canApply);
+          this.canPreviewApply$ = of(canApply);
         }
       }
     );
@@ -83,7 +83,7 @@ export class CandidateProjectsComponent implements OnInit {
   onSelectProjects(event) {
     this.candidateProjectService.setMultiSelected(event);
     const canApply = this.candidateProjectService.canApplyMultipleProjects(event);
-    this.canMultiselectedApply$ = of (canApply);
+    this.canMultiselectedApply$ = of(canApply);
   }
 
   onActionBarFilter({ status }) {
@@ -97,7 +97,7 @@ export class CandidateProjectsComponent implements OnInit {
       case 'MIXED':
         this.projectList$ = combineLatest(this.candidateProjectService.interestProjects$, this.candidateProjectService.candidateProjects$)
           .pipe(
-            map(([interests, candidates] ) => [...interests, ...candidates ]));
+            map(([interests, candidates]) => [...interests, ...candidates]));
         break;
 
       default:
@@ -107,6 +107,13 @@ export class CandidateProjectsComponent implements OnInit {
   // Se llama cuando se da me interesa desde el preview
   onPreviewApply(event) {
     this.onApply([event]);
+  }
+  // Comenzar la ejecucion de un proyecto
+  onStartExecution(projectId) {
+    this.candidateProjectService.startExecution(projectId, this.userProfile.id).subscribe(
+      () => this.messages.showMessages('You have succesfully started a project execution. You can view it in My Projects tab.'),
+      err => this.messages.showErrors('There has been an error starting the project execution. Try it later.')
+    );
   }
   // Aplicar a un proyecto (me interesa)
   onApply(projects: number[]) {
