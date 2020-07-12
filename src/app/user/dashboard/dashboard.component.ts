@@ -68,8 +68,7 @@ export class DashboardComponent implements OnInit {
     // this.projects$ = this.projectService.projects$;
     this.router.navigate([`/user/${this.loggedUser.id}/${this.role}`]);
 
-    this.activeTab == 'navHome';
-    localStorage.setItem('activeTab', JSON.stringify(this.activeTab));
+    this.saveActiveTab('navHome');
   }
 
   onCreateProject() {
