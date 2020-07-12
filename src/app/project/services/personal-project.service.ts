@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ProjectService } from './project.service';
-import { BehaviorSubject, Observable, combineLatest } from 'rxjs';
+import { BehaviorSubject, Observable, combineLatest, throwError } from 'rxjs';
 import { Project, ProjectState } from '../models/project.model';
-import { map, tap } from 'rxjs/operators';
+import { map, tap, catchError } from 'rxjs/operators';
 import { UserProfile } from '@app/user/models/user.model';
 import { UserService } from '@app/user/services/user.service';
 import { LoadingService } from '@app/services/loading.service';
@@ -96,5 +96,18 @@ export class PersonalProjectService {
   preview(projectId: number) {
     const projects = this.personalProjectsSubject.value;
     this.previewProjectSubject.next(projects.find(proj => proj.id === projectId));
+  }
+
+  updateExecution(executionId: number, state: 'FINISH' | 'CANCELED') {
+    return this.projectService.updateProjectExecution(executionId, state).pipe(
+      catchError(err => throwError(err)),
+      tap(project => {
+        this.preview(null);
+        const projects = this.personalProjectsSubject.value;
+        const index = projects.findIndex(elem => elem.id === project.id);
+        projects[index] = project;
+        this.personalProjectsSubject.next(projects);
+      })
+    );
   }
 }

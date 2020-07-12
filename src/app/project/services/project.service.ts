@@ -148,4 +148,18 @@ export class ProjectService {
     return this.loading.showLoaderUntilCompletes(execution$);
   }
 
+  updateProjectExecution(id: number, state: 'FINISH' | 'CANCELED'): Observable<Project> {
+    const request = { id, state };
+    const execution$ = this.http.put(`${environment.apiBaseURL}/project_execution`, request).pipe(
+      map(APIResponseToData),
+      catchError(err => throwError(err)),
+      map(execution => projectFromExecution(execution)),
+      shareReplay(),
+      tap((project) => {
+        console.log(project);
+      })
+    );
+    return this.loading.showLoaderUntilCompletes(execution$);
+  }
+
 }
