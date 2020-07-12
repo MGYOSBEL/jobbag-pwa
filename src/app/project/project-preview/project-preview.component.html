@@ -4,13 +4,13 @@
     <div class="row vertical-align py-1 preview-toolbar" style="z-index: 0;">
       <div class="col-9">
         <button class="btn col-5" type="button" *ngIf="canApply$ | async; else playTemplate"
-          style=" background-color: #a1d173; color: white; border-radius: 0;" (click)="onApply()">
+          style=" background-color: #2888C7; color: white; border-radius: 0;" (click)="onApply()">
           <i class="fab fa-telegram-plane"></i>
           Apply
         </button>
         <ng-template #playTemplate>
           <button class="btn col-5" type="button" *ngIf="previewProject.state === 'NEW' && role === 'SERVICE_PROVIDER'"
-            style=" background-color: #2888C7; color: white; border-radius: 0;" (click)="onStartProjectExecution()">
+            style=" background-color: #a1d173; color: white; border-radius: 0;" (click)="onStartProjectExecution()">
             <i class="fab fa-telegram-plane"></i>
             Start
           </button>
