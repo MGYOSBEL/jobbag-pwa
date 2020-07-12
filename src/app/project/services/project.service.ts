@@ -148,7 +148,7 @@ export class ProjectService {
     return this.loading.showLoaderUntilCompletes(execution$);
   }
 
-  updateProjectExecution(id: number, state: 'FINISH' | 'CANCELED'): Observable<Project> {
+  updateProjectExecution(id: number, state: 'FINISH' | 'CANCEL'): Observable<Project> {
     const request = { id, state };
     const execution$ = this.http.put(`${environment.apiBaseURL}/project_execution`, request).pipe(
       map(APIResponseToData),

@@ -23,7 +23,6 @@ export class PersonalProjectService {
       tap(([user, role]) => {
         const profile: UserProfile = user.profiles.find(elem => elem.userProfileType === role);
         this.getPersonalProjects(profile.id);
-        console.log('profile has changed =>', role, profile, profile.id);
       }
       )
     );
@@ -68,8 +67,14 @@ export class PersonalProjectService {
 
   addPersonalProject(project: Project) {
     const projects = this.personalProjectsSubject.value;
-    projects.push(project);
+    const index = projects.findIndex(elem => elem.id === project.id);
+    if (index !== -1) {
+      projects[index] = project;
+    } else {
+      projects.push(project);
+    }
     this.personalProjectsSubject.next(projects);
+
   }
 
   viewDetail(userProfileId: number, projectId: number) {
@@ -98,7 +103,7 @@ export class PersonalProjectService {
     this.previewProjectSubject.next(projects.find(proj => proj.id === projectId));
   }
 
-  updateExecution(executionId: number, state: 'FINISH' | 'CANCELED') {
+  updateExecution(executionId: number, state: 'FINISH' | 'CANCEL') {
     return this.projectService.updateProjectExecution(executionId, state).pipe(
       catchError(err => throwError(err)),
       tap(project => {

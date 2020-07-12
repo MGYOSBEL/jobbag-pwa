@@ -43,7 +43,6 @@ export class MyProjectsComponent implements OnInit {
     this.detailProject$ = personalProjectService.activeProject$;
     personalProjectService.userProfile$.subscribe(
       ([user, role]) => {
-        console.log(`role changed to ${role}`);
         this.personalProjectService.reset();
         this.userProfile = user.profiles.find(profile => profile.userProfileType === role);
         this.projects$ = role === 'CLIENT' ? personalProjectService.newProjects$ : personalProjectService.progressProjects$;
@@ -76,7 +75,6 @@ export class MyProjectsComponent implements OnInit {
 
   onProjectChecked(event) {
     // Aca deberia setear el multiselected Projects del servicio personal projects, para en caso de acciones multiples
-    console.log('checked projects', event);
   }
 
   onCardClicked(event) {
@@ -163,7 +161,7 @@ export class MyProjectsComponent implements OnInit {
   }
 
   cancelExecution(executionId: number) {
-    this.personalProjectService.updateExecution(executionId, 'CANCELED').subscribe(
+    this.personalProjectService.updateExecution(executionId, 'CANCEL').subscribe(
       () => this.messages.showMessages('You have succesfully started a project execution. You can view it in My Projects tab.'),
       err => this.messages.showErrors('There has been an error starting the project execution. Try it later.')
     );
