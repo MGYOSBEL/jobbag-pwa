@@ -121,10 +121,10 @@ export class MyProjectsComponent implements OnInit {
       case ProjectState.PROGRESS:
         this.projects$ = this.personalProjectService.progressProjects$;
         break;
-      case ProjectState.CANCEL:
+      case ProjectState.FINISH:
         this.projects$ = this.personalProjectService.finishProjects$;
         break;
-      case ProjectState.FINISH:
+      case ProjectState.CANCEL:
         this.projects$ = this.personalProjectService.cancelProjects$;
         break;
 
