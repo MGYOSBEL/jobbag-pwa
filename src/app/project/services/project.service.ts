@@ -5,7 +5,7 @@ import { environment } from '@environments/environment';
 import { map, tap, catchError, shareReplay } from 'rxjs/operators';
 import { APIResponse } from '@app/models/app.model';
 import { Project, ProjectDTO, ProjectState } from '../models/project.model';
-import { projectFromDTO, projectToDTO } from '../models/mappers';
+import { projectFromDTO, projectToDTO, projectFromExecution } from '../models/mappers';
 import { APIResponseToData } from '@app/models/mappers';
 import { ProjectCacheService } from './project-cache.service';
 import { LoadingService } from '@app/services/loading.service';
@@ -127,12 +127,39 @@ export class ProjectService {
   }
 
   addProjects(projects: Project[]) {
-    console.log('projectsToAdd => ', projects);
     const oldProjects = this.projectsSubject.value;
-    console.log('oldProjects => ', projects);
     const newProjects = oldProjects.concat(projects);
-    console.log('newProjects => ', newProjects);
     this.projectsSubject.next(newProjects);
+  }
+
+  registerProjectExecution(projectId: number, userProfileId: number): Observable<Project> {
+    const request = {
+      id_user_profile: userProfileId,
+      id_project: projectId
+    };
+    const execution$ = this.http.post(`${environment.apiBaseURL}/project_execution`, request).pipe(
+      map(APIResponseToData),
+      catchError(err => throwError(err)),
+      map(execution => projectFromExecution(execution)),
+      shareReplay(),
+      tap((project) => {
+      })
+    );
+    return this.loading.showLoaderUntilCompletes(execution$);
+  }
+
+  updateProjectExecution(id: number, state: 'FINISH' | 'CANCEL'): Observable<Project> {
+    const request = { id, state };
+    const execution$ = this.http.put(`${environment.apiBaseURL}/project_execution`, request).pipe(
+      map(APIResponseToData),
+      catchError(err => throwError(err)),
+      map(execution => projectFromExecution(execution)),
+      shareReplay(),
+      tap((project) => {
+        console.log(project);
+      })
+    );
+    return this.loading.showLoaderUntilCompletes(execution$);
   }
 
 }

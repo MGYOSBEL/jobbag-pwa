@@ -14,14 +14,23 @@ border-left: 1px solid #605c61;
 /* height: 500px; */
 }
 
-.fas{
-    color: #2888C7;
-    font-size: 1.25rem;
+.fa-chevron-circle-left{
+  font-size: 1.25rem;
+  color: #605c61 !important;
 }
 
-.fas:hover{
-    color: #605c61;
+.fa-chevron-circle-left:hover{
+  color: #bebcbe !important;
 }
+
+.cancel-btn, .edit-btn{
+  width: 1.25rem;
+}
+
+.cancel-btn:hover, .edit-btn:hover{
+  fill: #605c61;
+}
+
 
 ul {
   display: block;

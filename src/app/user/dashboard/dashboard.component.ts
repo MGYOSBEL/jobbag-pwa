@@ -5,12 +5,13 @@ import { Observable } from 'rxjs';
 import { logging } from 'protractor';
 import { LoggingService } from '@app/services/logging.service';
 import { AuthenticationService } from '@app/auth/services/authentication.service';
-import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
+import { Router, ActivatedRoute, NavigationEnd, ɵangular_packages_router_router_j } from '@angular/router';
 import { AuthService } from 'angularx-social-login';
 import { UserProfileService } from '../services/user-profile.service';
 import { filter } from 'rxjs/operators';
 import { ProjectService } from '@app/project/services/project.service';
 import { Project } from '@app/project/models/project.model';
+import { JsonPipe } from '@angular/common';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -23,7 +24,7 @@ export class DashboardComponent implements OnInit {
   activeProfile: UserProfile;
   role: string;
   projects$: Observable<Project[]>;
-
+  activeTab: string = 'navHome';
 
   constructor(
     private route: ActivatedRoute,
@@ -34,13 +35,14 @@ export class DashboardComponent implements OnInit {
     private router: Router,
     private logging: LoggingService) {
 
-      this.loggedUser$ = this.userService.loggedUser$;
-      this.userService.role$.subscribe(role => {
-        this.role = role;
-        if (!! this.loggedUser) {
-          this.activeProfile = this.loggedUser.profiles.find(profile => profile.userProfileType === this.role);
-        }
-      });
+    this.loggedUser$ = this.userService.loggedUser$;
+    this.userService.role$.subscribe(role => {
+      this.role = role;
+      if (!!this.loggedUser) {
+        this.activeProfile = this.loggedUser.profiles.find(profile => profile.userProfileType === this.role);
+      }
+    });
+    this.obtainActiveTab();
   }
 
   ngOnInit() {
@@ -53,12 +55,12 @@ export class DashboardComponent implements OnInit {
     ).subscribe(() => {
       if (this.loggedUser) {
         this.activeProfile = this.loggedUser.profiles.find(profile => profile.userProfileType === this.role);
-        }
+      }
     }
     );
     this.loggedUser$.subscribe(user => {
       this.loggedUser = user;
-      if (!! this.loggedUser) {
+      if (!!this.loggedUser) {
         this.activeProfile = this.loggedUser.profiles.find(profile => profile.userProfileType === this.role);
       }
     });
@@ -66,6 +68,7 @@ export class DashboardComponent implements OnInit {
     // this.projects$ = this.projectService.projects$;
     this.router.navigate([`/user/${this.loggedUser.id}/${this.role}`]);
 
+    this.obtainActiveTab();
   }
 
   onCreateProject() {
@@ -79,5 +82,17 @@ export class DashboardComponent implements OnInit {
     this.authenticationService.signOut();
     this.router.navigate(['']);
   }
+
+  saveActiveTab(activeTab) {
+    this.activeTab = activeTab;
+    localStorage.setItem('activeTab', this.activeTab);
+  }
+
+  obtainActiveTab() {
+    const savedTab = localStorage.getItem('activeTab');
+    this.activeTab = !!savedTab ? savedTab : 'navHome';
+  }
+
+
 
 }

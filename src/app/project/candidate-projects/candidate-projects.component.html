@@ -27,8 +27,12 @@
       </div>
       <div class="col-6 px-2">
         <!-- PROJECT PREVIEW -->
-        <app-project-preview [userProfileId]="userProfile!.id" [role]="'SERVICE_PROVIDER'"
-          [canApply$]="canPreviewApply$" [previewProject$]="previewProject$" (apply)="onPreviewApply($event)"
+        <app-project-preview
+          [userProfileId]="userProfile!.id"
+          [role]="'SERVICE_PROVIDER'"
+          [canApply$]="canPreviewApply$"
+          [previewProject$]="previewProject$"
+          (action)="onPreviewAction($event)"
           (detail)="onDetail($event)"></app-project-preview>
       </div>
     </div>

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ProjectService } from './project.service';
-import { BehaviorSubject, Observable, combineLatest } from 'rxjs';
+import { BehaviorSubject, Observable, combineLatest, throwError } from 'rxjs';
 import { Project, ProjectState } from '../models/project.model';
-import { map, tap } from 'rxjs/operators';
+import { map, tap, catchError } from 'rxjs/operators';
 import { UserProfile } from '@app/user/models/user.model';
 import { UserService } from '@app/user/services/user.service';
 import { LoadingService } from '@app/services/loading.service';
@@ -23,7 +23,6 @@ export class PersonalProjectService {
       tap(([user, role]) => {
         const profile: UserProfile = user.profiles.find(elem => elem.userProfileType === role);
         this.getPersonalProjects(profile.id);
-        console.log('profile has changed =>', role, profile, profile.id);
       }
       )
     );
@@ -66,6 +65,18 @@ export class PersonalProjectService {
     );
   }
 
+  addPersonalProject(project: Project) {
+    const projects = this.personalProjectsSubject.value;
+    const index = projects.findIndex(elem => elem.id === project.id);
+    if (index !== -1) {
+      projects[index] = project;
+    } else {
+      projects.push(project);
+    }
+    this.personalProjectsSubject.next(projects);
+
+  }
+
   viewDetail(userProfileId: number, projectId: number) {
     this.projectService.getProjectDetailByProfileType(userProfileId, projectId).subscribe(
       project => this.activeProjectSubject.next(project)
@@ -90,5 +101,18 @@ export class PersonalProjectService {
   preview(projectId: number) {
     const projects = this.personalProjectsSubject.value;
     this.previewProjectSubject.next(projects.find(proj => proj.id === projectId));
+  }
+
+  updateExecution(executionId: number, state: 'FINISH' | 'CANCEL') {
+    return this.projectService.updateProjectExecution(executionId, state).pipe(
+      catchError(err => throwError(err)),
+      tap(project => {
+        this.preview(null);
+        const projects = this.personalProjectsSubject.value;
+        const index = projects.findIndex(elem => elem.id === project.id);
+        projects[index] = project;
+        this.personalProjectsSubject.next(projects);
+      })
+    );
   }
 }
