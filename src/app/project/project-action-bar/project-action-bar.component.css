@@ -5,12 +5,15 @@
 .bottom-btn{
     background: #2787c4;
     display: inline-block;
-    /* margin: 0 1em 1em 0; */
-    height: 36px;
-    width: 50px;
-    border-bottom-left-radius: 50px;
-    border-bottom-right-radius: 50px;
-    margin-right: 0.25rem!important;
+    margin-top: -0.3rem !important;
+    margin: 0 1em 1em 0;
+    height: 1.5rem;
+    width: 4rem;
+    border-top-right-radius: 0px;
+    border-top-left-radius: 0px;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    /* margin-right: 0.20rem!important; */
 }
 
 

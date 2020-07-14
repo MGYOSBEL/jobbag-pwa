@@ -8,7 +8,7 @@
 <ng-template #listTemplate>
   <div class="container-fluid">
     <div class="row">
-      <div class="col-12 px-1">
+      <div class="col-12 px-2">
         <!-- ACTION BAR -->
         <app-project-action-bar [actions]="actionBar" (selectAll)="onSelectAll($event)" (action)="onAction($event)"
           [canApply$]="canMultiselectedApply$" (filters)="onActionBarFilter($event)" [statusFilter]="statusFilter"
