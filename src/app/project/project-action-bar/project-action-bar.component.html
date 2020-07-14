@@ -57,7 +57,7 @@
           [closeOnSelect]="false"
           bindValue="id"
           [searchFn]="customSearchFn"
-          (change)="onServiceFilterChange($event)"
+          (change)="onServiceFilterChange()"
           [(ngModel)]="selectedServices">
           <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
             <input id="item-{{index}}" type="checkbox" [ngModel]="item$.selected" /> {{item.descriptionEs}}
