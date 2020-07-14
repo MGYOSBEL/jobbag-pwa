@@ -65,23 +65,27 @@ export class ProjectCardComponent implements OnInit {
     }
   }
 
-  getColor() {
-    if (this.project.interest) {
-      return 'solid 8px  #2788c7';
-    }
-    switch (this.project.state) {
-      case ProjectState.NEW:
-        return 'solid 8px #7bcff4';
-      case ProjectState.PROGRESS:
-        return 'solid 8px #a1d173';
-      case ProjectState.FINISH:
-        return 'solid 8px #f99d6e';
-      case ProjectState.CANCEL:
-        return 'solid 8px #f15d5d';
+  // getColor() {
+  //   if (this.project.interest) {
+  //     return 'solid 8px #2788c7';
+  //   }
+  //   switch (this.project.state) {
+  //     case ProjectState.NEW:
+  //       return 'solid 8px #7bcff4';
+  //     case ProjectState.PROGRESS:
+  //       return 'solid 8px #a1d173';
+  //     case ProjectState.FINISH:
+  //       return 'solid 8px #f99d6e';
+  //     case ProjectState.CANCEL:
+  //       return 'solid 8px #f15d5d';
 
-      default:
-        break;
-    }
+  //     default:
+  //       break;
+  //   }
+  // }
+
+  getColor() {
+    return this.isPressed === true?'solid 8px #2788c7':'';
   }
 
   checkCard(state: boolean) {

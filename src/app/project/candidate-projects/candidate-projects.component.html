@@ -16,28 +16,35 @@
       </div>
     </div>
     <div class="row py-3">
-      <div class="col-6 px-2 scroll-host">
+      <div class="col-6 px-2">
+        <div class="row mb-2 px-5">
+          <div class="col text-center" [ngClass]="{'status-selected':statusValue==='ALL'}"
+              id="status-col" (click)="setStatusValue('ALL')">
+            <p class="status-text" [ngClass]="{'status-selectext':statusValue==='ALL'}">ALL</p>
+          </div>
+          <div class="col text-center" [ngClass]="{'status-selected':statusValue==='NEW'}"
+              id="status-col" (click)="setStatusValue('NEW')">
+            <p class="status-text" [ngClass]="{'status-selectext':statusValue==='NEW'}">NEW</p>
+          </div>
+          <div class="col text-center" [ngClass]="{'status-selected':statusValue==='APPLYED'}"
+              id="status-col" (click)="setStatusValue('APPLYED')">
+            <p class="status-text" [ngClass]="{'status-selectext':statusValue==='APPLYED'}">APPLYED</p>
+          </div>
+        </div>
         <!-- PROJECT CARD -->
-        <ng-container *ngIf="projectList$ | async as projects">
-          <app-project-card-list
-              [projects]="projects"
-              [masterSelected$]="masterSelected$"
-              (checkedProjects)="onSelectProjects($event)"
-              (cardClicked)="onCardClicked($event)"
-              [cardMode]="'WIDE'">
-
-          </app-project-card-list>
-        </ng-container>
+        <div class="col-12 scroll-host">
+          <ng-container *ngIf="projectList$ | async as projects">
+            <app-project-card-list [projects]="projects" [masterSelected$]="masterSelected$"
+              (checkedProjects)="onSelectProjects($event)" (cardClicked)="onCardClicked($event)" [cardMode]="'WIDE'">
+            </app-project-card-list>
+          </ng-container>
+        </div>
       </div>
       <div class="col-6 px-2">
         <!-- PROJECT PREVIEW -->
-        <app-project-preview
-          [userProfileId]="userProfile!.id"
-          [role]="'SERVICE_PROVIDER'"
-          [canApply$]="canPreviewApply$"
-          [previewProject$]="previewProject$"
-          (action)="onPreviewAction($event)"
-          (detail)="onDetail($event)"></app-project-preview>
+        <app-project-preview [userProfileId]="userProfile!.id" [role]="'SERVICE_PROVIDER'" [canApply$]="canPreviewApply$"
+          [previewProject$]="previewProject$" (action)="onPreviewAction($event)" (detail)="onDetail($event)">
+        </app-project-preview>
       </div>
     </div>
   </div>

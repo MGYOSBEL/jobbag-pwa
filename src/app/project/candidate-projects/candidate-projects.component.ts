@@ -32,6 +32,7 @@ export class CandidateProjectsComponent implements OnInit {
   canMultiselectedApply$: Observable<boolean>;
   actionBar = [ProjectAction.Apply, ProjectAction.Delete, ProjectAction.SelectAll];
   statusFilter = ['MIXED', ProjectState.NEW, 'INTEREST'];
+  statusValue:string;
 
   constructor(
     private userService: UserService,
@@ -61,6 +62,7 @@ export class CandidateProjectsComponent implements OnInit {
     this.previewProject$ = this.candidateProjectService.previewProject$;
     this.detailProject$ = this.candidateProjectService.activeProject$;
     this.candidateProjectService.loadCandidatesByUserProfileId(this.userProfile.id);
+    this.statusValue = "ALL";
 
     this.previewProject$.subscribe(
       project => {
@@ -180,4 +182,8 @@ export class CandidateProjectsComponent implements OnInit {
     );
   }
 
+  setStatusValue(value){
+    this.statusValue = value;
+    console.log("statusValue"+this.statusValue)
+  }
 }

@@ -1,6 +1,6 @@
 <div class="card col-12 collapse" id="collapseAB" style="background-color: white;border-radius: 0;">
   <div class="row vertical-align py-2">
-    <input *ngIf="SELECTALL" type="checkbox" style="margin-left: 1rem; margin-right: 1rem;"
+    <!-- <input *ngIf="SELECTALL" type="checkbox" style="margin-left: 1rem; margin-right: 1rem;"
       (change)="onSelectAll($event)" [(ngModel)]="selectAllCheckbox">
     <button *ngIf="APPLY" [disabled]="!(canApply$ | async)" class="btn col-2" type="button"
       style=" background-color: #2888C7; color: white; border-radius: 0;" (click)="onAction('APPLY')">
@@ -13,8 +13,8 @@
       New Project
     </button>
     <button *ngIf="DELETE" type="button" class="btn mx-2 px-3" style="border-radius: 0;"><i class="fas fa-trash"
-        style="color: #bebcbe;" (click)="onAction('DELETE')"></i></button>
-    <div class="col-2 pl-0">
+        style="color: #bebcbe;" (click)="onAction('DELETE')"></i></button> -->
+    <div class="col-2 pl-3">
       <div class="form-group" style="margin-bottom: 0;">
         <select data-style="btn-new" class="form-control" id="locationFilterSelect"
           style="border-radius: 0; border-color: #2888C7;">
@@ -25,7 +25,7 @@
         </select>
       </div>
     </div>
-    <div class="col-2 pl-0">
+    <div class="col-4 pl-0">
       <div class="form-group" style="margin-bottom: 0;">
         <select class="form-control" id="servicesFilterSelect" style="border-radius: 0; border-color: #2888C7;">
           <option value="0">Services</option>
@@ -35,7 +35,7 @@
         </select>
       </div>
     </div>
-    <div class="col-2 pl-0">
+    <!-- <div class="col-2 pl-0">
       <div class="form-group" style="margin-bottom: 0;">
         <select class="form-control" title="Status" id="servicesFilterSelect" style="border-radius: 0; border-color: #2888C7;" (change)="onStatusFilter($event)">
           <option *ngFor="let status of statusFilter; let i=index" [value]="status!" [selected]="i==0">
@@ -43,7 +43,7 @@
           </option>
         </select>
       </div>
-    </div>
+    </div> -->
     <div class="col pl-0">
       <div class="input-group">
         <input type="text" class="form-control" placeholder="Search" style="border-radius: 0; border-color: #2888C7;">
@@ -61,6 +61,7 @@
   <div class="col-12 my-0 py-0 text-right">
     <div class="btn bottom-btn p-0 m-0 text-center" data-toggle="collapse" data-target="#collapseAB"
       aria-expanded="false" aria-controls="collapseExample" (click)="showCU=!showCU">
+      <p style="font-size: 0.60rem; color: white; margin-bottom:0;">FILTERS</p>
       <i [ngClass]="{'fa-chevron-up':showCU === true}" class="fas fa-chevron-down" style="color: white;"></i>
     </div>
   </div>

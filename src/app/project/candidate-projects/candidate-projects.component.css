@@ -19,3 +19,25 @@
     background-color: #2888C7;
     border-radius: 0;
   }
+
+  .status-text{
+    font-weight: bold;
+    color: #bcbebc;
+}
+
+#status-col{
+    border-bottom: solid 1px #bcbebc;
+    cursor: pointer;
+}
+
+#status-col:checked{
+    border-bottom: solid 2px #2888C7;
+}
+
+.status-selected{
+  border-bottom: solid 2px #2888C7 !important;
+}
+
+.status-selectext{
+   color: #2888C7 !important;
+}

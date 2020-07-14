@@ -33,6 +33,7 @@ export class MyProjectsComponent implements OnInit {
   ];
 
   statusFilter = [];
+  statusValue:string;
 
   constructor(
     private userService: UserService,
@@ -66,6 +67,7 @@ export class MyProjectsComponent implements OnInit {
     this.previewProject$ = this.personalProjectService.previewProject$;
     this.personalProjectService.getPersonalProjects(this.userProfile.id);
     this.selectAll$ = this.personalProjectService.selectAll$;
+    this.statusValue = 'IN PROGRESS';
   }
 
   filterProjectsByState(projects: Project[], state: string | ProjectState, extraState?: string | ProjectState): Project[] {
@@ -168,6 +170,10 @@ export class MyProjectsComponent implements OnInit {
 
   }
 
+  setStatusValue(value){
+    this.statusValue = value;
+    console.log("statusValue"+this.statusValue);
+  }
 
   // hideActionBar(){
   //   this.showActionBar = false;
