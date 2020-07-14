@@ -36,7 +36,7 @@ export class ProjectPreviewComponent implements OnInit {
   @Input()
   role?: string;
   @Input()
-  canApply$?: Observable<boolean>;
+  isInterest$?: Observable<boolean>;
 
   @Output()
   detail = new EventEmitter<number>();
@@ -45,17 +45,22 @@ export class ProjectPreviewComponent implements OnInit {
   @Output()
   startExecution = new EventEmitter<number>();
   @Output()
-  action = new EventEmitter<{projectId: number, action: 'APPLY' | 'START' | 'FINISH' | 'CANCEL'}>();
+  action = new EventEmitter<{ projectId: number, action: 'APPLY' | 'START' | 'FINISH' | 'CANCEL' }>();
 
   countries: Country[];
   services: Service[];
-
+  canApply: boolean;
+  canStart: boolean;
   divisionsName: string[] = [];
   servicesName: string[] = [];
 
   ngOnInit() {
-    // this.previewProject$ = this.candidateProjectService.activeProject$;
-
+    this.isInterest$.subscribe(
+      isInterest => {
+          this.canApply = !isInterest;
+          this.canStart = isInterest;
+      }
+    );
     this.previewProject$.subscribe(
       project => {
         if (!!project) {

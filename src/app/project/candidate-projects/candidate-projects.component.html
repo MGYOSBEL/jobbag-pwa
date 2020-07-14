@@ -19,17 +19,9 @@
     <div class="row py-3">
       <div class="col-6 px-2">
         <div class="row mb-2 px-5">
-          <div class="col text-center" [ngClass]="{'status-selected':statusValue==='ALL'}"
-              id="status-col" (click)="setStatusValue('ALL')">
-            <p class="status-text" [ngClass]="{'status-selectext':statusValue==='ALL'}">ALL</p>
-          </div>
-          <div class="col text-center" [ngClass]="{'status-selected':statusValue==='NEW'}"
-              id="status-col" (click)="setStatusValue('NEW')">
-            <p class="status-text" [ngClass]="{'status-selectext':statusValue==='NEW'}">NEW</p>
-          </div>
-          <div class="col text-center" [ngClass]="{'status-selected':statusValue==='APPLYED'}"
-              id="status-col" (click)="setStatusValue('APPLYED')">
-            <p class="status-text" [ngClass]="{'status-selectext':statusValue==='APPLYED'}">APPLYED</p>
+          <div class="col text-center" *ngFor="let status of statusFilter" [ngClass]="{'status-selected':currentStatusFilter === status}"
+              id="status-col" (click)="onStatusChange(status)">
+            <p class="status-text" [ngClass]="{'status-selectext':currentStatusFilter === status}">{{status}}</p>
           </div>
         </div>
         <!-- PROJECT CARD -->
@@ -43,7 +35,7 @@
       </div>
       <div class="col-6 px-2">
         <!-- PROJECT PREVIEW -->
-        <app-project-preview [userProfileId]="userProfile!.id" [role]="'SERVICE_PROVIDER'" [canApply$]="canPreviewApply$"
+        <app-project-preview [userProfileId]="userProfile!.id" [role]="'SERVICE_PROVIDER'" [isInterest$]="isPreviewInterest$"
           [previewProject$]="previewProject$" (action)="onPreviewAction($event)" (detail)="onDetail($event)">
         </app-project-preview>
       </div>

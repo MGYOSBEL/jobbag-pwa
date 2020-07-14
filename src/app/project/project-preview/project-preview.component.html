@@ -3,17 +3,19 @@
   <div class="card col-12 rounded-0">
     <div class="row vertical-align py-1 preview-toolbar" style="z-index: 0;">
       <div class="col-9">
-        <button class="btn col-5" type="button" *ngIf="canApply$ | async; else playTemplate"
-          style=" background-color: #2888C7; color: white; border-radius: 0;" (click)="onApply()">
-          <i class="fab fa-telegram-plane"></i>
-          Apply
-        </button>
-        <ng-template #playTemplate>
-          <button class="btn col-5" type="button" *ngIf="previewProject.state === 'NEW' && role === 'SERVICE_PROVIDER'"
+        <ng-container *ngIf="(previewProject.state === 'NEW' && role === 'SERVICE_PROVIDER'); else playTemplate">
+          <button class="btn col-5 btn-space" [disabled]="!canApply" type="button" style=" background-color: #2888C7; color: white; border-radius: 0;"
+            (click)="onApply()">
+            <i class="fab fa-telegram-plane"></i>
+            Apply
+          </button>
+          <button class="btn col-5 btn-space" type="button" [disabled]="!canStart"
             style=" background-color: #a1d173; color: white; border-radius: 0;" (click)="onStartProjectExecution()">
             <i class="fab fa-telegram-plane"></i>
             Start
           </button>
+        </ng-container>
+        <ng-template #playTemplate>
           <button class="btn col-3 btn-space" type="button" *ngIf="previewProject.state === 'PROGRESS'"
             style=" background-color: #f99d6e; color: white; border-radius: 0;" (click)="onFinishProjectExecution()">
             <svg class="finish-btn" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50.87 48.64">
@@ -129,4 +131,3 @@
     </div>
   </div>
 </ng-container>
-

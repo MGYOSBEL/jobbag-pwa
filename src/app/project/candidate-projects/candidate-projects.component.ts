@@ -7,7 +7,7 @@ import { UserProfile } from '@app/user/models/user.model';
 import { UserProfileService } from '@app/user/services/user-profile.service';
 import { UserService } from '@app/user/services/user.service';
 import { Router } from '@angular/router';
-import { map, filter } from 'rxjs/operators';
+import { map, filter, tap } from 'rxjs/operators';
 import { filterByLocation, filterByService } from '../models/filters';
 
 @Component({
@@ -30,16 +30,19 @@ export class CandidateProjectsComponent implements OnInit {
   previewProject$: Observable<Project>;
   detailProject$: Observable<Project>;
   masterSelected$: Observable<boolean>;
-  canPreviewApply$: Observable<boolean>;
+  isPreviewInterest$: Observable<boolean>;
   canMultiselectedApply$: Observable<boolean>;
   actionBar = [ProjectAction.Apply, ProjectAction.Delete, ProjectAction.SelectAll];
-  statusFilter = ['MIXED', ProjectState.NEW, 'INTEREST'];
-  statusValue:string;
+  statusFilter: string[] = ['ALL', 'CANDIDATES', 'APPLIED'];
+  statusValue: string;
   locationFilterSubject = new BehaviorSubject<number[]>([]);
   serviceFilterSubject = new BehaviorSubject<number[]>([]);
   locationFilter$: Observable<number[]> = this.locationFilterSubject.asObservable();
   servicesFilter$: Observable<number[]> = this.serviceFilterSubject.asObservable();
+  currentStatusSubject = new BehaviorSubject<string>(this.statusFilter[0]);
+  currentStatusFilter$: Observable<string> = this.currentStatusSubject.asObservable();
   currentStatusFilter: string;
+  selectedCard$: Observable<number>;
 
   constructor(
     private userService: UserService,
@@ -47,7 +50,14 @@ export class CandidateProjectsComponent implements OnInit {
     private messages: MessagesService,
     private router: Router
   ) {
-    this.projects$ = this.candidateProjects$;
+    this.selectedCard$ = this.candidateProjectService.previewProject$.pipe(map(proj => {
+      if (proj != null) {
+        return proj.id;
+      } else {
+        return null;
+      }
+    }));
+    this.currentStatusFilter = this.statusFilter[0];
     this.canMultiselectedApply$ = of(false);
     this.masterSelected$ = this.candidateProjectService.selectAll$;
     this.selectedCandidates$ = this.candidateProjectService.multiSelectedProjects$;
@@ -65,9 +75,15 @@ export class CandidateProjectsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.projects$ = combineLatest(this.candidateProjectService.interestProjects$, this.candidateProjectService.candidateProjects$)
+    this.currentStatusFilter$.subscribe(
+      status => this.currentStatusFilter = status
+    );
+    this.projects$ = combineLatest(
+      this.candidateProjectService.interestProjects$,
+      this.candidateProjectService.candidateProjects$,
+      this.currentStatusFilter$)
       .pipe(
-        map(([interests, candidates]) => [...interests, ...candidates]),
+        map(([interests, candidates, status]) => this.filterProjectsByStatus(interests, candidates, status)),
       );
     this.projectList$ = combineLatest(
       this.projects$,
@@ -78,20 +94,22 @@ export class CandidateProjectsComponent implements OnInit {
         const filteredByLocations = filterByLocation(projects, locationFilter);
         const filteredByServices = filterByService(filteredByLocations, servicesFilter);
         return filteredByServices;
-      })
+      }),
     );
     this.previewProject$ = this.candidateProjectService.previewProject$;
     this.detailProject$ = this.candidateProjectService.activeProject$;
     this.candidateProjectService.loadCandidatesByUserProfileId(this.userProfile.id);
-    this.statusValue = "ALL";
 
     this.previewProject$.subscribe(
       project => {
-        if (project != null) {
-          const canApply = !this.candidateProjectService.isInterest(project.id);
-          this.canPreviewApply$ = of(canApply);
-        }
       }
+    );
+    this.isPreviewInterest$ = this.previewProject$.pipe(
+      filter(project => project != null),
+      map(project => {
+          const isInterest = this.candidateProjectService.isInterest(project.id);
+          return isInterest;
+      })
     );
   }
 
@@ -109,36 +127,26 @@ export class CandidateProjectsComponent implements OnInit {
     this.canMultiselectedApply$ = of(canApply);
   }
 
-  onActionBarFilter({ status, locations, services }) {
+  onActionBarFilter({ locations, services }) {
     if (!!locations) {
       this.locationFilterSubject.next(locations);
     }
     if (!!services) {
       this.serviceFilterSubject.next(services);
     }
-    this.filterProjectsByStatus(!!status ? status : this.currentStatusFilter);
-    this.candidateProjectService.preview(null);
   }
   // Filtrar proyectos por estado
-  filterProjectsByStatus(status) {
-    this.currentStatusFilter = status;
+  filterProjectsByStatus(interests: Project[], candidates: Project[], status: string) {
     switch (status) {
-      case ProjectState.NEW:
-        this.projects$ = this.candidateProjectService.candidateProjects$
-          .pipe(
-          );
+      case this.statusFilter[1]:
+        return [...candidates];
         break;
-      case 'INTEREST':
-        this.projects$ = this.candidateProjectService.interestProjects$
-          .pipe(
-          );
+      case this.statusFilter[2]:
+        return [...interests];
         break;
-      case 'MIXED':
-        this.projects$ = combineLatest(this.candidateProjectService.interestProjects$, this.candidateProjectService.candidateProjects$)
-          .pipe(
-            map(([interests, candidates]) => [...interests, ...candidates]));
+      case this.statusFilter[0]:
+        return [...interests, ...candidates];
         break;
-
       default:
         break;
     }
@@ -218,11 +226,14 @@ export class CandidateProjectsComponent implements OnInit {
       }
     );
   }
-
-  setStatusValue(value){
-    this.statusValue = value;
-    console.log("statusValue"+this.statusValue)
+  onStatusChange(status) {
+    this.resetSelectedCard();
+    this.currentStatusSubject.next(status);
   }
+  resetSelectedCard() {
+    this.candidateProjectService.preview(null);
+  }
+
   onDivisionsSelect(event) {
     this.selectedDivisionsFilter = event;
   }

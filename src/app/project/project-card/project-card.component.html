@@ -1,5 +1,5 @@
 <div class="card card-hover col-12" style="margin-bottom: 0.3rem; background-color: white;border-radius: 0; cursor: pointer;"
-[ngStyle]="{'border-left':getColor()}" [ngClass]="isPressed ? 'card-selected' : ''">
+[style.border-left]="isPressed ? 'solid 8px #2788c7' : ''" [ngClass]="isPressed ? 'card-selected' : ''">
   <!-- <div [ngStyle]="{'border-left':getColor()}"class="row vertical-align"> -->
   <div class="row vertical-align">
     <!-- <div class="card-select col-1">
@@ -7,7 +7,7 @@
     </div> -->
     <div class="col-8 px-1" (click)="onClick()">
       <p class="project-title my-1 ml-2" style="color:#2888C7; font-weight: light; font-size: 1.2rem;">
-        {{project.name}}
+        {{(isPressed ? 'prsd...' : '') + project.name}}
       </p>
       <div class="row">
         <div class="col">
