@@ -33,12 +33,13 @@
           </div>
         </div>
         <!-- PROJECT CARD -->
-        <ng-container *ngIf="projectList$ | async as projects">
-          <app-project-card-list [projects]="projects" [masterSelected$]="masterSelected$"
-            (checkedProjects)="onSelectProjects($event)" (cardClicked)="onCardClicked($event)" [cardMode]="'WIDE'">
-
-          </app-project-card-list>
+        <div class="col-12 scroll-host">
+          <ng-container *ngIf="projectList$ | async as projects">
+            <app-project-card-list [projects]="projects" [masterSelected$]="masterSelected$"
+              (checkedProjects)="onSelectProjects($event)" (cardClicked)="onCardClicked($event)" [cardMode]="'WIDE'">
+            </app-project-card-list>
         </ng-container>
+        </div>
       </div>
       <div class="col-6 px-2">
         <!-- PROJECT PREVIEW -->
