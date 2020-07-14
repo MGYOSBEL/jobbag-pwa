@@ -2,7 +2,7 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { Project } from '../models/project.model';
 import { CandidateProjectService } from '../services/candidate-project.service';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { tap, filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-project-card-list',
@@ -16,6 +16,9 @@ export class ProjectCardListComponent implements OnInit {
 
   @Input()
   masterSelected$: Observable<boolean>;
+
+  @Input()
+  reset$: Observable<number>;
 
   private selectedProjects: number[];
 
@@ -35,6 +38,14 @@ export class ProjectCardListComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
+    this.reset$.subscribe(
+        (state) => {
+          console.log('received number');
+          if (!state) {
+            this.reset();
+          }
+        }
+      );
     this.masterSelected$
       .subscribe(state => {
         this.selectedProjects = state ? this.projects.map(elem => elem.id) : [];
@@ -56,5 +67,10 @@ export class ProjectCardListComponent implements OnInit {
   onCardClicked(event) {
     this.cardClicked.emit(event);
     this.pressedCardSubject.next(event);
+  }
+
+  reset() {
+    console.log('reseted list');
+    this.pressedCardSubject.next(null);
   }
 }
