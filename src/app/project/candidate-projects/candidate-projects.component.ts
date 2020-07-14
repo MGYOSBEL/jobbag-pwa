@@ -30,7 +30,7 @@ export class CandidateProjectsComponent implements OnInit {
   previewProject$: Observable<Project>;
   detailProject$: Observable<Project>;
   masterSelected$: Observable<boolean>;
-  canPreviewApply$: Observable<boolean>;
+  isPreviewInterest$: Observable<boolean>;
   canMultiselectedApply$: Observable<boolean>;
   actionBar = [ProjectAction.Apply, ProjectAction.Delete, ProjectAction.SelectAll];
   statusFilter: string[] = ['ALL', 'CANDIDATES', 'APPLIED'];
@@ -102,11 +102,14 @@ export class CandidateProjectsComponent implements OnInit {
 
     this.previewProject$.subscribe(
       project => {
-        if (project != null) {
-          const canApply = !this.candidateProjectService.isInterest(project.id);
-          this.canPreviewApply$ = of(canApply);
-        }
       }
+    );
+    this.isPreviewInterest$ = this.previewProject$.pipe(
+      filter(project => project != null),
+      map(project => {
+          const isInterest = this.candidateProjectService.isInterest(project.id);
+          return isInterest;
+      })
     );
   }
 
