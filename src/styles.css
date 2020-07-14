@@ -10,18 +10,18 @@
   border: 0px;
   display: block;
   min-height: 0px;
-  -moz-border-radius: 0px !important;
+  /* -moz-border-radius: 0px !important;
   -webkit-border-radius: 0px !important;
   border-color: #2888c7 !important;
-  border-radius: 0px !important;
+  border-radius: 0px !important; */
   padding-bottom: 0px;
 }
 .ng-select.custom-ng-select .ng-select-container.ng-appearance-outline {
   min-height: 0px;
-  border-color: #2888c7 !important;
+  /* border-color: #2888c7 !important;
   -moz-border-radius: 0px !important;
   -webkit-border-radius: 0px !important;
-  border-radius: 0px !important;
+  border-radius: 0px !important; */
 }
 
 .ng-clear-wrapper {
