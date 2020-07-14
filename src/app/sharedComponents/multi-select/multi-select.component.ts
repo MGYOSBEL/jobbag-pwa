@@ -28,7 +28,10 @@ export class MultiSelectComponent implements OnInit {
   selectedDivisions: number[]; // All divisions selected, from all countries
 
   @Input()
-  disabled: boolean = false;
+  disabled = false;
+
+  @Input()
+  divisionFilter?: number[];
 
   @Output()
   selected = new EventEmitter<number[]>();
@@ -48,10 +51,20 @@ export class MultiSelectComponent implements OnInit {
     }
 
   ngOnInit() {
-    this.countries$ = this.countryService.get();
+    this.countries$ = this.countryService.countries$;
     this.countries$.subscribe(
       countries => {
-        this.countries = countries;
+        if (this.divisionFilter == null || this.divisionFilter.length === 0) {
+          this.countries = countries;
+        } else {
+          this.countries = countries.map(country => {
+           return {
+              ...country,
+              divisions: country.divisions.filter(item => this.divisionFilter.includes(item.id))
+            };
+          });
+        }
+        console.log(`countries => ${JSON.stringify(this.countries)}`, this.countries);
         this.selectedByCountry = [[], [], []];
 
         this.selectedByCountry = [
@@ -59,7 +72,6 @@ export class MultiSelectComponent implements OnInit {
           this.selectedDivisions.filter(item => this.countries[1].divisions.findIndex(elem => elem.id === item) > -1),
           this.selectedDivisions.filter(item => this.countries[2].divisions.findIndex(elem => elem.id === item) > -1),
         ];
-        this.logger.log('selectedByCountry', this.selectedByCountry);
       }
     );
   }
@@ -73,16 +85,11 @@ export class MultiSelectComponent implements OnInit {
 // }
 
 onCountrySelect(country: Country, i: number) {
-  this.logger.log(country);
   this.hideButtons = true;
   this.selectedCountry = country;
   this.selectedCountryIndex = i;
   this.countryDivisions = country.divisions;
   this.selectedCountryDivisions = [...this.selectedByCountry[i]];
-
-  this.logger.log(this.selectedDivisions);
-  this.logger.log(this.selectedCountryDivisions);
-
 }
 
 closeModal() {
@@ -96,8 +103,6 @@ onChange($event) {
 
   this.selectedDivisions = [...this.selectedByCountry[0], ...this.selectedByCountry[1], ...this.selectedByCountry[2]];
 
-  this.logger.log(this.selectedDivisions);
-
   this.selected.emit(this.selectedDivisions);
 }
 
@@ -108,10 +113,13 @@ onSave() {
 
   this.selectedDivisions = [...this.selectedByCountry[0], ...this.selectedByCountry[1], ...this.selectedByCountry[2]];
 
-  this.logger.log(this.selectedDivisions);
-
   this.selected.emit(this.selectedDivisions);
 }
 
 
 }
+
+
+
+
+

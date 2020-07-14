@@ -1,18 +1,19 @@
 <ng-container *ngIf="detailProject$ | async as detailProject; else listTemplate">
-  <app-project-detail [project]="detailProject" (goBack)=onBackToList()></app-project-detail>
+  <app-project-detail
+    [project]="detailProject"
+    [canApply$]="canPreviewApply$"
+    (goBack)=onBackToList()>
+  </app-project-detail>
 </ng-container>
 <ng-template #listTemplate>
   <div class="container-fluid">
     <div class="row">
       <div class="col-12 px-1">
         <!-- ACTION BAR -->
-        <app-project-action-bar
-            [actions]="actionBar"
-            (selectAll)="onSelectAll($event)"
-            (action)="onAction($event)"
-            [canApply$]="canMultiselectedApply$"
-            (filters)="onActionBarFilter($event)"
-            [statusFilter]="statusFilter"></app-project-action-bar>
+        <app-project-action-bar [actions]="actionBar" (selectAll)="onSelectAll($event)" (action)="onAction($event)"
+          [canApply$]="canMultiselectedApply$" (filters)="onActionBarFilter($event)" [statusFilter]="statusFilter"
+          [divisionFilter]="userProfile.divisions" [serviceFilter]="userProfile.services">
+        </app-project-action-bar>
       </div>
     </div>
     <div class="row py-3">
@@ -32,13 +33,12 @@
           </div>
         </div>
         <!-- PROJECT CARD -->
-        <div class="col-12 scroll-host">
-          <ng-container *ngIf="projectList$ | async as projects">
-            <app-project-card-list [projects]="projects" [masterSelected$]="masterSelected$"
-              (checkedProjects)="onSelectProjects($event)" (cardClicked)="onCardClicked($event)" [cardMode]="'WIDE'">
-            </app-project-card-list>
-          </ng-container>
-        </div>
+        <ng-container *ngIf="projectList$ | async as projects">
+          <app-project-card-list [projects]="projects" [masterSelected$]="masterSelected$"
+            (checkedProjects)="onSelectProjects($event)" (cardClicked)="onCardClicked($event)" [cardMode]="'WIDE'">
+
+          </app-project-card-list>
+        </ng-container>
       </div>
       <div class="col-6 px-2">
         <!-- PROJECT PREVIEW -->
@@ -49,4 +49,5 @@
     </div>
   </div>
 </ng-template>
+
 

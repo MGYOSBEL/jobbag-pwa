@@ -1,0 +1,97 @@
+<div class="card col-12 collapse" id="collapseAB" style="background-color: white;border-radius: 0;">
+  <div class="row vertical-align py-2">
+    <input *ngIf="SELECTALL" type="checkbox" style="margin-left: 1rem; margin-right: 1rem;"
+      (change)="onSelectAll($event)" [(ngModel)]="selectAllCheckbox">
+    <button *ngIf="APPLY" [disabled]="!(canApply$ | async)" class="btn col-2" type="button"
+      style=" background-color: #2888C7; color: white; border-radius: 0;" (click)="onAction('APPLY')">
+      <i class="fab fa-telegram-plane"></i>
+      Apply
+    </button>
+    <button *ngIf="CREATE" class="btn col-2" type="button"
+      style=" background-color: #2888C7; color: white; border-radius: 0;" (click)="onAction('CREATE')">
+      <i class="fas fa-folder-plus"></i>
+      New Project
+    </button>
+    <button *ngIf="DELETE" type="button" class="btn mx-2 px-3" style="border-radius: 0;"><i class="fas fa-trash"
+        style="color: #bebcbe;" (click)="onAction('DELETE')"></i></button>
+    <div class="col-2 pl-0">
+      <div class="form-group" style="margin-bottom: 0;">
+        <ng-select class="custom-ng-select"
+    [items]="countries"
+    [multiple]="true"
+    appearance="outline"
+    bindLabel="nameEs"
+    placeholder="Locations"
+    groupBy="divisions"
+    [selectableGroup]="true"
+    [selectableGroupAsModel]="false"
+    [closeOnSelect]="false"
+    bindValue="id"
+    (change)="onLocationFilterChange($event)"
+    [(ngModel)]="selectedDivisions">
+    <ng-template ng-optgroup-tmp let-item="item" let-item$="item$" let-index="index">
+        <input id="item-{{index}}" *ngIf="item.divisions.length" type="checkbox" [ngModel]="item$.selected"/> <ng-container *ngIf="item.divisions.length">{{item.nameEs | uppercase}}</ng-container>
+    </ng-template>
+    <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+        <input id="item-{{index}}" type="checkbox" [ngModel]="item$.selected"/> {{item.nameEs}}
+    </ng-template>
+        <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
+        <!-- <div class="ng-value" *ngFor="let item of items | slice:0:2">
+            <span class="ng-value-label"><img [src]="item.avatar_url" width="20px" height="20px"> {{item.login}}</span>
+            <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
+        </div> -->
+        <div class="ng-value" *ngIf="items.length > 0">
+            <span class="ng-value-label">Selected ({{items.length}})</span>
+        </div>
+    </ng-template>
+
+</ng-select>
+      </div>
+    </div>
+    <div class="col-2 pl-0">
+      <div class="form-group" style="margin-bottom: 0;">
+        <select class="form-control" id="servicesFilterSelect" style="border-radius: 0; border-color: #2888C7;">
+          <option value="0">Services</option>
+          <option>Designer</option>
+          <option>Development</option>
+          <option>Arquitect</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-2 pl-0">
+      <div class="form-group" style="margin-bottom: 0;">
+<<<<<<< HEAD
+        <select class="form-control" title="Status" id="servicesFilterSelect"
+          style="border-radius: 0; border-color: #2888C7;" (change)="onStatusFilter($event)">
+          <option *ngFor="let status of statusFilter; let i=index" [value]="status!" [selected]="i==0">
+            {{statusStringify(status)}}</option>
+=======
+        <select class="form-control" title="Status" id="servicesFilterSelect" style="border-radius: 0; border-color: #2888C7;" (change)="onStatusFilter($event)">
+          <option *ngFor="let status of statusFilter; let i=index" [value]="status!" [selected]="i==0">
+            {{statusStringify(status)}}
+          </option>
+>>>>>>> dev
+        </select>
+      </div>
+    </div>
+    <div class="col pl-0">
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="Search" style="border-radius: 0; border-color: #2888C7;">
+        <div class="input-group-append">
+          <button class="btn" type="button" style="border-radius:0; background-color: #2888C7; color:white;z-index: 0;">
+            <i class="fa fa-search"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row mt-0 py-0">
+  <div class="col-12 my-0 py-0 text-right">
+    <div class="btn bottom-btn p-0 m-0 text-center" data-toggle="collapse" data-target="#collapseAB"
+      aria-expanded="false" aria-controls="collapseExample" (click)="showCU=!showCU">
+      <i [ngClass]="{'fa-chevron-up':showCU === true}" class="fas fa-chevron-down" style="color: white;"></i>
+    </div>
+  </div>
+</div>

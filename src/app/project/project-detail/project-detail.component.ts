@@ -22,6 +22,9 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
   @Output()
   goBack = new EventEmitter();
 
+  @Input()
+  canApply$: Observable<boolean>;
+
   countries: Country[];
   services: Service[];
   // projectOwner: boolean = true;
