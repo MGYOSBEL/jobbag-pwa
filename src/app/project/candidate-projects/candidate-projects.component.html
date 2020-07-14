@@ -1,7 +1,7 @@
 <ng-container *ngIf="detailProject$ | async as detailProject; else listTemplate">
   <app-project-detail
     [project]="detailProject"
-    [canApply$]="canPreviewApply$"
+    [isInterest$]="isPreviewInterest$"
     (goBack)=onBackToList()>
   </app-project-detail>
 </ng-container>

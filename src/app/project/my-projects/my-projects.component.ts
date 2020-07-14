@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Observable, combineLatest } from 'rxjs';
+import { Observable, combineLatest, BehaviorSubject } from 'rxjs';
 import { Project, ProjectState, ProjectAction } from '../models/project.model';
 import { UserProfile } from '@app/user/models/user.model';
 import { ProjectService } from '../services/project.service';
@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { UserService } from '@app/user/services/user.service';
 import { PersonalProjectService } from '../services/personal-project.service';
 import { MessagesService } from '@app/services/messages.service';
+import { filterByStatus } from '../models/filters';
 
 @Component({
   selector: 'app-my-projects',
@@ -24,16 +25,17 @@ export class MyProjectsComponent implements OnInit {
   newProjects$: Observable<Project[]>;
   inProgressProjects$: Observable<Project[]>;
   finishedProjects$: Observable<Project[]>;
-
+  selectedCard$: Observable<number>;
   selectAll$ = new Observable<boolean>();
-
+  private statusFilterSubject = new BehaviorSubject<ProjectState>(null);
+  currentStatus$ = this.statusFilterSubject.asObservable();
   actionBar = [
     ProjectAction.Delete,
     ProjectAction.SelectAll
   ];
 
   statusFilter = [];
-  statusValue:string;
+  statusValue: string;
 
   constructor(
     private userService: UserService,
@@ -46,34 +48,42 @@ export class MyProjectsComponent implements OnInit {
       ([user, role]) => {
         this.personalProjectService.reset();
         this.userProfile = user.profiles.find(profile => profile.userProfileType === role);
-        this.projects$ = role === 'CLIENT' ? personalProjectService.newProjects$ : personalProjectService.progressProjects$;
         const actions = [
           ProjectAction.Delete,
           ProjectAction.SelectAll
         ];
         this.actionBar = this.userProfile.userProfileType === 'CLIENT' ? [ProjectAction.Create, ...actions] : actions;
         const filters = [
-          ProjectState.PROGRESS,
           ProjectState.FINISH,
           ProjectState.CANCEL
         ];
-        this.statusFilter = this.userProfile.userProfileType === 'CLIENT' ? [ProjectState.NEW, ...filters] : filters;
-
+        this.statusFilter =
+        this.userProfile.userProfileType === 'CLIENT' ? [ProjectState.NEW, ...filters] : [ProjectState.PROGRESS, ...filters];
+        this.statusFilterSubject.next(this.statusFilter[0]);
+        this.projects$ = combineLatest(this.personalProjectService.personalProjects$, this.currentStatus$).pipe(
+          map(([projects, status]) => {
+            return filterByStatus(projects, status);
+          })
+        );
       }
     );
   }
 
   ngOnInit() {
+    this.selectedCard$ = this.personalProjectService.previewProject$.pipe(map(proj => {
+      if (proj != null) {
+        return proj.id;
+      } else {
+        return null;
+      }
+    }));
     this.previewProject$ = this.personalProjectService.previewProject$;
     this.personalProjectService.getPersonalProjects(this.userProfile.id);
     this.selectAll$ = this.personalProjectService.selectAll$;
-    this.statusValue = 'IN PROGRESS';
+    this.currentStatus$.subscribe(
+      status => this.statusValue = status
+    );
   }
-
-  filterProjectsByState(projects: Project[], state: string | ProjectState, extraState?: string | ProjectState): Project[] {
-    return projects.filter(elem => elem.state === state || elem.state === extraState);
-  }
-
 
   onProjectChecked(event) {
     // Aca deberia setear el multiselected Projects del servicio personal projects, para en caso de acciones multiples
@@ -113,25 +123,8 @@ export class MyProjectsComponent implements OnInit {
     }
   }
 
-  onActionBarFilters(event) {
-    switch (event.status) {
-      case ProjectState.NEW:
-        this.projects$ = this.personalProjectService.newProjects$;
-        break;
-      case ProjectState.PROGRESS:
-        this.projects$ = this.personalProjectService.progressProjects$;
-        break;
-      case ProjectState.FINISH:
-        this.projects$ = this.personalProjectService.finishProjects$;
-        break;
-      case ProjectState.CANCEL:
-        this.projects$ = this.personalProjectService.cancelProjects$;
-        break;
+  onActionBarFilters({locations, services}) {
 
-      default:
-        break;
-    }
-    this.personalProjectService.preview(null);
   }
 
   onSelectAll(state) {
@@ -170,9 +163,9 @@ export class MyProjectsComponent implements OnInit {
 
   }
 
-  setStatusValue(value){
-    this.statusValue = value;
-    console.log("statusValue"+this.statusValue);
+  onStatusChange(status) {
+    this.statusFilterSubject.next(status);
+    this.personalProjectService.preview(null);
   }
 
   // hideActionBar(){
