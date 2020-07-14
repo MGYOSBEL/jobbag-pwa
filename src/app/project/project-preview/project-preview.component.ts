@@ -55,12 +55,15 @@ export class ProjectPreviewComponent implements OnInit {
   servicesName: string[] = [];
 
   ngOnInit() {
-    this.isInterest$.subscribe(
-      isInterest => {
-          this.canApply = !isInterest;
-          this.canStart = isInterest;
-      }
-    );
+    if (!!this.isInterest$) {
+      this.isInterest$.subscribe(
+        isInterest => {
+            this.canApply = !isInterest;
+            this.canStart = isInterest;
+        }
+      );
+
+    }
     this.previewProject$.subscribe(
       project => {
         if (!!project) {
