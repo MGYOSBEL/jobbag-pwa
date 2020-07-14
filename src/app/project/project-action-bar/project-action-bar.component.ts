@@ -8,6 +8,8 @@ import { UserProfile } from '@app/user/models/user.model';
 import { UserService } from '@app/user/services/user.service';
 import { CountryService } from '@app/user/services/country.service';
 import { Country } from '@app/user/models/country.model';
+import { ServicesService } from '@app/user/services/services.service';
+import { Service } from '@app/user/models/services.model';
 
 @Component({
   selector: 'app-project-action-bar',
@@ -27,6 +29,8 @@ export class ProjectActionBarComponent implements OnInit {
 
   @Input()
   divisionFilter?: number[];
+  @Input()
+  serviceFilter?: number[];
 
   @Output()
   selectAll = new EventEmitter<boolean>(); // Evento emitido cuando se marca el check de selectAll
@@ -50,29 +54,33 @@ export class ProjectActionBarComponent implements OnInit {
 
   countries$: Observable<Country[]>;
   countries: Country[];
+  services: Service[];
+  selectedServices: number[];
   selectedDivisionsFilter: number[] = [];
   selectedDivisions: number[];
-  userProfile: UserProfile;
+  // userProfile: UserProfile;
 
 
   constructor(
-    private userService: UserService,
-    private countryService: CountryService
+    // private userService: UserService,
+    private countryService: CountryService,
+    private servicesService: ServicesService
   ) {
-    const userProfile$ = combineLatest(
-      userService.loggedUser$,
-      userService.role$
-    );
-    userProfile$.subscribe(
-      ([user, role]) => {
-        this.userProfile = user.profiles.find(profile => profile.userProfileType === role);
-      }
-    );
+    // const userProfile$ = combineLatest(
+    //   userService.loggedUser$,
+    //   userService.role$
+    // );
+    // userProfile$.subscribe(
+    //   ([user, role]) => {
+    //     this.userProfile = user.profiles.find(profile => profile.userProfileType === role);
+    //   }
+    // );
   }
 
   ngOnInit() {
 
     this.LocationFilterInit();
+    this.servicesFilterInit();
     this.SELECTALL = this.actions.includes(ProjectAction.SelectAll);
     this.APPLY = this.actions.includes(ProjectAction.Apply);
     this.CREATE = this.actions.includes(ProjectAction.Create);
@@ -116,7 +124,6 @@ export class ProjectActionBarComponent implements OnInit {
   }
 
   onLocationFilterChange($event) {
-    console.log(this.selectedDivisions);
     this.filters.emit({ locations: this.selectedDivisions });
   }
 
@@ -139,9 +146,36 @@ export class ProjectActionBarComponent implements OnInit {
             };
           });
         }
-        console.log('countries => ', this.countries);
       }
     );
 
   }
+
+  servicesFilterInit() {
+    this.servicesService.services$.subscribe(
+      services => {
+        console.log('services from the source Observable => ', services);
+        console.log('serviceFilter => ', this.serviceFilter);
+        if (this.divisionFilter == null || this.divisionFilter.length === 0) {
+          this.services = services;
+        } else {
+          this.selectedServices = this.serviceFilter;
+          this.services = services.filter(service => this.serviceFilter.includes(service.id));
+        }
+      }
+    );
+  }
+
+  customSearchFn(term: string, item: Service) {
+    term = term.toLowerCase();
+    return (
+      item.descriptionEs.toLowerCase().indexOf(term) > -1 ||
+      item.keywords.filter(x => x.toLowerCase().includes(term)).length > 0
+    );
+  }
+
+  onServiceFilterChange() {
+    this.filters.emit({ services: this.selectedServices });
+  }
+
 }

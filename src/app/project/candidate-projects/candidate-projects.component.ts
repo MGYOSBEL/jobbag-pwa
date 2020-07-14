@@ -107,9 +107,12 @@ export class CandidateProjectsComponent implements OnInit {
     this.canMultiselectedApply$ = of(canApply);
   }
 
-  onActionBarFilter({ status, locations }) {
+  onActionBarFilter({ status, locations, services }) {
     if (!!locations) {
       this.locationFilterSubject.next(locations);
+    }
+    if (!!services) {
+      this.serviceFilterSubject.next(services);
     }
     this.filterProjectsByStatus(!!status ? status : this.currentStatusFilter);
     this.candidateProjectService.preview(null);

@@ -16,46 +16,66 @@
         style="color: #bebcbe;" (click)="onAction('DELETE')"></i></button>
     <div class="col-2 pl-0">
       <div class="form-group" style="margin-bottom: 0;">
-        <ng-select class="custom-ng-select"
-    [items]="countries"
-    [multiple]="true"
-    appearance="outline"
-    bindLabel="nameEs"
-    placeholder="Locations"
-    groupBy="divisions"
-    [selectableGroup]="true"
-    [selectableGroupAsModel]="false"
-    [closeOnSelect]="false"
-    bindValue="id"
-    (change)="onLocationFilterChange($event)"
-    [(ngModel)]="selectedDivisions">
-    <ng-template ng-optgroup-tmp let-item="item" let-item$="item$" let-index="index">
-        <input id="item-{{index}}" *ngIf="item.divisions.length" type="checkbox" [ngModel]="item$.selected"/> <ng-container *ngIf="item.divisions.length">{{item.nameEs | uppercase}}</ng-container>
-    </ng-template>
-    <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
-        <input id="item-{{index}}" type="checkbox" [ngModel]="item$.selected"/> {{item.nameEs}}
-    </ng-template>
-        <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
-        <!-- <div class="ng-value" *ngFor="let item of items | slice:0:2">
-            <span class="ng-value-label"><img [src]="item.avatar_url" width="20px" height="20px"> {{item.login}}</span>
-            <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
-        </div> -->
-        <div class="ng-value" *ngIf="items.length > 0">
-            <span class="ng-value-label">Selected ({{items.length}})</span>
-        </div>
-    </ng-template>
-
-</ng-select>
+        <ng-select
+          class="custom-ng-select"
+          [items]="countries"
+          [multiple]="true"
+          appearance="outline"
+          bindLabel="nameEs"
+          placeholder="Locations"
+          groupBy="divisions"
+          [selectableGroup]="true"
+          [selectableGroupAsModel]="false"
+          [closeOnSelect]="false"
+          bindValue="id"
+          (change)="onLocationFilterChange($event)"
+          [(ngModel)]="selectedDivisions">
+          <ng-template ng-optgroup-tmp let-item="item" let-item$="item$" let-index="index">
+            <input id="item-{{index}}" *ngIf="item.divisions.length" type="checkbox" [ngModel]="item$.selected" />
+            <ng-container *ngIf="item.divisions.length">{{item.nameEs | uppercase}}</ng-container>
+          </ng-template>
+          <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+            <input id="item-{{index}}" type="checkbox" [ngModel]="item$.selected" /> {{item.nameEs}}
+          </ng-template>
+          <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
+            <div class="ng-value" *ngIf="items.length > 0">
+              <span class="ng-value-label">Selected ({{items.length}})</span>
+            </div>
+          </ng-template>
+        </ng-select>
       </div>
     </div>
     <div class="col-2 pl-0">
       <div class="form-group" style="margin-bottom: 0;">
-        <select class="form-control" id="servicesFilterSelect" style="border-radius: 0; border-color: #2888C7;">
+        <ng-select
+          class="custom-ng-select"
+          [items]="services"
+          [multiple]="true"
+          appearance="outline"
+          bindLabel="descriptionEs"
+          placeholder="Services"
+          [closeOnSelect]="false"
+          bindValue="id"
+          [searchFn]="customSearchFn"
+          (change)="onServiceFilterChange($event)"
+          [(ngModel)]="selectedServices">
+          <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+            <input id="item-{{index}}" type="checkbox" [ngModel]="item$.selected" /> {{item.descriptionEs}}
+          </ng-template>
+
+          <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
+            <div class="ng-value" *ngIf="items.length > 0">
+              <span class="ng-value-label">Selected ({{items.length}})</span>
+            </div>
+          </ng-template>
+
+        </ng-select>
+        <!-- <select class="form-control" id="servicesFilterSelect" style="border-radius: 0; border-color: #2888C7;">
           <option value="0">Services</option>
           <option>Designer</option>
           <option>Development</option>
           <option>Arquitect</option>
-        </select>
+        </select> -->
       </div>
     </div>
     <div class="col-2 pl-0">
