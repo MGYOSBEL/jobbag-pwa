@@ -8,6 +8,8 @@ export const environment = {
   clientId: '4_4zvxgaapb50kgsc4gw0cgso4gg80sss8kcokkososcwg4g4oco',
   apiBaseURL: 'http://jobbag.api/api',
   serverBaseURL: 'http://jobbag.api',
+  // apiBaseURL: 'https://www.jobbag.ca/JobbagApi/public/api',
+  // serverBaseURL: 'https://www.jobbag.ca/JobbagApi/public',
   allowLogs: true
 
 };
