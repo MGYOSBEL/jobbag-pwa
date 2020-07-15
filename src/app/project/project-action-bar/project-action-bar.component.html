@@ -14,10 +14,10 @@
     </button>
     <button *ngIf="DELETE" type="button" class="btn mx-2 px-3" style="border-radius: 0;"><i class="fas fa-trash"
         style="color: #bebcbe;" (click)="onAction('DELETE')"></i></button> -->
-    <div class="col-2 pl-3">
+    <div class="col-3 pl-3" style="z-index: 4;">
       <div class="form-group" style="margin-bottom: 0;">
         <ng-select
-          class="custom-ng-select"
+          class="custom-ng-select p-0"
           [items]="countries"
           [multiple]="true"
           appearance="outline"
@@ -48,7 +48,7 @@
     <div class="col-4 pl-0">
       <div class="form-group" style="margin-bottom: 0;">
         <ng-select
-          class="custom-ng-select"
+          class="custom-ng-select p-0"
           [items]="services"
           [multiple]="true"
           appearance="outline"
@@ -78,15 +78,6 @@
         </select> -->
       </div>
     </div>
-    <!-- <div class="col-2 pl-0">
-      <div class="form-group" style="margin-bottom: 0;">
-        <select class="form-control" title="Status" id="servicesFilterSelect"
-          style="border-radius: 0; border-color: #2888C7;" (change)="onStatusFilter($event)">
-          <option *ngFor="let status of statusFilter; let i=index" [value]="status!" [selected]="i==0">
-            {{statusStringify(status)}}</option>
-        </select>
-      </div>
-    </div> -->
     <div class="col pl-0">
       <div class="input-group">
         <input type="text" class="form-control" placeholder="Search" style="border-radius: 0; border-color: #2888C7;">
