@@ -52,13 +52,14 @@
 
 .ng-select.ng-select-focused .ng-select-container:after {
   border-color: #2688c6;
-  border-width: 2px
+  border-width: 1px
 }
 
 .ng-select.ng-select-focused .ng-select-container.ng-appearance-outline:after,
 .ng-select.ng-select-focused .ng-select-container.ng-appearance-outline:hover:after {
   border-color: #2688c6;
-  border-width: 2px
+  box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+  border-width: 1px
 }
 
 .ng-select.ng-select-focused .ng-select-container .ng-value-container .ng-placeholder {
@@ -111,7 +112,7 @@
 
 .ng-select .ng-select-container.ng-appearance-outline:hover:after {
   border-color: #2688c6;
-  border-width: 2px
+  border-width: 1px
 }
 
 .ng-select .ng-select-container.ng-appearance-outline .ng-placeholder {
