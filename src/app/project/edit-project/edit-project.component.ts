@@ -25,7 +25,7 @@ export class EditProjectComponent implements OnInit {
   servicesTouched = false;
   divisionsDirty = false;
   countryDivisions: number[] = []; // Country
-
+  dataChange: boolean;
   project: Project;
 
 
@@ -43,6 +43,7 @@ export class EditProjectComponent implements OnInit {
     this.projectService.getProjectDetailByProfileType(this.userService.loggedUser.id, projectId).subscribe(
       project => {
         this.project = project;
+        this.dataChange = false;
         this.countryDivisions = project.divisions;
         this.editProjectForm = this.formBuilder.group({
           projectTitle: [project.name, Validators.required],
@@ -52,6 +53,10 @@ export class EditProjectComponent implements OnInit {
           startDate: dateFromModel(project.startDateExpected),
           onlineJob: !!project.remote
         });
+        this.editProjectForm.valueChanges.subscribe(
+          () => this.dataChange = true
+
+        );
       }
     );
   }
@@ -61,6 +66,7 @@ export class EditProjectComponent implements OnInit {
     this.servicesService.getAll().subscribe(
       services => this.services = services
     );
+
 
 
     const activeUserProfile$ = combineLatest(
