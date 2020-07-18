@@ -19,7 +19,6 @@ export function projectFromExecution(executionDTO: ProjectExecutionDTO): Project
   const project = projectFromDTO(executionDTO.project);
   project.state = executionDTO.state;
   project.executionId = executionDTO.id;
-  console.log('projectFromExecution => ', JSON.stringify(project));
   return project;
 }
 

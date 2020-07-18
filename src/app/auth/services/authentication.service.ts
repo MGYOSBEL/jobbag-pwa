@@ -60,7 +60,6 @@ export class AuthenticationService {
   signInWithJobbag(username: string, password: string): Observable<any> {
     this.authProvider = 'JOBBAG';
     const loginRequestJSON = this.parseLoginRequest(username, password, this.authProvider);
-    this.logger.log(loginRequestJSON);
     return this.http.post<any>(this.loginPath, loginRequestJSON, { headers: { 'Content-type': 'application/json' } })
       .pipe(map(response => {
         if (response.status_code === 200) {

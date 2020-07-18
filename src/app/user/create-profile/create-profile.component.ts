@@ -95,7 +95,6 @@ export class CreateProfileComponent implements OnInit {
     });
 
     document.getElementById('stepper1').addEventListener('shown.bs-stepper', (e: any) => {
-      this.logger.log(e.detail);
       this.activeStep = e.detail.indexStep;
     });
 
@@ -163,12 +162,10 @@ export class CreateProfileComponent implements OnInit {
         };
       })
     };
-    this.logger.log('userProfileRequest', JSON.stringify(userProfileRequest));
 
     this.userProfileService.create(userProfileRequest)
       .subscribe(
         response => {
-          this.logger.log('createUserProfile RESPONSE: ' + JSON.stringify(response));
           // this.role === 'CLIENT' ? this.activeProfileService.activateClient() : this.activeProfileService.activateServiceProvider() ;
           this.router.navigate(['../'], { relativeTo: this.route });
           this.loadingService.loadingOff();
@@ -183,7 +180,6 @@ export class CreateProfileComponent implements OnInit {
 
   onDivisionsSelect(event) {
     this.countryDivisions = event;
-    this.logger.log('event: ', event);
   }
 
   uploadPicture(event) {
@@ -239,7 +235,6 @@ export class CreateProfileComponent implements OnInit {
 
   selectDivision(division: DivisionElement) {
     // this.divisions = (division.divisions as Array<any>).map(elem => elem.nameEs);
-    this.logger.log(division);
   }
 
   customSearchFn(term: string, item: Service) {
@@ -259,7 +254,6 @@ export class CreateProfileComponent implements OnInit {
     this.cvBase64 = null;
     this.uploadedCV = false;
 
-    this.logger.log('CV:' + this.cvBase64);
   }
 
   closeRegister() {

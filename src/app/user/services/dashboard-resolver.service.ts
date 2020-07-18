@@ -33,7 +33,6 @@ export class DashboardResolverService implements Resolve<User> {
   }
   resolve(route: ActivatedRouteSnapshot): Observable<User> {
     const loggedIn = this.authenticationService.isLoggedIn;
-    this.logger.log('resolver loggedIn', loggedIn);
     if (loggedIn) {
       this.loadingService.loadingOn();
       const userId = this.authenticationService.getLoggedUserId();

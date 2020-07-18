@@ -32,19 +32,12 @@ export class NonProfileGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): boolean {
-    this.logger.log('NonProfileGuard >>>>>>>>>');
-    this.logger.log('ROUTE: ', route);
-    this.logger.log('loggedUser: ', this.loggedUser);
-    this.logger.log('loggedUser.profiles.length: ', this.loggedUser.profiles.length);
-    this.logger.log('NonProfileGuard <<<<<<<<<');
     if (!!this.loggedUser && this.loggedUser.profiles.length > 0) {
       return true;
     }
     // not logged in so redirect to login page with the return url
     const role = route.params.role;
     const id = route.params.id;
-    this.logger.log('NonProfileGuard role: ', role);
-    this.logger.log('NonProfileGuard id: ', id);
     this.router.navigate([`/user/${id}/${role}/create-profile`]);
     return false;  }
 }

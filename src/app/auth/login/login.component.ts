@@ -113,9 +113,7 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('socialUser', JSON.stringify(user));
           this.authenticationService.socialLogin(user, this.authenticationService.authProvider).subscribe(
             (data) => {
-              this.logger.log(data);
               if ( data.status_code ) {
-                this.logger.log('isLoggedIn subscription was false.... (LoginComponent)' + data);
                 this.loading = false;
                 this.loadingService.loadingOff();
                 this.loginErr = {err: true, message: data.text};

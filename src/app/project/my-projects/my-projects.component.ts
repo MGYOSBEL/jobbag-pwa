@@ -46,25 +46,27 @@ export class MyProjectsComponent implements OnInit {
     this.detailProject$ = personalProjectService.activeProject$;
     personalProjectService.userProfile$.subscribe(
       ([user, role]) => {
-        this.personalProjectService.reset();
-        this.userProfile = user.profiles.find(profile => profile.userProfileType === role);
-        const actions = [
-          ProjectAction.Delete,
-          ProjectAction.SelectAll
-        ];
-        this.actionBar = this.userProfile.userProfileType === 'CLIENT' ? [ProjectAction.Create, ...actions] : actions;
-        const filters = [
-          ProjectState.FINISH,
-          ProjectState.CANCEL
-        ];
-        this.statusFilter =
-        this.userProfile.userProfileType === 'CLIENT' ? [ProjectState.NEW, ...filters] : [ProjectState.PROGRESS, ...filters];
-        this.statusFilterSubject.next(this.statusFilter[0]);
-        this.projects$ = combineLatest(this.personalProjectService.personalProjects$, this.currentStatus$).pipe(
-          map(([projects, status]) => {
-            return filterByStatus(projects, status);
-          })
-        );
+        if (!!user) {
+          this.personalProjectService.reset();
+          this.userProfile = user.profiles.find(profile => profile.userProfileType === role);
+          const actions = [
+            ProjectAction.Delete,
+            ProjectAction.SelectAll
+          ];
+          this.actionBar = this.userProfile.userProfileType === 'CLIENT' ? [ProjectAction.Create, ...actions] : actions;
+          const filters = [
+            ProjectState.FINISH,
+            ProjectState.CANCEL
+          ];
+          this.statusFilter =
+            this.userProfile.userProfileType === 'CLIENT' ? [ProjectState.NEW, ...filters] : [ProjectState.PROGRESS, ...filters];
+          this.statusFilterSubject.next(this.statusFilter[0]);
+          this.projects$ = combineLatest(this.personalProjectService.personalProjects$, this.currentStatus$).pipe(
+            map(([projects, status]) => {
+              return filterByStatus(projects, status);
+            })
+          );
+        }
       }
     );
   }
@@ -78,7 +80,7 @@ export class MyProjectsComponent implements OnInit {
       }
     }));
     this.previewProject$ = this.personalProjectService.previewProject$;
-    this.personalProjectService.getPersonalProjects(this.userProfile.id);
+    // this.personalProjectService.getPersonalProjects(this.userProfile.id);
     this.selectAll$ = this.personalProjectService.selectAll$;
     this.currentStatus$.subscribe(
       status => this.statusValue = status
@@ -123,7 +125,7 @@ export class MyProjectsComponent implements OnInit {
     }
   }
 
-  onActionBarFilters({locations, services}) {
+  onActionBarFilters({ locations, services }) {
 
   }
 

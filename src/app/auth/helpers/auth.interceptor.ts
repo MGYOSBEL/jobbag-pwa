@@ -15,7 +15,6 @@ export class AuthInterceptor implements HttpInterceptor {
         const bearerToken = this.authenticationService.getToken();
         req = req.clone({ setHeaders: { Authorization: `Bearer ${bearerToken}` } });
       } else {
-        console.log('epired token');
         this.authenticationService.signOut();
         return EMPTY;
       }

@@ -56,7 +56,6 @@ export class EditPasswordComponent implements OnInit {
   }
 
   submit() {
-    this.logger.log(this.passwordForm.value);
     const editPwdRequest = {
       id: this.loggedUser.id,
       username: this.loggedUser.username,

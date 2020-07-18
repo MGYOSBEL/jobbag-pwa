@@ -149,7 +149,6 @@ export class RegisterComponent implements OnInit {
                         }
                       }
                     } else {
-                      this.logger.log('isLoggedIn subscription was false.... (LoginComponent)');
                     }
                   }, err => {
                     const message = `There was an error: ${err}`;
@@ -165,7 +164,6 @@ export class RegisterComponent implements OnInit {
               err: true,
               message: content.text
             };
-            this.logger.log(this.registerErr.message);
             const message = `There was an error: ${content.text}`;
             this.messages.showErrors(message);
 

@@ -67,9 +67,11 @@ export class CandidateProjectsComponent implements OnInit {
     );
     userProfile$.subscribe(
       ([user, role]) => {
-        this.userProfile = user.profiles.find(profile => profile.userProfileType === role);
-        this.locationFilterSubject.next(this.userProfile.divisions);
-        this.serviceFilterSubject.next(this.userProfile.services);
+        if (!!user) {
+          this.userProfile = user.profiles.find(profile => profile.userProfileType === role);
+          this.locationFilterSubject.next(this.userProfile.divisions);
+          this.serviceFilterSubject.next(this.userProfile.services);
+        }
       }
     );
   }
@@ -84,6 +86,7 @@ export class CandidateProjectsComponent implements OnInit {
       this.currentStatusFilter$)
       .pipe(
         map(([interests, candidates, status]) => this.filterProjectsByStatus(interests, candidates, status)),
+        tap(() => this.resetSelectedCard())
       );
     this.projectList$ = combineLatest(
       this.projects$,
@@ -95,6 +98,7 @@ export class CandidateProjectsComponent implements OnInit {
         const filteredByServices = filterByService(filteredByLocations, servicesFilter);
         return filteredByServices;
       }),
+      tap(() => this.resetSelectedCard())
     );
     this.previewProject$ = this.candidateProjectService.previewProject$;
     this.detailProject$ = this.candidateProjectService.activeProject$;
@@ -107,8 +111,8 @@ export class CandidateProjectsComponent implements OnInit {
     this.isPreviewInterest$ = this.previewProject$.pipe(
       filter(project => project != null),
       map(project => {
-          const isInterest = this.candidateProjectService.isInterest(project.id);
-          return isInterest;
+        const isInterest = this.candidateProjectService.isInterest(project.id);
+        return isInterest;
       })
     );
   }

@@ -33,10 +33,7 @@ export class ForgotPasswordComponent implements OnInit {
   }
 
   submit() {
-    // const call$ = interval(2000).pipe(
-    //   take(1),
-    //   tap( res => this.logger.log(res))
-    // );
+
     const call$ = this.userService.recoverPassword(this.forgotForm.value.username);
 
     this.loading.showLoaderUntilCompletes(call$).subscribe(

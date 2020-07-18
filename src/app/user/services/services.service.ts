@@ -33,8 +33,7 @@ export class ServicesService {
           return throwError(response.status_code + response.content.text);
         }
       }),
-      catchError(err => throwError(err)),
-      tap(res => this.logger.log(res))
+      catchError(err => throwError(err))
     );
   }
 }

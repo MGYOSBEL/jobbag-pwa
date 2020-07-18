@@ -53,7 +53,6 @@ export class MediaService {
         user_profile_id: userProfileId,
         cv
       };
-      this.logger.log(`${environment.apiBaseURL}/media/userProfileCV`, request);
       return this.http.put<APIResponse>(`${environment.apiBaseURL}/media/userProfileCV`, request).pipe(
         map( response => {
           const content = JSON.parse(response.content); // Seleccionar la parte del response q es el contenido
@@ -70,8 +69,6 @@ export class MediaService {
         }),
         tap(url => {
           this.userCacheService.setProfileCV(request.user_profile_id, url);
-          this.logger.log('mediaService cv edit: ', url);
-
         })
       );
     }

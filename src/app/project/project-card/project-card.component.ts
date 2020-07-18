@@ -44,7 +44,6 @@ export class ProjectCardComponent implements OnInit {
 
   ngOnInit() {
     this.userRole = this.userService.role;
-    console.log(this.userService.role);
 
     this.pressed$.subscribe(
       id => this.isPressed = (this.project.id === id)
@@ -85,7 +84,7 @@ export class ProjectCardComponent implements OnInit {
   // }
 
   getColor() {
-    return this.isPressed === true?'solid 8px #2788c7':'';
+    return this.isPressed === true ? 'solid 8px #2788c7' : '';
   }
 
   checkCard(state: boolean) {

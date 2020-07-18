@@ -87,7 +87,6 @@ export class UserCacheService {
     }
     localStorage.setItem(USER, JSON.stringify(user));
     this.subject.next(user);
-    this.logger.log('user after picture update', user);
   }
 
 
@@ -95,7 +94,6 @@ export class UserCacheService {
     let user: User = JSON.parse(localStorage.getItem(USER));
     const index =  user.profiles.findIndex(profile => profile.id === profileId);
     if (!! index) {
-      this.logger.log(cv);
       user.profiles[index].cv = cv != null ? cv : null ;
     }
     localStorage.setItem(USER, JSON.stringify(user));
