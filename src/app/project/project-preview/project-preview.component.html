@@ -4,12 +4,12 @@
     <div class="row vertical-align py-1 preview-toolbar" style="z-index: 0;">
       <div class="col-9">
         <ng-container *ngIf="(previewProject.state === 'NEW' && role === 'SERVICE_PROVIDER'); else playTemplate">
-          <button class="btn col-5 btn-space" [disabled]="!canApply" type="button" style=" background-color: #2888C7; color: white; border-radius: 0;"
+          <button class="btn col-3 btn-space" [disabled]="!canApply" id="applytBtn" type="button" style=" background-color: #2888C7; color: white; border-radius: 0;"
             (click)="onApply()">
             <i class="fab fa-telegram-plane"></i>
             Apply
           </button>
-          <button class="btn col-5 btn-space" type="button" [disabled]="!canStart"
+          <button class="btn col-3 btn-space" id="startBtn" type="button" [disabled]="!canStart"
             style=" background-color: #a1d173; color: white; border-radius: 0;" (click)="onStartProjectExecution()">
             <i class="fab fa-telegram-plane"></i>
             Start

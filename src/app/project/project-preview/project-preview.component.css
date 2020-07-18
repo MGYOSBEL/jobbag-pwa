@@ -29,3 +29,7 @@ li::before {
 .btn-space{
   margin-right: 5px;
 }
+
+.btn:disabled{
+  cursor:not-allowed;
+}

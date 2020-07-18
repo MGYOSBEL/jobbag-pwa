@@ -32,6 +32,7 @@ export class ProjectCardComponent implements OnInit {
   isPressed: boolean;
 
   private userRole: string;
+  projectOwner: string;
 
   constructor(
     private route: ActivatedRoute, // toEdit
@@ -44,7 +45,8 @@ export class ProjectCardComponent implements OnInit {
 
   ngOnInit() {
     this.userRole = this.userService.role;
-    console.log(this.userService.role);
+    console.log("User Role"+this.userService.role);
+    this.projectOwner = this.userRole;
 
     this.pressed$.subscribe(
       id => this.isPressed = (this.project.id === id)
