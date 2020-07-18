@@ -53,4 +53,6 @@
     color: white;
     font-size: 0.75rem;
     margin-left: 0.5rem;
+    position: sticky;
+    border-radius: 0;
 }
