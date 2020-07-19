@@ -6,7 +6,6 @@
     color:#2888C7;
     font-weight: light;
     font-size: 1.5rem;
-    margin-left: 1rem;
 }
 
 .vl{
@@ -16,7 +15,7 @@ border-left: 1px solid #605c61;
 
 .fa-chevron-circle-left{
   font-size: 1.25rem;
-  color: #605c61 !important;
+  color: #2888C7 !important;
 }
 
 .fa-chevron-circle-left:hover{
@@ -43,4 +42,16 @@ li {
 li::before {
   content: "\2022";
   margin: 0 4px 0px 8px;
+}
+
+.cancel-btn, .finish-btn{
+  width: 1.25rem;
+}
+
+.cancel-btn:hover, .edit-btn:hover{
+  fill: #605c61;
+}
+
+.btn-space{
+  margin-right: 5px;
 }
