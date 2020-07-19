@@ -1,5 +1,4 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { CandidateProjectService } from '../services/candidate-project.service';
 import { Project, ProjectState } from '../models/project.model';
 import { Observable } from 'rxjs';
 import { Country, DivisionElement } from '@app/user/models/country.model';
@@ -16,16 +15,6 @@ import { Router, ActivatedRoute, NavigationEnd } from '@angular/router'; //toEdi
   styleUrls: ['./project-preview.component.css']
 })
 export class ProjectPreviewComponent implements OnInit {
-
-  constructor(
-    // private candidateProjectService: CandidateProjectService,
-    private route: ActivatedRoute, //toEdit
-    private router: Router, //toEdit
-    private projectService: ProjectService,
-    private messages: MessagesService,
-    private countryService: CountryService,
-    private servicesService: ServicesService
-  ) { }
 
   @Input()
   previewProject$: Observable<Project>;
@@ -45,7 +34,7 @@ export class ProjectPreviewComponent implements OnInit {
   @Output()
   startExecution = new EventEmitter<number>();
   @Output()
-  action = new EventEmitter<{ projectId: number, action: 'APPLY' | 'START' | 'FINISH' | 'CANCEL' }>();
+  action = new EventEmitter<{ projectId: number, action: 'APPLY' | 'START' | 'FINISH' | 'CANCEL' | 'BRIEFCASE'}>();
 
   countries: Country[];
   services: Service[];
@@ -53,6 +42,20 @@ export class ProjectPreviewComponent implements OnInit {
   canStart: boolean;
   divisionsName: string[] = [];
   servicesName: string[] = [];
+
+
+  constructor(
+    // private candidateProjectService: CandidateProjectService,
+    private route: ActivatedRoute, //toEdit
+    private router: Router, //toEdit
+    private projectService: ProjectService,
+    private messages: MessagesService,
+    private countryService: CountryService,
+    private servicesService: ServicesService
+  ) {
+  }
+
+
 
   ngOnInit() {
     if (!!this.isInterest$) {
@@ -113,6 +116,13 @@ export class ProjectPreviewComponent implements OnInit {
       action: 'START'
     });
   }
+  onCreateBriefcase() {
+    this.action.emit({
+      projectId: this.previewProject.id,
+      action: 'BRIEFCASE'
+    });
+
+  }
 
   onFinishProjectExecution() {
     this.action.emit({
@@ -135,6 +145,8 @@ export class ProjectPreviewComponent implements OnInit {
   onEditProject() {
     this.router.navigateByUrl(`/project/${this.previewProject.id}/edit`);
   }
+
+
 
 
 }

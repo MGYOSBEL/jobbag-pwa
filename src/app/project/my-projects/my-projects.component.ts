@@ -1,7 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { Observable, combineLatest, BehaviorSubject } from 'rxjs';
 import { Project, ProjectState, ProjectAction } from '../models/project.model';
-import { UserProfile } from '@app/user/models/user.model';
+import { UserProfile, UserProfileBriefcase } from '@app/user/models/user.model';
 import { ProjectService } from '../services/project.service';
 import { filter, map, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
@@ -9,6 +9,9 @@ import { UserService } from '@app/user/services/user.service';
 import { PersonalProjectService } from '../services/personal-project.service';
 import { MessagesService } from '@app/services/messages.service';
 import { filterByStatus } from '../models/filters';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { BriefcaseService } from '@app/user/services/briefcase.service';
+import { LoadingService } from '@app/services/loading.service';
 
 @Component({
   selector: 'app-my-projects',
@@ -33,16 +36,35 @@ export class MyProjectsComponent implements OnInit {
     ProjectAction.Delete,
     ProjectAction.SelectAll
   ];
-
+  showBriefcaseForm: boolean;
   statusFilter = [];
   statusValue: string;
+
+  briefcaseEditForm: FormGroup;
+  previewUrl;
+  imageBase64: string;
+  imageLoaded: boolean;
+  pictures: string[] = [];
 
   constructor(
     private userService: UserService,
     private messages: MessagesService,
     private personalProjectService: PersonalProjectService,
+    private formBuilder: FormBuilder,
+    private briefcaseService: BriefcaseService,
+    private loading: LoadingService,
     private router: Router
   ) {
+    this.imageLoaded = false;
+    this.showBriefcaseForm = false;
+    this.briefcaseEditForm = this.formBuilder.group({
+      comments: [''],
+      description: ['', Validators.required],
+      startDate: [''],
+      endDate: [''],
+    });
+
+
     this.detailProject$ = personalProjectService.activeProject$;
     personalProjectService.userProfile$.subscribe(
       ([user, role]) => {
@@ -145,6 +167,9 @@ export class MyProjectsComponent implements OnInit {
       case 'CANCEL':
         this.cancelExecution(projectId);
         break;
+      case 'BRIEFCASE':
+        this.onShowBriefcaseForm(projectId);
+        break;
       default:
         break;
     }
@@ -152,7 +177,9 @@ export class MyProjectsComponent implements OnInit {
 
   finishExecution(executionId: number) {
     this.personalProjectService.updateExecution(executionId, 'FINISH').subscribe(
-      () => this.messages.showMessages('You have succesfully started a project execution. You can view it in My Projects tab.'),
+      () => {
+        this.messages.showMessages('You have succesfully started a project execution. You can view it in My Projects tab.');
+      },
       err => this.messages.showErrors('There has been an error starting the project execution. Try it later.')
     );
   }
@@ -177,4 +204,59 @@ export class MyProjectsComponent implements OnInit {
   // showActionBarMethod(){
   //   this.showActionBar = true;
   // }
+  onShowBriefcaseForm(projectId: number) {
+    console.log('Show briefcase form related to project', projectId);
+    this.showBriefcaseForm = true;
+    const project = this.personalProjectService.getProjectById(projectId);
+    if (!!project) {
+      this.briefcaseEditForm.patchValue({
+        description: project.name || ''
+      });
+    }
+  }
+
+  createBriefcase() {
+
+  }
+
+  uploadPicture($event) {
+    const file = ($event.target as HTMLInputElement).files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = (_event) => {
+      this.previewUrl = reader.result;
+      console.log(reader.result);
+      this.imageBase64 = this.previewUrl.toString().split(',')[1];
+      this.pictures[0] = this.imageBase64;      // adding pictures array to briefcase (pictures[0]) just one image
+      this.imageLoaded = true;
+    };
+  }
+
+  cancelBriefcase() {
+    this.showBriefcaseForm = false;
+  }
+
+  saveBriefcase() {
+    const form = this.briefcaseEditForm.value;
+    const startDate = form.startDate;
+    const endDate = form.endDate;
+    console.log('form.value => ', form);
+    const createBriefcase$  = this.briefcaseService.create(this.userProfile.id, {
+      comments: form.comments,
+      description: form.description,
+      start_date: `${startDate.year}-${startDate.month}-${startDate.day}`,
+      end_date: `${endDate.year}-${endDate.month}-${endDate.day}`,
+      id_profession: null
+    });
+    this.loading.showLoaderUntilCompletes(createBriefcase$).subscribe(
+      () => this.messages.showMessages('You have succesfully added this project to your briefcase. ' +
+                                        'The client will be asked to review your work.'),
+      err => this.messages.showErrors('There was an error adding this project to your briefcase. Try again later')
+    );
+    this.showBriefcaseForm = false;
+  }
+
+
+
+  resetForm() { }
 }

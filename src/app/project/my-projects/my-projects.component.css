@@ -48,3 +48,15 @@
   background-color: #2888C7;
   border-radius: 0;
 }
+
+
+.loaded-img-responsive{
+  max-width: 100%;
+  max-height: 150px;
+  height: auto;
+  object-fit: contain;
+}
+
+.image-upload input[type=file] {
+  display: none;
+}

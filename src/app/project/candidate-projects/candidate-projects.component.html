@@ -27,7 +27,7 @@
         <!-- PROJECT CARD -->
         <div class="col-12 scroll-host">
           <ng-container *ngIf="projectList$ | async as projects">
-            <app-project-card-list [projects]="projects" [masterSelected$]="masterSelected$"
+            <app-project-card-list [projects]="projects" [masterSelected$]="masterSelected$" [reset$]="selectedCard$"
               (checkedProjects)="onSelectProjects($event)" (cardClicked)="onCardClicked($event)" [cardMode]="'WIDE'">
             </app-project-card-list>
         </ng-container>

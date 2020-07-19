@@ -4,8 +4,8 @@
     <div class="row vertical-align py-1 preview-toolbar" style="z-index: 0;">
       <div class="col-9">
         <ng-container *ngIf="(previewProject.state === 'NEW' && role === 'SERVICE_PROVIDER'); else playTemplate">
-          <button class="btn col-3 btn-space" [disabled]="!canApply" id="applytBtn" type="button" style=" background-color: #2888C7; color: white; border-radius: 0;"
-            (click)="onApply()">
+          <button class="btn col-3 btn-space" [disabled]="!canApply" id="applytBtn" type="button"
+            style=" background-color: #2888C7; color: white; border-radius: 0;" (click)="onApply()">
             <i class="fab fa-telegram-plane"></i>
             Apply
           </button>
@@ -59,6 +59,11 @@
               </g>
             </svg>
             Cancel
+          </button>
+          <button class="btn col-4 btn-space" type="button" *ngIf="previewProject.state === 'FINISH'"
+            style=" background-color: #2888C7; color: white; border-radius: 0;" (click)="onCreateBriefcase()">
+            <span class="icon-briefcase" style="font-size: larger;"></span>&nbsp;
+            Add Briefcase
           </button>
         </ng-template>
 
@@ -130,5 +135,7 @@
       </div>
     </div>
   </div>
-  {{previewProject | json}}
 </ng-container>
+
+
+

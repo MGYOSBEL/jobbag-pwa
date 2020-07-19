@@ -6,6 +6,7 @@ import { map, tap, catchError } from 'rxjs/operators';
 import { UserProfile } from '@app/user/models/user.model';
 import { UserService } from '@app/user/services/user.service';
 import { LoadingService } from '@app/services/loading.service';
+import { MessagesService } from '@app/services/messages.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,7 @@ export class PersonalProjectService {
   constructor(
     private projectService: ProjectService,
     private loading: LoadingService,
+    private messages: MessagesService,
     private userService: UserService) {
     this.userProfile$ = combineLatest(
       userService.loggedUser$,
@@ -68,14 +70,16 @@ export class PersonalProjectService {
       ([projects, executions]) => {
         const combinedProjects = [...projects, ...executions];
         this.personalProjectsSubject.next(combinedProjects);
-      }
+      },
+      err => this.messages.showErrors('Error fetching some data. Refresh the page or try again later.')
     );
   }
 
   getPersonalProjects(userProfileId: number) {
     const projects$ = this.projectService.getAllProjectSummariesByProfileId(userProfileId);
     this.loading.showLoaderUntilCompletes(projects$).subscribe(
-      projects => this.personalProjectsSubject.next(projects)
+      projects => this.personalProjectsSubject.next(projects),
+      err => this.messages.showErrors('Error fetching some data. Refresh the page or try again later.')
     );
 
   }
@@ -96,6 +100,12 @@ export class PersonalProjectService {
     this.projectService.getProjectDetailByProfileType(userProfileId, projectId).subscribe(
       project => this.activeProjectSubject.next(project)
     );
+  }
+
+  getProjectById(projectId: number) {
+    const projects = this.personalProjectsSubject.value;
+    const project = projects.find(proj => proj.id === projectId);
+    return project;
   }
 
   backToList() {
