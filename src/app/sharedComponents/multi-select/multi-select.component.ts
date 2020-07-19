@@ -64,7 +64,6 @@ export class MultiSelectComponent implements OnInit {
             };
           });
         }
-        console.log(`countries => ${JSON.stringify(this.countries)}`, this.countries);
         this.selectedByCountry = [[], [], []];
 
         this.selectedByCountry = [
@@ -76,13 +75,7 @@ export class MultiSelectComponent implements OnInit {
     );
   }
 
-//   selectAll() {
-//     this.selectedPeople = this.accounts;
-// }
 
-// onAdd(event) {
-// this.logger.log(event);
-// }
 
 onCountrySelect(country: Country, i: number) {
   this.hideButtons = true;

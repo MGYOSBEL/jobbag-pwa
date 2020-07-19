@@ -41,7 +41,6 @@ export class UserService {
       if (!loggedIn) {
         this.userSubject.next(null);
         this.roleSubject.next(null);
-        this.logger.log('null user emitted');
       } else {
         // this.userSubject.next(null);
         // this.logger.log('new user emitted: ', this.userSubject.value);
@@ -88,7 +87,6 @@ export class UserService {
       }),
       tap((response: User) => {
         this.userSubject.next(response); // Emito el user y lo salvo en el storage
-        this.logger.log('emitted user: ', response);
         this.userCacheService.setUser(response);
       })
     );
@@ -136,11 +134,9 @@ export class UserService {
       client_secret: environment.clientSecret,
       user: data
     };
-    this.logger.log('data request: ', req);
     return this.http.put<APIResponse>(this.apiPath + '/user', req).pipe(
       map(response => {
         const content = JSON.parse(JSON.parse(response.content));
-        this.logger.log('edited User: ', content);
         if (response.status_code === 200) {
           return content;
         } else {
@@ -154,15 +150,10 @@ export class UserService {
         return throwError(err);  // Relanzo el error con el status y el detail
       }),
       tap((response: User) => {
-        this.logger.log('response', response);
         let user = this.userCacheService.getUser();
-
         user.id = response.id;
         user.email = response.email;
         user.username = response.username;
-
-
-        this.logger.log('user service edit: ', user);
         this.userSubject.next(user); // Salvo el user en el storage
         this.userCacheService.setUser(user);
       })

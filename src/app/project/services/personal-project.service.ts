@@ -21,8 +21,10 @@ export class PersonalProjectService {
       userService.role$
     ).pipe(
       tap(([user, role]) => {
-        const profile: UserProfile = user.profiles.find(elem => elem.userProfileType === role);
-        this.getPersonalProjects(profile.id);
+        if (!!user) {
+          const profile: UserProfile = user.profiles.find(elem => elem.userProfileType === role);
+          role === 'CLIENT' ? this.getPersonalProjects(profile.id) : this.getPersonalProjectExecutions(profile.id);
+        }
       }
       )
     );
@@ -58,11 +60,24 @@ export class PersonalProjectService {
     map(projects => projects.filter(project => project.state === ProjectState.CANCEL))
   );
 
+  getPersonalProjectExecutions(userProfileId: number) {
+    const projects$ = this.projectService.getAllProjectSummariesByProfileId(userProfileId);
+    const executions$ = this.projectService.getAllProjectExecutionsByProfileId(userProfileId);
+    const combinedProjects$ = combineLatest(projects$, executions$);
+    this.loading.showLoaderUntilCompletes(combinedProjects$).subscribe(
+      ([projects, executions]) => {
+        const combinedProjects = [...projects, ...executions];
+        this.personalProjectsSubject.next(combinedProjects);
+      }
+    );
+  }
+
   getPersonalProjects(userProfileId: number) {
     const projects$ = this.projectService.getAllProjectSummariesByProfileId(userProfileId);
     this.loading.showLoaderUntilCompletes(projects$).subscribe(
       projects => this.personalProjectsSubject.next(projects)
     );
+
   }
 
   addPersonalProject(project: Project) {

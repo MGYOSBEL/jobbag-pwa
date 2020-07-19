@@ -27,7 +27,6 @@ export class CountryService {
   get(): Observable<Country[]> {
     const countries: Country[] = JSON.parse(localStorage.getItem('countries'));
     if (countries && countries.length > 0) {
-      this.logger.log('countries fetched from cache.');
       return of (countries);
     }
     return this.http.get<APIResponse>(`${environment.apiBaseURL}/country`).pipe(
@@ -48,7 +47,6 @@ export class CountryService {
       tap(
         (content: Country[]) => {
           localStorage.setItem('countries', JSON.stringify(content));
-          this.logger.log('fetched countries from api', content);
         }
       )
     );

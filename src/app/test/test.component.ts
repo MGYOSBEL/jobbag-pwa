@@ -88,7 +88,7 @@ export class TestComponent implements OnInit {
   }
 
   onSearch($event) {
-    this.logger.log($event);
+    // this.logger.log($event);
   }
 
   trackByFn(item: Service) {

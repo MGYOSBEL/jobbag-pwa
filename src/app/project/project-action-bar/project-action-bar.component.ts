@@ -154,8 +154,6 @@ export class ProjectActionBarComponent implements OnInit {
   servicesFilterInit() {
     this.servicesService.services$.subscribe(
       services => {
-        console.log('services from the source Observable => ', services);
-        console.log('serviceFilter => ', this.serviceFilter);
         if (this.divisionFilter == null || this.divisionFilter.length === 0) {
           this.services = services;
         } else {

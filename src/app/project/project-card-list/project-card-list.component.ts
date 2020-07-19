@@ -40,7 +40,6 @@ export class ProjectCardListComponent implements OnInit {
   ngOnInit() {
     this.reset$.subscribe(
         (state) => {
-          console.log('received number');
           if (!state) {
             this.reset();
           }
@@ -70,7 +69,6 @@ export class ProjectCardListComponent implements OnInit {
   }
 
   reset() {
-    console.log('reseted list');
     this.pressedCardSubject.next(null);
   }
 }

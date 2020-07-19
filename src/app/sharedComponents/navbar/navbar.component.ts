@@ -84,9 +84,7 @@ export class NavbarComponent implements OnInit {
     this.isLoggedIn$.subscribe(
       loggedIn => {
         this.isLoggedIn = loggedIn;
-        this.logger.log('loggedIn', loggedIn);
         if (!this.isLoggedIn) {
-          console.log('navigating to this.route...');
           this.router.navigate(['./'], { relativeTo: this.route });
         }
       }
@@ -132,7 +130,6 @@ export class NavbarComponent implements OnInit {
         !!(user.profiles.find(profile => profile.userProfileType === 'CLIENT')),
         !!(user.profiles.find(profile => profile.userProfileType === 'SERVICE_PROVIDER')),
       ];
-      this.logger.log(this.hasProfiles);
     }
     if (role) {
       this.role = role;
@@ -145,7 +142,6 @@ export class NavbarComponent implements OnInit {
       if (this.activeProfile) {
         this.defaultPicture = this.activeProfile.picture == null;
         this.userImageUrl = environment.serverBaseURL + '/' + this.activeProfile.picture;
-        this.logger.log('defaultPicture: ', this.defaultPicture, 'userImageUrl: ', this.userImageUrl);
       }
     }
   }

@@ -22,7 +22,6 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.userId = this.authenticationService.getLoggedUserId();
-    this.logger.log('user: ', this.userId, ' another text');
   }
 
 

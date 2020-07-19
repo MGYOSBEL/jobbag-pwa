@@ -32,13 +32,11 @@ export class UserProfileService {
     // Leo el array de userProfiles del storage
     const userProfiles: Array<UserProfile> = this.userCacheService.getProfiles() || [];
     if (userProfiles && userProfiles.length > 0) {
-      this.logger.log('No lo pidio a la api');
       const profile = userProfiles.find(item => item.id === id);
       if (profile != null) {
         return of(profile);
       }
     }
-    this.logger.log('Lo pidio a la api');
 
     return this.http.get<APIResponse>(this.apiPath + '/user_profile/' + id).pipe(
       catchError(err => { // Captura si hubo algun error en la llamada y lo relanza
@@ -88,10 +86,8 @@ export class UserProfileService {
         // tampoco se puede crear. Se lanza un error
       }
     }
-    this.logger.log(data);
     return this.http.post<APIResponse>(this.apiPath + '/user_profile', data).pipe(
       map(response => {
-        this.logger.log(response);
         if (response.status_code === 200) { // Si el status del response es OK retorno contento como dato del observable
           return JSON.parse(JSON.parse(response.content));
         } else {
@@ -104,23 +100,18 @@ export class UserProfileService {
         return throwError(err.error.status + ': ' + err.error.detail);  // Relanzo el error con el status y el detail
       }),
       tap((content: UserProfile) => { // Si se ejecuta el tap es porque no se lanzo antes ningun error, por lo tanto status===200(OK)
-        this.logger.log('content', content);
         userProfiles.push(content);
-        this.logger.log('userProfiles', userProfiles);
         this.userCacheService.setProfiles(userProfiles); // Se guarda el arreglo de userProfiles en el localStorage
       })
     );
   }
 
   edit(data: any): Observable<UserProfile> {
-    this.logger.log('editProfileMethod Data: ', JSON.stringify(data));
     return this.http.put<APIResponse>(this.apiPath + '/user_profile', data)
       .pipe(
         map(response => {
-          this.logger.log('editCompleteResponse: ', response);
           const content = JSON.parse(JSON.parse(response.content)); // Seleccionar la parte del response q es el contenido
           if (response.status_code === 200) {
-            this.logger.log('edit response: ', content);
             return content; // Retorno el content del response como cuerpo del observable
           } else { // Si no fue OK el status del response lanzo un error con el status code y el text del response.
             return throwError(
@@ -137,7 +128,6 @@ export class UserProfileService {
           profiles[index] = content;
           // Una vez modificados los campos salvo el array completo de userProfiles
           this.userCacheService.setProfiles(profiles);
-          this.logger.log('userProfileService edit: ', content);
         }
         ),
         shareReplay()
@@ -169,7 +159,6 @@ export class UserProfileService {
 
         userProfiles.splice(userProfiles.findIndex(elem => elem.id === id), 1); // Cuando encuentro el id, elimino el elemento
 
-        this.logger.log('profiles after delete', userProfiles);
         this.userCacheService.setProfiles(userProfiles);
       })
     );

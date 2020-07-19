@@ -85,7 +85,6 @@ export class CreateProjectComponent implements OnInit {
     });
 
     document.getElementById('createProjectStepper').addEventListener('shown.bs-stepper', (e: any) => {
-      this.logger.log(e.detail);
       this.activeStep = e.detail.indexStep;
     });
   }

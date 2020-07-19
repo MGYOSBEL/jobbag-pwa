@@ -67,6 +67,22 @@ export class ProjectService {
     return this.loading.showLoaderUntilCompletes(getProjects$);
   }
 
+  // /api/user_profile/{id_user_profile}/project_execution
+  getAllProjectExecutionsByProfileId(userProfileId: number): Observable<Project[]> {
+    const getProjects$ = this.http.get<APIResponse>(`${environment.apiBaseURL}/user_profile/${userProfileId}/project_execution`)
+      .pipe(
+        map(APIResponseToData),
+        catchError(err => throwError(err)),
+        map(projects => projects.map(proj => projectFromExecution(proj))),
+        shareReplay(),
+        tap((projects) => {
+          this.projectsAlreadyLoadedForId = userProfileId;
+          this.projectsSubject.next(projects);
+        })
+      );
+    return this.loading.showLoaderUntilCompletes(getProjects$);
+  }
+
   // Obtener proyectos candidatos
   getCandidateProjects(userProfileId: number, filters?: { services: number[], divisions: number[] }): Observable<Project[]> {
     const request = {
@@ -156,7 +172,6 @@ export class ProjectService {
       map(execution => projectFromExecution(execution)),
       shareReplay(),
       tap((project) => {
-        console.log(project);
       })
     );
     return this.loading.showLoaderUntilCompletes(execution$);
