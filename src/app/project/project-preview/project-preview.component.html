@@ -5,12 +5,12 @@
       <div class="col-9">
         <ng-container *ngIf="(previewProject.state === 'NEW' && role === 'SERVICE_PROVIDER'); else playTemplate">
           <button class="btn col-3 btn-space" [disabled]="!canApply" id="applytBtn" type="button"
-            style=" background-color: #2888C7; color: white; border-radius: 0;" (click)="onApply()">
+            style=" background-color: #2888C7; color: white; border-radius: 0; width:6.25rem;" (click)="onApply()">
             <i class="fab fa-telegram-plane"></i>
             Apply
           </button>
           <button class="btn col-3 btn-space" id="startBtn" type="button" [disabled]="!canStart"
-            style=" background-color: #a1d173; color: white; border-radius: 0;" (click)="onStartProjectExecution()">
+            style=" background-color: #a1d173; color: white; border-radius: 0; width:6.25rem;" (click)="onStartProjectExecution()">
             <i class="fab fa-telegram-plane"></i>
             Start
           </button>
@@ -39,7 +39,7 @@
             Finish
           </button>
           <button class="btn col-3 btn-space" type="button" *ngIf="previewProject.state === 'PROGRESS'"
-            style=" background-color: #f15d5d; color: white; border-radius: 0;" (click)="onCancelProjectExecution()">
+            style=" background-color: #f15d5d; color: white; border-radius: 0; width:6.25rem" (click)="onCancelProjectExecution()">
             <svg class="cancel-btn" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 55.06 41.93">
               <defs>
                 <style>
