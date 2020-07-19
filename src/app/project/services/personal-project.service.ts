@@ -97,8 +97,13 @@ export class PersonalProjectService {
   }
 
   viewDetail(userProfileId: number, projectId: number) {
+    const project = this.personalProjectsSubject.value.find(proj => proj.id === projectId);
     this.projectService.getProjectDetailByProfileType(userProfileId, projectId).subscribe(
-      project => this.activeProjectSubject.next(project)
+      responseProject => {
+        responseProject.state = project.state;
+        responseProject.executionId = project.executionId;
+        this.activeProjectSubject.next(responseProject);
+       }
     );
   }
 

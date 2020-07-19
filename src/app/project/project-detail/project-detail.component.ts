@@ -18,6 +18,8 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
 
   @Input()
   project: Project;
+  @Input()
+  role: string;
 
   @Output()
   goBack = new EventEmitter();
@@ -25,10 +27,15 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
   @Input()
   isInterest$: Observable<boolean>;
 
+  @Output()
+  action = new EventEmitter<{ projectId: number, action: 'APPLY' | 'START' | 'FINISH' | 'CANCEL' | 'BRIEFCASE'}>();
+
+
   countries: Country[];
   services: Service[];
   // projectOwner: boolean = true;
-
+  canApply: boolean;
+  canStart: boolean;
   divisionsName: string[] = [];
   servicesName: string[] = [];
 
@@ -54,6 +61,16 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
         this.servicesName = this.getServicesName(this.project.services);
       }
     );
+
+    if (!!this.isInterest$) {
+      this.isInterest$.subscribe(
+        isInterest => {
+            this.canApply = !isInterest;
+            this.canStart = isInterest;
+        }
+      );
+
+    }
   }
 
   ngOnDestroy() {
@@ -84,5 +101,39 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
   //   // if(this.project.interested_profiles === null)
   //   return true;
   // }
+  onApply() {
+    this.action.emit({
+      projectId: this.project.id,
+      action: 'APPLY'
+    });
+  }
+
+  onStartProjectExecution() {
+    this.action.emit({
+      projectId: this.project.id,
+      action: 'START'
+    });
+  }
+  onCreateBriefcase() {
+    this.action.emit({
+      projectId: this.project.id,
+      action: 'BRIEFCASE'
+    });
+
+  }
+
+  onFinishProjectExecution() {
+    this.action.emit({
+      projectId: this.project.executionId,
+      action: 'FINISH'
+    });
+  }
+  onCancelProjectExecution() {
+    this.action.emit({
+      projectId: this.project.executionId,
+      action: 'CANCEL'
+    });
+
+  }
 
 }

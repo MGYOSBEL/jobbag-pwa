@@ -2,6 +2,7 @@
   <app-project-detail
     [project]="detailProject"
     [isInterest$]="isPreviewInterest$"
+    (action)="onPreviewAction($event)"
     (goBack)=onBackToList()>
   </app-project-detail>
 </ng-container>
