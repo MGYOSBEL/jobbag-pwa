@@ -1,8 +1,10 @@
 <div class="container-fluid">
   <div class="row" style="border-bottom: 1px solid #2888C7; height:3rem;">
-    <div class="col">
+    <div class="col mx-0">
       <div class="row no-gutters">
-        <!-- <div class="row no-gutters align-items-end"> -->
+        <button type="button" class="btn action-btn rounded-0" data-toggle="tooltip" title="Go Back" alt="goBack"
+          (click)="backToList()"><i class="fas fa-chevron-circle-left"></i>
+        </button>
         <p class="user-name text-left pt-2  align-self-end">
           {{project.name}}
         </p>
@@ -10,52 +12,54 @@
 
     </div>
     <div class="col text-right">
-      <button type="button" class="btn mx-2 px-1 mt-2 action-btn rounded-0" data-toggle="tooltip" title="Go Back"
-        alt="goBack" (click)="backToList()"><i class="fas fa-chevron-circle-left"></i>
+      <button class="btn col-2 mt-1 btn-space" id="editBtn" type="button" data-toggle="tooltip" title="Edit Project" alt="Edit"
+        style=" background-color: #2888C7; color: white; border-radius: 0;">
+        <i class="fas fa-edit" style="color:white;"></i>
+        Edit
       </button>
-      <button type="button" class="btn mx-2 px-1 action-btn rounded-0" data-toggle="tooltip" title="Edit Project"
-        alt="Edit" (click)="onEditProject()">
-        <!-- <i class="fas fa-edit"></i> -->
-        <svg class="edit-btn" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 49.77 45.7">
+      <button class="btn col-2 mt-1 btn-space" type="button" data-toggle="tooltip" title="Finish Project" alt="Finish"
+        style=" background-color: #f99d6e; color: white; border-radius: 0;">
+        <svg class="finish-btn" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50.87 48.64">
           <defs>
             <style>
               .cls-1 {
-                fill: #2888C7;
+                fill: #fff;
               }
             </style>
           </defs>
-          <title>Edit Project</title>
+          <title>terminados</title>
           <g id="Layer_2" data-name="Layer 2">
             <g id="Layer_1-2" data-name="Layer 1">
-              <path class="cls-1" d="M15.23,23.41h5.92C21.52,15.6,21.9,7.82,22.28,0H14C14.44,7.82,14.83,15.59,15.23,23.41Z" />
               <path class="cls-1"
-                d="M18.18,26a4.54,4.54,0,0,0-4.67,4.71,4.55,4.55,0,0,0,4.71,4.75,4.49,4.49,0,0,0,4.58-4.65A4.51,4.51,0,0,0,18.18,26Z" />
+                d="M46.22,11.54H38.39v4.64h7.83V31.63h-10A2.31,2.31,0,0,0,33.86,34V44H6V38.78H1.4V44A4.64,4.64,0,0,0,6,48.64H38.12a4.67,4.67,0,0,0,3.28-1.37l8.11-8.1a4.68,4.68,0,0,0,1.36-3.28V16.18A4.66,4.66,0,0,0,46.22,11.54ZM38.49,43.62V36.27h7.35Z" />
               <path class="cls-1"
-                d="M45.1,8.38H26.9V13H45.1V28.59H35a2.33,2.33,0,0,0-2.33,2.34V41h-28V13H9.25V8.38H4.67A4.67,4.67,0,0,0,0,13V41A4.67,4.67,0,0,0,4.67,45.7H36.94a4.72,4.72,0,0,0,3.31-1.37l8.15-8.15a4.67,4.67,0,0,0,1.37-3.3V13A4.68,4.68,0,0,0,45.1,8.38ZM37.32,40.66v-7.4h7.4Z" />
+                d="M21.67,5.16c-3.16,0-6-2.07-10.44-2.07a14.34,14.34,0,0,0-5.2,1,3.16,3.16,0,0,0,.14-1.33,3.09,3.09,0,1,0-4.62,3V32a1,1,0,0,0,1,1h1a1,1,0,0,0,1-1V26.6a17.68,17.68,0,0,1,8.24-1.84c3.17,0,6,2.06,10.44,2.06a15,15,0,0,0,8.29-2.58A3.09,3.09,0,0,0,33,21.65V6.19A3.09,3.09,0,0,0,28.7,3.34,18.46,18.46,0,0,1,21.67,5.16Zm8.24,16.5a12.06,12.06,0,0,1-6.59,2.06c-3.86,0-6.57-2.06-10.44-2.06a22.16,22.16,0,0,0-8.24,1.55v-15a12.17,12.17,0,0,1,6.59-2.06c3.87,0,6.58,2.06,10.44,2.06a22.1,22.1,0,0,0,8.24-2.06Z" />
             </g>
           </g>
         </svg>
+        Finish
       </button>
-      <button type="button" class="btn mx-2 px-1 action-btn rounded-0" data-toggle="tooltip" title="Cancel Project"
-        alt="Delete">
-        <svg class="cancel-btn" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 51.37 41.95">
+      <button class="btn col-2 mt-1 btn-space" type="button" data-toggle="tooltip" title="Cancel Project" alt="Cancel"
+        style=" background-color: #f15d5d; color: white; border-radius: 0;">
+        <svg class="cancel-btn" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 55.06 41.93">
           <defs>
             <style>
               .cls-1 {
-                fill: #2888C7;
+                fill: #fff;
               }
             </style>
           </defs>
-          <title>Cancel Project</title>
+          <title>cancelados</title>
           <g id="Layer_2" data-name="Layer 2">
             <g id="Layer_1-2" data-name="Layer 1">
               <path class="cls-1"
-                d="M24,20q-2.45-2.46-4.91-4.91l-.58-.58-1.21-1.18-1-1,.62-.51a2.33,2.33,0,0,0,.23-.19l1.05-1.05,5.76-5.76a2.78,2.78,0,0,0,.42-3.61,2.75,2.75,0,0,0-2-1.22A2.91,2.91,0,0,0,20,.88C18.43,2.42,16.87,4,15.32,5.54L13.11,7.75,12.85,8l-.49.45-1.08-1.1L9.65,5.72,8.33,4.39Q6.5,2.55,4.64.73A2.61,2.61,0,0,0,2.82,0,2.91,2.91,0,0,0,1.39.39a2.82,2.82,0,0,0-1.33,3,4,4,0,0,0,1.35,2L6.35,10.3l2.13,2.13-.82.8c-.33.31-.64.61-.94.92l-.91.9C4.16,16.7,2.51,18.34.87,20a2.79,2.79,0,0,0,1.49,4.78,2.9,2.9,0,0,0,2.47-.87c1.54-1.52,3.08-3.06,4.61-4.59l2.24-2.25.26-.24.46-.43.45.42.22.21,1.28,1.28L20,23.9a2.79,2.79,0,0,0,4.6-.76A2.75,2.75,0,0,0,24,20Z" />
+                d="M37.34,16.86l-6,6a1.44,1.44,0,0,1-2,0l-6-6a1.42,1.42,0,0,1,0-2L24,14.2a1.45,1.45,0,0,1,2.06,0l2.4,2.56V5.92H17.23a1.44,1.44,0,0,1-1-.42l-.95-1a1.44,1.44,0,0,1,1-2.45H30.8a1.44,1.44,0,0,1,1.43,1.44V16.78l2.41-2.56a1.43,1.43,0,0,1,2,0l.65.64a1.44,1.44,0,0,1,0,2Zm-15.81.92a1.47,1.47,0,0,0-1-.42H9.34V6.51l2.41,2.55a1.43,1.43,0,0,0,2.05,0l.65-.65a1.44,1.44,0,0,0,0-2l-6-6a1.42,1.42,0,0,0-2,0l-6,6a1.42,1.42,0,0,0,0,2l.64.65a1.44,1.44,0,0,0,2.06,0l2.4-2.55V19.75A1.44,1.44,0,0,0,7,21.18H21.47a1.43,1.43,0,0,0,1-2.44l-.95-1Z" />
               <path class="cls-1"
-                d="M46.75,5.11H31V9.72H46.75V25.07h-10a2.3,2.3,0,0,0-2.31,2.3v10H6.85V32.16H2.24v5.18A4.61,4.61,0,0,0,6.85,42H38.7A4.67,4.67,0,0,0,42,40.6l8-8.05a4.61,4.61,0,0,0,1.36-3.25V9.72A4.63,4.63,0,0,0,46.75,5.11ZM39.08,37v-7.3h7.3Z" />
+                d="M50.42,4.85H38.59V9.48H50.42V24.93H40.37a2.32,2.32,0,0,0-2.32,2.32v10H10.24V28.08H5.6v9.21a4.64,4.64,0,0,0,4.64,4.64H42.31a4.66,4.66,0,0,0,3.29-1.36l8.1-8.1a4.64,4.64,0,0,0,1.36-3.28V9.48A4.65,4.65,0,0,0,50.42,4.85ZM42.69,36.92V29.57H50Z" />
             </g>
           </g>
         </svg>
+        Cancel
       </button>
     </div>
   </div>
