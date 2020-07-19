@@ -12,7 +12,8 @@ export function projectFromDTO(projectDTO: ProjectDTO): Project {
     divisions: projectDTO.divisions,
     services: projectDTO.services,
     interestedProfiles: projectDTO.interested_profiles,
-    userProfileOwnerId: projectDTO.user_profile_owner_id
+    userProfileOwnerId: projectDTO.user_profile_owner_id,
+    creationDate: projectDTO.creation_date
   };
 }
 
@@ -20,6 +21,7 @@ export function projectFromExecution(executionDTO: ProjectExecutionDTO): Project
   const project = projectFromDTO(executionDTO.project);
   project.state = executionDTO.state;
   project.executionId = executionDTO.id;
+  project.creationDate = executionDTO.creation_date;
   return project;
 }
 

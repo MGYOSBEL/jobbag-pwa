@@ -12,6 +12,7 @@ export interface ProjectDTO {
   user_profile_id?: number;
   interested_profiles?: UserProfile[];
   user_profile_owner_id?: number;
+  creation_date?: string;
 }
 
 export interface ProjectExecutionDTO {
@@ -22,6 +23,7 @@ export interface ProjectExecutionDTO {
   userProfileId: number;
   projectId: number;
   project: ProjectDTO;
+  creation_date?: string;
 }
 
 
@@ -39,6 +41,7 @@ export interface Project {
   interestedProfiles?: UserProfile[];
   executionId?: number;
   userProfileOwnerId?: number;
+  creationDate?: string;
 }
 
 
