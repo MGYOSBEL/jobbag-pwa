@@ -179,7 +179,7 @@ export class MyProjectsComponent implements OnInit {
   finishExecution(executionId: number) {
     this.personalProjectService.updateExecution(executionId, 'FINISH').subscribe(
       () => {
-        this.messages.showMessages('You have succesfully started a project execution. You can view it in My Projects tab.');
+        this.messages.showMessages('You have succesfully finished a project execution. You can view it in My Projects tab.');
         this.requestForBriefcaseModal = true;
       },
       err => this.messages.showErrors('There has been an error finishing the project execution. Try it later.')
@@ -188,7 +188,7 @@ export class MyProjectsComponent implements OnInit {
 
   cancelExecution(executionId: number) {
     this.personalProjectService.updateExecution(executionId, 'CANCEL').subscribe(
-      () => this.messages.showMessages('You have succesfully started a project execution. You can view it in My Projects tab.'),
+      () => this.messages.showMessages('You have succesfully cancelled a project execution. You can view it in My Projects tab.'),
       err => {
         this.messages.showErrors('There has been an error canceling the project execution. Try it later.');
         console.log(err);
