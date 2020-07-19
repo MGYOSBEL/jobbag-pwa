@@ -25,7 +25,13 @@
         </button>
       </ng-container>
       <ng-template #playTemplate>
-        <button class="btn col-2 mt-1 btn-space" type="button" *ngIf="project.state === 'PROGRESS'"
+        <button class="btn col-2 mt-1 btn-space" id="editBtn" *ngIf="role === 'CLIENT'"
+        type="button" data-toggle="tooltip" title="Edit Project" alt="Edit"
+        style=" background-color: #2888C7; color: white; border-radius: 0; width: 6.25rem;" (click)="onEditProject()">
+        <i class="fas fa-edit" style="color:white;"></i>
+        Edit
+      </button>
+        <button class="btn col-2 mt-1 btn-space" type="button" *ngIf="project.state === 'PROGRESS' || project.state === 'NEW'"
           style=" background-color: #f99d6e; color: white; border-radius: 0;" (click)="onFinishProjectExecution()">
           <svg class="finish-btn" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50.87 48.64">
             <defs>
@@ -47,7 +53,7 @@
           </svg>
           Finish
         </button>
-        <button class="btn col-2 mt-1 btn-space" type="button" *ngIf="project.state === 'PROGRESS'"
+        <button class="btn col-2 mt-1 btn-space" type="button" *ngIf="project.state === 'PROGRESS' || project.state === 'NEW'"
           style=" background-color: #f15d5d; color: white; border-radius: 0;" (click)="onCancelProjectExecution()">
           <svg class="cancel-btn" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 55.06 41.93">
             <defs>
@@ -69,7 +75,7 @@
           </svg>
           Cancel
         </button>
-        <button class="btn col-3 mt-1 btn-space" type="button" *ngIf="project.state === 'FINISH'"
+        <button class="btn col-3 mt-1 btn-space" type="button" *ngIf="project.state === 'FINISH' && role === 'SERVICE_PROVIDER'"
           style=" background-color: #2888C7; color: white; border-radius: 0;" (click)="onCreateBriefcase()">
           <span class="icon-briefcase" style="font-size: larger;"></span>&nbsp;
           Add Briefcase
