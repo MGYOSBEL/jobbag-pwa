@@ -2,12 +2,9 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { Project, ProjectState } from '../models/project.model';
 import { CandidateProjectService } from '../services/candidate-project.service';
 import { timeInterval } from 'rxjs/operators';
-import { interval } from 'rxjs';
-<<<<<<< HEAD
+import { interval, Observable } from 'rxjs';
 import { UserService } from '@app/user/services/user.service';
-=======
-import { Router, ActivatedRoute, NavigationEnd } from '@angular/router'; //toEdit
->>>>>>> bea614830335156b9d9cbd6199363136432bbfd6
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router'; // toEdit
 
 @Component({
   selector: 'app-project-card',
@@ -19,6 +16,9 @@ export class ProjectCardComponent implements OnInit {
   @Input()
   project: Project;
 
+  @Input()
+  pressed$: Observable<number>;
+
   @Output() checked = new EventEmitter<{ state: boolean, projectId: number }>();
 
   @Output() clicked = new EventEmitter<number>();
@@ -29,22 +29,31 @@ export class ProjectCardComponent implements OnInit {
   @Input()
   cardMode: 'WIDE' | 'COMPACT';
 
-<<<<<<< HEAD
+  isPressed: boolean;
+
   private userRole: string;
-=======
-  constructor(
-    private route: ActivatedRoute, //toEdit
-    private router: Router){} //toEdit)
-  
->>>>>>> bea614830335156b9d9cbd6199363136432bbfd6
+  projectOwner: string;
 
   constructor(
+    private route: ActivatedRoute, // toEdit
+    private router: Router, // toEdit)
     private userService: UserService
-  ) { }
+    ) {}
+
+
+
 
   ngOnInit() {
     this.userRole = this.userService.role;
-    console.log(this.userService.role);
+<<<<<<< HEAD
+=======
+    console.log("User Role"+this.userService.role);
+    this.projectOwner = this.userRole;
+>>>>>>> 774651d4ee3fa2d7699537bf9936f3080b5628ac
+
+    this.pressed$.subscribe(
+      id => this.isPressed = (this.project.id === id)
+    );
   }
 
   onClick() {
@@ -61,23 +70,27 @@ export class ProjectCardComponent implements OnInit {
     }
   }
 
-  getColor() {
-    if (this.project.interest) {
-      return 'solid 8px  #2788c7';
-    }
-    switch (this.project.state) {
-      case ProjectState.NEW:
-        return 'solid 8px #7bcff4';
-      case ProjectState.PROGRESS:
-        return 'solid 8px #a1d173';
-      case ProjectState.FINISH:
-        return 'solid 8px #f99d6e';
-      case ProjectState.CANCEL:
-        return 'solid 8px #f15d5d';
+  // getColor() {
+  //   if (this.project.interest) {
+  //     return 'solid 8px #2788c7';
+  //   }
+  //   switch (this.project.state) {
+  //     case ProjectState.NEW:
+  //       return 'solid 8px #7bcff4';
+  //     case ProjectState.PROGRESS:
+  //       return 'solid 8px #a1d173';
+  //     case ProjectState.FINISH:
+  //       return 'solid 8px #f99d6e';
+  //     case ProjectState.CANCEL:
+  //       return 'solid 8px #f15d5d';
 
-      default:
-        break;
-    }
+  //     default:
+  //       break;
+  //   }
+  // }
+
+  getColor() {
+    return this.isPressed === true ? 'solid 8px #2788c7' : '';
   }
 
   checkCard(state: boolean) {
@@ -88,12 +101,9 @@ export class ProjectCardComponent implements OnInit {
     });
   }
 
-<<<<<<< HEAD
-=======
-  onEditProject(){
-    this.router.navigateByUrl(`/project/id/edit`);
+  onEditProject() {
+    this.router.navigateByUrl(`/project/${this.project.id}/edit`);
   }
->>>>>>> bea614830335156b9d9cbd6199363136432bbfd6
 
 
 }

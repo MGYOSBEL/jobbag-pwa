@@ -11,6 +11,7 @@ export interface ProjectDTO {
   services?: number[];
   user_profile_id?: number;
   interested_profiles?: UserProfile[];
+  user_profile_owner_id?: number;
 }
 
 export interface ProjectExecutionDTO {
@@ -37,6 +38,7 @@ export interface Project {
   interest?: boolean;
   interestedProfiles?: UserProfile[];
   executionId?: number;
+  userProfileOwnerId?: number;
 }
 
 

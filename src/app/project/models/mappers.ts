@@ -11,7 +11,8 @@ export function projectFromDTO(projectDTO: ProjectDTO): Project {
     remote: projectDTO.remote,
     divisions: projectDTO.divisions,
     services: projectDTO.services,
-    interestedProfiles: projectDTO.interested_profiles
+    interestedProfiles: projectDTO.interested_profiles,
+    userProfileOwnerId: projectDTO.user_profile_owner_id
   };
 }
 
@@ -32,7 +33,8 @@ export function projectToDTO(project: Project, userProfileId?: number): ProjectD
     remote: project.remote,
     divisions: project.divisions,
     services: project.services,
-    interested_profiles: project.interestedProfiles
+    interested_profiles: project.interestedProfiles,
+    user_profile_owner_id: userProfileId
     };
   return !!userProfileId ? {user_profile_id: userProfileId, ...projectDTO} : projectDTO;
 

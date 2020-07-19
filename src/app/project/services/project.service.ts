@@ -73,7 +73,7 @@ export class ProjectService {
       .pipe(
         map(APIResponseToData),
         catchError(err => throwError(err)),
-        map(projects => projects.map(projectFromExecution)),
+        map(projects => projects.map(proj => projectFromExecution(proj))),
         shareReplay(),
         tap((projects) => {
           this.projectsAlreadyLoadedForId = userProfileId;
