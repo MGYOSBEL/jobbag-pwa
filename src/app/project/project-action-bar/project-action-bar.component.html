@@ -94,18 +94,18 @@
           bindValue="id"
           (change)="onLocationFilterChange($event)"
           [(ngModel)]="selectedDivisions">
-          <ng-template ng-optgroup-tmp let-item="item" let-item$="item$" let-index="index">
+          <!-- <ng-template ng-optgroup-tmp let-item="item" let-item$="item$" let-index="index">
             <input id="item-{{index}}" *ngIf="item.divisions.length" type="checkbox" [ngModel]="item$.selected" />
             <ng-container *ngIf="item.divisions.length">{{item.nameEs | uppercase}}</ng-container>
-          </ng-template>
-          <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+          </ng-template> -->
+          <!-- <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
             <input id="item-{{index}}" type="checkbox" [ngModel]="item$.selected" /> {{item.nameEs}}
-          </ng-template>
-          <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
+          </ng-template> -->
+          <!-- <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
             <div class="ng-value" *ngIf="items.length > 0">
               <span class="ng-value-label">Selected ({{items.length}})</span>
             </div>
-          </ng-template>
+          </ng-template> -->
         </ng-select>
       </div>
     </div>

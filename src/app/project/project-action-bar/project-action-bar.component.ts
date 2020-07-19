@@ -59,7 +59,7 @@ export class ProjectActionBarComponent implements OnInit {
   selectedDivisionsFilter: number[] = [];
   selectedDivisions: number[];
   // userProfile: UserProfile;
-  dateList: string[];
+  dateList: string[] = ['This Week','This Month','This Trimester'];
 
   constructor(
     // private userService: UserService,
