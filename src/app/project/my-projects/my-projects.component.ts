@@ -39,7 +39,7 @@ export class MyProjectsComponent implements OnInit {
   showBriefcaseForm: boolean;
   statusFilter = [];
   statusValue: string;
-
+  requestForBriefcaseModal: boolean;
   briefcaseEditForm: FormGroup;
   previewUrl;
   imageBase64: string;
@@ -57,6 +57,7 @@ export class MyProjectsComponent implements OnInit {
   ) {
     this.imageLoaded = false;
     this.showBriefcaseForm = false;
+    this.requestForBriefcaseModal = false;
     this.briefcaseEditForm = this.formBuilder.group({
       comments: [''],
       description: ['', Validators.required],
@@ -179,15 +180,19 @@ export class MyProjectsComponent implements OnInit {
     this.personalProjectService.updateExecution(executionId, 'FINISH').subscribe(
       () => {
         this.messages.showMessages('You have succesfully started a project execution. You can view it in My Projects tab.');
+        this.requestForBriefcaseModal = true;
       },
-      err => this.messages.showErrors('There has been an error starting the project execution. Try it later.')
+      err => this.messages.showErrors('There has been an error finishing the project execution. Try it later.')
     );
   }
 
   cancelExecution(executionId: number) {
     this.personalProjectService.updateExecution(executionId, 'CANCEL').subscribe(
       () => this.messages.showMessages('You have succesfully started a project execution. You can view it in My Projects tab.'),
-      err => this.messages.showErrors('There has been an error starting the project execution. Try it later.')
+      err => {
+        this.messages.showErrors('There has been an error canceling the project execution. Try it later.');
+        console.log(err);
+      }
     );
 
   }
@@ -241,7 +246,7 @@ export class MyProjectsComponent implements OnInit {
     const startDate = form.startDate;
     const endDate = form.endDate;
     console.log('form.value => ', form);
-    const createBriefcase$  = this.briefcaseService.create(this.userProfile.id, {
+    const createBriefcase$ = this.briefcaseService.create(this.userProfile.id, {
       comments: form.comments,
       description: form.description,
       start_date: `${startDate.year}-${startDate.month}-${startDate.day}`,
@@ -250,7 +255,7 @@ export class MyProjectsComponent implements OnInit {
     });
     this.loading.showLoaderUntilCompletes(createBriefcase$).subscribe(
       () => this.messages.showMessages('You have succesfully added this project to your briefcase. ' +
-                                        'The client will be asked to review your work.'),
+        'The client will be asked to review your work.'),
       err => this.messages.showErrors('There was an error adding this project to your briefcase. Try again later')
     );
     this.showBriefcaseForm = false;

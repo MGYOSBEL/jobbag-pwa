@@ -118,7 +118,7 @@ export class ProjectPreviewComponent implements OnInit {
   }
   onCreateBriefcase() {
     this.action.emit({
-      projectId: this.previewProject.id,
+      projectId: this.previewProject.executionId,
       action: 'BRIEFCASE'
     });
 

@@ -1,5 +1,116 @@
 <ng-container *ngIf="detailProject$ | async as detailProject; else listTemplate">
-  <app-project-detail [project]="detailProject" (goBack)="onBackToList()"></app-project-detail>
+  <ng-container *ngIf="showBriefcaseForm; else projectDetailTemplate">
+    <div class="col-6">
+      <div class="row" style="background-color:#f7f8f9; margin: 0rem;">
+        <div class="col-md-12 rounded-0 p-0">
+          <div class="mt-0 py-3" style=" background-color: white; padding: 2rem;">
+            <form [formGroup]="briefcaseEditForm">
+              <div class="mb-3">
+                <div class="modal-body text-center mt-0 p-0">
+                  <!-- <h4 class="text-center mt-1" style="color:#bebcbe ;">Work Samples</h4> -->
+                  <div class="image-upload">
+                    <label for="file-input">
+                      <img *ngIf="imageLoaded" [src]="previewUrl" class="loaded-img-responsive"
+                        alt="Profile Picture" style="cursor: pointer;">
+                      <img *ngIf="!imageLoaded" src="assets/img/default-image.png" class="loaded-img-responsive"
+                        alt="default-image" title="Default Image" style="cursor: pointer;">
+                    </label>
+                    <input id="file-input" #pictureInput type="file" (change)="uploadPicture($event)" accept="image/*"
+                      (click)="pictureInput.value=null;">
+                  </div>
+                  <h5 class="text-center mt-0 p-0" style="color:#bebcbe ;">Click to add an image!</h5>
+                </div>
+                <div class="col-12">
+                  <div class="mb-3 my-0 py-0">
+                    <label for="">Title</label>
+                    <input
+                      [ngClass]="briefcaseEditForm.get('description').invalid && (briefcaseEditForm.get('description').dirty || briefcaseEditForm.get('description').touched) ? 'is-invalid' : '' "
+                      class="form-control rounded-0" formControlName="description" id="briefcaseTitle"
+                      placeholder="Short Description" required>
+                    <div class="invalid-feedback">
+                      Please enter a title.
+                    </div>
+                  </div>
+                  <div class="mb-3 my-0 py-0">
+                    <label for="">Comments</label>
+                    <textarea class="form-control rounded-0" formControlName="comments" id="briefcaseComments"
+                      placeholder="Enter some comments"></textarea>
+                  </div>
+                  <div class="row my-0 py-0">
+                    <div class="col-md-6">
+                      <div class="mb-3">
+                        <label for="">Start Date</label>
+                        <div class="input-group">
+                          <input class="form-control rounded-0" formControlName="startDate" id="BriefcaseStartDate"
+                            placeholder="yyyy-mm-dd" ngbDatepicker #startDatePicker="ngbDatepicker">
+                          <div class="input-group-append">
+                            <button class="btn btn-outline-secondary calendar rounded-0"
+                              (click)="startDatePicker.toggle()" type="button">
+                              <i class="far fa-calendar-alt fa-lg"></i>
+                            </button>
+                          </div>
+                        </div>
+                        <div class="invalid-feedback">
+                          Please enter a date.
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="mb-3">
+                        <label for="">End Date</label>
+                        <div class="input-group">
+                          <input class="form-control rounded-0" formControlName="endDate" id="briefcaseEndDate"
+                            placeholder="yyyy-mm-dd" ngbDatepicker #endDatePicker="ngbDatepicker">
+                          <div class="input-group-append">
+                            <button class="btn btn-outline-secondary calendar rounded-0"
+                              (click)="endDatePicker.toggle()" type="button">
+                              <i class="far fa-calendar-alt fa-lg"></i>
+                            </button>
+                          </div>
+                        </div>
+                        <div class="invalid-feedback">
+                          Please enter a date.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- <div class="col-12 my-0 py-0 text-right"> -->
+                <div class="row justify-content-end">
+                  <div class="col-6">
+                  </div>
+                  <div class="col-8 col-sm-6 btn-group justify-content-between px-4">
+                    <button type="button" class="btn col-6 btn btn-previous rounded-0 mr-2"
+                      style="background-color: #BFBDBE; color: #2688C6;" data-toggle="tooltip" data-dismiss="modal"
+                      title="Close" (click)="cancelBriefcase()">CLOSE</button>
+                    <ng-container *ngIf="briefcaseEditForm.invalid; else validButton">
+                      <button type="button" class="btn col-6 btn btn-edit rounded-0"
+                        style="color: white; background-color: #2688C6;" data-toggle="tooltip" title="Save" disabled>
+                        SAVE
+                      </button>
+                    </ng-container>
+                    <ng-template #validButton>
+                      <button type="button" class="btn col-5 btn btn-edit rounded-0"
+                        style="color: white; background-color: #2688C6;" data-toggle="tooltip" title="Save"
+                        (click)="saveBriefcase();">
+                        SAVE
+                      </button>
+
+                    </ng-template>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </ng-container>
+  <ng-template #projectDetailTemplate>
+    <app-project-detail [project]="detailProject" [role]="userProfile.userProfileType" (goBack)="onBackToList()"
+    (action)="onPreviewAction($event)"></app-project-detail>
+  </ng-template>
 </ng-container>
 <ng-template #listTemplate>
   <ng-container *ngIf="projects$ | async as projects">
@@ -149,6 +260,35 @@
     </div>
 
   </ng-container>
+</ng-template>
+
+<ng-template *ngIf="requestForBriefcaseModal">
+ <!-- The Modal -->
+ <div class="modal fade rounded-0" id="closeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+ aria-hidden="false">
+ <div class="modal-dialog modal-dialog-centered rounded-0" role="document">
+   <div class="modal-content rounded-0 border-0">
+     <div class="modal-header rounded-0" style="background-color: #2888C7; color: white;">
+       <label>Close Confirmation</label>
+       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+         <span aria-hidden="true">&times;</span>
+       </button>
+     </div>
+     <div class="modal-body rounded-0">
+       Are you sure you want to cancel your project edition?
+     </div>
+     <div class="modal-footer rounded-0">
+       <button type="button" class="btn btn-previous rounded-0" data-dismiss="modal"
+         style="background-color: #bfbdbe;color: #2880a9;">Cancel</button>
+       <button type="button" class="btn btn-send rounded-0" data-dismiss="modal"
+         style="background-color: #2888C7;color: white;" (click)="onClose()">Accept</button>
+     </div>
+   </div>
+ </div>
+</div>
+
+
+
 </ng-template>
 
 
