@@ -45,7 +45,6 @@ export class ProjectCardComponent implements OnInit {
 
   ngOnInit() {
     this.userRole = this.userService.role;
-    console.log("User Role" + this.userService.role);
     this.projectOwner = this.userRole;
 
     this.pressed$.subscribe(

@@ -82,18 +82,14 @@
       <div class="form-group" style="margin-bottom: 0;">
         <ng-select
           class="custom-ng-select p-0"
-          [items]="dateList"
-          [multiple]="false"
+          [items]="dateFilterList"
           appearance="outline"
           bindLabel="nameEs"
           placeholder="Date"
-          groupBy="divisions"
-          [selectableGroup]="false"
-          [selectableGroupAsModel]="false"
           [closeOnSelect]="true"
-          bindValue="id"
-          (change)="onLocationFilterChange($event)"
-          [(ngModel)]="selectedDivisions">
+          bindValue="index"
+          (change)="onDateFilterChange($event)"
+          >
           <!-- <ng-template ng-optgroup-tmp let-item="item" let-item$="item$" let-index="index">
             <input id="item-{{index}}" *ngIf="item.divisions.length" type="checkbox" [ngModel]="item$.selected" />
             <ng-container *ngIf="item.divisions.length">{{item.nameEs | uppercase}}</ng-container>

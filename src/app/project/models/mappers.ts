@@ -1,4 +1,4 @@
-import { Project, ProjectDTO, ProjectState, ProjectExecutionDTO } from './project.model';
+import { Project, ProjectDTO, ProjectState, ProjectExecutionDTO, CandidateDTO } from './project.model';
 import { dashCaseToCamelCase } from '@angular/compiler/src/util';
 
 export function projectFromDTO(projectDTO: ProjectDTO): Project {
@@ -14,6 +14,21 @@ export function projectFromDTO(projectDTO: ProjectDTO): Project {
     interestedProfiles: projectDTO.interested_profiles,
     userProfileOwnerId: projectDTO.user_profile_owner_id,
     creationDate: projectDTO.creation_date
+  };
+}
+export function projectFromCandidateDTO(projectDTO: CandidateDTO): Project {
+  return {
+    startDateExpected: projectDTO.startDateExpected,
+    name: projectDTO.name,
+    description: projectDTO.description,
+    state: projectDTO.state,
+    id: projectDTO.id,
+    remote: projectDTO.remote,
+    divisions: projectDTO.divisions,
+    services: projectDTO.services,
+    interestedProfiles: projectDTO.interestedProfiles,
+    userProfileOwnerId: projectDTO.userProfileOwnerId,
+    creationDate: projectDTO.creationDate
   };
 }
 

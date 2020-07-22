@@ -5,7 +5,7 @@ import { environment } from '@environments/environment';
 import { map, tap, catchError, shareReplay } from 'rxjs/operators';
 import { APIResponse } from '@app/models/app.model';
 import { Project, ProjectDTO, ProjectState } from '../models/project.model';
-import { projectFromDTO, projectToDTO, projectFromExecution } from '../models/mappers';
+import { projectFromDTO, projectToDTO, projectFromExecution, projectFromCandidateDTO } from '../models/mappers';
 import { APIResponseToData } from '@app/models/mappers';
 import { ProjectCacheService } from './project-cache.service';
 import { LoadingService } from '@app/services/loading.service';
@@ -92,7 +92,7 @@ export class ProjectService {
     return this.http.post(`${environment.apiBaseURL}/project_candidate`, request).pipe(
       map(APIResponseToData),
       catchError(err => throwError(err)),
-      map(arr => arr.map(projectFromDTO)),
+      map(arr => arr.map(projectFromCandidateDTO)),
       shareReplay(),
       tap()
     );

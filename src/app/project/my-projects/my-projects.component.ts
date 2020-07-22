@@ -8,10 +8,11 @@ import { Router } from '@angular/router';
 import { UserService } from '@app/user/services/user.service';
 import { PersonalProjectService } from '../services/personal-project.service';
 import { MessagesService } from '@app/services/messages.service';
-import { filterByStatus } from '../models/filters';
+import { filterByStatus, filterByLocation, filterByService, substractMonths, filterByCreationDate } from '../models/filters';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { BriefcaseService } from '@app/user/services/briefcase.service';
 import { LoadingService } from '@app/services/loading.service';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-my-projects',
@@ -32,12 +33,19 @@ export class MyProjectsComponent implements OnInit {
   selectAll$ = new Observable<boolean>();
   private statusFilterSubject = new BehaviorSubject<ProjectState>(null);
   currentStatus$ = this.statusFilterSubject.asObservable();
+  locationFilterSubject = new BehaviorSubject<number[]>([]);
+  serviceFilterSubject = new BehaviorSubject<number[]>([]);
+  dateFilterSubject = new BehaviorSubject<number>(12);
+  locationFilter$: Observable<number[]> = this.locationFilterSubject.asObservable();
+  servicesFilter$: Observable<number[]> = this.serviceFilterSubject.asObservable();
+  dateFilter$: Observable<number> = this.dateFilterSubject.asObservable();
   actionBar = [
     ProjectAction.Delete,
     ProjectAction.SelectAll
   ];
   showBriefcaseForm: boolean;
   statusFilter = [];
+  dateFilter: number[] = [1, 6, 12];
   statusValue: string;
   requestForBriefcaseModal: boolean;
   briefcaseEditForm: FormGroup;
@@ -84,9 +92,29 @@ export class MyProjectsComponent implements OnInit {
           this.statusFilter =
             this.userProfile.userProfileType === 'CLIENT' ? [ProjectState.NEW, ...filters] : [ProjectState.PROGRESS, ...filters];
           this.statusFilterSubject.next(this.statusFilter[0]);
-          this.projects$ = combineLatest(this.personalProjectService.personalProjects$, this.currentStatus$).pipe(
-            map(([projects, status]) => {
-              return filterByStatus(projects, status);
+          this.locationFilterSubject.next(this.userProfile.divisions);
+          this.serviceFilterSubject.next(this.userProfile.services);
+          this.projects$ = combineLatest(
+            this.personalProjectService.personalProjects$,
+            this.currentStatus$,
+            this.locationFilter$,
+            this.servicesFilter$,
+            this.dateFilter$).pipe(
+            map(([projects, status, locationFilter, servicesFilter, datesFilter]) => {
+              // console.log('projects => ', projects);
+              const filteredByStatus = filterByStatus(projects, status);
+              // console.log('filteredByStatus => ', filteredByStatus);
+              // const filteredByLocations = filterByLocation(filteredByStatus, locationFilter);
+              // console.log('filteredByLocations => ', filteredByLocations);
+              // const filteredByServices = filterByService(filteredByLocations, servicesFilter);
+              // console.log('filteredByServices => ', filteredByServices);
+              const today = Date.now();
+              const todayLocale = formatDate(today, 'yyyy-MM-dd', 'en-US');
+              const limitDate = substractMonths(todayLocale, datesFilter);
+              const filteredByCreationDate = filterByCreationDate(filteredByStatus, limitDate);
+              // console.log('filteredByCreationDate => ', filteredByCreationDate);
+              return filteredByCreationDate;
+
             })
           );
         }
@@ -148,8 +176,16 @@ export class MyProjectsComponent implements OnInit {
     }
   }
 
-  onActionBarFilters({ locations, services }) {
-
+  onActionBarFilters({ locations, services, date }) {
+    if (!!locations) {
+      this.locationFilterSubject.next(locations);
+    }
+    if (!!services) {
+      this.serviceFilterSubject.next(services);
+    }
+    if (!!date) {
+      this.dateFilterSubject.next(date);
+    }
   }
 
   onSelectAll(state) {

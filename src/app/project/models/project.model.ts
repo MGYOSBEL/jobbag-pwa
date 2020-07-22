@@ -15,6 +15,7 @@ export interface ProjectDTO {
   creation_date?: string;
 }
 
+
 export interface ProjectExecutionDTO {
   id: number;
   state: ProjectState;
@@ -56,6 +57,21 @@ export enum ProjectAction {
    Apply = 'APPLY',
    Create = 'CREATE',
    Delete = 'DELETE'
+}
+
+
+export interface CandidateDTO {
+  'id': number;
+  'name': string;
+  'description': string;
+  'startDateExpected': string;
+  'remote': boolean;
+  'state': ProjectState;
+  'divisions': number[];
+  'services': number[];
+  'interestedProfiles': UserProfile[];
+  'userProfileOwnerId': number;
+  'creationDate': string;
 }
 
 

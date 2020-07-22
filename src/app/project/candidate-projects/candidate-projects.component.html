@@ -13,7 +13,7 @@
         <!-- ACTION BAR -->
         <app-project-action-bar [actions]="actionBar" (selectAll)="onSelectAll($event)" (action)="onAction($event)"
           [canApply$]="canMultiselectedApply$" (filters)="onActionBarFilter($event)" [statusFilter]="statusFilter"
-          [divisionFilter]="userProfile.divisions" [serviceFilter]="userProfile.services">
+          [divisionFilter]="userProfile.divisions" [serviceFilter]="userProfile.services" [dateFilter]="dateFilter">
         </app-project-action-bar>
       </div>
     </div>

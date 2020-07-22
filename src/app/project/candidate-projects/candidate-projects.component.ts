@@ -8,7 +8,8 @@ import { UserProfileService } from '@app/user/services/user-profile.service';
 import { UserService } from '@app/user/services/user.service';
 import { Router } from '@angular/router';
 import { map, filter, tap } from 'rxjs/operators';
-import { filterByLocation, filterByService } from '../models/filters';
+import { filterByLocation, filterByService, filterByCreationDate, substractMonths } from '../models/filters';
+import { DatePipe, formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-candidate-projects',
@@ -34,11 +35,14 @@ export class CandidateProjectsComponent implements OnInit {
   canMultiselectedApply$: Observable<boolean>;
   actionBar = [ProjectAction.Apply, ProjectAction.Delete, ProjectAction.SelectAll];
   statusFilter: string[] = ['ALL', 'CANDIDATES', 'APPLIED'];
+  dateFilter: number[] = [1, 6, 12];
   statusValue: string;
   locationFilterSubject = new BehaviorSubject<number[]>([]);
   serviceFilterSubject = new BehaviorSubject<number[]>([]);
+  dateFilterSubject = new BehaviorSubject<number>(12);
   locationFilter$: Observable<number[]> = this.locationFilterSubject.asObservable();
   servicesFilter$: Observable<number[]> = this.serviceFilterSubject.asObservable();
+  dateFilter$: Observable<number> = this.dateFilterSubject.asObservable();
   currentStatusSubject = new BehaviorSubject<string>(this.statusFilter[0]);
   currentStatusFilter$: Observable<string> = this.currentStatusSubject.asObservable();
   currentStatusFilter: string;
@@ -91,12 +95,17 @@ export class CandidateProjectsComponent implements OnInit {
     this.projectList$ = combineLatest(
       this.projects$,
       this.locationFilter$,
-      this.servicesFilter$
+      this.servicesFilter$,
+      this.dateFilter$
     ).pipe(
-      map(([projects, locationFilter, servicesFilter]) => {
+      map(([projects, locationFilter, servicesFilter, dateFilter]) => {
         const filteredByLocations = filterByLocation(projects, locationFilter);
         const filteredByServices = filterByService(filteredByLocations, servicesFilter);
-        return filteredByServices;
+        const today = Date.now();
+        const todayLocale = formatDate(today, 'yyyy-MM-dd', 'en-US');
+        const limitDate = substractMonths(todayLocale, dateFilter);
+        const filteredByCreationDate = filterByCreationDate(filteredByServices, limitDate);
+        return filteredByCreationDate;
       }),
       tap(() => this.resetSelectedCard())
     );
@@ -131,12 +140,15 @@ export class CandidateProjectsComponent implements OnInit {
     this.canMultiselectedApply$ = of(canApply);
   }
 
-  onActionBarFilter({ locations, services }) {
+  onActionBarFilter({ locations, services, date }) {
     if (!!locations) {
       this.locationFilterSubject.next(locations);
     }
     if (!!services) {
       this.serviceFilterSubject.next(services);
+    }
+    if (!!date) {
+      this.dateFilterSubject.next(date);
     }
   }
   // Filtrar proyectos por estado

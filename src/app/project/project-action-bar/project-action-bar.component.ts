@@ -31,6 +31,8 @@ export class ProjectActionBarComponent implements OnInit {
   divisionFilter?: number[];
   @Input()
   serviceFilter?: number[];
+  @Input()
+  dateFilter?: number[];
 
   @Output()
   selectAll = new EventEmitter<boolean>(); // Evento emitido cuando se marca el check de selectAll
@@ -42,7 +44,7 @@ export class ProjectActionBarComponent implements OnInit {
   filters = new EventEmitter<{ // Se emite cada vez q se selecciona un filtro en el actionBar
     locations?: number[],
     services?: number[],
-    status?: ProjectState | 'MIXED'
+    date?: number
   }>();
 
   APPLY: boolean;
@@ -59,7 +61,7 @@ export class ProjectActionBarComponent implements OnInit {
   selectedDivisionsFilter: number[] = [];
   selectedDivisions: number[];
   // userProfile: UserProfile;
-  dateList: string[] = ['This Week','This Month','This Trimester'];
+  dateFilterList: string[] = [];
 
   constructor(
     // private userService: UserService,
@@ -81,6 +83,7 @@ export class ProjectActionBarComponent implements OnInit {
 
     this.LocationFilterInit();
     this.servicesFilterInit();
+    this.dateFilterInit();
     this.SELECTALL = this.actions.includes(ProjectAction.SelectAll);
     this.APPLY = this.actions.includes(ProjectAction.Apply);
     this.CREATE = this.actions.includes(ProjectAction.Create);
@@ -120,7 +123,6 @@ export class ProjectActionBarComponent implements OnInit {
     const statusFilters = event.target.value;
     this.selectAll.emit(false);
     this.selectAllCheckbox = false;
-    this.filters.emit({ status: statusFilters });
   }
 
   onLocationFilterChange($event) {
@@ -164,6 +166,15 @@ export class ProjectActionBarComponent implements OnInit {
     );
   }
 
+  dateFilterInit() {
+    if (!!this.dateFilter) {
+      this.dateFilter.forEach(date => {
+        this.dateFilterList.push(`Last ${date === 1 ? '' : date} ${date === 1 ? 'month' : 'months'}`);
+      }
+      );
+    }
+  }
+
   customSearchFn(term: string, item: Service) {
     term = term.toLowerCase();
     return (
@@ -174,6 +185,12 @@ export class ProjectActionBarComponent implements OnInit {
 
   onServiceFilterChange() {
     this.filters.emit({ services: this.selectedServices });
+  }
+
+  onDateFilterChange(event) {
+    const index = this.dateFilterList.findIndex(elem => elem === event);
+    const value = this.dateFilter[index];
+    this.filters.emit({date: value});
   }
 
 }

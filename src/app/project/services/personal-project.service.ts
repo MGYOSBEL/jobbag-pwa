@@ -69,6 +69,7 @@ export class PersonalProjectService {
     this.loading.showLoaderUntilCompletes(combinedProjects$).subscribe(
       ([projects, executions]) => {
         const combinedProjects = [...projects, ...executions];
+        console.log('personal projects => ', combinedProjects);
         this.personalProjectsSubject.next(combinedProjects);
       },
       err => this.messages.showErrors('Error fetching some data. Refresh the page or try again later.')
