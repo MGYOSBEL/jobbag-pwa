@@ -13,6 +13,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule } from '@angular/forms';
 import { EditPasswordComponent } from './edit-password/edit-password.component';
 import { ProjectModule } from '@app/project/project.module';
+import { UserDetailComponent } from './user-detail/user-detail.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { ProjectModule } from '@app/project/project.module';
     BriefcaseEditComponent,
     CreateProfileComponent,
     EditProfileComponent,
-    EditPasswordComponent
+    EditPasswordComponent,
+    UserDetailComponent
   ],
   imports: [
     CommonModule,

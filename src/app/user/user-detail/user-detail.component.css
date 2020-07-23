@@ -1,0 +1,41 @@
+.img-avatar{
+    border: solid 3px #2787c4;
+    border-radius: 50%;
+    width: 8rem;
+
+}
+
+.col-user-data{
+    margin-bottom: 0.5rem !important;
+}
+
+.user-name{
+    font-size: 1.2rem;
+    margin-bottom: 0 !important;
+}
+
+.user-account{
+    font-size: 0.8rem;
+    margin-bottom: 0 !important;
+}
+
+.btn-cv{
+    background-color: #2787c4;
+    color: white;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.star {
+    font-size: 1.5rem;
+    color: #b0c4de;
+  }
+.filled.color{
+    color:gold;
+  }
+
+.img-briefcase{
+    width: 9rem;
+    height: 6rem;
+    margin-top: 1rem;
+}
