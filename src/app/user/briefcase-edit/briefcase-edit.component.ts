@@ -5,9 +5,10 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { BriefcaseService } from '../services/briefcase.service';
 import { ErrorService } from '@app/errors/error.service';
 import { environment } from '@environments/environment';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { LoggingService } from '@app/services/logging.service';
-import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal, NgbCarousel, NgbSlideEvent, NgbSlideEventSource } from '@ng-bootstrap/ng-bootstrap';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-briefcase-edit',
@@ -24,9 +25,36 @@ export class BriefcaseEditComponent implements OnInit {
   imageLoaded: boolean;
   deletedBriefcaseIndex: number = null;
   editedBriefcaseIndex: number = null;
-  pictures: string[]; // adding pictures array to briefcase
+  private picturesSubject = new BehaviorSubject<string[]>([]);
+  pictures$: Observable<string[]> = this.picturesSubject.asObservable(); // adding pictures array to briefcase
   opSucceed: boolean;
 
+  // Carousel variables
+  paused = false;
+  unpauseOnArrow = false;
+  pauseOnIndicator = false;
+  pauseOnHover = true;
+
+  @ViewChild('carousel', { static: true }) carousel: NgbCarousel;
+
+  togglePaused() {
+    if (this.paused) {
+      this.carousel.cycle();
+    } else {
+      this.carousel.pause();
+    }
+    this.paused = !this.paused;
+  }
+
+  onSlide(slideEvent: NgbSlideEvent) {
+    if (this.unpauseOnArrow && slideEvent.paused &&
+      (slideEvent.source === NgbSlideEventSource.ARROW_LEFT || slideEvent.source === NgbSlideEventSource.ARROW_RIGHT)) {
+      this.togglePaused();
+    }
+    if (this.pauseOnIndicator && !slideEvent.paused && slideEvent.source === NgbSlideEventSource.INDICATOR) {
+      this.togglePaused();
+    }
+  }
 
 
   constructor(
@@ -47,7 +75,7 @@ export class BriefcaseEditComponent implements OnInit {
     this.briefcases$ = this.briefcaseService.briefcases$;
     this.briefcaseService.reset();
     this.briefcases = [];
-    this.pictures = []; // adding pictures array to briefcase
+    this.picturesSubject.next([]); // adding pictures array to briefcase
   }
 
   ngOnInit() {
@@ -110,16 +138,21 @@ export class BriefcaseEditComponent implements OnInit {
   }
 
   uploadPicture($event) {
-    const file = ($event.target as HTMLInputElement).files[0];
-    let reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = (_event) => {
-      this.previewUrl = reader.result;
+    const files = ($event.target as HTMLInputElement).files;
+    const base64Pictures = this.picturesSubject.value;
+    for (let index = 0; index < files.length; index++) {
+      const file = files.item(index);
+      let reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = (_event) => {
+        // this.previewUrl = reader.result;
+        base64Pictures.push(reader.result.toString());
+      };
+    }
+    this.imageLoaded = true;
+    console.log(base64Pictures);
+    this.picturesSubject.next(base64Pictures);
 
-      this.imageBase64 = this.previewUrl.toString().split(',')[1];
-      this.pictures[0] = this.imageBase64;      // adding pictures array to briefcase (pictures[0]) just one image
-      this.imageLoaded = true;
-    };
   }
 
   private dataToForm(briefcase: UserProfileBriefcase) {
@@ -131,8 +164,10 @@ export class BriefcaseEditComponent implements OnInit {
       startDate: start != null ? { year: parseInt(start[0], 10), month: parseInt(start[1], 10), day: parseInt(start[2], 10) } : null,
       endDate: end != null ? { year: parseInt(end[0], 10), month: parseInt(end[1], 10), day: parseInt(end[2], 10) } : null,
     });
-    this.previewUrl = this.parsePictureUrl((briefcase.pictures != null) ? briefcase.pictures[0] : null);
-    this.imageLoaded = this.previewUrl != null;
+    // this.previewUrl = this.parsePictureUrl((briefcase.pictures != null) ? briefcase.pictures[0] : null);
+    const pictures = ( briefcase.pictures != null ) ? briefcase.pictures.map(pic => this.parsePictureUrl(pic)) : null;
+    this.picturesSubject.next(pictures);
+    this.imageLoaded = pictures != null;
   }
 
   private formToData(): UserProfileBriefcase {
@@ -150,14 +185,14 @@ export class BriefcaseEditComponent implements OnInit {
       // idProfessionFk: this.briefcaseEditForm.value.profession,
       idUserProfileFk: null,
       id: this.editedBriefcaseIndex != null ? this.briefcases[this.editedBriefcaseIndex].id : null,
-      pictures: this.pictures,     // adding pictures array to briefcase
+      pictures: this.picturesSubject.value.map(pic => pic.split(',')[1]),     // adding pictures array to briefcase
     };
     return bc;
   }
 
   resetForm() {
     this.briefcaseEditForm.reset();
-    this.pictures = [];
+    this.picturesSubject.next([]);
     this.previewUrl = null;
     this.imageLoaded = false;
     this.opSucceed = true;
