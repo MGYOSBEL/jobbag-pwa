@@ -2,11 +2,11 @@
     border: solid 3px #2787c4;
     border-radius: 50%;
     width: 8rem;
-
+    height: 8rem;
 }
 
 .col-user-data{
-    margin-bottom: 0.5rem !important;
+    margin-bottom: 0.25rem !important;
 }
 
 .user-name{
@@ -38,4 +38,16 @@
     width: 9rem;
     height: 6rem;
     margin-top: 1rem;
+}
+
+/*Overview 414px*/
+@media screen and (max-width: 413.98px) {
+    .img-avatar{
+        margin-top: 0.5rem;
+        width: 7rem;
+        height: 7rem;
+    }
+    .col-user-data{
+        margin-bottom: 0 !important;
+    }
 }

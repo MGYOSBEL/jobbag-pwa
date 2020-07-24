@@ -1,0 +1,47 @@
+.main-img-briefcase{
+    width: 20rem;
+    height: 12rem;
+}
+
+.col-briefcase-data{
+    margin-bottom: 0.25rem !important;
+}
+
+.briefcase-name{
+    font-size: 1.2rem;
+    margin-bottom: 0 !important;
+}
+
+.briefcase-services{
+    font-size: 1rem;
+    margin-bottom: 0 !important;
+}
+
+.briefcase-user{
+    font-size: 1rem;
+    margin-bottom: 0 !important;
+}
+
+.date-text{
+    font-size: 0.65rem;
+    margin-bottom: 0 !important;
+}
+
+.star {
+    font-size: 1.5rem;
+    color: #b0c4de;
+  }
+.filled.color{
+    color:gold;
+  }
+
+/*Overview 576px*/
+@media screen and (max-width: 575.98px) {
+    .main-img-briefcase{
+        display: none;
+    }
+
+    .col-briefcase-data{
+        padding-left: 0 !important;
+    }
+}
