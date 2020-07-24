@@ -21,8 +21,6 @@ import { MessagesComponent } from './messages/messages.component';
 import { MultiSelectComponent } from './multi-select/multi-select.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule } from '@angular/forms';
-import { ImageGalleryComponent } from './image-gallery/image-gallery.component';
-import { NgxGalleryModule } from 'ngx-gallery';
 
 @NgModule({
   declarations: [
@@ -42,14 +40,12 @@ import { NgxGalleryModule } from 'ngx-gallery';
     MultiSelectComponent,
     RecommendedComponent,
     MessagesComponent,
-    ImageGalleryComponent
   ],
   imports: [
     CommonModule,
     NgSelectModule,
     FormsModule,
     SharedComponentsRoutingModule,
-    NgxGalleryModule,
     LottieAnimationViewModule.forRoot()
   ],
   exports: [
@@ -63,7 +59,6 @@ import { NgxGalleryModule } from 'ngx-gallery';
     LoadingComponent,
     MessagesComponent,
     InternalServerErrorComponent,
-    ImageGalleryComponent
   ]
 })
 export class SharedComponentsModule { }
