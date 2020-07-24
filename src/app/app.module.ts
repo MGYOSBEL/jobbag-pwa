@@ -19,6 +19,7 @@ import { MessagesService } from './services/messages.service';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { ProjectModule } from './project/project.module';
+import { NgxGalleryModule } from 'ngx-gallery'; //image-gallery module
 
 
 const config = new AuthServiceConfig([
@@ -53,6 +54,7 @@ export function provideConfig() {
     NgbModule,
     ProjectModule,
     AppRoutingModule,
+    NgxGalleryModule, //image-gallery module
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   exports: [],
