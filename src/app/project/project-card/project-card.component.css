@@ -56,3 +56,12 @@
     position: sticky;
     border-radius: 0;
 }
+
+/*Overview 576px*/
+@media screen and (max-width: 575.98px) {
+    .reveal{
+        height: auto;
+        visibility: visible;
+        opacity: 10;
+    }
+}

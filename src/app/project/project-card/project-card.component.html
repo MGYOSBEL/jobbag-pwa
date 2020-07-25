@@ -1,31 +1,38 @@
 <div class="card card-hover col-12" style="margin-bottom: 0.3rem; background-color: white;border-radius: 0; cursor: pointer;"
 [style.border-left]="isPressed ? 'solid 8px #2788c7' : ''" [ngClass]="isPressed ? 'card-selected' : ''">
   <!-- <div [ngStyle]="{'border-left':getColor()}"class="row vertical-align"> -->
-    <div class="row vertical-align">
+    <div class="row vertical-align" (click)="onClick()">
     <!-- <div class="card-select col-1">
       <input type="checkbox" [(ngModel)]="cardSelected" (change)="onCheck($event)">
     </div> -->
-    <div class="col-8 px-1" (click)="onClick()">
+    <div class="col-8 px-1">
       <p class="project-title my-1 ml-2">
         {{project.name}}
       </p>
       <div class="row">
         <div class="col">
-          <p class="text-mute ml-2 mb-1" style="color:#bebcbe; font-weight: light; font-size: 0.8rem;">
+          <p class="text-mute ml-2 mb-1" style="color:white; font-weight: light; font-size: 0.8rem;">
             {{project.creationDate}}</p>
         </div>
       </div>
     </div>
     <div class="col-4 px-2 text-right" *ngIf="cardMode === 'WIDE'">
-
-      <span *ngIf="this.project.interest ===true" style="color:#2888C7" class="badge badge-light text-uppercase font-weight-lighter">
-        Applied &nbsp;
-        <i class="fas fa-award" style="color:#2888C7; font-size: 1rem;"></i>
-      </span>
+      <div *ngIf="projectOwner==='SERVICE_PROVIDER'">
+        <button type="button" class="btn mx-2 px-1 rounded-0 reveal" alt="Edit" (click)="onEditProject()"><i class="fas icon-eye"
+          style="color: #bebcbe; display: inline; font-size: 1rem;"></i></button>
+          <div *ngIf="this.project.interest ===true" class="col mt-3" style="display: inline;">
+            <i class="icon-aplicado" style="color:#bebcbe; font-size: 1.2rem;"></i>
+            <p class="badge text-uppercase" style="color:#bebcbe; font-weight: 500; font-size: 1rem;">
+              Applied &nbsp;
+            </p>
+          </div>
+      </div>
       <div *ngIf="projectOwner==='CLIENT'"  class="reveal">
-        <button type="button" class="btn mx-2 px-1 rounded-0" alt="Edit" (click)="onEditProject()"><i class="fas fa-edit"
+        <button type="button" class="btn mx-2 px-1 rounded-0" alt="Edit" (click)="onEditProject()"><i class="fas icon-eye"
+          style="color: #bebcbe; display: inline; font-size: 1rem;"></i></button>
+        <button type="button" class="btn mx-2 px-1 rounded-0" alt="Edit" (click)="onEditProject()"><i class="fas icon-user-edit"
             style="color: #bebcbe;"></i></button>
-        <button type="button" class="btn mx-2 px-1 rounded-0" alt="Trash"><i class="fas fa-trash"
+        <button type="button" class="btn mx-2 px-1 rounded-0" alt="Trash"><i class="fas icon-bin"
             style="color: #bebcbe;"></i></button>
       </div>
     </div>
