@@ -21,6 +21,7 @@ import { MessagesComponent } from './messages/messages.component';
 import { MultiSelectComponent } from './multi-select/multi-select.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule } from '@angular/forms';
+import { BriefcaseCardComponent } from './briefcase-card/briefcase-card.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { FormsModule } from '@angular/forms';
     MultiSelectComponent,
     RecommendedComponent,
     MessagesComponent,
+    BriefcaseCardComponent,
   ],
   imports: [
     CommonModule,
@@ -59,6 +61,7 @@ import { FormsModule } from '@angular/forms';
     LoadingComponent,
     MessagesComponent,
     InternalServerErrorComponent,
+    BriefcaseCardComponent
   ]
 })
 export class SharedComponentsModule { }
