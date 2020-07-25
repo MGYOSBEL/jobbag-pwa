@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-briefcase-card',
@@ -7,9 +7,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BriefcaseCardComponent implements OnInit {
 
+  @Input()
+  params: {
+    id: number;
+    verified: boolean;
+    picture: string;
+  };
+
+  @Output()
+  viewDetail = new EventEmitter<number>();
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  onBriefcaseDetail() {
+    this.viewDetail.emit(this.params.id);
   }
 
 }

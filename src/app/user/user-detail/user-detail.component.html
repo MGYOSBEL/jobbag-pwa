@@ -42,8 +42,10 @@
         </div>
         <div class="row row-cols-2 row-cols-md-3">
             <div class="col-6 col-md-4" *ngFor="let briefcase of userProfile.briefcases">
-                <img [src]="apiPublic + briefcase.pictures[0]" class="img img-briefcase">
+                <!-- <img [src]="apiPublic + briefcase.pictures[0]" class="img img-briefcase"> -->
+                <app-briefcase-card class="img img-briefcase" [params]="{id: briefcase.id, picture: apiPublic + briefcase.pictures[0], verified: true}"></app-briefcase-card>
             </div>
+
             <!-- <div class="col-6 col-md-4">
                 <img src='../../../assets/img/joinus.png' class="img img-briefcase">
             </div>
