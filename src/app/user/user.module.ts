@@ -14,6 +14,7 @@ import { FormsModule } from '@angular/forms';
 import { EditPasswordComponent } from './edit-password/edit-password.component';
 import { ProjectModule } from '@app/project/project.module';
 import { UserDetailComponent } from './user-detail/user-detail.component';
+import { BriefcaseDetailComponent } from './briefcase-detail/briefcase-detail.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { UserDetailComponent } from './user-detail/user-detail.component';
     CreateProfileComponent,
     EditProfileComponent,
     EditPasswordComponent,
-    UserDetailComponent
+    UserDetailComponent,
+    BriefcaseDetailComponent
   ],
   imports: [
     CommonModule,
