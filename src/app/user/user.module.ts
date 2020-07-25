@@ -15,6 +15,7 @@ import { EditPasswordComponent } from './edit-password/edit-password.component';
 import { ProjectModule } from '@app/project/project.module';
 import { UserDetailComponent } from './user-detail/user-detail.component';
 import { BriefcaseDetailComponent } from './briefcase-detail/briefcase-detail.component';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { BriefcaseDetailComponent } from './briefcase-detail/briefcase-detail.co
     EditProfileComponent,
     EditPasswordComponent,
     UserDetailComponent,
-    BriefcaseDetailComponent
+    BriefcaseDetailComponent,
+    ProfileComponent
   ],
   imports: [
     CommonModule,

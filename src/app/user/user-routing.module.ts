@@ -9,9 +9,21 @@ import { CreateProfileComponent } from './create-profile/create-profile.componen
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { NonProfileGuard } from './services/non-profile.guard';
 import { EditPasswordComponent } from './edit-password/edit-password.component';
+import { ProfileComponent } from './profile/profile.component';
+import { ProfileResolverService } from './services/profile-resolver.service';
 
 
 const userRoutes: Routes = [
+  {
+    path: 'profile',
+    children: [
+      {
+        path: ':id',
+        component: ProfileComponent,
+        resolve: {profile: ProfileResolverService}
+      }
+    ]
+  },
   {
     path: '',
     canActivate: [AuthGuard],

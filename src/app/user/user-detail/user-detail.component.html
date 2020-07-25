@@ -2,16 +2,16 @@
     <div class="col-12">
         <div class="card mb-3" style="border: 0;">
             <div class="row no-gutters">
-                <img src='../../../assets/img/lawyer.png' class="img img-avatar">
+                <img [src]="profilePicture" class="img img-avatar">
                 <div class="card-body p-0">
                     <div class="col col-user-data">
-                        <p class="user-name">John Lennon</p>
+                        <p class="user-name">{{userProfile.name}}</p>
                     </div>
                     <div class="col col-user-data">
-                        <p class="user-account">Cuenta Personal</p>
+                        <p class="user-account">{{userProfile.userProfileAccount | lowercase}} account</p>
                     </div>
                     <div class="col col-user-data">
-                        <ngb-rating [rate]="rating">
+                        <ngb-rating [rate]="userProfile.valoration">
                             <ng-template let-fill="fill">
                               <span class="star" [ngClass]="'color'"[class.filled]="fill === 100">&#9733;</span>
                             </ng-template>
@@ -28,11 +28,8 @@
 </div>
 <div class="row mt-3 mb-5">
     <div class="col-md-8">
-        <p style="text-align: justify;">Lorem ipsum dolor sit amet consectetur adipiscing elit arcu turpis nibh, rutrum sem erat vel dui ullamcorper
-        ad placerat fermentum, tempus natoque faucibus ante duis lacus quam porttitor ligula. Sociosqu vehicula varius
-        facilisi orci ad fusce maecenas, praesent ultrices scelerisque lacus faucibus tellus eget rutrum, nulla lectus
-        accumsan augue elementum iaculis. At quam phasellus porttitor eu proin cursus eros cum porta, mauris tincidunt
-        suspendisse sagittis volutpat dictumst mollis sociosqu, viverra hendrerit turpis fusce rutrum commodo donec nisl.
+        <p style="text-align: justify;">
+          {{userProfile.comment}}
         </p>
 
         <div class="row">
@@ -43,11 +40,11 @@
                 <p style="font-size: 1.2rem; color: #bebcbe;">Briefcases</p>
             </div>
         </div>
-        <div class="row">
-            <div class="col-6 col-md-4">
-                <img src='../../../assets/img/default-image.png' class="img img-briefcase">
+        <div class="row row-cols-2 row-cols-md-3">
+            <div class="col-6 col-md-4" *ngFor="let briefcase of userProfile.briefcases">
+                <img [src]="apiPublic + briefcase.pictures[0]" class="img img-briefcase">
             </div>
-            <div class="col-6 col-md-4">
+            <!-- <div class="col-6 col-md-4">
                 <img src='../../../assets/img/joinus.png' class="img img-briefcase">
             </div>
             <div class="col-6 col-md-4">
@@ -70,33 +67,45 @@
             </div>
             <div class="col-6 col-md-4">
                 <img src='../../../assets/img/default-image.png' class="img img-briefcase">
-            </div>
+            </div> -->
         </div>
     </div>
     <div class="col col-md-4 mt-3">
         <div class="card rounded-0 border-0">
             <div class="card-header rounded-0 border-0" style="background-color: #2787c4; color: white;">
-                Skills
+                Services
             </div>
             <div class="card-body" style="background-color: #f1f1f1;">
-                <p>Html 5</p>
-                <p>CS3</p>
+              <div style="font-size:small">
+                <ul class="pl-0">
+                  <li *ngFor="let service of servicesName">
+                    {{service}}
+                  </li>
+                </ul>
+              </div>
+                <!-- <p>CS3</p>
                 <p>JavaScript</p>
                 <p>PHP</p>
                 <p>Wordpress</p>
                 <p>Edicion</p>
-                <p>Maquetado</p>
+                <p>Maquetado</p> -->
             </div>
         </div>
 
         <div class="card rounded-0 border-0 mt-3">
             <div class="card-header rounded-0 border-0" style="background-color: #2787c4; color: white;">
-                Location
+                Locations
             </div>
             <div class="card-body" style="background-color: #f1f1f1;">
-                <p>Canada</p>
-                <p>Spain</p>
-                <p>Cuba</p>
+              <div style="font-size:small">
+                <ul class="pl-0">
+                  <li *ngFor="let division of divisionsName">
+                    {{division}}
+                  </li>
+                </ul>
+              </div>
+                <!-- <p>Spain</p>
+                <p>Cuba</p> -->
             </div>
         </div>
     </div>

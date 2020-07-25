@@ -6,6 +6,7 @@ import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { InternalServerErrorComponent } from './errors/internal-server-error/internal-server-error.component';
 import { UserModule } from './user/user.module';
 import { TestComponent } from './test/test.component';
+import { UserDetailComponent } from './user/user-detail/user-detail.component';
 
 
 
@@ -17,10 +18,6 @@ const routes: Routes = [
     path: 'user', loadChildren: () => import('./user/user.module').then(mod => mod.UserModule),
     canLoad: [AuthGuard]
   },
-  // {
-  //   path: 'project', loadChildren: () => import('./project/project.module').then(mod => mod.ProjectModule),
-  //   canLoad: [AuthGuard]
-  // },
   {
     path: 'error', component: InternalServerErrorComponent
   },

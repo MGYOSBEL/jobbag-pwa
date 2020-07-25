@@ -34,6 +34,7 @@ export class UserProfileService {
     if (userProfiles && userProfiles.length > 0) {
       const profile = userProfiles.find(item => item.id === id);
       if (profile != null) {
+        console.log('profile from cache', profile);
         return of(profile);
       }
     }
@@ -44,7 +45,7 @@ export class UserProfileService {
       }),
       map(response => {
         if (response.status_code === 200) { // Si el status del response es OK retorno contento como dato del observable
-          return JSON.parse(response.content);
+          return JSON.parse(JSON.parse(response.content));
         } else {
           throw new Error( // Si no es OK el status del response, lanzo un error con el status y el text
             response.status_code + ': ' + response.content.text
