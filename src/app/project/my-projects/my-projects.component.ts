@@ -52,7 +52,9 @@ export class MyProjectsComponent implements OnInit {
   previewUrl;
   imageBase64: string;
   imageLoaded: boolean;
-  pictures: string[] = [];
+  private picturesSubject = new BehaviorSubject<string[]>([]);
+  pictures$: Observable<string[]> = this.picturesSubject.asObservable(); // adding pictures array to briefcase
+
 
   constructor(
     private userService: UserService,
@@ -63,6 +65,7 @@ export class MyProjectsComponent implements OnInit {
     private loading: LoadingService,
     private router: Router
   ) {
+    this.picturesSubject.next([]);
     this.imageLoaded = false;
     this.showBriefcaseForm = false;
     this.requestForBriefcaseModal = false;
@@ -261,20 +264,25 @@ export class MyProjectsComponent implements OnInit {
   }
 
   uploadPicture($event) {
-    const file = ($event.target as HTMLInputElement).files[0];
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = (_event) => {
-      this.previewUrl = reader.result;
-      console.log(reader.result);
-      this.imageBase64 = this.previewUrl.toString().split(',')[1];
-      this.pictures[0] = this.imageBase64;      // adding pictures array to briefcase (pictures[0]) just one image
-      this.imageLoaded = true;
-    };
-  }
+    const files = ($event.target as HTMLInputElement).files;
+    const base64Pictures = this.picturesSubject.value;
+    for (let index = 0; index < files.length; index++) {
+      const file = files.item(index);
+      let reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = (_event) => {
+        // this.previewUrl = reader.result;
+        base64Pictures.push(reader.result.toString());
+      };
+    }
+    this.imageLoaded = true;
+    console.log(base64Pictures);
+    this.picturesSubject.next(base64Pictures);
 
+  }
   cancelBriefcase() {
     this.showBriefcaseForm = false;
+    this.resetForm();
   }
 
   saveBriefcase() {
@@ -299,5 +307,8 @@ export class MyProjectsComponent implements OnInit {
 
 
 
-  resetForm() { }
+  resetForm() {
+    this.briefcaseEditForm.reset();
+    this.picturesSubject.next([]);
+  }
 }

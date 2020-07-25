@@ -102,93 +102,94 @@
         </button>
       </div>
       <div class="row" style="background-color:#f7f8f9; margin: 0rem;">
-        <div class="col-md-12 rounded-0">
-          <div class="modal-body mt-0 py-3" style=" background-color: white; padding: 2rem;">
+        <div class="col-md-12 rounded-0 p-0">
+          <div class="modal-body mt-0 py-3 px-0" style=" background-color: white; padding: 2rem;">
             <form [formGroup]="briefcaseEditForm">
               <div class="mb-3">
-                <div class="modal-body text-center mt-0 p-0">
-                  <h4 class="text-center mt-1" style="color:#bebcbe ;">Work Samples</h4>
-                  <ngb-carousel #carousel [interval]="3000" [pauseOnHover]="pauseOnHover" (slide)="onSlide($event)">
-                    <ng-template ngbSlide *ngFor="let img of (pictures$ | async) as pictures; index as i;">
-                      <div class="carousel-caption">
-                        <h3>{{briefcaseEditForm.value.description}}</h3>
+                <div class="modal-body mt-0 p-0">
+                  <div class="row m-0 p-0 container-fluid">
+                    <div class="mb-3 my-0 py-0 col-12">
+                      <input
+                        [ngClass]="briefcaseEditForm.get('description').invalid && (briefcaseEditForm.get('description').dirty || briefcaseEditForm.get('description').touched) ? 'is-invalid' : '' "
+                        class="form-control input-lg rounded-0 font-weight-bold" formControlName="description" id="briefcaseTitle"
+                        placeholder="Enter a title for your Job" required>
+                        <!-- <label style="font-weight: 100;" for="briefcaseTitle">Enter a title for your Job</label> -->
+                      <div class="invalid-feedback">
+                        Please enter a title.
                       </div>
-                      <div class="picsum-img-wrapper">
-                        <img [src]="img" alt="{{briefcaseEditForm.value.description}}" class="loaded-img-responsive"  width="300" height="400">
-                      </div>
-                    </ng-template>
-                  </ngb-carousel>
-                  <div class="row justify-content-between">
-                    <span> files Uploaded</span>
-                    <input id="file-input" #pictureInput type="file" multiple="true" (change)="uploadPicture($event)" accept="image/*" (click)="pictureInput.value=null;">
+                    </div>
                   </div>
+                  <div class="row row-cols-2 row-cols-md-3 container rounded-0 scroll-host p-2 m-0"
+                    style="height: 400px;" id="img-container">
+                    <div class="col-6 col-md-4 card image-card w-md-25 w-50 p-0"
+                      *ngFor="let img of (pictures$ | async) as pictures; index as i;">
+                      <div class="card-body p-0" style="height: 100px;">
+                        <img [src]="img" alt="{{briefcaseEditForm.value.description}}" class="img "
+                          style="object-fit: cover;">
+                      </div>
+                    </div>
+                    <div class="col-6 col-md-4 card text-center image-card w-md-25 w-50 p-0" style="height: 100px;">
+                      <label for="file-input" id="image-upload">
+                        <div class="card-body py-4 px-0" style="height: 100px; background-color: rgb(108, 117, 125);"
+                          id="addImageCard">
+                          <span class="text-white">
+                            <i class="fas fa-plus-circle"></i>
+                            <p>Upload images</p>
+                          </span>
+                        </div>
+                        <input id="file-input" #pictureInput type="file" multiple="true"
+                          (change)="uploadPicture($event)" hidden accept="image/*" (click)="pictureInput.value=null;">
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-12">
 
-                  <!-- <div class="image-upload">
-                    <label for="file-input">
-                      <img *ngIf="imageLoaded" [src]="previewUrl" class="loaded-img-responsive" width="300" height="400"
-                        alt="Profile Picture" style="cursor: pointer;">
-                      <img *ngIf="!imageLoaded" src="assets/img/default-image.png" class="loaded-img-responsive"
-                        alt="default-image" title="Default Image" style="cursor: pointer;">
-                    </label>
-                    <input id="file-input" #pictureInput type="file" multiple="true" (change)="uploadPicture($event)" accept="image/*" (click)="pictureInput.value=null;">
-                  </div>
-                  <h5 class="text-center mt-0 p-0" style="color:#bebcbe ;">Click to add an image!</h5> -->
-                </div>
-                <div class="col-12">
-                  <div class="mb-3 my-0 py-0">
-                    <label for="validationTextarea">Title</label>
-                    <input
-                      [ngClass]="briefcaseEditForm.get('description').invalid && (briefcaseEditForm.get('description').dirty || briefcaseEditForm.get('description').touched) ? 'is-invalid' : '' "
-                      class="form-control rounded-0" formControlName="description" id="validationTextarea"
-                      placeholder="Short Description" required>
-                    <div class="invalid-feedback">
-                      Please enter a title.
+                    <div class=" mb-3 my-0 py-0">
+                      <!-- <label style="font-weight: 100;" for="comments">Enter some comments</label> -->
+                      <textarea class="form-control rounded-0" formControlName="comments" id="comments"
+                        placeholder="Enter some comments"></textarea>
                     </div>
-                  </div>
-                  <div class="mb-3 my-0 py-0">
-                    <label for="validationTextarea">Comments</label>
-                    <textarea class="form-control rounded-0" formControlName="comments" id="validationTextarea"
-                      placeholder="Enter some comments"></textarea>
-                  </div>
-                  <div class="row my-0 py-0">
-                    <div class="col-md-6">
-                      <div class="mb-3">
-                        <label for="validationTextarea">Start Date</label>
-                        <div class="input-group">
-                          <input class="form-control rounded-0" formControlName="startDate" id="validationTextarea"
-                            placeholder="yyyy-mm-dd" ngbDatepicker #startDatePicker="ngbDatepicker">
-                          <div class="input-group-append">
-                            <button class="btn btn-outline-secondary calendar rounded-0"
-                              (click)="startDatePicker.toggle()" type="button">
-                              <i class="far fa-calendar-alt fa-lg"></i>
-                            </button>
+                    <div class="row my-0 py-0">
+                      <div class="col-md-6">
+                        <div class="mb-3">
+                          <!-- <label for="validationTextarea">Start Date</label> -->
+                          <div class="input-group">
+                            <input class="form-control rounded-0" formControlName="startDate" id="validationTextarea"
+                              placeholder="Start Date" ngbDatepicker #startDatePicker="ngbDatepicker">
+                            <div class="input-group-append">
+                              <button class="btn btn-outline-secondary calendar rounded-0"
+                                (click)="startDatePicker.toggle()" type="button">
+                                <i class="far fa-calendar-alt fa-lg"></i>
+                              </button>
+                            </div>
                           </div>
-                        </div>
-                        <div class="invalid-feedback">
-                          Please enter a date.
+                          <div class="invalid-feedback">
+                            Please enter a date.
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="mb-3">
-                        <label for="validationTextarea">End Date</label>
-                        <div class="input-group">
-                          <input class="form-control rounded-0" formControlName="endDate" id="validationTextarea"
-                            placeholder="yyyy-mm-dd" ngbDatepicker #endDatePicker="ngbDatepicker">
-                          <div class="input-group-append">
-                            <button class="btn btn-outline-secondary calendar rounded-0"
-                              (click)="endDatePicker.toggle()" type="button">
-                              <i class="far fa-calendar-alt fa-lg"></i>
-                            </button>
+                      <div class="col-md-6">
+                        <div class="mb-3">
+                          <!-- <label for="validationTextarea">End Date</label> -->
+                          <div class="input-group">
+                            <input class="form-control rounded-0" formControlName="endDate" id="validationTextarea"
+                              placeholder="End Date" ngbDatepicker #endDatePicker="ngbDatepicker">
+                            <div class="input-group-append">
+                              <button class="btn btn-outline-secondary calendar rounded-0"
+                                (click)="endDatePicker.toggle()" type="button">
+                                <i class="far fa-calendar-alt fa-lg"></i>
+                              </button>
+                            </div>
                           </div>
-                        </div>
-                        <div class="invalid-feedback">
-                          Please enter a date.
+                          <div class="invalid-feedback">
+                            Please enter a date.
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
+
                 <!-- <div class="col-12 my-0 py-0 text-right"> -->
                 <div class="row justify-content-end">
                   <div class="col-6">

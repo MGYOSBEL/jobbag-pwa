@@ -60,3 +60,129 @@
 .image-upload input[type=file] {
   display: none;
 }
+
+
+/* Briefcase Form */
+.bc-card-col{
+  background-color: #2982c1;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.text-center{
+  margin-top: 2rem;
+}
+
+#bc-row{
+  width: auto;
+  height:9rem;
+}
+
+#bc-col{
+  margin-top: 0;
+}
+
+.svg-add-bc{
+  width: 6rem;
+}
+
+#btn-modal-bc:hover{
+  opacity: 1;
+  transform: scale(1.1);
+}
+/*Modal Section*/
+.col{
+  padding-left: 0rem;
+}
+
+#briefcases-row{
+  width: fit-content;
+}
+
+.display-3{
+  margin-left: 1rem;
+  font-size: 2.5rem;
+  line-height: 2.2;
+}
+
+.card{
+  margin-top: 0.5rem;
+  border-radius: 0;
+  border-color: white;
+}
+
+.mb-5, .my-5 {
+  margin-bottom: 1rem !important;
+}
+
+.col-md-7{
+  margin-left: 2rem;
+}
+
+.figure-img{
+  max-width: 93%;
+}
+
+#row-id{
+  width: 22rem;
+}
+
+.image-upload input[type=file] {
+  display: none;
+
+}
+#addImageCard {
+  cursor: pointer;
+}
+
+.overflow {
+  width: 4.5rem;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.loaded-img-responsive{
+  max-width: 100%;
+  max-height: 150px;
+  height: auto;
+  object-fit: fill;
+}
+
+.img-card{
+  height: 100px;
+  margin-top: 1rem;
+}
+
+.img {
+  height: 100%;
+}
+
+/*Container columnBar*/
+.scroll-host {
+  height: 29.3rem;
+  overflow:auto;
+  padding-right: 1rem;
+}
+
+/* Chrome columnBarStyle */
+.scroll-host::-webkit-scrollbar{
+  width: 8px;
+  height: 8px;
+}
+
+.scroll-host::-webkit-scrollbar-track{
+  background-color:#BEBCBE;
+  border-radius: 0;
+}
+.scroll-host::-webkit-scrollbar-thumb{
+  background-color: #2888C7;
+  border-radius: 0;
+}
+
+/*Overview 576px*/
+@media (max-width: 575.98px) {
+  .modal-body{
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}
