@@ -25,6 +25,7 @@ export interface ProjectExecutionDTO {
   projectId: number;
   project: ProjectDTO;
   creation_date?: string;
+  id_associate_user_profile_briefcase?: number;
 }
 
 
@@ -43,6 +44,7 @@ export interface Project {
   executionId?: number;
   userProfileOwnerId?: number;
   creationDate?: string;
+  projectBriefcaseId?: number;
 }
 
 

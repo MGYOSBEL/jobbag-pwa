@@ -10,14 +10,17 @@
             Apply
           </button>
           <button class="btn col-3 btn-space" id="startBtn" type="button" [disabled]="!canStart"
-            style=" background-color: #a1d173; color: white; border-radius: 0; width:6.25rem;" (click)="onStartProjectExecution()">
+            style=" background-color: #a1d173; color: white; border-radius: 0; width:6.25rem;"
+            (click)="onStartProjectExecution()">
             <i class="fab fa-telegram-plane"></i>
             Start
           </button>
         </ng-container>
         <ng-template #playTemplate>
-          <button class="btn col-3 btn-space" type="button" *ngIf="previewProject.state === 'PROGRESS' || previewProject.state === 'NEW'"
-            style=" background-color: #f99d6e; color: white; border-radius: 0;" (click)="onFinishProjectExecution()">
+          <button class="btn col-3 btn-space" type="button"
+            *ngIf="previewProject.state === 'PROGRESS' || previewProject.state === 'NEW'"
+            style=" background-color: #f99d6e; color: white; border-radius: 0;" data-toggle="modal"
+            data-target="#finishProjectModal">
             <svg class="finish-btn" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50.87 48.64">
               <defs>
                 <style>
@@ -38,8 +41,10 @@
             </svg>
             Finish
           </button>
-          <button class="btn col-3 btn-space" type="button" *ngIf="previewProject.state === 'PROGRESS' || previewProject.state === 'NEW'"
-            style=" background-color: #f15d5d; color: white; border-radius: 0; width:6.25rem" (click)="onCancelProjectExecution()">
+          <button class="btn col-3 btn-space" type="button"
+            *ngIf="previewProject.state === 'PROGRESS' || previewProject.state === 'NEW'"
+            style=" background-color: #f15d5d; color: white; border-radius: 0; width:6.25rem"
+            (click)="onCancelProjectExecution()">
             <svg class="cancel-btn" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 55.06 41.93">
               <defs>
                 <style>
@@ -60,7 +65,8 @@
             </svg>
             Cancel
           </button>
-          <button class="btn col-4 btn-space" type="button" *ngIf="previewProject.state === 'FINISH' && role === 'SERVICE_PROVIDER'"
+          <button class="btn col-4 btn-space" type="button"
+            *ngIf="previewProject.state === 'FINISH' && role === 'SERVICE_PROVIDER' && previewProject.projectBriefcaseId === 0"
             style=" background-color: #2888C7; color: white; border-radius: 0;" (click)="onCreateBriefcase()">
             <span class="icon-briefcase" style="font-size: larger;"></span>&nbsp;
             Add Briefcase
@@ -135,5 +141,39 @@
       </div>
     </div>
   </div>
+
+  <div class="modal fade rounded-0" id="finishProjectModal" tabindex="-1" role="dialog"
+  aria-labelledby="finishProjectModal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered rounded-0" role="document">
+    <div class="modal-content rounded-0 border-0">
+      <div class="modal-header rounded-0" style="background-color: #2888C7; color: white;">
+        <label>Finish Project</label>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body rounded-0">
+        <p class="text-left">
+          You can add the finished project to your Portfolio. The job will be sent to your client, for
+          asking
+          review and valoration. Once the client gives you the review, the jobb will appear as a verified Job, wich increase your credibility
+          and chances to get more jobs.
+        </p>
+        <p class="text-left">
+          You can add the project right now, or you can do it later, by going to the project in the FINISH
+          section of
+          MY PROJECTS tab.
+        </p>
+      </div>
+      <div class="modal-footer rounded-0">
+        <button type="button" class="btn btn-previous rounded-0" data-dismiss="modal"
+          style="background-color: #bfbdbe;color: #2880a9;" (click)="onFinishProjectExecution()">Later</button>
+        <button type="button" class="btn btn-send rounded-0" data-dismiss="modal"
+          style="background-color: #2888C7;color: white;" (click)="onCreateBriefcase()">Add Now</button>
+      </div>
+    </div>
+  </div>
+</div>
 </ng-container>
+
 

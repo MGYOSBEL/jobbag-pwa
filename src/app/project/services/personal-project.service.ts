@@ -134,8 +134,8 @@ export class PersonalProjectService {
     this.previewProjectSubject.next(projects.find(proj => proj.id === projectId));
   }
 
-  updateExecution(executionId: number, state: 'FINISH' | 'CANCEL') {
-    return this.projectService.updateProjectExecution(executionId, state).pipe(
+  updateExecution(executionId: number, state: 'FINISH' | 'CANCEL', briefcaseId?: number) {
+    return this.projectService.updateProjectExecution(executionId, state, briefcaseId).pipe(
       catchError(err => throwError(err)),
       tap(project => {
         this.preview(null);

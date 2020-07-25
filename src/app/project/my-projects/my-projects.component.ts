@@ -54,6 +54,7 @@ export class MyProjectsComponent implements OnInit {
   imageLoaded: boolean;
   private picturesSubject = new BehaviorSubject<string[]>([]);
   pictures$: Observable<string[]> = this.picturesSubject.asObservable(); // adding pictures array to briefcase
+  executionIdForBriefcase: number; // saves the id of the selected execution once the briefcase is generated
 
 
   constructor(
@@ -215,8 +216,8 @@ export class MyProjectsComponent implements OnInit {
     }
   }
 
-  finishExecution(executionId: number) {
-    this.personalProjectService.updateExecution(executionId, 'FINISH').subscribe(
+  finishExecution(executionId: number, briefcaseId?: number) {
+    this.personalProjectService.updateExecution(executionId, 'FINISH', briefcaseId).subscribe(
       () => {
         this.messages.showMessages('You have succesfully finished a project execution. You can view it in My Projects tab.');
         this.requestForBriefcaseModal = true;
@@ -241,6 +242,7 @@ export class MyProjectsComponent implements OnInit {
     this.personalProjectService.preview(null);
   }
 
+
   // hideActionBar(){
   //   this.showActionBar = false;
   // }
@@ -249,8 +251,8 @@ export class MyProjectsComponent implements OnInit {
   //   this.showActionBar = true;
   // }
   onShowBriefcaseForm(projectId: number) {
-    console.log('Show briefcase form related to project', projectId);
     this.showBriefcaseForm = true;
+    this.executionIdForBriefcase = projectId;
     const project = this.personalProjectService.getProjectById(projectId);
     if (!!project) {
       this.briefcaseEditForm.patchValue({
@@ -289,17 +291,20 @@ export class MyProjectsComponent implements OnInit {
     const form = this.briefcaseEditForm.value;
     const startDate = form.startDate;
     const endDate = form.endDate;
-    console.log('form.value => ', form);
     const createBriefcase$ = this.briefcaseService.create(this.userProfile.id, {
       comments: form.comments,
       description: form.description,
       start_date: `${startDate.year}-${startDate.month}-${startDate.day}`,
       end_date: `${endDate.year}-${endDate.month}-${endDate.day}`,
-      id_profession: null
+      id_profession: null,
+      pictures: this.picturesSubject.value.map(pic => pic.split(',')[1]),     // adding pictures array to briefcase
     });
     this.loading.showLoaderUntilCompletes(createBriefcase$).subscribe(
-      () => this.messages.showMessages('You have succesfully added this project to your briefcase. ' +
-        'The client will be asked to review your work.'),
+      (briefcase: UserProfileBriefcase) => {
+        this.finishExecution(this.executionIdForBriefcase, briefcase.id);
+        this.messages.showMessages('You have succesfully added this project to your briefcase. ' +
+        'The client will be asked to review your work.');
+      },
       err => this.messages.showErrors('There was an error adding this project to your briefcase. Try again later')
     );
     this.showBriefcaseForm = false;

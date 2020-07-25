@@ -37,6 +37,7 @@ export function projectFromExecution(executionDTO: ProjectExecutionDTO): Project
   project.state = executionDTO.state;
   project.executionId = executionDTO.id;
   project.creationDate = executionDTO.creation_date;
+  project.projectBriefcaseId = executionDTO.id_associate_user_profile_briefcase;
   return project;
 }
 
