@@ -182,7 +182,7 @@
       <div class="col-12">
         <h5 class="column-title my-3">Interested Candidates</h5>
       </div>
-      <app-user-card-list [users]="project.interestedProfiles"></app-user-card-list>
+      <app-user-card-list [users]="project.interestedProfiles" (cardClicked)="onUserCardClicked($event)"></app-user-card-list>
     </div>
     <ng-template #notProjectOwner>
       <div class="col-6">

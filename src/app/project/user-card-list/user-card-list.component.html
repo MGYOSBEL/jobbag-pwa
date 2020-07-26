@@ -1,3 +1,3 @@
 <ng-container>
-  <app-user-card *ngFor="let user of users" [userProfile]="user"></app-user-card>
+  <app-user-card *ngFor="let user of users" [userProfile]="user" (click)="onCardClicked(user.id)"></app-user-card>
 </ng-container>

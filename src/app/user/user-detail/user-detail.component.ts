@@ -6,6 +6,9 @@ import { Country, DivisionElement } from '../models/country.model';
 import { Service } from '../models/services.model';
 import { CountryService } from '../services/country.service';
 import { ServicesService } from '../services/services.service';
+import { Router } from '@angular/router';
+import { UserService } from '../services/user.service';
+import { combineLatest } from 'rxjs';
 
 @Component({
   selector: 'app-user-detail',
@@ -28,17 +31,32 @@ export class UserDetailComponent implements OnInit {
   services: Service[];
   divisionsName: any[] = [];
   servicesName: string[] = [];
-
+  dashboardRoute: string;
   rating: number;
 
   constructor(
     config: NgbRatingConfig,
+    private router: Router,
     private countryService: CountryService,
+    private userService: UserService,
     private servicesService: ServicesService) {
     config.max = 5;
     config.readonly = true;
 
     this.rating = 3;
+
+    const activeUserProfile$ = combineLatest(
+      this.userService.loggedUser$,
+      this.userService.role$
+    );
+
+    activeUserProfile$.subscribe(
+      ([user, role]) => {
+        const activeProfile = user.profiles.find(profile => profile.userProfileType === role);
+        this.dashboardRoute = `/user/${user.id}/${activeProfile.userProfileType}`;
+      }
+    );
+
    }
 
   ngOnInit() {
@@ -69,6 +87,10 @@ export class UserDetailComponent implements OnInit {
       };
     });
     return filtered;
+  }
+
+  backToProjectDetail() {
+    this.router.navigateByUrl(this.dashboardRoute);
   }
 
   getServicesName(projectServices: number[]) {

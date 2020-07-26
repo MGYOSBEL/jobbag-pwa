@@ -7,6 +7,8 @@ import { InternalServerErrorComponent } from './errors/internal-server-error/int
 import { UserModule } from './user/user.module';
 import { TestComponent } from './test/test.component';
 import { UserDetailComponent } from './user/user-detail/user-detail.component';
+import { ProfileComponent } from './user/profile/profile.component';
+import { ProfileResolverService } from './user/services/profile-resolver.service';
 
 
 
@@ -22,7 +24,6 @@ const routes: Routes = [
     path: 'error', component: InternalServerErrorComponent
   },
   { path: 'test', component: TestComponent },
-
   {
     path: '',
     component: HomeComponent,

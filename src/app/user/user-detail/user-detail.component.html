@@ -5,7 +5,10 @@
         <img [src]="profilePicture" class="img img-avatar">
         <div class="card-body p-0">
           <div class="col col-user-data">
-            <p class="user-name">{{userProfile.name}}</p>
+            <div class="row justify-content-between">
+              <p class="user-name">{{userProfile.name}}</p>
+              <p class="btn-link" style="cursor:pointer" (click)="backToProjectDetail()">Go Back</p>
+            </div>
           </div>
           <div class="col col-user-data">
             <p class="user-account text-capitalize font-weight-light">{{userProfile.userProfileAccount | lowercase}} account</p>

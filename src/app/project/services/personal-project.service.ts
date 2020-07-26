@@ -125,7 +125,14 @@ export class PersonalProjectService {
 
   reset() {
     this.preview(null);
-    this.activeProjectSubject.next(null);
+    const cachedActiveProject = JSON.parse(localStorage.getItem('activeProject'));
+    if (cachedActiveProject) {
+      localStorage.removeItem('activeProject');
+      this.activeProjectSubject.next(cachedActiveProject);
+
+    } else {
+      this.activeProjectSubject.next(null);
+    }
   }
 
 

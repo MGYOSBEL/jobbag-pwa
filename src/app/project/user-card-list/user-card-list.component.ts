@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { UserProfile } from '@app/user/models/user.model';
 
 @Component({
@@ -10,10 +10,16 @@ export class UserCardListComponent implements OnInit {
 
   @Input()
   users: UserProfile[];
+  @Output()
+  cardClicked = new EventEmitter<number>();
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  onCardClicked(profileId: number) {
+    this.cardClicked.emit(profileId);
   }
 
 }

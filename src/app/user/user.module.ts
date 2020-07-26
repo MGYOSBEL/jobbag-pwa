@@ -37,7 +37,6 @@ import { ProfileComponent } from './profile/profile.component';
     NgbModule,
     UserRoutingModule,
     ProjectModule
-
   ]
 })
 export class UserModule { }

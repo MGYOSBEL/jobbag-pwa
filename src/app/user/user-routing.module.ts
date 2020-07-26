@@ -15,20 +15,20 @@ import { ProfileResolverService } from './services/profile-resolver.service';
 
 const userRoutes: Routes = [
   {
-    path: 'profile',
-    children: [
-      {
-        path: ':id',
-        component: ProfileComponent,
-        resolve: {profile: ProfileResolverService}
-      }
-    ]
-  },
-  {
     path: '',
     canActivate: [AuthGuard],
     resolve: { user: DashboardResolverService },
     children: [
+      {
+        path: 'profile',
+        children: [
+          {
+            path: ':id',
+            component: ProfileComponent,
+            resolve: {profile: ProfileResolverService}
+          }
+        ]
+      },
       {
         path: ':id',
         children: [
@@ -49,7 +49,6 @@ const userRoutes: Routes = [
                 path: '',
                 pathMatch: 'full',
                 component: DashboardComponent,
-                // canActivate: [NonProfileGuard]
               }]
           },
           {
