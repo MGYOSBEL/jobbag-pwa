@@ -102,5 +102,9 @@ export class UserDetailComponent implements OnInit {
     this.briefcaseDetail.emit(briefcaseId);
   }
 
+  viewCV() {
+    window.open(`${environment.serverBaseURL}/${this.userProfile.cv}`, '_blank');
+  }
+
 
 }
