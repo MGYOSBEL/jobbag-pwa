@@ -18,17 +18,17 @@
     </div>
     <div class="col-4 px-2 text-right" *ngIf="cardMode === 'WIDE'">
       <div *ngIf="projectOwner==='SERVICE_PROVIDER'">
-        <button type="button" class="btn mx-2 px-1 rounded-0 reveal" alt="Edit" (click)="onEditProject()"><i class="fas icon-eye"
+        <button type="button" class="btn btn-icon-eye mx-2 px-1 rounded-0 reveal" alt="Edit"><i class="fas icon-eye"
           style="color: #bebcbe; display: inline; font-size: 1rem;"></i></button>
           <div *ngIf="this.project.interest ===true" class="col mt-3" style="display: inline;">
             <i class="icon-aplicado" style="color:#bebcbe; font-size: 1.2rem;"></i>
-            <p class="badge text-uppercase" style="color:#bebcbe; font-weight: 500; font-size: 1rem;">
+            <p class="badge text-uppercase pt-3" style="color:#bebcbe; font-weight: 500; font-size: 1rem;">
               Applied &nbsp;
             </p>
           </div>
       </div>
       <div *ngIf="projectOwner==='CLIENT'"  class="reveal">
-        <button type="button" class="btn mx-2 px-1 rounded-0" alt="Edit" (click)="onEditProject()"><i class="fas icon-eye"
+        <button type="button" class="btn mx-2 px-1 rounded-0" alt="Edit"><i class="fas icon-eye"
           style="color: #bebcbe; display: inline; font-size: 1rem;"></i></button>
         <button type="button" class="btn mx-2 px-1 rounded-0" alt="Edit" (click)="onEditProject()"><i class="fas icon-user-edit"
             style="color: #bebcbe;"></i></button>
