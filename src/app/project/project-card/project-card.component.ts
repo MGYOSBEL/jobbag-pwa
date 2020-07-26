@@ -101,5 +101,7 @@ export class ProjectCardComponent implements OnInit {
     this.router.navigateByUrl(`/project/${this.project.id}/edit`);
   }
 
-
+  //viewDetail
+  viewDetails() {
+  }
 }

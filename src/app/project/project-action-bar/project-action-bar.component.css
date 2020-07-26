@@ -6,10 +6,9 @@
 .bottom-btn{
     background: #2787c4;
     display: inline-block;
-    margin-top: -0.3rem !important;
     margin: 0 1em 1em 0;
-    height: 1.5rem;
-    width: 4rem;
+    height: 1.5rem !important;
+    width: 2rem !important;
     border-top-right-radius: 0px;
     border-top-left-radius: 0px;
     border-bottom-right-radius: 20px;
@@ -21,7 +20,9 @@
   padding-top: 0.2rem;
 }
 
-
+.fas{
+  font-size: 1.2rem;
+}
 
 
 

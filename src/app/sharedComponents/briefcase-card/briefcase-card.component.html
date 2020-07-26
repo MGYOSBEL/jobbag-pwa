@@ -1,9 +1,9 @@
 <div class="card card-hover rounded-0" (click)="onBriefcaseDetail()">
     <img [src]="params.picture" class="img img-briefcase">
     <div class="blue"></div>
-    <div class="reveal">
+    <div class="col reveal">
         <i class="fas icon-eye"></i>
-        <p *ngIf="params.verified" class="verified-badge text-uppercase">
+        <p *ngIf="params.verified" class="verified-badge text-uppercase p-0">
             Verified by Jobbag &nbsp;
         </p>
     </div>
