@@ -39,6 +39,16 @@ li::before {
   margin: 0 4px 0px 8px;
 }
 
+.country-header {
+  cursor: pointer;
+  background-color: #f1f1f1;
+  color: #2787c4;
+  border-top: slategray;
+}
+.country-body{
+  background-color: #f1f1f1;
+}
+
 .star {
     font-size: 1.5rem;
     color: #b0c4de;
@@ -51,6 +61,15 @@ li::before {
     width: 9rem;
     height: 6rem;
     margin-top: 1rem;
+}
+
+.fa-angle-down{
+  color:#2888C7;
+}
+
+.country-header[aria-expanded="true"] .fa-angle-down{
+
+  transform: rotate(180deg);
 }
 
 /*Overview 414px*/

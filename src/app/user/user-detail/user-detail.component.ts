@@ -23,7 +23,7 @@ export class UserDetailComponent implements OnInit {
 
   countries: Country[];
   services: Service[];
-  divisionsName: string[] = [];
+  divisionsName: any[] = [];
   servicesName: string[] = [];
 
   rating: number;
@@ -59,10 +59,13 @@ export class UserDetailComponent implements OnInit {
   }
 
   getDivisionsName(projectDivisions: number[]) {
-    let divisions: DivisionElement[] = [];
-    this.countries.forEach(country => divisions.push(...country.divisions));
-    const filtered = divisions.filter(division => projectDivisions.includes(division.id));
-    return filtered.map(division => division.nameEs) || [];
+    const filtered = this.countries.map(country => {
+      return {
+        name: country.nameEn,
+        divisions: country.divisions.filter(division => projectDivisions.includes(division.id))
+      };
+    });
+    return filtered;
   }
 
   getServicesName(projectServices: number[]) {

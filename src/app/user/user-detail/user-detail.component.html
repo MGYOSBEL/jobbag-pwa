@@ -1,114 +1,112 @@
 <div class="row mt-3">
-    <div class="col-12">
-        <div class="card mb-3" style="border: 0;">
-            <div class="row no-gutters">
-                <img [src]="profilePicture" class="img img-avatar">
-                <div class="card-body p-0">
-                    <div class="col col-user-data">
-                        <p class="user-name">{{userProfile.name}}</p>
-                    </div>
-                    <div class="col col-user-data">
-                        <p class="user-account">{{userProfile.userProfileAccount | lowercase}} account</p>
-                    </div>
-                    <div class="col col-user-data">
-                        <ngb-rating [rate]="userProfile.valoration">
-                            <ng-template let-fill="fill">
-                              <span class="star" [ngClass]="'color'"[class.filled]="fill === 100">&#9733;</span>
-                            </ng-template>
-                          </ngb-rating>
-                    </div>
-                    <div class="col col-user-data">
-                        <button type="button" class="btn btn-cv rounded-0 mt-2">
-                            Curriculum<i class="fa fa-eye mx-2"></i></button>
-                    </div>
-                </div>
-            </div>
+  <div class="col-12">
+    <div class="card mb-3" style="border: 0;">
+      <div class="row no-gutters">
+        <img [src]="profilePicture" class="img img-avatar">
+        <div class="card-body p-0">
+          <div class="col col-user-data">
+            <p class="user-name">{{userProfile.name}}</p>
+          </div>
+          <div class="col col-user-data">
+            <p class="user-account text-capitalize font-weight-light">{{userProfile.userProfileAccount | lowercase}} account</p>
+          </div>
+          <div class="col col-user-data">
+            <ngb-rating [rate]="userProfile.valoration">
+              <ng-template let-fill="fill">
+                <span class="star" [ngClass]="'color'" [class.filled]="fill === 100">&#9733;</span>
+              </ng-template>
+            </ngb-rating>
+          </div>
+          <div class="col col-user-data">
+            <button type="button" class="btn btn-cv rounded-0 mt-2">
+              Curriculum<i class="fa fa-eye mx-2"></i></button>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>
 <div class="row mt-3 mb-5">
-    <div class="col-md-8">
-        <p style="text-align: justify;">
-          {{userProfile.comment}}
-        </p>
+  <div class="col-md-8">
+    <p style="text-align: justify;">
+      {{userProfile.comment}}
+    </p>
 
-        <div class="row">
-            <div class="col-2 col-md-1 mr-0 pr-0">
-                <i class="fa fa-briefcase" style="font-size: 1.5rem; color: #bebcbe;"></i>
-            </div>
-            <div class="col ml-0 pl-0">
-                <p style="font-size: 1.2rem; color: #bebcbe;">Briefcases</p>
-            </div>
-        </div>
-        <div class="row row-cols-2 row-cols-md-3">
-            <div class="col-6 col-md-4" *ngFor="let briefcase of userProfile.briefcases">
-                <!-- <img [src]="apiPublic + briefcase.pictures[0]" class="img img-briefcase"> -->
-                <app-briefcase-card class="img img-briefcase" [params]="{id: briefcase.id, picture: apiPublic + briefcase.pictures[0], verified: true}"></app-briefcase-card>
-            </div>
-
-            <!-- <div class="col-6 col-md-4">
-                <img src='../../../assets/img/joinus.png' class="img img-briefcase">
-            </div>
-            <div class="col-6 col-md-4">
-                <img src='../../../assets/img/slider01.jpg' class="img img-briefcase">
-            </div>
-            <div class="col-6 col-md-4">
-                <img src='../../../assets/img/slider01.jpg' class="img img-briefcase">
-            </div>
-            <div class="col-6 col-md-4">
-                <img src='../../../assets/img/default-image.png' class="img img-briefcase">
-            </div>
-            <div class="col-6 col-md-4">
-                <img src='../../../assets/img/joinus.png' class="img img-briefcase">
-            </div>
-            <div class="col-6 col-md-4">
-                <img src='../../../assets/img/joinus.png' class="img img-briefcase">
-            </div>
-            <div class="col-6 col-md-4">
-                <img src='../../../assets/img/slider01.jpg' class="img img-briefcase">
-            </div>
-            <div class="col-6 col-md-4">
-                <img src='../../../assets/img/default-image.png' class="img img-briefcase">
-            </div> -->
-        </div>
+    <div class="row">
+      <div class="col-2 col-md-1 mr-0 pr-0">
+        <i class="fa fa-briefcase" style="font-size: 1.5rem; color: #bebcbe;"></i>
+      </div>
+      <div class="col ml-0 pl-0">
+        <p style="font-size: 1.2rem; color: #bebcbe;">Briefcases</p>
+      </div>
     </div>
-    <div class="col col-md-4 mt-3">
-        <div class="card rounded-0 border-0">
-            <div class="card-header rounded-0 border-0" style="background-color: #2787c4; color: white;">
-                Services
+    <div class="row row-cols-2 row-cols-md-3">
+      <div class="col-6 col-md-4" *ngFor="let briefcase of userProfile.briefcases">
+        <!-- <img [src]="apiPublic + briefcase.pictures[0]" class="img img-briefcase"> -->
+        <app-briefcase-card class="img img-briefcase"
+          [params]="{id: briefcase.id, picture: apiPublic + briefcase.pictures[0], verified: true}">
+        </app-briefcase-card>
+      </div>
+    </div>
+  </div>
+  <div class="col col-md-4 mt-3">
+    <div class="card rounded-0 border-0">
+      <div class="card-header rounded-0 border-0" style="background-color: #2787c4; color: white;">
+        Services
+      </div>
+      <div class="card-body" style="background-color: #f1f1f1;">
+        <div style="font-size:small">
+          <ul class="pl-0">
+            <li *ngFor="let service of servicesName">
+              {{service}}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="card rounded-0 border-0 mt-3">
+      <div class="card-header rounded-0 border-0" style="background-color: #2787c4; color: white;">
+        Locations
+      </div>
+      <div class="accordion" id="accordionExample">
+        <div class="card" *ngFor="let country of divisionsName; let i = index">
+          <div class="card-header collapsed country-header py-0 row justify-content-between" [id]="'heading'+i"
+            data-toggle="collapse" [attr.data-target]="'#collapse'+i" aria-expanded="false"
+            [attr.aria-controls]="'collapse'+i">
+            <div class="col m-0 p-0">
+              <p class="border-0 m-0 py-2 px-2 ">
+                {{country.name}}<small>({{country.divisions.length}})</small>
+              </p>
             </div>
-            <div class="card-body" style="background-color: #f1f1f1;">
+            <div class="col m-0 py-2 px-2 text-right">
+              <i class="fa fa-angle-down" aria-hidden="true"></i>
+            </div>
+          </div>
+          <div [id]="'collapse'+i" class="collapse" [attr.aria-labelledby]="'heading'+i"
+            data-parent="#accordionExample">
+            <div class="card-body country-body">
               <div style="font-size:small">
                 <ul class="pl-0">
-                  <li *ngFor="let service of servicesName">
-                    {{service}}
+                  <li *ngFor="let division of country.divisions">
+                    {{division.nameEs}}
                   </li>
                 </ul>
               </div>
-                <!-- <p>CS3</p>
-                <p>JavaScript</p>
-                <p>PHP</p>
-                <p>Wordpress</p>
-                <p>Edicion</p>
-                <p>Maquetado</p> -->
             </div>
+          </div>
         </div>
 
-        <div class="card rounded-0 border-0 mt-3">
-            <div class="card-header rounded-0 border-0" style="background-color: #2787c4; color: white;">
-                Locations
-            </div>
-            <div class="card-body" style="background-color: #f1f1f1;">
-              <div style="font-size:small">
-                <ul class="pl-0">
-                  <li *ngFor="let division of divisionsName">
-                    {{division}}
-                  </li>
-                </ul>
-              </div>
-                <!-- <p>Spain</p>
-                <p>Cuba</p> -->
-            </div>
+      </div>
+      <!-- <div class="card-body" style="background-color: #f1f1f1;">
+        <div style="font-size:small">
+          <ul class="pl-0">
+            <li *ngFor="let division of divisionsName">
+              {{division}}
+            </li>
+          </ul>
         </div>
+      </div> -->
     </div>
+  </div>
 </div>
