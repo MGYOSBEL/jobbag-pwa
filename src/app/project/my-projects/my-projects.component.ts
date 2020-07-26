@@ -240,6 +240,7 @@ export class MyProjectsComponent implements OnInit {
   onStatusChange(status) {
     this.statusFilterSubject.next(status);
     this.personalProjectService.preview(null);
+    this.showBriefcaseForm = false;
   }
 
 
