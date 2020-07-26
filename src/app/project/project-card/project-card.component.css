@@ -57,11 +57,33 @@
     border-radius: 0;
 }
 
+.btn-icon-eye{
+    visibility: hidden !important;
+}
+
 /*Overview 576px*/
 @media screen and (max-width: 575.98px) {
     .reveal{
-        height: auto;
-        visibility: visible;
-        opacity: 10;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+
+    .card:hover{
+        transition: none !important;
+        transform: none !important;
+    }
+
+   .card-hover{
+       transition: none !important;
+       transform: none !important;
+   }
+
+   .card-hover:hover{
+    transition: none !important;
+    transform: none !important;
+}
+
+    .btn-icon-eye{
+        visibility: visible !important;
     }
 }

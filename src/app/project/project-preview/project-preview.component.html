@@ -4,52 +4,35 @@
     <div class="row vertical-align py-1 preview-toolbar" style="z-index: 0;">
       <div class="col-9">
         <ng-container *ngIf="(previewProject.state === 'NEW' && role === 'SERVICE_PROVIDER'); else playTemplate">
-          <button class="btn col-3 btn-space" [disabled]="!canApply" id="applytBtn" type="button"
+          <button class="btn col-3 btn-space text-uppercase px-0 py-1" [disabled]="!canApply" id="applytBtn" type="button"
             style=" background-color: #2888C7; color: white; border-radius: 0; width:6.25rem;" (click)="onApply()">
             <i class="fab icon-aplicar"></i>
             Apply
           </button>
-          <button class="btn col-3 btn-space" id="startBtn" type="button" [disabled]="!canStart"
+          <button class="btn col-3 btn-space text-uppercase px-0 py-1" id="startBtn" type="button" [disabled]="!canStart"
             style=" background-color: #a1d173; color: white; border-radius: 0; width:6.25rem;" (click)="onStartProjectExecution()">
             <i class="fab icon-comenzar"></i>
             Start
           </button>
         </ng-container>
         <ng-template #playTemplate>
-          <button class="btn col-3 btn-space" type="button"
+          <button class="btn col-3 btn-space text-uppercase px-0 py-1" type="button"
             *ngIf="previewProject.state === 'PROGRESS' || previewProject.state === 'NEW'"
-            style=" background-color: #f99d6e; color: white; border-radius: 0;" data-toggle="modal"
-            data-target="#finishProjectModal">
+            style=" background-color: #f99d6e; color: white; border-radius: 0; width:6.25rem;"
+            data-toggle="modal" data-target="#finishProjectModal">
             <i class="fab icon-terminado"></i>
             Finish
           </button>
-          <button class="btn col-3 btn-space" type="button"
+          <button class="btn col-3 btn-space text-uppercase px-0 py-1" type="button"
             *ngIf="previewProject.state === 'PROGRESS' || previewProject.state === 'NEW'"
             style=" background-color: #f15d5d; color: white; border-radius: 0; width:6.25rem"
             (click)="onCancelProjectExecution()">
-            <svg class="cancel-btn" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 55.06 41.93">
-              <defs>
-                <style>
-                  .cls-1 {
-                    fill: #fff;
-                  }
-                </style>
-              </defs>
-              <title>cancelados</title>
-              <g id="Layer_2" data-name="Layer 2">
-                <g id="Layer_1-2" data-name="Layer 1">
-                  <path class="cls-1"
-                    d="M37.34,16.86l-6,6a1.44,1.44,0,0,1-2,0l-6-6a1.42,1.42,0,0,1,0-2L24,14.2a1.45,1.45,0,0,1,2.06,0l2.4,2.56V5.92H17.23a1.44,1.44,0,0,1-1-.42l-.95-1a1.44,1.44,0,0,1,1-2.45H30.8a1.44,1.44,0,0,1,1.43,1.44V16.78l2.41-2.56a1.43,1.43,0,0,1,2,0l.65.64a1.44,1.44,0,0,1,0,2Zm-15.81.92a1.47,1.47,0,0,0-1-.42H9.34V6.51l2.41,2.55a1.43,1.43,0,0,0,2.05,0l.65-.65a1.44,1.44,0,0,0,0-2l-6-6a1.42,1.42,0,0,0-2,0l-6,6a1.42,1.42,0,0,0,0,2l.64.65a1.44,1.44,0,0,0,2.06,0l2.4-2.55V19.75A1.44,1.44,0,0,0,7,21.18H21.47a1.43,1.43,0,0,0,1-2.44l-.95-1Z" />
-                  <path class="cls-1"
-                    d="M50.42,4.85H38.59V9.48H50.42V24.93H40.37a2.32,2.32,0,0,0-2.32,2.32v10H10.24V28.08H5.6v9.21a4.64,4.64,0,0,0,4.64,4.64H42.31a4.66,4.66,0,0,0,3.29-1.36l8.1-8.1a4.64,4.64,0,0,0,1.36-3.28V9.48A4.65,4.65,0,0,0,50.42,4.85ZM42.69,36.92V29.57H50Z" />
-                </g>
-              </g>
-            </svg>
+            <i class="fas icon-cancelados"></i>
             Cancel
           </button>
-          <button class="btn col-4 btn-space" type="button"
+          <button class="btn col-4 btn-space text-uppercase px-0 py-1" type="button"
             *ngIf="previewProject.state === 'FINISH' && role === 'SERVICE_PROVIDER' && previewProject.projectBriefcaseId === 0"
-            style=" background-color: #2888C7; color: white; border-radius: 0;" (click)="onCreateBriefcase()">
+            style=" background-color: #2888C7; color: white; border-radius: 0; width: 10rem;" (click)="onCreateBriefcase()">
             <i class="icon-briefcase" style="font-size: larger;"></i>&nbsp;
             Add Briefcase
           </button>
