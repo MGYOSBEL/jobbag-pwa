@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { NgbRatingConfig } from '@ng-bootstrap/ng-bootstrap';
+import { UserProfileBriefcase } from '../models/user.model';
+import { environment } from '@environments/environment';
 
 @Component({
   selector: 'app-briefcase-detail',
@@ -9,7 +11,14 @@ import { NgbRatingConfig } from '@ng-bootstrap/ng-bootstrap';
 })
 export class BriefcaseDetailComponent implements OnInit {
 
+  apiPublic: string;
   rating: number;
+  @Input()
+  briefcase: UserProfileBriefcase;
+  @Input()
+  userName: string;
+  @Output()
+  closeDetail = new EventEmitter<boolean>();
 
   constructor(config: NgbRatingConfig) {
     config.max = 5;
@@ -19,6 +28,12 @@ export class BriefcaseDetailComponent implements OnInit {
    }
 
    ngOnInit() {
+    this.apiPublic = `${environment.serverBaseURL}/`;
   }
+
+  closeBriefcaseDetail() {
+    this.closeDetail.emit(true);
+  }
+
 
 }

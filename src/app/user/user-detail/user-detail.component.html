@@ -44,7 +44,8 @@
       <div class="col-6 col-md-4" *ngFor="let briefcase of userProfile.briefcases">
         <!-- <img [src]="apiPublic + briefcase.pictures[0]" class="img img-briefcase"> -->
         <app-briefcase-card class="img img-briefcase"
-          [params]="{id: briefcase.id, picture: apiPublic + briefcase.pictures[0], verified: true}">
+          [params]="{id: briefcase.id, picture: apiPublic + briefcase.pictures[0], verified: true}"
+          (viewDetail)="onBriefcaseDetail($event)">
         </app-briefcase-card>
       </div>
     </div>

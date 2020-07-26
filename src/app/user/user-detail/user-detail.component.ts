@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { NgbRatingConfig } from '@ng-bootstrap/ng-bootstrap';
 import { UserProfile } from '../models/user.model';
 import { environment } from '@environments/environment';
@@ -18,6 +18,9 @@ export class UserDetailComponent implements OnInit {
 
   @Input()
   userProfile: UserProfile;
+
+  @Output()
+  briefcaseDetail = new EventEmitter<number>();
   profilePicture: string;
   apiPublic: string;
 
@@ -71,6 +74,10 @@ export class UserDetailComponent implements OnInit {
   getServicesName(projectServices: number[]) {
     const servs = this.services.filter(service => projectServices.includes(service.id));
     return servs.map(service => service.descriptionEs);
+  }
+
+  onBriefcaseDetail(briefcaseId: number) {
+    this.briefcaseDetail.emit(briefcaseId);
   }
 
 
