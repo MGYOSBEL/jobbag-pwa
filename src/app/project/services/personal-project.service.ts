@@ -153,4 +153,16 @@ export class PersonalProjectService {
       })
     );
   }
+  updateProjectState(executionId: number, state: 'FINISH' | 'CANCEL') {
+    return this.projectService.updateProjectState(executionId, state).pipe(
+      catchError(err => throwError(err)),
+      tap(project => {
+        this.preview(null);
+        const projects = this.personalProjectsSubject.value;
+        const index = projects.findIndex(elem => elem.id === project.id);
+        projects[index] = project;
+        this.personalProjectsSubject.next(projects);
+      })
+    );
+  }
 }

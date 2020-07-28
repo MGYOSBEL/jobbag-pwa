@@ -211,9 +211,28 @@ export class MyProjectsComponent implements OnInit {
       case 'BRIEFCASE':
         this.onShowBriefcaseForm(projectId);
         break;
+      case 'CANCEL_CLIENT':
+        this.onUpdateClienProjectState(projectId, ProjectState.CANCEL);
+        break;
+      case 'FINISH_CLIENT':
+        this.onUpdateClienProjectState(projectId, ProjectState.FINISH);
+        break;
       default:
         break;
     }
+  }
+
+  onUpdateClienProjectState(projectId: number, state: ProjectState.FINISH | ProjectState.CANCEL) {
+    this.personalProjectService.updateProjectState(projectId, state).subscribe(
+      () => {
+        const isFinish = state === ProjectState.FINISH;
+        this.messages.showMessages(`You have succesfully
+          ${ isFinish ? 'finished' : 'canceled'} a project. You can view it in ${ isFinish ? 'FINISH' : 'CANCEL'} section.`);
+      },
+      err =>
+        this.messages.showErrors(`There has been an error
+          ${ state === ProjectState.FINISH ? 'finishing' : 'canceling'} the project. Try it later.`)
+    );
   }
 
   finishExecution(executionId: number, briefcaseId?: number) {
@@ -309,6 +328,7 @@ export class MyProjectsComponent implements OnInit {
       err => this.messages.showErrors('There was an error adding this project to your briefcase. Try again later')
     );
     this.showBriefcaseForm = false;
+    this.resetForm();
   }
 
 

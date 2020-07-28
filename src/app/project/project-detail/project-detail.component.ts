@@ -28,7 +28,11 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
   isInterest$: Observable<boolean>;
 
   @Output()
-  action = new EventEmitter<{ projectId: number, action: 'APPLY' | 'START' | 'FINISH' | 'CANCEL' | 'BRIEFCASE'}>();
+  action = new EventEmitter<
+    {
+      projectId: number,
+      action: 'APPLY' | 'START' | 'FINISH' | 'CANCEL' | 'BRIEFCASE' | 'FINISH_CLIENT' | 'CANCEL_CLIENT'
+    }>();
 
 
   countries: Country[];
@@ -65,8 +69,8 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
     if (!!this.isInterest$) {
       this.isInterest$.subscribe(
         isInterest => {
-            this.canApply = !isInterest;
-            this.canStart = isInterest;
+          this.canApply = !isInterest;
+          this.canStart = isInterest;
         }
       );
 
@@ -128,10 +132,17 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
       action: 'FINISH'
     });
   }
-  onCancelProjectExecution() {
+  onFinishClientProject() {
     this.action.emit({
-      projectId: this.project.executionId,
-      action: 'CANCEL'
+      projectId: this.project.id,
+      action: 'FINISH_CLIENT'
+    });
+  }
+  onCancel() {
+    const isClient = this.role === 'CLIENT';
+    this.action.emit({
+      projectId: isClient ? this.project.id : this.project.executionId,
+      action: isClient ? 'CANCEL_CLIENT' : 'CANCEL'
     });
 
   }

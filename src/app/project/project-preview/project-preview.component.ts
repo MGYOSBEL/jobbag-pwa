@@ -34,7 +34,11 @@ export class ProjectPreviewComponent implements OnInit {
   @Output()
   startExecution = new EventEmitter<number>();
   @Output()
-  action = new EventEmitter<{ projectId: number, action: 'APPLY' | 'START' | 'FINISH' | 'CANCEL' | 'BRIEFCASE'}>();
+  action = new EventEmitter<
+    {
+      projectId: number,
+      action: 'APPLY' | 'START' | 'FINISH' | 'CANCEL' | 'BRIEFCASE' | 'FINISH_CLIENT' | 'CANCEL_CLIENT'
+    }>();
 
   countries: Country[];
   services: Service[];
@@ -61,8 +65,8 @@ export class ProjectPreviewComponent implements OnInit {
     if (!!this.isInterest$) {
       this.isInterest$.subscribe(
         isInterest => {
-            this.canApply = !isInterest;
-            this.canStart = isInterest;
+          this.canApply = !isInterest;
+          this.canStart = isInterest;
         }
       );
 
@@ -118,7 +122,7 @@ export class ProjectPreviewComponent implements OnInit {
   }
   onCreateBriefcase() {
     this.action.emit({
-      projectId: this.previewProject.executionId,
+      projectId: this.previewProject.id,
       action: 'BRIEFCASE'
     });
 
@@ -130,10 +134,17 @@ export class ProjectPreviewComponent implements OnInit {
       action: 'FINISH'
     });
   }
-  onCancelProjectExecution() {
+  onFinishClientProject() {
     this.action.emit({
-      projectId: this.previewProject.executionId,
-      action: 'CANCEL'
+      projectId: this.previewProject.id,
+      action: 'FINISH_CLIENT'
+    });
+  }
+  onCancel() {
+    const isClient = this.role === 'CLIENT';
+    this.action.emit({
+      projectId: isClient ? this.previewProject.id : this.previewProject.executionId,
+      action: isClient ? 'CANCEL_CLIENT' : 'CANCEL'
     });
 
   }

@@ -17,16 +17,22 @@
         </ng-container>
         <ng-template #playTemplate>
           <button class="btn col-3 btn-space text-uppercase px-0 py-1" type="button"
-            *ngIf="previewProject.state === 'PROGRESS' || previewProject.state === 'NEW'"
+            *ngIf="(previewProject.state === 'PROGRESS' || previewProject.state === 'NEW') && role === 'SERVICE_PROVIDER'"
             style=" background-color: #f99d6e; color: white; border-radius: 0; width:6.25rem;"
             data-toggle="modal" data-target="#finishProjectModal">
+            <i class="fab icon-terminado"></i>
+            Finish
+          </button>
+          <button class="btn col-3 btn-space text-uppercase px-0 py-1" type="button" (click)="onFinishClientProject()"
+            *ngIf="(previewProject.state === 'PROGRESS' || previewProject.state === 'NEW') && role === 'CLIENT'"
+            style=" background-color: #f99d6e; color: white; border-radius: 0; width:6.25rem;">
             <i class="fab icon-terminado"></i>
             Finish
           </button>
           <button class="btn col-3 btn-space text-uppercase px-0 py-1" type="button"
             *ngIf="previewProject.state === 'PROGRESS' || previewProject.state === 'NEW'"
             style=" background-color: #f15d5d; color: white; border-radius: 0; width:6.25rem"
-            (click)="onCancelProjectExecution()">
+            (click)="onCancel()">
             <i class="fas icon-cancelados"></i>
             Cancel
           </button>
