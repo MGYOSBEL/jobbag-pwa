@@ -3,9 +3,6 @@
     opacity: 0;
     height: 0;
     padding: 0;
-}
-
-.card:hover{
     /* transform: translateY(-2px);
     transform: translateX(5px);
     transition: 200ms; */
@@ -16,6 +13,10 @@
     visibility: visible;
     opacity: 10;
     cursor: pointer;
+}
+
+.reveal{
+pointer-events: none;
 }
 
 .blue {
