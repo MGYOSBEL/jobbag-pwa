@@ -1,8 +1,9 @@
 .img-avatar{
     border: solid 3px #2787c4;
     border-radius: 50%;
-    width: 8rem;
-    height: 8rem;
+    width: 9rem;
+    height: 9rem;
+    object-fit: cover;
 }
 
 .col-user-data{
@@ -12,10 +13,13 @@
 .user-name{
     font-size: 1.2rem;
     margin-bottom: 0 !important;
+    color: white;
+    font-weight: bold;
 }
 
 .user-account{
-    font-size: 0.8rem;
+    color: #bcbebc;
+    font-weight: 600;
     margin-bottom: 0 !important;
 }
 
@@ -64,7 +68,7 @@ li::before {
 }
 
 .fa-angle-down{
-  color:#2888C7;
+  color:#605c61;
 }
 
 .country-header[aria-expanded="true"] .fa-angle-down{
@@ -82,4 +86,44 @@ li::before {
     .col-user-data{
         margin-bottom: 0 !important;
     }
+}
+
+
+.bg-container{
+  background-image: url(../../../assets/img/black-green.png);
+  background-position:center center;
+  background-size: cover;
+  background-attachment: fixed;
+	background-repeat: no-repeat;
+}
+
+.bg-opacity{
+  background-color: black;
+  opacity: 0.2;
+  position: relative;
+}
+
+.btn-index{
+  padding: 1rem 2rem 1rem 2rem;
+  width: 10rem;
+  font-weight: bold;
+  color: #605c61;;
+  background-color: white;
+  border-radius: 0;
+  border: 0;
+}
+
+.btn-index:hover{
+  color: #2787c4;
+  border-bottom: solid 2px #2888C7 !important;
+}
+
+.active{
+  color: #2787c4;
+  border-bottom: solid 2px #2888C7 !important;
+}
+
+.focus{
+  border-bottom: solid 2px #2888C7 !important;
+  box-shadow:none;
 }

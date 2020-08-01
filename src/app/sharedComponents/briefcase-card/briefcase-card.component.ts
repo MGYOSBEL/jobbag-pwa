@@ -12,6 +12,7 @@ export class BriefcaseCardComponent implements OnInit {
     id: number;
     verified: boolean;
     picture: string;
+    description: string;
   };
 
   @Output()
@@ -20,6 +21,7 @@ export class BriefcaseCardComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    console.log("testParams:"+ this.params.description);
   }
 
   onBriefcaseDetail() {
