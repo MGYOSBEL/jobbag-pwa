@@ -11,7 +11,7 @@
 
 #bc-row{
   width: auto;
-  height:9rem;
+  height:7rem !important;
 }
 
 #bc-col{

@@ -7,12 +7,23 @@
     transform: translateX(5px);
     transition: 200ms; */
 }
-
+.card {
+  height: inherit !important;
+}
 .card:hover .reveal {
-    height: auto;
+    height: inherit !important;
     visibility: visible;
     opacity: 10;
     cursor: pointer;
+}
+
+.briefcase-title{
+white-space: nowrap;
+color:#605c61;
+overflow: hidden;
+font-weight: 500;
+font-size: 0.8rem;
+margin: 0.5rem 0.25rem 0.5rem;
 }
 
 .reveal{
@@ -68,6 +79,6 @@ pointer-events: none;
 }
 
 .img-briefcase{
-    height: 12rem;
+    height: inherit !important;
     object-fit: cover;
 }
