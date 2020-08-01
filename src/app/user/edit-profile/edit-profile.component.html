@@ -2,7 +2,7 @@
   <div class="row justify-content-center" id="edit-profile-container2">
     <div class="col-md-8 container-col">
       <form [formGroup]="editProfileForm">
-        <div class="accordion" id="accordionExample">
+        <div class="accordion" id="accordionExample" #accordion>
           <div class="card tittle-profile-card" style="border-radius: 0;">
             <div class="card-header" id="headingMain">
               <div class="row">
@@ -35,7 +35,7 @@
                     </div>
                   </div>
                 </div>
-                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                <div id="collapseOne" class="collapse collapse-all" aria-labelledby="headingOne" data-parent="#accordionExample">
                   <div class="card-body">
                     <div class="form-group row mx-auto" style="margin-top: 2rem;">
                       <div class="col-6">
@@ -93,7 +93,7 @@
                     </div>
                   </div>
                 </div>
-                <div id="collapseTwo" class="collapse" aria-labelledby="collapseTwo" data-parent="#accordionExample">
+                <div id="collapseTwo" class="collapse collapse-all" aria-labelledby="collapseTwo" data-parent="#accordionExample">
                   <div class="card-body">
                     <div class="form-group">
                       <div class="row">
@@ -165,10 +165,18 @@
                     </div>
                   </div>
                 </div>
-                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                <div id="collapseThree" class="collapse collapse-all" aria-labelledby="headingThree" data-parent="#accordionExample">
                   <div class="card-body">
                     <div class="row">
                       <div class="col-12 py-5">
+                        <div class="custom-control custom-checkbox mb-3 mx-3 rounded-0"
+                        style="display: flex;align-items: center;">
+                        <input type="checkbox" class="custom-control-input rounded-0" id="onlineJob"
+                          formControlName="onlineJob" #onlineJob>
+                        <label class="custom-control-label text-muted" for="onlineJob"
+                          style="font-size: 0.8rem;margin-top: 7px;"><span>
+                            Check for an Online Job, or select a Location.</span></label>
+                      </div>
                         <app-multi-select [selectedDivisions]="activeProfile.divisions"
                           (selected)="onDivisionsSelect($event)">
                         </app-multi-select>
@@ -189,7 +197,7 @@
                     </div>
                   </div>
                 </div>
-                <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
+                <div id="collapseFour" class="collapse collapse-all" aria-labelledby="headingFour" data-parent="#accordionExample">
                   <div class="card-body">
                     <div class="row">
                       <div class="col-12 py-5">
@@ -234,7 +242,7 @@
                       </div>
                     </div>
                   </div>
-                  <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordionExample">
+                  <div id="collapseFive" class="collapse collapse-all" aria-labelledby="headingFive" data-parent="#accordionExample">
                     <div class="card-body pt-0">
                       <div class="row justify-content-center" style="margin-top: 1.5rem;margin-bottom: 1.5rem;">
                         <div class="col-12 text-center">
@@ -307,7 +315,7 @@
                     </div>
                   </div>
                 </div>
-                <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordionExample">
+                <div id="collapseSix" class="collapse collapse-all" aria-labelledby="headingSix" data-parent="#accordionExample">
                   <div class="card-body pt-0">
                     <div class="row">
                       <div class="col-12 py-5">
@@ -329,7 +337,7 @@
                     </div>
                   </div>
                 </div>
-                <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-parent="#accordionExample">
+                <div id="collapseSeven" class="collapse collapse-all" aria-labelledby="headingSeven" data-parent="#accordionExample">
                   <div class="card-body pt-0">
                     <div class="row">
                       <div class="col-12 py-5">
@@ -350,7 +358,7 @@
             <div class="card-footer accordion-footer rounded-0">
               <button type="button" class="col-4 col-xs-3 col-lg-2  btn btn-edit rounded-0 align-items-center align-text-top"
                 style="background-color: #2888C7; color: white; font-size: 1.25rem;"
-                data-toggle="tooltip" title="Edit" (click)="saveProfile()" [disabled]="!dataChange">
+                data-toggle="tooltip" title="Edit" (click)="saveProfile();"  [disabled]="!dataChange">
                 <i class="far fa-save mr-2 text-left font-weight-light align-self-center" style="font-size: 1.25rem;"></i>
                 Save
               </button>

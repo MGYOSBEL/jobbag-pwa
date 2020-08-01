@@ -105,6 +105,7 @@ export class EditProfileComponent implements OnInit {
       accountType: [this.activeProfile.userProfileAccount, Validators.required],
       accountName: [this.activeProfile.name, [Validators.required, Validators.pattern('[a-zA-Z0-9 ]*')]],
       profilePicture: [''],
+      onlineJob: [this.activeProfile.remoteWork],
       curriculum: [''],
       selectedServices: [this.activeProfile.services],
       comments: [this.activeProfile.comment]
@@ -249,6 +250,7 @@ export class EditProfileComponent implements OnInit {
       edit_briefcase: this.role === 'SERVICE_PROVIDER' ? upd : [],
       delete_briefcase: this.role === 'SERVICE_PROVIDER' ? del : [],
       divisions: this.role === 'SERVICE_PROVIDER' ? this.activeProfile.divisions : [],
+      remoteWork: this.role === 'SERVICE_PROVIDER' ? this.editProfileForm.value.onlineJob : null,
       services: this.role === 'SERVICE_PROVIDER' ? this.editProfileForm.value.selectedServices : [],
     };
 
@@ -344,6 +346,7 @@ export class EditProfileComponent implements OnInit {
           accountType: this.activeProfile.userProfileAccount,
           accountName: this.activeProfile.name,
           selectedServices: this.activeProfile.services,
+          onlineJob: this.activeProfile.remoteWork,
           comments: this.activeProfile.comment
         });
       }

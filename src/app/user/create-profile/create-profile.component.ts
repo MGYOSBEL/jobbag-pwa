@@ -74,6 +74,7 @@ export class CreateProfileComponent implements OnInit {
       accountName: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9 ]*')]],
       companyName: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9 ]*')]],
       profilePicture: [''],
+      onlineJob: [false],
       // countries: [''],
       selectedServices: [''],
       curriculum: [''],
@@ -99,7 +100,6 @@ export class CreateProfileComponent implements OnInit {
     });
 
     // this.role = this.route.snapshot.queryParams.role; // Aca debe ir el param role del activatedRouteSnapshot
-
     this.profileForm.get('accountType').valueChanges.subscribe(
       value => {
         if (value === 'PERSONAL') {
@@ -150,6 +150,7 @@ export class CreateProfileComponent implements OnInit {
       user_profile_type: this.role,
       user_profile_account: this.profileForm.value.accountType,
       name: this.name.value,
+      remoteWork: this.profileForm.value.onlineJob,
       divisions: this.countryDivisions,
       services: this.profileForm.value.selectedServices,
       user_profile_briefcase: this.briefcaseService.briefcases.map(item => {
@@ -180,6 +181,10 @@ export class CreateProfileComponent implements OnInit {
 
   onDivisionsSelect(event) {
     this.countryDivisions = event;
+  }
+
+  onOnlineJobChange(event) {
+    // console.log('online => ', this.profileForm.value.onlineJob);
   }
 
   uploadPicture(event) {

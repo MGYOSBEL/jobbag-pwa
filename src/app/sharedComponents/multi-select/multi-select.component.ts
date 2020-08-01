@@ -4,6 +4,7 @@ import { Country } from '../../user/models/country.model';
 import { CountryService } from '../../user/services/country.service';
 import { findIndex } from 'rxjs/operators';
 import { LoggingService } from '@app/services/logging.service';
+import { LocationStrategy } from '@angular/common';
 
 @Component({
   selector: 'app-multi-select',
@@ -23,6 +24,8 @@ export class MultiSelectComponent implements OnInit {
 
   selectedCountryDivisions: number[] = []; // Divisions selected, from the selected country
   selectedByCountry: number [][];
+  allowedCountries: boolean[]; // Arreglo de booleans para determinar cuando cada boton esta permitido para seleccionar
+
 
   @Input()
   selectedDivisions: number[]; // All divisions selected, from all countries
@@ -71,6 +74,7 @@ export class MultiSelectComponent implements OnInit {
           this.selectedDivisions.filter(item => this.countries[1].divisions.findIndex(elem => elem.id === item) > -1),
           this.selectedDivisions.filter(item => this.countries[2].divisions.findIndex(elem => elem.id === item) > -1),
         ];
+        this.updateAllowedCountries();
       }
     );
   }
@@ -85,6 +89,14 @@ onCountrySelect(country: Country, i: number) {
   this.selectedCountryDivisions = [...this.selectedByCountry[i]];
 }
 
+  updateAllowedCountries() {
+    if (this.selectedDivisions.length === 0) {
+      this.allowedCountries = this.selectedByCountry.map(() => true);
+    } else {
+      this.allowedCountries = this.selectedByCountry.map(locations => locations.length > 0);
+    }
+  }
+
 closeModal() {
   this.selectedCountryDivisions = [];
 }
@@ -97,6 +109,7 @@ onChange($event) {
   this.selectedDivisions = [...this.selectedByCountry[0], ...this.selectedByCountry[1], ...this.selectedByCountry[2]];
 
   this.selected.emit(this.selectedDivisions);
+
 }
 
 onSave() {
@@ -107,6 +120,8 @@ onSave() {
   this.selectedDivisions = [...this.selectedByCountry[0], ...this.selectedByCountry[1], ...this.selectedByCountry[2]];
 
   this.selected.emit(this.selectedDivisions);
+
+  this.updateAllowedCountries();
 }
 
 

@@ -123,6 +123,7 @@ export interface UserProfile {
   userProfileAccount:     string;
   name:                   string;
   divisions:              number[];
+  remoteWork:             boolean;
   services:              number[];
 }
 

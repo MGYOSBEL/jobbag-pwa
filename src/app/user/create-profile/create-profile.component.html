@@ -1,7 +1,7 @@
 <div class="container bg-faded py-5" id="create-profile-container">
   <div class="row justify-content-center">
     <!-- <div class="col-4" id="stepper-section"> -->
-    <div class="col-sm-8 col-lg-4"  id="stepper-section">
+    <div class="col-sm-8 col-lg-4" id="stepper-section">
       <div *ngIf="closeProfileHidder" class="col-12 text-right">
         <button type="button" class="close" aria-label="Close" style="color:#bcbebc;" (click)="closeRegister()">
           <span aria-hidden="true"><i class="fas fa-times"></i></span>
@@ -59,9 +59,9 @@
                 <div class="form-group row mx-auto" style="margin-top: 3rem;">
                   <div class="col-12 px-0">
                     <label class="stepper-text">Name</label>
-                  <input type="text" class="form-control" formControlName="accountName" id="accountName"
-                    [ngClass]="profileForm.get('accountName').invalid && (profileForm.get('accountName').dirty || profileForm.get('accountName').touched) ? 'is-invalid' : '' "
-                    placeholder="Name">
+                    <input type="text" class="form-control" formControlName="accountName" id="accountName"
+                      [ngClass]="profileForm.get('accountName').invalid && (profileForm.get('accountName').dirty || profileForm.get('accountName').touched) ? 'is-invalid' : '' "
+                      placeholder="Name">
                   </div>
                 </div>
                 <div class="row container-radio-btn px-3">
@@ -88,8 +88,9 @@
                 <div class="row">
                   <div class="col-12 px-0">
                     <label for="pictureInput" class="mx-auto d-block">
-                      <input class="mx-auto d-block" #pictureInput id="pictureInput" type="file" formControlName="profilePicture"
-                        (change)="uploadPicture($event)" accept="image/*" (click)="pictureInput.value=null;"/>
+                      <input class="mx-auto d-block" #pictureInput id="pictureInput" type="file"
+                        formControlName="profilePicture" (change)="uploadPicture($event)" accept="image/*"
+                        (click)="pictureInput.value=null;" />
                       <svg *ngIf="!imageLoaded" class="svg-add-user mx-auto d-block" xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 230.41 230.41">
                         <defs>
@@ -146,6 +147,14 @@
                     <p style="color:#bebcbe;font-size:0.85rem">You need to select the region you'll work in!</p>
                   </div>
                   <div class="col-12 px-0 mx-0 h-100">
+                    <div class="custom-control custom-checkbox mb-3 mx-3 rounded-0"
+                      style="display: flex;align-items: center;">
+                      <input type="checkbox" class="custom-control-input rounded-0" id="onlineJob"
+                        formControlName="onlineJob" #onlineJob (click)="onOnlineJobChange($event)">
+                      <label class="custom-control-label text-muted" for="onlineJob"
+                        style="font-size: 0.8rem;margin-top: 7px;"><span>
+                          Check for an Online Job, or select a Location.</span></label>
+                    </div>
                     <app-multi-select [selectedDivisions]="countryDivisions" (selected)="onDivisionsSelect($event)">
                     </app-multi-select>
                     <div class="row justify-content-center">
@@ -160,16 +169,17 @@
                     <div class="form-group py-5 mx-auto">
                       <div class="row justify-content-between">
                         <div class="col stepper-text align-items-center">Select a Service!</div>
-                        <div *ngIf="profileForm.get('selectedServices').value.length > 0" class="col text-right mr-0 pr-0" >
+                        <div *ngIf="profileForm.get('selectedServices').value.length > 0"
+                          class="col text-right mr-0 pr-0">
                           <button class="btn btn-link" style="color:rgb(148,42,44);" (click)="clearServices()"
-                          data-toggle="tooltip" data-placement="top" title="Unselect all">
-                            <span class="fas fa-times" ></span>
+                            data-toggle="tooltip" data-placement="top" title="Unselect all">
+                            <span class="fas fa-times"></span>
                           </button>
                         </div>
                       </div>
-                      <ng-select formControlName="selectedServices" class="text-center row"
-                        [items]="services" [multiple]="true" [closeOnSelect]="false" [hideSelected]="true"
-                        bindLabel="descriptionEs" bindLabel="descriptionEs" bindValue="id" [searchFn]="customSearchFn">
+                      <ng-select formControlName="selectedServices" class="text-center row" [items]="services"
+                        [multiple]="true" [closeOnSelect]="false" [hideSelected]="true" bindLabel="descriptionEs"
+                        bindLabel="descriptionEs" bindValue="id" [searchFn]="customSearchFn">
                         <ng-template ng-option-tmp let-item="item">
                           {{item.descriptionEs}}
                         </ng-template>
@@ -195,8 +205,8 @@
                     <label for="curriculumUpload" id="curriculumUpload">
                       <div class="upload-btn-wrapper">
                         <button class="btn-uploadcv"><i class="far fa-folder fa-2x"></i></button>
-                        <input type="file" #cvInput name="myfile" formControlName="curriculum"
-                          class="form-control-file" id="file-upload" (change)="uploadCV($event)" (click)="cvInput.value=null;"/>
+                        <input type="file" #cvInput name="myfile" formControlName="curriculum" class="form-control-file"
+                          id="file-upload" (change)="uploadCV($event)" (click)="cvInput.value=null;" />
                       </div>
                     </label>
                   </div>
@@ -207,27 +217,27 @@
                         <hr style="border: 0.5px solid white;margin-bottom: 0; margin-top: 0;">
                       </div>
                     </div>
-                      <div class="row mx-0" style="background-color: #2982c1; padding-bottom: 0.2rem;">
-                        <div class="col-12 mt-0" style="padding:0">
-                          <button class="btn btn-link float-right" (click)="deleteCV()">
-                            <i class="fas fa-trash-alt" style="color: #fff;font-size: 0.75rem;"></i>
-                          </button>
+                    <div class="row mx-0" style="background-color: #2982c1; padding-bottom: 0.2rem;">
+                      <div class="col-12 mt-0" style="padding:0">
+                        <button class="btn btn-link float-right" (click)="deleteCV()">
+                          <i class="fas fa-trash-alt" style="color: #fff;font-size: 0.75rem;"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <div class="card-footer" style="padding:0; background-color: white;">
+                      <div class="row" style="margin: 0;">
+                        <div class="col-12 text-left" style="padding:0">
+                          <style>
+                            .ellipsis {
+                              text-overflow: ellipsis;
+                            }
+                          </style>
+                          <p class="overflow ellipsis" id="file-upload-filename"
+                            style="font-weight: bold;font-size: 0.8rem;"> {{cvFileName}}
+                          </p>
                         </div>
                       </div>
-                      <div class="card-footer" style="padding:0; background-color: white;">
-                        <div class="row" style="margin: 0;">
-                          <div class="col-12 text-left" style="padding:0">
-                            <style>
-                              .ellipsis {
-                                text-overflow: ellipsis;
-                              }
-                            </style>
-                            <p class="overflow ellipsis" id="file-upload-filename"
-                              style="font-weight: bold;font-size: 0.8rem;"> {{cvFileName}}
-                            </p>
-                          </div>
-                        </div>
-                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -294,5 +304,3 @@
     </div>
   </div>
 </div>
-
-
