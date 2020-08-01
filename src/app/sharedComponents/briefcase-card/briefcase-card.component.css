@@ -43,7 +43,7 @@ pointer-events: none;
 
 .icon-eye{
     color: white;
-    font-size: 1rem;
+    font-size: 2rem;
 }
 
 /* .col-verified-badge{
@@ -65,4 +65,9 @@ pointer-events: none;
     top:-1.2rem;
     left: 0.5rem;
     z-index: 10;
+}
+
+.img-briefcase{
+    height: 12rem;
+    object-fit: cover;
 }
