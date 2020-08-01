@@ -39,6 +39,37 @@
 <div class="row mb-5 mr-0">
   <div class="col-12 px-5 my-0">
     <div class="row">
+<<<<<<< HEAD
+      <div class="col-2 col-md-1 mr-0 pr-0">
+        <i class="fa fa-briefcase" style="font-size: 1.5rem; color: #bebcbe;"></i>
+      </div>
+      <div class="col ml-0 pl-0">
+        <p style="font-size: 1.2rem; color: #bebcbe;">Briefcases</p>
+      </div>
+    </div>
+    <div class="row row-cols-1 row-cols-md-3">
+      <div class="col" *ngFor="let briefcase of userProfile.briefcases; let i = index">
+        <!-- <img [src]="apiPublic + briefcase.pictures[0]" class="img img-briefcase"> -->
+        <app-briefcase-card class="img img-briefcase"
+          [params]="{id: briefcase.id, picture: apiPublic + briefcase.pictures[0], verified: i%3 === 0}"
+          (viewDetail)="onBriefcaseDetail($event)">
+        </app-briefcase-card>
+      </div>
+    </div>
+  </div>
+  <div class="col col-md-4 mt-3">
+    <div class="card rounded-0 border-0">
+      <div class="card-header rounded-0 border-0" style="background-color: #2787c4; color: white;">
+        Services
+      </div>
+      <div class="card-body" style="background-color: #f1f1f1;">
+        <div style="font-size:small">
+          <ul class="pl-0">
+            <li *ngFor="let service of servicesName">
+              {{service}}
+            </li>
+          </ul>
+=======
       <div class="col-12 m-0" style="background-color: white;">
         <div class="btn-group btn-group-toggle" data-toggle="buttons">
           <label class="btn btn-index active">
@@ -56,6 +87,7 @@
           <label class="btn btn-index">
             <input type="radio" name="options" id="Reviews"> Reviews
           </label>
+>>>>>>> ae936934b24968fda9c07ea639d57b1a37c05ff3
         </div>
       </div>
     </div>
@@ -66,16 +98,15 @@
         </p>
         <div class="row">
           <div class="col-2 col-md-1 mr-0 pr-0" style="display: inline-block;">
-            <p style="font-size: 1.2rem; color: #605c61;"><i class="fa fa-briefcase"
-                style="font-size: 1.5rem; color:#605c61;"></i>
-              Briefcases</p>
+            <p style="font-size: 1.2rem; color: #605c61;"><i class="fa fa-briefcase" style="font-size: 1.5rem; color:#605c61;"></i>
+            Briefcases</p>
           </div>
         </div>
         <div class="row row-cols-3 row-cols-md-3">
           <div class="col-4" *ngFor="let briefcase of userProfile.briefcases">
             <!-- <img [src]="apiPublic + briefcase.pictures[0]" class="img img-briefcase"> -->
-            <app-briefcase-card class="img img-briefcase" style="height: 12rem"
-              [params]="{id: briefcase.id, picture: apiPublic + briefcase.pictures[0], verified: true, description: briefcase.description}"
+            <app-briefcase-card class="img img-briefcase"
+              [params]="{id: briefcase.id, picture: apiPublic + briefcase.pictures[0], verified: true}"
               (viewDetail)="onBriefcaseDetail($event)">
             </app-briefcase-card>
           </div>
