@@ -28,34 +28,7 @@ export class BriefcaseEditComponent implements OnInit {
   private picturesSubject = new BehaviorSubject<string[]>([]);
   pictures$: Observable<string[]> = this.picturesSubject.asObservable(); // adding pictures array to briefcase
   opSucceed: boolean;
-
-  // Carousel variables
-  paused = false;
-  unpauseOnArrow = false;
-  pauseOnIndicator = false;
-  pauseOnHover = true;
-
-  @ViewChild('carousel', { static: true }) carousel: NgbCarousel;
-
-  togglePaused() {
-    if (this.paused) {
-      this.carousel.cycle();
-    } else {
-      this.carousel.pause();
-    }
-    this.paused = !this.paused;
-  }
-
-  onSlide(slideEvent: NgbSlideEvent) {
-    if (this.unpauseOnArrow && slideEvent.paused &&
-      (slideEvent.source === NgbSlideEventSource.ARROW_LEFT || slideEvent.source === NgbSlideEventSource.ARROW_RIGHT)) {
-      this.togglePaused();
-    }
-    if (this.pauseOnIndicator && !slideEvent.paused && slideEvent.source === NgbSlideEventSource.INDICATOR) {
-      this.togglePaused();
-    }
-  }
-
+  apiPublic: string; // URL of the public folder in the API
 
   constructor(
     private briefcaseService: BriefcaseService,
@@ -79,6 +52,7 @@ export class BriefcaseEditComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.apiPublic = `${environment.apiBaseURL}/public`;
     this.briefcases$.subscribe(
       briefcases => {
         this.briefcases = briefcases;
@@ -200,7 +174,7 @@ export class BriefcaseEditComponent implements OnInit {
     this.deletedBriefcaseIndex = null;
   }
 
-  private parsePictureUrl(picture: string): string {
+  parsePictureUrl(picture: string): string {
     if (picture != null) {
       const remoteImage = picture.includes('uploads');
       // No contiene 'uploads' pero no esta vacio, debe ser un base64
