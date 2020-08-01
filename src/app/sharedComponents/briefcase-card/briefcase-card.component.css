@@ -19,8 +19,11 @@
 
 .briefcase-title{
 white-space: nowrap;
+color:#605c61;
 overflow: hidden;
-
+font-weight: 500;
+font-size: 0.8rem;
+margin: 0.5rem 0.25rem 0.5rem;
 }
 
 .reveal{
