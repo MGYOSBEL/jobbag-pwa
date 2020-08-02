@@ -61,8 +61,8 @@
     visibility: hidden !important;
 }
 
-/*Overview 576px*/
-@media screen and (max-width: 575.98px) {
+/*Overview 768px*/
+@media screen and (max-width: 767.98px) {
     .reveal{
         visibility: visible !important;
         opacity: 1 !important;
@@ -85,5 +85,8 @@
 
     .btn-icon-eye{
         visibility: visible !important;
+    }
+    .reveal{
+        margin-top: -1rem;
     }
 }

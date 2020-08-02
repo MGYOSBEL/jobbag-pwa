@@ -133,7 +133,7 @@
     <div class="container-fluid">
       <div class="row">
         <!-- <button type="button" class="bottom-btn" style="position:fixed">UP/Down</button> -->
-        <div class="col-12 px-2">
+        <div class="col-12 px-2 col-md-push-12" id="actionBar-container">
           <!-- ACTION BAR -->
           <app-project-action-bar [actions]="actionBar" (action)="onAction($event)"
             (filters)="onActionBarFilters($event)" [statusFilter]="statusFilter"
@@ -142,9 +142,9 @@
             ></app-project-action-bar>
         </div>
       </div>
-      <div class="row py-3">
-        <div class="col-6 px-2">
-          <div class="row mb-2 px-5">
+      <div class="row py-3" id="projectCard-list-row">
+        <div class="col-md-6 px-2" id="projectCard-list-col">
+          <div class="row mb-2 px-5" id="status-list-col">
             <div class="col text-center" *ngFor="let status of statusFilter" [ngClass]="{'status-selected':statusValue === status}"
                 id="status-col" (click)="onStatusChange(status)">
               <p class="status-text" [ngClass]="{'status-selectext':statusValue === status}">{{status}}</p>
@@ -160,7 +160,7 @@
             </ng-container>
           </div>
         </div>
-        <div class="col-6 px-2">
+        <div class="col-md-6 px-2" id="project-preview-col">
           <!-- PROJECT PREVIEW -->
           <ng-template #previewTemplate>
             <app-project-preview [userProfileId]="userProfile!.id" [previewProject$]="previewProject$"
