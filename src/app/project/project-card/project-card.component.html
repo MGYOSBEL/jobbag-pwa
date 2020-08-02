@@ -9,32 +9,39 @@
       <p class="project-title my-1 ml-2">
         {{project.name}}
       </p>
-      <div class="row">
-        <div class="col">
-          <p class="text-mute ml-2 mb-1" style="color:#bebcbe; font-weight: light; font-size: 0.8rem;">
-            {{project.creationDate}}</p>
-        </div>
-      </div>
     </div>
     <div class="col-4 px-2 text-right" *ngIf="cardMode === 'WIDE'">
-      <div *ngIf="projectOwner==='SERVICE_PROVIDER'">
-        <button type="button" class="btn btn-icon-eye mx-2 px-1 rounded-0 reveal" alt="viewDetails"><i class="fas icon-eye"
-          style="color: #bebcbe; display: inline; font-size: 1rem;" (click)="viewDetails()"></i></button>
-          <div *ngIf="this.project.interest ===true" class="col mt-3" style="display: inline;">
+      <div class="row" *ngIf="projectOwner==='SERVICE_PROVIDER'">
+        <div class="col p-0">
+          <button type="button" class="btn btn-icon-eye mx-2 px-1 rounded-0 reveal" id="details-btn" alt="viewDetails"><i
+            class="fas icon-eye" style="color: #bebcbe; display: inline; font-size: 1rem;"
+            (click)="viewDetails()"></i></button>
+        </div>
+        <div *ngIf="this.project.interest ===true" class="col px-0 text-right" id="applied-badge" style="display: inline-block;">
+          <p class="badge text-uppercase mt-3" style="color:#bebcbe; font-weight: 500; font-size: 1rem;">
             <i class="icon-aplicado" style="color:#bebcbe; font-size: 1.2rem;"></i>
-            <p class="badge text-uppercase pt-3" style="color:#bebcbe; font-weight: 500; font-size: 1rem;">
-              Applied &nbsp;
-            </p>
-          </div>
+            Applied &nbsp;</p>
+        </div>
       </div>
       <div *ngIf="projectOwner==='CLIENT'"  class="reveal">
-        <button type="button" class="btn btn-icon-eye mx-2 px-1 rounded-0" alt="viewDetails"><i class="fas icon-eye"
+        <button type="button" class="btn btn-icon-eye mx-2 px-1 rounded-0" id="details-btn" alt="viewDetails"><i class="fas icon-eye"
           style="color: #bebcbe; display: inline; font-size: 1rem;" (click)="viewDetails()"></i></button>
-        <button type="button" class="btn mx-2 px-1 rounded-0" alt="Edit" (click)="onEditProject()"><i class="fas icon-user-edit"
+        <button type="button" class="btn mx-2 px-1 rounded-0" id="edit-btn" alt="Edit" (click)="onEditProject()"><i class="fas icon-user-edit"
             style="color: #bebcbe;"></i></button>
-        <button type="button" class="btn mx-2 px-1 rounded-0" alt="Trash"><i class="fas icon-bin"
+        <button type="button" class="btn mx-2 px-1 rounded-0" id="trash-btn" alt="Trash"><i class="fas icon-bin"
             style="color: #bebcbe;"></i></button>
       </div>
     </div>
+  </div>
+  <div class="row">
+    <div class="col-9 px-0">
+      <p class="text-mute ml-2 mb-1" style="color:#bebcbe; font-weight: light; font-size: 0.8rem;">
+        {{project.creationDate}}</p>
+    </div>
+        <div *ngIf="this.project.interest ===true" class="col-3 text-right px-0" id="applied-min" style="display: inline-block;">
+          <p class="badge text-uppercase pt-3" style="color:#bebcbe; font-weight: 500; font-size: 1rem;">
+            <i class="icon-aplicado" style="color:#bebcbe; font-size: 1.2rem;"></i>
+            Applied &nbsp;</p>
+        </div>
   </div>
 </div>

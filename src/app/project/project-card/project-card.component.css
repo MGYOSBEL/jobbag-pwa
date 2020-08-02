@@ -61,32 +61,63 @@
     visibility: hidden !important;
 }
 
+#applied-min{
+    display: none !important;
+}
+
 /*Overview 768px*/
 @media screen and (max-width: 767.98px) {
+    .btn-icon-eye:hover{
+        transition: none !important;
+        transform: none !important;
+    }
     .reveal{
         visibility: visible !important;
         opacity: 1 !important;
+        margin-top: -1rem;
     }
-
     .card:hover{
         transition: none !important;
         transform: none !important;
     }
-
    .card-hover{
        transition: none !important;
        transform: none !important;
    }
-
    .card-hover:hover{
     transition: none !important;
     transform: none !important;
-}
-
+  }
     .btn-icon-eye{
         visibility: visible !important;
     }
-    .reveal{
-        margin-top: -1rem;
+    .project-title{
+        font-size: 1rem;
     }
+    #applied-min{
+    display: none !important;
+    }
+    #details-btn{
+        margin-right: 1.5rem !important;
+    }
+}
+
+/*Overview 475px*/
+@media screen and (max-width: 474.98px) {
+    .badge{
+        font-size: 0.6rem !important;
+        padding-top: 0 !important;
+    }
+    #applied-badge{
+        display:none !important;
+    }
+    #edit-btn, #details-btn, #trash-btn{
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        margin-right: 1.5rem !important;
+    }
+    #applied-min{
+        display: inline !important;
+    }
+
 }

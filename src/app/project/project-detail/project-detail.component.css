@@ -55,3 +55,13 @@ li::before {
 .btn-space{
   margin-right: 5px;
 }
+
+/*Overview 768px*/
+@media only screen and (max-width: 767.99px) {
+  #goback-btn{
+    margin-top: 0.25rem;
+  }
+  .user-name{
+    display: none;
+  }
+}
