@@ -41,3 +41,29 @@
 .status-selectext{
    color: #2888C7 !important;
 }
+
+/*Overview 768px*/
+@media only screen and (max-width: 767.99px) {
+  #projectPreview-col{
+    display: none;
+  }
+  #actionBar-container{
+    padding-left: .25rem !important;
+    padding-right: .25rem !important;
+  }
+  #projectCard-list-row{
+    padding-top: 0.25rem !important;
+  }
+  #projectCard-list-col{
+    padding-left: .25rem !important;
+    padding-right: .25rem !important;
+  }
+  #status-list-col{
+    padding-right: 0.25rem !important;
+    padding-left: 0.25rem !important;
+  }
+  .scroll-host{
+    padding-right: 0rem !important;
+    padding-left: 0rem !important;
+  }
+}
