@@ -1,35 +1,11 @@
 <div class="card col-12 collapse" id="collapseAB" style="background-color: white;border-radius: 0;">
   <div class="row vertical-align py-2">
-    <!-- <input *ngIf="SELECTALL" type="checkbox" style="margin-left: 1rem; margin-right: 1rem;"
-      (change)="onSelectAll($event)" [(ngModel)]="selectAllCheckbox">
-    <button *ngIf="APPLY" [disabled]="!(canApply$ | async)" class="btn col-2" type="button"
-      style=" background-color: #2888C7; color: white; border-radius: 0;" (click)="onAction('APPLY')">
-      <i class="fab fa-telegram-plane"></i>
-      Apply
-    </button>
-    <button *ngIf="CREATE" class="btn col-2" type="button"
-      style=" background-color: #2888C7; color: white; border-radius: 0;" (click)="onAction('CREATE')">
-      <i class="fas fa-folder-plus"></i>
-      New Project
-    </button>
-    <button *ngIf="DELETE" type="button" class="btn mx-2 px-3" style="border-radius: 0;"><i class="fas fa-trash"
-        style="color: #bebcbe;" (click)="onAction('DELETE')"></i></button> -->
-    <div class="col-3 pl-3" style="z-index: 4;">
+    <div class="col-md-3 pl-3" id="location-col" style="z-index: 4;">
       <div class="form-group" style="margin-bottom: 0;">
-        <ng-select
-          class="custom-ng-select p-0"
-          [items]="countries"
-          [multiple]="true"
-          appearance="outline"
-          bindLabel="nameEs"
-          placeholder="Locations"
-          groupBy="divisions"
-          [selectableGroup]="true"
-          [selectableGroupAsModel]="false"
-          [closeOnSelect]="false"
-          bindValue="id"
-          (change)="onLocationFilterChange($event)"
-          [(ngModel)]="selectedDivisions">
+        <ng-select class="custom-ng-select p-0" [items]="countries" [multiple]="true" appearance="outline"
+          bindLabel="nameEs" placeholder="Locations" groupBy="divisions" [selectableGroup]="true"
+          [selectableGroupAsModel]="false" [closeOnSelect]="false" bindValue="id"
+          (change)="onLocationFilterChange($event)" [(ngModel)]="selectedDivisions">
           <ng-template ng-optgroup-tmp let-item="item" let-item$="item$" let-index="index">
             <input id="item-{{index}}" *ngIf="item.divisions.length" type="checkbox" [ngModel]="item$.selected" />
             <ng-container *ngIf="item.divisions.length">{{item.nameEs | uppercase}}</ng-container>
@@ -45,67 +21,30 @@
         </ng-select>
       </div>
     </div>
-    <div class="col-4 pl-0">
+    <div class="col-md-4 pl-0" id="services-col">
       <div class="form-group" style="margin-bottom: 0;">
-        <ng-select
-          class="custom-ng-select p-0"
-          [items]="services"
-          [multiple]="true"
-          appearance="outline"
-          bindLabel="descriptionEs"
-          placeholder="Services"
-          [closeOnSelect]="false"
-          bindValue="id"
-          [searchFn]="customSearchFn"
-          (change)="onServiceFilterChange()"
-          [(ngModel)]="selectedServices">
+        <ng-select class="custom-ng-select p-0" [items]="services" [multiple]="true" appearance="outline"
+          bindLabel="descriptionEs" placeholder="Services" [closeOnSelect]="false" bindValue="id"
+          [searchFn]="customSearchFn" (change)="onServiceFilterChange()" [(ngModel)]="selectedServices">
           <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
             <input id="item-{{index}}" type="checkbox" [ngModel]="item$.selected" /> {{item.descriptionEs}}
           </ng-template>
-
           <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
             <div class="ng-value" *ngIf="items.length > 0">
               <span class="ng-value-label">Selected ({{items.length}})</span>
             </div>
           </ng-template>
-
         </ng-select>
-        <!-- <select class="form-control" id="servicesFilterSelect" style="border-radius: 0; border-color: #2888C7;">
-          <option value="0">Services</option>
-          <option>Designer</option>
-          <option>Development</option>
-          <option>Arquitect</option>
-        </select> -->
       </div>
     </div>
-    <div class="col-2">
+    <div class="col-md-2" id="date-col">
       <div class="form-group" style="margin-bottom: 0;">
-        <ng-select
-          class="custom-ng-select p-0"
-          [items]="dateFilterList"
-          appearance="outline"
-          bindLabel="nameEs"
-          placeholder="Date"
-          [closeOnSelect]="true"
-          bindValue="index"
-          (change)="onDateFilterChange($event)"
-          >
-          <!-- <ng-template ng-optgroup-tmp let-item="item" let-item$="item$" let-index="index">
-            <input id="item-{{index}}" *ngIf="item.divisions.length" type="checkbox" [ngModel]="item$.selected" />
-            <ng-container *ngIf="item.divisions.length">{{item.nameEs | uppercase}}</ng-container>
-          </ng-template> -->
-          <!-- <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
-            <input id="item-{{index}}" type="checkbox" [ngModel]="item$.selected" /> {{item.nameEs}}
-          </ng-template> -->
-          <!-- <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
-            <div class="ng-value" *ngIf="items.length > 0">
-              <span class="ng-value-label">Selected ({{items.length}})</span>
-            </div>
-          </ng-template> -->
+        <ng-select class="custom-ng-select p-0" [items]="dateFilterList" appearance="outline" bindLabel="nameEs"
+          placeholder="Date" [closeOnSelect]="true" bindValue="index" (change)="onDateFilterChange($event)">
         </ng-select>
       </div>
     </div>
-    <div class="col pl-0">
+    <div class="col pl-0" id="search-col">
       <div class="input-group">
         <input type="text" class="form-control" placeholder="Search" style="border-radius: 0; border-color: #2888C7;">
         <div class="input-group-append">
@@ -117,7 +56,6 @@
     </div>
   </div>
 </div>
-
 <div class="row my-0 py-0">
   <div class="col my-0 py-0 text-right" style="margin-top: -0.3rem !important;">
     <p style="font-size: 0.8rem; color:#2888C7; display: inline;">
@@ -125,10 +63,9 @@
     </p>
     <div class="btn bottom-btn p-0 m-0 text-center" data-toggle="collapse" data-target="#collapseAB"
       aria-expanded="false" aria-controls="collapseExample" (click)="showCU=!showCU">
-        <span>
-          <i [ngClass]="{'fa-chevron-up':showCU === true}" class="fas fa-chevron-down" style="color: white;"></i>
-        </span>
-      <!-- <i [ngClass]="{'fa-chevron-up':showCU === true}" class="fas fa-chevron-down" style="color: white;"></i> -->
+      <span>
+        <i [ngClass]="{'fa-chevron-up':showCU === true}" class="fas fa-chevron-down" style="color: white;"></i>
+      </span>
     </div>
   </div>
 </div>

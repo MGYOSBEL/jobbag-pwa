@@ -1,73 +1,38 @@
-<!-- <h3>{{$loggedUser | async | json }}</h3> -->
-<!-- <app-navbar></app-navbar> -->
 <nav class="mt-4">
   <div class="nav nav-tabs row my-0 px-0 mx-2" id="nav-tab" role="tablist">
-    <a class="nav-item nav-link col-3 border-0 rounded-0 ml-0 mr-2 text-uppercase" id="nav-home-tab" data-toggle="tab"
+    <a class="nav-item nav-link col-4 col-md-3 border-0 rounded-0 ml-0 mr-2 text-uppercase" id="nav-home-tab" data-toggle="tab"
       href="#nav-home" [ngClass]="{'show active':activeTab==='navHome'}" role="tab" aria-controls="nav-home"
       aria-selected="true" (click)="saveActiveTab('navHome')">Dashboard</a>
-    <a class="nav-item nav-link col-3 border-0 mx-2 rounded-0 text-uppercase" id="nav-profile-tab" data-toggle="tab"
-      href="#nav-profile" *ngIf="role === 'SERVICE_PROVIDER'" [ngClass]="{'show active':activeTab==='navProfile'}"  (click)="saveActiveTab('navProfile')" role="tab" aria-controls="nav-profile"
-      aria-selected="false">Candidate Projects</a>
-    <a class="nav-item nav-link col-3 border-0 mr-0 ml-2 rounded-0 text-uppercase" id="nav-contact-tab"
+    <a class="nav-item nav-link col-4 col-md-3 border-0 mx-2 rounded-0 text-uppercase" id="nav-profile-tab" data-toggle="tab"
+      href="#nav-profile" *ngIf="role === 'SERVICE_PROVIDER'" [ngClass]="{'show active':activeTab==='navProfile'}"
+      (click)="saveActiveTab('navProfile')" role="tab" aria-controls="nav-profile" aria-selected="false">Candidate
+      Projects</a>
+    <a class="nav-item nav-link col-4 col-md-3 border-0 mr-0 ml-2 rounded-0 text-uppercase" id="nav-contact-tab"
       data-toggle="tab" href="#nav-contact" [ngClass]="{'show active':activeTab==='navContact'}" role="tab"
       aria-controls="nav-contact" aria-selected="false" (click)="saveActiveTab('navContact')">My Projects</a>
   </div>
-
 </nav>
 <div class="tab-content" id="nav-tabContent">
   <div class="tab-pane fade navitem-container" id="nav-home" [ngClass]="{ 'show active':activeTab==='navHome'}"
     role="tabpanel" aria-labelledby="nav-home-tab">
     <div class="container-fluid align-items-center" id="navitem-one-container">
       <div class="row">
-        <div class="col-8 display-2 text-left">
-          Welcome {{activeProfile.name}}
+        <div class="col-md-8 display-2 text-left">
+         <h3>Welcome {{activeProfile.name}}</h3>
         </div>
-        <div class="col-4 align-items-center">
-          <button *ngIf="role === 'CLIENT'" class="row mt-5 ml-5 btn col-6" type="button"
-            style=" background-color: #2888C7; color: white; border-radius: 0;" (click)="onCreateProject()">
+        <div class="col-md-4 align-items-center">
+          <!-- <button *ngIf="role === 'CLIENT'" class="row mt-5 ml-5 btn col-6" type="button"
+            style=" background-color: #2888C7; color: white; border-radius: 0; width:6.25rem" (click)="onCreateProject()">
             <i class="fas fa-folder-plus"></i>
             New Project
-          </button>
+          </button> -->
+          <button *ngIf="role === 'CLIENT'" class="btn mt-1 btn-space px-0 py-1 text-uppercase" id="createPrjtBtn" type="button"
+          style=" background-color: #2888C7; color: white; border-radius: 0; width:10rem"(click)="onCreateProject()">
+          <i class="fas fa-folder-plus"></i>
+            New Project
+        </button>
         </div>
-
       </div>
-      <!-- User Details Component -->
-      <!-- <div class="row justify-content-center">
-        <div class="col col-xs-8 col-lg-6">
-          <app-user-detail></app-user-detail>
-        </div>
-      </div> -->
-      <!-- Briefcase Details Component -->
-      <!-- <div class="row justify-content-center">
-        <div class="col col-xs-8 col-lg-6">
-          <app-briefcase-detail></app-briefcase-detail>
-        </div>
-      </div> -->
-      <!-- Briefcase Card Component -->
-      <!-- <div class="row mt-3 mb-5">
-        <div class="col-6 col-md-3">
-          <app-briefcase-card></app-briefcase-card>
-        </div>
-      </div> -->
-
-      <!-- <div class="row">
-        <ng-container>
-          <table class="table">
-            <thead>
-              <th scope="col">Id</th>
-              <th>Name</th>
-              <th>State</th>
-            </thead>
-            <tbody>
-              <tr  *ngFor="let project of projects$ | async">
-                <th scope="row">{{project.id}}</th>
-                <td >{{project.name}}</td>
-                <td >{{project.state}}</td>
-              </tr>
-            </tbody>
-          </table>
-        </ng-container>
-      </div> -->
     </div>
   </div>
   <div class="tab-pane fade navitem-container" id="nav-profile" [ngClass]="{ 'show active':activeTab==='navProfile'}"

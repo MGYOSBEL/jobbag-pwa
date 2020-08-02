@@ -179,8 +179,34 @@
   border-radius: 0;
 }
 
+/*Overview 768px*/
+ @media only screen and (max-width: 767.99px) {
+  #actionBar-container{
+    padding-left: .25rem !important;
+    padding-right: .25rem !important;
+  }
+  #projectCard-list-row{
+    padding-top: 0.25rem !important;
+  }
+  #projectCard-list-col{
+    padding-left: .25rem !important;
+    padding-right: .25rem !important;
+  }
+  #status-list-col{
+    padding-right: 0.25rem !important;
+    padding-left: 0.25rem !important;
+  }
+  .scroll-host{
+    padding-right: 0rem !important;
+    padding-left: 0rem !important;
+  }
+  #project-preview-col{
+    display: none;
+  }
+}
+
 /*Overview 576px*/
-@media (max-width: 575.98px) {
+@media only screen and (max-width: 575.99px) {
   .modal-body{
     padding-left: 0 !important;
     padding-right: 0 !important;
