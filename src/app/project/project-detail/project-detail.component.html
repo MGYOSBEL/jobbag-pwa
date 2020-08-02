@@ -1,8 +1,8 @@
 <div class="container-fluid">
   <div class="row" style="border-bottom: 1px solid #2888C7; height:3rem;">
-    <div class="col mx-0">
+    <div class="col-2 col-md-4 mx-0">
       <div class="row no-gutters">
-        <button type="button" class="btn action-btn rounded-0" data-toggle="tooltip" title="Go Back" alt="goBack"
+        <button type="button" class="btn action-btn rounded-0" id="goback-btn" data-toggle="tooltip" title="Go Back" alt="goBack"
           (click)="backToList()"><i class="fas fa-chevron-circle-left"></i>
         </button>
         <p class="user-name text-left pt-2  align-self-end">
@@ -13,44 +13,44 @@
     </div>
     <div class="col text-right">
       <ng-container *ngIf="(project.state === 'NEW' && role === 'SERVICE_PROVIDER'); else playTemplate">
-        <button class="btn col-2 mt-1 btn-space px-0 py-1 text-uppercase" [disabled]="!canApply" id="applytBtn" type="button"
+        <button class="btn col-5 col-md-2 mt-1 btn-space px-0 py-1 text-uppercase" [disabled]="!canApply" id="applytBtn" type="button"
           style=" background-color: #2888C7; color: white; border-radius: 0; width:6.25rem"(click)="onApply()">
           <i class="fas icon-aplicar"></i>
           Apply
         </button>
-        <button class="btn col-2 mt-1 btn-space px-0 py-1 text-uppercase" id="startBtn" type="button" [disabled]="!canStart"
+        <button class="btn col-5 col-md-2 mt-1 btn-space px-0 py-1 text-uppercase" id="startBtn" type="button" [disabled]="!canStart"
           style=" background-color: #a1d173; color: white; border-radius: 0; width:6.25rem" (click)="onStartProjectExecution()">
           <i class="fas icon-comenzar"></i>
           Start
         </button>
       </ng-container>
       <ng-template #playTemplate>
-        <button class="btn col-2 mt-1 btn-space px-0 py-1 text-uppercase" id="editBtn" *ngIf="role === 'CLIENT'"
+        <button class="btn col-5 col-md-2 mt-1 btn-space px-0 py-1 text-uppercase" id="editBtn" *ngIf="role === 'CLIENT'"
         type="button" data-toggle="tooltip" title="Edit Project" alt="Edit"
         style=" background-color: #2888C7; color: white; border-radius: 0; width: 6.25rem;" (click)="onEditProject()">
         <i class="fas icon-user-edit" style="color:white;"></i>
         Edit
       </button>
-      <button class="btn col-3 mt-1 btn-space text-uppercase px-0 py-1" type="button"
+      <button class="btn col-5 col-md-3 mt-1 btn-space text-uppercase px-0 py-1" type="button"
       *ngIf="(project.state === 'PROGRESS' || project.state === 'NEW') && role === 'SERVICE_PROVIDER'"
       style=" background-color: #f99d6e; color: white; border-radius: 0; width:6.25rem;"
       data-toggle="modal" data-target="#finishProjectModal">
       <i class="fab icon-terminado"></i>
       Finish
     </button>
-    <button class="btn col-3 mt-1 btn-space text-uppercase px-0 py-1" type="button" (click)="onFinishClientProject()"
+    <button class="btn col-5 col-md-3 mt-1 btn-space text-uppercase px-0 py-1" type="button" (click)="onFinishClientProject()"
       *ngIf="(project.state === 'PROGRESS' || project.state === 'NEW') && role === 'CLIENT'"
       style=" background-color: #f99d6e; color: white; border-radius: 0; width:6.25rem;">
       <i class="fab icon-terminado"></i>
       Finish
     </button>
-        <button class="btn col-2 mt-1 btn-space px-0 py-1 text-uppercase" type="button"
+        <button class="btn col-5 col-md-2 mt-1 btn-space px-0 py-1 text-uppercase" type="button"
           *ngIf="project.state === 'PROGRESS' || project.state === 'NEW'"
           style=" background-color: #f15d5d; color: white; border-radius: 0; width: 6.25rem;" (click)="onCancel()">
           <i class="fas icon-cancelados"></i>
           Cancel
         </button>
-        <button class="btn col-3 mt-1 btn-space px-0 py-1 text-uppercase" type="button"
+        <button class="btn col-5 col-md-3 mt-1 btn-space px-0 py-1 text-uppercase" type="button"
           *ngIf="project.state === 'FINISH' && role === 'SERVICE_PROVIDER'"
           style=" background-color: #2888C7; color: white; border-radius: 0;" (click)="onCreateBriefcase()">
           <span class="icon-briefcase" style="font-size: larger; width:10rem"></span>&nbsp;
@@ -141,7 +141,7 @@
   </div>
 
   <div class="row mt-3 mx-2">
-    <div class="col-6 border" style="background-color: #f1f1f1; color:#605c61;">
+    <div class="col-md-6 border" style="background-color: #f1f1f1; color:#605c61;">
       <div class="col-12">
         <!-- <app-project-preview></app-project-preview> -->
         <p class="project-title text-left my-2" style="color:#605c61; font-weight: light; font-size: 1.2rem;">
@@ -186,7 +186,7 @@
         </div>
       </div>
     </div>
-    <div *ngIf="project.interestedProfiles != null; else notProjectOwner" class="col-6">
+    <div *ngIf="project.interestedProfiles != null; else notProjectOwner" class="col-md-6">
       <div class="col-12">
         <h5 class="column-title my-3">Interested Candidates</h5>
       </div>

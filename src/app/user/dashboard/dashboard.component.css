@@ -32,4 +32,10 @@
     margin-right: 4px !important;
     margin-left: 4px !important;
   }
+  #nav-dashboard-tab, #nav-candidates-tab, #nav-myprojects-tab{
+    font-size: 0.8rem;
+    margin-right: 0px !important;
+    margin-left: 0px !important;
+    margin-bottom: 2px !important;
+  }
 }

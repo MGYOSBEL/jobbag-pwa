@@ -23,3 +23,16 @@
 .reply-btn:hover{
     color: #605c61;
 }
+
+/*Overview 768px*/
+@media only screen and (max-width: 767.99px) {
+#comment-card-col{
+    padding: 0;
+}
+#comment-card-textcol{
+    padding-right: 0;
+ }
+}
+
+
+
