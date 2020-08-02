@@ -33,6 +33,7 @@ export class EditProfileComponent implements OnInit {
   loggedUser: User;
   role: string;
   defaultPicture: boolean;
+  defaultHeaderPicture: boolean;
   dataChange: boolean;
   // Edit user related variables
   changePassword: boolean;
@@ -50,8 +51,11 @@ export class EditProfileComponent implements OnInit {
   // imageLoaded: boolean;
   // pictureDelete: boolean; // true when want to delete picture
   imageChange: string; // null || 'LOADED' || 'DELETED'
+  headerImageChange: string; // null || 'LOADED' || 'DELETED'
   imageBase64: string;
+  headerImageBase64: string;
   previewUrl: string;
+  previewHeaderUrl: string;
 
 
   profileName: AbstractControl;
@@ -105,6 +109,7 @@ export class EditProfileComponent implements OnInit {
       accountType: [this.activeProfile.userProfileAccount, Validators.required],
       accountName: [this.activeProfile.name, [Validators.required, Validators.pattern('[a-zA-Z0-9 ]*')]],
       profilePicture: [''],
+      profileHeaderPicture: [''],
       onlineJob: [this.activeProfile.remoteWork],
       curriculum: [''],
       selectedServices: [this.activeProfile.services],
@@ -158,6 +163,22 @@ export class EditProfileComponent implements OnInit {
       this.defaultPicture = false;
       // this.pictureDelete = false;
       this.imageChange = 'LOADED';
+      this.dataChange = true;
+
+    };
+  }
+  // Public method (event callback) for upload a header picture as response to picture input file
+  uploadHeaderPicture(event) {
+    const file = (event.target as HTMLInputElement).files[0];
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = (_event) => {
+      this.previewHeaderUrl = reader.result as string;
+      this.headerImageBase64 = this.previewHeaderUrl.toString().split(',')[1];
+      // this.imageLoaded = true;
+      this.defaultHeaderPicture = false;
+      // this.pictureDelete = false;
+      this.headerImageChange = 'LOADED';
       this.dataChange = true;
 
     };
@@ -257,17 +278,30 @@ export class EditProfileComponent implements OnInit {
 
     const profileEdit$ = this.userProfileService.edit(profileEditRequest);
 
-    // Editing the picture and the cv
+    // Editing the picture, the header picture and the cv
     let imageEdit$;
     switch (this.imageChange) {
       case 'LOADED':
         imageEdit$ = this.mediaService.editProfilePicture(this.activeProfile.id, this.imageBase64);
         break;
-        case 'DELETED':
+      case 'DELETED':
         imageEdit$ = this.mediaService.deleteProfilePicture(this.activeProfile.id, this.activeProfile.picture);
         break;
       default:
-        imageEdit$ = of (1);
+        imageEdit$ = of(1);
+        break;
+    }
+
+    let headerImageEdit$;
+    switch (this.headerImageChange) {
+      case 'LOADED':
+        headerImageEdit$ = this.mediaService.editProfileHeaderPicture(this.activeProfile.id, this.headerImageBase64);
+        break;
+      case 'DELETED':
+        headerImageEdit$ = this.mediaService.deleteProfileHeaderPicture(this.activeProfile.id, this.activeProfile.pictureProfileHeader);
+        break;
+      default:
+        headerImageEdit$ = of(1);
         break;
     }
 
@@ -276,11 +310,11 @@ export class EditProfileComponent implements OnInit {
       case 'LOADED':
         cvEdit$ = this.mediaService.editProfileCV(this.activeProfile.id, this.cvBase64);
         break;
-        case 'DELETED':
+      case 'DELETED':
         cvEdit$ = this.mediaService.deleteProfileCV(this.activeProfile.id, this.activeProfile.cv);
         break;
       default:
-        cvEdit$ = of (1);
+        cvEdit$ = of(1);
         break;
     }
 
@@ -290,6 +324,7 @@ export class EditProfileComponent implements OnInit {
     //                 this.mediaService.editProfileCV(this.activeProfile.id, this.cvBase64);
     const editProfileCall$ = forkJoin(
       [
+        headerImageEdit$,
         imageEdit$,
         cvEdit$,
         userEdit$,
@@ -308,7 +343,7 @@ export class EditProfileComponent implements OnInit {
         this.messages.showErrors(message);
         // Es necesario recargar el componente para q se reinicie broefcaseEdit Component
         // Y reinicie a su vez el el changeLog.
-        this.router.navigate(['./'], {relativeTo: this.route});
+        this.router.navigate(['./'], { relativeTo: this.route });
       },
       () => this.router.navigateByUrl(`/user/${this.userService.loggedUser.id}/${this.activeProfile.userProfileType}`)
     );
@@ -338,9 +373,12 @@ export class EditProfileComponent implements OnInit {
       this.activeProfile = this.loggedUser.profiles.find(profile => profile.userProfileType === this.role);
       if (!!this.activeProfile) {
         // this.briefcaseService.briefcases = this.activeProfile.briefcases;
-        this.cvChange = this.activeProfile.cv != null ? 'LOADED' : null ;
+        this.cvChange = this.activeProfile.cv != null ? 'LOADED' : null;
         this.defaultPicture = this.activeProfile.picture == null;
+        this.defaultHeaderPicture = this.activeProfile.pictureProfileHeader == "NULL";
+        console.log('default header => ', this.defaultHeaderPicture);
         this.previewUrl = `${environment.serverBaseURL}/${this.activeProfile.picture}`;
+        this.previewHeaderUrl = `${environment.serverBaseURL}/${this.activeProfile.pictureProfileHeader}`;
         // this.selectedServices = this.activeProfile.services;
         this.editProfileForm.patchValue({
           accountType: this.activeProfile.userProfileAccount,
@@ -371,6 +409,13 @@ export class EditProfileComponent implements OnInit {
     this.dataChange = true;
 
   }
+  delSelectedHeaderPicture() {
+    this.defaultHeaderPicture = true;
+    this.headerImageBase64 = '';
+    this.headerImageChange = 'DELETED';
+    this.dataChange = true;
+
+  }
 
   viewCV() {
     window.open(`${environment.serverBaseURL}/${this.activeProfile.cv}`, '_blank');
@@ -382,6 +427,6 @@ export class EditProfileComponent implements OnInit {
     this.cvChange = 'DELETED';
     this.dataChange = true;
 
-    }
+  }
 
 }

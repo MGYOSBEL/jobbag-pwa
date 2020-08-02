@@ -99,6 +99,11 @@
   padding-bottom: 0 !important;
 }
 
+.header-picture {
+  object-fit: cover;
+  height: 12rem;
+}
+
 /*Footer Card*/
 .accordion-footer{
     background-color: white;

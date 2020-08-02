@@ -119,6 +119,7 @@ export interface UserProfile {
   userProfileType:        string;
   briefcases:  UserProfileBriefcase[];
   picture:                string;
+  pictureProfileHeader:   string;
   cv:                     string;
   userProfileAccount:     string;
   name:                   string;

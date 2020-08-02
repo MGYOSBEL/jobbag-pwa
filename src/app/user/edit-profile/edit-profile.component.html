@@ -35,7 +35,8 @@
                     </div>
                   </div>
                 </div>
-                <div id="collapseOne" class="collapse collapse-all" aria-labelledby="headingOne" data-parent="#accordionExample">
+                <div id="collapseOne" class="collapse collapse-all" aria-labelledby="headingOne"
+                  data-parent="#accordionExample">
                   <div class="card-body">
                     <div class="form-group row mx-auto" style="margin-top: 2rem;">
                       <div class="col-6">
@@ -55,29 +56,86 @@
                     </div>
                     <div class="form-group row mx-auto">
                       <div class="col-12">
-                      <label class="stepper-text">Name</label>
-                      <input type="text" class="form-control" formControlName="accountName" id="accountName"
-                        [ngClass]="editProfileForm.get('accountName').invalid && (editProfileForm.get('accountName').dirty ||
+                        <label class="stepper-text">Name</label>
+                        <input type="text" class="form-control" formControlName="accountName" id="accountName"
+                          [ngClass]="editProfileForm.get('accountName').invalid && (editProfileForm.get('accountName').dirty ||
                         editProfileForm.get('accountName').touched) ? 'is-invalid' : '' " placeholder="Name">
-                    </div>
+                      </div>
                     </div>
                     <div class="row container-radio-btn px-3" style="margin-bottom: 3rem;">
                       <div class="col-12">
-                          <label class="stepper-text">Select your Account Type</label>
+                        <label class="stepper-text">Select your Account Type</label>
                       </div>
                       <div class="col-4 text-center px-0" style="margin-left: 3rem;">
                         <div class="form-group row">
-                          <input type="radio" class="form-check-input" name="accountType" formControlName="accountType" value="PERSONAL">
+                          <input type="radio" class="form-check-input" name="accountType" formControlName="accountType"
+                            value="PERSONAL">
                           <label for="accountName" class="form-check-label">Personal</label>
                         </div>
                       </div>
                       <div class="col-4 text-center px-0" style="margin-left: 3rem;">
-                        <div class="form-group row" >
-                          <input type="radio" class="form-check-input" name="accountType" formControlName="accountType" value="COMPANY">
+                        <div class="form-group row">
+                          <input type="radio" class="form-check-input" name="accountType" formControlName="accountType"
+                            value="COMPANY">
                           <label for="exampleInputEmail1" class="form-check-label">Company</label>
                         </div>
                       </div>
                     </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card" id="section-card">
+                <div class="card-header card-header-collapse" id="headingBanner" data-toggle="collapse"
+                  data-target="#collapseBanner" aria-expanded="false" aria-controls="collapseBanner">
+                  <div class="row">
+                    <div class="col-9">
+                      <p class="text-left">Header Picture</p>
+                    </div>
+                    <div class="col-3 text-right">
+                      <i class="fa fa-angle-down" style="font-size:1.5rem;color:#2888C7"></i>
+                    </div>
+                  </div>
+                </div>
+                <div id="collapseBanner" class="collapse collapse-all" aria-labelledby="collapseBanner"
+                  data-parent="#accordionExample">
+                  <div class="card-body">
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-12" style="text-align: center;">
+                          <label for="headerPictureInput" class="col-12">
+                            <input class="col-12" #headerPictureInput id="headerPictureInput" type="file" hidden
+                              formControlName="profileHeaderPicture" (change)="uploadHeaderPicture($event)" accept="image/*"
+                              (click)="headerPictureInput.value=null;" />
+                            <div class="m-0 p-0" *ngIf="defaultHeaderPicture; else profileHasHeaderPicture">
+                              <img src="../../../assets/img/black-green.png" style="height: 12rem; object-fit: cover" class=" header-picture col-12 mx-auto d-block" alt="Profile Header Picture">
+                              <button type="button" class="btn btn-circle btn-add-img" style="position: absolute; right: 16.8rem; top:7.3rem; background-color: #2985c4; color: white;
+                                pointer-events: none; cursor: pointer;">
+                                <i class="fa fa-plus"></i>
+                              </button>
+                            </div>
+                            <ng-template #profileHasHeaderPicture>
+                              <img [src]="previewHeaderUrl" class="col-12 mx-auto d-block header-picture" alt="Profile Header Picture">
+                              <button type="button" class="btn btn-circle btn-add-img" style="position: absolute; right: 16rem; top:7.7rem; background-color: #2985c4; color: white;
+                                pointer-events: none; cursor: pointer;">
+                                <i class="fa fa-plus"></i>
+                              </button>
+                            </ng-template>
+                          </label>
+                          <button *ngIf="!defaultHeaderPicture" type="button"
+                            class="btn btn-danger btn-circle btn-del-img"
+                            style="position: absolute; left: 16.5rem; top: 1.8rem;"
+                            (click)="delSelectedHeaderPicture()">
+                            <i class="fa fa-times"></i>
+                          </button>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-12" style="text-align: center;">
+                          <h6 class="text-center" style="color: #6c757d;">Upload a hedaer picture for your profile page</h6>
+                        </div>
+                      </div>
+                    </div>
+
                   </div>
                 </div>
               </div>
@@ -93,26 +151,26 @@
                     </div>
                   </div>
                 </div>
-                <div id="collapseTwo" class="collapse collapse-all" aria-labelledby="collapseTwo" data-parent="#accordionExample">
+                <div id="collapseTwo" class="collapse collapse-all" aria-labelledby="collapseTwo"
+                  data-parent="#accordionExample">
                   <div class="card-body">
                     <div class="form-group">
                       <div class="row">
                         <div class="col-12" style="text-align: center;">
                           <label for="pictureInput" class="">
                             <input class="" #pictureInput id="pictureInput" type="file" formControlName="profilePicture"
-                              (change)="uploadPicture($event)" accept="image/*" (click)="pictureInput.value=null;"/>
+                              (change)="uploadPicture($event)" accept="image/*" (click)="pictureInput.value=null;" />
                             <div class="m-0 p-0" *ngIf="defaultPicture; else profileHasPicture">
                               <span style="font-size: 120px; color: #2888C7" class="icon-user-image"></span>
-                              <button type="button" class="btn btn-circle btn-add-img"
-                                style="position: absolute; right: 16.8rem; top:7.3rem; background-color: #2985c4; color: white;
+                              <button type="button" class="btn btn-circle btn-add-img" style="position: absolute; right: 16.8rem; top:7.3rem; background-color: #2985c4; color: white;
                                 pointer-events: none; cursor: pointer;">
                                 <i class="fa fa-plus"></i>
                               </button>
                             </div>
                             <ng-template #profileHasPicture>
-                              <img [src]="previewUrl" class="rounded-circle svg-add-user mx-auto d-block" alt="Profile Picture">
-                              <button type="button" class="btn btn-circle btn-add-img"
-                                style="position: absolute; right: 16rem; top:7.7rem; background-color: #2985c4; color: white;
+                              <img [src]="previewUrl" class="rounded-circle svg-add-user mx-auto d-block"
+                                alt="Profile Picture">
+                              <button type="button" class="btn btn-circle btn-add-img" style="position: absolute; right: 16rem; top:7.7rem; background-color: #2985c4; color: white;
                                 pointer-events: none; cursor: pointer;">
                                 <i class="fa fa-plus"></i>
                               </button>
@@ -154,85 +212,80 @@
               </div>
               <ng-template [ngIf]="role === 'SERVICE_PROVIDER'">
                 <div class="card" id="section-card">
-                <div class="card-header card-header-collapse" id="headingThree" data-toggle="collapse"
-                  data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                  <div class="row">
-                    <div class="col-9">
-                      <p class="text-left">Countries</p>
-                    </div>
-                    <div class="col-3 text-right">
-                      <i class="fa fa-angle-down" style="font-size:1.5rem;color:#2888C7"></i>
-                    </div>
-                  </div>
-                </div>
-                <div id="collapseThree" class="collapse collapse-all" aria-labelledby="headingThree" data-parent="#accordionExample">
-                  <div class="card-body">
+                  <div class="card-header card-header-collapse" id="headingThree" data-toggle="collapse"
+                    data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                     <div class="row">
-                      <div class="col-12 py-5">
-                        <div class="custom-control custom-checkbox mb-3 mx-3 rounded-0"
-                        style="display: flex;align-items: center;">
-                        <input type="checkbox" class="custom-control-input rounded-0" id="onlineJob"
-                          formControlName="onlineJob" #onlineJob>
-                        <label class="custom-control-label text-muted" for="onlineJob"
-                          style="font-size: 0.8rem;margin-top: 7px;"><span>
-                            Check for an Online Job, or select a Location.</span></label>
+                      <div class="col-9">
+                        <p class="text-left">Countries</p>
                       </div>
-                        <app-multi-select [selectedDivisions]="activeProfile.divisions"
-                          (selected)="onDivisionsSelect($event)">
-                        </app-multi-select>
+                      <div class="col-3 text-right">
+                        <i class="fa fa-angle-down" style="font-size:1.5rem;color:#2888C7"></i>
                       </div>
                     </div>
                   </div>
-                </div>
-                </div>
-                <div class="card" id="section-card">
-                <div class="card-header card-header-collapse" id="headingFour" data-toggle="collapse"
-                  data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                  <div class="row">
-                    <div class="col-9">
-                      <p class="text-left">Services</p>
-                    </div>
-                    <div class="col-3 text-right">
-                      <i class="fa fa-angle-down" style="font-size:1.5rem;color:#2888C7"></i>
-                    </div>
-                  </div>
-                </div>
-                <div id="collapseFour" class="collapse collapse-all" aria-labelledby="headingFour" data-parent="#accordionExample">
-                  <div class="card-body">
-                    <div class="row">
-                      <div class="col-12 py-5">
-                        <div class="row justify-content-between">
-                          <div class="col">My Services</div>
-                          <div *ngIf="editProfileForm.get('selectedServices').value.length > 0" class="col text-right" >
-                            <button class="btn btn-link" style="color:rgb(148,42,44);" (click)="clearServices()"
-                            data-toggle="tooltip" data-placement="top" title="Unselect all">
-                              <span class="fas fa-times" ></span>
-                            </button>
+                  <div id="collapseThree" class="collapse collapse-all" aria-labelledby="headingThree"
+                    data-parent="#accordionExample">
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-12 py-5">
+                          <div class="custom-control custom-checkbox mb-3 mx-3 rounded-0"
+                            style="display: flex;align-items: center;">
+                            <input type="checkbox" class="custom-control-input rounded-0" id="onlineJob"
+                              formControlName="onlineJob" #onlineJob>
+                            <label class="custom-control-label text-muted" for="onlineJob"
+                              style="font-size: 0.8rem;margin-top: 7px;"><span>
+                                Check for an Online Job, or select a Location.</span></label>
                           </div>
+                          <app-multi-select [selectedDivisions]="activeProfile.divisions"
+                            (selected)="onDivisionsSelect($event)">
+                          </app-multi-select>
                         </div>
-                        <ng-select
-                          formControlName="selectedServices"
-                          [items]="services"
-                          [multiple]="true"
-                          [closeOnSelect]="false"
-                          [hideSelected]="true"
-                          bindLabel="descriptionEs"
-                          bindLabel="descriptionEs"
-                          bindValue="id"
-                          [searchFn]="customSearchFn"
-                          >
-                          <ng-template ng-option-tmp let-item="item">
-                              {{item.descriptionEs}}
-                          </ng-template>
-                      </ng-select>
                       </div>
                     </div>
                   </div>
                 </div>
+                <div class="card" id="section-card">
+                  <div class="card-header card-header-collapse" id="headingFour" data-toggle="collapse"
+                    data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                    <div class="row">
+                      <div class="col-9">
+                        <p class="text-left">Services</p>
+                      </div>
+                      <div class="col-3 text-right">
+                        <i class="fa fa-angle-down" style="font-size:1.5rem;color:#2888C7"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <div id="collapseFour" class="collapse collapse-all" aria-labelledby="headingFour"
+                    data-parent="#accordionExample">
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-12 py-5">
+                          <div class="row justify-content-between">
+                            <div class="col">My Services</div>
+                            <div *ngIf="editProfileForm.get('selectedServices').value.length > 0"
+                              class="col text-right">
+                              <button class="btn btn-link" style="color:rgb(148,42,44);" (click)="clearServices()"
+                                data-toggle="tooltip" data-placement="top" title="Unselect all">
+                                <span class="fas fa-times"></span>
+                              </button>
+                            </div>
+                          </div>
+                          <ng-select formControlName="selectedServices" [items]="services" [multiple]="true"
+                            [closeOnSelect]="false" [hideSelected]="true" bindLabel="descriptionEs"
+                            bindLabel="descriptionEs" bindValue="id" [searchFn]="customSearchFn">
+                            <ng-template ng-option-tmp let-item="item">
+                              {{item.descriptionEs}}
+                            </ng-template>
+                          </ng-select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 <div class="card" id="section-card">
-                  <div class="card-header card-header-collapse" id="headingFive" data-toggle="collapse" data-target="#collapseFive"
-                    aria-expanded="false" aria-controls="collapseFive">
+                  <div class="card-header card-header-collapse" id="headingFive" data-toggle="collapse"
+                    data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
                     <div class="row">
                       <div class="col-9">
                         <p class="text-left">Curriculum Vitae</p>
@@ -242,7 +295,8 @@
                       </div>
                     </div>
                   </div>
-                  <div id="collapseFive" class="collapse collapse-all" aria-labelledby="headingFive" data-parent="#accordionExample">
+                  <div id="collapseFive" class="collapse collapse-all" aria-labelledby="headingFive"
+                    data-parent="#accordionExample">
                     <div class="card-body pt-0">
                       <div class="row justify-content-center" style="margin-top: 1.5rem;margin-bottom: 1.5rem;">
                         <div class="col-12 text-center">
@@ -260,26 +314,30 @@
                           <label for="curriculumUpload" id="curriculumUpload">
                             <div class="upload-btn-wrapper">
                               <button class="btn-uploadcv"><i class="far fa-folder fa-2x"></i></button>
-                              <input type="file" #cv name="myfile" accept="pdf/*" formControlName="curriculum" class="form-control-file"
-                                id="file-upload" (change)="uploadCV($event)" (click)="cv.value=null;" />
+                              <input type="file" #cv name="myfile" accept="pdf/*" formControlName="curriculum"
+                                class="form-control-file" id="file-upload" (change)="uploadCV($event)"
+                                (click)="cv.value=null;" />
                             </div>
                           </label>
                         </div>
-                        <div *ngIf="(cvChange === 'LOADED')" class="card col-4 my-0" style="border:transparent; margin-bottom: 1.5rem;">
+                        <div *ngIf="(cvChange === 'LOADED')" class="card col-4 my-0"
+                          style="border:transparent; margin-bottom: 1.5rem;">
                           <div class="row" style="background-color: #2982c1;margin-left: 0;margin-right: 0;">
                             <div class="col-12 text-center my-0" style="background-color: #2982c1;">
                               <i class="fa fa-file-pdf fa-2x my-2" style="color: #fff;"></i>
                               <hr style="border: 0.5px solid white;margin-bottom: 0; margin-top: 0;">
                             </div>
                           </div>
-                          <div class="row" style="background-color: #2982c1;margin-left: 0;margin-right: 0; padding-bottom: 0.2rem;">
+                          <div class="row"
+                            style="background-color: #2982c1;margin-left: 0;margin-right: 0; padding-bottom: 0.2rem;">
                             <div class="col-6 text-center mt-0" style="padding:0">
                               <button class="btn btn-link" (click)="viewCV()">
                                 <i class="fas fa-eye" style="color: #fff;font-size: 0.75rem;"></i>
                               </button>
                             </div>
                             <div class="col-6 text-center mt-0" style="padding:0">
-                              <button class="btn btn-link" data-toggle="modal" data-target="#deleteCVModal" (click)="deleteCV()">
+                              <button class="btn btn-link" data-toggle="modal" data-target="#deleteCVModal"
+                                (click)="deleteCV()">
                                 <i class="fas fa-trash-alt" style="color: #fff;font-size: 0.75rem;"></i>
                               </button>
                             </div>
@@ -292,7 +350,8 @@
                                     text-overflow: ellipsis;
                                   }
                                 </style>
-                                <p class="overflow ellipsis" id="file-upload-filename" style="font-weight: bold;font-size: 0.8rem;">
+                                <p class="overflow ellipsis" id="file-upload-filename"
+                                  style="font-weight: bold;font-size: 0.8rem;">
                                   {{cvFileName}}
                                 </p>
                               </div>
@@ -304,62 +363,66 @@
                   </div>
                 </div>
                 <div class="card" id="section-card">
-                <div class="card-header card-header-collapse" id="headingSix" data-toggle="collapse"
-                  data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
-                  <div class="row">
-                    <div class="col-9">
-                      <p class="text-left">Briefcases</p>
-                    </div>
-                    <div class="col-3 text-right">
-                      <i class="fa fa-angle-down" style="font-size:1.5rem;color:#2888C7"></i>
-                    </div>
-                  </div>
-                </div>
-                <div id="collapseSix" class="collapse collapse-all" aria-labelledby="headingSix" data-parent="#accordionExample">
-                  <div class="card-body pt-0">
+                  <div class="card-header card-header-collapse" id="headingSix" data-toggle="collapse"
+                    data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
                     <div class="row">
-                      <div class="col-12 py-5">
-                        <app-briefcase-edit></app-briefcase-edit>
+                      <div class="col-9">
+                        <p class="text-left">Briefcases</p>
+                      </div>
+                      <div class="col-3 text-right">
+                        <i class="fa fa-angle-down" style="font-size:1.5rem;color:#2888C7"></i>
                       </div>
                     </div>
                   </div>
-                </div>
-                </div>
-                <div class="card" id="section-card">
-                <div class="card-header card-header-collapse" id="headingSeven" data-toggle="collapse"
-                  data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
-                  <div class="row">
-                    <div class="col-9">
-                      <p class="text-left">Resume</p>
-                    </div>
-                    <div class="col-3 text-right">
-                      <i class="fa fa-angle-down" style="font-size:1.5rem;color:#2888C7"></i>
-                    </div>
-                  </div>
-                </div>
-                <div id="collapseSeven" class="collapse collapse-all" aria-labelledby="headingSeven" data-parent="#accordionExample">
-                  <div class="card-body pt-0">
-                    <div class="row">
-                      <div class="col-12 py-5">
-                        <div class="form-group mx-auto">
-                          <textarea class="form-control" id="commentsInputText" style="height: 10rem;"
-                            formControlName="comments"
-                            placeholder="Enter some comments about your skills and previous jobs to enrich your profile..."></textarea>
+                  <div id="collapseSix" class="collapse collapse-all" aria-labelledby="headingSix"
+                    data-parent="#accordionExample">
+                    <div class="card-body pt-0">
+                      <div class="row">
+                        <div class="col-12 py-5">
+                          <app-briefcase-edit></app-briefcase-edit>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
+                <div class="card" id="section-card">
+                  <div class="card-header card-header-collapse" id="headingSeven" data-toggle="collapse"
+                    data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                    <div class="row">
+                      <div class="col-9">
+                        <p class="text-left">Resume</p>
+                      </div>
+                      <div class="col-3 text-right">
+                        <i class="fa fa-angle-down" style="font-size:1.5rem;color:#2888C7"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <div id="collapseSeven" class="collapse collapse-all" aria-labelledby="headingSeven"
+                    data-parent="#accordionExample">
+                    <div class="card-body pt-0">
+                      <div class="row">
+                        <div class="col-12 py-5">
+                          <div class="form-group mx-auto">
+                            <textarea class="form-control" id="commentsInputText" style="height: 10rem;"
+                              formControlName="comments"
+                              placeholder="Enter some comments about your skills and previous jobs to enrich your profile..."></textarea>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </ng-template>
             </div>
           </div>
           <div class="card text-right">
             <div class="card-footer accordion-footer rounded-0">
-              <button type="button" class="col-4 col-xs-3 col-lg-2  btn btn-edit rounded-0 align-items-center align-text-top"
-                style="background-color: #2888C7; color: white; font-size: 1.25rem;"
-                data-toggle="tooltip" title="Edit" (click)="saveProfile();"  [disabled]="!dataChange">
-                <i class="far fa-save mr-2 text-left font-weight-light align-self-center" style="font-size: 1.25rem;"></i>
+              <button type="button"
+                class="col-4 col-xs-3 col-lg-2  btn btn-edit rounded-0 align-items-center align-text-top"
+                style="background-color: #2888C7; color: white; font-size: 1.25rem;" data-toggle="tooltip" title="Edit"
+                (click)="saveProfile();" [disabled]="!dataChange">
+                <i class="far fa-save mr-2 text-left font-weight-light align-self-center"
+                  style="font-size: 1.25rem;"></i>
                 Save
               </button>
             </div>
@@ -385,7 +448,8 @@
         Are you sure you want to cancel your profile edition?
       </div>
       <div class="modal-footer rounded-0">
-        <button type="button" class="btn btn-previous rounded-0" data-dismiss="modal" style="background-color: #bfbdbe;color: #2880a9;">Cancel</button>
+        <button type="button" class="btn btn-previous rounded-0" data-dismiss="modal"
+          style="background-color: #bfbdbe;color: #2880a9;">Cancel</button>
         <button type="button" class="btn btn-send rounded-0" data-dismiss="modal"
           style="background-color: #2888C7;color: white;" (click)="onClose()">Accept</button>
       </div>

@@ -18,7 +18,7 @@
 }
 
 .user-account{
-    color: #bcbebc;
+    color: white;
     font-weight: 600;
     margin-bottom: 0 !important;
 }
@@ -90,7 +90,7 @@ li::before {
 
 
 .bg-container{
-  background-image: url(../../../assets/img/black-green.png);
+  /* background-image: url(../../../assets/img/black-green.png); */
   background-position:center center;
   background-size: cover;
   background-attachment: fixed;
@@ -98,10 +98,10 @@ li::before {
 }
 
 .bg-opacity{
-  background-color: black;
-  opacity: 0.2;
+  background-color: rgba(0,0,0,0.3);
   position: relative;
 }
+
 
 .btn-index{
   padding: 1rem 2rem 1rem 2rem;

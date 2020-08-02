@@ -1,5 +1,5 @@
-<div class="row bg-container mx-0">
-  <div class="col-12">
+<div class="row bg-container  mx-0" [style.background-image]="profileHeaderImage">
+  <div class="col-12 bg-opacity">
     <div class="row">
       <div class="col"></div>
       <div class="col-8 pt-5 pb-3">
@@ -10,7 +10,7 @@
               <div class="col col-user-data">
                 <div class="row justify-content-between mt-2">
                   <p class="user-name text-capitalize ml-3">{{userProfile.name}}</p>
-                  <p class="btn-link" style="cursor:pointer" (click)="backToProjectDetail()">Go Back</p>
+                  <p class="btn-outline rounded-0" style="cursor:pointer; color: white" (click)="backToProjectDetail()">Go Back</p>
                 </div>
               </div>
               <div class="col col-user-data">
@@ -35,7 +35,7 @@
       <div class="col"></div>
     </div>
   </div>
-  <div class="col-12">
+  <div class="col-12 bg-opacity">
     <div class="row pl-5 pr-4">
       <div class="col-12" style="background-color: white;">
         <div class="btn-group btn-group-toggle" data-toggle="buttons">
