@@ -1,6 +1,13 @@
 <ng-container>
   <div class="card card-hover rounded-0 border-0" (click)="onBriefcaseDetail()">
-    <img [src]="params.picture" class="img img-briefcase">
+    <ng-container *ngIf="!!params.picture; else defaultTemplate">
+      <img [src]="params.picture" class="img img-briefcase">
+    </ng-container>
+    <ng-template #defaultTemplate>
+      <div class="img img-briefcase row m-0 p-0" style="color: #605c61;background-color: #f1f1f1;font-size: 3rem;justify-content: center; align-items: center;">
+        <i class="fas icon-briefcase"></i>
+      </div>
+    </ng-template>
     <div class="blue m-0 p-0"></div>
     <div class="col reveal">
       <i class="fas icon-eye"></i>
