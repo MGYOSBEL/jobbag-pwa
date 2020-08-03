@@ -74,7 +74,7 @@
           </div>
         </div>
         <div class="row row-cols-3 row-cols-md-3">
-          <div class="col-4" *ngFor="let briefcase of userProfile.briefcases">
+          <div class="col-4" *ngFor="let briefcase of userProfile.briefcases; let i = index">
             <!-- <img [src]="apiPublic + briefcase.pictures[0]" class="img img-briefcase"> -->
             <app-briefcase-card class="img img-briefcase" style="height: 12rem"
               [params]="{id: briefcase.id, picture: apiPublic + briefcase.pictures[0], verified: true, description: briefcase.description}"
@@ -197,7 +197,7 @@
   </div>
 
 </div>
-<div class="row mb-5 mr-0">
+<!-- <div class="row mb-5 mr-0">
   <div class="col-9 pl-5">
     <div class="row m-0">
       <div class="col-12" style="display: inline-block;">
@@ -245,4 +245,4 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->

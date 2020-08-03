@@ -47,9 +47,9 @@
   </div>
 </div>
 
-<div class="row row-cols-2 " id="bc-row" >
+<div class="row row-cols-2 " id="bc-row" style="height: auto">
   <!-- <div class="col-3 mx-auto mt-3 text-center bc-card-col" > -->
-    <app-briefcase-card class="col" style="height: 7rem" *ngFor="let briefcase of briefcases; let i=index"
+    <app-briefcase-card class="col" style="height: auto" *ngFor="let briefcase of briefcases; let i=index"
     [params]="{id: briefcase.id, picture: parsePictureUrl(briefcase.pictures[0]), verified: false, description: briefcase.description}"
     >
   </app-briefcase-card>
