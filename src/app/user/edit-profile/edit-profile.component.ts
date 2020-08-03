@@ -376,7 +376,6 @@ export class EditProfileComponent implements OnInit {
         this.cvChange = this.activeProfile.cv != null ? 'LOADED' : null;
         this.defaultPicture = this.activeProfile.picture == null;
         this.defaultHeaderPicture = this.activeProfile.pictureProfileHeader == "NULL";
-        console.log('default header => ', this.defaultHeaderPicture);
         this.previewUrl = `${environment.serverBaseURL}/${this.activeProfile.picture}`;
         this.previewHeaderUrl = `${environment.serverBaseURL}/${this.activeProfile.pictureProfileHeader}`;
         // this.selectedServices = this.activeProfile.services;

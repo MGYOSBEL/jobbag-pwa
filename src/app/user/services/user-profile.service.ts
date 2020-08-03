@@ -34,7 +34,6 @@ export class UserProfileService {
     if (userProfiles && userProfiles.length > 0) {
       const profile = userProfiles.find(item => item.id === id);
       if (profile != null) {
-        console.log('profile from cache', profile);
         return of(profile);
       }
     }
@@ -108,7 +107,6 @@ export class UserProfileService {
   }
 
   edit(data: any): Observable<UserProfile> {
-    console.log('edit profile request => ', JSON.stringify(data));
     return this.http.put<APIResponse>(this.apiPath + '/user_profile', data)
       .pipe(
         map(response => {

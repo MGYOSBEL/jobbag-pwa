@@ -4,7 +4,7 @@
 
 <div class="row justify-content-center">
   <div class="col-md-8 text-center mt-0">
-    <button type="button" (click)="addBriefcase()" class="btn btn-link" id="btn-modal-bc" data-toggle="modal"
+    <button type="button" (click)="addBriefcase()" class="btn btn-link" id="btn-modal-bc" data-toggle="modal" *ngIf="maxAllowedBriefcase == null || briefcases.length < maxAllowedBriefcase!"
       data-target="#exampleModalCenter">
       <!-- <img src="assets/img/breif_add.png" class="bc-img" alt="Profile Picture" style="width: 85%;" /> -->
       <svg class="svg-add-bc" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 92.36 88.73">
@@ -43,13 +43,15 @@
         </g>
       </svg>
     </button>
-    <h6 class="stepper-text" style="color: #6c757d;font-weight: bold;">Add your Works!</h6>
+    <h6 class="stepper-text" style="color: #6c757d;font-weight: bold;">
+      {{maxAllowedBriefcase != null && (briefcases.length >= maxAllowedBriefcase!) ? 'Add more works in your profile edit page.' : 'Add your Works!'}}
+    </h6>
   </div>
 </div>
 
 <div class="row row-cols-2 " id="bc-row" style="height: auto">
   <!-- <div class="col-3 mx-auto mt-3 text-center bc-card-col" > -->
-    <app-briefcase-card class="col" style="height: auto" *ngFor="let briefcase of briefcases; let i=index"
+    <app-briefcase-card class="col" [style.height]="cardHeight+'rem'" style="margin-bottom: 3rem;" *ngFor="let briefcase of briefcases; let i=index"
     [params]="{id: briefcase.id, picture: parsePictureUrl(briefcase.pictures[0]), verified: false, description: briefcase.description}"
     >
   </app-briefcase-card>

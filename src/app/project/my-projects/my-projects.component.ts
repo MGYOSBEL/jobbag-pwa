@@ -298,7 +298,6 @@ export class MyProjectsComponent implements OnInit {
       };
     }
     this.imageLoaded = true;
-    console.log(base64Pictures);
     this.picturesSubject.next(base64Pictures);
 
   }

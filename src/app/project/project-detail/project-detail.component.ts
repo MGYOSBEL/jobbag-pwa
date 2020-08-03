@@ -148,7 +148,6 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
   }
 
   onUserCardClicked(userProfileId: number) {
-    console.log('project detail card clicked => ', userProfileId);
     localStorage.setItem('activeProject', JSON.stringify(this.project));
     this.router.navigate(['/user/profile', userProfileId]);
   }

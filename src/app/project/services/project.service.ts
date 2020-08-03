@@ -166,13 +166,10 @@ export class ProjectService {
 
   updateProjectExecution(id: number, state: 'FINISH' | 'CANCEL', id_associate_user_profile_briefcase?: number): Observable<Project> {
     const request = { id, state, id_associate_user_profile_briefcase };
-    console.log('updateProjectExecution => ', request);
     const execution$ = this.http.put(`${environment.apiBaseURL}/project_execution`, request).pipe(
       map(APIResponseToData),
-      tap(console.log),
       catchError(err => throwError(err)),
       map(execution => projectFromExecution(execution)),
-      tap(console.log),
       shareReplay(),
       tap((project) => {
       })

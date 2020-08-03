@@ -21,10 +21,8 @@ export class UserCardComponent implements OnInit {
 
   ngOnInit() {
     this.userPictureUrl = `${environment.serverBaseURL}/${this.userProfile.picture}`;
-    console.log(this.userProfile);
   }
   onCardClicked() {
-    console.log('user card clicked => ', this.userProfile.id);
     this.cardClicked.emit(this.userProfile.id);
   }
 }

@@ -65,7 +65,6 @@ export class UserDetailComponent implements OnInit {
     this.profilePicture = `${environment.serverBaseURL}/${this.userProfile.picture}`;
     this.profileHeaderImage = this.userProfile.pictureProfileHeader == "NULL" ?
     'url(../../../assets/img/black-green.png)' : `url(${environment.serverBaseURL}/${this.userProfile.pictureProfileHeader})`;
-    console.log('header => ', this.profileHeaderImage);
     this.countryService.countries$.subscribe(
       countries => {
         this.countries = countries;

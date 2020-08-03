@@ -242,7 +242,7 @@
                 </div>
               </div>
               <div [hidden]="role==='CLIENT'" id="briefcases" class="content container fade">
-                <app-briefcase-edit></app-briefcase-edit>
+                <app-briefcase-edit [cardHeight]="7" [maxAllowedBriefcase]="2"></app-briefcase-edit>
               </div>
               <div [hidden]="role==='CLIENT'" id="resume" class="content container fade">
                 <div class="form-group row py-2 text-center" id="form-group-comments">

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
 import { UserProfileBriefcase, IDProfessionFk } from '../models/user.model';
 import { FormGroup, FormBuilder, FormControl, ValidatorFn, AbstractControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -18,7 +18,10 @@ import { map } from 'rxjs/operators';
 export class BriefcaseEditComponent implements OnInit {
   briefcases: UserProfileBriefcase[];
   briefcases$: Observable<UserProfileBriefcase[]>;
-
+  @Input()
+  cardHeight: number;
+  @Input()
+  maxAllowedBriefcase?: number;
   briefcaseEditForm: FormGroup;
   previewUrl: any;
   imageBase64: string;
@@ -116,7 +119,7 @@ export class BriefcaseEditComponent implements OnInit {
     const base64Pictures = this.picturesSubject.value;
     for (let index = 0; index < files.length; index++) {
       const file = files.item(index);
-      let reader = new FileReader();
+      const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = (_event) => {
         // this.previewUrl = reader.result;
@@ -124,7 +127,6 @@ export class BriefcaseEditComponent implements OnInit {
       };
     }
     this.imageLoaded = true;
-    console.log(base64Pictures);
     this.picturesSubject.next(base64Pictures);
 
   }

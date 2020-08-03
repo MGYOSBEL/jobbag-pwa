@@ -21,7 +21,6 @@ export class BriefcaseCardComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log("testParams:"+ this.params.description);
   }
 
   onBriefcaseDetail() {
