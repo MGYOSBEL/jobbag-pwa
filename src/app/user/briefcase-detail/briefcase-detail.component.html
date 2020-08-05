@@ -1,8 +1,15 @@
 <div class="row mt-3">
   <div class="col-12">
     <div class="card mb-3" style="border: 0;">
-      <div class="row no-gutters">
-        <img [src]="apiPublic+briefcase.pictures[0]" class="img main-img-briefcase">
+      <div class="row no-gutters" >
+        <ng-container *ngIf="!!briefcase.pictures.length; else defaultPicture">
+          <img [src]="apiPublic+briefcase.pictures[0]" class="img main-img-briefcase" >
+        </ng-container>
+        <ng-template #defaultPicture>
+          <div class="img main-img-briefcase row m-0 p-0" style="color: #605c61;background-color: #f1f1f1;font-size: 3rem;justify-content: center; align-items: center;">
+            <i class="fas icon-briefcase"></i>
+          </div>
+        </ng-template>
         <div class="card-body p-0">
           <div class="col col-briefcase-data">
             <p class="briefcase-name text-capitalize">
@@ -15,11 +22,11 @@
           <div class="col col-briefcase-data mt-2">
             <div class="row p-0 m-0">
               <div class="col-1 m-0 p-0">
-                <i class="fa icon-user-image mt-1" style="color:#bebcbe;font-size: 1.2rem; padding:.375rem 0"></i>
+                <i class="fas fa-chevron-circle-left mt-1" style="color:#bebcbe;font-size: 1.2rem; padding:.375rem 0"></i>
               </div>
               <div class="col pl-0">
                 <button class="btn btn-link pl-0" (click)="closeBriefcaseDetail()"><span
-                    class="briefcase-user">{{userName}}</span></button>
+                    class="briefcase-user">Back to Works List</span></button>
               </div>
             </div>
           </div>
@@ -68,7 +75,7 @@
   </div>
 </div>
 <div class="row mt-3 mb-5">
-  <div id="briefcaseCarousel" class="carousel slide col-12" data-ride="carousel">
+  <div id="briefcaseCarousel" class="carousel slide col-12" data-ride="carousel" *ngIf="!! briefcase.pictures.length">
     <ol class="carousel-indicators">
       <li *ngFor="let picture of briefcase.pictures; let i=index" data-target="#briefcaseCarousel"
         [attr.data-slide-to]="i" class="active"></li>

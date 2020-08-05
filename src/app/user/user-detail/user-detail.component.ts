@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { NgbRatingConfig } from '@ng-bootstrap/ng-bootstrap';
-import { UserProfile } from '../models/user.model';
+import { UserProfile, UserProfileBriefcase } from '../models/user.model';
 import { environment } from '@environments/environment';
 import { Country, DivisionElement } from '../models/country.model';
 import { Service } from '../models/services.model';
@@ -8,7 +8,7 @@ import { CountryService } from '../services/country.service';
 import { ServicesService } from '../services/services.service';
 import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
-import { combineLatest } from 'rxjs';
+import { combineLatest, BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-user-detail',
@@ -18,6 +18,9 @@ import { combineLatest } from 'rxjs';
 
 })
 export class UserDetailComponent implements OnInit {
+
+  briefcaseDetailSubject = new BehaviorSubject<UserProfileBriefcase>(null);
+  briefcaseDetail$ = this.briefcaseDetailSubject.asObservable();
 
   @Input()
   userProfile: UserProfile;
@@ -58,13 +61,13 @@ export class UserDetailComponent implements OnInit {
       }
     );
 
-   }
+  }
 
   ngOnInit() {
     this.apiPublic = `${environment.serverBaseURL}/`;
-    this.profilePicture = `${environment.serverBaseURL}/${this.userProfile.picture}`;
+    this.profilePicture = this.userProfile.picture != null ? `${environment.serverBaseURL}/${this.userProfile.picture}` : null;
     this.profileHeaderImage = this.userProfile.pictureProfileHeader == "NULL" ?
-    'url(../../../assets/img/black-green.png)' : `url(${environment.serverBaseURL}/${this.userProfile.pictureProfileHeader})`;
+      'url(../../../assets/img/black-green.png)' : `url(${environment.serverBaseURL}/${this.userProfile.pictureProfileHeader})`;
     this.countryService.countries$.subscribe(
       countries => {
         this.countries = countries;
@@ -101,7 +104,11 @@ export class UserDetailComponent implements OnInit {
   }
 
   onBriefcaseDetail(briefcaseId: number) {
-    this.briefcaseDetail.emit(briefcaseId);
+    const selectedBriefcase = this.userProfile.briefcases.find(briefcase => briefcase.id === briefcaseId);
+    this.briefcaseDetailSubject.next(selectedBriefcase);
+  }
+  onBriefcaseDetailClose() {
+    this.briefcaseDetailSubject.next(null);
   }
 
   viewCV() {
