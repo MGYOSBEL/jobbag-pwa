@@ -80,7 +80,7 @@ export class ProjectActionBarComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    console.log('locationFilter', this.divisionFilter, 'serviceFilter', this.serviceFilter);
     this.LocationFilterInit();
     this.servicesFilterInit();
     this.dateFilterInit();

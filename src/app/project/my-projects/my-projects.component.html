@@ -137,7 +137,8 @@
           <!-- ACTION BAR -->
           <app-project-action-bar [actions]="actionBar" (action)="onAction($event)"
             (filters)="onActionBarFilters($event)" [statusFilter]="statusFilter"
-            [divisionFilter]="userProfile.divisions" [serviceFilter]="userProfile.services" [dateFilter]="dateFilter"
+            [divisionFilter]="userProfile.userProfileType === 'CLIENT' ? null : userProfile.divisions"
+            [serviceFilter]="userProfile.userProfileType === 'CLIENT' ? null :userProfile.services" [dateFilter]="dateFilter"
             (selectAll)="onSelectAll($event)"
             ></app-project-action-bar>
         </div>
