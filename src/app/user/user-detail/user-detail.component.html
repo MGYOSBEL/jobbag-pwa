@@ -80,7 +80,8 @@
           </div>
         </div>
         <ng-container *ngIf="(briefcaseDetail$ | async) as briefcase; else elseTemplate">
-          <app-briefcase-detail [briefcase]="briefcase" [userName]="userProfile.name" (closeDetail)="onBriefcaseDetailClose()"></app-briefcase-detail>
+          <app-briefcase-detail [briefcase]="briefcase" [userName]="userProfile.name"
+            (closeDetail)="onBriefcaseDetailClose()"></app-briefcase-detail>
         </ng-container>
         <ng-template #elseTemplate>
           <div class="row row-cols-3 row-cols-md-3" *ngIf="userProfile.briefcases != []">
@@ -171,32 +172,35 @@
             Locations
           </div>
           <div class="accordion" id="accordionExample">
-            <div class="card border-0 rounded-0" *ngFor="let country of divisionsName; let i = index">
-              <div class="card-header collapsed country-header py-0 row justify-content-between" [id]="'heading'+i"
-                data-toggle="collapse" [attr.data-target]="'#collapse'+i" aria-expanded="false"
-                [attr.aria-controls]="'collapse'+i">
-                <div class="col m-0 p-0">
-                  <p class="border-0 m-0 py-2 px-2" style="color: #605c61;">
-                    {{country.name}}<small>({{country.divisions.length}})</small>
-                  </p>
+            <ng-container *ngFor="let country of divisionsName; let i = index">
+              <div class="card border-0 rounded-0" *ngIf="country.divisions.length != 0">
+                <div class="card-header collapsed country-header py-0 row justify-content-between" [id]="'heading'+i"
+                  data-toggle="collapse" [attr.data-target]="'#collapse'+i" aria-expanded="false"
+                  [attr.aria-controls]="'collapse'+i">
+                  <div class="col m-0 p-0">
+                    <p class="border-0 m-0 py-2 px-2" style="color: #605c61;">
+                      {{country.name}}<small>({{country.divisions.length}})</small>
+                    </p>
+                  </div>
+                  <div class="col m-0 py-2 px-2 text-right">
+                    <i class="fa fa-angle-down" aria-hidden="true"></i>
+                  </div>
                 </div>
-                <div class="col m-0 py-2 px-2 text-right">
-                  <i class="fa fa-angle-down" aria-hidden="true"></i>
-                </div>
-              </div>
-              <div [id]="'collapse'+i" class="collapse" [attr.aria-labelledby]="'heading'+i"
-                data-parent="#accordionExample">
-                <div class="card-body country-body">
-                  <div style="font-size:small">
-                    <ul class="pl-0">
-                      <li *ngFor="let division of country.divisions">
-                        {{division.nameEs}}
-                      </li>
-                    </ul>
+                <div [id]="'collapse'+i" class="collapse" [attr.aria-labelledby]="'heading'+i"
+                  data-parent="#accordionExample">
+                  <div class="card-body country-body">
+                    <div style="font-size:small">
+                      <ul class="pl-0">
+                        <li *ngFor="let division of country.divisions">
+                          {{division.nameEs}}
+                        </li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            </ng-container>
+
 
           </div>
           <!-- <div class="card-body" style="background-color: #f1f1f1;">
