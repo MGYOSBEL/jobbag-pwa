@@ -8,7 +8,7 @@ import { UserProfileService } from '@app/user/services/user-profile.service';
 import { UserService } from '@app/user/services/user.service';
 import { Router } from '@angular/router';
 import { map, filter, tap } from 'rxjs/operators';
-import { filterByLocation, filterByService, filterByCreationDate, substractMonths } from '../models/filters';
+import { filterByLocation, filterByService, filterByCreationDate, substractMonths, filterByProjectTitle } from '../models/filters';
 import { DatePipe, formatDate } from '@angular/common';
 
 @Component({
@@ -40,8 +40,10 @@ export class CandidateProjectsComponent implements OnInit {
   locationFilterSubject = new BehaviorSubject<number[]>([]);
   serviceFilterSubject = new BehaviorSubject<number[]>([]);
   dateFilterSubject = new BehaviorSubject<number>(12);
+  searchFilterSubject = new BehaviorSubject<string>('');
   locationFilter$: Observable<number[]> = this.locationFilterSubject.asObservable();
   servicesFilter$: Observable<number[]> = this.serviceFilterSubject.asObservable();
+  searchFilter$: Observable<string> = this.searchFilterSubject.asObservable();
   dateFilter$: Observable<number> = this.dateFilterSubject.asObservable();
   currentStatusSubject = new BehaviorSubject<string>(this.statusFilter[0]);
   currentStatusFilter$: Observable<string> = this.currentStatusSubject.asObservable();
@@ -96,16 +98,18 @@ export class CandidateProjectsComponent implements OnInit {
       this.projects$,
       this.locationFilter$,
       this.servicesFilter$,
-      this.dateFilter$
+      this.dateFilter$,
+      this.searchFilter$
     ).pipe(
-      map(([projects, locationFilter, servicesFilter, dateFilter]) => {
+      map(([projects, locationFilter, servicesFilter, dateFilter, searchFilter]) => {
         const filteredByLocations = filterByLocation(projects, locationFilter);
         const filteredByServices = filterByService(filteredByLocations, servicesFilter);
         const today = Date.now();
         const todayLocale = formatDate(today, 'yyyy-MM-dd', 'en-US');
         const limitDate = substractMonths(todayLocale, dateFilter);
         const filteredByCreationDate = filterByCreationDate(filteredByServices, limitDate);
-        return filteredByCreationDate;
+        const filteredByTitle = filterByProjectTitle(filteredByCreationDate, searchFilter);
+        return filteredByTitle;
       }),
       tap(() => this.resetSelectedCard())
     );
@@ -140,7 +144,7 @@ export class CandidateProjectsComponent implements OnInit {
     this.canMultiselectedApply$ = of(canApply);
   }
 
-  onActionBarFilter({ locations, services, date }) {
+  onActionBarFilter({ locations, services, date, search }) {
     if (!!locations) {
       this.locationFilterSubject.next(locations);
     }
@@ -149,6 +153,9 @@ export class CandidateProjectsComponent implements OnInit {
     }
     if (!!date) {
       this.dateFilterSubject.next(date);
+    }
+    if (search !== null) {
+      this.searchFilterSubject.next(search);
     }
   }
   // Filtrar proyectos por estado

@@ -44,7 +44,8 @@ export class ProjectActionBarComponent implements OnInit {
   filters = new EventEmitter<{ // Se emite cada vez q se selecciona un filtro en el actionBar
     locations?: number[],
     services?: number[],
-    date?: number
+    date?: number,
+    search?: string
   }>();
 
   APPLY: boolean;
@@ -80,7 +81,6 @@ export class ProjectActionBarComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('locationFilter', this.divisionFilter, 'serviceFilter', this.serviceFilter);
     this.LocationFilterInit();
     this.servicesFilterInit();
     this.dateFilterInit();
@@ -127,6 +127,10 @@ export class ProjectActionBarComponent implements OnInit {
 
   onLocationFilterChange($event) {
     this.filters.emit({ locations: this.selectedDivisions });
+  }
+
+  onSearchChange(event) {
+    this.filters.emit({ search: event.target.value });
   }
 
   onDivisionsSelect(event) {

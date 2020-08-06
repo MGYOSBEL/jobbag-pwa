@@ -13,6 +13,15 @@ export function filterByService(projects: Project[], serviceFilters: number[]): 
   const filterProjects = projects.filter(project => project.services.some(service => serviceFilters.includes(service)));
   return filterProjects;
 }
+export function filterByProjectTitle(projects: Project[], term: string): Project[] {
+  if (term.length !== 0) {
+    term = term.toLowerCase();
+    const filterProjects = projects.filter(project => project.name.toLowerCase().includes(term));
+    return filterProjects;
+    } else {
+      return projects;
+    }
+}
 
 export function filterByStatus(projects: Project[], statusFilter: ProjectState): Project[] {
   return projects.filter(project => project.state === statusFilter);

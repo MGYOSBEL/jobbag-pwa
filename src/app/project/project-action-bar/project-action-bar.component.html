@@ -46,7 +46,7 @@
     </div>
     <div class="col pl-0" id="search-col">
       <div class="input-group">
-        <input type="text" class="form-control" placeholder="Search" style="border-radius: 0; border-color: #2888C7;">
+        <input type="text" class="form-control" placeholder="Search" style="border-radius: 0; border-color: #2888C7;" (input)="onSearchChange($event)">
         <div class="input-group-append">
           <button class="btn" type="button" style="border-radius:0; background-color: #2888C7; color:white;z-index: 0;">
             <i class="fa fa-search"></i>

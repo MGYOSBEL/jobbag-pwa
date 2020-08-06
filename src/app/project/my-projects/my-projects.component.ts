@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 import { UserService } from '@app/user/services/user.service';
 import { PersonalProjectService } from '../services/personal-project.service';
 import { MessagesService } from '@app/services/messages.service';
-import { filterByStatus, filterByLocation, filterByService, substractMonths, filterByCreationDate } from '../models/filters';
+import { filterByStatus, filterByLocation, filterByService, substractMonths, filterByCreationDate, filterByProjectTitle } from '../models/filters';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { BriefcaseService } from '@app/user/services/briefcase.service';
 import { LoadingService } from '@app/services/loading.service';
@@ -35,10 +35,12 @@ export class MyProjectsComponent implements OnInit {
   currentStatus$ = this.statusFilterSubject.asObservable();
   locationFilterSubject = new BehaviorSubject<number[]>([]);
   serviceFilterSubject = new BehaviorSubject<number[]>([]);
+  searchFilterSubject = new BehaviorSubject<string>('');
   dateFilterSubject = new BehaviorSubject<number>(12);
   locationFilter$: Observable<number[]> = this.locationFilterSubject.asObservable();
   servicesFilter$: Observable<number[]> = this.serviceFilterSubject.asObservable();
   dateFilter$: Observable<number> = this.dateFilterSubject.asObservable();
+  searchFilter$: Observable<string> = this.searchFilterSubject.asObservable();
   actionBar = [
     ProjectAction.Delete,
     ProjectAction.SelectAll
@@ -103,8 +105,9 @@ export class MyProjectsComponent implements OnInit {
             this.currentStatus$,
             this.locationFilter$,
             this.servicesFilter$,
-            this.dateFilter$).pipe(
-            map(([projects, status, locationFilter, servicesFilter, datesFilter]) => {
+            this.dateFilter$,
+            this.searchFilter$).pipe(
+            map(([projects, status, locationFilter, servicesFilter, datesFilter, searchFilter]) => {
               // console.log('projects => ', projects);
               const filteredByStatus = filterByStatus(projects, status);
               // console.log('filteredByStatus => ', filteredByStatus);
@@ -116,8 +119,9 @@ export class MyProjectsComponent implements OnInit {
               const todayLocale = formatDate(today, 'yyyy-MM-dd', 'en-US');
               const limitDate = substractMonths(todayLocale, datesFilter);
               const filteredByCreationDate = filterByCreationDate(filteredByStatus, limitDate);
+              const filteredByTitle = filterByProjectTitle(filteredByCreationDate, searchFilter);
               // console.log('filteredByCreationDate => ', filteredByCreationDate);
-              return filteredByCreationDate;
+              return filteredByTitle;
 
             })
           );
@@ -180,7 +184,7 @@ export class MyProjectsComponent implements OnInit {
     }
   }
 
-  onActionBarFilters({ locations, services, date }) {
+  onActionBarFilters({ locations, services, date, search }) {
     if (!!locations) {
       this.locationFilterSubject.next(locations);
     }
@@ -189,6 +193,9 @@ export class MyProjectsComponent implements OnInit {
     }
     if (!!date) {
       this.dateFilterSubject.next(date);
+    }
+    if (search !== null) {
+      this.searchFilterSubject.next(search);
     }
   }
 
