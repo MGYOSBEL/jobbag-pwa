@@ -82,7 +82,7 @@
      </ol>
     <div class="carousel-inner">
       <div class="carousel-item" [ngClass]="i===0 ? 'active' : ''" *ngFor="let picture of briefcase.pictures; let i = index">
-        <img [src]="apiPublic + picture" class="d-block w-100 h-100" alt="...">
+        <img [src]="apiPublic + picture" class="d-block w-100 carousel-img" alt="..." style="object-fit: contain;">
         <div class="carousel-caption d-none d-md-block">
           <h5>{{i+1}}/{{briefcase.pictures.length}}</h5>
         </div>

@@ -1,6 +1,16 @@
 .main-img-briefcase{
     width: 20rem;
     height: 12rem;
+    object-fit: cover;
+}
+
+.carousel-img {
+  height: 500px;
+}
+
+.carousel-inner {
+  border-radius: 0;
+  background:rgba(0, 0, 0, 0.45);
 }
 
 .col-briefcase-data{
