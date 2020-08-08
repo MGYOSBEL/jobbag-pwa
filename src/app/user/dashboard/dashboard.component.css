@@ -39,3 +39,10 @@
     margin-bottom: 2px !important;
   }
 }
+
+/*Overview 340px*/
+@media screen and (max-width: 339.98px) {
+  #nav-dashboard-tab, #nav-candidates-tab, #nav-myprojects-tab{
+    padding: 0.3rem;
+  }
+}

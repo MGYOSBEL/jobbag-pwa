@@ -76,25 +76,12 @@ li::before {
   transform: rotate(180deg);
 }
 
-/*Overview 414px*/
-@media screen and (max-width: 413.98px) {
-    .img-avatar{
-        margin-top: 0.5rem;
-        width: 7rem;
-        height: 7rem;
-    }
-    .col-user-data{
-        margin-bottom: 0 !important;
-    }
-}
-
-
 .bg-container{
   /* background-image: url(../../../assets/img/black-green.png); */
   background-position:center center;
   background-size: cover;
   background-attachment: fixed;
-	background-repeat: no-repeat;
+  background-repeat: no-repeat;
 }
 
 .bg-opacity{
@@ -126,4 +113,64 @@ li::before {
 .focus{
   border-bottom: solid 2px #2888C7 !important;
   box-shadow:none;
+}
+
+/*Overview 768px*/
+@media screen and (max-width: 767.98px) {
+  .btn-index{
+    padding: 0.5rem 1rem 0.5rem 1rem;
+    width: 7rem;
+  }
+}
+
+/*Overview 576px*/
+@media screen and (max-width: 575.98px) {
+  .btn-index{
+    padding: 0.5rem 1rem 0.5rem 1rem;
+    width: 6.5rem;
+  }
+  #padded-col{
+    padding-left: 0.25rem !important;
+    padding-right: 0.25rem !important;
+  }
+}
+
+/*Overview 525px*/
+@media screen and (max-width: 524.98px) {
+  .btn-index{
+    padding: 0.25rem 0.5rem 0.25rem 0.5rem;
+    width: 6rem;
+  }
+}
+
+/*Overview 485px*/
+@media screen and (max-width: 484.98px) {
+  .btn-index{
+    padding: 0.25rem;
+    font-size: 0.9rem;
+  }
+
+  #btn-works, #btn-services, #btn-locations, #btn-reviews{
+    width: 4.75rem !important;
+  }
+}
+
+/*Overview 415px*/
+@media screen and (max-width: 414.98px) {
+  .img-avatar{
+      margin-top: 0.5rem;
+      width: 7rem;
+      height: 7rem;
+  }
+  .col-user-data{
+      margin-bottom: 0 !important;
+  }
+  #btn-works, #btn-services, #btn-reviews{
+    width: 4rem !important;
+  }
+}
+
+/*Overview 340px*/
+@media screen and (max-width: 339.98px) {
+
 }
