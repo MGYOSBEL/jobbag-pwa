@@ -17,7 +17,7 @@
 }
 
 .card-hover:hover .reveal {
-    height: auto;
+    /* height: auto; */
     visibility: visible;
     opacity: 10;
     transition: opacity 1s ease;
@@ -76,18 +76,18 @@
         opacity: 1 !important;
         margin-top: -1rem;
     }
-    .card:hover{
+    .card-hover:hover .reveal {
+        transition: none !important;
+    }
+    .card-hover{
         transition: none !important;
         transform: none !important;
     }
-   .card-hover{
-       transition: none !important;
-       transform: none !important;
-   }
-   .card-hover:hover{
-    transition: none !important;
-    transform: none !important;
-  }
+    .card:hover{
+        box-shadow: none !important;
+        transition: none !important;
+        transform: none !important;
+    }
     .btn-icon-eye{
         visibility: visible !important;
     }
@@ -99,6 +99,16 @@
     }
     #details-btn{
         margin-right: 1.5rem !important;
+    }
+}
+
+/*Overview 520px*/
+@media screen and (max-width: 519.98px) {
+    #edit-btn, #details-btn, #trash-btn{
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        margin-right: 1.5rem !important;
+        width: 0.65rem;
     }
 }
 
@@ -115,9 +125,26 @@
         padding-left: 0 !important;
         padding-right: 0 !important;
         margin-right: 1.5rem !important;
+        width: 0.20rem;
     }
     #applied-min{
         display: inline !important;
     }
+    .project-title{
+        font-size: 0.9rem;
+    }
+    .fas{
+        font-size: 0.8rem !important;
+    }
+}
 
+/*Overview 414px*/
+@media screen and (max-width: 413.98px) {
+    #edit-btn, #details-btn, #trash-btn{
+        margin-right: 1rem !important;
+        width: 0.20rem;
+    }
+    #details-btn{
+        padding-right: 0.5rem !important;
+    }
 }
