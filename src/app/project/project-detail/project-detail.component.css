@@ -64,4 +64,25 @@ li::before {
   .user-name{
     display: none;
   }
+  .candidates-col{
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}
+
+/*Overview 415px*/
+@media only screen and (max-width: 414.99px) {
+#apply-btn, #start-btn, #edit-btn, #finish-client-btn, #finish-prov-btn, #finish-btn, #cancel-btn{
+  width: 5.50rem !important;
+  margin-top: 0.5rem !important;
+  font-size: 0.85rem;
+}
+}
+
+/*Overview 375px*/
+@media only screen and (max-width: 374.99px) {
+  #apply-btn, #start-btn, #edit-btn, #finish-client-btn, #finish-prov-btn, #finish-btn, #cancel-btn{
+    width: 5.25rem !important;
+    font-size: 0.8rem;
+  }
 }

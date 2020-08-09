@@ -23,3 +23,54 @@
     border-color: #bcbebc;
     transition: 200ms;
 }
+
+/*Overview 768px*/
+@media only screen and (max-width: 767.99px) {
+    #card-row{
+        padding-left: 0;
+    }
+    #avatar-col{
+        text-align: center;
+    }
+    #avatar-img{
+        margin-left: 0.5rem !important;
+        width: 2.5rem !important;
+        height: 2.5rem !important;
+    }
+    .card:hover{
+        box-shadow: none;
+        transform: none;
+        transition: none;
+    }
+  }
+
+/*Overview 475px*/
+@media only screen and (max-width: 474.99px) {
+    #avatar-img{
+        width: 2rem !important;
+        height: 2rem !important;
+    }
+    .user-name{
+        font-size: 0.9rem !important;
+    }
+    .date-text{
+        font-size: 0.85rem !important;
+    }
+}
+
+/*Overview 415*/
+@media only screen and (max-width: 414.99px) {
+    #avatar-img{
+    margin-left: 0.25rem !important;
+    width: 1.85rem !important;
+    height: 1.85rem !important;
+    }
+}
+
+/*Overview 375px*/
+@media only screen and (max-width: 374.99px) {
+    #avatar-img{
+        width: 1.75rem !important;
+        height: 1.75rem !important;
+        }
+}
