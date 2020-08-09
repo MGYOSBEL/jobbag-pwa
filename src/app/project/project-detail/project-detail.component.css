@@ -56,6 +56,11 @@ li::before {
   margin-right: 5px;
 }
 
+.column-title{
+  color:#605c61;
+  text-align: left;
+}
+
 /*Overview 768px*/
 @media only screen and (max-width: 767.99px) {
   #goback-btn{
@@ -67,6 +72,14 @@ li::before {
   .candidates-col{
     padding-left: 0 !important;
     padding-right: 0 !important;
+  }
+  .column-title-col{
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+  .container-fluid{
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
   }
 }
 

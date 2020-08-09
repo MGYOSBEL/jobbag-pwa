@@ -92,52 +92,57 @@
   </div>
 
   <div class="row mt-3 mx-2">
-    <div class="col-md-6 border" style="background-color: #f1f1f1; color:#605c61;">
-      <div class="col-12">
-        <p class="project-title text-left my-2" style="color:#605c61; font-weight: light; font-size: 1.2rem;">
-          {{project.name}}
-        </p>
-        <hr>
+    <div class="col-md-6 px-0">
+      <div class="col-12 column-title-col">
+        <h6 class="column-title my-3">Project Summary</h6>
+      </div>
+      <div class="card border px-0" style="background-color: #f1f1f1; color:#605c61;">
         <div class="col-12">
-          <p style="font-size:medium">
-            {{project.description}}
+          <p class="project-title text-left my-2" style="color:#605c61; font-weight: light; font-size: 1.2rem;">
+            {{project.name}}
           </p>
+          <hr>
+          <div class="col-12">
+            <p style="font-size:medium">
+              {{project.description}}
+            </p>
+          </div>
         </div>
-      </div>
-      <div class="col-12">
-        <p class="project-title text-left my-2" style="color:#605c61; font-weight: light; font-size: 1.2rem;">
-          Required Locations
-        </p>
-        <hr class="border-bottom mt-0">
-      </div>
-      <div class="col-12">
-        <div style="font-size:small">
-          <ul style="padding-left: 0;">
-            <li *ngFor="let division of divisionsName">
-              {{division}}
-            </li>
-          </ul>
+        <div class="col-12">
+          <p class="project-title text-left my-2" style="color:#605c61; font-weight: light; font-size: 1.2rem;">
+            Required Locations
+          </p>
+          <hr class="border-bottom mt-0">
         </div>
-      </div>
-      <div class="col-12">
-        <p class="project-title text-left my-2" style="color:#605c61; font-weight: light; font-size: 1.2rem;">
-          Required Services
-        </p>
-        <hr class="border-bottom mt-0">
-      </div>
-      <div class="col-12">
-        <div style="font-size:small">
-          <ul style="padding-left: 0;">
-            <li *ngFor="let service of servicesName">
-              {{service}}
-            </li>
-          </ul>
+        <div class="col-12">
+          <div style="font-size:small">
+            <ul style="padding-left: 0;">
+              <li *ngFor="let division of divisionsName">
+                {{division}}
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-12">
+          <p class="project-title text-left my-2" style="color:#605c61; font-weight: light; font-size: 1.2rem;">
+            Required Services
+          </p>
+          <hr class="border-bottom mt-0">
+        </div>
+        <div class="col-12">
+          <div style="font-size:small">
+            <ul style="padding-left: 0;">
+              <li *ngFor="let service of servicesName">
+                {{service}}
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
-    <div *ngIf="project.interestedProfiles != null; else notProjectOwner" class="col-md-6 candidates-col">
-      <div class="col-12">
-        <h5 class="column-title my-3">Interested Candidates</h5>
+    <div *ngIf="project.interestedProfiles != null; else notProjectOwner" class="col-md-6 mb-3 candidates-col">
+      <div class="col-12 column-title-col">
+        <h6 class="column-title my-3">Interested Candidates</h6>
       </div>
       <app-user-card-list [users]="project.interestedProfiles" (cardClicked)="onUserCardClicked($event)"></app-user-card-list>
     </div>

@@ -1,6 +1,5 @@
 .column-title{
     color:#605c61;
-    font-size: 1rem;
     text-align: left;
 }
 
@@ -32,6 +31,9 @@
 #comment-card-textcol{
     padding-right: 0;
  }
+.column-title{
+    margin-left: 0 !important;
+}
 }
 
 
