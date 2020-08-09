@@ -93,10 +93,9 @@ export class CandidateProjectService {
       tap(() => {
         const interests = this.candidatesSubject.value.filter(elem => projects.includes(elem.id));
         this.addInterests(interests);
-
         this.uploadCandidates(projects);
-        this.preview(null);
-      })
+        this.backToList();
+       })
     );
   }
 
@@ -155,7 +154,7 @@ export class CandidateProjectService {
     return this.projectService.registerProjectExecution(projectId, userProfileId).pipe(
       catchError(err => throwError(err)),
       tap(project => {
-        this.preview(null);
+        this.backToList();
         const interests = this.interestProjectsSubject.value;
         const index = interests.findIndex(elem => elem.id === project.id);
         interests.splice(index, 1);

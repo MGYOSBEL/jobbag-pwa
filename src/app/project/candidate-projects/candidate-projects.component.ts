@@ -32,6 +32,7 @@ export class CandidateProjectsComponent implements OnInit {
   detailProject$: Observable<Project>;
   masterSelected$: Observable<boolean>;
   isPreviewInterest$: Observable<boolean>;
+  isDetailInterest$: Observable<boolean>;
   canMultiselectedApply$: Observable<boolean>;
   actionBar = [ProjectAction.Apply, ProjectAction.Delete, ProjectAction.SelectAll];
   statusFilter: string[] = ['ALL', 'CANDIDATES', 'APPLIED'];
@@ -121,6 +122,14 @@ export class CandidateProjectsComponent implements OnInit {
       project => {
       }
     );
+    this.isDetailInterest$ = this.detailProject$.pipe(
+      filter(project => project != null),
+      map(project => {
+        const isInterest = this.candidateProjectService.isInterest(project.id);
+        return isInterest;
+      })
+    );
+
     this.isPreviewInterest$ = this.previewProject$.pipe(
       filter(project => project != null),
       map(project => {
@@ -243,8 +252,10 @@ export class CandidateProjectsComponent implements OnInit {
       success => {
         if (success) {
           this.messages.showMessages('You have succesfuly applied to the project(s)');
+          return true;
         } else {
           this.messages.showErrors('Some error applying. Try again later.');
+          return false;
         }
       }
     );
