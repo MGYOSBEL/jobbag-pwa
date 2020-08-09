@@ -1,7 +1,7 @@
-.main-img-briefcase{
-    width: 20rem;
-    height: 12rem;
-    object-fit: cover;
+.main-img-briefcase {
+  width: 20rem;
+  height: 12rem;
+  object-fit: cover;
 }
 
 .carousel-img {
@@ -10,49 +10,64 @@
 
 .carousel-inner {
   border-radius: 0;
-  background:rgba(0, 0, 0, 0.45);
+  background: rgba(0, 0, 0, 0.45);
 }
 
-.col-briefcase-data{
-    margin-bottom: 0.25rem !important;
+.col-briefcase-data {
+  margin-bottom: 0.25rem !important;
+}
+.close-btn {
+  font-size: 1.2rem;
+  width: 2rem;
+  height: 2rem;
+  color: white;
+  background-color: rgba(96, 92, 97, 0.45);
+  border-radius: 50%;
+}
+.close-btn:hover {
+  width: 2rem;
+  height: 2rem;
+  color: rgb(96, 92, 97);
+  background-color: white;
+  transition: 200ms;
+  cursor: pointer;
+  border-radius: 50%;
+}
+.briefcase-name {
+  font-size: 1.2rem;
+  margin-bottom: 0 !important;
 }
 
-.briefcase-name{
-    font-size: 1.2rem;
-    margin-bottom: 0 !important;
+.briefcase-services {
+  font-size: 1rem;
+  margin-bottom: 0 !important;
 }
 
-.briefcase-services{
-    font-size: 1rem;
-    margin-bottom: 0 !important;
+.briefcase-user {
+  font-size: 0.85rem;
+  margin-bottom: 0 !important;
 }
 
-.briefcase-user{
-    font-size: 0.85rem;
-    margin-bottom: 0 !important;
-}
-
-.date-text{
-    font-size: 0.65rem;
-    margin-bottom: 0 !important;
+.date-text {
+  font-size: 0.65rem;
+  margin-bottom: 0 !important;
 }
 
 .star {
-    font-size: 1.5rem;
-    color: #b0c4de;
-  }
-.filled.color{
-    color:gold;
-  }
-
+  font-size: 1.5rem;
+  color: #b0c4de;
+}
+.filled.color {
+  color: gold;
+}
 
 /*Overview 576px*/
 @media screen and (max-width: 575.98px) {
-    .main-img-briefcase{
-        display: none;
-    }
+  .main-img-briefcase {
+    display: none;
+  }
 
-    .col-briefcase-data{
-        padding-left: 0 !important;
-    }
+  .col-briefcase-data {
+    padding-left: 0 !important;
+  }
 }

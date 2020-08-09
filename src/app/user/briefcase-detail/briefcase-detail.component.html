@@ -1,100 +1,111 @@
-<div class="row mt-3">
-  <div class="col-12">
-    <div class="card mb-3" style="border: 0;">
-      <div class="row no-gutters" >
-        <ng-container *ngIf="!!briefcase.pictures.length; else defaultPicture">
-          <img [src]="apiPublic+briefcase.pictures[0]" class="img main-img-briefcase" >
-        </ng-container>
-        <ng-template #defaultPicture>
-          <div class="img main-img-briefcase row m-0 p-0" style="color: #605c61;background-color: #f1f1f1;font-size: 3rem;justify-content: center; align-items: center;">
-            <i class="fas icon-briefcase"></i>
-          </div>
-        </ng-template>
-        <div class="card-body p-0">
-          <div class="col col-briefcase-data">
-            <p class="briefcase-name text-capitalize">
-              {{briefcase.description}}
-            </p>
-          </div>
-          <!-- <div class="col col-briefcase-data">
-                        <p class="briefcase-services">Web Design - Development</p>
-                    </div> -->
-          <div class="col col-briefcase-data mt-2">
-            <div class="row p-0 m-0">
-              <div class="col-1 m-0 p-0">
-                <i class="fas fa-chevron-circle-left mt-1" style="color:#bebcbe;font-size: 1.2rem; padding:.375rem 0"></i>
-              </div>
-              <div class="col pl-0">
-                <button class="btn btn-link pl-0" (click)="closeBriefcaseDetail()"><span
-                    class="briefcase-user">Back to Works List</span></button>
+<div class="container border rounded-0">
+  <div class="row mt-3">
+    <div class="col-12">
+      <div class="card mb-3" style="border: 0;">
+        <div class="row no-gutters">
+          <ng-container *ngIf="!!briefcase.pictures.length; else defaultPicture">
+            <img [src]="apiPublic+briefcase.pictures[0]" class="img main-img-briefcase">
+          </ng-container>
+          <ng-template #defaultPicture>
+            <div class="img main-img-briefcase row m-0 p-0"
+              style="color: #605c61;background-color: #f1f1f1;font-size: 3rem;justify-content: center; align-items: center;">
+              <i class="fas icon-briefcase"></i>
+            </div>
+          </ng-template>
+          <div class="card-body p-0">
+            <div class="col col-briefcase-data" style="flex-direction: row; display: flex;">
+              <p class="briefcase-name text-capitalize col-11">
+                {{briefcase.description}}
+              </p>
+              <div class="col text-right" style="font-size: 1.2rem;">
+                <button class="close-btn border-0 rounded-circle" data-placement="bottom" data-toggle="tooltip" (click)="closeBriefcaseDetail()"
+                  title="Close Work Detail">
+                  <i class="fa fa-times text-center"></i>
+                </button>
               </div>
             </div>
-          </div>
-          <div class="col col-briefcase-data mt-2">
-            <div class="row p-0 m-0">
-              <div class="col-1 pl-0 pb-0">
-                <i class="fa fa-calendar-alt mt-2" style="color:#bebcbe;font-size: 1.2rem;"></i>
-              </div>
-              <div class="col">
-                <div class="row">
-                  <p class="date-text" style="font-weight: bold;margin-right: 5px;">Since:</p>
-                  <p class="date-text">{{briefcase.startdate | date}}</p>
+            <!-- <div class="col col-briefcase-data">
+                          <p class="briefcase-services">Web Design - Development</p>
+                      </div> -->
+            <!-- <div class="col col-briefcase-data mt-2">
+              <div class="row p-0 m-0">
+                <div class="col-1 m-0 p-0">
+                  <i class="fas fa-chevron-circle-left mt-1"
+                    style="color:#bebcbe;font-size: 1.2rem; padding:.375rem 0"></i>
                 </div>
-                <div class="row">
-                  <p class="date-text" style="font-weight: bold; margin-right: 5px;">To:</p>
-                  <p class="date-text">{{briefcase.enddate | date}}</p>
+                <div class="col pl-0">
+                  <button class="btn btn-link pl-0" (click)="closeBriefcaseDetail()"><span class="briefcase-user">Back
+                      to Works List</span></button>
+                </div>
+              </div>
+            </div> -->
+            <div class="col col-briefcase-data mt-2">
+              <div class="row p-0 m-0">
+                <div class="col-1 pl-0 pb-0">
+                  <i class="fa fa-calendar-alt mt-2" style="color:#bebcbe;font-size: 1.2rem;"></i>
+                </div>
+                <div class="col">
+                  <div class="row">
+                    <p class="date-text" style="font-weight: bold;margin-right: 5px;">Since:</p>
+                    <p class="date-text">{{briefcase.startdate | date}}</p>
+                  </div>
+                  <div class="row">
+                    <p class="date-text" style="font-weight: bold; margin-right: 5px;">To:</p>
+                    <p class="date-text">{{briefcase.enddate | date}}</p>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="col col-briefcase-data">
-            <ngb-rating [rate]="rating">
-              <ng-template let-fill="fill">
-                <span class="star" [ngClass]="'color'" [class.filled]="fill === 100">&#9733;</span>
-              </ng-template>
-            </ngb-rating><br>
-            <small style="color: #2787C4;">Verified by JOBBAG</small>
+            <div class="col col-briefcase-data">
+              <ngb-rating [rate]="rating">
+                <ng-template let-fill="fill">
+                  <span class="star" [ngClass]="'color'" [class.filled]="fill === 100">&#9733;</span>
+                </ng-template>
+              </ngb-rating><br>
+              <small style="color: #2787C4;">Verified by JOBBAG</small>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
-<div class="row mt-3 mb-3">
-  <div class="col">
-    <p style="text-align: justify;">
-      {{briefcase.comments}} </p>
+  <div class="row mt-3 mb-3">
+    <div class="col">
+      <p style="text-align: justify;">
+        {{briefcase.comments}} </p>
+    </div>
   </div>
-</div>
-<div class="row">
-  <div class="col-2 col-md-1 pr-0 mt-2">
-    <i class="fa fa-images" style="font-size: 1.5rem; color: #bebcbe;"></i>
+  <div class="row">
+    <div class="col-2 col-md-1 pr-0 mt-2">
+      <i class="fa fa-images" style="font-size: 1.5rem; color: #bebcbe;"></i>
+    </div>
+    <div class="col ml-0 pl-0">
+      <p style="font-size: 1.5rem; color: #bebcbe;">Pictures</p>
+    </div>
   </div>
-  <div class="col ml-0 pl-0">
-    <p style="font-size: 1.5rem; color: #bebcbe;">Pictures</p>
-  </div>
-</div>
-<div class="row mt-3 mb-5">
-  <div id="briefcaseCarousel" class="carousel slide col-12" data-ride="carousel" *ngIf="!! briefcase.pictures.length">
-    <ol class="carousel-indicators">
-      <li *ngFor="let picture of briefcase.pictures; let i=index" data-target="#briefcaseCarousel"
-        [attr.data-slide-to]="i" class="active"></li>
-     </ol>
-    <div class="carousel-inner">
-      <div class="carousel-item" [ngClass]="i===0 ? 'active' : ''" *ngFor="let picture of briefcase.pictures; let i = index">
-        <img [src]="apiPublic + picture" class="d-block w-100 carousel-img" alt="..." style="object-fit: contain;">
-        <div class="carousel-caption d-none d-md-block">
-          <h5>{{i+1}}/{{briefcase.pictures.length}}</h5>
+  <div class="row mt-3 mb-5">
+    <div id="briefcaseCarousel" class="carousel slide col-12" data-ride="carousel" *ngIf="!! briefcase.pictures.length">
+      <ol class="carousel-indicators">
+        <li *ngFor="let picture of briefcase.pictures; let i=index" data-target="#briefcaseCarousel"
+          [attr.data-slide-to]="i" class="active"></li>
+      </ol>
+      <div class="carousel-inner">
+        <div class="carousel-item" [ngClass]="i===0 ? 'active' : ''"
+          *ngFor="let picture of briefcase.pictures; let i = index">
+          <img [src]="apiPublic + picture" class="d-block w-100 carousel-img" alt="..." style="object-fit: contain;">
+          <div class="carousel-caption d-none d-md-block">
+            <h5>{{i+1}}/{{briefcase.pictures.length}}</h5>
+          </div>
         </div>
       </div>
+      <a class="carousel-control-prev" href="#briefcaseCarousel" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#briefcaseCarousel" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
     </div>
-    <a class="carousel-control-prev" href="#briefcaseCarousel" role="button" data-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="sr-only">Previous</span>
-    </a>
-    <a class="carousel-control-next" href="#briefcaseCarousel" role="button" data-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="sr-only">Next</span>
-    </a>
   </div>
 </div>

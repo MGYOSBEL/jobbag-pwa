@@ -1,4 +1,5 @@
-<div class="row bg-container  mx-0" [style.background-image]="profileHeaderImage">
+<div class="row bg-container  mx-0" [style.background-image]="profileHeaderImage" [style.background-position]="profileHeaderBgPosition"
+            [style.background-size]="profileHeaderBgSize">
   <div class="col-12 bg-opacity">
     <div class="row">
       <div class="col"></div>
@@ -15,8 +16,8 @@
               <div class="col col-user-data">
                 <div class="row justify-content-between mt-2">
                   <p class="user-name text-capitalize ml-3">{{userProfile.name}}</p>
-                  <p class="btn-outline rounded-0" style="cursor:pointer; color: white" (click)="backToProjectDetail()">
-                    Go Back</p>
+                  <!-- <p class="btn-outline rounded-0" style="cursor:pointer; color: white" (click)="backToProjectDetail()">
+                    Go Back</p> -->
                 </div>
               </div>
               <div class="col col-user-data">
@@ -38,7 +39,12 @@
           </div>
         </div>
       </div>
-      <div class="col"></div>
+      <div class="col text-right pr-5 pt-3 text-light">
+        <button class="close-btn border-0 rounded-circle" data-placement="bottom" data-toggle="tooltip" title="Close Profile"
+        (click)="backToProjectDetail()">
+          <i class="fa fa-times text-center"></i>
+        </button>
+      </div>
     </div>
   </div>
   <div class="col-12 bg-opacity">

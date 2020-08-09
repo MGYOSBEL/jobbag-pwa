@@ -37,6 +37,8 @@ export class UserDetailComponent implements OnInit {
   dashboardRoute: string;
   rating: number;
   profileHeaderImage: string;
+  profileHeaderBgPosition: string;
+  profileHeaderBgSize: string;
 
   constructor(
     config: NgbRatingConfig,
@@ -67,7 +69,9 @@ export class UserDetailComponent implements OnInit {
     this.apiPublic = `${environment.serverBaseURL}/`;
     this.profilePicture = this.userProfile.picture != null ? `${environment.serverBaseURL}/${this.userProfile.picture}` : null;
     this.profileHeaderImage = this.userProfile.pictureProfileHeader == "NULL" ?
-      'url(../../../assets/img/black-green.png)' : `url(${environment.serverBaseURL}/${this.userProfile.pictureProfileHeader})`;
+      'url(../../../assets/img/banner2.jpg)' : `url(${environment.serverBaseURL}/${this.userProfile.pictureProfileHeader})`;
+    this.profileHeaderBgPosition = this.userProfile.pictureProfileHeader == "NULL" ? 'right top' : 'center center';
+    this.profileHeaderBgSize = this.userProfile.pictureProfileHeader == "NULL" ? 'contain' : 'cover';
     this.countryService.countries$.subscribe(
       countries => {
         this.countries = countries;
