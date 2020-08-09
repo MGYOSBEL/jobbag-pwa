@@ -30,6 +30,8 @@ export class ProjectCardListComponent implements OnInit {
 
   @Output()
   cardClicked = new EventEmitter<number>();
+  @Output()
+  projectDetail = new EventEmitter<number>();
 
   private pressedCardSubject = new BehaviorSubject<number>(null);
   pressedCard$ = this.pressedCardSubject.asObservable();
@@ -66,6 +68,10 @@ export class ProjectCardListComponent implements OnInit {
   onCardClicked(event) {
     this.cardClicked.emit(event);
     this.pressedCardSubject.next(event);
+  }
+
+  onCardDetail(event) {
+    this.projectDetail.emit(event);
   }
 
   reset() {

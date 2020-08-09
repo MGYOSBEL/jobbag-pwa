@@ -5,6 +5,7 @@
     [cardSelected]="masterSelected$ | async"
     [cardMode]="cardMode"
     [pressed$]="pressedCard$"
+    (detail)="onCardDetail($event)"
     (clicked)="onCardClicked($event)"></app-project-card>
   </div>
 </ng-container>

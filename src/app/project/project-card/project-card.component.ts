@@ -22,6 +22,7 @@ export class ProjectCardComponent implements OnInit {
   @Output() checked = new EventEmitter<{ state: boolean, projectId: number }>();
 
   @Output() clicked = new EventEmitter<number>();
+  @Output() detail = new EventEmitter<number>();
 
   @Input()
   cardSelected: boolean;
@@ -101,7 +102,8 @@ export class ProjectCardComponent implements OnInit {
     this.router.navigateByUrl(`/project/${this.project.id}/edit`);
   }
 
-  //viewDetail
+  // viewDetail
   viewDetails() {
+    this.detail.emit(this.project.id);
   }
 }
