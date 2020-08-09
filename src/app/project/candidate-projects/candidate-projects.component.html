@@ -1,8 +1,9 @@
 <ng-container *ngIf="detailProject$ | async as detailProject; else listTemplate">
   <app-project-detail
     [project]="detailProject"
-    [isInterest$]="isPreviewInterest$"
+    [isInterest$]="isDetailInterest$"
     (action)="onPreviewAction($event)"
+    [role]="'SERVICE_PROVIDER'"
     (goBack)=onBackToList()>
   </app-project-detail>
 </ng-container>

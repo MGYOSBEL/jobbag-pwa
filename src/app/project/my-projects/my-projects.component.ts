@@ -230,7 +230,11 @@ export class MyProjectsComponent implements OnInit {
   }
 
   onUpdateClienProjectState(projectId: number, state: ProjectState.FINISH | ProjectState.CANCEL) {
-    this.personalProjectService.updateProjectState(projectId, state).subscribe(
+    this.personalProjectService.updateProjectState(projectId, state).pipe(
+      tap( () => {
+        this.personalProjectService.backToList();
+      })
+    ).subscribe(
       () => {
         const isFinish = state === ProjectState.FINISH;
         this.messages.showMessages(`You have succesfully
@@ -243,7 +247,11 @@ export class MyProjectsComponent implements OnInit {
   }
 
   finishExecution(executionId: number, briefcaseId?: number) {
-    this.personalProjectService.updateExecution(executionId, 'FINISH', briefcaseId).subscribe(
+    this.personalProjectService.updateExecution(executionId, 'FINISH', briefcaseId).pipe(
+      tap( () => {
+        this.personalProjectService.backToList();
+      })
+    ).subscribe(
       () => {
         this.messages.showMessages('You have succesfully finished a project execution. You can view it in My Projects tab.');
         this.requestForBriefcaseModal = true;
@@ -253,7 +261,11 @@ export class MyProjectsComponent implements OnInit {
   }
 
   cancelExecution(executionId: number) {
-    this.personalProjectService.updateExecution(executionId, 'CANCEL').subscribe(
+    this.personalProjectService.updateExecution(executionId, 'CANCEL').pipe(
+      tap( () => {
+        this.personalProjectService.backToList();
+      })
+    ).subscribe(
       () => this.messages.showMessages('You have succesfully cancelled a project execution. You can view it in My Projects tab.'),
       err => {
         this.messages.showErrors('There has been an error canceling the project execution. Try it later.');
