@@ -1,15 +1,15 @@
 <ng-container *ngIf="detailProject$ | async as detailProject; else listTemplate">
   <ng-container *ngIf="showBriefcaseForm; else projectDetailTemplate">
-    <div class="col-6">
+    <div class="col-md-6">
       <div class="row" style="background-color:#f7f8f9; margin: 0rem;">
         <div class="col-md-12 rounded-0 p-0">
-          <div class="mt-0 py-3" style=" background-color: white; padding: 2rem;">
+          <div class="mt-0 py-3" id="add-bc-row" style="background-color: white; padding: 2rem;">
             <p class="font-weight-bold text-uppercase text-center" style="color:#2888c7">Add Job to your portfolio</p>
             <form [formGroup]="briefcaseEditForm">
               <div class="mb-3">
                 <div class="modal-body mt-0 p-0">
                   <div class="row m-0 p-0 container-fluid">
-                    <div class="mb-3 my-0 py-0 col-12">
+                    <div class="mb-3 my-0 py-0 col-12" id="bc-content-col">
                       <input
                         [ngClass]="briefcaseEditForm.get('description').invalid && (briefcaseEditForm.get('description').dirty || briefcaseEditForm.get('description').touched) ? 'is-invalid' : '' "
                         class="form-control input-lg rounded-0 font-weight-bold" formControlName="description" id="briefcaseTitle"
@@ -43,8 +43,7 @@
                       </label>
                     </div>
                   </div>
-                  <div class="col-12">
-
+                  <div class="col-12" id="bc-content-col">
                     <div class=" mb-3 my-0 py-0">
                       <!-- <label style="font-weight: 100;" for="comments">Enter some comments</label> -->
                       <textarea class="form-control rounded-0" formControlName="comments" id="comments"
@@ -95,7 +94,7 @@
                 <div class="row justify-content-end">
                   <div class="col-6">
                   </div>
-                  <div class="col-8 col-sm-6 btn-group justify-content-between px-4">
+                  <div class="col-8 col-sm-6 btn-group justify-content-between px-4" id="addBc-btn-col">
                     <button type="button" class="btn col-6 btn btn-previous rounded-0 mr-2"
                       style="background-color: #BFBDBE; color: #2688C6;" data-toggle="tooltip" data-dismiss="modal"
                       title="Close" (click)="cancelBriefcase()">CLOSE</button>

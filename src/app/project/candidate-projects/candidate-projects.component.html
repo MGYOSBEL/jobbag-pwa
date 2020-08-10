@@ -36,7 +36,7 @@
         </ng-container>
         </div>
       </div>
-      <div class="col-6 px-2" id="projectPreview-col">
+      <div class="col-md-6 px-2" id="projectPreview-col">
         <!-- PROJECT PREVIEW -->
         <app-project-preview [userProfileId]="userProfile!.id" [role]="'SERVICE_PROVIDER'" [isInterest$]="isPreviewInterest$"
           [previewProject$]="previewProject$" (action)="onPreviewAction($event)" (detail)="onDetail($event)">

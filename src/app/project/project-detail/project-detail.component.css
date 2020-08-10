@@ -81,6 +81,10 @@ li::before {
     padding-left: 0.5rem;
     padding-right: 0.5rem;
   }
+  #provider-comments-col{
+    padding-left: 0;
+    padding-right: 0;
+  }
 }
 
 /*Overview 415px*/

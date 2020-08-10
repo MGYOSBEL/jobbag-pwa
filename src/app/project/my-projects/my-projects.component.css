@@ -203,6 +203,13 @@
   #project-preview-col{
     display: none;
   }
+  #add-bc-row, #bc-content-col{
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+  }
+  #addBc-btn-col{
+    padding-right: 1rem !important;
+  }
 }
 
 /*Overview 576px*/

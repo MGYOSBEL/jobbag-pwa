@@ -13,7 +13,7 @@
     </div>
     <div class="col text-right">
       <ng-container *ngIf="(project.state === 'NEW' && role === 'SERVICE_PROVIDER'); else playTemplate">
-        <button class="btn col-5 col-md-2 mt-1 btn-space px-0 py-1 text-uppercase" id="apply-btn" [disabled]="!canApply" id="applytBtn" type="button"
+        <button class="btn col-5 col-md-2 mt-1 btn-space px-0 py-1 text-uppercase" id="apply-btn" [disabled]="!canApply" type="button"
           style=" background-color: #2888C7; color: white; border-radius: 0; width:6.25rem"(click)="onApply()">
           <i class="fas icon-aplicar"></i>
           Apply
@@ -147,7 +147,7 @@
       <app-user-card-list [users]="project.interestedProfiles" (cardClicked)="onUserCardClicked($event)"></app-user-card-list>
     </div>
     <ng-template #notProjectOwner>
-      <div class="col-6">
+      <div class="col-md-6" id="provider-comments-col">
         <app-project-comments></app-project-comments>
       </div>
     </ng-template>
