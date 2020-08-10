@@ -57,10 +57,6 @@
     border-radius: 0;
 }
 
-/* .btn-icon-eye{
-    visibility: hidden !important;
-} */
-
 #applied-min{
     display: none !important;
 }
@@ -97,20 +93,8 @@
     #applied-min{
     display: none !important;
     }
-    #details-btn{
-        margin-right: 1.5rem !important;
-    }
 }
 
-/*Overview 520px*/
-@media screen and (max-width: 519.98px) {
-    #edit-btn, #details-btn, #trash-btn{
-        padding-left: 0 !important;
-        padding-right: 0 !important;
-        margin-right: 1.5rem !important;
-        width: 0.65rem;
-    }
-}
 
 /*Overview 475px*/
 @media screen and (max-width: 474.98px) {
@@ -121,30 +105,10 @@
     #applied-badge{
         display:none !important;
     }
-    #edit-btn, #details-btn, #trash-btn{
-        padding-left: 0 !important;
-        padding-right: 0 !important;
-        margin-right: 1.5rem !important;
-        width: 0.20rem;
-    }
     #applied-min{
         display: inline !important;
     }
     .project-title{
         font-size: 0.9rem;
-    }
-    .fas{
-        font-size: 0.8rem !important;
-    }
-}
-
-/*Overview 414px*/
-@media screen and (max-width: 413.98px) {
-    #edit-btn, #details-btn, #trash-btn{
-        margin-right: 1rem !important;
-        width: 0.20rem;
-    }
-    #details-btn{
-        padding-right: 0.5rem !important;
     }
 }
