@@ -71,7 +71,7 @@ export class UserDetailComponent implements OnInit {
     this.profileHeaderImage = this.userProfile.pictureProfileHeader == "NULL" ?
       'url(../../../assets/img/banner2.jpg)' : `url(${environment.serverBaseURL}/${this.userProfile.pictureProfileHeader})`;
     this.profileHeaderBgPosition = this.userProfile.pictureProfileHeader == "NULL" ? 'right top' : 'center top';
-    this.profileHeaderBgSize = this.userProfile.pictureProfileHeader == "NULL" ? 'contain' : 'cover';
+    this.profileHeaderBgSize = this.userProfile.pictureProfileHeader == "NULL" ? 'inherit' : 'cover';
     this.countryService.countries$.subscribe(
       countries => {
         this.countries = countries;
