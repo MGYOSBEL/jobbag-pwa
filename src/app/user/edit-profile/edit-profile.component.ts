@@ -64,7 +64,6 @@ export class EditProfileComponent implements OnInit {
 
   services: Service[];
 
-
   constructor(
     private userService: UserService,
     private loadingService: LoadingService,
@@ -426,6 +425,10 @@ export class EditProfileComponent implements OnInit {
     this.cvChange = 'DELETED';
     this.dataChange = true;
 
+  }
+
+  onPreviewClicked() {
+    this.router.navigate(['/user/profile', this.activeProfile.id]);
   }
 
 }
