@@ -153,25 +153,10 @@ a, a:hover {
   .img-logo{
     max-width: 90%!important;
   }
-#user-col{
-  margin-right: 2.0rem;
-}
-}
-
-/*Overview 385px*/
-@media screen and (max-width: 384.98px) {
-}
-
-/*Overview 376px*/
-@media screen and (max-width: 375.98px) {
-
 }
 
 /*Overview 361px*/
 @media screen and (max-width: 360.98px) {
-#user-col{
-  margin-right: 2.25rem;
-  }
 .btn-login, .btn-register{
     margin-left: 0.1!important;
     margin-right: 0.1rem!important;
