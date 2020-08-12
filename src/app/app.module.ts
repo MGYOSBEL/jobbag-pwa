@@ -19,6 +19,7 @@ import { MessagesService } from './services/messages.service';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { ProjectModule } from './project/project.module';
+import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 
 
 const config = new AuthServiceConfig([
@@ -53,11 +54,13 @@ export function provideConfig() {
     NgbModule,
     ProjectModule,
     AppRoutingModule,
+    ScrollToModule.forRoot(),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   exports: [],
   providers: [
     LoadingService,
+    ScrollToModule,
     MessagesService,
     {
       provide: AuthServiceConfig,

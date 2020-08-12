@@ -9,7 +9,17 @@
 .col-user-data {
   margin-bottom: 0.25rem !important;
 }
-
+.scroll-host {
+  height: 28.5rem;
+  overflow-y:scroll;
+  scrollbar-width: none;
+  padding-right: 1rem;
+  /* padding-bottom: 5rem; */
+}
+.user-container{
+  scroll-behavior:unset ;
+  overflow: hidden;
+}
 .user-name {
   font-size: 1.2rem;
   margin-bottom: 0 !important;
