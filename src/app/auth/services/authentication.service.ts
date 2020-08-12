@@ -1,13 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@environments/environment';
-import { map, mergeMap } from 'rxjs/operators';
+import { map, mergeMap, catchError } from 'rxjs/operators';
 import { LoggingService } from '@app/services/logging.service';
 import { AuthService } from 'angularx-social-login';
 import { FacebookLoginProvider, GoogleLoginProvider } from 'angularx-social-login';
 import { SocialUser } from 'angularx-social-login';
 import { LoginRequest, OAuth2Response } from '../models/auth.model';
-import { Observable, of, pipe, BehaviorSubject } from 'rxjs';
+import { Observable, of, pipe, BehaviorSubject, throwError } from 'rxjs';
 import { APIResponse } from '@app/models/app.model';
 import * as moment from 'moment';
 
@@ -49,7 +49,6 @@ export class AuthenticationService {
 
   constructor(
     private http: HttpClient,
-    // public socialAuthService: AuthService,
     private logger: LoggingService) {
     this.authProvider = 'JOBBAG';
     const validToken = moment().isBefore(this.getExpiration());
@@ -61,14 +60,20 @@ export class AuthenticationService {
     this.authProvider = 'JOBBAG';
     const loginRequestJSON = this.parseLoginRequest(username, password, this.authProvider);
     return this.http.post<any>(this.loginPath, loginRequestJSON, { headers: { 'Content-type': 'application/json' } })
-      .pipe(map(response => {
+      .pipe(
+        catchError(err => {
+          console.error(err);
+          return throwError ('Unexpected error. Try Again Later');
+        }),
+        map(response => {
         if (response.status_code === 200) {
           const bearer = JSON.parse(response.content);
           this.setSession(bearer);
           return bearer;
         } else {
           const content = (JSON.parse(response.content));
-          return content;
+          throw new Error(content.text);
+          // return content;
         }
       }));
   }
@@ -91,12 +96,10 @@ export class AuthenticationService {
             return error;
           }
         }));
-    // }
   }
 
   signOut(): void {
     localStorage.clear();
-    // this._isLoggedIn = false;
     this.isLoggedIn$.next(false);
     this.authProvider = null;
 
@@ -117,7 +120,6 @@ export class AuthenticationService {
       this.bearerToken = data;
       const expiresAt = moment().add(this.bearerToken.expires_in, 's');
       localStorage.setItem('expiresAt', JSON.stringify(expiresAt.valueOf()));
-      // this._isLoggedIn = true;
       this.isLoggedIn$.next(true);
     } else {
       this.signOut();
