@@ -417,9 +417,17 @@
           </div>
           <div class="card text-right">
             <div class="card-footer accordion-footer rounded-0">
+              <button *ngIf="role === 'SERVICE_PROVIDER'" type="button"
+                class="col-4 col-xs-3 col-lg-2  btn btn-edit-preview rounded-0 align-items-center align-text-top"
+                style="background-color: #2888C7; color: white; font-size: 1.1rem; margin-right: 0.5rem;" data-toggle="tooltip" title="Edit"
+                (click)="onPreviewClicked();">
+                <i class="far icon-step_find mr-2 text-left font-weight-light align-self-center"
+                  style="font-size: 1.25rem;"></i>
+                View
+              </button>
               <button type="button"
                 class="col-4 col-xs-3 col-lg-2  btn btn-edit rounded-0 align-items-center align-text-top"
-                style="background-color: #2888C7; color: white; font-size: 1.25rem;" data-toggle="tooltip" title="Edit"
+                style="background-color: #2888C7; color: white; font-size: 1.1rem;" data-toggle="tooltip" title="Edit"
                 (click)="saveProfile();" [disabled]="!dataChange">
                 <i class="far fa-save mr-2 text-left font-weight-light align-self-center"
                   style="font-size: 1.25rem;"></i>
