@@ -1,26 +1,28 @@
-
-<ng-container *ngIf="(errors$ | async) as errors">
-  <div class="error-container" *ngIf="showErrors">
-    <div class="message alert alert-dismissible justify-content-between col-12" *ngFor="let error of errors">
-        {{error}}
-      <button type="button" class="close" (click)="onErrorClose()" data-dismiss="message" style="color: white" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
+<div class="row p-0 m-0">
+  <ng-container *ngIf="(errors$ | async) as errors">
+    <div class="error-container" *ngIf="showErrors">
+      <div class="message alert alert-dismissible justify-content-between col-12" *ngFor="let error of errors">
+          {{error}}
+        <button type="button" class="close" (click)="onErrorClose()" data-dismiss="message" style="color: white" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+  
+      <!-- <mat-icon class="close" (click)="onClose()">Close</mat-icon> -->
     </div>
-
-    <!-- <mat-icon class="close" (click)="onClose()">Close</mat-icon> -->
-  </div>
-</ng-container>
-<ng-container *ngIf="(messages$ | async) as messages">
-  <div class="messages-container" *ngIf="showMessages">
-    <div class="message alert alert-dismissible justify-content-between col-12" *ngFor="let message of messages">
-        {{messages}}
-      <button type="button" class="close" (click)="onMessageClose()" data-dismiss="message" style="color: white" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
+  </ng-container>
+  <ng-container *ngIf="(messages$ | async) as messages">
+    <div class="messages-container" *ngIf="showMessages">
+      <div class="message alert alert-dismissible justify-content-between col-12" *ngFor="let message of messages">
+          {{messages}}
+        <button type="button" class="close" (click)="onMessageClose()" data-dismiss="message" style="color: white" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+  
+      <!-- <mat-icon class="close" (click)="onClose()">Close</mat-icon> -->
     </div>
+  </ng-container>
+</div>
 
-    <!-- <mat-icon class="close" (click)="onClose()">Close</mat-icon> -->
-  </div>
-</ng-container>
 
