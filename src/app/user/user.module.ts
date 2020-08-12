@@ -16,6 +16,7 @@ import { ProjectModule } from '@app/project/project.module';
 import { UserDetailComponent } from './user-detail/user-detail.component';
 import { BriefcaseDetailComponent } from './briefcase-detail/briefcase-detail.component';
 import { ProfileComponent } from './profile/profile.component';
+import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { ProfileComponent } from './profile/profile.component';
     CommonModule,
     SharedComponentsModule,
     ReactiveFormsModule,
+    ScrollToModule,
     FormsModule,
     NgSelectModule,
     NgbModule,

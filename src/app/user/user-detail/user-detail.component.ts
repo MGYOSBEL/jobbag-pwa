@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { NgbRatingConfig } from '@ng-bootstrap/ng-bootstrap';
 import { UserProfile, UserProfileBriefcase } from '../models/user.model';
 import { environment } from '@environments/environment';
@@ -17,7 +17,7 @@ import { combineLatest, BehaviorSubject } from 'rxjs';
   providers: [NgbRatingConfig] //add NgbRatingConfig
 
 })
-export class UserDetailComponent implements OnInit {
+export class UserDetailComponent implements OnInit, OnDestroy {
 
   briefcaseDetailSubject = new BehaviorSubject<UserProfileBriefcase>(null);
   briefcaseDetail$ = this.briefcaseDetailSubject.asObservable();
@@ -62,7 +62,7 @@ export class UserDetailComponent implements OnInit {
         this.dashboardRoute = `/user/${user.id}/${activeProfile.userProfileType}`;
       }
     );
-
+    document.body.style.overflow = 'overlay';
   }
 
   ngOnInit() {
@@ -117,6 +117,10 @@ export class UserDetailComponent implements OnInit {
 
   viewCV() {
     window.open(`${environment.serverBaseURL}/${this.userProfile.cv}`, '_blank');
+  }
+
+  ngOnDestroy() {
+     document.body.style.overflow = 'scroll';
   }
 
 
