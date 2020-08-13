@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnDestroy, AfterViewInit } from '@angular/core';
 import { NgbRatingConfig } from '@ng-bootstrap/ng-bootstrap';
 import { UserProfile, UserProfileBriefcase } from '../models/user.model';
 import { environment } from '@environments/environment';
@@ -9,6 +9,7 @@ import { ServicesService } from '../services/services.service';
 import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { combineLatest, BehaviorSubject } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-user-detail',
@@ -17,7 +18,7 @@ import { combineLatest, BehaviorSubject } from 'rxjs';
   providers: [NgbRatingConfig] //add NgbRatingConfig
 
 })
-export class UserDetailComponent implements OnInit, OnDestroy {
+export class UserDetailComponent implements OnInit, OnDestroy, AfterViewInit {
 
   briefcaseDetailSubject = new BehaviorSubject<UserProfileBriefcase>(null);
   briefcaseDetail$ = this.briefcaseDetailSubject.asObservable();
@@ -29,7 +30,13 @@ export class UserDetailComponent implements OnInit, OnDestroy {
   briefcaseDetail = new EventEmitter<number>();
   profilePicture: string;
   apiPublic: string;
-
+  screenWidthSubject = new BehaviorSubject<'xs' | 'md'>('md');
+  screenWidth$ = this.screenWidthSubject.asObservable().pipe(
+    tap(
+      breakpoint => this.initialShownWorks = breakpoint === 'md' ? 4 : 2
+    )
+  );
+  initialShownWorks: number;
   countries: Country[];
   services: Service[];
   divisionsName: any[] = [];
@@ -39,6 +46,7 @@ export class UserDetailComponent implements OnInit, OnDestroy {
   profileHeaderImage: string;
   profileHeaderBgPosition: string;
   profileHeaderBgSize: string;
+  showMore: boolean = true;
 
   constructor(
     config: NgbRatingConfig,
@@ -85,7 +93,26 @@ export class UserDetailComponent implements OnInit, OnDestroy {
         this.servicesName = this.getServicesName(this.userProfile.services);
       }
     );
+    const breakpoint = screen.width >= 768 ? 'md' : 'xs';
+    this.screenWidthSubject.next(breakpoint);
 
+    window.addEventListener('resize', (event) => {
+      const newSize = screen.width >= 768 ? 'md' : 'xs';
+      this.screenWidthSubject.next(newSize);
+
+    });
+  }
+
+  ngAfterViewInit(): void {
+    // Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
+    // Add 'implements AfterViewInit' to the class.
+    const breakpoint = screen.width >= 768 ? 'md' : 'xs';
+    this.screenWidthSubject.next(breakpoint);
+  }
+
+  onShowMore() {
+    this.showMore = !this.showMore;
+    console.log('shown works', this.initialShownWorks);
   }
 
   getDivisionsName(projectDivisions: number[]) {
@@ -120,7 +147,7 @@ export class UserDetailComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-     document.body.style.overflow = 'scroll';
+    document.body.style.overflow = 'scroll';
   }
 
 

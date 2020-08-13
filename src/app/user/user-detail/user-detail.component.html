@@ -145,8 +145,8 @@
           (closeDetail)="onBriefcaseDetailClose()"></app-briefcase-detail>
       </ng-container>
       <ng-template #elseTemplate>
-        <div class="row row-cols-md-3" *ngIf="userProfile.briefcases != []">
-          <div class="col-xs-6 col-md-3" *ngFor="let briefcase of userProfile.briefcases; let i = index">
+        <div class="row row-cols-md-3" *ngIf="userProfile.briefcases != [] && screenWidth$ | async">
+          <div class="col-xs-6 col-md-3" *ngFor="let briefcase of userProfile.briefcases; let i = index" [ngClass]="i >= initialShownWorks ? 'collapse' : ''">
             <!-- <img [src]="apiPublic + briefcase.pictures[0]" class="img img-briefcase"> -->
             <app-briefcase-card class="img img-briefcase" style="height: 12rem"
               [params]="{id: briefcase.id, picture: briefcase.pictures != null ? apiPublic + briefcase.pictures[0] : null, verified: true, description: briefcase.description}"
@@ -156,7 +156,8 @@
         </div>
         <div class="col-12 pl-4 mt-5 text-center">
           <button type="btn" class="btn btn-large rounded-0 border-0"
-            style="background-color: #2787c4; color:white; margin-bottom: -0.1rem; width: 9rem;">Show more</button>
+            type="button" data-toggle="collapse" data-target=".collapse" aria-expanded="false"
+            style="background-color: #2787c4; color:white; margin-bottom: -0.1rem; width: 9rem;" (click)="onShowMore()">{{showMore ? 'More...' : '...Less'}}</button>
           <hr class="my-0 py-0" style="border-bottom: solid 2px #f1f1f1;">
         </div>
       </ng-template>
