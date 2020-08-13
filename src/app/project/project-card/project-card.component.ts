@@ -34,6 +34,7 @@ export class ProjectCardComponent implements OnInit {
 
   private userRole: string;
   projectOwner: string;
+  projectStatus: string; //coding
 
   constructor(
     private route: ActivatedRoute, // toEdit
@@ -51,6 +52,7 @@ export class ProjectCardComponent implements OnInit {
     this.pressed$.subscribe(
       id => this.isPressed = (this.project.id === id)
     );
+    this.projectStatus = this.project.state;
   }
 
   onClick() {
