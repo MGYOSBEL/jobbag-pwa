@@ -33,7 +33,7 @@ export class UserDetailComponent implements OnInit, OnDestroy, AfterViewInit {
   screenWidthSubject = new BehaviorSubject<'xs' | 'md'>('md');
   screenWidth$ = this.screenWidthSubject.asObservable().pipe(
     tap(
-      breakpoint => this.initialShownWorks = breakpoint === 'md' ? 4 : 2
+      breakpoint => this.initialShownWorks = breakpoint === 'md' ? 8 : 2
     )
   );
   initialShownWorks: number;
@@ -42,6 +42,7 @@ export class UserDetailComponent implements OnInit, OnDestroy, AfterViewInit {
   divisionsName: any[] = [];
   servicesName: string[] = [];
   dashboardRoute: string;
+  editProfileRoute: string;
   rating: number;
   profileHeaderImage: string;
   profileHeaderBgPosition: string;
@@ -68,6 +69,7 @@ export class UserDetailComponent implements OnInit, OnDestroy, AfterViewInit {
       ([user, role]) => {
         const activeProfile = user.profiles.find(profile => profile.userProfileType === role);
         this.dashboardRoute = `/user/${user.id}/${activeProfile.userProfileType}`;
+        this.editProfileRoute = `/user/${user.id}/${activeProfile.userProfileType}/edit`;
       }
     );
     document.body.style.overflow = 'overlay';
@@ -127,6 +129,11 @@ export class UserDetailComponent implements OnInit, OnDestroy, AfterViewInit {
 
   backToProjectDetail() {
     this.router.navigateByUrl(this.dashboardRoute);
+  }
+
+  closeProfile() {
+    const returnURL = localStorage.getItem('returnURL');
+    this.router.navigateByUrl(!!returnURL ? returnURL : this.dashboardRoute);
   }
 
   getServicesName(projectServices: number[]) {

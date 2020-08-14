@@ -52,6 +52,7 @@ export class UserProfileService {
         }
       }),
       tap(content => { // Si se ejecuta el tap es porque no se lanzo antes ningun error, por lo tanto status===200(OK)
+        console.log('userProfile service => ', content);
         userProfiles.push(content);
         localStorage.setItem('userProfiles', JSON.stringify(userProfiles));
       })

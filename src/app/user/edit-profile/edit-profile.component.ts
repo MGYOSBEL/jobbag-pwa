@@ -428,7 +428,9 @@ export class EditProfileComponent implements OnInit {
   }
 
   onPreviewClicked() {
+    localStorage.setItem('returnURL', `/user/${this.userService.loggedUser.id}/${this.activeProfile.userProfileType}/edit`);
     this.router.navigate(['/user/profile', this.activeProfile.id]);
+
   }
 
 }
