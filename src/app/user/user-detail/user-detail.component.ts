@@ -77,10 +77,11 @@ export class UserDetailComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnInit() {
     this.apiPublic = `${environment.serverBaseURL}/`;
+    const header = this.userProfile.pictureProfileHeader;
     this.profilePicture = this.userProfile.picture != null ? `${environment.serverBaseURL}/${this.userProfile.picture}` : null;
-    this.profileHeaderImage = this.userProfile.pictureProfileHeader == "NULL" ?
+    this.profileHeaderImage = (header == "NULL" || header == null) ?
       'url(../../../assets/img/banner2.jpg)' : `url(${environment.serverBaseURL}/${this.userProfile.pictureProfileHeader})`;
-    this.profileHeaderBgPosition = this.userProfile.pictureProfileHeader == "NULL" ? 'right top' : 'center top';
+    this.profileHeaderBgPosition = (header == "NULL" || header == null) ? 'right top' : 'center top';
     this.profileHeaderBgSize = this.userProfile.pictureProfileHeader == "NULL" ? 'inherit' : 'cover';
     this.countryService.countries$.subscribe(
       countries => {
