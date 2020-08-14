@@ -2,8 +2,8 @@
   <div class="row" style="border-bottom: 1px solid #2888C7; height:3rem;">
     <div class="col-2 col-md-4 mx-0">
       <div class="row no-gutters">
-        <button type="button" class="btn action-btn rounded-0" id="goback-btn" data-toggle="tooltip" title="Go Back" alt="goBack"
-          (click)="backToList()"><i class="fas fa-chevron-circle-left"></i>
+        <button type="button" class="btn action-btn rounded-0" id="goback-btn" data-toggle="tooltip" title="Go Back"
+          alt="goBack" (click)="backToList()"><i class="fas fa-chevron-circle-left"></i>
         </button>
         <p class="user-name text-left pt-2  align-self-end">
           {{project.name}}
@@ -13,37 +13,40 @@
     </div>
     <div class="col text-right">
       <ng-container *ngIf="(project.state === 'NEW' && role === 'SERVICE_PROVIDER'); else playTemplate">
-        <button class="btn col-5 col-md-2 mt-1 btn-space px-0 py-1 text-uppercase" id="apply-btn" [disabled]="!canApply" type="button"
-          style=" background-color: #2888C7; color: white; border-radius: 0; width:6.25rem"(click)="onApply()">
+        <button class="btn col-5 col-md-2 mt-1 btn-space px-0 py-1 text-uppercase" id="apply-btn" [disabled]="!canApply"
+          type="button" style=" background-color: #2888C7; color: white; border-radius: 0; width:6.25rem"
+          (click)="onApply()">
           <i class="fas icon-aplicar"></i>
           Apply
         </button>
-        <button class="btn col-5 col-md-2 mt-1 btn-space px-0 py-1 text-uppercase" id="start-btn" type="button" [disabled]="!canStart"
-          style=" background-color: #a1d173; color: white; border-radius: 0; width:6.25rem" (click)="onStartProjectExecution()">
+        <button class="btn col-5 col-md-2 mt-1 btn-space px-0 py-1 text-uppercase" id="start-btn" type="button"
+          [disabled]="!canStart" style=" background-color: #a1d173; color: white; border-radius: 0; width:6.25rem"
+          (click)="onStartProjectExecution()">
           <i class="fas icon-comenzar"></i>
           Start
         </button>
       </ng-container>
       <ng-template #playTemplate>
-        <button class="btn col-5 col-md-2 mt-1 btn-space px-0 py-1 text-uppercase" id="edit-btn" *ngIf="role === 'CLIENT'"
-        type="button" data-toggle="tooltip" title="Edit Project" alt="Edit"
-        style=" background-color: #2888C7; color: white; border-radius: 0; width: 6.25rem;" (click)="onEditProject()">
-        <i class="fas icon-user-edit" style="color:white;"></i>
-        Edit
-      </button>
-      <button class="btn col-5 col-md-3 mt-1 btn-space text-uppercase px-0 py-1" id="finish-prov-btn" type="button"
-      *ngIf="(project.state === 'PROGRESS' || project.state === 'NEW') && role === 'SERVICE_PROVIDER'"
-      style=" background-color: #f99d6e; color: white; border-radius: 0; width:6.25rem;"
-      data-toggle="modal" data-target="#finishProjectModal">
-      <i class="fab icon-terminado"></i>
-      Finish
-    </button>
-    <button class="btn col-5 col-md-3 mt-1 btn-space text-uppercase px-0 py-1" id="finish-client-btn" type="button" (click)="onFinishClientProject()"
-      *ngIf="(project.state === 'PROGRESS' || project.state === 'NEW') && role === 'CLIENT'"
-      style=" background-color: #f99d6e; color: white; border-radius: 0; width:6.25rem;">
-      <i class="fab icon-terminado"></i>
-      Finish
-    </button>
+        <button class="btn col-5 col-md-2 mt-1 btn-space px-0 py-1 text-uppercase" id="edit-btn"
+          *ngIf="role === 'CLIENT'" type="button" data-toggle="tooltip" title="Edit Project" alt="Edit"
+          style=" background-color: #2888C7; color: white; border-radius: 0; width: 6.25rem;" (click)="onEditProject()">
+          <i class="fas icon-user-edit" style="color:white;"></i>
+          Edit
+        </button>
+        <button class="btn col-5 col-md-3 mt-1 btn-space text-uppercase px-0 py-1" id="finish-prov-btn" type="button"
+          *ngIf="(project.state === 'PROGRESS' || project.state === 'NEW') && role === 'SERVICE_PROVIDER'"
+          style=" background-color: #f99d6e; color: white; border-radius: 0; width:6.25rem;" data-toggle="modal"
+          data-target="#finishProjectModal">
+          <i class="fab icon-terminado"></i>
+          Finish
+        </button>
+        <button class="btn col-5 col-md-3 mt-1 btn-space text-uppercase px-0 py-1" id="finish-client-btn" type="button"
+          (click)="onFinishClientProject()"
+          *ngIf="(project.state === 'PROGRESS' || project.state === 'NEW') && role === 'CLIENT'"
+          style=" background-color: #f99d6e; color: white; border-radius: 0; width:6.25rem;">
+          <i class="fab icon-terminado"></i>
+          Finish
+        </button>
         <button class="btn col-5 col-md-2 mt-1 btn-space px-0 py-1 text-uppercase" id="cancel-btn" type="button"
           *ngIf="project.state === 'PROGRESS' || project.state === 'NEW'"
           style=" background-color: #f15d5d; color: white; border-radius: 0; width: 6.25rem;" (click)="onCancel()">
@@ -138,13 +141,45 @@
             </ul>
           </div>
         </div>
+        <div class="col-12">
+          <div class="row container-fluid m-0 p-0">
+            <div class="col-6 mx-0 px-0">
+              <p class="project-title text-left my-2" style="color:#605c61; font-weight: light; font-size: 1.2rem;">
+                Creation Date
+              </p>
+              <hr class="border-bottom mt-0">
+              <div style="font-size:small">
+                <ul style="padding-left: 0;">
+                  <li>
+                    {{project.creationDate}}
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-6 mx-0 px-0" *ngIf="!!project.startDateExpected">
+              <p class="project-title text-left my-2" style="color:#605c61; font-weight: light; font-size: 1.2rem;">
+                Preferred Start Date
+              </p>
+              <hr class="border-bottom mt-0">
+              <div style="font-size:small">
+                <ul style="padding-left: 0;">
+                  <li>
+                    {{project.startDateExpected}}
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
     <div *ngIf="project.interestedProfiles != null; else notProjectOwner" class="col-md-6 mb-3 candidates-col">
       <div class="col-12 column-title-col">
         <h6 class="column-title my-3">Interested Candidates</h6>
       </div>
-      <app-user-card-list [users]="project.interestedProfiles" (cardClicked)="onUserCardClicked($event)"></app-user-card-list>
+      <app-user-card-list [users]="project.interestedProfiles" (cardClicked)="onUserCardClicked($event)">
+      </app-user-card-list>
     </div>
     <ng-template #notProjectOwner>
       <div class="col-md-6" id="provider-comments-col">
