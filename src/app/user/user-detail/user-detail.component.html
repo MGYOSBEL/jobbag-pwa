@@ -4,7 +4,7 @@
     <div class="col-12 bg-opacity">
       <div class="row">
         <div class="col-1 col-md-2"></div>
-        <div class="col-md-8 pt-5 pb-3">
+        <div class="col-9 col-md-8 pt-5 pb-3">
           <div class="card mb-3 rounded-0 border-0" style="background-color: transparent; z-index: 1000;">
             <div class="row no-gutters">
               <ng-container *ngIf="!!profilePicture; else defaultPicture">
@@ -41,7 +41,7 @@
             </div>
           </div>
         </div>
-        <div class="col-1 col-md-2 text-right m-0 p-0 pr-md-5 pt-md-3 text-light">
+        <div class="col-1 col-md-2 text-right m-0 p-0 pr-md-5 pt-3 text-light">
           <button class="close-btn border-0 rounded-circle" data-placement="bottom" data-toggle="tooltip"
             title="Close Profile" (click)="closeProfile()">
             <i class="fa fa-times text-center"></i>
