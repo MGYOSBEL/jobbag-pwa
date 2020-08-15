@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnDestroy, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnDestroy, AfterViewInit, ViewChild } from '@angular/core';
 import { NgbRatingConfig } from '@ng-bootstrap/ng-bootstrap';
 import { UserProfile, UserProfileBriefcase } from '../models/user.model';
 import { environment } from '@environments/environment';
@@ -111,6 +111,7 @@ export class UserDetailComponent implements OnInit, OnDestroy, AfterViewInit {
     // Add 'implements AfterViewInit' to the class.
     const breakpoint = screen.width >= 768 ? 'md' : 'xs';
     this.screenWidthSubject.next(breakpoint);
+
   }
 
   onShowMore() {
