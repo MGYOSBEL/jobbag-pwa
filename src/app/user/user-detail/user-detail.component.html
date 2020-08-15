@@ -1,5 +1,5 @@
-<div class="m-0 p-0 user-container">
-  <div class="row bg-container  mx-0" [style.background-image]="profileHeaderImage"
+<div class="m-0 p-0 user-container" id="user-container">
+  <div class="row bg-container  mx-0" [style.background-image]="profileHeaderImage" id="banner-section"
     [style.background-position]="profileHeaderBgPosition" [style.background-size]="profileHeaderBgSize">
     <div class="col-12 bg-opacity">
       <div class="row">
@@ -67,147 +67,149 @@
     </div>
   </div>
 
-  <div class="row mb-5 px-1 px-sm-3 px-md-5 mx-0 scroll-host">
-    <div class="col-12 pt-3" id="descriptionSection">
-      <p style="text-align: justify;">
-        {{userProfile.comment}}
-      </p>
-    </div>
-    <div class="col-12 pt-3" id="servicesSection">
-      <div class="card rounded-0 border-0">
-        <div class="card-header rounded-0 border-0" style="font-weight: bold; color:#605c61;">
-          Services
-        </div>
-        <div class="card-body rounded-0 border-0" style="background-color: #f1f1f1;">
-          <div style="font-size:small">
-            <ul class="pl-0">
-              <li *ngFor="let service of servicesName">
-                {{service}}
-              </li>
-            </ul>
+  <ng-container *ngIf="scrollSectionHeight$  | async as scrollHeight">
+    <div class="row mb-5 px-1 px-sm-3 px-md-5 mx-0 scroll-host" [style.height.px]="scrollHeight">
+      <div class="col-12 pt-3" id="descriptionSection">
+        <p style="text-align: justify;">
+          {{userProfile.comment}}
+        </p>
+      </div>
+      <div class="col-12 pt-3" id="servicesSection">
+        <div class="card rounded-0 border-0">
+          <div class="card-header rounded-0 border-0" style="font-weight: bold; color:#605c61;">
+            Services
+          </div>
+          <div class="card-body rounded-0 border-0" style="background-color: #f1f1f1;">
+            <div style="font-size:small">
+              <ul class="pl-0">
+                <li *ngFor="let service of servicesName">
+                  {{service}}
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="col-12 pt-3" id="locationsSection">
-      <div class="card rounded-0 border-0 mt-3">
-        <div class="card-header rounded-0 border-0" style="font-weight: bold; color: #605c61;">
-          Locations
-        </div>
-
-        <div class="accordion" id="accordionExample">
-          <div class="card border-0 rounded-0" *ngIf="!!userProfile.remoteWork" style="border-bottom: 1px dotted #605c61 !important;">
-            <div class="row card-header country-header py-0  justify-content-between">
-              <div class="col m-0 p-0">
-                <p class="border-0 m-0 py-2 px-2" style="color: #605c61;">
-                  <small>Open to Remote Jobs</small>
-                </p>
-              </div>
-            </div>
+      <div class="col-12 pt-3" id="locationsSection">
+        <div class="card rounded-0 border-0 mt-3">
+          <div class="card-header rounded-0 border-0" style="font-weight: bold; color: #605c61;">
+            Locations
           </div>
-          <ng-container *ngFor="let country of divisionsName; let i = index">
-            <div class="card border-0 rounded-0" *ngIf="country.divisions.length != 0">
-              <div class="card-header collapsed country-header py-0 row justify-content-between" [id]="'heading'+i"
-                data-toggle="collapse" [attr.data-target]="'#collapse'+i" aria-expanded="false"
-                [attr.aria-controls]="'collapse'+i">
+
+          <div class="accordion" id="accordionExample">
+            <div class="card border-0 rounded-0" *ngIf="!!userProfile.remoteWork" style="border-bottom: 1px dotted #605c61 !important;">
+              <div class="row card-header country-header py-0  justify-content-between">
                 <div class="col m-0 p-0">
                   <p class="border-0 m-0 py-2 px-2" style="color: #605c61;">
-                    {{country.name}}<small>({{country.divisions.length}})</small>
+                    <small>Open to Remote Jobs</small>
                   </p>
                 </div>
-                <div class="col m-0 py-2 px-2 text-right">
-                  <i class="fa fa-angle-down" aria-hidden="true"></i>
-                </div>
               </div>
-              <div [id]="'collapse'+i" class="collapse" [attr.aria-labelledby]="'heading'+i"
-                data-parent="#accordionExample">
-                <div class="card-body country-body">
-                  <div style="font-size:small">
-                    <ul class="pl-0">
-                      <li *ngFor="let division of country.divisions">
-                        {{division.nameEs}}
-                      </li>
-                    </ul>
+            </div>
+            <ng-container *ngFor="let country of divisionsName; let i = index">
+              <div class="card border-0 rounded-0" *ngIf="country.divisions.length != 0">
+                <div class="card-header collapsed country-header py-0 row justify-content-between" [id]="'heading'+i"
+                  data-toggle="collapse" [attr.data-target]="'#collapse'+i" aria-expanded="false"
+                  [attr.aria-controls]="'collapse'+i">
+                  <div class="col m-0 p-0">
+                    <p class="border-0 m-0 py-2 px-2" style="color: #605c61;">
+                      {{country.name}}<small>({{country.divisions.length}})</small>
+                    </p>
+                  </div>
+                  <div class="col m-0 py-2 px-2 text-right">
+                    <i class="fa fa-angle-down" aria-hidden="true"></i>
+                  </div>
+                </div>
+                <div [id]="'collapse'+i" class="collapse" [attr.aria-labelledby]="'heading'+i"
+                  data-parent="#accordionExample">
+                  <div class="card-body country-body">
+                    <div style="font-size:small">
+                      <ul class="pl-0">
+                        <li *ngFor="let division of country.divisions">
+                          {{division.nameEs}}
+                        </li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
               </div>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 pt-3" id="worksSection">
+        <p style="font-size: 1.2rem; color: #605c61;"><i class="fa fa-briefcase"
+            style="font-size: 1.5rem; color:#605c61;"></i>
+          Works</p>
+      </div>
+      <div class="col-12">
+          <div class="row row-cols-md-3" *ngIf="userProfile.briefcases != [] && screenWidth$ | async">
+            <div class="col-xs-6 col-md-3" *ngFor="let briefcase of userProfile.briefcases; let i = index"
+              [ngClass]="i >= initialShownWorks ? 'collapse' : ''" data-toggle="modal" data-target="#briefcaseDetailsModal">
+              <app-briefcase-card class="img img-briefcase" style="height: 12rem"
+                [params]="{id: briefcase.id, picture: briefcase.pictures != null ? apiPublic + briefcase.pictures[0] : null, verified: true, description: briefcase.description}"
+                (viewDetail)="onBriefcaseDetail($event)">
+              </app-briefcase-card>
             </div>
-          </ng-container>
-        </div>
+          </div>
+          <div class="col-12 pl-4 mt-5 text-center" *ngIf="userProfile.briefcases.length > initialShownWorks && screenWidth$ | async">
+            <button type="btn" class="btn btn-large rounded-0 border-0" type="button" data-toggle="collapse"
+              data-target=".collapse" aria-expanded="false"
+              style="background-color: #2787c4; color:white; margin-bottom: -0.1rem; width: 9rem;"
+              (click)="onShowMore()">{{showMore ? 'More' : 'Less'}}</button>
+            <hr class="my-0 py-0" style="border-bottom: solid 2px #f1f1f1;">
+          </div>
       </div>
-    </div>
-    <div class="col-12 pt-3" id="worksSection">
-      <p style="font-size: 1.2rem; color: #605c61;"><i class="fa fa-briefcase"
-          style="font-size: 1.5rem; color:#605c61;"></i>
-        Works</p>
-    </div>
-    <div class="col-12">
-        <div class="row row-cols-md-3" *ngIf="userProfile.briefcases != [] && screenWidth$ | async">
-          <div class="col-xs-6 col-md-3" *ngFor="let briefcase of userProfile.briefcases; let i = index"
-            [ngClass]="i >= initialShownWorks ? 'collapse' : ''" data-toggle="modal" data-target="#briefcaseDetailsModal">
-            <app-briefcase-card class="img img-briefcase" style="height: 12rem"
-              [params]="{id: briefcase.id, picture: briefcase.pictures != null ? apiPublic + briefcase.pictures[0] : null, verified: true, description: briefcase.description}"
-              (viewDetail)="onBriefcaseDetail($event)">
-            </app-briefcase-card>
+      <div class="col-12 pl-4 pt-3" id="padded-col" style="display: inline-block;" id="reviewsSection">
+        <p style="font-size: 1.2rem; color: #605c61;"><i class="fab fa-telegram-plane"
+            style="font-size: 1.5rem; color:#605c61;"></i>
+          Reviews</p>
+        <div class="col-12 card mt-1 mb-3 rounded-0 border-0" style="background-color: #f1f1f1;">
+          <div class="row">
+            <div class="col-12">
+              <p class="pt-1" style="color: #2787c4;">Michael Morell<span style="font-size: 0.8rem; color: #605c61">
+                  Jueves 6, Agosto 2020</span>
+            </div>
+            <div class="col-12">
+              <i class="fa icon-star-full" style="color: gold;"></i>
+              <i class="fa icon-star-full" style="color: gold;"></i>
+              <i class="fa icon-star-half" style="color: gold;"></i>
+              <i class="fa icon-star-empty" style="color: #605c61;"></i>
+              <i class="fa icon-star-empty" style="color: #605c61;"></i>
+            </div>
+            <div class="col-12">
+              <p>A useful review includes enough detail to give others a feel for what happened. Potential customers
+                want to know more than that someone else was happy. They want to know what exactly they liked so that
+                they can gauge whether it aligns with their own preferences. Just compare this review of a Dominos…
+              </p>
+            </div>
           </div>
         </div>
-        <div class="col-12 pl-4 mt-5 text-center" *ngIf="userProfile.briefcases.length > initialShownWorks && screenWidth$ | async">
-          <button type="btn" class="btn btn-large rounded-0 border-0" type="button" data-toggle="collapse"
-            data-target=".collapse" aria-expanded="false"
-            style="background-color: #2787c4; color:white; margin-bottom: -0.1rem; width: 9rem;"
-            (click)="onShowMore()">{{showMore ? 'More' : 'Less'}}</button>
-          <hr class="my-0 py-0" style="border-bottom: solid 2px #f1f1f1;">
-        </div>
-    </div>
-    <div class="col-12 pl-4 pt-3" id="padded-col" style="display: inline-block;" id="reviewsSection">
-      <p style="font-size: 1.2rem; color: #605c61;"><i class="fab fa-telegram-plane"
-          style="font-size: 1.5rem; color:#605c61;"></i>
-        Reviews</p>
-      <div class="col-12 card mt-1 mb-3 rounded-0 border-0" style="background-color: #f1f1f1;">
-        <div class="row">
-          <div class="col-12">
-            <p class="pt-1" style="color: #2787c4;">Michael Morell<span style="font-size: 0.8rem; color: #605c61">
-                Jueves 6, Agosto 2020</span>
-          </div>
-          <div class="col-12">
-            <i class="fa icon-star-full" style="color: gold;"></i>
-            <i class="fa icon-star-full" style="color: gold;"></i>
-            <i class="fa icon-star-half" style="color: gold;"></i>
-            <i class="fa icon-star-empty" style="color: #605c61;"></i>
-            <i class="fa icon-star-empty" style="color: #605c61;"></i>
-          </div>
-          <div class="col-12">
-            <p>A useful review includes enough detail to give others a feel for what happened. Potential customers
-              want to know more than that someone else was happy. They want to know what exactly they liked so that
-              they can gauge whether it aligns with their own preferences. Just compare this review of a Dominos…
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="col-12 card mt-1 mb-3 rounded-0 border-0" style="background-color: #f1f1f1;">
-        <div class="row">
-          <div class="col-12">
-            <p class="pt-1" style="color: #2787c4;">Juliet Simons<span style="font-size: 0.8rem; color: #605c61">
-                Jueves 6, Agosto 2020</span>
-          </div>
-          <div class="col-12">
-            <i class="fa icon-star-full" style="color: gold;"></i>
-            <i class="fa icon-star-full" style="color: gold;"></i>
-            <i class="fa icon-star-half" style="color: gold;"></i>
-            <i class="fa icon-star-empty" style="color: #605c61;"></i>
-            <i class="fa icon-star-empty" style="color: #605c61;"></i>
-          </div>
-          <div class="col-12">
-            <p>A useful review includes enough detail to give others a feel for what happened. Potential customers
-              want to know more than that someone else was happy. They want to know what exactly they liked so that
-              they can gauge whether it aligns with their own preferences. Just compare this review of a Dominos…
-            </p>
+        <div class="col-12 card mt-1 mb-3 rounded-0 border-0" style="background-color: #f1f1f1;">
+          <div class="row">
+            <div class="col-12">
+              <p class="pt-1" style="color: #2787c4;">Juliet Simons<span style="font-size: 0.8rem; color: #605c61">
+                  Jueves 6, Agosto 2020</span>
+            </div>
+            <div class="col-12">
+              <i class="fa icon-star-full" style="color: gold;"></i>
+              <i class="fa icon-star-full" style="color: gold;"></i>
+              <i class="fa icon-star-half" style="color: gold;"></i>
+              <i class="fa icon-star-empty" style="color: #605c61;"></i>
+              <i class="fa icon-star-empty" style="color: #605c61;"></i>
+            </div>
+            <div class="col-12">
+              <p>A useful review includes enough detail to give others a feel for what happened. Potential customers
+                want to know more than that someone else was happy. They want to know what exactly they liked so that
+                they can gauge whether it aligns with their own preferences. Just compare this review of a Dominos…
+              </p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="row my-5"></div>
-  </div>
+      <div class="row my-5"></div>
+    </div>  </ng-container>
+
 </div>
 
 <div class="modal fade rounded-0" id="briefcaseDetailsModal" #modal tabindex="-1" role="dialog"

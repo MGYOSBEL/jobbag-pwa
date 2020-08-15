@@ -8,8 +8,8 @@ import { CountryService } from '../services/country.service';
 import { ServicesService } from '../services/services.service';
 import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
-import { combineLatest, BehaviorSubject } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { combineLatest, BehaviorSubject, Observable } from 'rxjs';
+import { tap, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-user-detail',
@@ -30,6 +30,8 @@ export class UserDetailComponent implements OnInit, OnDestroy, AfterViewInit {
   briefcaseDetail = new EventEmitter<number>();
   profilePicture: string;
   apiPublic: string;
+  scrollHeightSubject = new BehaviorSubject<number>(456);
+  scrollSectionHeight$: Observable<number> = this.scrollHeightSubject.asObservable();
   screenWidthSubject = new BehaviorSubject<'xs' | 'md'>('md');
   screenWidth$ = this.screenWidthSubject.asObservable().pipe(
     tap(
@@ -104,6 +106,7 @@ export class UserDetailComponent implements OnInit, OnDestroy, AfterViewInit {
       this.screenWidthSubject.next(newSize);
 
     });
+
   }
 
   ngAfterViewInit(): void {
@@ -111,8 +114,15 @@ export class UserDetailComponent implements OnInit, OnDestroy, AfterViewInit {
     // Add 'implements AfterViewInit' to the class.
     const breakpoint = screen.width >= 768 ? 'md' : 'xs';
     this.screenWidthSubject.next(breakpoint);
+    const container = document.getElementById('user-container');
+    const banner = document.getElementById('banner-section');
+    this.scrollHeightSubject.next(container.clientHeight - banner.clientHeight);
 
-  }
+    console.log('scrollSectionHeight', container.clientHeight, banner.clientHeight, this.scrollHeightSubject.value);
+
+
+
+}
 
   onShowMore() {
     this.showMore = !this.showMore;

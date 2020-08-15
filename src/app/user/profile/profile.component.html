@@ -1,6 +1,6 @@
 <ng-container *ngIf="!!userProfile">
   <ng-container *ngIf="(briefcaseDetail$ | async) as briefcase; else profileDetailTemplate">
-    <div class="row justify-content-center">
+    <div class="row justify-content-center m-0 p-0">
         <app-briefcase-detail [briefcase]="briefcase" [userName]="userProfile.name" (closeDetail)="onBriefcaseDetailClose()"></app-briefcase-detail>
     </div>
   </ng-container>
