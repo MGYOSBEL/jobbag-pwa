@@ -17,8 +17,6 @@
                 <div class="col col-user-data">
                   <div class="row justify-content-between mt-2">
                     <p class="user-name text-capitalize ml-3">{{userProfile.name}}</p>
-                    <!-- <p class="btn-outline rounded-0" style="cursor:pointer; color: white" (click)="backToProjectDetail()">
-                    Go Back</p> -->
                   </div>
                 </div>
                 <div class="col col-user-data">
@@ -41,12 +39,6 @@
             </div>
           </div>
         </div>
-        <!-- <div class="col-1 col-md-2 text-right m-0 p-0 pr-md-5 pt-3 text-light">
-          <button class="close-btn border-0 rounded-circle" data-placement="bottom" data-toggle="tooltip"
-            title="Close Profile" (click)="closeProfile()">
-            <i class="fa fa-times text-center"></i>
-          </button>
-        </div> -->
       </div>
     </div>
     <div class="col-12 bg-opacity">
@@ -150,15 +142,9 @@
         Works</p>
     </div>
     <div class="col-12">
-      <!-- <ng-container *ngIf="(briefcaseDetail$ | async) as briefcase; else elseTemplate">
-        <app-briefcase-detail [briefcase]="briefcase" [userName]="userProfile.name"
-          (closeDetail)="onBriefcaseDetailClose()"></app-briefcase-detail>
-      </ng-container>
-      <ng-template #elseTemplate> -->
         <div class="row row-cols-md-3" *ngIf="userProfile.briefcases != [] && screenWidth$ | async">
           <div class="col-xs-6 col-md-3" *ngFor="let briefcase of userProfile.briefcases; let i = index"
             [ngClass]="i >= initialShownWorks ? 'collapse' : ''" data-toggle="modal" data-target="#briefcaseDetailsModal">
-            <!-- <img [src]="apiPublic + briefcase.pictures[0]" class="img img-briefcase"> -->
             <app-briefcase-card class="img img-briefcase" style="height: 12rem"
               [params]="{id: briefcase.id, picture: briefcase.pictures != null ? apiPublic + briefcase.pictures[0] : null, verified: true, description: briefcase.description}"
               (viewDetail)="onBriefcaseDetail($event)">
@@ -172,13 +158,11 @@
             (click)="onShowMore()">{{showMore ? 'More' : 'Less'}}</button>
           <hr class="my-0 py-0" style="border-bottom: solid 2px #f1f1f1;">
         </div>
-      <!-- </ng-template> -->
     </div>
     <div class="col-12 pl-4 pt-3" id="padded-col" style="display: inline-block;" id="reviewsSection">
       <p style="font-size: 1.2rem; color: #605c61;"><i class="fab fa-telegram-plane"
           style="font-size: 1.5rem; color:#605c61;"></i>
         Reviews</p>
-      <!-- </div> -->
       <div class="col-12 card mt-1 mb-3 rounded-0 border-0" style="background-color: #f1f1f1;">
         <div class="row">
           <div class="col-12">
@@ -226,21 +210,17 @@
   </div>
 </div>
 
-<div class="modal fade rounded-0" id="briefcaseDetailsModal" #modal tabindex="-1" role="dialog" aria-labelledby="briefcaseDetailModal"
-  aria-hidden="true" style="height: 100%;">
+<div class="modal fade rounded-0" id="briefcaseDetailsModal" #modal tabindex="-1" role="dialog"
+  aria-labelledby="briefcaseDetailModal" aria-hidden="true" style="height: 100%;">
   <div class="modal-dialog modal-dialog-centered modal-lg rounded-0" role="document">
     <div class="modal-content rounded-0 border-0">
-      <!-- <div class="modal-header rounded-0 py-1" style="background-color: #2888C7; color: white;"> -->
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close" #closebtn hidden>
-          <span aria-hidden="true">&times;</span>
-        </button>
-      <!-- </div> -->
-
-        <ng-container *ngIf="(briefcaseDetail$ | async) as briefcase">
-          <app-briefcase-detail [briefcase]="briefcase" [userName]="userProfile.name"
-            (closeDetail)="onBriefcaseDetailClose(); closebtn.click()"></app-briefcase-detail>
-        </ng-container>
-
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" #closebtn hidden>
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <ng-container *ngIf="(briefcaseDetail$ | async) as briefcase">
+        <app-briefcase-detail [briefcase]="briefcase" [userName]="userProfile.name"
+          (closeDetail)="onBriefcaseDetailClose(); closebtn.click()"></app-briefcase-detail>
+      </ng-container>
     </div>
   </div>
 </div>
