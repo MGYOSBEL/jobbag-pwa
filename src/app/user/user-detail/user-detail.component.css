@@ -12,7 +12,7 @@
 .scroll-host {
   /* height: 28.5rem; */
   overflow-y:scroll;
-  scrollbar-width: none;
+  scrollbar-width: thin;
   padding-right: 1rem;
   /* padding-bottom: 5rem; */
 }
