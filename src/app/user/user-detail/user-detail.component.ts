@@ -117,7 +117,6 @@ export class UserDetailComponent implements OnInit, OnDestroy, AfterViewInit {
     const container = document.getElementById('user-container');
     const banner = document.getElementById('banner-section');
     this.scrollHeightSubject.next(container.clientHeight - banner.clientHeight - 100);
-
     console.log('scrollSectionHeight', container.clientHeight, banner.clientHeight, this.scrollHeightSubject.value);
 
     // window.addEventListener('resize', () => {

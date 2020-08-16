@@ -225,12 +225,10 @@
       <button type="button" class="close" data-dismiss="modal" aria-label="Close" #closebtn hidden>
         <span aria-hidden="true">&times;</span>
       </button>
-      <!-- <div class="modal-body"> -->
         <ng-container *ngIf="(briefcaseDetail$ | async) as briefcase">
           <app-briefcase-detail [briefcase]="briefcase" [userName]="userProfile.name"
-            (closeDetail)="onBriefcaseDetailClose(); closebtn.click()"></app-briefcase-detail>
+            (closeDetail)="onBriefcaseDetailClose(); closebtn.click();"></app-briefcase-detail>
         </ng-container>
-        <!-- </div> -->
     </div>
   </div>
 </div>
