@@ -1,11 +1,11 @@
 .main-img-briefcase {
-  width: 20rem;
-  height: 12rem;
+  width: 15rem;
+  height: 9rem;
   object-fit: cover;
 }
 
 .carousel-img {
-  height: 500px;
+  height: 350px;
 }
 
 .carousel-inner {

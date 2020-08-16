@@ -218,17 +218,19 @@
 
 </div>
 
-<div class="modal fade rounded-0" id="briefcaseDetailsModal" #modal tabindex="-1" role="dialog"
-  aria-labelledby="briefcaseDetailModal" aria-hidden="true" style="height: 100%;">
-  <div class="modal-dialog modal-dialog-centered modal-lg rounded-0" role="document">
+<div class="modal fade rounded-0" id="briefcaseDetailsModal" #modal tabindex="-1" role="dialog" style="position"
+  aria-labelledby="briefcaseDetailModal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg rounded-0" role="document">
     <div class="modal-content rounded-0 border-0">
       <button type="button" class="close" data-dismiss="modal" aria-label="Close" #closebtn hidden>
         <span aria-hidden="true">&times;</span>
       </button>
-      <ng-container *ngIf="(briefcaseDetail$ | async) as briefcase">
-        <app-briefcase-detail [briefcase]="briefcase" [userName]="userProfile.name"
-          (closeDetail)="onBriefcaseDetailClose(); closebtn.click()"></app-briefcase-detail>
-      </ng-container>
+      <!-- <div class="modal-body"> -->
+        <ng-container *ngIf="(briefcaseDetail$ | async) as briefcase">
+          <app-briefcase-detail [briefcase]="briefcase" [userName]="userProfile.name"
+            (closeDetail)="onBriefcaseDetailClose(); closebtn.click()"></app-briefcase-detail>
+        </ng-container>
+        <!-- </div> -->
     </div>
   </div>
 </div>
