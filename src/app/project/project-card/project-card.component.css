@@ -57,10 +57,6 @@
     border-radius: 0;
 }
 
-#applied-min{
-    display: none !important;
-}
-
 /*Overview 768px*/
 @media screen and (max-width: 767.98px) {
     .btn-icon-eye:hover{
@@ -90,9 +86,9 @@
     .project-title{
         font-size: 1rem;
     }
-    #applied-min{
+    /* #applied-min{
     display: none !important;
-    }
+    } */
 }
 
 
@@ -102,12 +98,12 @@
         font-size: 0.6rem !important;
         padding-top: 0 !important;
     }
-    #applied-badge{
+    /* #applied-badge{
         display:none !important;
     }
     #applied-min{
         display: inline !important;
-    }
+    } */
     .project-title{
         font-size: 0.9rem;
     }
