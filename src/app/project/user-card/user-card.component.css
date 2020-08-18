@@ -4,16 +4,20 @@
 
 #avatar-img {
   border-color: #2787c4;
+  width: 3.5rem !important;
+  height: auto !important;
+  max-width: none;
+
+}
+
+.user-name{
+    margin-left: 1rem;
 }
 
 .column-title{
     color:#605c61;
     font-size: 1rem;
     text-align: left;
-}
-
-.date-text{
-    color:#605c61;
 }
 
 .card:hover{
@@ -28,6 +32,13 @@
     transition: 200ms;
 }
 
+/*Overview 992px*/
+@media only screen and (max-width: 991.99px) {
+    .user-name{
+        margin-left: 1.5rem !important;
+    }
+}
+
 /*Overview 768px*/
 @media only screen and (max-width: 767.99px) {
     #card-row{
@@ -38,43 +49,32 @@
     }
     #avatar-img{
         margin-left: 0.5rem !important;
-        width: 2.5rem !important;
-        height: 2.5rem !important;
+        width: 3.5rem !important;
+        height: auto !important;
     }
     .card:hover{
         box-shadow: none;
         transform: none;
         transition: none;
     }
-  }
-
-/*Overview 475px*/
-@media only screen and (max-width: 474.99px) {
-    #avatar-img{
-        width: 2rem !important;
-        height: 2rem !important;
-    }
     .user-name{
-        font-size: 0.9rem !important;
+        margin-left: 0rem !important;
     }
-    .date-text{
-        font-size: 0.85rem !important;
-    }
-}
+  }
 
 /*Overview 415*/
 @media only screen and (max-width: 414.99px) {
-    #avatar-img{
-    margin-left: 0.25rem !important;
-    width: 1.85rem !important;
-    height: 1.85rem !important;
+    .user-name{
+        margin-left: 0.5rem !important;
     }
 }
 
 /*Overview 375px*/
 @media only screen and (max-width: 374.99px) {
+    .user-name{
+        font-size: 1rem !important;
+    }
     #avatar-img{
-        width: 1.75rem !important;
-        height: 1.75rem !important;
-        }
+        width: 3rem !important;
+    }
 }
