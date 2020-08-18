@@ -39,26 +39,6 @@ export class EditProjectComponent implements OnInit {
     private messages: MessagesService,
     private userService: UserService
   ) {
-    const projectId = this.route.snapshot.params.id;
-    this.projectService.getProjectDetailByProfileType(this.userService.loggedUser.id, projectId).subscribe(
-      project => {
-        this.project = project;
-        this.dataChange = false;
-        this.countryDivisions = project.divisions;
-        this.editProjectForm = this.formBuilder.group({
-          projectTitle: [project.name, Validators.required],
-          projectResume: [project.description],
-          selectedServices: [project.services, Validators.required],
-          divisions: [project.divisions, Validators.required],
-          startDate: dateFromModel(project.startDateExpected),
-          onlineJob: !!project.remote
-        });
-        this.editProjectForm.valueChanges.subscribe(
-          () => this.dataChange = true
-
-        );
-      }
-    );
   }
 
   ngOnInit() {
@@ -79,9 +59,35 @@ export class EditProjectComponent implements OnInit {
         const activeProfile = user.profiles.find(profile => profile.userProfileType === role);
         this.activeProfileId = activeProfile.id;
         this.dashboardRoute = `/user/${user.id}/${activeProfile.userProfileType}`;
+        const projectId = this.route.snapshot.params.id;
+        this.initProjectForm(this.activeProfileId, projectId);
       }
     );
   }
+
+  private initProjectForm(profileId: number, projectId: number) {
+    this.projectService.getProjectDetailByProfileType(profileId, projectId).subscribe(
+      project => {
+        this.project = project;
+        this.dataChange = false;
+        this.countryDivisions = project.divisions;
+        this.editProjectForm = this.formBuilder.group({
+          projectTitle: [project.name, Validators.required],
+          projectResume: [project.description],
+          selectedServices: [project.services, Validators.required],
+          divisions: [project.divisions, Validators.required],
+          startDate: dateFromModel(project.startDateExpected),
+          onlineJob: !!project.remote
+        });
+        this.editProjectForm.valueChanges.subscribe(
+          () => this.dataChange = true
+
+        );
+      }
+    );
+
+  }
+
 
   customSearchFn(term: string, item: Service) {
     term = term.toLowerCase();
