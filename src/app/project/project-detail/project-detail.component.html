@@ -28,7 +28,7 @@
       </ng-container>
       <ng-template #playTemplate>
         <button class="btn col-5 col-md-2 mt-1 btn-space px-0 py-1 text-uppercase" id="edit-btn"
-          *ngIf="role === 'CLIENT'" type="button" data-toggle="tooltip" title="Edit Project" alt="Edit"
+          *ngIf="role === 'CLIENT' && project.state === 'NEW'" type="button" data-toggle="tooltip" title="Edit Project" alt="Edit"
           style=" background-color: #2888C7; color: white; border-radius: 0; width: 6.25rem;" (click)="onEditProject()">
           <i class="fas icon-user-edit" style="color:white;"></i>
           Edit
