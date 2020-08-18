@@ -57,8 +57,9 @@ li::before {
 }
 
 .column-title{
-  color:#605c61;
+  color:black;
   text-align: left;
+  font-size: 1.2rem;
 }
 
 /*Overview 768px*/
