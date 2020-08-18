@@ -1,8 +1,8 @@
 <div class="card col-12 mt-2 p-0" (click)="onCardClicked()">
-  <div class="row container-fluid" id="card-row">
+  <div class="row container-fluid mx-0" id="card-row">
     <div class="col-2 col-md-1 p-0 m-0" id="avatar-col">
       <ng-container *ngIf="!!userProfile.picture; else defaultPicture">
-        <img [src]="userPictureUrl" class="img img-fluid rounded-circle my-2 px-2" id="avatar-img" alt="">
+        <img [src]="userPictureUrl" class="img rounded-circle my-2 px-2" id="avatar-img" alt="">
       </ng-container>
       <ng-template #defaultPicture>
         <span class="icon-user-image m-2 p-2 container row"  alt=""
@@ -11,12 +11,9 @@
     </div>
 
     <div class="col p-0">
-      <p class="user-name text-left mt-2" style="color:#2888C7; font-weight: light; font-size: 1.2rem;">
+      <p class="user-name text-left mt-3" style="color:#2888C7; font-weight: light; font-size: 1.2rem;">
         {{userProfile.name}}
       </p>
-    </div>
-    <div class="col-5 col-md-3 text-right">
-      <p class="date-text mt-2">21 June 2020</p>
     </div>
   </div>
 </div>
