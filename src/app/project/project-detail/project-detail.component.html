@@ -13,13 +13,13 @@
     </div>
     <div class="col text-right">
       <ng-container *ngIf="(project.state === 'NEW' && role === 'SERVICE_PROVIDER'); else playTemplate">
-        <button class="btn col-5 col-md-2 mt-1 btn-space px-0 py-1 text-uppercase" id="apply-btn" [disabled]="!canApply"
+        <button class="btn col-3 col-md-2 mt-1 btn-space px-0 py-1 text-uppercase" id="apply-btn" [disabled]="!canApply"
           type="button" style=" background-color: #2888C7; color: white; border-radius: 0; width:6.25rem"
           (click)="onApply()">
           <i class="fas icon-aplicar"></i>
           Apply
         </button>
-        <button class="btn col-5 col-md-2 mt-1 btn-space px-0 py-1 text-uppercase" id="start-btn" type="button"
+        <button class="btn col-3 col-md-2 mt-1 btn-space px-0 py-1 text-uppercase" id="start-btn" type="button"
           [disabled]="!canStart" style=" background-color: #a1d173; color: white; border-radius: 0; width:6.25rem"
           (click)="onStartProjectExecution()">
           <i class="fas icon-comenzar"></i>
@@ -27,33 +27,33 @@
         </button>
       </ng-container>
       <ng-template #playTemplate>
-        <button class="btn col-5 col-md-2 mt-1 btn-space px-0 py-1 text-uppercase" id="edit-btn"
+        <button class="btn col-3 col-md-2 mt-1 btn-space px-0 py-1 text-uppercase" id="edit-btn"
           *ngIf="role === 'CLIENT' && project.state === 'NEW'" type="button" data-toggle="tooltip" title="Edit Project" alt="Edit"
           style=" background-color: #2888C7; color: white; border-radius: 0; width: 6.25rem;" (click)="onEditProject()">
           <i class="fas icon-user-edit" style="color:white;"></i>
           Edit
         </button>
-        <button class="btn col-5 col-md-3 mt-1 btn-space text-uppercase px-0 py-1" id="finish-prov-btn" type="button"
+        <button class="btn col-3 col-md-3 mt-1 btn-space text-uppercase px-0 py-1" id="finish-prov-btn" type="button"
           *ngIf="(project.state === 'PROGRESS' || project.state === 'NEW') && role === 'SERVICE_PROVIDER'"
           style=" background-color: #f99d6e; color: white; border-radius: 0; width:6.25rem;" data-toggle="modal"
           data-target="#finishProjectModal">
           <i class="fab icon-terminado"></i>
           Finish
         </button>
-        <button class="btn col-5 col-md-3 mt-1 btn-space text-uppercase px-0 py-1" id="finish-client-btn" type="button"
+        <button class="btn col-3 col-md-3 mt-1 btn-space text-uppercase px-0 py-1" id="finish-client-btn" type="button"
           (click)="onFinishClientProject()"
           *ngIf="(project.state === 'PROGRESS' || project.state === 'NEW') && role === 'CLIENT'"
           style=" background-color: #f99d6e; color: white; border-radius: 0; width:6.25rem;">
           <i class="fab icon-terminado"></i>
           Finish
         </button>
-        <button class="btn col-5 col-md-2 mt-1 btn-space px-0 py-1 text-uppercase" id="cancel-btn" type="button"
+        <button class="btn col-3 col-md-2 mt-1 btn-space px-0 py-1 text-uppercase" id="cancel-btn" type="button"
           *ngIf="project.state === 'PROGRESS' || project.state === 'NEW'"
           style=" background-color: #f15d5d; color: white; border-radius: 0; width: 6.25rem;" (click)="onCancel()">
           <i class="fas icon-cancelados"></i>
           Cancel
         </button>
-        <button class="btn col-5 col-md-3 mt-1 btn-space px-0 py-1 text-uppercase" id="finish-btn" type="button"
+        <button class="btn col-3 col-md-3 mt-1 btn-space px-0 py-1 text-uppercase" id="finish-btn" type="button"
           *ngIf="project.state === 'FINISH' && role === 'SERVICE_PROVIDER'"
           style=" background-color: #2888C7; color: white; border-radius: 0;" (click)="onCreateBriefcase()">
           <span class="icon-briefcase" style="font-size: larger; width:10rem"></span>&nbsp;

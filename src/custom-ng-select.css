@@ -230,7 +230,8 @@
 }
 
 .ng-select.ng-select-multiple .ng-select-container.ng-has-value {
-  align-items: center
+  align-items: center;
+  overflow: visible;
 }
 
 .ng-select.ng-select-multiple .ng-select-container.ng-has-value .ng-value-container {

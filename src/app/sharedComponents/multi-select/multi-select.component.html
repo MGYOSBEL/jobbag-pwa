@@ -29,7 +29,7 @@
           <div class="card col-12 h-100 px-0 mx-0" id="container">
 
             <div class="card-body w-100">
-              <ng-select [multiple]="true" [items]="countryDivisions" groupBy="parentId" [selectableGroup]="true"
+              <ng-select class="custom-ng-select p-0" [multiple]="true" [items]="countryDivisions" groupBy="parentId" [selectableGroup]="true"
                 [selectableGroupAsModel]="false" [(ngModel)]="selectedCountryDivisions"
                 placeholder="Select your regions" [closeOnSelect]="false" bindLabel="nameEs" bindValue="id">
                 <ng-template ng-optgroup-tmp let-item="item" let-item$="item$" let-index="index">
