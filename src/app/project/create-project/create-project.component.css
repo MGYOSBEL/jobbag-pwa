@@ -110,7 +110,8 @@
 /*Section Header Stepper*/
 .step-trigger{
   padding: 0px !important;
-  font-size: 50%;
+  /* font-size: 50%; */
+  align-items: unset;
 }
 
 .bs-stepper-label{
@@ -120,7 +121,7 @@
 .bs-stepper-circle{
   font-size: 0.5rem;
   color: #6c757d;
-  transition:0.3s;
+  transition:0.2s;
   font-weight: 0;
 }
 
