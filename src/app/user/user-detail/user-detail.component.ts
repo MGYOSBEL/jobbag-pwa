@@ -50,7 +50,7 @@ export class UserDetailComponent implements OnInit, OnDestroy, AfterViewInit {
   profileHeaderBgPosition: string;
   profileHeaderBgSize: string;
   showMore: boolean = true;
-
+  ngxScrollToOffset = -60;
   constructor(
     config: NgbRatingConfig,
     private router: Router,
@@ -74,7 +74,7 @@ export class UserDetailComponent implements OnInit, OnDestroy, AfterViewInit {
         this.editProfileRoute = `/user/${user.id}/${activeProfile.userProfileType}/edit`;
       }
     );
-    document.body.style.overflow = 'overlay';
+    // document.body.style.overflow = 'overlay';
   }
 
   ngOnInit() {

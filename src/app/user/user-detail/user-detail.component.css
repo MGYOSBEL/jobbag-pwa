@@ -16,9 +16,14 @@
   padding-right: 1rem;
   /* padding-bottom: 5rem; */
 }
-.user-container{
+/* .user-container{
   scroll-behavior:unset ;
   position: fixed;
+} */
+#section-nav-bar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 .user-name {
   font-size: 1.2rem;
