@@ -5,6 +5,8 @@
   border-bottom-width: 3px !important;
   box-shadow: #2985C4 !important;
   z-index: 1000;
+  position: sticky;
+  top:0;
 }
 
 .btn-link {
