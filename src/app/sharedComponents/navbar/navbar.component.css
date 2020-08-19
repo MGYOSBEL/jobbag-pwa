@@ -51,10 +51,11 @@ a, a:hover {
 }
 
 #user-image {
-  height: 3rem;
-  width: 3rem;
- object-fit: fill;
- cursor: pointer;
+  height: 2.5rem;
+  width: auto;
+  max-width: none;
+  object-fit: cover;
+  cursor: pointer;
 }
 
 .active{
@@ -65,44 +66,26 @@ a, a:hover {
   background-color:#ebeef3;
 }
 
-/*Overview 1280px*/
-@media screen and (max-width: 1279.98px) {
 .img-logo{
-  max-width: 50%!important;
-  }
-}
-
-/*Overview 1200px*/
-@media screen and (max-width: 1199.98px) {
-.img-logo{
-  max-width: 60%!important;
-  }
-}
-
- /*Overview 992px*/
-@media screen and (max-width: 991.98px) {
-.img-logo{
-  max-width: 75%!important;
-  }
-}
-
- /*Overview 890px*/
-@media screen and (max-width: 889.98px) {
+  max-width: none;
+  height: 2.0rem;
+  width: auto;
+  object-fit: contain;
 }
 
 /*Overview 768px*/
 @media screen and (max-width: 767.98px) {
-  .img-logo{
-    max-width: 100%!important;
-    }
-
-  #picture-col{
-   margin-left: 0.5rem;
-  }
+#picture-col{
+  margin-left: 0.5rem;
+}
 
 #user-col{
   margin-right: 0.75rem;
-  }
+}
+
+.dropdown-menu{
+  left: -1.75rem !important;
+}
 }
 
 /*Overview 640px*/
@@ -112,15 +95,12 @@ a, a:hover {
   }
 
 .dropdown-menu{
-  margin-left: -1rem;
+  left: -1rem;
 }
 }
 
 /*Overview 576px*/
 @media (max-width: 575.98px) {
-  .img-logo{
-    max-width: 80%!important;
-    }
   .col-6{
     padding-right: 0;
     padding-left: 0;
@@ -130,6 +110,11 @@ a, a:hover {
     padding-left: 0;
     padding-right: 0;
   }
+
+  .dropdown-menu{
+    left: -2rem !important;
+  }
+
   .justify-content-end{
     margin-left: 0 !important;
     margin-right: 0 !important;
@@ -146,13 +131,17 @@ a, a:hover {
 #user-col{
   margin-right: 1.50rem;
   }
+
+  .dropdown-menu{
+    left: -2.5rem !important;
+  }
 }
 
-/*Overview 415px*/
-@media screen and (max-width: 414.98px){
-  .img-logo{
-    max-width: 90%!important;
-  }
+/*Overview 376px*/
+@media screen and (max-width: 375.98px) {
+  #user-col{
+    margin-right: 1.75rem;
+    }
 }
 
 /*Overview 361px*/
