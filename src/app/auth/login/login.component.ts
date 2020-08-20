@@ -67,7 +67,7 @@ export class LoginComponent implements OnInit {
         if (this.authenticationService.isLoggedIn) {
           const user_id = this.authenticationService.getLoggedUserId();
           if (!!user_id) {
-            this.router.navigate([this.returnUrl, user_id, this.userService.role]);
+            this.router.navigate(['/']);
           }
         } else {
           this.loginErr = { err: true, message: data.text };

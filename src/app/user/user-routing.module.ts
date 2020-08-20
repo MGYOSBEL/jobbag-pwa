@@ -17,7 +17,7 @@ const userRoutes: Routes = [
   {
     path: '',
     canActivate: [AuthGuard],
-    resolve: { user: DashboardResolverService },
+    // resolve: { user: DashboardResolverService },
     children: [
       {
         path: 'profile',

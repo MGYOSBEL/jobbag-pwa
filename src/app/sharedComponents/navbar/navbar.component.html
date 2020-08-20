@@ -1,7 +1,7 @@
 <nav class="navbar container-fluid py-0 border-bottom shadow" [hidden]="hiddenNavbar">
   <div class="row container-fluid m-0 p-0">
-    <div class="col-5 col-xs-4 col-sm-3 navbar-brand mx-0">
-      <img class="img img-fluid col-12 img-logo" src="assets/logo/SVG/color.svg">
+    <div class="col-5 col-xs-4 col-sm-3 navbar-brand mx-0" style="cursor: pointer;" (click)="goHome()">
+      <img class="img img-fluid col-12 img-logo" src="assets/logo/SVG/color.svg" >
     </div>
     <!-- <div class="col-1 col-sm-3 mx-0">
     </div> -->
@@ -56,6 +56,8 @@
             </div>
           </ng-template>
           <div class="dropdown-divider"></div>
+          <a class="dropdown-item text-dark" [routerLink]="['user',userId,role]" routerLinkActive="active">
+            Dashboard</a>
           <a class="dropdown-item text-dark" [routerLink]="['user',userId,role,'edit']" routerLinkActive="active">Edit
             Profile</a>
           <a class="dropdown-item text-dark" [routerLink]="['user',userId,'password']" routerLinkActive="active">Change

@@ -42,8 +42,7 @@ export class UserService {
         this.userSubject.next(null);
         this.roleSubject.next(null);
       } else {
-        // this.userSubject.next(null);
-        // this.logger.log('new user emitted: ', this.userSubject.value);
+
       }
     });
 
@@ -87,9 +86,24 @@ export class UserService {
       }),
       tap((response: User) => {
         this.userSubject.next(response); // Emito el user y lo salvo en el storage
+        this.selectLoggedUserActiveProfile(response);
         this.userCacheService.setUser(response);
       })
     );
+  }
+
+  private selectLoggedUserActiveProfile(user: User) {
+    if (!! user.profiles.find(profile => profile.userProfileType === 'CLIENT')) {
+      this.roleSubject.next('CLIENT');
+      console.log('selectLoggedUserActiveProfile => CLIENT' );
+    } else if (!! user.profiles.find(profile => profile.userProfileType === 'SERVICE_PROVIDER')) {
+      this.roleSubject.next('SERVICE_PROVIDER');
+      console.log('selectLoggedUserActiveProfile => SERVICE_PROVIDER' );
+    } else {
+      this.roleSubject.next(null);
+      console.log('selectLoggedUserActiveProfile => NULL' );
+
+    }
   }
 
   recoverPassword(username: string) {

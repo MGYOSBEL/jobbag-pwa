@@ -9,6 +9,7 @@ import { TestComponent } from './test/test.component';
 import { UserDetailComponent } from './user/user-detail/user-detail.component';
 import { ProfileComponent } from './user/profile/profile.component';
 import { ProfileResolverService } from './user/services/profile-resolver.service';
+import { DashboardResolverService } from './user/services/dashboard-resolver.service';
 
 
 

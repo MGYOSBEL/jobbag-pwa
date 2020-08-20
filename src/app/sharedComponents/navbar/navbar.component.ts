@@ -64,7 +64,7 @@ export class NavbarComponent implements OnInit {
 
     this.userService.role$.subscribe(
       role => {
-        if (role) {
+        if (role != null) {
           this.onUserEvent(this.loggedUser, role);
         }
       }
@@ -104,12 +104,15 @@ export class NavbarComponent implements OnInit {
 
   toServiceProvider() {
     this.userService.role = 'SERVICE_PROVIDER';
-    this.router.navigateByUrl(`/user/${this.loggedUser.id}/SERVICE_PROVIDER`);
+    // this.router.navigateByUrl(`/user/${this.loggedUser.id}/SERVICE_PROVIDER`);
   }
 
   toClient() {
     this.userService.role = 'CLIENT';
-    this.router.navigateByUrl(`/user/${this.loggedUser.id}/CLIENT`);
+    // this.router.navigateByUrl(`/user/${this.loggedUser.id}/CLIENT`);
+  }
+  goHome() {
+    this.router.navigate(['']);
   }
 
   createProvider() {
@@ -131,7 +134,7 @@ export class NavbarComponent implements OnInit {
         !!(user.profiles.find(profile => profile.userProfileType === 'SERVICE_PROVIDER')),
       ];
     }
-    if (role) {
+    if (role != null) {
       this.role = role;
     }
 
