@@ -177,9 +177,9 @@
       <div class="row row-cols-md-3" *ngIf="userProfile.briefcases != [] && screenWidth$ | async">
         <div class="col-xs-6 col-md-3" *ngFor="let briefcase of userProfile.briefcases; let i = index"
           [ngClass]="i >= initialShownWorks ? 'collapse' : ''" data-toggle="modal" data-target="#briefcaseDetailsModal">
-          <app-briefcase-card class="img img-briefcase" style="height: 12rem"
+          <app-briefcase-card class="img img-briefcase" style="height: 12rem" [editable]="false"
             [params]="{id: briefcase.id, picture: briefcase.pictures != null ? apiPublic + briefcase.pictures[0] : null, verified: true, description: briefcase.description}"
-            (viewDetail)="onBriefcaseDetail($event)">
+            (action)="onBriefcaseCardAction($event)">
           </app-briefcase-card>
         </div>
       </div>

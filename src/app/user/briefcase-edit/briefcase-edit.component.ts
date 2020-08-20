@@ -32,6 +32,7 @@ export class BriefcaseEditComponent implements OnInit {
   pictures$: Observable<string[]> = this.picturesSubject.asObservable(); // adding pictures array to briefcase
   opSucceed: boolean;
   apiPublic: string; // URL of the public folder in the API
+  targetModal: string;
 
   constructor(
     private briefcaseService: BriefcaseService,
@@ -67,6 +68,26 @@ export class BriefcaseEditComponent implements OnInit {
   // ADD BRIEFCASES SECTION
   addBriefcase() {
     this.resetForm();
+  }
+
+  onBriefcaseCardAction({action, id}, index) {
+    switch (action) {
+      case 'detail':
+        this.targetModal = '#briefcaseDetailsModal';
+        // this.onBriefcaseDetail(id);
+        break;
+      case 'edit':
+        this.targetModal = '#exampleModalCenter';
+        this.editBriefcase(index);
+        break;
+      case 'delete':
+        this.targetModal = '#deleteBriefcaseModal';
+        this.selectBriefcaseToDelete(index);
+        // this.onBriefcaseDetail(id);
+        break;
+      default:
+        break;
+    }
   }
 
   saveBriefCase() {

@@ -15,8 +15,9 @@ export class BriefcaseCardComponent implements OnInit {
     description: string;
   };
 
+  @Input() editable = false;
   @Output()
-  viewDetail = new EventEmitter<number>();
+  action = new EventEmitter<{action: 'edit' | 'delete' | 'detail', id: number}>();
 
   constructor() { }
 
@@ -24,7 +25,14 @@ export class BriefcaseCardComponent implements OnInit {
   }
 
   onBriefcaseDetail() {
-    this.viewDetail.emit(this.params.id);
+    this.action.emit({action: 'detail', id: this.params.id});
   }
-
+  onBriefcaseEdit() {
+    console.log('edit briefcase');
+    this.action.emit({action: 'edit', id: this.params.id});
+  }
+  onBriefcaseDelete() {
+    console.log('delete briefcase');
+    this.action.emit({action: 'delete', id: this.params.id});
+  }
 }

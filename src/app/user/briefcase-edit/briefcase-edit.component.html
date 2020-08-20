@@ -53,7 +53,7 @@
   <!-- <div class="col-3 mx-auto mt-3 text-center bc-card-col" > -->
     <app-briefcase-card class="col" [style.height]="cardHeight+'rem'" style="margin-bottom: 3rem;" *ngFor="let briefcase of briefcases; let i=index"
     [params]="{id: briefcase.id, picture: parsePictureUrl(briefcase.pictures[0]), verified: false, description: briefcase.description}"
-    >
+    data-toggle="modal" [attr.data-target]="targetModal" (action)="onBriefcaseCardAction($event, i)" [editable]="true">
   </app-briefcase-card>
     <!-- <div class="card my-0" style="border:transparent">
       <div class="row" style="background-color: #2982c1;margin-left: 0;margin-right: 0;">

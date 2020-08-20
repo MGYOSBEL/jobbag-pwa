@@ -50,7 +50,9 @@ export class UserDetailComponent implements OnInit, OnDestroy, AfterViewInit {
   profileHeaderBgPosition: string;
   profileHeaderBgSize: string;
   showMore: boolean = true;
-  ngxScrollToOffset = -60;
+  ngxScrollToOffset = -70;
+  targetModal: string;
+
   constructor(
     config: NgbRatingConfig,
     private router: Router,
@@ -156,6 +158,16 @@ export class UserDetailComponent implements OnInit, OnDestroy, AfterViewInit {
   getServicesName(projectServices: number[]) {
     const servs = this.services.filter(service => projectServices.includes(service.id));
     return servs.map(service => service.descriptionEs);
+  }
+  onBriefcaseCardAction({action, id}) {
+    switch (action) {
+      case 'detail':
+        this.targetModal = '#briefcaseDetailsModal';
+        this.onBriefcaseDetail(id);
+        break;
+      default:
+        break;
+    }
   }
 
   onBriefcaseDetail(briefcaseId: number) {

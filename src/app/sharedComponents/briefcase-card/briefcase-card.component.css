@@ -27,7 +27,7 @@ margin: 0.5rem 0.25rem 0.5rem;
 }
 
 .reveal{
-pointer-events: none;
+pointer-events: stroke;
 }
 
 .blue {
@@ -55,6 +55,15 @@ pointer-events: none;
 .icon-eye{
     color: white;
     font-size: 2rem;
+    cursor: pointer;
+}
+.fa-trash-alt,
+.fa-edit {
+    color: white;
+    font-size: 1.5rem;
+    padding-top: 10%;
+    cursor: pointer;
+    z-index: 5;
 }
 
 /* .col-verified-badge{

@@ -1,5 +1,5 @@
 <ng-container>
-  <div class="card card-hover rounded-0 border-0" (click)="onBriefcaseDetail()">
+  <div class="card card-hover rounded-0 border-0" >
     <ng-container *ngIf="!!params.picture; else defaultTemplate">
       <img [src]="params.picture" class="img img-briefcase">
     </ng-container>
@@ -9,8 +9,16 @@
       </div>
     </ng-template>
     <div class="blue m-0 p-0"></div>
-    <div class="col reveal">
-      <i class="fas icon-eye"></i>
+    <div class="col reveal" >
+      <i class="fas icon-eye" (click)="onBriefcaseDetail()"></i>
+      <div class="row mx-0 border-top justify-content-around mt-4" *ngIf="editable">
+        <div class="col-2" >
+          <i class="fas fa-edit" (click)="onBriefcaseEdit()"></i>
+        </div>
+        <div class="col-2" (click)="onBriefcaseDelete()">
+          <i class="fas fa-trash-alt"></i>
+        </div>
+      </div>
     </div>
   </div>
   <div class="card-footer py-0 mb-3 rounded-0 border-0">
