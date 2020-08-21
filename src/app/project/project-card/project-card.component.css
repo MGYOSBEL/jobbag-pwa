@@ -23,7 +23,13 @@
     transition: opacity 1s ease;
 }
 
-.card-selected {
+.card-selected .reveal{
+    visibility: visible;
+    opacity: 10;
+    transition: opacity 1s ease;
+}
+
+.card-selected{
   box-shadow: 0 11px 11px 0 rgba(0, 0, 0,.16);
   transform: translateY(-2px);
   transform: translateX(5px);
@@ -32,6 +38,9 @@
   border-radius: 0;
   border-color: #bcbebc;
   transition: 200ms;
+  visibility: visible;
+  opacity: 10;
+  transition: opacity 1s ease;
 }
 
 .vertical-align{
