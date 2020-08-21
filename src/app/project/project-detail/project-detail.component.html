@@ -15,13 +15,13 @@
       <ng-container *ngIf="(project.state === 'NEW' && role === 'SERVICE_PROVIDER'); else playTemplate">
         <button class="btn col-3 col-md-2 mt-1 btn-space px-0 py-1 text-uppercase" id="apply-btn" [disabled]="!canApply"
           type="button" style=" background-color: #2888C7; color: white; border-radius: 0; width:6.25rem"
-          (click)="onApply()">
+          data-toggle="modal" data-target="#confirmActionModal" (click)="actionSelected = 'Apply'">
           <i class="fas icon-aplicar"></i>
           Apply
         </button>
         <button class="btn col-3 col-md-2 mt-1 btn-space px-0 py-1 text-uppercase" id="start-btn" type="button"
           [disabled]="!canStart" style=" background-color: #a1d173; color: white; border-radius: 0; width:6.25rem"
-          (click)="onStartProjectExecution()">
+          data-toggle="modal" data-target="#confirmActionModal" (click)="actionSelected = 'Start'">
           <i class="fas icon-comenzar"></i>
           Start
         </button>
@@ -29,7 +29,8 @@
       <ng-template #playTemplate>
         <button class="btn col-3 col-md-2 mt-1 btn-space px-0 py-1 text-uppercase" id="edit-btn"
           *ngIf="role === 'CLIENT' && project.state === 'NEW'" type="button" data-toggle="tooltip" title="Edit Project" alt="Edit"
-          style=" background-color: #2888C7; color: white; border-radius: 0; width: 6.25rem;" (click)="onEditProject()">
+          style=" background-color: #2888C7; color: white; border-radius: 0; width: 6.25rem;"
+          (click)="onEditProject()">
           <i class="fas icon-user-edit" style="color:white;"></i>
           Edit
         </button>
@@ -41,15 +42,16 @@
           Finish
         </button>
         <button class="btn col-3 col-md-3 mt-1 btn-space text-uppercase px-0 py-1" id="finish-client-btn" type="button"
-          (click)="onFinishClientProject()"
           *ngIf="(project.state === 'PROGRESS' || project.state === 'NEW') && role === 'CLIENT'"
-          style=" background-color: #f99d6e; color: white; border-radius: 0; width:6.25rem;">
+          style=" background-color: #f99d6e; color: white; border-radius: 0; width:6.25rem;"
+          data-toggle="modal" data-target="#confirmActionModal" (click)="actionSelected = 'Finish'">
           <i class="fab icon-terminado"></i>
           Finish
         </button>
         <button class="btn col-3 col-md-2 mt-1 btn-space px-0 py-1 text-uppercase" id="cancel-btn" type="button"
           *ngIf="project.state === 'PROGRESS' || project.state === 'NEW'"
-          style=" background-color: #f15d5d; color: white; border-radius: 0; width: 6.25rem;" (click)="onCancel()">
+          style=" background-color: #f15d5d; color: white; border-radius: 0; width: 6.25rem;"
+          data-toggle="modal" data-target="#confirmActionModal" (click)="actionSelected = 'Cancel'">
           <i class="fas icon-cancelados"></i>
           Cancel
         </button>
@@ -194,4 +196,36 @@
       </div>
     </div>
   </ng-container>
+</div>
+
+<div class="modal fade rounded-0" id="confirmActionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered rounded-0" role="document">
+    <div class="modal-content rounded-0 border-0">
+      <div class="modal-header rounded-0" style="background-color: #2888C7; color: white;">
+        <label>Action Confirmation</label>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div *ngIf="actionSelected ==='Apply'" class="modal-body rounded-0">
+        Are you sure you want to Apply to the project "{{project.name}}".
+      </div>
+      <div *ngIf="actionSelected ==='Start'" class="modal-body rounded-0">
+        Are you sure you want to Start the project "{{project.name}}".
+      </div>
+      <div *ngIf="actionSelected ==='Cancel'" class="modal-body rounded-0">
+        Are you sure you want to Cancel the project "{{project.name}}".
+      </div>
+      <div *ngIf="actionSelected ==='Finish'" class="modal-body rounded-0">
+        Are you sure you want to Finish the project "{{project.name}}".
+      </div>
+      <div class="modal-footer rounded-0">
+        <button type="button" class="btn btn-previous rounded-0" data-dismiss="modal"
+          style="background-color: #bfbdbe;color: #2880a9;">Cancel</button>
+        <button type="button" class="btn btn-send rounded-0" data-dismiss="modal"
+          style="background-color: #2888C7;color: white;" (click)="selectProjectAction()">Accept</button>
+      </div>
+    </div>
+  </div>
 </div>

@@ -34,7 +34,7 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
       action: 'APPLY' | 'START' | 'FINISH' | 'CANCEL' | 'BRIEFCASE' | 'FINISH_CLIENT' | 'CANCEL_CLIENT'
     }>();
 
-
+  actionSelected: string;
   countries: Country[];
   services: Service[];
   // projectOwner: boolean = true;
@@ -150,6 +150,25 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
   onUserCardClicked(userProfileId: number) {
     localStorage.setItem('activeProject', JSON.stringify(this.project));
     this.router.navigate(['/user/profile', userProfileId]);
+  }
+
+  selectProjectAction(){
+    switch (this.actionSelected) {
+      case "Apply":
+        this.onApply();
+        break;
+      case "Start":
+        this.onStartProjectExecution();
+        break;
+      case "Cancel":
+        this.onCancel();
+        break;
+      case "Finish":
+        this.onFinishClientProject();
+        break;
+      default:
+        break;
+    }
   }
 
 }
