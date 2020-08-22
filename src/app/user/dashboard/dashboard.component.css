@@ -7,14 +7,14 @@
 }
 
 .nav{
-  border-bottom-width: 4px;
+  border-bottom-width: 2px;
   border-bottom-color: #2787C4;
 }
 
 .nav-item{
   background-color: #bebcbe;
   color: #605c61;
-  margin-bottom: 10px;
+  margin-bottom: 6px;
 }
 
 .navitem-container{

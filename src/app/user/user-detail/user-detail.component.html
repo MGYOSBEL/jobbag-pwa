@@ -78,44 +78,50 @@
       <div class="col-12 px-4" id="padded-col" style="background-color: white;">
         <div class="btn-group btn-group-toggle" data-toggle="buttons">
           <label class="btn btn-index active" id="btn-description">
-            <input type="radio" name="options" id="description" [ngxScrollTo]="'#descriptionSection'" [ngxScrollToOffset]="ngxScrollToOffset" checked>
+            <input type="radio" name="options" id="description" [ngxScrollTo]="'#descriptionSection'"
+              [ngxScrollToOffset]="ngxScrollToOffset" checked>
             Description
           </label>
           <label class="btn btn-index" id="btn-services">
-            <input type="radio" name="options" id="services" [ngxScrollTo]="'#servicesSection'" [ngxScrollToOffset]="ngxScrollToOffset"> Services
+            <input type="radio" name="options" id="services" [ngxScrollTo]="'#servicesSection'"
+              [ngxScrollToOffset]="ngxScrollToOffset"> Services
           </label>
           <label class="btn btn-index" id="btn-locations">
-            <input type="radio" name="options" id="locations" [ngxScrollTo]="'#locationsSection'" [ngxScrollToOffset]="ngxScrollToOffset"> Locations
+            <input type="radio" name="options" id="locations" [ngxScrollTo]="'#locationsSection'"
+              [ngxScrollToOffset]="ngxScrollToOffset"> Locations
           </label>
           <label class="btn btn-index" id="btn-works">
-            <input type="radio" name="options" id="works" [ngxScrollTo]="'#worksSection'" [ngxScrollToOffset]="ngxScrollToOffset"> Works
+            <input type="radio" name="options" id="works" [ngxScrollTo]="'#worksSection'"
+              [ngxScrollToOffset]="ngxScrollToOffset"> Works
           </label>
           <label class="btn btn-index" id="btn-reviews">
-            <input type="radio" name="options" id="reviews" [ngxScrollTo]="'#reviewsSection'" [ngxScrollToOffset]="ngxScrollToOffset"> Reviews
+            <input type="radio" name="options" id="reviews" [ngxScrollTo]="'#reviewsSection'"
+              [ngxScrollToOffset]="ngxScrollToOffset"> Reviews
           </label>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="row mb-5 px-1 px-sm-3 px-md-5 mx-0">
-    <div class="col-12 pt-3" id="descriptionSection">
-        <div class="card rounded-0 border-0">
-          <div class="card-body rounded-0 border-0" style="background-color: #f1f1f1;">
-            <p style="text-align: justify;">
-              {{userProfile.comment}}
-            </p>
-          </div>
+  <div class="col-12 mb-5 px-1 px-sm-3 px-md-5 mx-0">
+    <div class="row pt-3" id="descriptionSection">
+      <div class="card rounded-0 border-0">
+        <div class="card-body rounded-0 border-0">
+          <p style="text-align: justify;">
+            {{userProfile.comment}}
+          </p>
+        </div>
       </div>
     </div>
-    <div class="col-12 pt-3" id="servicesSection">
-      <div class="card rounded-0 border-0">
-        <div class="card-header rounded-0 border-0" style="font-weight: bold; color:#605c61;">
-          Services
-        </div>
-        <div class="card-body rounded-0 border-0" style="background-color: #f1f1f1;">
-          <div style="font-size:small">
-            <ul class="pl-0">
+    <hr>
+    <div class="row pt-3" id="servicesSection">
+      <div class="col m-0 p-0">
+        <p style="font-size: 1.2rem; color: #605c61;"><i class="fas fa-wrench"
+            style="font-size: 1.5rem; color:#605c61;"></i>
+          Services</p>
+        <div class="rounded-0 border-0">
+          <div>
+            <ul>
               <li *ngFor="let service of servicesName">
                 {{service}}
               </li>
@@ -124,60 +130,61 @@
         </div>
       </div>
     </div>
-    <div class="col-12 pt-3" id="locationsSection">
-      <div class="card rounded-0 border-0 mt-3">
-        <div class="card-header rounded-0 border-0" style="font-weight: bold; color: #605c61;">
-          Locations
-        </div>
+    <hr>
+    <div class="row pt-3" id="locationsSection">
+      <div class="col m-0 p-0">
+        <p style="font-size: 1.2rem; color: #605c61;"><i class="fa fa-globe"
+          style="font-size: 1.5rem; color:#605c61;"></i>
+        Locations</p>
 
-        <div class="accordion" id="accordionExample">
-          <div class="card border-0 rounded-0" *ngIf="!!userProfile.remoteWork"
-            style="border-bottom: 1px dotted #605c61 !important;">
-            <div class="row card-header country-header py-0  justify-content-between">
-              <div class="col m-0 p-0">
+      <div class="accordion" id="accordionExample">
+        <div class="border-0 rounded-0" *ngIf="!!userProfile.remoteWork">
+          <div class="row country-header py-0  justify-content-between">
+            <div class="col">
+              <p class="border-0 m-0 py-2 px-2" style="color: #605c61;">
+                <small>(Open to Remote Jobs)</small>
+              </p>
+            </div>
+          </div>
+        </div>
+        <ng-container *ngFor="let country of divisionsName; let i = index">
+          <div class="border-0 rounded-0" *ngIf="country.divisions.length != 0">
+            <div class="collapsed country-header py-0 row justify-content-between" [id]="'heading'+i"
+              data-toggle="collapse" [attr.data-target]="'#collapse'+i" aria-expanded="false"
+              [attr.aria-controls]="'collapse'+i">
+              <div class="col">
                 <p class="border-0 m-0 py-2 px-2" style="color: #605c61;">
-                  <small>Open to Remote Jobs</small>
+                  {{country.name}}<small>({{country.divisions.length}})</small>
                 </p>
+              </div>
+              <div class="col m-0 py-2 px-2 text-right">
+                <i class="fa fa-angle-down" aria-hidden="true"></i>
+              </div>
+            </div>
+            <div [id]="'collapse'+i" class="collapse" [attr.aria-labelledby]="'heading'+i"
+              data-parent="#accordionExample">
+              <div class="country-body">
+                <div>
+                  <ul>
+                    <li *ngFor="let division of country.divisions">
+                      {{division.nameEs}}
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
-          <ng-container *ngFor="let country of divisionsName; let i = index">
-            <div class="card border-0 rounded-0" *ngIf="country.divisions.length != 0">
-              <div class="card-header collapsed country-header py-0 row justify-content-between" [id]="'heading'+i"
-                data-toggle="collapse" [attr.data-target]="'#collapse'+i" aria-expanded="false"
-                [attr.aria-controls]="'collapse'+i">
-                <div class="col m-0 p-0">
-                  <p class="border-0 m-0 py-2 px-2" style="color: #605c61;">
-                    {{country.name}}<small>({{country.divisions.length}})</small>
-                  </p>
-                </div>
-                <div class="col m-0 py-2 px-2 text-right">
-                  <i class="fa fa-angle-down" aria-hidden="true"></i>
-                </div>
-              </div>
-              <div [id]="'collapse'+i" class="collapse" [attr.aria-labelledby]="'heading'+i"
-                data-parent="#accordionExample">
-                <div class="card-body country-body">
-                  <div style="font-size:small">
-                    <ul class="pl-0">
-                      <li *ngFor="let division of country.divisions">
-                        {{division.nameEs}}
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </ng-container>
-        </div>
-      </div>
+        </ng-container>
+      </div>      </div>
+
     </div>
-    <div class="col-12 pt-3" id="worksSection">
+    <hr>
+    <div class="row pt-3" id="worksSection">
       <p style="font-size: 1.2rem; color: #605c61;"><i class="fa fa-briefcase"
           style="font-size: 1.5rem; color:#605c61;"></i>
         Works</p>
     </div>
-    <div class="col-12">
+    <div class="row">
       <div class="row row-cols-md-3" *ngIf="userProfile.briefcases != [] && screenWidth$ | async">
         <div class="col-xs-6 col-md-3" *ngFor="let briefcase of userProfile.briefcases; let i = index"
           [ngClass]="i >= initialShownWorks ? 'collapse' : ''" data-toggle="modal" data-target="#briefcaseDetailsModal">
@@ -196,7 +203,8 @@
         <hr class="my-0 py-0" style="border-bottom: solid 2px #f1f1f1;">
       </div>
     </div>
-    <div class="col-12 pl-3 pt-3" id="padded-col" style="display: inline-block;" id="reviewsSection">
+    <hr>
+    <div class="row pt-3" id="padded-col" style="display: inline-block;" id="reviewsSection">
       <p style="font-size: 1.2rem; color: #605c61;"><i class="fab fa-telegram-plane"
           style="font-size: 1.5rem; color:#605c61;"></i>
         Reviews</p>

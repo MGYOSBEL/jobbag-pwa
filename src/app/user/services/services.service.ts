@@ -23,11 +23,9 @@ export class ServicesService {
 
     authenticationService.isLoggedIn$.pipe(
       filter(loggedin => loggedin === true),
-      switchMapTo(this.getAll()
-        .pipe(
-          tap( services => this.subject.next(services)
-          ))
-      )
+      switchMapTo(this.getAll())
+    ).subscribe(
+      services => this.subject.next(services)
     );
 
     // this.getAll().subscribe(

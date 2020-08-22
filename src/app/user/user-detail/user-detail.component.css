@@ -5,7 +5,9 @@
   height: 9rem;
   object-fit: cover;
 }
-
+hr {
+  border-top-color:  rgba(0, 0, 0, 0.05)
+}
 .col-user-data {
   margin-bottom: 0.25rem !important;
 }
@@ -45,7 +47,7 @@
   padding-bottom: 0;
 }
 
-ul {
+/* ul {
   display: block;
 }
 
@@ -56,16 +58,16 @@ li {
 li::before {
   content: "\2022";
   margin: 0 4px 0px 8px;
-}
+} */
 
 .country-header {
   cursor: pointer;
-  background-color: #f1f1f1;
+  /* background-color: #f1f1f1; */
   color: #2787c4;
   border-top: slategray;
 }
 .country-body {
-  background-color: #f1f1f1;
+  /* background-color: #f1f1f1; */
 }
 
 .star {
