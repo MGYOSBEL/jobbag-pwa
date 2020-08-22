@@ -157,6 +157,10 @@
   height: 100%;
 }
 
+::placeholder {
+  color: #6c757d;
+}
+
 /*Container columnBar*/
 .scroll-host {
   height: 29.3rem;
