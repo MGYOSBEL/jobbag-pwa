@@ -173,9 +173,20 @@ export class ProjectActionBarComponent implements OnInit {
   dateFilterInit() {
     if (!!this.dateFilter) {
       this.dateFilter.forEach(date => {
-        this.dateFilterList.push(`Last ${date === 1 ? '' : date} ${date === 1 ? 'month' : 'months'}`);
+        this.dateFilterList.push(this.mapMonthsToString(date));
       }
       );
+    }
+  }
+
+  mapMonthsToString(months: number): string {
+    switch (months) {
+      case 1:
+        return 'Last month';
+      case 12:
+        return 'Last year';
+      default:
+        return `Last ${months} months`;
     }
   }
 
