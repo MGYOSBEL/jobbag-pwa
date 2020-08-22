@@ -161,16 +161,16 @@
         </button>
       </div>
       <div *ngIf="actionSelected ==='Apply'" class="modal-body rounded-0">
-        Are you sure you want to Apply to the project "".
+        Are you sure you want to Apply to the project "{{previewProject.name}}".
       </div>
       <div *ngIf="actionSelected ==='Start'" class="modal-body rounded-0">
-        Are you sure you want to Start the project "".
+        Are you sure you want to Start the project "{{previewProject.name}}".
       </div>
       <div *ngIf="actionSelected ==='Cancel'" class="modal-body rounded-0">
-        Are you sure you want to Cancel the project "".
+        Are you sure you want to Cancel the project "{{previewProject.name}}".
       </div>
       <div *ngIf="actionSelected ==='Finish'" class="modal-body rounded-0">
-        Are you sure you want to Finish the project "".
+        Are you sure you want to Finish the project "{{previewProject.name}}".
       </div>
       <div class="modal-footer rounded-0">
         <button type="button" class="btn btn-previous rounded-0" data-dismiss="modal"
