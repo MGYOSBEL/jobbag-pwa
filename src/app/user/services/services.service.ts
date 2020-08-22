@@ -3,9 +3,10 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, throwError, BehaviorSubject } from 'rxjs';
 import { APIResponse } from '@app/models/app.model';
 import { environment } from '@environments/environment';
-import { map, catchError, tap } from 'rxjs/operators';
+import { map, catchError, tap, filter, switchMapTo } from 'rxjs/operators';
 import { Service } from '../models/services.model';
 import { LoggingService } from '@app/services/logging.service';
+import { AuthenticationService } from '@app/auth/services/authentication.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,12 +17,22 @@ export class ServicesService {
   services$ = this.subject.asObservable();
 
   constructor(
-    private logger: LoggingService,
+    private authenticationService: AuthenticationService,
     private http: HttpClient
   ) {
-    this.getAll().subscribe(
-      services => this.subject.next(services)
+
+    authenticationService.isLoggedIn$.pipe(
+      filter(loggedin => loggedin === true),
+      switchMapTo(this.getAll()
+        .pipe(
+          tap( services => this.subject.next(services)
+          ))
+      )
     );
+
+    // this.getAll().subscribe(
+    //   services => this.subject.next(services)
+    // );
    }
 
   getAll(): Observable<Service[]> {

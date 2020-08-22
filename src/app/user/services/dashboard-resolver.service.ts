@@ -64,7 +64,6 @@ export class DashboardResolverService implements Resolve<User> {
         })
       );
     } else {
-      console.log('resolver detects loggedOut');
       return EMPTY;
     }
 
