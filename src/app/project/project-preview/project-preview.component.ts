@@ -46,7 +46,7 @@ export class ProjectPreviewComponent implements OnInit {
   canStart: boolean;
   divisionsName: string[] = [];
   servicesName: string[] = [];
-
+  actionSelected: string;
 
   constructor(
     // private candidateProjectService: CandidateProjectService,
@@ -155,6 +155,25 @@ export class ProjectPreviewComponent implements OnInit {
 
   onEditProject() {
     this.router.navigateByUrl(`/project/${this.previewProject.id}/edit`);
+  }
+
+  selectProjectAction(){
+    switch (this.actionSelected) {
+      case "Apply":
+        this.onApply();
+        break;
+      case "Start":
+        this.onStartProjectExecution();
+        break;
+      case "Cancel":
+        this.onCancel();
+        break;
+      case "Finish":
+        this.onFinishClientProject();
+        break;
+      default:
+        break;
+    }
   }
 
 
