@@ -17,7 +17,7 @@
             class="fas icon-eye" style="color: #bebcbe; display: inline; font-size: 1rem;"
             (click)="viewDetails()"></i></button>
         </div>
-        <div *ngIf="this.project.interest ===true" class="col px-0 text-right mt-2" id="applied-badge" style="display: inline-block;">
+        <div *ngIf="this.project.interest ===true" class="col px-0 text-right mt-2 reveal" id="applied-badge" style="display: inline-block;">
           <p class="badge text-uppercase mb-0" style="color:#bebcbe; font-weight: 500; font-size: 1rem;">
             <i class="icon-aplicado" style="color:#bebcbe; font-size: 1.2rem;"></i>
             Applied &nbsp;</p>
@@ -32,7 +32,7 @@
     </div>
   </div>
   <div class="row mx-0">
-    <div class="col-9 px-0">
+    <div class="col px-0">
       <p class="text-mute ml-2 mb-0" style="color:#bebcbe; font-weight: light; font-size: 0.8rem;">
         {{project.creationDate}}</p>
     </div>

@@ -4,7 +4,8 @@
       <div class="row" style="background-color:#f7f8f9; margin: 0rem;">
         <div class="col-md-12 rounded-0 p-0">
           <div class="mt-0 py-3" id="add-bc-row" style="background-color: white; padding: 2rem;">
-            <p class="font-weight-bold text-uppercase text-center" style="color:#2888c7">Add Job to your portfolio</p>
+            <p class="text-uppercase ml-3" style="color:black; font-size: 1.2rem;">Add Project execution to your
+              Briefcase</p>
             <form [formGroup]="briefcaseEditForm">
               <div class="mb-3">
                 <div class="modal-body mt-0 p-0">
@@ -12,7 +13,7 @@
                     <div class="mb-3 my-0 py-0 col-12" id="bc-content-col">
                       <input
                         [ngClass]="briefcaseEditForm.get('description').invalid && (briefcaseEditForm.get('description').dirty || briefcaseEditForm.get('description').touched) ? 'is-invalid' : '' "
-                        class="form-control input-lg rounded-0 font-weight-bold" formControlName="description" id="briefcaseTitle"
+                        class="form-control input-lg rounded-0" formControlName="description" id="briefcaseTitle"
                         placeholder="Enter a title for your Job" required>
                         <!-- <label style="font-weight: 100;" for="briefcaseTitle">Enter a title for your Job</label> -->
                       <div class="invalid-feedback">
@@ -172,7 +173,8 @@
             <div class="row" style="background-color:#f7f8f9; margin: 0rem;">
               <div class="col-md-12 rounded-0 p-0">
                 <div class="mt-0 py-3" style=" background-color: white; padding: 2rem;">
-                  <p class="font-weight-bold text-uppercase text-center" style="color:#2888c7">Add Job to your portfolio</p>
+                  <p class="text-uppercase ml-3" style="color:black; font-size: 1.2rem;">Add Project execution to your
+                    Briefcase</p>
                   <form [formGroup]="briefcaseEditForm">
                     <div class="mb-3">
                       <div class="modal-body mt-0 p-0">
@@ -180,7 +182,7 @@
                           <div class="mb-3 my-0 py-0 col-12">
                             <input
                               [ngClass]="briefcaseEditForm.get('description').invalid && (briefcaseEditForm.get('description').dirty || briefcaseEditForm.get('description').touched) ? 'is-invalid' : '' "
-                              class="form-control input-lg rounded-0 font-weight-bold" formControlName="description" id="briefcaseTitle"
+                              class="form-control input-lg rounded-0" formControlName="description" id="briefcaseTitle"
                               placeholder="Enter a title for your Job" required>
                               <!-- <label style="font-weight: 100;" for="briefcaseTitle">Enter a title for your Job</label> -->
                             <div class="invalid-feedback">
