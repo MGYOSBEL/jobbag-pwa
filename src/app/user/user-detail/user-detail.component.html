@@ -104,7 +104,7 @@
   </div>
 
   <div class="col-12 mb-5 px-1 px-sm-3 px-md-5 mx-0">
-    <div class="row pt-3" id="descriptionSection">
+    <div class="row mx-0 pt-3" id="descriptionSection">
       <div class="card rounded-0 border-0">
         <div class="card-body rounded-0 border-0">
           <p style="text-align: justify;">
@@ -114,7 +114,7 @@
       </div>
     </div>
     <hr>
-    <div class="row pt-3" id="servicesSection">
+    <div class="row mx-0 pt-3" id="servicesSection">
       <div class="col m-0 p-0">
         <p style="font-size: 1.2rem; color: #605c61;"><i class="fas fa-wrench"
             style="font-size: 1.5rem; color:#605c61;"></i>
@@ -131,7 +131,7 @@
       </div>
     </div>
     <hr>
-    <div class="row pt-3" id="locationsSection">
+    <div class="row mx-0 pt-3" id="locationsSection">
       <div class="col m-0 p-0">
         <p style="font-size: 1.2rem; color: #605c61;"><i class="fa fa-globe"
           style="font-size: 1.5rem; color:#605c61;"></i>
@@ -179,13 +179,13 @@
 
     </div>
     <hr>
-    <div class="row pt-3" id="worksSection">
+    <div class="row mx-0 pt-3" id="worksSection">
       <p style="font-size: 1.2rem; color: #605c61;"><i class="fa fa-briefcase"
           style="font-size: 1.5rem; color:#605c61;"></i>
         Works</p>
     </div>
-    <div class="row">
-      <div class="row row-cols-md-3" *ngIf="userProfile.briefcases != [] && screenWidth$ | async">
+    <div >
+      <div class="row mx-0 row-cols-md-3" *ngIf="userProfile.briefcases != [] && screenWidth$ | async">
         <div class="col-xs-6 col-md-3" *ngFor="let briefcase of userProfile.briefcases; let i = index"
           [ngClass]="i >= initialShownWorks ? 'collapse' : ''" data-toggle="modal" data-target="#briefcaseDetailsModal">
           <app-briefcase-card class="img img-briefcase" style="height: 12rem" [editable]="false"
@@ -204,7 +204,7 @@
       </div>
     </div>
     <hr>
-    <div class="row pt-3" id="padded-col" style="display: inline-block;" id="reviewsSection">
+    <div class="row mx-0 pt-3" id="padded-col" style="display: inline-block;" id="reviewsSection">
       <p style="font-size: 1.2rem; color: #605c61;"><i class="fab fa-telegram-plane"
           style="font-size: 1.5rem; color:#605c61;"></i>
         Reviews</p>
@@ -251,7 +251,6 @@
         </div>
       </div>
     </div>
-    <div class="row my-5"></div>
   </div>
 </div>
 
