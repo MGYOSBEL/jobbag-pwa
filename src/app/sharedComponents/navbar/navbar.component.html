@@ -14,6 +14,7 @@
         </button>
         <div class="dropdown-menu rounded-0 justify-content-end" style="left:unset; right: 0;">
           <!-- Item GO TO provider -->
+          <h6 class="dropdown-header">Active Profile</h6>
           <div class="dropdown-item row  container-fluid no-gutters" *ngIf="hasProfiles[1] ; else noProvider">
             <div class="col-2 p-0" style="font-size: 8px;"
               [ngStyle]="{'color': role === 'CLIENT' ? 'rgba(255,255,255,0)' : '#64a24f'}">
@@ -56,14 +57,16 @@
             </div>
           </ng-template>
           <div class="dropdown-divider"></div>
+          <h6 class="dropdown-header">Profile Actions</h6>
           <a class="dropdown-item text-dark" [routerLink]="['user',userId,role]" routerLinkActive="active">
-            Dashboard</a>
+            Go to Dashboard</a>
           <a class="dropdown-item text-dark" [routerLink]="['user',userId,role,'edit']" routerLinkActive="active">Edit
             Profile</a>
           <a class="dropdown-item text-dark" [routerLink]="['user',userId,'password']" routerLinkActive="active">Change
             Password</a>
           <!-- Language -->
           <div class="dropdown-divider"></div>
+          <h6 class="dropdown-header">Language</h6>
           <ng-template ngFor let-lang [ngForOf]="languages">
             <div *ngIf="lang.code !== localeId">
               <!-- <a class="dropdown-item" style="color: black;" href="/{{lang.code}}/">{{lang.label}}</a> -->
