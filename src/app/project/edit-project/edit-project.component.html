@@ -43,7 +43,7 @@
                           <input type="text" class="form-control input-lg rounded-0" id="projectTitle"
                             formControlName="projectTitle" placeholder="Project Title:"
                             [ngClass]="editProjectForm.get('projectTitle').invalid && (editProjectForm.get('projectTitle').dirty || editProjectForm.get('projectTitle').touched) ? 'is-invalid' : '' ">
-                          <label style="font-weight: 100;" for="projectTitle">Project Title:</label>
+                          <label style="font-weight: 100;" for="projectTitle">Project Title</label>
                           <div class="invalid-feedback">
                             You must enter a project title!
                           </div>
@@ -69,8 +69,8 @@
                       <div class="form-group form-label-group mx-auto mt-3 mb-5">
                         <textarea class="form-control" maxlength="256" id="commentsInputText"
                           style="height: 6rem; border-radius: 0;" formControlName="projectResume"
-                          placeholder="Enter your project Resume..."></textarea>
-                        <label style="font-weight: 100;" for="commentsInputText">Enter your project Resume...</label>
+                          placeholder="Enter your project Summary"></textarea>
+                        <label style="font-weight: 100;" for="commentsInputText">Project Summary</label>
                       </div>
                     </div>
                   </div>

@@ -39,11 +39,12 @@
             <i class="fas icon-cancelados"></i>
             Cancel
           </button>
-          <button class="btn col-4 btn-space text-uppercase px-0 py-1" type="button"
+          <button class="btn col-3 btn-space text-uppercase px-0 py-1" type="button"
+            data-toggle="tooltip" title="Add to your Briefcase"
             *ngIf="previewProject.state === 'FINISH' && role === 'SERVICE_PROVIDER' && previewProject.projectBriefcaseId === 0"
             style=" background-color: #2888C7; color: white; border-radius: 0; width: 10rem;" (click)="onCreateBriefcase()">
             <i class="icon-briefcase" style="font-size: larger;"></i>&nbsp;
-            Add Briefcase
+            Storage
           </button>
         </ng-template>
 
@@ -128,10 +129,10 @@
       </div>
       <div class="modal-body rounded-0">
         <p class="text-left">
-          You can add the finished project to your Portfolio. The job will be sent to your client, for
-          asking
-          review and valoration. Once the client gives you the review, the jobb will appear as a verified Job, wich increase your credibility
-          and chances to get more jobs.
+          Add the finished project execution to your Briefcase.
+          The job will be sent to your client, for asking review and valoration.
+          Once the client gives you the review, the jobb will appear as a verified Job,
+          wich increase your credibility and chances to get more jobs.
         </p>
         <p class="text-left">
           You can add the project right now, or you can do it later, by going to the project in the FINISH
