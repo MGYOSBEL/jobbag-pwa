@@ -7,7 +7,7 @@ import { CountryService } from '@app/user/services/country.service';
 import { ServicesService } from '@app/user/services/services.service';
 import { ProjectService } from '../services/project.service';
 import { MessagesService } from '@app/services/messages.service';
-import { Router, ActivatedRoute, NavigationEnd } from '@angular/router'; //toEdit
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router'; // toEdit
 import { UserService } from '@app/user/services/user.service';
 
 @Component({
@@ -50,8 +50,8 @@ export class ProjectPreviewComponent implements OnInit {
 
   constructor(
     // private candidateProjectService: CandidateProjectService,
-    private route: ActivatedRoute, //toEdit
-    private router: Router, //toEdit
+    private route: ActivatedRoute, // toEdit
+    private router: Router, // toEdit
     private userService: UserService,
     private projectService: ProjectService,
     private messages: MessagesService,
@@ -99,7 +99,7 @@ export class ProjectPreviewComponent implements OnInit {
   }
 
   getDivisionsName(projectDivisions: number[]) {
-    let divisions: DivisionElement[] = [];
+    const divisions: DivisionElement[] = [];
     this.countries.forEach(country => divisions.push(...country.divisions));
     const filtered = divisions.filter(division => projectDivisions.includes(division.id));
     return filtered.map(division => division.nameEs) || [];
