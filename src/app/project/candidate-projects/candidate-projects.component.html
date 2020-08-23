@@ -3,7 +3,6 @@
     [project]="detailProject"
     [isInterest$]="isDetailInterest$"
     (action)="onPreviewAction($event)"
-    [role]="'SERVICE_PROVIDER'"
     (goBack)=onBackToList()>
   </app-project-detail>
 </ng-container>
@@ -38,7 +37,7 @@
       </div>
       <div class="col-md-6 px-2" id="projectPreview-col">
         <!-- PROJECT PREVIEW -->
-        <app-project-preview [userProfileId]="userProfile!.id" [role]="'SERVICE_PROVIDER'" [isInterest$]="isPreviewInterest$"
+        <app-project-preview [userProfileId]="userProfile!.id" [isInterest$]="isPreviewInterest$"
           [previewProject$]="previewProject$" (action)="onPreviewAction($event)" (detail)="onDetail($event)">
         </app-project-preview>
       </div>

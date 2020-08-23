@@ -8,6 +8,7 @@ import { CountryService } from '@app/user/services/country.service';
 import { Country, DivisionElement } from '@app/user/models/country.model';
 import { Service } from '@app/user/models/services.model';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router'; //toEdit
+import { UserService } from '@app/user/services/user.service';
 
 @Component({
   selector: 'app-project-detail',
@@ -18,7 +19,6 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
 
   @Input()
   project: Project;
-  @Input()
   role: string;
 
   @Output()
@@ -47,11 +47,16 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute, // toEdit
     private router: Router, // toEdit
     private personalProjectService: PersonalProjectService,
+    private userService: UserService,
     private countryService: CountryService,
     private servicesService: ServicesService
   ) { }
 
   ngOnInit() {
+
+    this.userService.role$.subscribe(
+      role => this.role = role
+    );
     this.countryService.get().subscribe(
       countries => {
         this.countries = countries;
@@ -144,7 +149,6 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
       projectId: isClient ? this.project.id : this.project.executionId,
       action: isClient ? 'CANCEL_CLIENT' : 'CANCEL'
     });
-
   }
 
   onUserCardClicked(userProfileId: number) {
@@ -152,18 +156,18 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
     this.router.navigate(['/user/profile', userProfileId]);
   }
 
-  selectProjectAction(){
+  selectProjectAction() {
     switch (this.actionSelected) {
-      case "Apply":
+      case 'Apply':
         this.onApply();
         break;
-      case "Start":
+      case 'Start':
         this.onStartProjectExecution();
         break;
-      case "Cancel":
+      case 'Cancel':
         this.onCancel();
         break;
-      case "Finish":
+      case 'Finish':
         this.onFinishClientProject();
         break;
       default:

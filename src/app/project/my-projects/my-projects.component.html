@@ -124,7 +124,7 @@
 
   </ng-container>
   <ng-template #projectDetailTemplate>
-    <app-project-detail [project]="detailProject" [role]="userProfile.userProfileType" (goBack)="onBackToList()"
+    <app-project-detail [project]="detailProject" (goBack)="onBackToList()"
     (action)="onPreviewAction($event)"></app-project-detail>
   </ng-template>
 </ng-container>
@@ -166,7 +166,7 @@
           <!-- PROJECT PREVIEW -->
           <ng-template #previewTemplate>
             <app-project-preview [userProfileId]="userProfile!.id" [previewProject$]="previewProject$"
-            [role]="userProfile.userProfileType" (action)="onPreviewAction($event)" (detail)="viewDetail($event)">
+            (action)="onPreviewAction($event)" (detail)="viewDetail($event)">
           </app-project-preview>
           </ng-template>
           <ng-container *ngIf="showBriefcaseForm; else previewTemplate">
