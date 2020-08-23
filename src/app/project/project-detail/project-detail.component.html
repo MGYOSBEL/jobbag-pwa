@@ -55,11 +55,12 @@
           <i class="fas icon-cancelados"></i>
           Cancel
         </button>
-        <button class="btn col-3 col-md-3 mt-1 btn-space px-0 py-1 text-uppercase" id="finish-btn" type="button"
+        <button class="btn col-3 col-md-2 mt-1 btn-space px-0 py-1 text-uppercase" id="finish-btn" type="button"
+          data-toggle="tooltip" title="Add to your Briefcase"
           *ngIf="project.state === 'FINISH' && role === 'SERVICE_PROVIDER'"
           style=" background-color: #2888C7; color: white; border-radius: 0;" (click)="onCreateBriefcase()">
           <span class="icon-briefcase" style="font-size: larger; width:10rem"></span>&nbsp;
-          Add Briefcase
+          Storage
         </button>
         <div class="modal fade rounded-0" id="finishProjectModal" tabindex="-1" role="dialog"
           aria-labelledby="finishProjectModal" aria-hidden="true">
@@ -73,9 +74,10 @@
               </div>
               <div class="modal-body rounded-0">
                 <p class="text-left">
-                  You can add the finish project to your Portfolio. The job showcase will be sent to your client, for
-                  asking
-                  review and valoration.
+                  Add the finished project execution to your Briefcase.
+                  The job will be sent to your client, for asking review and valoration.
+                  Once the client gives you the review, the jobb will appear as a verified Job,
+                  wich increase your credibility and chances to get more jobs.
                 </p>
                 <p class="text-left">
                   You can add the project right now, or you can do it later, by going to the project in the FINISH
