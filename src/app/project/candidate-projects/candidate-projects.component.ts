@@ -195,7 +195,7 @@ export class CandidateProjectsComponent implements OnInit {
       case 'FINISH':
         this.FinishExecution(projectId);
         break;
-      case 'FINISH':
+      case 'CANCEL':
         this.CancelExecution(projectId);
         break;
       default:

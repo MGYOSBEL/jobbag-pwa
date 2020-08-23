@@ -157,18 +157,18 @@ export class ProjectPreviewComponent implements OnInit {
     this.router.navigateByUrl(`/project/${this.previewProject.id}/edit`);
   }
 
-  selectProjectAction(){
+  selectProjectAction() {
     switch (this.actionSelected) {
-      case "Apply":
+      case 'Apply':
         this.onApply();
         break;
-      case "Start":
+      case 'Start':
         this.onStartProjectExecution();
         break;
-      case "Cancel":
+      case 'Cancel':
         this.onCancel();
         break;
-      case "Finish":
+      case 'Finish':
         this.onFinishClientProject();
         break;
       default:

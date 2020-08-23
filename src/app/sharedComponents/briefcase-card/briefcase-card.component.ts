@@ -18,10 +18,11 @@ export class BriefcaseCardComponent implements OnInit {
   @Input() editable = false;
   @Output()
   action = new EventEmitter<{action: 'edit' | 'delete' | 'detail', id: number}>();
-
+  actionIconMouseOver: boolean;
   constructor() { }
 
   ngOnInit() {
+    this.actionIconMouseOver = false;
   }
 
   onBriefcaseDetail() {
@@ -34,5 +35,8 @@ export class BriefcaseCardComponent implements OnInit {
   onBriefcaseDelete() {
     console.log('delete briefcase');
     this.action.emit({action: 'delete', id: this.params.id});
+  }
+  onCardHover(event) {
+    console.log('hover:', event);
   }
 }

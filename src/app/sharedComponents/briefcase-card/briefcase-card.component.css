@@ -27,7 +27,7 @@ margin: 0.5rem 0.25rem 0.5rem;
 }
 
 .reveal{
-pointer-events: stroke;
+pointer-events: none;
 }
 
 .blue {
@@ -49,8 +49,14 @@ pointer-events: stroke;
     text-align: center;
     position: absolute;
     top: 40%;
-    z-index: 5;
+    z-index: 2;
 }
+
+.action-icon {
+  pointer-events: all;
+  z-index: 3;
+}
+
 
 .icon-eye{
     color: white;

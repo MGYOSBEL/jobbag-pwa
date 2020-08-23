@@ -7,8 +7,8 @@
           [selectableGroupAsModel]="false" [closeOnSelect]="false" bindValue="id"
           (change)="onLocationFilterChange($event)" [(ngModel)]="selectedDivisions">
           <ng-template ng-optgroup-tmp let-item="item" let-item$="item$" let-index="index">
-            <input id="item-{{index}}" *ngIf="item.divisions.length" type="checkbox" [ngModel]="item$.selected" />
-            <ng-container *ngIf="item.divisions.length">{{item.nameEs | uppercase}}</ng-container>
+            <input id="item-{{index}}" [disabled]="!item.divisions.length" type="checkbox" [ngModel]="item$.selected" />
+            <ng-container >{{item.nameEs | uppercase}}</ng-container>
           </ng-template>
           <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
             <input id="item-{{index}}" type="checkbox" [ngModel]="item$.selected" /> {{item.nameEs}}
