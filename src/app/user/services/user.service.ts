@@ -33,29 +33,23 @@ export class UserService {
     private userCacheService: UserCacheService,
     private authService: AuthenticationService,
     private logger: LoggingService) {
+
     this.userRole = this.userCacheService.getRole() || 'CLIENT';
     this.userSubject.next(this.userCacheService.getUser());
     this.roleSubject.next(this.userRole);
-
     this.authService.isLoggedIn$.subscribe(loggedIn => {
       if (!loggedIn) {
         this.userSubject.next(null);
         this.roleSubject.next(null);
-      } else {
-
       }
     });
 
     this.userCacheService.user$.subscribe(user => this.userSubject.next(user));
   }
 
-
-
-
   public get loggedUser(): User {
     return JSON.parse(localStorage.getItem('loggedUser'));
   }
-
 
   public get role(): string {
     return this.userRole;
@@ -85,9 +79,9 @@ export class UserService {
         return throwError(err);  // Relanzo el error con el status y el detail
       }),
       tap((response: User) => {
-        this.userSubject.next(response); // Emito el user y lo salvo en el storage
         this.selectLoggedUserActiveProfile(response);
         this.userCacheService.setUser(response);
+        this.userSubject.next(response); // Emito el user y lo salvo en el storage
       })
     );
   }
@@ -95,14 +89,17 @@ export class UserService {
   private selectLoggedUserActiveProfile(user: User) {
     if (!! user.profiles.find(profile => profile.userProfileType === 'CLIENT')) {
       this.roleSubject.next('CLIENT');
-      console.log('selectLoggedUserActiveProfile => CLIENT' );
     } else if (!! user.profiles.find(profile => profile.userProfileType === 'SERVICE_PROVIDER')) {
       this.roleSubject.next('SERVICE_PROVIDER');
-      console.log('selectLoggedUserActiveProfile => SERVICE_PROVIDER' );
     } else {
+      const role = localStorage.getItem('IWantTo');
+      localStorage.removeItem('IWantTo');
+      if (role == null) {
+        localStorage.setItem('returnURL', `/user/${user.id}`);
+      } else {
+        localStorage.setItem('returnURL', `/user/${user.id}/${role}/create-profile`);
+      }
       this.roleSubject.next(null);
-      console.log('selectLoggedUserActiveProfile => NULL' );
-
     }
   }
 

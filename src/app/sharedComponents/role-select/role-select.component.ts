@@ -29,7 +29,8 @@ export class RoleSelectComponent implements OnInit {
     if (this.router.url.includes('user')) {
       this.router.navigate([`/user/${userId}/SERVICE_PROVIDER/create-profile`]);
     } else {
-      this.router.navigate(['/auth/register/SERVICE_PROVIDER']);
+      localStorage.setItem('IWantTo', 'SERVICE_PROVIDER');
+      this.router.navigate(['/auth/register']);
     }
   }
 
@@ -39,7 +40,8 @@ export class RoleSelectComponent implements OnInit {
     if (this.router.url.includes('user')) {
       this.router.navigate([`/user/${userId}/CLIENT/create-profile`]);
     } else {
-      this.router.navigate(['/auth/register/CLIENT']);
+      localStorage.setItem('IWantTo', 'CLIENT');
+      this.router.navigate(['/auth/register']);
     }
   }
 

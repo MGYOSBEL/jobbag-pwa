@@ -62,24 +62,28 @@ export class LoginComponent implements OnInit {
   jobbagLogin() {
     this.loadingService.loadingOn();
     this.authenticationService.signInWithJobbag(this.loginForm.value.email, this.loginForm.value.password)
+      .pipe(
+        catchError(err => throwError(err)),
+        switchMap(bearer => this.userService.get(bearer.user_id))
+      )
       .subscribe(
         data => {
-        if (this.authenticationService.isLoggedIn) {
-          const user_id = this.authenticationService.getLoggedUserId();
-          if (!!user_id) {
-            this.router.navigate(['/']);
+          if (this.authenticationService.isLoggedIn) {
+            const returnURL = localStorage.getItem('returnURL');
+            if (returnURL != null) {
+              this.router.navigateByUrl(returnURL);
+            } else {
+              this.router.navigate(['/']);
+            }
           }
-        } else {
-          this.loginErr = { err: true, message: data.text };
-        }
-        this.loadingService.loadingOff();
-      },
-      (error) => {
-        this.errorService.errorMessage = error;
-        const message = ` ${error}`;
-        this.messages.showErrors(message);
-        this.loadingService.loadingOff();
-      });
+          this.loadingService.loadingOff();
+        },
+        (error) => {
+          this.errorService.errorMessage = error;
+          const message = ` ${error}`;
+          this.messages.showErrors(message);
+          this.loadingService.loadingOff();
+        });
   }
 
   facebookLogin() {

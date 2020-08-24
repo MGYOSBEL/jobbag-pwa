@@ -26,5 +26,5 @@ export interface OAuth2Response {
   token_type: string;
   scope: string;
   refresh_token: string;
-  user_id: string;
+  user_id: number;
 }

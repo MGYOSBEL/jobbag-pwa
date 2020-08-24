@@ -22,7 +22,6 @@ import { MessagesService } from '@app/services/messages.service';
 export class RegisterComponent implements OnInit {
 
   registerForm: FormGroup;
-  returnUrl: string;
   role: string;
   private registerPath = environment.serverBaseURL + '/user';
   registerRequest: RegisterRequest;
@@ -58,7 +57,6 @@ export class RegisterComponent implements OnInit {
     });
     this.registerErr = { err: false };
 
-    this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/user';
   }
 
   ngOnInit() {
@@ -119,16 +117,9 @@ export class RegisterComponent implements OnInit {
                 .subscribe(
                   data => {
                     // const role = this.userService.role;
-                    if (this.authenticationService.isLoggedIn) {
-                      const user_id = this.authenticationService.getLoggedUserId();
-
-                      if (this.role) {
-                        const createProfileURL = `/user/${user_id}/${this.role}/create-profile`;
-                        this.router.navigate([createProfileURL], { queryParams: {} });
-                      } else {
-                        this.router.navigate(['user', user_id]); // role-select url
-                      }
-                    }
+                    const returnURL = localStorage.getItem('returnURL');
+                    console.log('register returnUrl', returnURL);
+                    this.router.navigateByUrl(returnURL);
                   }, err => {
                     const message = `There was an error: ${err}`;
                     this.messages.showErrors(message);
