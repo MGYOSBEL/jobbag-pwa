@@ -7,7 +7,10 @@
       href="#nav-profile" *ngIf="role === 'SERVICE_PROVIDER'" [ngClass]="{'show active':activeTab==='navProfile'}"
       (click)="saveActiveTab('navProfile')" role="tab" aria-controls="nav-profile" aria-selected="false">Candidate
       Projects</a>
-    <a class="nav-item nav-link col-4 col-md-3 border-0 mr-0 ml-2 rounded-0 text-uppercase" id="nav-myprojects-tab"
+    <a *ngIf="role ==='SERVICE_PROVIDER'" class="nav-item nav-link col-4 col-md-3 border-0 mr-0 ml-2 rounded-0 text-uppercase" id="nav-myprojects-tab"
+      data-toggle="tab" href="#nav-contact" [ngClass]="{'show active':activeTab==='navContact'}" role="tab"
+      aria-controls="nav-contact" aria-selected="false" (click)="saveActiveTab('navContact')">Execution Projects</a>
+    <a *ngIf="role ==='CLIENT'" class="nav-item nav-link col-4 col-md-3 border-0 mr-0 ml-2 rounded-0 text-uppercase" id="nav-myprojects-tab"
       data-toggle="tab" href="#nav-contact" [ngClass]="{'show active':activeTab==='navContact'}" role="tab"
       aria-controls="nav-contact" aria-selected="false" (click)="saveActiveTab('navContact')">My Projects</a>
   </div>
