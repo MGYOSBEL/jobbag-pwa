@@ -31,7 +31,9 @@
                     </ng-template>
                   </ngb-rating>
                 </div>
-                <div class="col col-user-data">
+                <div class="col-xs-6 col-user-data">
+                  <button type="button" class="btn btn-contact rounded-0 mt-2 btn-margin">
+                    Contact<i class="far fa-comments mx-2"></i></button>
                   <button type="button" class="btn btn-cv rounded-0 mt-2" (click)="viewCV()" *ngIf="!!userProfile.cv">
                     Curriculum<i class="fa fa-eye mx-2"></i></button>
                 </div>
@@ -74,7 +76,7 @@
   </div>
 
   <div class="col-12 bg-opacity" id="section-nav-bar">
-    <div class="row">
+    <div class="row btn-group-row">
       <div class="col-12 px-4" id="padded-col" style="background-color: white;">
         <div class="btn-group btn-group-toggle" data-toggle="buttons">
           <label class="btn btn-index active" id="btn-description">
