@@ -178,6 +178,9 @@ li::before {
     padding-left: 0.25rem !important;
     padding-right: 0.25rem !important;
   }
+  #description-body-card{
+    padding: 1rem !important;
+  }
 }
 
 /*Overview 525px*/
@@ -191,12 +194,24 @@ li::before {
 /*Overview 485px*/
 @media screen and (max-width: 484.98px) {
   .btn-index{
-    padding: 0.25rem;
+    /* padding: 0.25rem; */
     font-size: 0.9rem;
   }
-
+  #user-card-body{
+    width: min-content;
+  }
   #btn-works, #btn-services, #btn-locations, #btn-reviews{
-    width: 4.75rem !important;
+    width: 4.85rem !important;
+  }
+  #user-detail-container{
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+  .user-name{
+    font-size: 1rem;
+  }
+  .user-account{
+    font-size: 0.8rem;
   }
 }
 
@@ -211,11 +226,20 @@ li::before {
       margin-bottom: 0 !important;
   }
   #btn-works, #btn-services, #btn-reviews{
-    width: 4rem !important;
+    width: 4.5rem !important;
   }
 }
 
-/*Overview 340px*/
-@media screen and (max-width: 339.98px) {
-
+/*Overview 386px*/
+@media screen and (max-width: 385.98px) {
+  #btn-description, #btn-locations{
+    width: 4.75rem !important;
+  }
+  #btn-works, #btn-services, #btn-reviews{
+    width: 4.25rem !important;
+  }
+  .btn-index{
+    padding: 0.25rem;
+    font-size: 0.8rem;
+  }
 }
