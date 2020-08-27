@@ -145,7 +145,7 @@
       </div>
       <div class="row py-3" id="projectCard-list-row">
         <div class="col-md-6 px-2" id="projectCard-list-col">
-          <div class="row mb-2 px-5" id="status-list-col">
+          <div class="row mb-2 px-5 mx-0" id="status-list-col">
             <div class="col text-center" *ngFor="let status of statusFilter" [ngClass]="{'status-selected':statusValue === status}"
                 id="status-col" (click)="onStatusChange(status)">
               <p class="status-text" [ngClass]="{'status-selectext':statusValue === status}">{{status}}</p>
