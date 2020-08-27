@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <div class="row" id="header-row" style="border-bottom: 1px solid #2888C7; height:3rem;">
-    <div class="col-2 col-md-4 mx-0">
-      <div class="row no-gutters">
+    <div class="col-2 col-md-5 mx-0">
+      <div class="row no-gutters" style="min-width:max-content">
         <button type="button" class="btn action-btn rounded-0" id="goback-btn" data-toggle="tooltip" title="Go Back"
           alt="goBack" (click)="backToList()"><i class="fas fa-chevron-circle-left"></i>
         </button>
@@ -48,7 +48,7 @@
           <i class="fab icon-terminado"></i>
           Finish
         </button>
-        <button class="btn col-3 col-md-2 mt-1 btn-space px-0 py-1 text-uppercase" id="cancel-btn" type="button"
+        <button class="btn col-3 col-md-3 mt-1 btn-space px-0 py-1 text-uppercase" id="cancel-btn" type="button"
           *ngIf="project.state === 'PROGRESS' || project.state === 'NEW'"
           style=" background-color: #f15d5d; color: white; border-radius: 0; width: 6.25rem;"
           data-toggle="modal" data-target="#confirmActionModal" (click)="actionSelected = 'Cancel'">
