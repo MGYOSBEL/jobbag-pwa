@@ -48,7 +48,7 @@ li::before {
   margin: 0 4px 0px 8px;
 }
 
-.cancel-btn, .finish-btn{
+.cancel-btn, #finish-btn{
   width: 1.25rem;
   min-width: 6.85rem;
 }
