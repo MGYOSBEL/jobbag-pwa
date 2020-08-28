@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User, UserProfile } from '../models/user.model';
 import { UserService } from '../services/user.service';
-import { Observable } from 'rxjs';
+import { Observable, combineLatest } from 'rxjs';
 import { logging } from 'protractor';
 import { LoggingService } from '@app/services/logging.service';
 import { AuthenticationService } from '@app/auth/services/authentication.service';
@@ -35,21 +35,25 @@ export class DashboardComponent implements OnInit {
     private router: Router,
     private logging: LoggingService) {
 
-    this.loggedUser$ = this.userService.loggedUser$;
-    this.userService.role$.subscribe(role => {
-      this.role = role;
-      if (!!this.loggedUser) {
+    const user$ = combineLatest(
+      this.userService.loggedUser$,
+      this.userService.role$
+    );
+    user$.subscribe(
+      ([user, role]) => {
+        if (!!user) {
+          this.loggedUser = user;
+        }
+        if (!!role) {
+          this.role = role;
+        }
         this.activeProfile = this.loggedUser.profiles.find(profile => profile.userProfileType === this.role);
       }
-    });
+    );
     this.obtainActiveTab();
   }
 
   ngOnInit() {
-    this.route.data
-      .subscribe((data: { user: User }) => {
-        this.loggedUser = data.user;
-      });
     this.router.events.pipe(
       filter(evt => evt instanceof NavigationEnd)
     ).subscribe(() => {
@@ -58,14 +62,6 @@ export class DashboardComponent implements OnInit {
       }
     }
     );
-    this.loggedUser$.subscribe(user => {
-      this.loggedUser = user;
-      if (!!this.loggedUser) {
-        this.activeProfile = this.loggedUser.profiles.find(profile => profile.userProfileType === this.role);
-      }
-    });
-    // this.projects$ = this.projectService.getAllProjectSummariesByProfileId(this.activeProfile.id);
-    // this.projects$ = this.projectService.projects$;
     this.router.navigate([`/user/${this.loggedUser.id}/${this.role}`]);
 
     this.obtainActiveTab();

@@ -21,7 +21,7 @@
     <div class="container-fluid align-items-center" id="navitem-one-container">
       <div class="row">
         <div class="col-md-8 display-2 text-left">
-         <h3>Welcome {{activeProfile.name}}</h3>
+         <h3>Welcome {{!!activeProfile ? activeProfile.name : ''}}</h3>
         </div>
         <div class="col-md-4 align-items-center">
           <!-- <button *ngIf="role === 'CLIENT'" class="row mt-5 ml-5 btn col-6" type="button"

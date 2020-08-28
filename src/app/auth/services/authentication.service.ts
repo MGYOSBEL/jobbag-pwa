@@ -56,7 +56,7 @@ export class AuthenticationService {
   }
 
 
-  signInWithJobbag(username: string, password: string): Observable<any> {
+  signInWithJobbag(username: string, password: string): Observable<OAuth2Response> {
     this.authProvider = 'JOBBAG';
     const loginRequestJSON = this.parseLoginRequest(username, password, this.authProvider);
     return this.http.post<any>(this.loginPath, loginRequestJSON, { headers: { 'Content-type': 'application/json' } })
@@ -67,7 +67,7 @@ export class AuthenticationService {
         }),
         map(response => {
         if (response.status_code === 200) {
-          const bearer = JSON.parse(response.content);
+          const bearer: OAuth2Response = JSON.parse(response.content);
           this.setSession(bearer);
           return bearer;
         } else {
