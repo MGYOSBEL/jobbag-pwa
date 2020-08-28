@@ -13,6 +13,8 @@ import { passwordMissmatchValidator } from '@app/sharedComponents/customValidato
 import { UserService } from '@app/user/services/user.service';
 import { LoadingService } from '@app/services/loading.service';
 import { MessagesService } from '@app/services/messages.service';
+import { switchMap } from 'rxjs/operators';
+import { forkJoin, combineLatest } from 'rxjs';
 
 @Component({
   selector: 'app-register',
@@ -25,7 +27,7 @@ export class RegisterComponent implements OnInit {
   role: string;
   private registerPath = environment.serverBaseURL + '/user';
   registerRequest: RegisterRequest;
-
+  preSelectedProfile: string = 'none';
   loading = false;
   socialUser: SocialUser;
   hiddenPasswords = false;
@@ -68,8 +70,25 @@ export class RegisterComponent implements OnInit {
       }
     );
 
-    this.userService.role$.subscribe(
-      role => this.role = role
+    const user$ = combineLatest(
+      this.userService.loggedUser$,
+      this.userService.role$
+    );
+    user$.subscribe(
+      ([user, role]) => {
+        this.role = role;
+        // console.log(`entering the routine. user:${user.id}  role:${role}  IWantTo:${this.preSelectedProfile}`);
+        // if (user != null && role == null && this.preSelectedProfile !== 'none') {
+        //   const profile = this.preSelectedProfile;
+        //   this.preSelectedProfile = 'none';
+        //   if (this.preSelectedProfile == null) {
+        //     this.router.navigateByUrl(`/user/${user.id}`);
+        //   } else {
+        //     this.router.navigateByUrl(`/user/${user.id}/${profile}/create-profile`);
+        //   }
+        // }
+
+      }
     );
 
     this.socialAuthService.authState.subscribe(
@@ -114,13 +133,21 @@ export class RegisterComponent implements OnInit {
             const username = content.username;
             if (this.registerRequest.provider === 'JOBBAG') {
               this.authenticationService.signInWithJobbag(this.registerForm.value.name, this.registerForm.value.password)
-                .subscribe(
-                  data => {
-                    // const role = this.userService.role;
-                    const returnURL = localStorage.getItem('returnURL');
-                    console.log('register returnUrl', returnURL);
-                    this.router.navigateByUrl(returnURL);
-                  }, err => {
+                .pipe(
+                  switchMap(bearer => this.userService.get(bearer.user_id))
+                ).subscribe(
+                  (user) => {
+                    const pretendedRole = localStorage.getItem('IWantTo');
+                    localStorage.removeItem('IWantTo');
+                    this.preSelectedProfile = pretendedRole;
+                    if (pretendedRole == null) {
+                      this.router.navigateByUrl(`/user/${user.id}`);
+                    } else {
+                      this.router.navigateByUrl(`/user/${user.id}/${pretendedRole}/create-profile`);
+                    }
+
+                  },
+                  err => {
                     const message = `There was an error: ${err}`;
                     this.messages.showErrors(message);
                   });

@@ -1,3 +1,4 @@
+
 import { Injectable } from '@angular/core';
 import { Observable, throwError, BehaviorSubject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
@@ -34,8 +35,11 @@ export class UserService {
     private authService: AuthenticationService,
     private logger: LoggingService) {
 
-    this.userRole = this.userCacheService.getRole() || 'CLIENT';
-    this.userSubject.next(this.userCacheService.getUser());
+    const cachedUser = this.userCacheService.getUser();
+    this.userSubject.next(cachedUser);
+    if (!!cachedUser) {
+      this.selectLoggedUserActiveProfile(cachedUser);
+    }
     this.roleSubject.next(this.userRole);
     this.authService.isLoggedIn$.subscribe(loggedIn => {
       if (!loggedIn) {
@@ -87,18 +91,11 @@ export class UserService {
   }
 
   private selectLoggedUserActiveProfile(user: User) {
-    if (!! user.profiles.find(profile => profile.userProfileType === 'CLIENT')) {
+    if (!!user.profiles.find(profile => profile.userProfileType === 'CLIENT')) {
       this.roleSubject.next('CLIENT');
-    } else if (!! user.profiles.find(profile => profile.userProfileType === 'SERVICE_PROVIDER')) {
+    } else if (!!user.profiles.find(profile => profile.userProfileType === 'SERVICE_PROVIDER')) {
       this.roleSubject.next('SERVICE_PROVIDER');
     } else {
-      const role = localStorage.getItem('IWantTo');
-      localStorage.removeItem('IWantTo');
-      if (role == null) {
-        localStorage.setItem('returnURL', `/user/${user.id}`);
-      } else {
-        localStorage.setItem('returnURL', `/user/${user.id}/${role}/create-profile`);
-      }
       this.roleSubject.next(null);
     }
   }

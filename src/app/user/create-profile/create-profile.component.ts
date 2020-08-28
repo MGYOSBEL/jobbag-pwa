@@ -87,7 +87,7 @@ export class CreateProfileComponent implements OnInit {
     this.servicesService.getAll().subscribe(
       services => this.services = services
     );
-
+      console.log('initiate create profile stepper');
     this.closeProfileHidder = this.route.snapshot.queryParams.btnhidder;
 
     this.stepper = new Stepper(document.querySelector('#stepper1'), {
@@ -133,7 +133,6 @@ export class CreateProfileComponent implements OnInit {
   }
 
   createUserProfile() {
-    this.loadingService.loadingOn();
 
     const user_id = this.authenticationService.getLoggedUserId();
 
@@ -164,19 +163,18 @@ export class CreateProfileComponent implements OnInit {
       })
     };
 
-    this.userProfileService.create(userProfileRequest)
-      .subscribe(
-        response => {
-          // this.role === 'CLIENT' ? this.activeProfileService.activateClient() : this.activeProfileService.activateServiceProvider() ;
-          this.router.navigate(['../'], { relativeTo: this.route });
-          this.loadingService.loadingOff();
-        }, (err) => {
-          this.errorService.errorMessage = err;
-          this.messages.showErrors('There has been an error creating the profile. Please try again in a few minutes.');
-          this.logger.log(err);
-          this.loadingService.loadingOff();
-        }
-      );
+    const createProfile$ = this.userProfileService.create(userProfileRequest);
+    this.loadingService.showLoaderUntilCompletes(createProfile$).subscribe(
+      response => {
+        // this.role === 'CLIENT' ? this.activeProfileService.activateClient() : this.activeProfileService.activateServiceProvider() ;
+        this.userService.role = this.role;
+        this.router.navigate(['user', this.authenticationService.getLoggedUserId(), this.role]);
+      }, (err) => {
+        this.errorService.errorMessage = err;
+        this.messages.showErrors('There has been an error creating the profile. Please try again in a few minutes.');
+        this.logger.log(err);
+      }
+    );
   }
 
   onDivisionsSelect(event) {
@@ -264,7 +262,7 @@ export class CreateProfileComponent implements OnInit {
   closeRegister() {
     const userId = this.authenticationService.getLoggedUserId();
     const userRole = this.route.snapshot.params.role;
-    if ( userRole === 'CLIENT') {
+    if (userRole === 'CLIENT') {
       this.userService.role = 'SERVICE_PROVIDER';
       this.router.navigate([`/user/${userId}/SERVICE_PROVIDER`]);
     } else {

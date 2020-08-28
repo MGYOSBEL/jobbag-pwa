@@ -24,20 +24,22 @@ export class RoleSelectComponent implements OnInit {
   }
 
   work() {
-    this.userService.role = 'SERVICE_PROVIDER';
-    const userId = this.authenticationService.getLoggedUserId();
+    // this.userService.role = 'SERVICE_PROVIDER';
     if (this.router.url.includes('user')) {
+      console.log('create profile');
+      const userId = this.authenticationService.getLoggedUserId();
       this.router.navigate([`/user/${userId}/SERVICE_PROVIDER/create-profile`]);
     } else {
+      console.log('register profile');
       localStorage.setItem('IWantTo', 'SERVICE_PROVIDER');
-      this.router.navigate(['/auth/register']);
+      this.router.navigateByUrl('auth/register');
     }
   }
 
   hire() {
-    const userId = this.authenticationService.getLoggedUserId();
-    this.userService.role = 'CLIENT';
+    // this.userService.role = 'CLIENT';
     if (this.router.url.includes('user')) {
+      const userId = this.authenticationService.getLoggedUserId();
       this.router.navigate([`/user/${userId}/CLIENT/create-profile`]);
     } else {
       localStorage.setItem('IWantTo', 'CLIENT');

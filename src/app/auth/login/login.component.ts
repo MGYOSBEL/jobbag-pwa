@@ -67,11 +67,11 @@ export class LoginComponent implements OnInit {
         switchMap(bearer => this.userService.get(bearer.user_id))
       )
       .subscribe(
-        data => {
+        user => {
           if (this.authenticationService.isLoggedIn) {
             const returnURL = localStorage.getItem('returnURL');
-            if (returnURL != null) {
-              this.router.navigateByUrl(returnURL);
+            if (this.userService.role == null) {
+              this.router.navigateByUrl(`user/${user.id}`);
             } else {
               this.router.navigate(['/']);
             }
