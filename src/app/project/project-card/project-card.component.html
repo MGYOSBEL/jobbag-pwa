@@ -11,19 +11,19 @@
       </p>
     </div>
     <div class="col-5 col-md-4 px-2 text-right" *ngIf="cardMode === 'WIDE'">
-      <div class="row" *ngIf="projectOwner==='SERVICE_PROVIDER'">
-        <div class="col">
-          <button type="button" class="btn btn-icon-eye mx-2 px-1 rounded-0 reveal" id="details-btn" alt="viewDetails"><i
+      <div class="row" *ngIf="projectOwner==='SERVICE_PROVIDER'" style="min-width: max-content">
+        <div class="col px-1">
+          <button type="button" class="btn btn-icon-eye px-1 rounded-0 reveal" id="details-btn" alt="viewDetails"><i
             class="fas icon-eye" style="color: #bebcbe; display: inline; font-size: 1rem;"
             (click)="viewDetails()"></i></button>
         </div>
-        <div *ngIf="this.project.interest ===true" class="col px-0 text-right mt-2 reveal" id="applied-badge" style="display: inline-block;">
+        <div *ngIf="this.project.interest ===true" class="col px-0 text-right mt-1 reveal" id="applied-badge" style="display: inline-block;">
           <p class="badge text-uppercase mb-0" style="color:#bebcbe; font-weight: 500; font-size: 1rem;">
             <i class="icon-aplicado" style="color:#bebcbe; font-size: 1.2rem;"></i>
             Applied &nbsp;</p>
         </div>
       </div>
-      <div *ngIf="projectOwner==='CLIENT'"  class="reveal">
+      <div *ngIf="projectOwner==='CLIENT'" class="reveal">
         <button type="button" class="btn btn-icon-eye mx-2 px-1 rounded-0" id="details-btn" alt="viewDetails"><i class="fas icon-eye"
           style="color: #bebcbe; display: inline; font-size: 1rem;" (click)="viewDetails()"></i></button>
         <button *ngIf="projectStatus==='NEW'||projectStatus==='PROGRESS'" type="button" class="btn mx-2 px-1 rounded-0" id="edit-btn" alt="Edit" (click)="onEditProject()"><i class="fas icon-user-edit"
