@@ -4,37 +4,37 @@
     <div class="row vertical-align py-1 preview-toolbar" style="z-index: 0;">
       <div class="col-9">
         <ng-container *ngIf="(previewProject.state === 'NEW' && role === 'SERVICE_PROVIDER'); else playTemplate">
-          <button class="btn col-3 btn-space text-uppercase px-0 py-1" [disabled]="!canApply" id="applytBtn" type="button"
-            style=" background-color: #2888C7; color: white; border-radius: 0; width:6.25rem;"
+          <button class="btn col-2 btn-space text-uppercase px-0 py-1" [disabled]="!canApply" id="applytBtn" type="button"
+            style=" background-color: #2888C7; color: white; border-radius: 0; min-width:6.25rem;"
             data-toggle="modal" data-target="#confirmActionModal" (click)="actionSelected = 'Apply'">
             <i class="fab icon-aplicar"></i>
             Apply
           </button>
-          <button class="btn col-3 btn-space text-uppercase px-0 py-1" id="startBtn" type="button" [disabled]="!canStart"
-            style=" background-color: #a1d173; color: white; border-radius: 0; width:6.25rem;"
+          <button class="btn col-2 btn-space text-uppercase px-0 py-1" id="startBtn" type="button" [disabled]="!canStart"
+            style=" background-color: #a1d173; color: white; border-radius: 0; min-width:6.25rem;"
             data-toggle="modal" data-target="#confirmActionModal" (click)="actionSelected = 'Start'">
             <i class="fab icon-comenzar"></i>
             Start
           </button>
         </ng-container>
         <ng-template #playTemplate>
-          <button class="btn col-3 btn-space text-uppercase px-0 py-1" type="button"
+          <button class="btn col-2 btn-space text-uppercase px-0 py-1" type="button"
             *ngIf="(previewProject.state === 'PROGRESS' || previewProject.state === 'NEW') && role === 'SERVICE_PROVIDER'"
-            style=" background-color: #f99d6e; color: white; border-radius: 0; width:6.25rem;"
+            style=" background-color: #f99d6e; color: white; border-radius: 0; min-width:6.25rem;"
             data-toggle="modal" data-target="#finishProjectModal">
             <i class="fab icon-terminado"></i>
             Finish
           </button>
-          <button class="btn col-3 btn-space text-uppercase px-0 py-1" type="button"
+          <button class="btn col-2 btn-space text-uppercase px-0 py-1" type="button"
             *ngIf="(previewProject.state === 'PROGRESS' || previewProject.state === 'NEW') && role === 'CLIENT'"
-            style=" background-color: #f99d6e; color: white; border-radius: 0; width:6.25rem;"
+            style=" background-color: #f99d6e; color: white; border-radius: 0; min-width:6.25rem;"
             data-toggle="modal" data-target="#confirmActionModal" (click)="actionSelected = 'Finish'">
             <i class="fab icon-terminado"></i>
             Finish
           </button>
-          <button class="btn col-3 btn-space text-uppercase px-0 py-1" type="button"
+          <button class="btn col-2 btn-space text-uppercase px-0 py-1" type="button"
             *ngIf="previewProject.state === 'PROGRESS' || previewProject.state === 'NEW'"
-            style=" background-color: #f15d5d; color: white; border-radius: 0; width:6.25rem"
+            style=" background-color: #f15d5d; color: white; border-radius: 0; min-width:6.25rem"
             data-toggle="modal" data-target="#confirmActionModal" (click)="actionSelected = 'Cancel'">
             <i class="fas icon-cancelados"></i>
             Cancel
@@ -42,7 +42,7 @@
           <button class="btn col-3 btn-space text-uppercase px-0 py-1" type="button"
             data-toggle="tooltip" title="Add to your Briefcase"
             *ngIf="previewProject.state === 'FINISH' && role === 'SERVICE_PROVIDER' && previewProject.projectBriefcaseId === 0"
-            style=" background-color: #2888C7; color: white; border-radius: 0; width: 10rem;" (click)="onCreateBriefcase()">
+            style=" background-color: #2888C7; color: white; border-radius: 0; min-width:6.75rem;" (click)="onCreateBriefcase()">
             <i class="icon-briefcase" style="font-size: larger;"></i>&nbsp;
             Storage
           </button>

@@ -108,7 +108,7 @@ li::before {
 
 /*Overview 415px*/
 @media only screen and (max-width: 414.99px) {
-#apply-btn, #start-btn, #edit-btn, #finish-client-btn, #finish-prov-btn, #finish-btn, #cancel-btn{
+#apply-btn, #start-btn, #edit-btn, #finish-client-btn, #finish-prov-btn, #cancel-btn{
   /* width: 5.50rem !important; */
   margin-top: 0.5rem !important;
   font-size: 0.85rem;
