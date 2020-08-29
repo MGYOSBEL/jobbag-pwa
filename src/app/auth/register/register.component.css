@@ -6,3 +6,7 @@
   border-left: 5px solid #a94442;
 } */
 @import "../../../assets/vendor/floating-labels.css";
+
+.logo-img {
+  object-fit: contain;
+}
