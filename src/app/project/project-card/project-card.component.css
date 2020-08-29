@@ -19,7 +19,7 @@
 .card-hover:hover .reveal {
     /* height: auto; */
     display: inline-block;
-    opacity: 10;
+    opacity: 1;
     transition: opacity 1s ease;
 }
 
@@ -33,13 +33,13 @@
   border-color: #bcbebc;
   transition: 200ms;
   display: inline-block;
-  opacity: 10;
+  opacity: 1;
   transition: opacity 1s ease;
 }
 
 .card-selected .reveal{
     display: inline-block;
-    opacity: 10;
+    opacity: 1;
     transition: opacity 1s ease;
 }
 
@@ -96,6 +96,7 @@
     }
     .btn-icon-eye{
         display: inline-block !important;
+        opacity: 1 !important;
     }
     .project-title{
         font-size: 1rem;

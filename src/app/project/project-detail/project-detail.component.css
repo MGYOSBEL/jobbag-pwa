@@ -112,6 +112,7 @@ li::before {
   /* width: 5.50rem !important; */
   margin-top: 0.5rem !important;
   font-size: 0.85rem;
+  min-width: 5.25rem;
 }
 }
 
