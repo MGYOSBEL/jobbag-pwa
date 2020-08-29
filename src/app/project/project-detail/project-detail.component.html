@@ -58,7 +58,8 @@
         <button class="btn col-3 col-md-2 mt-1 btn-space px-0 py-1 text-uppercase" id="finish-btn" type="button"
           data-toggle="tooltip" title="Add to your Briefcase"
           *ngIf="project.state === 'FINISH' && role === 'SERVICE_PROVIDER'"
-          style=" background-color: #2888C7; color: white; border-radius: 0;" (click)="onCreateBriefcase()">
+          style=" background-color: #2888C7; color: white; border-radius: 0;"
+          data-toggle="modal" data-target="#briefcaseModalForm">
           <span class="icon-briefcase" style="font-size: larger; width:10rem"></span>&nbsp;
           Storage
         </button>
@@ -227,6 +228,148 @@
           style="background-color: #bfbdbe;color: #2880a9;">Cancel</button>
         <button type="button" class="btn btn-send rounded-0" data-dismiss="modal"
           style="background-color: #2888C7;color: white;" (click)="selectProjectAction()">Accept</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade rounded-0" id="briefcaseModalForm" #modal tabindex="-1" role="dialog"
+  aria-labelledby="briefcaseDetailModal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg rounded-0" role="document">
+    <div class="modal-content rounded-0 border-0">
+      <div class="row" style="background-color:#f7f8f9; margin: 0rem;">
+        <div class="col-md-12 rounded-0 p-0">
+          <div class="mt-0 p-0" style=" background-color: white;">
+            <div class="card tittle-profile-card py-1" style="border-radius: 0;">
+            <div class="card-header py-1 border-0" id="headingMain">
+              <div class="row">
+                <div class="col-10">
+                  <label style="color: white;">
+                    Add Job to your Briefcase
+                  </label>
+                </div>
+                <div class="col-2 btn-collapse-col">
+                  <button type="button" class="close" aria-label="Close" style="color: white;" data-toggle="modal"
+                    data-target="#closeModal">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+            <form>
+              <div class="mb-3">
+                <div class="modal-body mt-0 p-0">
+                  <div class="row m-0 p-0 container-fluid">
+                    <div class="mb-3 my-3 py-0 col-12">
+                      <input
+                        class="form-control input-lg rounded-0" formControlName="description" id="briefcaseTitle"
+                        placeholder="Enter a title for your Job" required>
+                        <!-- <label style="font-weight: 100;" for="briefcaseTitle">Enter a title for your Job</label> -->
+                      <div class="invalid-feedback">
+                        Please enter a title.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row row-cols-2 row-cols-md-3 container rounded-0 scroll-host p-2 m-0"
+                    style="height: 400px;" id="img-container">
+                    <div class="col-6 col-md-4 card image-card w-md-25 w-50 p-0">
+                      <div class="card-body p-0" style="height: 100px;">
+                        <img [src]="" alt="" class="img"
+                          style="object-fit: cover;">
+                      </div>
+                    </div>
+                    <div class="col-6 col-md-4 card text-center image-card w-md-25 w-50 p-0" style="height: 100px;">
+                      <label for="file-input" id="image-upload">
+                        <div class="card-body py-4 px-0" style="height: 100px; background-color: rgb(108, 117, 125);"
+                          id="addImageCard">
+                          <span class="text-white">
+                            <i class="fas fa-plus-circle"></i>
+                            <p>Upload images</p>
+                          </span>
+                        </div>
+                        <input id="file-input" #pictureInput type="file" multiple="true"
+                           hidden accept="image/*" (click)="pictureInput.value=null;">
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-12">
+
+                    <div class=" mb-3 my-0 py-0">
+                      <!-- <label style="font-weight: 100;" for="comments">Enter some comments</label> -->
+                      <textarea class="form-control rounded-0" formControlName="comments" id="comments"
+                        placeholder="Enter some comments"></textarea>
+                    </div>
+                    <div class="row my-0 py-0">
+                      <div class="col-md-6">
+                        <div class="mb-3">
+                          <!-- <label for="validationTextarea">Start Date</label> -->
+                          <div class="input-group">
+                            <input class="form-control rounded-0" formControlName="startDate" id="validationTextarea"
+                              placeholder="Start Date" ngbDatepicker #startDatePicker="ngbDatepicker">
+                            <div class="input-group-append">
+                              <button class="btn btn-outline-secondary calendar rounded-0"
+                                (click)="startDatePicker.toggle()" type="button">
+                                <i class="far fa-calendar-alt fa-lg"></i>
+                              </button>
+                            </div>
+                          </div>
+                          <div class="invalid-feedback">
+                            Please enter a date.
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="mb-3">
+                          <!-- <label for="validationTextarea">End Date</label> -->
+                          <div class="input-group">
+                            <input class="form-control rounded-0" formControlName="endDate" id="validationTextarea"
+                              placeholder="End Date" ngbDatepicker #endDatePicker="ngbDatepicker">
+                            <div class="input-group-append">
+                              <button class="btn btn-outline-secondary calendar rounded-0"
+                                (click)="endDatePicker.toggle()" type="button">
+                                <i class="far fa-calendar-alt fa-lg"></i>
+                              </button>
+                            </div>
+                          </div>
+                          <div class="invalid-feedback">
+                            Please enter a date.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- <div class="col-12 my-0 py-0 text-right"> -->
+                <div class="row justify-content-end">
+                  <div class="col-6">
+                  </div>
+                  <div class="col-8 col-sm-6 btn-group justify-content-between px-4">
+                    <button type="button" class="btn col-6 btn btn-previous rounded-0 mr-2"
+                      style="background-color: #BFBDBE; color: #2688C6;" data-toggle="tooltip" data-dismiss="modal"
+                      title="Close">CLOSE</button>
+                    <!-- <ng-container *ngIf="briefcaseEditForm.invalid; else validButton"> -->
+                    <ng-container>
+                      <button type="button" class="btn col-6 btn btn-edit rounded-0"
+                        style="color: white; background-color: #2688C6;" data-toggle="tooltip" title="Save" disabled>
+                        SAVE
+                      </button>
+                    </ng-container>
+                    <ng-template #validButton>
+                      <button type="button" class="btn col-5 btn btn-edit rounded-0"
+                        style="color: white; background-color: #2688C6;" data-toggle="tooltip" title="Save">
+                        SAVE
+                      </button>
+
+                    </ng-template>
+                  </div>
+                </div>
+              </div>
+            </form>
+
+          </div>
+        </div>
       </div>
     </div>
   </div>

@@ -34,3 +34,7 @@ li::before {
   cursor:not-allowed;
   opacity: 0.5;
 }
+
+.tittle-profile-card{
+  background-color: #2888C7;
+}

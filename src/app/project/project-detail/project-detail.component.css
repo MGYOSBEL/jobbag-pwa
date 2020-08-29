@@ -67,6 +67,10 @@ li::before {
   font-size: 1.2rem;
 }
 
+.tittle-profile-card{
+  background-color: #2888C7;
+}
+
 /*Overview 768px*/
 @media only screen and (max-width: 767.99px) {
   #goback-btn{
