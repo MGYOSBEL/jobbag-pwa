@@ -150,7 +150,7 @@ export class ProjectActionBarComponent implements OnInit {
               ...country,
               divisions: country.divisions.filter(item => this.divisionFilter.includes(item.id))
             };
-          });
+          }).filter(country => country.divisions.length > 0);
         }
       }
     );
