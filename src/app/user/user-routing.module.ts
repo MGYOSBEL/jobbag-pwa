@@ -49,6 +49,7 @@ const userRoutes: Routes = [
                 path: '',
                 pathMatch: 'full',
                 component: DashboardComponent,
+                resolve: {user: DashboardResolverService}
               }]
           },
           {

@@ -25,6 +25,7 @@ export class DashboardComponent implements OnInit {
   role: string;
   projects$: Observable<Project[]>;
   activeTab: string = 'navHome';
+  user$: Observable<[User, string]>;
 
   constructor(
     private route: ActivatedRoute,
@@ -35,25 +36,29 @@ export class DashboardComponent implements OnInit {
     private router: Router,
     private logging: LoggingService) {
 
-    const user$ = combineLatest(
+    this.obtainActiveTab();
+    this.role = route.snapshot.params.role;
+  }
+
+  ngOnInit() {
+    this.user$ = combineLatest(
       this.userService.loggedUser$,
       this.userService.role$
     );
-    user$.subscribe(
+
+    this.user$.subscribe(
       ([user, role]) => {
         if (!!user) {
           this.loggedUser = user;
         }
         if (!!role) {
           this.role = role;
+          console.log('dashboard role: ', this.role);
         }
         this.activeProfile = this.loggedUser.profiles.find(profile => profile.userProfileType === this.role);
       }
     );
-    this.obtainActiveTab();
-  }
 
-  ngOnInit() {
     this.router.events.pipe(
       filter(evt => evt instanceof NavigationEnd)
     ).subscribe(() => {
@@ -62,7 +67,7 @@ export class DashboardComponent implements OnInit {
       }
     }
     );
-    this.router.navigate([`/user/${this.loggedUser.id}/${this.role}`]);
+    // this.router.navigate([`/user/${this.loggedUser.id}/${this.role}`]);
 
     this.obtainActiveTab();
   }
