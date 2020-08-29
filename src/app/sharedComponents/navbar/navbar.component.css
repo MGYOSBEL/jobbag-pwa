@@ -1,6 +1,6 @@
 .navbar {
   background-color: #ffffff;
-  color: #2985C4;
+  color: black;
   border-bottom-color: black !important;
   border-bottom-width: 1px !important;
   box-shadow: black !important;
@@ -15,11 +15,11 @@
   text-align: left;
 }
 .btn-link {
-  color: #2985C4;
+  color: black;
 
 }
 .fas.far {
-  color: #2985C4;
+  color: black;
 }
 
 .input-group-prepend,
@@ -33,12 +33,12 @@
 }
 
 a, a:hover {
-  color: #2985C4;
+  color: black;
 }
 
 .badge{
   margin: -15px;
-  color: #2985C4;
+  color: black;
 }
 
 .default-img {
@@ -53,7 +53,7 @@ a, a:hover {
 }
 
 .cls-1 {
-  fill: #2985C4;
+  fill: black;
   height: 50%;
 }
 
