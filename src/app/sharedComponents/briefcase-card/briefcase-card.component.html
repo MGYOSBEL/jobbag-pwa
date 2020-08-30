@@ -11,11 +11,11 @@
     <div class="blue m-0 p-0" [style.opacity]="actionIconMouseOver ? 0.8 : ''"></div>
     <div class="col reveal" >
       <i class="fas icon-eye action-icon" (mouseover)="actionIconMouseOver=true" (mouseout)="actionIconMouseOver=false" (click)="onBriefcaseDetail()"></i>
-      <div class="row mx-0 border-top justify-content-around mt-4" *ngIf="editable">
-        <div class="col-2" >
+      <div class="row mx-0 border-top justify-content-around mt-2" *ngIf="editable">
+        <div class="col-2 px-0" >
           <i class="fas fa-edit action-icon" (mouseover)="actionIconMouseOver=true" (mouseout)="actionIconMouseOver=false" (click)="onBriefcaseEdit()"></i>
         </div>
-        <div class="col-2" (click)="onBriefcaseDelete()" (mouseover)="actionIconMouseOver=true" (mouseout)="actionIconMouseOver=false">
+        <div class="col-2 px-0" (click)="onBriefcaseDelete()" (mouseover)="actionIconMouseOver=true" (mouseout)="actionIconMouseOver=false">
           <i class="fas fa-trash-alt action-icon" ></i>
         </div>
       </div>

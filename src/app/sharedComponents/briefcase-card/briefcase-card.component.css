@@ -60,16 +60,18 @@ pointer-events: none;
 
 .icon-eye{
     color: white;
-    font-size: 2rem;
+    font-size: 1.5rem;
     cursor: pointer;
+    font-weight: 400;
 }
 .fa-trash-alt,
 .fa-edit {
     color: white;
-    font-size: 1.5rem;
+    font-size: 1rem;
     padding-top: 10%;
     cursor: pointer;
     z-index: 5;
+    font-weight: 400;
 }
 
 /* .col-verified-badge{
