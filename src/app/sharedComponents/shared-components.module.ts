@@ -20,7 +20,7 @@ import { LottieAnimationViewModule } from 'ng-lottie';
 import { MessagesComponent } from './messages/messages.component';
 import { MultiSelectComponent } from './multi-select/multi-select.component';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BriefcaseCardComponent } from './briefcase-card/briefcase-card.component';
 
 @NgModule({
@@ -47,6 +47,7 @@ import { BriefcaseCardComponent } from './briefcase-card/briefcase-card.componen
     CommonModule,
     NgSelectModule,
     FormsModule,
+    ReactiveFormsModule,
     SharedComponentsRoutingModule,
     LottieAnimationViewModule.forRoot()
   ],

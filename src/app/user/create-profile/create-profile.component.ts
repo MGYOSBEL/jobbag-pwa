@@ -161,7 +161,7 @@ export class CreateProfileComponent implements OnInit {
         };
       })
     };
-
+    console.log('create profile request: ', userProfileRequest);
     const createProfile$ = this.userProfileService.create(userProfileRequest);
     this.loadingService.showLoaderUntilCompletes(createProfile$).subscribe(
       response => {
@@ -181,7 +181,9 @@ export class CreateProfileComponent implements OnInit {
   }
 
   onOnlineJobChange(event) {
-    // console.log('online => ', this.profileForm.value.onlineJob);
+    this.profileForm.patchValue({
+      onlineJob: event
+    });
   }
 
   uploadPicture(event) {

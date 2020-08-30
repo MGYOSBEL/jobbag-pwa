@@ -131,6 +131,7 @@ export class ProjectService {
 
   edit(project: Project): Observable<Project> {
     const request = projectToDTO(project);
+    console.log('edit request', request);
     const editProject$ = this.http.put<APIResponse>(`${environment.apiBaseURL}/project`, request).pipe(
       map(APIResponseToData),
       catchError(err => throwError(err)),

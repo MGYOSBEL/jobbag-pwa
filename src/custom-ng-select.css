@@ -7,6 +7,16 @@
   overflow: visible;
 }
 
+.ng-select.custom-ng-select .ng-select-container {
+  cursor: default;
+  display: -webkit-box;
+  display: flex;
+  outline: 0;
+  overflow: visible;
+  position: relative;
+  width: 100%;
+}
+
 .ng-select.custom-ng-select .ng-select-container.ng-appearance-outline:after {
   border: solid 1px #2688c6;
   border-radius: 0 !important;

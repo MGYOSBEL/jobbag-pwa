@@ -17,7 +17,7 @@ const userRoutes: Routes = [
   {
     path: '',
     canActivate: [AuthGuard],
-    // resolve: { user: DashboardResolverService },
+    resolve: { user: DashboardResolverService },
     children: [
       {
         path: 'profile',
@@ -49,7 +49,7 @@ const userRoutes: Routes = [
                 path: '',
                 pathMatch: 'full',
                 component: DashboardComponent,
-                resolve: {user: DashboardResolverService}
+                // resolve: {user: DashboardResolverService}
               }]
           },
           {

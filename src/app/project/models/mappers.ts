@@ -51,8 +51,7 @@ export function projectToDTO(project: Project, userProfileId?: number): ProjectD
     remote: project.remote,
     divisions: project.divisions,
     services: project.services,
-    interested_profiles: project.interestedProfiles,
-    user_profile_owner_id: userProfileId
+    // interested_profiles: project.interestedProfiles
     };
   return !!userProfileId ? {user_profile_id: userProfileId, ...projectDTO} : projectDTO;
 

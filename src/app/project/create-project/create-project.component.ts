@@ -125,11 +125,12 @@ export class CreateProjectComponent implements OnInit {
   }
 
   onOnlineJobChange(event) {
-    const state = event.target.checked;
+    const state = event;
     this.createProjectForm.get('divisions').setValidators(state ? null : Validators.required);
     this.createProjectForm.get('divisions').updateValueAndValidity();
     this.createProjectForm.patchValue({
-      divisions: state ? [] : this.countryDivisions
+      divisions: state ? [] : this.countryDivisions,
+      onlineJob: event
     });
 
   }

@@ -131,7 +131,7 @@ export class EditProfileComponent implements OnInit {
     );
 
     this.editProfileForm.valueChanges.subscribe(
-      () => this.dataChange = true
+      (value) => {this.dataChange = true; console.log(value)}
     );
 
   }
@@ -223,6 +223,11 @@ export class EditProfileComponent implements OnInit {
 
     };
 
+  }
+  onOnlineJobChange(event) {
+    this.editProfileForm.patchValue({
+      onlineJob: event
+    });
   }
 
   // Edit profile method

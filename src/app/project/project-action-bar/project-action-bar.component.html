@@ -2,10 +2,19 @@
   <div class="row vertical-align py-2">
     <div class="col-md-3 pl-3" id="location-col" style="z-index: 4;" *ngIf="!!divisionFilter">
       <div class="form-group" style="margin-bottom: 0;">
-        <ng-select class="custom-ng-select p-0" [items]="countries" [multiple]="true" appearance="outline"
-          bindLabel="nameEs" placeholder="Locations" groupBy="divisions" [selectableGroup]="true"
-          [selectableGroupAsModel]="false" [closeOnSelect]="false" bindValue="id"
-          (change)="onLocationFilterChange($event)" [(ngModel)]="selectedDivisions">
+        <ng-select class="custom-ng-select p-0"
+        [items]="countries"
+        [multiple]="true"
+        appearance="outline"
+          bindLabel="nameEs"
+          placeholder="Locations"
+          groupBy="divisions"
+          [selectableGroup]="true"
+          [selectableGroupAsModel]="false"
+          [closeOnSelect]="false"
+          bindValue="id"
+          (change)="onLocationFilterChange($event)"
+          [(ngModel)]="selectedDivisions">
           <ng-template ng-optgroup-tmp let-item="item" let-item$="item$" let-index="index">
             <input id="item-{{index}}" [disabled]="!item.divisions.length" type="checkbox" [ngModel]="item$.selected" />
             <ng-container >{{item.nameEs | uppercase}}</ng-container>

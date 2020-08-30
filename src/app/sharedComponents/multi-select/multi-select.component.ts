@@ -1,10 +1,11 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { Country } from '../../user/models/country.model';
 import { CountryService } from '../../user/services/country.service';
 import { findIndex } from 'rxjs/operators';
 import { LoggingService } from '@app/services/logging.service';
 import { LocationStrategy } from '@angular/common';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-multi-select',
@@ -14,11 +15,11 @@ import { LocationStrategy } from '@angular/common';
 export class MultiSelectComponent implements OnInit {
 
   hideButtons: boolean;
-
   countries: Country[];
-
+  countryTemplateSubject = new BehaviorSubject<boolean>(false);
+  countryTemplate$ = this.countryTemplateSubject.asObservable();
   countryDivisions = []; // All Divisions of the selected country
-
+  onlineForm: FormGroup;
   selectedCountry: Country;
   selectedCountryIndex: number;
 
@@ -39,7 +40,10 @@ export class MultiSelectComponent implements OnInit {
   @Output()
   selected = new EventEmitter<number[]>();
 
-
+  @Output()
+  onlineJobChange = new EventEmitter<boolean>();
+  @Input()
+  online: boolean;
 
 
 
@@ -47,13 +51,18 @@ export class MultiSelectComponent implements OnInit {
   countries$: Observable<Country[]>;
   constructor(
     private logger: LoggingService,
-    private countryService: CountryService
+    private countryService: CountryService,
+    private formBuilder: FormBuilder
     ) {
+      console.log('online', this.online);
       this.hideButtons = false;
 
     }
 
   ngOnInit() {
+    this.onlineForm = this.formBuilder.group({
+      onlineJob: [this.online]
+    });
     this.countries$ = this.countryService.countries$;
     this.countries$.subscribe(
       countries => {
@@ -77,6 +86,9 @@ export class MultiSelectComponent implements OnInit {
         this.updateAllowedCountries();
       }
     );
+    this.onlineForm.valueChanges.subscribe(
+      value => this.onlineJobChange.emit(value.onlineJob)
+    );
   }
 
 
@@ -87,6 +99,7 @@ onCountrySelect(country: Country, i: number) {
   this.selectedCountryIndex = i;
   this.countryDivisions = country.divisions;
   this.selectedCountryDivisions = [...this.selectedByCountry[i]];
+  this.countryTemplateSubject.next(true);
 }
 
   updateAllowedCountries() {
@@ -124,7 +137,10 @@ onSave() {
   this.updateAllowedCountries();
 }
 
-
+onDropdownClose() {
+  this.countryTemplateSubject.next(false);
+  this.onSave();
+}
 }
 
 

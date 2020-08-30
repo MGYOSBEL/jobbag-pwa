@@ -46,9 +46,6 @@ export class EditProjectComponent implements OnInit {
     this.servicesService.getAll().subscribe(
       services => this.services = services
     );
-
-
-
     const activeUserProfile$ = combineLatest(
       this.userService.loggedUser$,
       this.userService.role$
@@ -56,11 +53,15 @@ export class EditProjectComponent implements OnInit {
 
     activeUserProfile$.subscribe(
       ([user, role]) => {
-        const activeProfile = user.profiles.find(profile => profile.userProfileType === role);
-        this.activeProfileId = activeProfile.id;
-        this.dashboardRoute = `/user/${user.id}/${activeProfile.userProfileType}`;
-        const projectId = this.route.snapshot.params.id;
-        this.initProjectForm(this.activeProfileId, projectId);
+        if (user != null) {
+          if (role != null) {
+            const activeProfile = user.profiles.find(profile => profile.userProfileType === role);
+            this.activeProfileId = activeProfile.id;
+            this.dashboardRoute = `/user/${user.id}/${activeProfile.userProfileType}`;
+            const projectId = this.route.snapshot.params.id;
+            this.initProjectForm(this.activeProfileId, projectId);
+          }
+        }
       }
     );
   }
@@ -111,11 +112,12 @@ export class EditProjectComponent implements OnInit {
   }
 
   onOnlineJobChange(event) {
-    const state = event.target.checked;
+    const state = event;
     this.editProjectForm.get('divisions').setValidators(state ? null : Validators.required);
     this.editProjectForm.get('divisions').updateValueAndValidity();
     this.editProjectForm.patchValue({
-      divisions: state ? [] : this.countryDivisions
+      divisions: state ? [] : this.countryDivisions,
+      onlineJob: event
     });
 
   }

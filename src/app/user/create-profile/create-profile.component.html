@@ -143,19 +143,12 @@
               </div>
               <div [hidden]="role==='CLIENT'" id="countries" class="content container fade m-0 p-0">
                 <div class="row m-0 p-0">
-                  <div class="col-12 text-center pt-5">
-                    <p style="color:#bebcbe;font-size:0.85rem">You need to select the region you'll work in!</p>
-                  </div>
+
                   <div class="col-12 px-0 mx-0 h-100">
-                    <div class="custom-control custom-checkbox mb-3 mx-3 rounded-0"
-                      style="display: flex;align-items: center;">
-                      <input type="checkbox" class="custom-control-input rounded-0" id="onlineJob"
-                        formControlName="onlineJob" #onlineJob (click)="onOnlineJobChange($event)">
-                      <label class="custom-control-label text-muted" for="onlineJob"
-                        style="font-size: 0.8rem;margin-top: 7px;"><span>
-                          Check for an Online Job, or select a Location.</span></label>
+                    <div class="col-12 text-center pt-5">
+                      <p style="color:#bebcbe;font-size:0.85rem">You need to select the region you'll work in!</p>
                     </div>
-                    <app-multi-select [selectedDivisions]="countryDivisions" (selected)="onDivisionsSelect($event)">
+                    <app-multi-select [selectedDivisions]="countryDivisions" (selected)="onDivisionsSelect($event)" [online]="false" (onlineJobChange)="onOnlineJobChange($event)">
                     </app-multi-select>
                     <div class="row justify-content-center">
                       {{divisions}}
