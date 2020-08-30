@@ -29,14 +29,11 @@ export class BriefcaseCardComponent implements OnInit {
     this.action.emit({action: 'detail', id: this.params.id});
   }
   onBriefcaseEdit() {
-    console.log('edit briefcase');
     this.action.emit({action: 'edit', id: this.params.id});
   }
   onBriefcaseDelete() {
-    console.log('delete briefcase');
     this.action.emit({action: 'delete', id: this.params.id});
   }
   onCardHover(event) {
-    console.log('hover:', event);
   }
 }

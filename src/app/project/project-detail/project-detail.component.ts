@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { ProjectService } from '../services/project.service';
 import { Project } from '../models/project.model';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { PersonalProjectService } from '../services/personal-project.service';
 import { ServicesService } from '@app/user/services/services.service';
 import { CountryService } from '@app/user/services/country.service';
@@ -9,6 +9,7 @@ import { Country, DivisionElement } from '@app/user/models/country.model';
 import { Service } from '@app/user/models/services.model';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router'; // toEdit
 import { UserService } from '@app/user/services/user.service';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-project-detail',
@@ -31,7 +32,8 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
   action = new EventEmitter<
     {
       projectId: number,
-      action: 'APPLY' | 'START' | 'FINISH' | 'CANCEL' | 'BRIEFCASE' | 'FINISH_CLIENT' | 'CANCEL_CLIENT'
+      action: 'APPLY' | 'START' | 'FINISH' | 'CANCEL' | 'BRIEFCASE' | 'FINISH_CLIENT' | 'CANCEL_CLIENT',
+      payload?: any
     }>();
 
   actionSelected: string;
@@ -42,6 +44,14 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
   canStart: boolean;
   divisionsName: string[] = [];
   servicesName: string[] = [];
+  briefcaseForm: FormGroup;
+
+  previewUrl;
+  imageBase64: string;
+  imageLoaded: boolean;
+  private picturesSubject = new BehaviorSubject<string[]>([]);
+  pictures$: Observable<string[]> = this.picturesSubject.asObservable(); // adding pictures array to briefcase
+
 
   constructor(
     private route: ActivatedRoute, // toEdit
@@ -49,8 +59,20 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
     private personalProjectService: PersonalProjectService,
     private userService: UserService,
     private countryService: CountryService,
-    private servicesService: ServicesService
-  ) { }
+    private servicesService: ServicesService,
+    private formBuilder: FormBuilder
+  ) {
+    this.picturesSubject.next([]);
+    this.imageLoaded = false;
+    this.briefcaseForm = this.formBuilder.group({
+      comments: [''],
+      description: ['', [Validators.required, Validators.minLength(10), Validators.pattern('[a-zA-Z0-9 ]*')]],
+      startDate: [],
+      endDate: [],
+    });
+
+
+  }
 
   ngOnInit() {
 
@@ -123,13 +145,13 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
       action: 'START'
     });
   }
-  onCreateBriefcase() {
-    this.action.emit({
-      projectId: this.project.id,
-      action: 'BRIEFCASE'
-    });
+  // onCreateBriefcase() {
+  //   this.action.emit({
+  //     projectId: this.project.id,
+  //     action: 'BRIEFCASE'
+  // //   });
 
-  }
+  // }
 
   onFinishProjectExecution() {
     this.action.emit({
@@ -174,5 +196,54 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
         break;
     }
   }
+
+  uploadPicture($event) {
+    const files = ($event.target as HTMLInputElement).files;
+    const base64Pictures = this.picturesSubject.value;
+    for (let index = 0; index < files.length; index++) {
+      const file = files.item(index);
+      let reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = (_event) => {
+        // this.previewUrl = reader.result;
+        base64Pictures.push(reader.result.toString());
+      };
+    }
+    this.imageLoaded = true;
+    this.picturesSubject.next(base64Pictures);
+
+  }
+
+  cancelBriefcase() {
+    // this.showBriefcaseForm = false;
+    this.resetForm();
+  }
+
+  onCreateBriefcase() {
+    const form = this.briefcaseForm.value;
+    const startDate = form.startDate;
+    const endDate = form.endDate;
+    const createBriefcaseRequest = {
+      comments: form.comments,
+      description: form.description,
+      start_date: !!startDate ? `${startDate.year}-${startDate.month}-${startDate.day}` : null,
+      end_date: !!endDate ? `${endDate.year}-${endDate.month}-${endDate.day}` : null,
+      id_profession: null,
+      pictures: this.picturesSubject.value.map(pic => pic.split(',')[1]),     // adding pictures array to briefcase
+    };
+
+    this.action.emit({
+      projectId: this.project.executionId,
+      action: 'BRIEFCASE',
+      payload: createBriefcaseRequest
+    });
+    this.resetForm();
+  }
+
+  resetForm() {
+    this.briefcaseForm.reset();
+    this.picturesSubject.next([]);
+  }
+
 
 }

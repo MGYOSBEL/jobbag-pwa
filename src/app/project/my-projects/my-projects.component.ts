@@ -51,11 +51,6 @@ export class MyProjectsComponent implements OnInit {
   statusValue: string;
   requestForBriefcaseModal: boolean;
   briefcaseEditForm: FormGroup;
-  previewUrl;
-  imageBase64: string;
-  imageLoaded: boolean;
-  private picturesSubject = new BehaviorSubject<string[]>([]);
-  pictures$: Observable<string[]> = this.picturesSubject.asObservable(); // adding pictures array to briefcase
   executionIdForBriefcase: number; // saves the id of the selected execution once the briefcase is generated
 
 
@@ -68,16 +63,8 @@ export class MyProjectsComponent implements OnInit {
     private loading: LoadingService,
     private router: Router
   ) {
-    this.picturesSubject.next([]);
-    this.imageLoaded = false;
     this.showBriefcaseForm = false;
     this.requestForBriefcaseModal = false;
-    this.briefcaseEditForm = this.formBuilder.group({
-      comments: [''],
-      description: ['', Validators.required],
-      startDate: [''],
-      endDate: [''],
-    });
 
 
     this.detailProject$ = personalProjectService.activeProject$;
@@ -107,24 +94,24 @@ export class MyProjectsComponent implements OnInit {
             this.servicesFilter$,
             this.dateFilter$,
             this.searchFilter$).pipe(
-            map(([projects, status, locationFilter, servicesFilter, datesFilter, searchFilter]) => {
-              // console.log('projects => ', projects);
-              const filteredByStatus = filterByStatus(projects, status);
-              // console.log('filteredByStatus => ', filteredByStatus);
-              // const filteredByLocations = filterByLocation(filteredByStatus, locationFilter);
-              // console.log('filteredByLocations => ', filteredByLocations);
-              // const filteredByServices = filterByService(filteredByLocations, servicesFilter);
-              // console.log('filteredByServices => ', filteredByServices);
-              const today = Date.now();
-              const todayLocale = formatDate(today, 'yyyy-MM-dd', 'en-US');
-              const limitDate = substractMonths(todayLocale, datesFilter);
-              const filteredByCreationDate = filterByCreationDate(filteredByStatus, limitDate);
-              const filteredByTitle = filterByProjectTitle(filteredByCreationDate, searchFilter);
-              // console.log('filteredByCreationDate => ', filteredByCreationDate);
-              return filteredByTitle;
+              map(([projects, status, locationFilter, servicesFilter, datesFilter, searchFilter]) => {
+                // console.log('projects => ', projects);
+                const filteredByStatus = filterByStatus(projects, status);
+                // console.log('filteredByStatus => ', filteredByStatus);
+                // const filteredByLocations = filterByLocation(filteredByStatus, locationFilter);
+                // console.log('filteredByLocations => ', filteredByLocations);
+                // const filteredByServices = filterByService(filteredByLocations, servicesFilter);
+                // console.log('filteredByServices => ', filteredByServices);
+                const today = Date.now();
+                const todayLocale = formatDate(today, 'yyyy-MM-dd', 'en-US');
+                const limitDate = substractMonths(todayLocale, datesFilter);
+                const filteredByCreationDate = filterByCreationDate(filteredByStatus, limitDate);
+                const filteredByTitle = filterByProjectTitle(filteredByCreationDate, searchFilter);
+                // console.log('filteredByCreationDate => ', filteredByCreationDate);
+                return filteredByTitle;
 
-            })
-          );
+              })
+            );
         }
       }
     );
@@ -203,7 +190,7 @@ export class MyProjectsComponent implements OnInit {
     this.personalProjectService.selectAll(state);
   }
   // Se llama cuando se da me interesa desde el preview
-  onPreviewAction({ projectId, action }) {
+  onPreviewAction({ projectId, action, payload }) {
     switch (action) {
       case 'APPLY':
         break;
@@ -216,7 +203,7 @@ export class MyProjectsComponent implements OnInit {
         this.cancelExecution(projectId);
         break;
       case 'BRIEFCASE':
-        this.onShowBriefcaseForm(projectId);
+        this.createBriefcase(projectId, payload);
         break;
       case 'CANCEL_CLIENT':
         this.onUpdateClienProjectState(projectId, ProjectState.CANCEL);
@@ -231,14 +218,14 @@ export class MyProjectsComponent implements OnInit {
 
   onUpdateClienProjectState(projectId: number, state: ProjectState.FINISH | ProjectState.CANCEL) {
     this.personalProjectService.updateProjectState(projectId, state).pipe(
-      tap( () => {
+      tap(() => {
         this.personalProjectService.backToList();
       })
     ).subscribe(
       () => {
         const isFinish = state === ProjectState.FINISH;
         this.messages.showMessages(`You have succesfully
-          ${ isFinish ? 'finished' : 'canceled'} a project. You can view it in ${ isFinish ? 'FINISH' : 'CANCEL'} section.`);
+          ${ isFinish ? 'finished' : 'canceled'} a project. You can view it in ${isFinish ? 'FINISH' : 'CANCEL'} section.`);
       },
       err =>
         this.messages.showErrors(`There has been an error
@@ -248,7 +235,7 @@ export class MyProjectsComponent implements OnInit {
 
   finishExecution(executionId: number, briefcaseId?: number) {
     this.personalProjectService.updateExecution(executionId, 'FINISH', briefcaseId).pipe(
-      tap( () => {
+      tap(() => {
         this.personalProjectService.backToList();
       })
     ).subscribe(
@@ -262,7 +249,7 @@ export class MyProjectsComponent implements OnInit {
 
   cancelExecution(executionId: number) {
     this.personalProjectService.updateExecution(executionId, 'CANCEL').pipe(
-      tap( () => {
+      tap(() => {
         this.personalProjectService.backToList();
       })
     ).subscribe(
@@ -281,78 +268,17 @@ export class MyProjectsComponent implements OnInit {
     this.showBriefcaseForm = false;
   }
 
-
-  // hideActionBar(){
-  //   this.showActionBar = false;
-  // }
-
-  // showActionBarMethod(){
-  //   this.showActionBar = true;
-  // }
-  onShowBriefcaseForm(projectId: number) {
-    this.showBriefcaseForm = true;
-    this.executionIdForBriefcase = projectId;
-    const project = this.personalProjectService.getProjectById(projectId);
-    if (!!project) {
-      this.briefcaseEditForm.patchValue({
-        description: project.name || ''
-      });
-    }
-  }
-
-  createBriefcase() {
-
-  }
-
-  uploadPicture($event) {
-    const files = ($event.target as HTMLInputElement).files;
-    const base64Pictures = this.picturesSubject.value;
-    for (let index = 0; index < files.length; index++) {
-      const file = files.item(index);
-      let reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = (_event) => {
-        // this.previewUrl = reader.result;
-        base64Pictures.push(reader.result.toString());
-      };
-    }
-    this.imageLoaded = true;
-    this.picturesSubject.next(base64Pictures);
-
-  }
-  cancelBriefcase() {
-    this.showBriefcaseForm = false;
-    this.resetForm();
-  }
-
-  saveBriefcase() {
-    const form = this.briefcaseEditForm.value;
-    const startDate = form.startDate;
-    const endDate = form.endDate;
-    const createBriefcase$ = this.briefcaseService.create(this.userProfile.id, {
-      comments: form.comments,
-      description: form.description,
-      start_date: `${startDate.year}-${startDate.month}-${startDate.day}`,
-      end_date: `${endDate.year}-${endDate.month}-${endDate.day}`,
-      id_profession: null,
-      pictures: this.picturesSubject.value.map(pic => pic.split(',')[1]),     // adding pictures array to briefcase
-    });
+  createBriefcase(projectId: number, request: any) {
+    const createBriefcase$ = this.briefcaseService.create(this.userProfile.id, request);
     this.loading.showLoaderUntilCompletes(createBriefcase$).subscribe(
       (briefcase: UserProfileBriefcase) => {
-        this.finishExecution(this.executionIdForBriefcase, briefcase.id);
+        this.finishExecution(projectId, briefcase.id);
         this.messages.showMessages('You have succesfully added this project to your briefcase. ' +
-        'The client will be asked to review your work.');
+          'The client will be asked to review your work.');
       },
       err => this.messages.showErrors('There was an error adding this project to your briefcase. Try again later')
     );
-    this.showBriefcaseForm = false;
-    this.resetForm();
+
   }
 
-
-
-  resetForm() {
-    this.briefcaseEditForm.reset();
-    this.picturesSubject.next([]);
-  }
 }

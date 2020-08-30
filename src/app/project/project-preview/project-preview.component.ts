@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Project, ProjectState } from '../models/project.model';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { Country, DivisionElement } from '@app/user/models/country.model';
 import { Service } from '@app/user/models/services.model';
 import { CountryService } from '@app/user/services/country.service';
@@ -9,6 +9,7 @@ import { ProjectService } from '../services/project.service';
 import { MessagesService } from '@app/services/messages.service';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router'; // toEdit
 import { UserService } from '@app/user/services/user.service';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-project-preview',
@@ -18,8 +19,9 @@ import { UserService } from '@app/user/services/user.service';
 export class ProjectPreviewComponent implements OnInit {
 
   @Input()
-  previewProject$: Observable<Project>;
-  previewProject: Project;
+    previewProject$: Observable<Project>;
+    previewProject: Project;
+
 
   @Input()
   userProfileId: number;
@@ -37,7 +39,8 @@ export class ProjectPreviewComponent implements OnInit {
   action = new EventEmitter<
     {
       projectId: number,
-      action: 'APPLY' | 'START' | 'FINISH' | 'CANCEL' | 'BRIEFCASE' | 'FINISH_CLIENT' | 'CANCEL_CLIENT'
+      action: 'APPLY' | 'START' | 'FINISH' | 'CANCEL' | 'BRIEFCASE' | 'FINISH_CLIENT' | 'CANCEL_CLIENT',
+      payload?: any
     }>();
 
   countries: Country[];
@@ -47,6 +50,14 @@ export class ProjectPreviewComponent implements OnInit {
   divisionsName: string[] = [];
   servicesName: string[] = [];
   actionSelected: string;
+  briefcaseForm: FormGroup;
+
+  previewUrl;
+  imageBase64: string;
+  imageLoaded: boolean;
+  private picturesSubject = new BehaviorSubject<string[]>([]);
+  pictures$: Observable<string[]> = this.picturesSubject.asObservable(); // adding pictures array to briefcase
+
 
   constructor(
     // private candidateProjectService: CandidateProjectService,
@@ -56,8 +67,18 @@ export class ProjectPreviewComponent implements OnInit {
     private projectService: ProjectService,
     private messages: MessagesService,
     private countryService: CountryService,
-    private servicesService: ServicesService
+    private servicesService: ServicesService,
+    private formBuilder: FormBuilder
   ) {
+    this.picturesSubject.next([]);
+    this.imageLoaded = false;
+
+    this.briefcaseForm = this.formBuilder.group({
+      comments: [''],
+      description: ['', [Validators.required, Validators.minLength(10), Validators.pattern('[a-zA-Z0-9 ]*')]],
+      startDate: [],
+      endDate: [],
+    });
   }
 
 
@@ -123,13 +144,7 @@ export class ProjectPreviewComponent implements OnInit {
       action: 'START'
     });
   }
-  onCreateBriefcase() {
-    this.action.emit({
-      projectId: this.previewProject.id,
-      action: 'BRIEFCASE'
-    });
 
-  }
 
   onFinishProjectExecution() {
     this.action.emit({
@@ -179,7 +194,65 @@ export class ProjectPreviewComponent implements OnInit {
     }
   }
 
+  uploadPicture($event) {
+    const files = ($event.target as HTMLInputElement).files;
+    const base64Pictures = this.picturesSubject.value;
+    for (let index = 0; index < files.length; index++) {
+      const file = files.item(index);
+      let reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = (_event) => {
+        // this.previewUrl = reader.result;
+        base64Pictures.push(reader.result.toString());
+      };
+    }
+    this.imageLoaded = true;
+    this.picturesSubject.next(base64Pictures);
 
+  }
+
+  cancelBriefcase() {
+    // this.showBriefcaseForm = false;
+    this.resetForm();
+  }
+
+  onCreateBriefcase() {
+    const form = this.briefcaseForm.value;
+    const startDate = form.startDate;
+    const endDate = form.endDate;
+    const createBriefcaseRequest = {
+      comments: form.comments,
+      description: form.description,
+      start_date: !!startDate ? `${startDate.year}-${startDate.month}-${startDate.day}` : null,
+      end_date: !! endDate ? `${endDate.year}-${endDate.month}-${endDate.day}` : null,
+      id_profession: null,
+      pictures: this.picturesSubject.value.map(pic => pic.split(',')[1]),     // adding pictures array to briefcase
+    };
+
+    this.action.emit({
+      projectId: this.previewProject.executionId,
+      action: 'BRIEFCASE',
+      payload: createBriefcaseRequest
+    });
+
+    // this.loading.showLoaderUntilCompletes(createBriefcase$).subscribe(
+    //   (briefcase: UserProfileBriefcase) => {
+    //     this.finishExecution(this.executionIdForBriefcase, briefcase.id);
+    //     this.messages.showMessages('You have succesfully added this project to your briefcase. ' +
+    //     'The client will be asked to review your work.');
+    //   },
+    //   err => this.messages.showErrors('There was an error adding this project to your briefcase. Try again later')
+    // );
+    // this.showBriefcaseForm = false;
+    this.resetForm();
+  }
+
+
+
+  resetForm() {
+    this.briefcaseForm.reset();
+    this.picturesSubject.next([]);
+  }
 
 
 }

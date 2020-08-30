@@ -146,7 +146,6 @@ export class ProjectService {
     const oldProjects = this.projectsSubject.value;
     const newProjects = oldProjects.concat(projects);
     this.projectsSubject.next(newProjects);
-    console.log(newProjects);
   }
 
   registerProjectExecution(projectId: number, userProfileId: number): Observable<Project> {

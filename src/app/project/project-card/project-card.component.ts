@@ -50,7 +50,6 @@ export class ProjectCardComponent implements OnInit {
         this.userRole = role;
         this.projectOwner = role;
      });
-      console.log("USERROLE:"+this.userRole);
 
     this.pressed$.subscribe(
       id => this.isPressed = (this.project.id === id)

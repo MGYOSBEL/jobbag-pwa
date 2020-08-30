@@ -87,7 +87,6 @@ export class CreateProfileComponent implements OnInit {
     this.servicesService.getAll().subscribe(
       services => this.services = services
     );
-      console.log('initiate create profile stepper');
     this.closeProfileHidder = this.route.snapshot.queryParams.btnhidder;
 
     this.stepper = new Stepper(document.querySelector('#stepper1'), {

@@ -38,14 +38,10 @@ export class DashboardResolverService implements Resolve<User> {
       const userId = this.authenticationService.getLoggedUserId();
       return this.userService.get(userId).pipe(
         mergeMap(user => {
-          if (user) {
-            if (this.userService.role !== null) {
-              if (user.profiles.find(profile => profile.userProfileType === 'CLIENT')) {
-                this.userService.role = 'CLIENT';
-              } else if (user.profiles.find(profile => profile.userProfileType === 'SERVICE_PROVIDER')) {
-                this.userService.role = 'SERVICE_PROVIDER';
-              }
-            }
+          if (!!user) {
+            // if (this.userService.role == null) {
+            //   this.router.navigate([`user/${user.id}`]);
+            // }
             return of(user);
           } else {
             return EMPTY;
@@ -57,7 +53,7 @@ export class DashboardResolverService implements Resolve<User> {
         }),
         tap(() => {
           this.countryService.get().subscribe(
-            () => {},
+            () => { },
             err => this.messages.showErrors('We are unable to fetch some data.')
           ); // Llamo al country para que quede en cache
           this.loadingService.loadingOff();

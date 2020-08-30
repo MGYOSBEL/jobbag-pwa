@@ -1,6 +1,6 @@
 
 import { Injectable } from '@angular/core';
-import { Observable, throwError, BehaviorSubject } from 'rxjs';
+import { Observable, throwError, BehaviorSubject, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { User, UserProfile, UserProfileBriefcase } from '../models/user.model';
 import { LoggingService } from '@app/services/logging.service';
@@ -68,6 +68,10 @@ export class UserService {
 
   get(userId: number): Observable<User> {
     // const user_id = JSON.parse(localStorage.getItem('bearerToken')).user_id;
+    // const cachedUser = this.userCacheService.getUser();
+    // if (!!cachedUser) {
+    //   return of(cachedUser);
+    // }
     return this.http.get<APIResponse>(this.apiPath + '/user/get/' + userId).pipe(
       map(response => {
         if (response.status_code === 200) { // Si el status del response es OK retorno contento como dato del observable
@@ -91,12 +95,14 @@ export class UserService {
   }
 
   private selectLoggedUserActiveProfile(user: User) {
-    if (!!user.profiles.find(profile => profile.userProfileType === 'CLIENT')) {
-      this.roleSubject.next('CLIENT');
-    } else if (!!user.profiles.find(profile => profile.userProfileType === 'SERVICE_PROVIDER')) {
-      this.roleSubject.next('SERVICE_PROVIDER');
-    } else {
-      this.roleSubject.next(null);
+    if (this.roleSubject.value == null) {
+      if (!!user.profiles.find(profile => profile.userProfileType === 'CLIENT')) {
+        this.roleSubject.next('CLIENT');
+      } else if (!!user.profiles.find(profile => profile.userProfileType === 'SERVICE_PROVIDER')) {
+        this.roleSubject.next('SERVICE_PROVIDER');
+      } else {
+        this.roleSubject.next(null);
+      }
     }
   }
 

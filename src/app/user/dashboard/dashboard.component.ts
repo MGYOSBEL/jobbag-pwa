@@ -53,7 +53,6 @@ export class DashboardComponent implements OnInit {
         }
         if (!!role) {
           this.role = role;
-          console.log('dashboard role: ', this.role);
         }
         this.activeProfile = this.loggedUser.profiles.find(profile => profile.userProfileType === this.role);
       }
