@@ -19,6 +19,7 @@ hr {
 
 #section-nav-bar {
   position: sticky;
+  position: -webkit-sticky;
   top: 47px;
   z-index: 10;
 }
